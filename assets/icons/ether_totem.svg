@@ -1,0 +1,30 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="totemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff0000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#aa0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" />
+    </linearGradient>
+    <filter id="totemGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- 图腾柱体 -->
+  <rect x="26" y="12" width="12" height="40" rx="2" fill="url(#totemGrad)" filter="url(#totemGlow)" opacity="0.9"/>
+  <!-- 顶部装饰 -->
+  <circle cx="32" cy="12" r="6" fill="#ff0000" opacity="0.8"/>
+  <circle cx="32" cy="12" r="3" fill="#ffffff" opacity="0.6"/>
+  <!-- 中间装饰环 -->
+  <rect x="24" y="24" width="16" height="4" rx="2" fill="#ffffff" opacity="0.4"/>
+  <rect x="24" y="36" width="16" height="4" rx="2" fill="#ffffff" opacity="0.4"/>
+  <!-- 底部基座 -->
+  <rect x="22" y="50" width="20" height="4" rx="2" fill="#ff0000" opacity="0.7"/>
+  <!-- 能量波纹 -->
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#ff0000" stroke-width="1" opacity="0.3"/>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#ff0000" stroke-width="1" opacity="0.2"/>
+</svg>
+

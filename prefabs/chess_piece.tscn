@@ -16,6 +16,10 @@ script = ExtResource("1_5vn5g")
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 0, 0, 1)
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 1)
+
 [node name="GlowParticles" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 20

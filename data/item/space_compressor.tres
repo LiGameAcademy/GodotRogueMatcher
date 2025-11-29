@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cp5wgqbainyvs"]
+
+[ext_resource type="Texture2D" path="res://assets/icons/space_compressor.svg" id="1_comp"]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+
+[resource]
+script = ExtResource("2_item")
+id = "space_compressor"
+icon = ExtResource("1_comp")
+rarity = "RARE"
+type = "BUILDING"
+occupies_space = true

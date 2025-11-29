@@ -20,10 +20,16 @@ GameManager="*res://scripts/global/game_manager.gd"
 MatchSystem="*res://scripts/global/match_system.gd"
 SpawnManager="*res://scripts/global/spawn_manager.gd"
 PathfindingManager="*res://scripts/global/pathfinding_manager.gd"
+LevelUpSystem="*res://scripts/global/level_up_system.gd"
+ItemPlacer="*res://scripts/global/item_placer.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation")
 
 [rendering]
 

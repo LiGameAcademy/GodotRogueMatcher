@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://duvtlwur0avxw"]
+
+[ext_resource type="Texture2D" path="res://assets/icons/dye_station.svg" id="1_dye"]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+
+[resource]
+script = ExtResource("2_item")
+id = "dye_station"
+icon = ExtResource("1_dye")
+rarity = "COMMON"
+type = "BUILDING"
+occupies_space = true

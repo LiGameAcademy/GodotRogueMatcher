@@ -1,0 +1,97 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8x7h3k2m4n6"]
+
+[ext_resource type="Script" path="res://ui/item_widget.gd" id="1_item_widget"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.1, 0.1, 0.15, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+bg_color = Color(1, 1, 1, 0.3)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 0.5)
+
+[node name="ItemWidget" type="Control"]
+custom_minimum_size = Vector2(200, 280)
+layout_mode = 3
+script = ExtResource("1_item_widget")
+
+[node name="Card" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="RarityBorder" type="Panel" parent="Card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="IconSprite" type="Sprite2D" parent="Card"]
+offset_left = 100.0
+offset_top = 20.0
+offset_right = 164.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_filter = 2
+
+[node name="NameLabel" type="Label" parent="Card"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -100.0
+offset_right = 90.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "道具名称"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="Card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+text = "道具描述"
+autowrap_mode = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverGlow" type="ColorRect" parent="Card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 1, 0)
+mouse_filter = 2
+

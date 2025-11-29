@@ -40,6 +40,12 @@ func reset_game() -> void:
 ## 增加分数
 func add_score(amount: int) -> void:
 	score += amount
+	# 检查是否触发升级
+	# 注意：LevelUpSystem 是 Autoload 单例，运行时可用
+	# 使用 get_node 获取单例引用（静态分析可能无法识别 Autoload）
+	var level_up_system = get_node_or_null("/root/LevelUpSystem")
+	if level_up_system:
+		level_up_system.check_level_up(score)
 
 ## 增加棋子数量
 func add_piece_count(amount: int) -> void:

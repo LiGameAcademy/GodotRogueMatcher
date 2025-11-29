@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://d3ohdciy6420d"]
+
+[ext_resource type="Texture2D" path="res://assets/icons/ether_totem.svg" id="1_totem"]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+
+[resource]
+script = ExtResource("2_item")
+id = "ether_totem"
+icon = ExtResource("1_totem")
+rarity = "RARE"
+type = "RELIC"
+occupies_space = true

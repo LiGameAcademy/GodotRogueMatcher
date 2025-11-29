@@ -1,6 +1,12 @@
 extends Node2D
 class_name ChessPiece
 
+## 显示模式枚举
+enum DisplayMode {
+	SHAPE,  # 显示形状（普通棋子）
+	ICON    # 显示图标（道具）
+}
+
 ## 棋子颜色配置（赛博霓虹色）
 ## 色盲友好设计：每种颜色对应唯一形状
 const PIECE_COLORS: Array[Color] = [
@@ -22,13 +28,28 @@ enum ShapeType {
 
 ## 节点引用
 @onready var polygon: Polygon2D = $Polygon2D
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var glow_particles: GPUParticles2D = $GlowParticles
 
-## 棋子类型（0-4，对应5种颜色）
+## 显示模式
+var display_mode: DisplayMode = DisplayMode.SHAPE
+
+## 棋子类型（0-4，对应5种颜色，仅用于 SHAPE 模式）
 var piece_type: int = 0 :
 	set(value):
 		piece_type = value
-		update_visual()
+		if display_mode == DisplayMode.SHAPE:
+			update_visual()
+
+## 物品数据（用于 ICON 模式，道具视为特殊棋子）
+var item_data: ItemData = null :
+	set(value):
+		item_data = value
+		if value:
+			display_mode = DisplayMode.ICON
+			update_visual()
+		else:
+			display_mode = DisplayMode.SHAPE
 
 var tween: Tween = null
 var is_selected: bool = false
@@ -39,12 +60,25 @@ func _ready() -> void:
 	setup_glow_particles()
 
 ## 更新视觉效果
-## 色盲友好：颜色和形状严格一一对应
+## 支持两种模式：形状（棋子）和图标（道具）
 func update_visual() -> void:
 	if not is_inside_tree():
 		await ready
 	
+	match display_mode:
+		DisplayMode.SHAPE:
+			_update_shape_visual()
+		DisplayMode.ICON:
+			_update_icon_visual()
+
+## 更新形状视觉（普通棋子）
+func _update_shape_visual() -> void:
+	# 隐藏图标，显示形状
+	if sprite:
+		sprite.visible = false
 	if polygon:
+		polygon.visible = true
+		
 		# 确保 piece_type 在有效范围内
 		var type_index = piece_type % PIECE_COLORS.size()
 		var color = PIECE_COLORS[type_index]
@@ -69,6 +103,36 @@ func update_visual() -> void:
 		# 更新辉光粒子颜色
 		if glow_particles:
 			update_particle_color(color)
+
+## 更新图标视觉（道具）
+func _update_icon_visual() -> void:
+	# 隐藏形状，显示图标
+	if polygon:
+		polygon.visible = false
+	if sprite and item_data:
+		sprite.visible = true
+		sprite.texture = item_data.icon
+		sprite.modulate = _get_rarity_color()
+		
+		# 更新辉光粒子颜色
+		if glow_particles:
+			update_particle_color(_get_rarity_color())
+
+## 获取稀有度颜色（用于道具）
+## [return: Color] 根据稀有度返回颜色
+func _get_rarity_color() -> Color:
+	if not item_data:
+		return Color.WHITE
+	
+	match item_data.rarity:
+		"COMMON":
+			return Color.WHITE
+		"RARE":
+			return Color.CYAN
+		"EPIC":
+			return Color.MAGENTA
+		_:
+			return Color.WHITE
 
 ## 生成圆形多边形
 func generate_circle_polygon(radius: float, segments: int = 16) -> PackedVector2Array:
@@ -184,14 +248,14 @@ func deselected() -> void:
 		glow_particles.emitting = false
 
 ## 移动动画效果
-func move_to(target_cell: Cell) -> void:
+func move_to(target_cell: Cell, duration: float = 0.15) -> void:
 	if tween:
 		tween.kill()
 	
 	tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self, "position", target_cell.position, 0.15)
+	tween.tween_property(self, "position", target_cell.position, duration)
 	await tween.finished
 
 ## 消除动画
@@ -217,7 +281,13 @@ func eliminate() -> void:
 	tween = create_tween()
 	tween.parallel().tween_property(self, "scale", Vector2(1.5, 1.5), 0.2)
 	tween.parallel().tween_property(self, "rotation", rotation + TAU, 0.2)
-	tween.parallel().tween_property(polygon, "modulate:a", 0.0, 0.2)
+	
+	# 根据显示模式淡出对应的视觉元素
+	if display_mode == DisplayMode.SHAPE and polygon:
+		tween.parallel().tween_property(polygon, "modulate:a", 0.0, 0.2)
+	elif display_mode == DisplayMode.ICON and sprite:
+		tween.parallel().tween_property(sprite, "modulate:a", 0.0, 0.2)
+	
 	await tween.finished
 	
 	# 清理
@@ -231,5 +301,31 @@ func reset() -> void:
 	rotation = 0.0
 	if polygon:
 		polygon.modulate.a = 1.0
+	if sprite:
+		sprite.modulate.a = 1.0
 	if glow_particles:
 		glow_particles.emitting = false
+
+## 初始化物品（便捷方法，将道具视为特殊棋子）
+## [param data: ItemData] 物品数据
+func initialize_item(data: ItemData) -> void:
+	item_data = data
+
+## 出现动画（用于道具）
+func spawn_animation() -> void:
+	scale = Vector2(0, 0)
+	modulate.a = 0.0
+	
+	if tween:
+		tween.kill()
+	
+	tween = create_tween()
+	tween.parallel().tween_property(self, "scale", Vector2(1.0, 1.0), 0.3)
+	tween.parallel().tween_property(self, "modulate:a", 1.0, 0.3)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	# 启动辉光粒子
+	if glow_particles:
+		glow_particles.emitting = true
+		glow_particles.restart()

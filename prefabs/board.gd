@@ -122,7 +122,7 @@ func _on_cell_pressed(cell: Cell) -> void:
 			SpawnManager.spawn_random_pieces(self)
 
 ## 移动棋子
-func move_selected_piece(target_cell: Cell) -> bool:
+func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 	can_selected = false
 	var selected_cell: Cell = selected_piece.get_parent()
 	
@@ -145,9 +145,10 @@ func move_selected_piece(target_cell: Cell) -> bool:
 		selected_piece.position = selected_cell.position
 		self.add_child(selected_piece)
 		
+		var move_duration = duration / path.size()
 		# 移动动画
 		for p in path:
-			await selected_piece.move_to(get_cell(p))
+			await selected_piece.move_to(get_cell(p), move_duration)
 		
 		# 放置棋子
 		self.remove_child(selected_piece)
