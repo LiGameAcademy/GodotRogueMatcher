@@ -21,6 +21,9 @@ var max_pieces: int = 81  # 9x9 = 81
 ## 游戏表单
 var game_form: GameForm = null
 
+## 当前回合数
+var turn_count: int = 0
+
 # 信号
 ## 分数变化
 signal score_changed(new_score: int)
@@ -28,6 +31,10 @@ signal score_changed(new_score: int)
 signal piece_count_changed(new_count: int)
 ## 游戏结束
 signal game_overed
+## 回合开始
+signal turn_started(turn_number: int)
+## 回合结束
+signal turn_ended(turn_number: int)
 
 func _ready() -> void:
 	reset_game()
@@ -36,6 +43,7 @@ func _ready() -> void:
 func reset_game() -> void:
 	score = 0
 	piece_count = 0
+	turn_count = 0
 
 ## 增加分数
 func add_score(amount: int) -> void:
@@ -66,3 +74,14 @@ func set_game_form(form: GameForm) -> void:
 	game_form = form
 	if game_form:
 		score_changed.connect(game_form.update_score_display)
+
+## 开始新回合
+func start_turn() -> void:
+	turn_count += 1
+	turn_started.emit(turn_count)
+	print("回合开始：", turn_count)
+
+## 结束当前回合
+func end_turn() -> void:
+	turn_ended.emit(turn_count)
+	print("回合结束：", turn_count)

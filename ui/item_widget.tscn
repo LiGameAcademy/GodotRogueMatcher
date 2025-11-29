@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8x7h3k2m4n6"]
+[gd_scene load_steps=5 format=3 uid="uid://dsdjm062tdgra"]
 
-[ext_resource type="Script" path="res://ui/item_widget.gd" id="1_item_widget"]
+[ext_resource type="Script" uid="uid://bmky1lsca5068" path="res://ui/item_widget.gd" id="1_item_widget"]
+[ext_resource type="Texture2D" uid="uid://bityhkmnvogq6" path="res://icon.svg" id="2_oujd2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.1, 0.1, 0.15, 0.95)
@@ -21,9 +22,11 @@ border_color = Color(1, 1, 1, 0.5)
 [node name="ItemWidget" type="Control"]
 custom_minimum_size = Vector2(200, 280)
 layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_item_widget")
 
-[node name="Card" type="Panel" parent="."]
+[node name="CardPanel" type="Panel" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +35,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
-[node name="RarityBorder" type="Panel" parent="Card"]
+[node name="RarityBorder" type="Panel" parent="CardPanel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,57 +45,61 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
 
-[node name="IconSprite" type="Sprite2D" parent="Card"]
-offset_left = 100.0
-offset_top = 20.0
-offset_right = 164.0
-offset_bottom = 84.0
+[node name="HoverGlow" type="ColorRect" parent="CardPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_filter = 2
+mouse_filter = 2
+color = Color(0, 1, 1, 0)
 
-[node name="NameLabel" type="Label" parent="Card"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -100.0
-offset_right = 90.0
-offset_bottom = -70.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="IconSprite" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+texture_filter = 2
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_oujd2")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "道具名称"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DescriptionLabel" type="Label" parent="Card"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 100.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 14
-text = "道具描述"
-autowrap_mode = 3
+[node name="TypeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "道具类型"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HoverGlow" type="ColorRect" parent="Card"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 1, 1, 0)
-mouse_filter = 2
-
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+text = "道具描述"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

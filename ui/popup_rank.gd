@@ -10,6 +10,12 @@ signal closed
 func _ready() -> void:
 	btn_confirm.pressed.connect(_on_btn_confirm_pressed)
 
+## 初始化弹窗（统一接口，符合开闭原则）
+## [param data: Dictionary] 初始化数据（可选）
+func initialize(_data: Dictionary = {}) -> void:
+	# 自动更新排行榜
+	update_rank_board()
+
 func update_rank_board() -> void:
 	for i in range(0, RankBoard.rank_board.size()):
 		var rank = RankBoard.rank_board[i]

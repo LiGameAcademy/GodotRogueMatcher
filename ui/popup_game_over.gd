@@ -13,6 +13,12 @@ func _ready() -> void:
 	btn_quit.pressed.connect(_on_btn_quit_pressed)
 	btn_retry.pressed.connect(_on_btn_retry_pressed)
 
+## 初始化弹窗（统一接口，符合开闭原则）
+## [param data: Dictionary] 初始化数据（可选）
+func initialize(data: Dictionary = {}) -> void:
+	# PopupGameOver 不需要额外初始化数据
+	pass
+
 func _on_btn_quit_pressed() -> void:
 	quit_game.emit()
 

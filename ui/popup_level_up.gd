@@ -34,6 +34,14 @@ func _ready() -> void:
 		if widget:
 			widget.item_selected.connect(_on_item_selected)
 
+## 初始化弹窗（统一接口，符合开闭原则）
+## [param data: Dictionary] 初始化数据，应包含 "items" 键
+func initialize(data: Dictionary = {}) -> void:
+	if "items" in data:
+		show_options(data.items)
+	else:
+		push_warning("PopupLevelUp 需要 'items' 数据")
+
 ## 显示弹窗
 ## [param items: Array[ItemData]] 三个道具选项
 func show_options(items: Array[ItemData]) -> void:

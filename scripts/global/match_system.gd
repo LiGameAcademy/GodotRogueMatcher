@@ -89,7 +89,7 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 	var total_score = calculate_score(to_eliminate.size())
 	
 	# 获取消除中心位置
-	var center_index = to_eliminate.size() / 2
+	var center_index = float(to_eliminate.size()) / 2
 	var center_cell: Cell = to_eliminate[center_index]
 	var center_pos = center_cell.coordinate
 	
@@ -101,8 +101,11 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 	# 等待动画完成
 	await board.get_tree().create_timer(0.3).timeout
 	
-	# 清除棋子
+	# 清除棋子（如果是道具，先注销）
+	var effect_system = get_node_or_null("/root/ItemEffectSystem")
 	for cell in to_eliminate:
+		if cell.piece and cell.piece.item_data and effect_system:
+			effect_system.unregister_item(cell.piece)
 		cell.piece = null
 	
 	# 更新棋子数量
@@ -111,7 +114,7 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 	# 更新分数
 	GameManager.add_score(total_score)
 	
-	# 发出消除信号
+	# 发出消除信号（效果系统会监听此信号）
 	match_made.emit(total_score, center_pos, to_eliminate)
 
 ## 计算得分

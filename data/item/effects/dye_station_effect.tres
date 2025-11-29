@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=4 format=3 uid="uid://dye_station_effect"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/item_effect_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://scripts/gameplay/conditions/condition_timing.gd" id="2_timing"]
+[ext_resource type="Script" path="res://scripts/gameplay/effects/effect_dye_piece.gd" id="3_dye"]
+
+[sub_resource type="ConditionTiming" id="ConditionTiming_1"]
+condition_id = "timing"
+timing = 1
+
+[sub_resource type="EffectDyePiece" id="EffectDyePiece_1"]
+effect_id = "dye_piece"
+target_color = -1
+dye_range = "adjacent"
+dye_count = 1
+
+[resource]
+script = ExtResource("1_config")
+effects = [SubResource("EffectDyePiece_1")]
+conditions = [SubResource("ConditionTiming_1")]
+

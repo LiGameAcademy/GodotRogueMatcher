@@ -12,12 +12,13 @@ const RARITY_COLORS: Dictionary = {
 }
 
 # 节点引用
-@onready var icon_sprite: Sprite2D = $Card/IconSprite # 图标精灵
-@onready var name_label: Label = $Card/NameLabel # 名称标签
-@onready var description_label: Label = $Card/DescriptionLabel # 描述标签
-@onready var rarity_border: Panel = $Card/RarityBorder # 稀有度边框
-@onready var card_panel: Panel = $Card # 卡片面板
-@onready var hover_glow: ColorRect = $Card/HoverGlow # 悬停光晕
+@onready var card_panel: Panel = %CardPanel
+@onready var rarity_border: Panel = %RarityBorder
+@onready var icon_sprite: TextureRect = %IconSprite
+@onready var name_label: Label = %NameLabel
+@onready var type_label: Label = %TypeLabel
+@onready var description_label: Label = %DescriptionLabel
+@onready var hover_glow: ColorRect = %HoverGlow
 
 ## 道具数据
 var item_data: ItemData = null:
@@ -64,6 +65,9 @@ func update_display() -> void:
 	# 设置名称
 	if name_label:
 		name_label.text = item_data.get_localized_name()
+	
+	if type_label:
+		type_label.text = item_data.get_localized_type()
 	
 	# 设置描述
 	if description_label:

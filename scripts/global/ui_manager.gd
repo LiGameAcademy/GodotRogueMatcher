@@ -33,9 +33,12 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 	add_child(popup)
 	current_popup = popup
 	
-	# 根据弹窗类型调用相应方法
-	if popup is PopupLevelUp and "items" in data:
-		popup.show_options(data.items)
+	# 等待一帧，确保节点已完全初始化
+	await get_tree().process_frame
+	
+	# 调用统一的初始化方法（如果弹窗实现了该方法）
+	if popup.has_method("initialize"):
+		popup.initialize(data)
 	
 	popup.show()
 	return popup

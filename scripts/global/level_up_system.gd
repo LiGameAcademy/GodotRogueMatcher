@@ -15,7 +15,7 @@ var next_milestone: int = 500
 @export var milestone_multiplier: float = 1.5
 
 ## 初始里程碑分数
-@export var initial_milestone: int = 500
+@export var initial_milestone: int = 100
 
 ## 物品池（待实现）
 var item_pools: Dictionary = {}
@@ -31,13 +31,69 @@ func reset_system() -> void:
 
 ## 初始化物品池（待实现具体物品数据）
 func initialize_item_pools() -> void:
-	# TODO: 从资源文件加载物品数据
-	# 暂时使用空字典，后续实现
+	# 初始化空的物品池
 	item_pools = {
 		"common": [],
 		"rare": [],
 		"epic": []
 	}
+
+## 注册单个道具到物品池
+## [param item_data: ItemData] 道具数据资源
+func register_item(item_data: ItemData) -> void:
+	if not item_data:
+		push_warning("尝试注册空的 ItemData")
+		return
+	
+	# 确保稀有度有效（如果没有设置，默认为 COMMON）
+	if item_data.rarity.is_empty():
+		item_data.rarity = "COMMON"
+	
+	# 根据稀有度添加到对应池
+	var rarity_key = item_data.rarity.to_lower()
+	if not item_pools.has(rarity_key):
+		# 如果稀有度不存在，添加到 common 池
+		rarity_key = "common"
+	
+	# 检查是否已存在（避免重复注册）
+	var pool: Array = item_pools[rarity_key]
+	if pool.has(item_data):
+		return
+	
+	pool.append(item_data)
+	print("注册道具：", item_data.id, " (稀有度: ", item_data.rarity, ", 类型: ", item_data.type, ")")
+
+## 批量注册道具
+## [param items: Array[ItemData]] 道具数据数组
+func register_items(items: Array[ItemData]) -> void:
+	for item in items:
+		register_item(item)
+
+## 从目录加载所有道具资源并注册
+## [param directory_path: String] 道具资源目录路径（如 "res://data/item/"）
+func load_items_from_directory(directory_path: String) -> void:
+	var dir = DirAccess.open(directory_path)
+	if not dir:
+		push_error("无法打开目录: " + directory_path)
+		return
+	
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	var loaded_count: int = 0
+	
+	while file_name != "":
+		if file_name.ends_with(".tres"):
+			var item_path = directory_path + file_name
+			var item_data = load(item_path) as ItemData
+			if item_data:
+				register_item(item_data)
+				loaded_count += 1
+			else:
+				push_warning("无法加载道具资源: " + item_path)
+		
+		file_name = dir.get_next()
+	
+	print("从目录加载道具完成，共加载 ", loaded_count, " 个道具")
 
 ## 检查是否触发升级
 ## [param score: int] 当前分数
@@ -69,7 +125,7 @@ func trigger_level_up() -> void:
 ## 打开升级弹窗
 ## [param items: Array] 道具选项数组
 func _open_level_up_popup(items: Array) -> void:
-	var popup = UIManager.open_popup("popup_level_up", {"items": items})
+	var popup = await UIManager.open_popup("popup_level_up", {"items": items})
 	# 连接道具选择信号
 	if popup is PopupLevelUp:
 		popup.item_selected.connect(_on_item_selected)
@@ -171,4 +227,3 @@ func get_level_progress(current_score: int) -> float:
 	var previous_milestone: int = int(initial_milestone * pow(milestone_multiplier, current_level - 1))
 	var progress: float = float(current_score - previous_milestone) / float(next_milestone - previous_milestone)
 	return clamp(progress, 0.0, 1.0)
-

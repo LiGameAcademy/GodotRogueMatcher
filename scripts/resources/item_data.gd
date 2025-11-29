@@ -13,14 +13,16 @@ class_name ItemData
 ## 稀有度（"COMMON", "RARE", "EPIC"）
 @export var rarity: String = "COMMON"
 
-## 物品类型（"BUILDING", "RELIC", "CONSUMABLE", "PASSIVE"）
-@export var type: String = "BUILDING"
+## 物品类型
+@export_enum("BUILDING", "RELIC", "CONSUMABLE")
+var type: String = "BUILDING"
 
 ## 是否占用空间
 @export var occupies_space: bool = true
 
-## 效果脚本（可选，用于实现物品的特殊行为）
-@export var effect_script: Script = null
+## 效果配置（道具的效果和触发条件）
+## 必须在资源文件中配置，不能为空
+@export var effect_config: ItemEffectConfig = null
 
 ## 放置规则（如 ["BAD_SECTOR_ONLY"]）
 @export var placement_rules: Array[String] = []
@@ -41,4 +43,11 @@ func get_localized_description() -> String:
 		return ""
 	
 	var key: String = "item." + id + ".description"
+	return tr(key)
+
+func get_localized_type() -> String:
+	if type.is_empty():
+		return ""
+	
+	var key: String = "item.type." + type.to_lower()
 	return tr(key)

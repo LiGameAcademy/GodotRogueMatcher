@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=4 format=3 uid="uid://drill_effect"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/item_effect_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://scripts/gameplay/conditions/condition_timing.gd" id="2_timing"]
+[ext_resource type="Script" path="res://scripts/gameplay/effects/effect_destroy_pieces.gd" id="3_destroy"]
+
+[sub_resource type="ConditionTiming" id="ConditionTiming_1"]
+condition_id = "timing"
+timing = 0
+
+[sub_resource type="EffectDestroyPieces" id="EffectDestroyPieces_1"]
+effect_id = "destroy_pieces"
+destroy_range = "3x3"
+destroy_items = false
+
+[resource]
+script = ExtResource("1_config")
+effects = [SubResource("EffectDestroyPieces_1")]
+conditions = [SubResource("ConditionTiming_1")]
+

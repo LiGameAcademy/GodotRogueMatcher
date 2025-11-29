@@ -32,6 +32,12 @@ func _ready() -> void:
 	set_audio()
 	set_music()
 
+## 初始化弹窗（统一接口，符合开闭原则）
+## [param data: Dictionary] 初始化数据（可选）
+func initialize(_data: Dictionary = {}) -> void:
+	# PopupSettings 不需要额外初始化数据
+	pass
+
 func set_audio() -> void:
 	btn_audio.texture_normal = t_audioOn if is_open_audio == true else t_audioOff
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), !is_open_audio)

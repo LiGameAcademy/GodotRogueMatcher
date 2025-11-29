@@ -71,6 +71,12 @@ func place_item_at(board: Board, cell: Cell, item_data: ItemData) -> bool:
 	# 播放出现动画
 	piece.spawn_animation()
 	
+	# 如果是道具，注册到效果系统
+	if piece.item_data:
+		var effect_system = get_node_or_null("/root/ItemEffectSystem")
+		if effect_system:
+			effect_system.register_item(piece)
+	
 	return true
 
 ## 检查是否可以放置在指定位置

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cp5wgqbainyvs"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://cp5wgqbainyvs"]
 
 [ext_resource type="Texture2D" path="res://assets/icons/space_compressor.svg" id="1_comp"]
 [ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Resource" uid="uid://space_compressor_effect" path="res://data/item/effects/space_compressor_effect.tres" id="3_effect"]
 
 [resource]
 script = ExtResource("2_item")
@@ -10,3 +11,4 @@ icon = ExtResource("1_comp")
 rarity = "RARE"
 type = "BUILDING"
 occupies_space = true
+effect_config = ExtResource("3_effect")

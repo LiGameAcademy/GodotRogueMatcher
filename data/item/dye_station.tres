@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://duvtlwur0avxw"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://duvtlwur0avxw"]
 
 [ext_resource type="Texture2D" uid="uid://bah3icia4ijd5" path="res://assets/icons/dye_station.svg" id="1_dye"]
 [ext_resource type="Script" uid="uid://5a8ofd3plxug" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Resource" uid="uid://dye_station_effect" path="res://data/item/effects/dye_station_effect.tres" id="3_effect"]
 
 [resource]
 script = ExtResource("2_item")
 id = "dye_station"
 icon = ExtResource("1_dye")
+rarity = "COMMON"
+type = "BUILDING"
+occupies_space = true
+effect_config = ExtResource("3_effect")
 metadata/_custom_type_script = "uid://5a8ofd3plxug"

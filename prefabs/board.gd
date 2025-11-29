@@ -47,8 +47,12 @@ func _ready() -> void:
 	GameManager.reset_game()
 	
 	# 生成初始棋子
+	await get_tree().process_frame
 	var spawned = SpawnManager.spawn_random_pieces(self)
 	print("Board 初始化完成，生成了 ", spawned, " 个棋子")
+	
+	# 开始第一回合
+	GameManager.start_turn()
 
 ## 初始化我们的棋盘
 func initialize_board() -> void:
@@ -161,6 +165,19 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 		# 取消高亮
 		for c in path_cells:
 			c.unhighlight()
+		
+		# 检查消除
+		await MatchSystem.check_and_eliminate(self, target_cell)
+		
+		# 移动完成，结束回合
+		GameManager.end_turn()
+		
+		# 回合结束后生成新棋子
+		await get_tree().create_timer(0.5).timeout
+		SpawnManager.spawn_random_pieces(self)
+		
+		# 生成完成后开始新回合
+		GameManager.start_turn()
 	
 	selected_piece = null
 	can_selected = true
