@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dtj3u1aufd5wj"]
 
 [ext_resource type="Texture2D" uid="uid://bs67ypxaa05ql" path="res://assets/textures/widgets/icons/medalGold.png" id="1_gy38p"]
-[ext_resource type="Script" path="res://src/widgets/w_rank.gd" id="1_kitx2"]
+[ext_resource type="Script" uid="uid://b0i2g23h8k8um" path="res://ui/w_rank.gd" id="1_kitx2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g4msw"]
 font_size = 22

@@ -12,8 +12,14 @@ config_version=5
 
 config/name="Godot Matcher"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://assets/textures/animals/chicken.png"
+config/features=PackedStringArray("4.5", "Forward Plus")
+
+[autoload]
+
+GameManager="*res://scripts/global/game_manager.gd"
+MatchSystem="*res://scripts/global/match_system.gd"
+SpawnManager="*res://scripts/global/spawn_manager.gd"
+PathfindingManager="*res://scripts/global/pathfinding_manager.gd"
 
 [display]
 

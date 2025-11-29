@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://08elmfaydy88"]
+
+[ext_resource type="Script" uid="uid://cver3cnj88n83" path="res://prefabs/board.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://ba35hldmoep" path="res://scenes/game.gd" id="1_yqjtg"]
+
+[sub_resource type="Environment" id="Environment_8cj0n"]
+glow_enabled = true
+glow_strength = 1.2
+glow_bloom = 0.3
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_yqjtg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8cj0n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="HUD" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 30.0
+offset_right = 24.0
+offset_bottom = 70.0
+grow_horizontal = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UILayer/HUD/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/HUD/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "分数：0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Board" type="Node2D" parent="."]
+position = Vector2(312, 88)
+script = ExtResource("1_uwrxv")
