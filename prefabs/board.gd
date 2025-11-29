@@ -23,6 +23,9 @@ var selected_piece: ChessPiece = null:
 var can_selected: bool = true
 
 func _ready() -> void:
+	# 添加到组中，方便其他系统查找
+	add_to_group("board")
+	
 	# 确保单例已加载
 	if not PathfindingManager:
 		push_error("PathfindingManager 单例未加载！")

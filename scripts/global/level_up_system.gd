@@ -56,12 +56,34 @@ func trigger_level_up() -> void:
 	next_milestone = int(next_milestone * milestone_multiplier)
 	
 	# 生成三选一选项
-	var options: Array[ItemData] = generate_options()
+	var options: Array = generate_options()
 	
 	# 发出升级信号
 	level_up_triggered.emit(options)
 	
+	# 打开升级弹窗
+	_open_level_up_popup(options)
+	
 	print("等级提升！当前等级：", current_level, "，下一个里程碑：", next_milestone)
+
+## 打开升级弹窗
+## [param items: Array] 道具选项数组
+func _open_level_up_popup(items: Array) -> void:
+	var popup = UIManager.open_popup("popup_level_up", {"items": items})
+	# 连接道具选择信号
+	if popup is PopupLevelUp:
+		popup.item_selected.connect(_on_item_selected)
+
+## 道具选择回调
+## [param item_data: ItemData] 选中的道具数据
+func _on_item_selected(item_data: ItemData) -> void:
+	# 使用 ItemPlacer 将道具放置到棋盘上
+	# 获取 Board 实例（需要从场景树中查找）
+	var board = get_tree().get_first_node_in_group("board")
+	if board:
+		ItemPlacer.place_item_randomly(board, item_data)
+	else:
+		print("错误：未找到 Board 节点")
 
 ## 生成三选一选项
 ## [return: Array[ItemData]] 三个道具选项

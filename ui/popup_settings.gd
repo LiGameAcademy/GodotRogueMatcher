@@ -1,4 +1,8 @@
-extends UIPopup
+extends Control
+
+## 设置弹窗
+
+signal closed
 
 @onready var btn_audio: TextureButton = %btn_audio
 @onready var slider_audio: HSlider = %slider_audio
@@ -17,8 +21,6 @@ var is_open_audio : bool :
 var is_open_music : bool :
 	get:
 		return AudioManager.is_open_music
-
-#signal confirm_pressed
 
 func _ready() -> void:
 	slider_audio.value_changed.connect(_on_slider_audio_value_changed)
@@ -53,4 +55,6 @@ func _on_btn_music_pressed() -> void:
 	set_music()
 
 func _on_btn_confirm_pressed() -> void:
-	ui_manager.close_current_interface()
+	closed.emit()
+	hide()
+	queue_free()

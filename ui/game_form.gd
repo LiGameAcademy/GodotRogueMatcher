@@ -1,4 +1,4 @@
-extends UIForm
+extends Control
 class_name GameForm
 
 @onready var score_container: HBoxContainer = %ScoreContainer

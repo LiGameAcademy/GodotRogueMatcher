@@ -1,33 +1,26 @@
-extends UIForm
+extends Control
 class_name MenuForm
 
-#signal btn_new_game_pressed
-#signal btn_settings_pressed
-#signal btn_rank_pressed
-#signal btn_quit_pressed
+## 菜单表单
 
-const signal_new_game : StringName = "menu_form_new_game"
-const signal_quit_game : StringName = "menu_form_quit_game"
+signal new_game
+signal quit_game
+signal open_settings
+signal open_rank
 
 @onready var margin_container: MarginContainer = %MarginContainer
-#@onready var w_settings_popup: MarginContainer = %w_settings_popup
-#@onready var w_rank_popup: MarginContainer = %w_rank_popup
 
 func _on_btn_new_game_pressed() -> void:
-	ui_manager.emit(signal_new_game, [])
+	new_game.emit()
 
 func _on_btn_settings_pressed() -> void:
-	ui_manager.open_interface("popup_settings")
-#	btn_settings_pressed.emit()
+	open_settings.emit()
 
 func _on_btn_rank_pressed() -> void:
-	var w_rank_popup = ui_manager.open_interface("popup_rank")
-#	btn_rank_pressed.emit()
-	w_rank_popup.update_rank_board()
+	open_rank.emit()
 
 func _on_btn_quit_pressed() -> void:
-#	btn_quit_pressed.emit()
-	ui_manager.emit(signal_quit_game, [])
+	quit_game.emit()
 
 #func _on_w_settings_popup_confirm_pressed() -> void:
 #	margin_container.show()

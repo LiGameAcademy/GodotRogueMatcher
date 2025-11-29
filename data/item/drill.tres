@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b31yufvl2eejm"]
 
-[ext_resource type="Texture2D" path="res://assets/icons/drill.svg" id="1_drill"]
-[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Texture2D" uid="uid://c0cdacjngpru7" path="res://assets/icons/drill.svg" id="1_drill"]
+[ext_resource type="Script" uid="uid://5a8ofd3plxug" path="res://scripts/resources/item_data.gd" id="2_item"]
 
 [resource]
 script = ExtResource("2_item")
 id = "drill"
 icon = ExtResource("1_drill")
-rarity = "COMMON"
 type = "CONSUMABLE"
 occupies_space = false
+metadata/_custom_type_script = "uid://5a8ofd3plxug"

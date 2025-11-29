@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://851tkiq6dt2x"]
 
-[ext_resource type="Texture2D" path="res://assets/icons/bomb.svg" id="1_bomb"]
-[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Texture2D" uid="uid://cu7s4f32ncb6n" path="res://assets/icons/bomb.svg" id="1_bomb"]
+[ext_resource type="Script" uid="uid://5a8ofd3plxug" path="res://scripts/resources/item_data.gd" id="2_item"]
 
 [resource]
 script = ExtResource("2_item")
 id = "bomb"
 icon = ExtResource("1_bomb")
-rarity = "COMMON"
 type = "CONSUMABLE"
-occupies_space = true
+metadata/_custom_type_script = "uid://5a8ofd3plxug"

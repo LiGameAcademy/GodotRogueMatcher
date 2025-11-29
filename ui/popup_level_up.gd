@@ -1,11 +1,8 @@
-extends UIPopup
+extends Control
 class_name PopupLevelUp
 
 ## 升级弹窗
 ## 显示三选一道具界面
-
-## 信号：道具被选中
-const signal_item_selected: StringName = "level_up_item_selected"
 
 ## 节点引用
 @onready var title_label: Label = $Container/TitleLabel # 标题标签
@@ -135,12 +132,8 @@ func close_popup() -> void:
 	get_tree().paused = false
 	
 	# 关闭弹窗
-	ui_manager.close_current_interface()
-
-## 重写打开回调
-func _opened(data: Dictionary = {}) -> void:
-	if "items" in data:
-		show_options(data.items)
+	hide()
+	queue_free()
 
 ## 道具选择回调
 func _on_item_selected(item_data: ItemData) -> void:
@@ -152,7 +145,6 @@ func _on_item_selected(item_data: ItemData) -> void:
 	
 	# 发出信号
 	item_selected.emit(item_data)
-	ui_manager.emit(signal_item_selected, [item_data])
 	
 	# 延迟后关闭（让玩家看到选择效果）
 	await get_tree().create_timer(0.5).timeout

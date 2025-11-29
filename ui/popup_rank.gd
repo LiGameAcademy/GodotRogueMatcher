@@ -1,9 +1,11 @@
-extends UIPopup
+extends Control
+
+## 排行榜弹窗
+
+signal closed
 
 @onready var btn_confirm: TextureButton = %btn_confirm
 @onready var rank_container: VBoxContainer = %RankContainer
-
-#signal btn_confirm_pressed
 
 func _ready() -> void:
 	btn_confirm.pressed.connect(_on_btn_confirm_pressed)
@@ -15,4 +17,6 @@ func update_rank_board() -> void:
 		w_rank.update_rank(rank.name, rank.score)
 
 func _on_btn_confirm_pressed() -> void:
-	ui_manager.close_current_interface()
+	closed.emit()
+	hide()
+	queue_free()

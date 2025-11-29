@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b408h8tv2ehx0"]
 
-[ext_resource type="Texture2D" path="res://assets/icons/energy_core.svg" id="1_core"]
-[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Texture2D" uid="uid://bkam0yp3mrf0b" path="res://assets/icons/energy_core.svg" id="1_core"]
+[ext_resource type="Script" uid="uid://5a8ofd3plxug" path="res://scripts/resources/item_data.gd" id="2_item"]
 
 [resource]
 script = ExtResource("2_item")
@@ -9,4 +9,4 @@ id = "energy_core"
 icon = ExtResource("1_core")
 rarity = "RARE"
 type = "RELIC"
-occupies_space = true
+metadata/_custom_type_script = "uid://5a8ofd3plxug"

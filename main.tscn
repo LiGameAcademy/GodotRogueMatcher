@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://dier8r26uw7nq"]
 
 [ext_resource type="Script" uid="uid://bw3id8eqglbfg" path="res://main.gd" id="1_y87x1"]
+[ext_resource type="Script" uid="uid://ibhvwhw5ayk0" path="res://scripts/global/ui_manager.gd" id="2_ui_manager"]
 [ext_resource type="PackedScene" uid="uid://08elmfaydy88" path="res://scenes/game.tscn" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://bhrng6og78u4x" path="res://ui/framework/UIManager.gd" id="3_w6lc5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_y87x1")
 
 [node name="UIManager" type="CanvasLayer" parent="."]
 process_mode = 3
-script = ExtResource("3_w6lc5")
+script = ExtResource("2_ui_manager")
 
 [node name="Game" parent="." instance=ExtResource("3_h2yge")]
