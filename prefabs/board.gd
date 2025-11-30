@@ -97,6 +97,15 @@ func get_cell(coordinate: Vector2i) -> Cell:
 	var cell: Cell = self.get_child(grid_index)
 	return cell
 
+## 检查棋盘是否为空（没有任何棋子）
+## [return: bool] 如果棋盘为空返回 true
+func is_board_empty() -> bool:
+	for cell in get_children():
+		if cell is Cell:
+			if cell.piece != null:
+				return false
+	return true
+
 ## 根据坐标集合获取多个棋盘网格
 func get_cells(coords: Array) -> Array[Cell]:
 	var cells: Array[Cell]
@@ -120,13 +129,8 @@ func _on_cell_pressed(cell: Cell) -> void:
 		selected_piece = cell.piece
 	elif selected_piece != null:
 		# 没有: 判断当前是否选中了棋子？
-		# 有：执行移动逻辑
-		var can_move = await move_selected_piece(cell)
-		if can_move:
-			# 检查消除
-			await MatchSystem.check_and_eliminate(self, cell)
-			# 生成新棋子
-			SpawnManager.spawn_random_pieces(self)
+		# 有：执行移动逻辑（移动、消除、生成逻辑都在 move_selected_piece 中处理）
+		await move_selected_piece(cell)
 
 ## 移动棋子
 func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
@@ -172,9 +176,22 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 		# 移动完成，结束回合
 		GameManager.end_turn()
 		
-		# 回合结束后生成新棋子
-		await get_tree().create_timer(0.5).timeout
-		SpawnManager.spawn_random_pieces(self)
+		# 核心机制：如果创造了得分就不产生新的棋子（除非棋盘空了）
+		var should_spawn: bool = false
+		if not GameManager.score_earned_this_turn:
+			# 没有得分，正常生成新棋子
+			should_spawn = true
+		elif is_board_empty():
+			# 有得分但棋盘为空，必须生成新棋子
+			should_spawn = true
+			print("棋盘为空，强制生成新棋子")
+		else:
+			# 有得分且棋盘不为空，不生成新棋子
+			print("本轮产生了得分，不生成新棋子")
+		
+		if should_spawn:
+			await get_tree().create_timer(0.5).timeout
+			SpawnManager.spawn_random_pieces(self)
 		
 		# 生成完成后开始新回合
 		GameManager.start_turn()

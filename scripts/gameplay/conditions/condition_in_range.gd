@@ -4,7 +4,8 @@ class_name ConditionInRange
 ## 范围内条件
 
 ## 范围类型（"adjacent" = 上下左右4格, "neighbor" = 周围8格, "3x3" = 3x3区域）
-@export var range_type: String = "neighbor"
+@export_enum("adjacent", "neighbor", "3x3")
+var range_type: String = "neighbor"
 
 ## 检查位置（从 context 中获取）
 @export var check_position_key: String = "center_pos"

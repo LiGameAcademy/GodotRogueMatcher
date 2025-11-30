@@ -24,6 +24,9 @@ var game_form: GameForm = null
 ## 当前回合数
 var turn_count: int = 0
 
+## 本轮是否产生了得分（用于决定是否生成新棋子）
+var score_earned_this_turn: bool = false
+
 # 信号
 ## 分数变化
 signal score_changed(new_score: int)
@@ -44,9 +47,12 @@ func reset_game() -> void:
 	score = 0
 	piece_count = 0
 	turn_count = 0
+	score_earned_this_turn = false
 
 ## 增加分数
 func add_score(amount: int) -> void:
+	if amount > 0:
+		score_earned_this_turn = true  # 标记本轮产生了得分
 	score += amount
 	# 检查是否触发升级
 	# 注意：LevelUpSystem 是 Autoload 单例，运行时可用
@@ -78,6 +84,7 @@ func set_game_form(form: GameForm) -> void:
 ## 开始新回合
 func start_turn() -> void:
 	turn_count += 1
+	score_earned_this_turn = false  # 重置得分标志
 	turn_started.emit(turn_count)
 	print("回合开始：", turn_count)
 

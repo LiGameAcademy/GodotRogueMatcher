@@ -28,4 +28,3 @@ func get_description() -> String:
 			return "移动时"
 		_:
 			return "未知时机"
-
