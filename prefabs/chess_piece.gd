@@ -1,12 +1,6 @@
 extends Node2D
 class_name ChessPiece
 
-## 显示模式枚举
-enum DisplayMode {
-	SHAPE,  # 显示形状（普通棋子）
-	ICON    # 显示图标（道具）
-}
-
 ## 棋子颜色配置（赛博霓虹色）
 ## 色盲友好设计：每种颜色对应唯一形状
 const PIECE_COLORS: Array[Color] = [
@@ -24,6 +18,12 @@ enum ShapeType {
 	TRIANGLE = 2,    # 三角形 - 蓝色
 	PENTAGON = 3,    # 五边形 - 黄色
 	STAR = 4         # 星形 - 紫色
+}
+
+## 显示模式枚举
+enum DisplayMode {
+	SHAPE,  # 显示形状（普通棋子）
+	ICON    # 显示图标（道具）
 }
 
 ## 节点引用
@@ -60,18 +60,13 @@ var _is_moving: bool = false
 ## 移动完成信号
 signal movement_completed()
 
-## 移动完成回调
-func _on_move_completed() -> void:
-	_is_moving = false
-	movement_completed.emit()
+func _ready() -> void:
+	update_visual()
+	setup_glow_particles()
 
 ## 是否正在移动
 func is_moving() -> bool:
 	return _is_moving
-
-func _ready() -> void:
-	update_visual()
-	setup_glow_particles()
 
 ## 更新视觉效果
 ## 支持两种模式：形状（棋子）和图标（道具）
@@ -117,36 +112,6 @@ func _update_shape_visual() -> void:
 		# 更新辉光粒子颜色
 		if glow_particles:
 			update_particle_color(color)
-
-## 更新图标视觉（道具）
-func _update_icon_visual() -> void:
-	# 隐藏形状，显示图标
-	if polygon:
-		polygon.visible = false
-	if sprite and item_data:
-		sprite.visible = true
-		sprite.texture = item_data.icon
-		sprite.modulate = _get_rarity_color()
-		
-		# 更新辉光粒子颜色
-		if glow_particles:
-			update_particle_color(_get_rarity_color())
-
-## 获取稀有度颜色（用于道具）
-## [return: Color] 根据稀有度返回颜色
-func _get_rarity_color() -> Color:
-	if not item_data:
-		return Color.WHITE
-	
-	match item_data.rarity:
-		"COMMON":
-			return Color.WHITE
-		"RARE":
-			return Color.CYAN
-		"EPIC":
-			return Color.MAGENTA
-		_:
-			return Color.WHITE
 
 ## 生成圆形多边形
 func generate_circle_polygon(radius: float, segments: int = 16) -> PackedVector2Array:
@@ -344,3 +309,38 @@ func spawn_animation() -> void:
 	if glow_particles:
 		glow_particles.emitting = true
 		glow_particles.restart()
+
+## 更新图标视觉（道具）
+func _update_icon_visual() -> void:
+	# 隐藏形状，显示图标
+	if polygon:
+		polygon.visible = false
+	if sprite and item_data:
+		sprite.visible = true
+		sprite.texture = item_data.icon
+		sprite.modulate = _get_rarity_color()
+		
+		# 更新辉光粒子颜色
+		if glow_particles:
+			update_particle_color(_get_rarity_color())
+
+## 获取稀有度颜色（用于道具）
+## [return: Color] 根据稀有度返回颜色
+func _get_rarity_color() -> Color:
+	if not item_data:
+		return Color.WHITE
+	
+	match item_data.rarity:
+		"COMMON":
+			return Color.WHITE
+		"RARE":
+			return Color.CYAN
+		"EPIC":
+			return Color.MAGENTA
+		_:
+			return Color.WHITE
+
+## 移动完成回调
+func _on_move_completed() -> void:
+	_is_moving = false
+	movement_completed.emit()
