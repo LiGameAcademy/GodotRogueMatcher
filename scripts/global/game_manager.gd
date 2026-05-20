@@ -18,9 +18,6 @@ var piece_count: int = 0:
 ## 最大棋子数量
 var max_pieces: int = 81  # 9x9 = 81
 
-## 游戏表单
-var game_form: GameForm = null
-
 ## 当前回合数
 var turn_count: int = 0
 
@@ -74,12 +71,6 @@ func remove_piece_count(amount: int) -> void:
 func check_game_over() -> void:
 	if piece_count >= max_pieces - 3:  # 剩余空间不足3个
 		game_overed.emit()
-
-## 设置游戏表单（用于UI更新）
-func set_game_form(form: GameForm) -> void:
-	game_form = form
-	if game_form:
-		score_changed.connect(game_form.update_score_display)
 
 ## 开始新回合
 func start_turn() -> void:
