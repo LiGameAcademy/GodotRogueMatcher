@@ -1,8 +1,12 @@
 extends Node2D
 class_name Cell
 
-## 网格坐标（在棋盘当中的坐标）
-var coordinate: Vector2i = Vector2i.ZERO
+## 节点引用
+@onready var background: ColorRect = %Background
+@onready var border: Line2D = %Border
+@onready var glow_border: Line2D = %GlowBorder
+@onready var scan_line: ColorRect = %ScanLine
+@onready var area_2d: Area2D = %Area2D
 
 ## 颜色配置（赛博风格）
 @export var default_bg_color: Color = Color.html("#0a0a0a")  # 深黑色背景
@@ -25,22 +29,19 @@ var piece: ChessPiece = null:
 signal pressed(cell: Cell)
 signal piece_changed(cell: Cell, piece: ChessPiece)
 
-## 节点引用
-@onready var background: ColorRect = $Background
-@onready var border: Line2D = $Border
-@onready var glow_border: Line2D = $GlowBorder
-@onready var scan_line: ColorRect = $ScanLine
-
 ## 状态
 var is_path_highlighted: bool = false
 var is_hovered: bool = false
 var highlight_tween: Tween = null
 var scan_tween: Tween = null
 
+## 网格坐标（在棋盘当中的坐标）
+var coordinate: Vector2i = Vector2i.ZERO
+
 func _ready() -> void:
-	$Area2D.input_event.connect(_on_area_2d_input_event)
-	$Area2D.mouse_entered.connect(_on_mouse_entered)
-	$Area2D.mouse_exited.connect(_on_mouse_exited)
+	area_2d.input_event.connect(_on_area_2d_input_event)
+	area_2d.mouse_entered.connect(_on_mouse_entered)
+	area_2d.mouse_exited.connect(_on_mouse_exited)
 	
 	# 初始化视觉状态
 	update_default_style()
