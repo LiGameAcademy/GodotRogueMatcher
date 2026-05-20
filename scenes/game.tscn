@@ -5,8 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://cy1b1q0q5h25h" path="res://ui/hud.tscn" id="2_lnu2h"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
+ambient_light_source = 2
+ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
+ambient_light_energy = 0.3
+tonemap_mode = 3
 glow_enabled = true
+glow_levels/2 = 0.5
+glow_levels/4 = 1.5
+glow_levels/5 = 2.0
+glow_normalized = true
 glow_strength = 1.2
+glow_mix = 0.5
 glow_bloom = 0.3
 
 [node name="Game" type="Node2D"]

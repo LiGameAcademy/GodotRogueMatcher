@@ -226,8 +226,8 @@ func deselected() -> void:
 	if glow_particles:
 		glow_particles.emitting = false
 
-## 移动动画效果（非阻塞）
-func move_to(target_cell: Cell, duration: float = 0.15) -> void:
+## 移动到目标格子（等待完成）
+func move_to_and_wait(target_cell: Cell, duration: float = 0.15) -> void:
 	if tween:
 		tween.kill()
 

@@ -35,6 +35,9 @@ func create_prism_tower() -> ItemData:
 	item.rarity = "COMMON"
 	item.type = "BUILDING"
 	item.occupies_space = true
+	item.can_be_eliminated = true
+	item.base_color = 4  # 紫色 - 星形
+	item.icon = preload("res://assets/icons/prism_tower.svg")
 	item.effect_config = null  # 效果在 MatchSystem 中实现
 	return item
 
@@ -47,6 +50,9 @@ func create_amplifier() -> ItemData:
 	item.rarity = "COMMON"
 	item.type = "BUILDING"
 	item.occupies_space = true
+	item.can_be_eliminated = true
+	item.base_color = 0  # 红色 - 圆形
+	item.icon = preload("res://assets/icons/amplifier.svg")
 	item.effect_config = null  # 效果在 MatchSystem 中实现
 	return item
 
@@ -72,6 +78,9 @@ func create_dye_station() -> ItemData:
 	item.rarity = "COMMON"
 	item.type = "BUILDING"
 	item.occupies_space = true
+	item.can_be_eliminated = true
+	item.base_color = 3  # 黄色 - 五边形
+	item.icon = preload("res://assets/icons/dye_station.svg")
 	item.effect_config = config
 	return item
 
@@ -84,6 +93,9 @@ func create_ether_totem() -> ItemData:
 	item.rarity = "RARE"
 	item.type = "RELIC"
 	item.occupies_space = true
+	item.can_be_eliminated = true
+	item.base_color = 2  # 蓝色 - 三角形
+	item.icon = preload("res://assets/icons/ether_totem.svg")
 	item.effect_config = null  # 效果在 MatchSystem 中实现
 	return item
 
@@ -96,6 +108,9 @@ func create_energy_core() -> ItemData:
 	item.rarity = "RARE"
 	item.type = "RELIC"
 	item.occupies_space = true
+	item.can_be_eliminated = true
+	item.base_color = 1  # 绿色 - 方形
+	item.icon = preload("res://assets/icons/energy_core.svg")
 	item.effect_config = null  # 效果在 MatchSystem 中实现
 	return item
 
@@ -108,5 +123,8 @@ func create_space_compressor() -> ItemData:
 	item.rarity = "RARE"
 	item.type = "BUILDING"
 	item.occupies_space = true
+	item.can_be_eliminated = true
+	item.base_color = 0  # 红色 - 圆形
+	item.icon = preload("res://assets/icons/space_compressor.svg")
 	item.effect_config = null  # 效果在 SpawnManager 中实现
 	return item

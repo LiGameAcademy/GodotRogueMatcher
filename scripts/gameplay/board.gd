@@ -158,13 +158,8 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 
 		var move_duration = duration / path.size()
 
-		# 启动所有移动动画（非阻塞）
-		var pending_moves = path.size()
-		for p in path:
-			var cell = get_cell(p)
-			selected_piece.move_to(cell, move_duration)
-		# 等待所有移动完成
-		await _wait_all_moves(pending_moves)
+		# 启动所有移动动画（顺序执行，每个完成后触发下一个）
+		await _move_along_path(path, move_duration)
 
 		# 放置棋子
 		self.remove_child(selected_piece)
@@ -205,21 +200,10 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 	can_selected = true
 	return not path.is_empty()
 
-## 等待所有移动动画完成（非阻塞）
-func _wait_all_moves(pending_count: int) -> void:
-	if pending_count <= 0 or not is_instance_valid(selected_piece):
-		return
-
-	var counter = [{"count": 0}]
-
-	var on_move_done = func() -> void:
-		counter[0]["count"] += 1
-
-	selected_piece.movement_completed.connect(on_move_done)
-
-	# 轮询等待完成
-	while counter[0]["count"] < pending_count and is_instance_valid(selected_piece):
-		await get_tree().process_frame
-
-	if is_instance_valid(selected_piece):
-		selected_piece.movement_completed.disconnect(on_move_done)
+## 沿着路径顺序移动（顺序执行动画）
+func _move_along_path(path: Array, move_duration: float) -> void:
+	for p in path:
+		var cell = get_cell(p)
+		# 每次等待一个移动完成后再开始下一个
+		selected_piece.move_to_and_wait(cell, move_duration)
+		await selected_piece.movement_completed
