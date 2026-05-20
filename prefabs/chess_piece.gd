@@ -54,6 +54,7 @@ var item_data: ItemData = null :
 var tween: Tween = null
 var is_selected: bool = false
 var is_eliminating: bool = false
+var is_ghost: bool = false  # 幽灵球标志（空间压缩机效果）
 
 func _ready() -> void:
 	update_visual()
