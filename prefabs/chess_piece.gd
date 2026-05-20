@@ -55,6 +55,19 @@ var tween: Tween = null
 var is_selected: bool = false
 var is_eliminating: bool = false
 var is_ghost: bool = false  # 幽灵球标志（空间压缩机效果）
+var _is_moving: bool = false
+
+## 移动完成信号
+signal movement_completed()
+
+## 移动完成回调
+func _on_move_completed() -> void:
+	_is_moving = false
+	movement_completed.emit()
+
+## 是否正在移动
+func is_moving() -> bool:
+	return _is_moving
 
 func _ready() -> void:
 	update_visual()
@@ -248,16 +261,17 @@ func deselected() -> void:
 	if glow_particles:
 		glow_particles.emitting = false
 
-## 移动动画效果
+## 移动动画效果（非阻塞）
 func move_to(target_cell: Cell, duration: float = 0.15) -> void:
 	if tween:
 		tween.kill()
-	
+
+	_is_moving = true
 	tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(self, "position", target_cell.position, duration)
-	await tween.finished
+	tween.finished.connect(_on_move_completed)
 
 ## 消除动画
 func eliminate() -> void:
