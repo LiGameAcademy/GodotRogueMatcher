@@ -28,6 +28,7 @@ LevelUpSystem="*res://scripts/global/level_up_system.gd"
 ItemPlacer="*res://scripts/global/item_placer.gd"
 ItemEffectSystem="*res://scripts/global/item_effect_system.gd"
 UIManager="*res://scripts/global/ui_manager.gd"
+ItemRegistry="*res://scripts/resources/item_registry.gd"
 
 [display]
 

@@ -3,22 +3,15 @@ extends Node2D
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var board: Board = $Board
 
-## 道具资源目录路径
-const ITEM_DIRECTORY: String = "res://data/item/"
-
 func _ready() -> void:
-	# 注册所有道具（游戏开始前）
-	register_all_items()
+	# 道具通过 ItemRegistry (Autoload) 在 _ready 时自动注册
+	# 无需手动调用注册
 	GameManager.score_changed.connect(
 		func(new_score : float): %ScoreLabel.text = "分数：" + str(new_score)
 	)
 	# 设置赛博辉光效果
 	if world_environment:
 		setup_glow_effect(world_environment)
-
-## 注册所有道具到 LevelUpSystem
-func register_all_items() -> void:
-	LevelUpSystem.load_items_from_directory(ITEM_DIRECTORY)
 
 ## 设置赛博辉光效果（直接实现，避免 Autoload 依赖）
 func setup_glow_effect(world_env_node: WorldEnvironment) -> void:
