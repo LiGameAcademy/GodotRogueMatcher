@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(design-system)",
+      "Skill(design-review)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(git hash-object:*)",
+      "Bash(grep -E \"\\\\.uid$\")",
+      "Bash(git check-ignore:*)",
+      "Bash(git --version)",
+      "Bash(git config:*)",
+      "mcp__godot__get_project_info",
+      "mcp__godot__get_debug_output",
+      "mcp__godot__run_project",
+      "mcp__godot__stop_project",
+      "mcp__godot__update_project_uids",
+      "Bash(mkdir -p \"D:/GodotProject/laoli_gamedev_godot4_course/project_minimal_storm/scenes/world\")",
+      "Bash(mkdir -p \"D:/GodotProject/laoli_gamedev_godot4_course/project_minimal_storm/src/world\")",
+      "mcp__godot__create_scene",
+      "mcp__browsermcp__browser_screenshot",
+      "mcp__godot__get_uid",
+      "Bash(git:*)",
+      "mcp__godot__launch_editor",
+      "mcp__browsermcp__browser_wait",
+      "WebSearch",
+      "mcp__godot__get_godot_version",
+      "mcp__godot__list_projects",
+      "Bash(timeout 10 godot --headless --path .)",
+      "mcp__ide__getDiagnostics",
+      "Skill(brainstorm)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "godot"
+  ]
+}
