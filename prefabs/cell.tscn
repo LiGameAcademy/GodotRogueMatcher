@@ -7,8 +7,10 @@ size = Vector2(64, 64)
 
 [node name="Cell" type="Node2D"]
 script = ExtResource("1_uyaks")
+hover_color = Color(0, 0, 0, 1)
 
 [node name="Background" type="ColorRect" parent="."]
+unique_name_in_owner = true
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
@@ -17,21 +19,25 @@ mouse_filter = 1
 color = Color(0.1, 0.1, 0.1, 1)
 
 [node name="GridLines" type="Line2D" parent="."]
+unique_name_in_owner = true
 points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32, -32, -32)
 width = 1.0
 default_color = Color(0.2, 0.2, 0.2, 0.5)
 
 [node name="Border" type="Line2D" parent="."]
+unique_name_in_owner = true
 points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32, -32, -32)
 width = 2.0
 default_color = Color(0.3, 0.3, 0.3, 0.8)
 
 [node name="GlowBorder" type="Line2D" parent="."]
+unique_name_in_owner = true
 points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32, -32, -32)
 width = 3.0
 default_color = Color(0, 1, 1, 0)
 
 [node name="ScanLine" type="ColorRect" parent="."]
+unique_name_in_owner = true
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
@@ -40,6 +46,7 @@ mouse_filter = 2
 color = Color(0, 1, 1, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_74m5l")

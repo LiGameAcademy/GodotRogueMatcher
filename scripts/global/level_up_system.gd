@@ -127,7 +127,7 @@ func trigger_level_up() -> void:
 func _open_level_up_popup(items: Array) -> void:
 	var popup = await UIManager.open_popup("popup_level_up", {"items": items})
 	# 连接道具选择信号
-	if popup is PopupLevelUp:
+	if popup.has_signal("item_selected"):
 		popup.item_selected.connect(_on_item_selected)
 
 ## 道具选择回调
