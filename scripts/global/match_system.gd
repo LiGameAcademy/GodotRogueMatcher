@@ -14,7 +14,7 @@ const COMBO_BONUS: int = 2
 
 # 信号
 ## 消除完成
-signal match_made(score: int, center_pos: Vector2i, matched_cells: Array)
+signal match_made(score: int, center_pos: Vector2i, matched_cells: Array[Cell])
 
 ## 检查是否有可以消除的棋子
 ## 返回所有可消除的单元格数组
@@ -22,18 +22,18 @@ func check_for_elimination(board: Board, target_cell: Cell) -> Array[Cell]:
 	var to_eliminate: Array[Cell] = []
 	
 	# 检查四个方向：横向、纵向、两个斜向
-	var directions = [
+	var directions: Array[Vector2i] = [
 		Vector2i(1, 0),   # 横向
 		Vector2i(0, 1),   # 纵向
 		Vector2i(1, 1),   # 斜向（左上-右下）
 		Vector2i(1, -1)   # 斜向（右上-左下）
 	]
 	
-	for direction in directions:
-		var matched = check_direction(board, target_cell, direction.x, direction.y)
+	for direction: Vector2i in directions:
+		var matched: Array[Cell] = check_direction(board, target_cell, direction.x, direction.y)
 		if matched.size() >= MIN_MATCH_COUNT:
 			# 合并到总数组（去重）
-			for cell in matched:
+			for cell: Cell in matched:
 				if not to_eliminate.has(cell):
 					to_eliminate.append(cell)
 	
@@ -45,20 +45,20 @@ func check_direction(board: Board, start_cell: Cell, delta_row: int, delta_col: 
 		return []  # 如果起始位置为空，则直接返回空数组
 	
 	var to_eliminate: Array[Cell] = [start_cell]  # 待消除的棋子数组
-	var start_type = start_cell.piece.piece_type
+	var start_type: int = start_cell.piece.piece_type
 
-	for direction in [-1, 1]:
-		var local_step = 1  # 用于跟踪在每个方向上走了多少步
-		var can_eliminate = true
+	for direction: int in [-1, 1]:
+		var local_step: int = 1  # 用于跟踪在每个方向上走了多少步
+		var can_eliminate: bool = true
 		
 		while can_eliminate:
-			var new_coord = Vector2i(
+			var new_coord: Vector2i = Vector2i(
 				start_cell.coordinate.x + local_step * direction * delta_row,
 				start_cell.coordinate.y + local_step * direction * delta_col
 			)
 			
 			# 检查边界条件
-			if new_coord.x < 0 or new_coord.x >= board.rows or new_coord.y < 0 or new_coord.y >= board.cols:
+			if new_coord.x < 0 or new_coord.x >= board.cols or new_coord.y < 0 or new_coord.y >= board.rows:
 				break
 			
 			var new_cell: Cell = board.get_cell(new_coord)
@@ -76,7 +76,7 @@ func check_direction(board: Board, start_cell: Cell, delta_row: int, delta_col: 
 
 ## 检查并消除（便捷方法）
 func check_and_eliminate(board: Board, target_cell: Cell) -> void:
-	var to_eliminate = check_for_elimination(board, target_cell)
+	var to_eliminate: Array[Cell] = check_for_elimination(board, target_cell)
 	if not to_eliminate.is_empty():
 		await eliminate_and_score(board, to_eliminate)
 
@@ -86,18 +86,18 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 		return
 
 	# 计算基础得分
-	var base_score = calculate_score(to_eliminate.size())
+	var base_score: int = calculate_score(to_eliminate.size())
 
 	# 获取消除中心位置
-	var center_index = float(to_eliminate.size()) / 2
+	var center_index: int = int(to_eliminate.size() / 2)
 	var center_cell: Cell = to_eliminate[center_index]
-	var center_pos = center_cell.coordinate
+	var center_pos: Vector2i = center_cell.coordinate
 
 	# 计算道具加成
-	var final_score = calculate_item_bonus(board, to_eliminate, base_score)
+	var final_score: int = calculate_item_bonus(board, to_eliminate, base_score)
 
 	# 播放消除动画
-	for cell in to_eliminate:
+	for cell: Cell in to_eliminate:
 		if cell.piece:
 			cell.piece.eliminate()
 
@@ -105,11 +105,14 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 	await board.get_tree().create_timer(0.3).timeout
 
 	# 清除棋子（如果是道具，先注销）
-	var effect_system = get_node_or_null("/root/ItemEffectSystem")
-	for cell in to_eliminate:
+	var effect_system: Node = get_node_or_null("/root/ItemEffectSystem")
+	for cell: Cell in to_eliminate:
 		if cell.piece and cell.piece.item_data and effect_system:
 			effect_system.unregister_item(cell.piece)
-		cell.piece = null
+		if is_instance_valid(cell.piece):
+			var removed_piece: ChessPiece = cell.piece
+			cell.piece = null
+			removed_piece.queue_free()
 
 	# 更新棋子数量
 	GameManager.remove_piece_count(to_eliminate.size())
@@ -132,21 +135,21 @@ func calculate_item_bonus(board: Board, matched_cells: Array, base_score: int) -
 	# 检测消除涉及的棋子类型
 	var has_red_ball: bool = false
 	var matched_types: Array[int] = []
-	for cell in matched_cells:
+	for cell: Cell in matched_cells:
 		if cell.piece and cell.piece.item_data == null:  # 是普通棋子，不是道具
 			matched_types.append(cell.piece.piece_type)
 			if cell.piece.piece_type == 0:  # 0 = 红球
 				has_red_ball = true
 
 	# 获取所有已放置的道具
-	var placed_items = _get_placed_items(board)
+	var placed_items: Array[Cell] = _get_placed_items(board)
 
 	# 计算加成
-	for item_cell in placed_items:
+	for item_cell: Cell in placed_items:
 		if not item_cell.piece or not item_cell.piece.item_data:
 			continue
 
-		var item_id = item_cell.piece.item_data.id
+		var item_id: String = item_cell.piece.item_data.id
 
 		match item_id:
 			"prism_tower":
@@ -170,31 +173,31 @@ func calculate_item_bonus(board: Board, matched_cells: Array, base_score: int) -
 				bonus += 0.5  # +50%
 
 	# 综合计算
-	var final_score = int((base_score * multiplier) + (base_score * bonus))
+	var final_score: int = int((base_score * multiplier) + (base_score * bonus))
 	return final_score
 
 ## 获取棋盘上所有已放置的道具
 func _get_placed_items(board: Board) -> Array[Cell]:
 	var items: Array[Cell] = []
-	for i in range(board.rows):
-		for j in range(board.cols):
-			var cell = board.get_cell(Vector2i(j, i))
+	for i: int in range(board.rows):
+		for j: int in range(board.cols):
+			var cell: Cell = board.get_cell(Vector2i(j, i))
 			if cell and cell.piece and cell.piece.item_data:
 				items.append(cell)
 	return items
 
 ## 检查道具是否在消除范围内
-func _is_cell_in_match(item_cell: Cell, matched_cells: Array) -> bool:
-	for cell in matched_cells:
+func _is_cell_in_match(item_cell: Cell, matched_cells: Array[Cell]) -> bool:
+	for cell: Cell in matched_cells:
 		if cell == item_cell:
 			return true
 	return false
 
 ## 检查道具是否在消除的8格范围内
-func _is_in_range_8(item_pos: Vector2i, matched_cells: Array) -> bool:
-	for cell in matched_cells:
-		var dx = abs(cell.coordinate.x - item_pos.x)
-		var dy = abs(cell.coordinate.y - item_pos.y)
+func _is_in_range_8(item_pos: Vector2i, matched_cells: Array[Cell]) -> bool:
+	for cell: Cell in matched_cells:
+		var dx: int = abs(cell.coordinate.x - item_pos.x)
+		var dy: int = abs(cell.coordinate.y - item_pos.y)
 		if dx <= 1 and dy <= 1:
 			return true
 	return false
@@ -205,6 +208,6 @@ func calculate_score(match_count: int) -> int:
 		return BASE_SCORE * match_count
 	else:
 		# 基础分 + 连击奖励
-		var base_score = BASE_SCORE * match_count
-		var combo_bonus = COMBO_BONUS * (match_count - MIN_MATCH_COUNT) * match_count
+		var base_score: int = BASE_SCORE * match_count
+		var combo_bonus: int = COMBO_BONUS * (match_count - MIN_MATCH_COUNT) * match_count
 		return base_score + combo_bonus

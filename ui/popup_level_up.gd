@@ -20,6 +20,7 @@ var is_animating: bool = false
 
 ## 信号：道具被选中
 signal item_selected(item_data: ItemData)
+signal closed
 
 ## 初始化
 func _ready() -> void:
@@ -29,8 +30,8 @@ func _ready() -> void:
 	container.scale = Vector2(0.8, 0.8)
 	
 	# 连接道具选择信号
-	for i in range(options_container.get_child_count()):
-		var widget = options_container.get_child(i) as ItemWidget
+	for i: int in range(options_container.get_child_count()):
+		var widget: ItemWidget = options_container.get_child(i) as ItemWidget
 		if widget:
 			widget.item_selected.connect(_on_item_selected)
 
@@ -67,9 +68,9 @@ func show_options(items: Array[ItemData]) -> void:
 
 ## 更新道具控件
 func update_item_widgets() -> void:
-	for i in range(min(item_options.size(), options_container.get_child_count())):
-		var widget = options_container.get_child(i) as ItemWidget
-		var item_data = item_options[i]
+	for i: int in range(min(item_options.size(), options_container.get_child_count())):
+		var widget: ItemWidget = options_container.get_child(i) as ItemWidget
+		var item_data: ItemData = item_options[i]
 		
 		if widget and item_data:
 			widget.item_data = item_data
@@ -112,7 +113,7 @@ func play_hide_animation() -> void:
 	tween.tween_property(container, "scale", Vector2(0.8, 0.8), 0.2)
 	
 	# 道具控件消失动画
-	for widget in options_container.get_children():
+	for widget: Node in options_container.get_children():
 		if widget is ItemWidget:
 			widget.play_dismiss_animation()
 	
@@ -121,16 +122,17 @@ func play_hide_animation() -> void:
 
 ## 播放选择反馈
 func play_selection_feedback(selected_item: ItemData) -> void:
+	var feedback_tween: Tween = create_tween()
+	feedback_tween.set_parallel(true)
 	# 高亮选中的道具，淡化其他道具
-	for widget in options_container.get_children():
+	for widget: Node in options_container.get_children():
 		if widget is ItemWidget:
 			if widget.item_data == selected_item:
 				# 选中的道具：继续高亮
 				pass
 			else:
 				# 其他道具：淡化
-				if tween:
-					tween.parallel().tween_property(widget, "modulate:a", 0.3, 0.3)
+				feedback_tween.tween_property(widget, "modulate:a", 0.3, 0.3)
 
 ## 关闭弹窗
 func close_popup() -> void:
@@ -141,12 +143,14 @@ func close_popup() -> void:
 	
 	# 关闭弹窗
 	hide()
+	closed.emit()
 	queue_free()
 
 ## 道具选择回调
 func _on_item_selected(item_data: ItemData) -> void:
 	if is_animating:
 		return
+	is_animating = true
 	
 	# 播放选择反馈
 	play_selection_feedback(item_data)

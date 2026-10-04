@@ -20,6 +20,7 @@ var max_pieces: int = 81  # 9x9 = 81
 
 ## 当前回合数
 var turn_count: int = 0
+var is_game_over: bool = false
 
 ## 本轮是否产生了得分（用于决定是否生成新棋子）
 var score_earned_this_turn: bool = false
@@ -41,6 +42,7 @@ func _ready() -> void:
 
 ## 重置游戏
 func reset_game() -> void:
+	is_game_over = false
 	score = 0
 	piece_count = 0
 	turn_count = 0
@@ -54,14 +56,13 @@ func add_score(amount: int) -> void:
 	# 检查是否触发升级
 	# 注意：LevelUpSystem 是 Autoload 单例，运行时可用
 	# 使用 get_node 获取单例引用（静态分析可能无法识别 Autoload）
-	var level_up_system = get_node_or_null("/root/LevelUpSystem")
+	var level_up_system: Node = get_node_or_null("/root/LevelUpSystem")
 	if level_up_system:
 		level_up_system.check_level_up(score)
 
 ## 增加棋子数量
 func add_piece_count(amount: int) -> void:
 	piece_count += amount
-	check_game_over()
 
 ## 减少棋子数量
 func remove_piece_count(amount: int) -> void:
@@ -69,8 +70,15 @@ func remove_piece_count(amount: int) -> void:
 
 ## 检查游戏是否结束
 func check_game_over() -> void:
-	if piece_count >= max_pieces - 3:  # 剩余空间不足3个
-		game_overed.emit()
+	if piece_count >= max_pieces:
+		finish_game()
+
+## 只在稳定盘面或生成失败后结束一次。
+func finish_game() -> void:
+	if is_game_over:
+		return
+	is_game_over = true
+	game_overed.emit()
 
 ## 开始新回合
 func start_turn() -> void:

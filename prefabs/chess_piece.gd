@@ -89,9 +89,9 @@ func _update_shape_visual() -> void:
 		polygon.visible = true
 		
 		# 确保 piece_type 在有效范围内
-		var type_index = piece_type % PIECE_COLORS.size()
-		var color = PIECE_COLORS[type_index]
-		var shape_type = type_index as ShapeType  # 颜色和形状一一对应
+		var type_index: int = piece_type % PIECE_COLORS.size()
+		var color: Color = PIECE_COLORS[type_index]
+		var shape_type: ShapeType = type_index as ShapeType  # 颜色和形状一一对应
 		
 		# 设置颜色
 		polygon.color = color
@@ -115,15 +115,15 @@ func _update_shape_visual() -> void:
 
 ## 生成圆形多边形
 func generate_circle_polygon(radius: float, segments: int = 16) -> PackedVector2Array:
-	var points = PackedVector2Array()
-	for i in range(segments):
-		var angle = (i * TAU) / segments
+	var points: PackedVector2Array = PackedVector2Array()
+	for i: int in range(segments):
+		var angle: float = (i * TAU) / segments
 		points.append(Vector2(cos(angle), sin(angle)) * radius)
 	return points
 
 ## 生成方形多边形
 func generate_square_polygon(size: float) -> PackedVector2Array:
-	var half = size * 0.707  # 对角线的一半
+	var half: float = size * 0.707  # 对角线的一半
 	return PackedVector2Array([
 		Vector2(-half, -half),
 		Vector2(half, -half),
@@ -133,7 +133,7 @@ func generate_square_polygon(size: float) -> PackedVector2Array:
 
 ## 生成三角形多边形
 func generate_triangle_polygon(size: float) -> PackedVector2Array:
-	var height = size * 0.866  # 等边三角形高度
+	var height: float = size * 0.866  # 等边三角形高度
 	return PackedVector2Array([
 		Vector2(0, -size),
 		Vector2(height, size * 0.5),
@@ -142,20 +142,20 @@ func generate_triangle_polygon(size: float) -> PackedVector2Array:
 
 ## 生成五边形多边形（色盲友好：黄色）
 func generate_pentagon_polygon(size: float) -> PackedVector2Array:
-	var points = PackedVector2Array()
-	for i in range(5):
-		var angle = (i * TAU / 5) - (TAU / 4)  # 从顶部开始，旋转90度
+	var points: PackedVector2Array = PackedVector2Array()
+	for i: int in range(5):
+		var angle: float = (i * TAU / 5) - (TAU / 4)  # 从顶部开始，旋转90度
 		points.append(Vector2(cos(angle), sin(angle)) * size)
 	return points
 
 ## 生成星形多边形（色盲友好：紫色）
 func generate_star_polygon(size: float) -> PackedVector2Array:
-	var points = PackedVector2Array()
-	var outer_radius = size
-	var inner_radius = size * 0.4  # 内圆半径
-	for i in range(10):  # 5个外点 + 5个内点
-		var angle = (i * TAU / 10) - (TAU / 4)  # 从顶部开始
-		var radius = outer_radius if i % 2 == 0 else inner_radius
+	var points: PackedVector2Array = PackedVector2Array()
+	var outer_radius: float = size
+	var inner_radius: float = size * 0.4  # 内圆半径
+	for i: int in range(10):  # 5个外点 + 5个内点
+		var angle: float = (i * TAU / 10) - (TAU / 4)  # 从顶部开始
+		var radius: float = outer_radius if i % 2 == 0 else inner_radius
 		points.append(Vector2(cos(angle), sin(angle)) * radius)
 	return points
 
@@ -170,7 +170,7 @@ func setup_glow_particles() -> void:
 	glow_particles.emitting = false
 	
 	# 设置粒子材质
-	var particle_material = ParticleProcessMaterial.new()
+	var particle_material: ParticleProcessMaterial = ParticleProcessMaterial.new()
 	particle_material.gravity = Vector3(0, 0, 0)
 	particle_material.initial_velocity_min = 5.0
 	particle_material.initial_velocity_max = 10.0
@@ -183,7 +183,7 @@ func update_particle_color(color: Color) -> void:
 	if not glow_particles:
 		return
 	
-	var particle_material = glow_particles.process_material as ParticleProcessMaterial
+	var particle_material: ParticleProcessMaterial = glow_particles.process_material as ParticleProcessMaterial
 	if particle_material:
 		particle_material.color = color
 
@@ -249,7 +249,7 @@ func eliminate() -> void:
 	if glow_particles:
 		glow_particles.emitting = true
 		glow_particles.restart()
-		var particle_material = glow_particles.process_material as ParticleProcessMaterial
+		var particle_material: ParticleProcessMaterial = glow_particles.process_material as ParticleProcessMaterial
 		if particle_material:
 			particle_material.initial_velocity_min = 20.0
 			particle_material.initial_velocity_max = 50.0
@@ -270,8 +270,7 @@ func eliminate() -> void:
 	
 	await tween.finished
 	
-	# 清理
-	queue_free()
+	# 节点生命周期由棋盘清理入口负责；演出不自行释放占格对象。
 
 ## 重置状态
 func reset() -> void:

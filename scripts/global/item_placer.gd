@@ -15,7 +15,7 @@ func create_item(item_data: ItemData) -> ChessPiece:
 		return null
 	
 	# 实例化 ChessPiece 场景（道具视为特殊棋子）
-	var piece = CHESS_PIECE_SCENE.instantiate() as ChessPiece
+	var piece: ChessPiece = CHESS_PIECE_SCENE.instantiate() as ChessPiece
 	if not piece:
 		print("错误：无法实例化 ChessPiece 场景")
 		return null
@@ -34,14 +34,14 @@ func place_item_randomly(board: Board, item_data: ItemData) -> bool:
 		return false
 	
 	# 获取所有空位
-	var empty_cells = _get_empty_cells(board)
+	var empty_cells: Array[Cell] = _get_empty_cells(board)
 	if empty_cells.is_empty():
 		print("警告：没有空位放置物品")
 		return false
 	
 	# 随机选择空位
-	var random_index = randi() % empty_cells.size()
-	var cell = empty_cells[random_index]
+	var random_index: int = randi() % empty_cells.size()
+	var cell: Cell = empty_cells[random_index]
 	
 	# 放置物品
 	return place_item_at(board, cell, item_data)
@@ -60,20 +60,21 @@ func place_item_at(board: Board, cell: Cell, item_data: ItemData) -> bool:
 		return false
 	
 	# 创建物品节点（作为特殊棋子）
-	var piece = create_item(item_data)
+	var piece: ChessPiece = create_item(item_data)
 	if not piece:
 		return false
 	
 	# 放置到单元格（使用 piece 属性，统一处理）
 	cell.piece = piece
 	piece.position = Vector2.ZERO
+	GameManager.add_piece_count(1)
 	
 	# 播放出现动画
 	piece.spawn_animation()
 	
 	# 如果是道具，注册到效果系统
 	if piece.item_data:
-		var effect_system = get_node_or_null("/root/ItemEffectSystem")
+		var effect_system: Node = get_node_or_null("/root/ItemEffectSystem")
 		if effect_system:
 			effect_system.register_item(piece)
 	
@@ -105,9 +106,9 @@ func _get_empty_cells(board: Board) -> Array[Cell]:
 	var empty_cells: Array[Cell] = []
 	
 	# 遍历所有单元格
-	for i in range(board.rows):
-		for j in range(board.cols):
-			var cell = board.get_cell(Vector2i(j, i))
+	for i: int in range(board.rows):
+		for j: int in range(board.cols):
+			var cell: Cell = board.get_cell(Vector2i(j, i))
 			if cell and cell.piece == null:
 				empty_cells.append(cell)
 	
@@ -120,4 +121,10 @@ func remove_item(piece: ChessPiece) -> void:
 		return
 	
 	# 使用消除动画（道具和棋子统一处理）
-	piece.eliminate()
+	var cell: Cell = piece.get_parent() as Cell
+	await piece.eliminate()
+	if is_instance_valid(cell) and cell.piece == piece:
+		cell.piece = null
+		GameManager.remove_piece_count(1)
+	ItemEffectSystem.unregister_item(piece)
+	piece.queue_free()

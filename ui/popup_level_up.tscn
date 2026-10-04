@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://75y4vaxsqmt3"]
 
-[ext_resource type="Script" uid="uid://dextr4felo6mh" path="res://ui/popup_level_up.gd" id="1_popup_level_up"]
+[ext_resource type="Script" uid="uid://dbsevh1v4j1iu" path="res://ui/popup_level_up.gd" id="1_popup_level_up"]
 [ext_resource type="PackedScene" uid="uid://dsdjm062tdgra" path="res://ui/item_widget.tscn" id="2_item_widget"]
 
 [node name="PopupLevelUp" type="Control"]

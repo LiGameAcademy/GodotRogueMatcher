@@ -10,6 +10,7 @@ var current_popup: Control = null
 
 func _ready() -> void:
 	layer = 129
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 ## 打开弹窗
 ## [param popup_name: String] 弹窗名称（不含 .tscn 扩展名）
@@ -17,17 +18,17 @@ func _ready() -> void:
 ## [return: Control] 打开的弹窗实例
 func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 	# 如果已有弹窗，先关闭
-	if current_popup:
+	if is_instance_valid(current_popup):
 		close_popup()
 	
 	# 加载并实例化弹窗
-	var popup_path = UI_PATH + popup_name + ".tscn"
+	var popup_path: String = UI_PATH + popup_name + ".tscn"
 	if not ResourceLoader.exists(popup_path):
 		push_error("弹窗资源不存在: " + popup_path)
 		return null
 	
-	var popup_scene = load(popup_path) as PackedScene
-	var popup = popup_scene.instantiate() as Control
+	var popup_scene: PackedScene = load(popup_path) as PackedScene
+	var popup: Control = popup_scene.instantiate() as Control
 	
 	# 添加到场景树
 	add_child(popup)
@@ -45,6 +46,6 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 
 ## 关闭当前弹窗
 func close_popup() -> void:
-	if current_popup:
+	if is_instance_valid(current_popup):
 		current_popup.queue_free()
 		current_popup = null

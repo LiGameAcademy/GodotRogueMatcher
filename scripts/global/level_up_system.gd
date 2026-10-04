@@ -7,6 +7,8 @@ signal level_up_triggered(items: Array[ItemData])
 
 ## 当前等级
 var current_level: int = 0
+var pending_rewards: int = 0
+var is_resolving: bool = false
 
 ## 下一个里程碑分数
 var next_milestone: int = 500
@@ -26,6 +28,8 @@ func _ready() -> void:
 ## 重置系统
 func reset_system() -> void:
 	current_level = 0
+	pending_rewards = 0
+	is_resolving = false
 	next_milestone = initial_milestone
 	initialize_item_pools()
 
@@ -50,7 +54,7 @@ func register_item(item_data: ItemData) -> void:
 		item_data.rarity = "COMMON"
 	
 	# 根据稀有度添加到对应池
-	var rarity_key = item_data.rarity.to_lower()
+	var rarity_key: String = item_data.rarity.to_lower()
 	if not item_pools.has(rarity_key):
 		# 如果稀有度不存在，添加到 common 池
 		rarity_key = "common"
@@ -66,25 +70,25 @@ func register_item(item_data: ItemData) -> void:
 ## 批量注册道具
 ## [param items: Array[ItemData]] 道具数据数组
 func register_items(items: Array[ItemData]) -> void:
-	for item in items:
+	for item: ItemData in items:
 		register_item(item)
 
 ## 从目录加载所有道具资源并注册
 ## [param directory_path: String] 道具资源目录路径（如 "res://data/item/"）
 func load_items_from_directory(directory_path: String) -> void:
-	var dir = DirAccess.open(directory_path)
+	var dir: DirAccess = DirAccess.open(directory_path)
 	if not dir:
 		push_error("无法打开目录: " + directory_path)
 		return
 	
 	dir.list_dir_begin()
-	var file_name = dir.get_next()
+	var file_name: String = dir.get_next()
 	var loaded_count: int = 0
 	
 	while file_name != "":
 		if file_name.ends_with(".tres"):
-			var item_path = directory_path + file_name
-			var item_data = load(item_path) as ItemData
+			var item_path: String = directory_path + file_name
+			var item_data: ItemData = load(item_path) as ItemData
 			if item_data:
 				register_item(item_data)
 				loaded_count += 1
@@ -99,43 +103,41 @@ func load_items_from_directory(directory_path: String) -> void:
 ## [param score: int] 当前分数
 ## [return: bool] 是否触发升级
 func check_level_up(score: int) -> bool:
-	if score >= next_milestone:
-		trigger_level_up()
-		return true
-	return false
+	var gained_reward: bool = false
+	while score >= next_milestone:
+		current_level += 1
+		pending_rewards += 1
+		next_milestone = maxi(next_milestone + 1, int(next_milestone * milestone_multiplier))
+		gained_reward = true
+	return gained_reward
 
-## 触发升级
-func trigger_level_up() -> void:
-	current_level += 1
-	
-	# 计算下一个里程碑
-	next_milestone = int(next_milestone * milestone_multiplier)
-	
-	# 生成三选一选项
-	var options: Array = generate_options()
-	
-	# 发出升级信号
-	level_up_triggered.emit(options)
-	
-	# 打开升级弹窗
-	_open_level_up_popup(options)
-	
-	print("等级提升！当前等级：", current_level, "，下一个里程碑：", next_milestone)
-
-## 打开升级弹窗
-## [param items: Array] 道具选项数组
-func _open_level_up_popup(items: Array) -> void:
-	var popup = await UIManager.open_popup("popup_level_up", {"items": items})
-	# 连接道具选择信号
-	if popup.has_signal("item_selected"):
+## 在回合安全点逐次处理奖励；生成失败时不补救命选择。
+func resolve_pending_rewards(board: Board) -> void:
+	if is_resolving or GameManager.is_game_over:
+		return
+	is_resolving = true
+	while pending_rewards > 0 and not GameManager.is_game_over:
+		pending_rewards -= 1
+		var options: Array[ItemData] = generate_options()
+		if options.size() != 3:
+			push_error("升级候选不足三项")
+			break
+		level_up_triggered.emit(options)
+		var popup: PopupLevelUp = await UIManager.open_popup("popup_level_up", {"items": options}) as PopupLevelUp
+		if not is_instance_valid(popup):
+			break
 		popup.item_selected.connect(_on_item_selected)
+		await popup.closed
+		if board.get_empty_cells().is_empty():
+			GameManager.finish_game()
+	is_resolving = false
 
 ## 道具选择回调
 ## [param item_data: ItemData] 选中的道具数据
 func _on_item_selected(item_data: ItemData) -> void:
 	# 使用 ItemPlacer 将道具放置到棋盘上
 	# 获取 Board 实例（需要从场景树中查找）
-	var board = get_tree().get_first_node_in_group("board")
+	var board: Board = get_tree().get_first_node_in_group("board") as Board
 	if board:
 		ItemPlacer.place_item_randomly(board, item_data)
 	else:
@@ -150,14 +152,14 @@ func generate_options() -> Array[ItemData]:
 	var rare_chance: float = _calculate_rare_chance()
 	var epic_chance: float = _calculate_epic_chance()
 	
-	# 生成 3 个选项，确保类型不同
-	var used_types: Array[String] = []
+	# 生成 3 个不同内容ID的选项
+	var used_ids: Array[String] = []
 	
-	for i in range(3):
-		var item: ItemData = _get_random_item(rare_chance, epic_chance, used_types)
+	for i: int in range(3):
+		var item: ItemData = _get_random_item(rare_chance, epic_chance, used_ids)
 		if item:
 			options.append(item)
-			used_types.append(item.type)
+			used_ids.append(item.id)
 	
 	return options
 
@@ -174,38 +176,28 @@ func _calculate_epic_chance() -> float:
 ## 获取随机道具
 ## [param rare_chance: float] 稀有道具概率
 ## [param epic_chance: float] 史诗道具概率
-## [param used_types: Array[String]] 已使用的类型（避免重复）
+## [param used_ids: Array[String]] 已使用的内容ID（避免重复）
 ## [return: ItemData] 随机道具
-func _get_random_item(rare_chance: float, epic_chance: float, used_types: Array[String]) -> ItemData:
+func _get_random_item(rare_chance: float, epic_chance: float, used_ids: Array[String]) -> ItemData:
 	var rand_value: float = randf()
 	var pool_name: String = "common"
-	
-	# 根据概率选择物品池
 	if rand_value < epic_chance:
 		pool_name = "epic"
 	elif rand_value < rare_chance:
 		pool_name = "rare"
-	
-	# 从对应物品池中获取道具
+	var candidates: Array[ItemData] = []
 	var pool: Array = item_pools.get(pool_name, [])
-	if pool.is_empty():
-		# 如果池为空，降级到普通池
-		pool = item_pools.get("common", [])
-	
-	if pool.is_empty():
-		# 如果所有池都为空，返回 null（后续需要实现物品数据）
+	for item: ItemData in pool:
+		if not used_ids.has(item.id):
+			candidates.append(item)
+	if candidates.is_empty():
+		for fallback_pool: Array in item_pools.values():
+			for item: ItemData in fallback_pool:
+				if not used_ids.has(item.id):
+					candidates.append(item)
+	if candidates.is_empty():
 		return null
-	
-	# 随机选择一个道具
-	var item: ItemData = pool[randi() % pool.size()]
-	
-	# 如果类型已使用，尝试重新选择（最多尝试 5 次）
-	var attempts: int = 0
-	while used_types.has(item.type) and attempts < 5:
-		item = pool[randi() % pool.size()]
-		attempts += 1
-	
-	return item
+	return candidates.pick_random()
 
 ## 获取当前等级
 ## [return: int] 当前等级
