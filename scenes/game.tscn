@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://08elmfaydy88"]
+[gd_scene load_steps=6 format=3 uid="uid://08elmfaydy88"]
 
 [ext_resource type="Script" uid="uid://cver3cnj88n83" path="res://scripts/gameplay/board.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://ba35hldmoep" path="res://scenes/game.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cy1b1q0q5h25h" path="res://ui/hud.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" path="res://gameplay/board/board_view.tscn" id="4_view"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -41,3 +42,5 @@ layer = 128
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(312, 88)
 script = ExtResource("1_uwrxv")
+
+[node name="BoardView" parent="Board" instance=ExtResource("4_view")]

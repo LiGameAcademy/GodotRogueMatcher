@@ -19,8 +19,12 @@ func _init(color: int = -1, range_type: String = "adjacent", count: int = 1) -> 
 	dye_count = count
 
 func apply(context: Dictionary = {}) -> bool:
-	var board = context.get("board")
-	var item_cell = context.get("item_cell")
+	var board_value: Variant = context.get("board")
+	var cell_value: Variant = context.get("item_cell")
+	if not board_value is Board or not cell_value is Cell:
+		return false
+	var board: Board = board_value as Board
+	var item_cell: Cell = cell_value as Cell
 	
 	if not board or not item_cell:
 		return false
@@ -34,8 +38,9 @@ func apply(context: Dictionary = {}) -> bool:
 	
 	# 筛选出有棋子的单元格
 	var valid_cells: Array[Cell] = []
-	for cell in target_cells:
-		if cell.piece and cell.piece.display_mode == ChessPiece.DisplayMode.SHAPE:
+	for cell: Cell in target_cells:
+		var snapshot: PieceState = board.rules.state.get_piece_at(cell.coordinate)
+		if snapshot != null and snapshot.content_id.is_empty():
 			valid_cells.append(cell)
 	
 	if valid_cells.is_empty():
@@ -43,15 +48,13 @@ func apply(context: Dictionary = {}) -> bool:
 	
 	# 随机选择目标
 	var dyed_count: int = 0
-	for i in range(min(dye_count, valid_cells.size())):
-		var target_cell = valid_cells[randi() % valid_cells.size()]
+	for i: int in range(min(dye_count, valid_cells.size())):
+		var target_cell: Cell = valid_cells[randi() % valid_cells.size()]
 		valid_cells.erase(target_cell)
 		
-		var target_piece = target_cell.piece
 		var new_color: int = target_color if target_color >= 0 else randi() % 5
 		
-		target_piece.piece_type = new_color
-		target_piece.update_visual()
+		board.set_piece_color(target_cell.coordinate, new_color)
 		dyed_count += 1
 		
 		print("效果 [", effect_id, "] 应用：将棋子染成颜色 ", new_color, " (位置: ", target_cell.coordinate, ")")
@@ -61,13 +64,13 @@ func apply(context: Dictionary = {}) -> bool:
 ## 获取上下左右4格
 func _get_adjacent_cells(board: Board, pos: Vector2i) -> Array[Cell]:
 	var adjacent: Array[Cell] = []
-	var directions = [
+	var directions: Array[Vector2i] = [
 		Vector2i(0, -1), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(1, 0)
 	]
-	for dir in directions:
-		var new_pos = Vector2i(pos.x + dir.x, pos.y + dir.y)
+	for dir: Vector2i in directions:
+		var new_pos: Vector2i = Vector2i(pos.x + dir.x, pos.y + dir.y)
 		if new_pos.x >= 0 and new_pos.x < board.cols and new_pos.y >= 0 and new_pos.y < board.rows:
-			var cell = board.get_cell(new_pos)
+			var cell: Cell = board.get_cell(new_pos)
 			if cell:
 				adjacent.append(cell)
 	return adjacent
@@ -75,13 +78,13 @@ func _get_adjacent_cells(board: Board, pos: Vector2i) -> Array[Cell]:
 ## 获取周围8格
 func _get_neighbor_cells(board: Board, pos: Vector2i) -> Array[Cell]:
 	var neighbors: Array[Cell] = []
-	for dx in range(-1, 2):
-		for dy in range(-1, 2):
+	for dx: int in range(-1, 2):
+		for dy: int in range(-1, 2):
 			if dx == 0 and dy == 0:
 				continue
-			var new_pos = Vector2i(pos.x + dx, pos.y + dy)
+			var new_pos: Vector2i = Vector2i(pos.x + dx, pos.y + dy)
 			if new_pos.x >= 0 and new_pos.x < board.cols and new_pos.y >= 0 and new_pos.y < board.rows:
-				var cell = board.get_cell(new_pos)
+				var cell: Cell = board.get_cell(new_pos)
 				if cell:
 					neighbors.append(cell)
 	return neighbors

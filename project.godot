@@ -23,7 +23,6 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 GameManager="*res://scripts/global/game_manager.gd"
 MatchSystem="*res://scripts/global/match_system.gd"
 SpawnManager="*res://scripts/global/spawn_manager.gd"
-PathfindingManager="*res://scripts/global/pathfinding_manager.gd"
 LevelUpSystem="*res://scripts/global/level_up_system.gd"
 ItemPlacer="*res://scripts/global/item_placer.gd"
 ItemEffectSystem="*res://scripts/global/item_effect_system.gd"
