@@ -33,6 +33,8 @@ enum DisplayMode {
 
 ## 显示模式
 var display_mode: DisplayMode = DisplayMode.SHAPE
+## 显示映射ID，规则数据由BoardState持有。
+var piece_id: int = 0
 
 ## 棋子类型（0-4，对应5种颜色，仅用于 SHAPE 模式）
 var piece_type: int = 0 :
@@ -67,6 +69,14 @@ func _ready() -> void:
 ## 是否正在移动
 func is_moving() -> bool:
 	return _is_moving
+
+## 重建显示或重试时取消旧演出，释放等待中的移动协程。
+func cancel_movement() -> void:
+	if _is_moving:
+		if tween != null:
+			tween.kill()
+		_is_moving = false
+		movement_completed.emit()
 
 ## 更新视觉效果
 ## 支持两种模式：形状（棋子）和图标（道具）

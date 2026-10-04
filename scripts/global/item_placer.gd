@@ -22,6 +22,7 @@ func create_item(item_data: ItemData) -> ChessPiece:
 	
 	# 初始化物品（将道具数据设置到棋子上）
 	piece.initialize_item(item_data)
+	piece.piece_type = item_data.base_color
 	
 	return piece
 
@@ -56,7 +57,7 @@ func place_item_at(board: Board, cell: Cell, item_data: ItemData) -> bool:
 		return false
 	
 	# 检查位置是否可用
-	if not _can_place_at(cell, item_data):
+	if not _can_place_at(board, cell):
 		return false
 	
 	# 创建物品节点（作为特殊棋子）
@@ -65,9 +66,9 @@ func place_item_at(board: Board, cell: Cell, item_data: ItemData) -> bool:
 		return false
 	
 	# 放置到单元格（使用 piece 属性，统一处理）
-	cell.piece = piece
-	piece.position = Vector2.ZERO
-	GameManager.add_piece_count(1)
+	if not board.place_piece(cell.coordinate, piece):
+		piece.free()
+		return false
 	
 	# 播放出现动画
 	piece.spawn_animation()
@@ -84,47 +85,22 @@ func place_item_at(board: Board, cell: Cell, item_data: ItemData) -> bool:
 ## [param cell: Cell] 目标单元格
 ## [param item_data: ItemData] 物品数据
 ## [return: bool] 是否可以放置
-func _can_place_at(cell: Cell, item_data: ItemData) -> bool:
-	if not cell or not item_data:
-		return false
-	
-	# 检查是否有棋子（如果物品占用空间，不能放在有棋子的位置）
-	if item_data.occupies_space and cell.piece != null:
-		return false
-	
-	# TODO: 检查放置规则（如 BAD_SECTOR_ONLY）
-	# for rule in item_data.placement_rules:
-	#     if not _check_placement_rule(cell, rule):
-	#         return false
-	
-	return true
+func _can_place_at(board: Board, cell: Cell) -> bool:
+	return board.rules.state.is_valid_coordinate(cell.coordinate) and not board.has_piece(cell.coordinate)
 
 ## 获取所有空位
 ## [param board: Board] 棋盘
 ## [return: Array[Cell]] 空位数组
 func _get_empty_cells(board: Board) -> Array[Cell]:
-	var empty_cells: Array[Cell] = []
-	
-	# 遍历所有单元格
-	for i: int in range(board.rows):
-		for j: int in range(board.cols):
-			var cell: Cell = board.get_cell(Vector2i(j, i))
-			if cell and cell.piece == null:
-				empty_cells.append(cell)
-	
-	return empty_cells
+	return board.get_empty_cells()
 
 ## 移除物品
 ## [param piece: ChessPiece] 棋子节点（可能是道具）
-func remove_item(piece: ChessPiece) -> void:
+func remove_item(board: Board, piece: ChessPiece) -> void:
 	if not piece:
 		return
 	
 	# 使用消除动画（道具和棋子统一处理）
-	var cell: Cell = piece.get_parent() as Cell
-	await piece.eliminate()
-	if is_instance_valid(cell) and cell.piece == piece:
-		cell.piece = null
-		GameManager.remove_piece_count(1)
-	ItemEffectSystem.unregister_item(piece)
-	piece.queue_free()
+	var snapshot: PieceState = board.rules.state.get_piece(piece.piece_id)
+	if snapshot != null:
+		board.remove_piece(snapshot.coordinate, true)

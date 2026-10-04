@@ -26,10 +26,10 @@ func after_each() -> void:
 
 func test_occupied_start_can_move_and_restores_obstacle() -> void:
 	_place(Vector2i(0, 0), 0)
-	var path: PackedVector2Array = PathfindingManager.get_chess_path(Vector2i.ZERO, Vector2i(2, 0))
-	assert_eq(path.size(), 3)
-	assert_true(PathfindingManager.a_star.is_point_solid(Vector2i.ZERO))
-	assert_true(PathfindingManager.get_chess_path(Vector2i.ZERO, Vector2i.ZERO).is_empty())
+	var result: BoardMoveResult = board.rules.validate_move(board.rules.state.get_piece_id(Vector2i.ZERO), Vector2i(2, 0))
+	assert_eq(result.path.size(), 3)
+	assert_ne(board.rules.state.get_piece_id(Vector2i.ZERO), 0)
+	assert_false(board.rules.validate_move(result.piece_id, Vector2i.ZERO).is_valid())
 
 func test_click_move_advances_one_turn_and_spawns_three() -> void:
 	var piece: ChessPiece = _place(Vector2i.ZERO, 0)
@@ -82,9 +82,9 @@ func test_spawn_checks_match_before_full_board_failure() -> void:
 	_remove(Vector2i(8, 8))
 	# 所有可能出生颜色均有一条经过最后空位的四连。
 	for n: int in range(4):
-		board.get_cell(Vector2i(4 + n, 8)).piece.piece_type = 0
-		board.get_cell(Vector2i(8, 4 + n)).piece.piece_type = 1
-		board.get_cell(Vector2i(4 + n, 4 + n)).piece.piece_type = 2
+		board.set_piece_color(Vector2i(4 + n, 8), 0)
+		board.set_piece_color(Vector2i(8, 4 + n), 1)
+		board.set_piece_color(Vector2i(4 + n, 4 + n), 2)
 	# 使用确定种子寻找出生颜色0～2，随后恢复同一随机状态。
 	seed(17)
 	var random_state: int = 0
@@ -176,7 +176,7 @@ func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	assert_eq(ItemEffectSystem.placed_items.size(), 0)
 	assert_eq(LevelUpSystem.item_pools["common"].size(), 3)
 	for cell: Cell in board.get_empty_cells():
-		assert_false(PathfindingManager.a_star.is_point_solid(cell.coordinate))
+		assert_eq(board.rules.state.get_piece_id(cell.coordinate), 0)
 
 func test_rewards_queue_and_selection_applies_once() -> void:
 	GameManager.add_score(160)
@@ -201,9 +201,35 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	assert_false(LevelUpSystem.is_resolving)
 	assert_false(get_tree().paused)
 
+func test_legacy_dye_and_destroy_route_through_rule_state() -> void:
+	_place(Vector2i(2, 2), 0)
+	var target: ChessPiece = _place(Vector2i(3, 2), 1)
+	var dye: EffectDyePiece = EffectDyePiece.new(4, "adjacent", 1)
+	assert_true(dye.apply({"board": board, "item_cell": board.get_cell(Vector2i(2, 2))}))
+	assert_eq(board.rules.state.get_piece(target.piece_id).match_color, 4)
+	assert_eq(target.piece_type, 4)
+	var destroy: EffectDestroyPieces = EffectDestroyPieces.new("adjacent", false)
+	assert_true(destroy.apply({"board": board, "item_cell": board.get_cell(Vector2i(2, 2))}))
+	assert_null(board.rules.state.get_piece(target.piece_id))
+	assert_null(board.get_cell(Vector2i(3, 2)).piece)
+	assert_eq(GameManager.piece_count, board.rules.state.get_piece_count())
+	await get_tree().create_timer(0.3).timeout
+
+func test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids() -> void:
+	var item: ItemData = ItemRegistry.create_prism_tower()
+	assert_true(ItemPlacer.place_item_at(board, board.get_cell(Vector2i.ZERO), item))
+	var before: PieceState = board.rules.state.get_piece_at(Vector2i.ZERO)
+	var previous_display: ChessPiece = board.get_cell(Vector2i.ZERO).piece
+	board.rebuild_view()
+	assert_eq(board.rules.state.get_piece_at(Vector2i.ZERO).piece_id, before.piece_id)
+	assert_ne(board.get_cell(Vector2i.ZERO).piece, previous_display)
+	assert_eq(board.get_cell(Vector2i.ZERO).piece.item_data, item)
+	assert_eq(ItemEffectSystem.placed_items.size(), 1)
+	assert_eq(GameManager.piece_count, 1)
+
 func _clear_board() -> void:
 	board.selected_piece = null
-	for child: Node in board.get_children():
+	for child: Node in board.view.get_cells():
 		if child is Cell:
 			_remove((child as Cell).coordinate)
 	GameManager.reset_game()
@@ -212,18 +238,12 @@ func _clear_board() -> void:
 
 func _place(coord: Vector2i, color: int) -> ChessPiece:
 	var piece: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
-	board.get_cell(coord).piece = piece
 	piece.piece_type = color
-	GameManager.add_piece_count(1)
+	assert_true(board.place_piece(coord, piece))
 	return piece
 
 func _remove(coord: Vector2i) -> void:
-	var cell: Cell = board.get_cell(coord)
-	if is_instance_valid(cell.piece):
-		var piece: ChessPiece = cell.piece
-		cell.piece = null
-		piece.queue_free()
-		GameManager.remove_piece_count(1)
+	board.remove_piece(coord)
 
 func _fill_without_lines() -> void:
 	for x: int in range(board.cols):

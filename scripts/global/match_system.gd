@@ -19,60 +19,12 @@ signal match_made(score: int, center_pos: Vector2i, matched_cells: Array[Cell])
 ## 检查是否有可以消除的棋子
 ## 返回所有可消除的单元格数组
 func check_for_elimination(board: Board, target_cell: Cell) -> Array[Cell]:
-	var to_eliminate: Array[Cell] = []
-	
-	# 检查四个方向：横向、纵向、两个斜向
-	var directions: Array[Vector2i] = [
-		Vector2i(1, 0),   # 横向
-		Vector2i(0, 1),   # 纵向
-		Vector2i(1, 1),   # 斜向（左上-右下）
-		Vector2i(1, -1)   # 斜向（右上-左下）
-	]
-	
-	for direction: Vector2i in directions:
-		var matched: Array[Cell] = check_direction(board, target_cell, direction.x, direction.y)
-		if matched.size() >= MIN_MATCH_COUNT:
-			# 合并到总数组（去重）
-			for cell: Cell in matched:
-				if not to_eliminate.has(cell):
-					to_eliminate.append(cell)
-	
-	return to_eliminate
-
-## 检查从给定位置开始的特定方向是否有五个或更多相同的棋子
-func check_direction(board: Board, start_cell: Cell, delta_row: int, delta_col: int) -> Array[Cell]:
-	if start_cell.piece == null:
-		return []  # 如果起始位置为空，则直接返回空数组
-	
-	var to_eliminate: Array[Cell] = [start_cell]  # 待消除的棋子数组
-	var start_type: int = start_cell.piece.piece_type
-
-	for direction: int in [-1, 1]:
-		var local_step: int = 1  # 用于跟踪在每个方向上走了多少步
-		var can_eliminate: bool = true
-		
-		while can_eliminate:
-			var new_coord: Vector2i = Vector2i(
-				start_cell.coordinate.x + local_step * direction * delta_row,
-				start_cell.coordinate.y + local_step * direction * delta_col
-			)
-			
-			# 检查边界条件
-			if new_coord.x < 0 or new_coord.x >= board.cols or new_coord.y < 0 or new_coord.y >= board.rows:
-				break
-			
-			var new_cell: Cell = board.get_cell(new_coord)
-			if new_cell.piece == null:
-				break
-			
-			if new_cell.piece.piece_type == start_type:
-				if not to_eliminate.has(new_cell):
-					to_eliminate.append(new_cell)
-				local_step += 1  # 更新步数
-			else:
-				can_eliminate = false
-	
-	return to_eliminate
+	var cells: Array[Cell] = []
+	for group: BoardMatchGroup in board.rules.find_matches_at(target_cell.coordinate):
+		for piece_id: int in group.piece_ids:
+			var snapshot: PieceState = board.rules.state.get_piece(piece_id)
+			cells.append(board.get_cell(snapshot.coordinate))
+	return cells
 
 ## 检查并消除（便捷方法）
 func check_and_eliminate(board: Board, target_cell: Cell) -> void:
@@ -96,26 +48,9 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 	# 计算道具加成
 	var final_score: int = calculate_item_bonus(board, to_eliminate, base_score)
 
-	# 播放消除动画
+	# 先提交规则移除，再播放独立演出；动画不维护占格。
 	for cell: Cell in to_eliminate:
-		if cell.piece:
-			cell.piece.eliminate()
-
-	# 等待动画完成
-	await board.get_tree().create_timer(0.3).timeout
-
-	# 清除棋子（如果是道具，先注销）
-	var effect_system: Node = get_node_or_null("/root/ItemEffectSystem")
-	for cell: Cell in to_eliminate:
-		if cell.piece and cell.piece.item_data and effect_system:
-			effect_system.unregister_item(cell.piece)
-		if is_instance_valid(cell.piece):
-			var removed_piece: ChessPiece = cell.piece
-			cell.piece = null
-			removed_piece.queue_free()
-
-	# 更新棋子数量
-	GameManager.remove_piece_count(to_eliminate.size())
+		board.remove_piece(cell.coordinate, true)
 
 	# 更新分数（传入加成后的分数）
 	GameManager.add_score(final_score)

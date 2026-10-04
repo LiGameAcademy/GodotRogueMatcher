@@ -15,9 +15,6 @@ var piece_count: int = 0:
 		piece_count = value
 		piece_count_changed.emit(value)
 
-## 最大棋子数量
-var max_pieces: int = 81  # 9x9 = 81
-
 ## 当前回合数
 var turn_count: int = 0
 var is_game_over: bool = false
@@ -59,19 +56,6 @@ func add_score(amount: int) -> void:
 	var level_up_system: Node = get_node_or_null("/root/LevelUpSystem")
 	if level_up_system:
 		level_up_system.check_level_up(score)
-
-## 增加棋子数量
-func add_piece_count(amount: int) -> void:
-	piece_count += amount
-
-## 减少棋子数量
-func remove_piece_count(amount: int) -> void:
-	piece_count -= amount
-
-## 检查游戏是否结束
-func check_game_over() -> void:
-	if piece_count >= max_pieces:
-		finish_game()
 
 ## 只在稳定盘面或生成失败后结束一次。
 func finish_game() -> void:

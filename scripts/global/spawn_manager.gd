@@ -27,7 +27,6 @@ func spawn_random_pieces(board: Board) -> int:
 			push_error("合法空位生成失败")
 			return spawned_count
 		spawned_count += 1
-		GameManager.add_piece_count(1)
 		await MatchSystem.check_and_eliminate(board, cell)
 	if board.get_empty_cells().is_empty():
 		GameManager.finish_game()
@@ -47,20 +46,21 @@ func spawn_piece(board: Board, coordinate: Vector2i = Vector2i(-1, -1)) -> bool:
 			return false
 		coordinate = empty_cells.pick_random().coordinate
 
-	# 检查位置是否可用，如果被占用则重新生成（最多尝试20次）
-	if board.has_piece(coordinate):
+	# 空位与边界只查询权威规则状态。
+	if not board.rules.state.is_valid_coordinate(coordinate) or board.has_piece(coordinate):
 		return false
 
 	# 找到对应坐标位置的网格
-	var cell: Cell = board.get_cell(coordinate)
 	var piece: ChessPiece = s_piece.instantiate()
-	cell.piece = piece
 	piece.piece_type = randi_range(0, PIECE_TYPE_COUNT - 1)
 
 	# 空间压缩机效果：20% 几率生成幽灵球
 	if _should_be_ghost(board):
 		piece.is_ghost = true
 		piece.modulate.a = 0.5  # 幽灵球半透明
+	if not board.place_piece(coordinate, piece):
+		piece.free()
+		return false
 
 	# 生成动画
 	piece.scale = Vector2.ZERO
@@ -76,25 +76,10 @@ func spawn_piece(board: Board, coordinate: Vector2i = Vector2i(-1, -1)) -> bool:
 ## [return: bool] 是否生成幽灵球
 func _should_be_ghost(board: Board) -> bool:
 	# 检查棋盘上是否有空间压缩机
-	var placed_items: Array[Cell] = _get_placed_items(board)
-
-	for item_cell: Cell in placed_items:
-		if not item_cell.piece or not item_cell.piece.item_data:
-			continue
-
-		if item_cell.piece.item_data.id == "space_compressor":
+	for snapshot: PieceState in board.rules.state.get_snapshot():
+		if snapshot.content_id == &"space_compressor":
 			# 20% 几率生成幽灵球
 			if randf() < 0.2:
 				return true
 
 	return false
-
-## 获取棋盘上所有已放置的道具
-func _get_placed_items(board: Board) -> Array[Cell]:
-	var items: Array[Cell] = []
-	for i: int in range(board.rows):
-		for j: int in range(board.cols):
-			var cell: Cell = board.get_cell(Vector2i(j, i))
-			if cell and cell.piece and cell.piece.item_data:
-				items.append(cell)
-	return items

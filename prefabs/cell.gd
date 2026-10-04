@@ -16,24 +16,19 @@ class_name Cell
 @export var path_highlight_color: Color = Color.html("#0080ff")  # 霓虹蓝色
 @export var hover_color: Color = Color.html("#1a1a2a")  # 悬停时背景
 
-## 当前网格包含的棋子
-var piece: ChessPiece = null:
-	set(value):
-		if piece != null:
-			self.remove_child(piece)
-		if value != null:
-			self.add_child(value)
-		piece = value
-		piece_changed.emit(self, piece)
+## 仅查询显示子节点，不存储规则占格。
+var piece: ChessPiece:
+	get:
+		return get_node_or_null("Piece") as ChessPiece
 
 signal pressed(cell: Cell)
-signal piece_changed(cell: Cell, piece: ChessPiece)
 
 ## 状态
 var is_path_highlighted: bool = false
 var is_hovered: bool = false
 var highlight_tween: Tween = null
 var scan_tween: Tween = null
+var path_tween: Tween = null
 
 ## 网格坐标（在棋盘当中的坐标）
 var coordinate: Vector2i = Vector2i.ZERO
@@ -48,6 +43,17 @@ func _ready() -> void:
 	
 	# 启动扫描线动画（可选，低频率）
 	start_scan_animation()
+
+## 以下方法仅供BoardView管理显示，不提交游戏规则。
+func show_piece(display_piece: ChessPiece) -> void:
+	display_piece.name = "Piece"
+	add_child(display_piece)
+
+func take_piece() -> ChessPiece:
+	var display_piece: ChessPiece = piece
+	if is_instance_valid(display_piece):
+		remove_child(display_piece)
+	return display_piece
 
 ## 更新默认样式
 func update_default_style() -> void:
@@ -102,7 +108,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 ## 点击反馈
 func click_feedback() -> void:
 	# 快速闪烁效果
-	var flash_tween = create_tween()
+	var flash_tween: Tween = create_tween()
 	flash_tween.set_trans(Tween.TRANS_QUART)
 	flash_tween.tween_property(background, "modulate", Color(1.5, 1.5, 1.5, 1.0), 0.05)
 	flash_tween.tween_property(background, "modulate", Color.WHITE, 0.1)
@@ -147,10 +153,10 @@ func highlight_path() -> void:
 	highlight_tween.parallel().tween_property(glow_border, "default_color", Color(path_highlight_color.r, path_highlight_color.g, path_highlight_color.b, 0.4), 0.15)
 	
 	# 脉冲效果
-	var pulse_tween = create_tween()
-	pulse_tween.set_loops()
-	pulse_tween.tween_property(glow_border, "default_color", Color(path_highlight_color.r, path_highlight_color.g, path_highlight_color.b, 0.2), 0.5)
-	pulse_tween.tween_property(glow_border, "default_color", Color(path_highlight_color.r, path_highlight_color.g, path_highlight_color.b, 0.6), 0.5)
+	path_tween = create_tween()
+	path_tween.set_loops()
+	path_tween.tween_property(glow_border, "default_color", Color(path_highlight_color.r, path_highlight_color.g, path_highlight_color.b, 0.2), 0.5)
+	path_tween.tween_property(glow_border, "default_color", Color(path_highlight_color.r, path_highlight_color.g, path_highlight_color.b, 0.6), 0.5)
 	
 	# 启动扫描线动画
 	start_scan_animation(path_highlight_color, 0.6)
@@ -158,6 +164,9 @@ func highlight_path() -> void:
 ## 取消高亮
 func unhighlight() -> void:
 	is_path_highlighted = false
+	if path_tween != null:
+		path_tween.kill()
+		path_tween = null
 	if highlight_tween:
 		highlight_tween.kill()
 	
@@ -210,7 +219,7 @@ func stop_scan_animation() -> void:
 		scan_tween = null
 	
 	if scan_line:
-		var fade_tween = create_tween()
+		var fade_tween: Tween = create_tween()
 		fade_tween.tween_property(scan_line, "color", Color(0, 0, 0, 0), 0.2)
 
 func _to_string() -> String:

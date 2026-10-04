@@ -2,9 +2,12 @@ extends Node2D
 
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var board: Board = $Board
+var board_rules: BoardRules
 
 func _ready() -> void:
 	GameManager.game_overed.connect(_on_game_over)
+	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
+	await board.start_game(board_rules)
 
 func _on_game_over() -> void:
 	board.can_selected = false
@@ -14,4 +17,5 @@ func _on_game_over() -> void:
 
 func _on_retry_requested() -> void:
 	UIManager.close_popup()
-	await board.retry_game()
+	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
+	await board.retry_game(board_rules)

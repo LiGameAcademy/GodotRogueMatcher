@@ -1,238 +1,174 @@
 extends Node2D
 class_name Board
 
-## 棋盘管理器
-## 职责：管理棋盘本身（单元格创建、布局、选中、移动）
-
-var s_cell: PackedScene = preload("res://prefabs/cell.tscn")
+## M1兼容协调器：旧回合流程调用规则入口，表现由独立BoardView消费。
+signal initialized
 
 @export var rows: int = 9
 @export var cols: int = 9
 @export var grid_gap: Vector2 = Vector2(1, 1)
 var cell_size: Vector2 = Vector2(64, 64)
-
-## 当前选中的棋子，默认为空
+var rules: BoardRules
+var can_selected: bool = false
+var _generation: int = 0
 var selected_piece: ChessPiece = null:
 	set(value):
 		if is_instance_valid(selected_piece):
 			selected_piece.deselected()
-		if value:
-			value.selected()
 		selected_piece = value
+		if is_instance_valid(selected_piece):
+			selected_piece.selected()
 
-var can_selected: bool = false
-signal initialized
+@onready var view: BoardView = $BoardView
 
 func _ready() -> void:
-	# 添加到组中，方便其他系统查找
 	add_to_group("board")
-	
-	# 确保单例已加载
-	if not PathfindingManager:
-		push_error("PathfindingManager 单例未加载！")
-		return
-	if not SpawnManager:
-		push_error("SpawnManager 单例未加载！")
-		return
-	if not GameManager:
-		push_error("GameManager 单例未加载！")
-		return
-	
-	# 初始化寻路系统
-	PathfindingManager.initialize(rows, cols)
-	
-	# 初始化棋盘
-	initialize_board()
-	
-	# 重置游戏状态（确保初始状态正确）
+	view.cell_pressed.connect(_on_coordinate_pressed)
+
+#region 初始化与重试
+## 规则对象由Game显式注入，重试传入全新的状态。
+func start_game(board_rules: BoardRules) -> void:
+	_generation += 1
+	var generation: int = _generation
+	can_selected = false
+	selected_piece = null
+	rules = board_rules
+	view.configure(cols, rows, cell_size, grid_gap)
 	GameManager.reset_game()
-	GameManager.max_pieces = rows * cols
-	
-	# 生成初始棋子
 	await get_tree().process_frame
-	var spawned: int = await SpawnManager.spawn_random_pieces(self)
-	print("Board 初始化完成，生成了 ", spawned, " 个棋子")
-	
-	# 开始第一回合
+	await SpawnManager.spawn_random_pieces(self)
+	if generation != _generation:
+		return
 	GameManager.start_turn()
 	can_selected = not GameManager.is_game_over
 	initialized.emit()
 
-## 初始化我们的棋盘
-func initialize_board() -> void:
-	for i: int in cols:
-		for j: int in rows:
-			var grid_cell: Cell = s_cell.instantiate()
-			grid_cell.coordinate = Vector2i(i, j)
-			grid_cell.position = Vector2(i * (cell_size.x + grid_gap.x), j * (cell_size.y + grid_gap.y))
-			
-			# 将网格点击事件绑定到相应方法
-			grid_cell.pressed.connect(_on_cell_pressed)
-			
-			# 当棋盘网格的棋子状态发生改变时候，更新AStarGrid2D对象的障碍物信息
-			grid_cell.piece_changed.connect(
-				func(cell: Cell, piece: ChessPiece) -> void:
-					PathfindingManager.update_obstacle(cell.coordinate, piece != null)
-			)
-			
-			self.add_child(grid_cell)
-
-## 重试游戏
-func retry_game() -> void:
-	can_selected = false
-	selected_piece = null
+func retry_game(board_rules: BoardRules) -> void:
 	get_tree().paused = false
 	ItemEffectSystem.placed_items.clear()
-	for child: Node in get_children():
-		if child is Cell:
-			var cell: Cell = child as Cell
-			if is_instance_valid(cell.piece):
-				var old_piece: ChessPiece = cell.piece
-				cell.piece = null
-				old_piece.queue_free()
-			cell.unhighlight()
-	GameManager.reset_game()
-	GameManager.max_pieces = rows * cols
 	LevelUpSystem.reset_system()
 	ItemRegistry.register_all_items()
-	PathfindingManager.initialize(rows, cols)
-	await SpawnManager.spawn_random_pieces(self)
-	GameManager.start_turn()
-	can_selected = not GameManager.is_game_over
+	await start_game(board_rules)
+#endregion
 
-## 真实空位包含普通棋子和道具占格。
-func get_empty_cells() -> Array[Cell]:
-	var cells: Array[Cell] = []
-	for child: Node in get_children():
-		if child is Cell and (child as Cell).piece == null:
-			cells.append(child as Cell)
-	return cells
-
-## 根据坐标获取网格
-func get_cell(coordinate: Vector2i) -> Cell:
-	var grid_index: int = coordinate.x * rows + coordinate.y
-	var cell: Cell = self.get_child(grid_index) as Cell
-	return cell
-
-## 检查棋盘是否为空（没有任何棋子）
-## [return: bool] 如果棋盘为空返回 true
-func is_board_empty() -> bool:
-	for cell: Node in get_children():
-		if cell is Cell:
-			if cell.piece != null:
-				return false
+#region 单一棋盘写入口与显示适配
+func place_piece(coordinate: Vector2i, piece: ChessPiece) -> bool:
+	var content_id: StringName = StringName(piece.item_data.id) if piece.item_data != null else &""
+	var snapshot: PieceState = rules.place_piece(coordinate, piece.piece_type, content_id, piece.is_ghost)
+	if snapshot == null:
+		return false
+	view.show_piece(snapshot, piece)
+	_update_count_display()
 	return true
 
-## 根据坐标集合获取多个棋盘网格
-func get_cells(coords: Array[Vector2i]) -> Array[Cell]:
-	var cells: Array[Cell]
-	for c: Vector2i in coords:
-		cells.append(get_cell(c))
+func remove_piece(coordinate: Vector2i, animated: bool = false) -> bool:
+	var piece_id: int = rules.state.get_piece_id(coordinate)
+	var snapshot: PieceState = rules.remove_piece(piece_id)
+	if snapshot == null:
+		return false
+	var piece: ChessPiece = view.get_piece(piece_id)
+	if selected_piece == piece:
+		selected_piece = null
+	if is_instance_valid(piece) and piece.item_data != null:
+		ItemEffectSystem.unregister_item(piece)
+	view.remove_piece(snapshot, animated)
+	_update_count_display()
+	return true
+
+func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
+	var piece_id: int = rules.state.get_piece_id(coordinate)
+	if not rules.set_piece_color(piece_id, match_color):
+		return false
+	view.show_color(piece_id, match_color)
+	return true
+
+func rebuild_view() -> void:
+	selected_piece = null
+	view.rebuild(rules.state.get_snapshot())
+	# 重建不是获得道具，不重新触发ON_PLACE。
+	ItemEffectSystem.placed_items.clear()
+	for snapshot: PieceState in rules.state.get_snapshot():
+		if not snapshot.content_id.is_empty():
+			ItemEffectSystem.placed_items.append(view.get_piece(snapshot.piece_id))
+
+func get_cell(coordinate: Vector2i) -> Cell:
+	return view.get_cell(coordinate)
+
+func get_empty_cells() -> Array[Cell]:
+	var cells: Array[Cell] = []
+	for coordinate: Vector2i in rules.state.get_empty_coordinates():
+		cells.append(get_cell(coordinate))
 	return cells
 
-## 判断坐标位置是否存在棋子
-func has_piece(coordinate: Vector2i) -> bool:
-	var cell: Cell = get_cell(coordinate)
-	return cell.piece != null
+func get_cells(coordinates: Array[Vector2i]) -> Array[Cell]:
+	var cells: Array[Cell] = []
+	for coordinate: Vector2i in coordinates:
+		cells.append(get_cell(coordinate))
+	return cells
 
-## 网格点击事件处理函数
+func has_piece(coordinate: Vector2i) -> bool:
+	return rules.state.get_piece_id(coordinate) != 0
+
+func is_board_empty() -> bool:
+	return rules.state.get_piece_count() == 0
+#endregion
+
+#region 旧回合流程兼容
 func _on_cell_pressed(cell: Cell) -> void:
+	await _on_coordinate_pressed(cell.coordinate)
+
+func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
+	if not can_selected or GameManager.is_game_over or not is_instance_valid(selected_piece) or target_cell == null:
+		return false
+	var result: BoardMoveResult = rules.move_piece(selected_piece.piece_id, target_cell.coordinate)
+	if not result.is_valid():
+		selected_piece = null
+		return false
+	var generation: int = _generation
+	can_selected = false
+	# 移动已经提交，演出只使用路径结果，不决定是否合法。
+	await view.animate_move(result, duration)
+	if generation != _generation:
+		return false
+	selected_piece = null
+	await MatchSystem.check_and_eliminate(self, target_cell)
+	if generation != _generation:
+		return false
+	await LevelUpSystem.resolve_pending_rewards(self)
+	if generation != _generation or GameManager.is_game_over:
+		return true
+	GameManager.end_turn()
+	await LevelUpSystem.resolve_pending_rewards(self)
+	if generation != _generation or GameManager.is_game_over:
+		return true
+	# M2迁移前保留旧Demo的计分与补棋规则。
+	var should_spawn: bool = not GameManager.score_earned_this_turn or is_board_empty()
+	if should_spawn:
+		await get_tree().create_timer(0.5).timeout
+		if generation != _generation:
+			return false
+		await SpawnManager.spawn_random_pieces(self)
+		if generation != _generation:
+			return false
+	if not GameManager.is_game_over:
+		await LevelUpSystem.resolve_pending_rewards(self)
+		if generation != _generation:
+			return false
+		if not GameManager.is_game_over:
+			GameManager.start_turn()
+	can_selected = not GameManager.is_game_over
+	return true
+
+func _on_coordinate_pressed(coordinate: Vector2i) -> void:
 	if not can_selected or GameManager.is_game_over:
 		return
-	
-	# 判断点击网格是否有棋子？
-	if cell.piece != null:
-		# 有:将其存为选中棋子
-		selected_piece = cell.piece
-	elif selected_piece != null:
-		# 没有: 判断当前是否选中了棋子？
-		# 有：执行移动逻辑（移动、消除、生成逻辑都在 move_selected_piece 中处理）
-		await move_selected_piece(cell)
+	var piece_id: int = rules.state.get_piece_id(coordinate)
+	if piece_id != 0:
+		selected_piece = view.get_piece(piece_id)
+	elif is_instance_valid(selected_piece):
+		await move_selected_piece(get_cell(coordinate))
 
-## 移动棋子（非阻塞）
-func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
-	if not can_selected or GameManager.is_game_over or not is_instance_valid(selected_piece) or target_cell.piece != null:
-		return false
-	can_selected = false
-	var selected_cell: Cell = selected_piece.get_parent() as Cell
-
-	# 获取导航路径（坐标点集合）
-	var path_array: PackedVector2Array = PathfindingManager.get_chess_path(selected_cell.coordinate, target_cell.coordinate)
-	# 转换为 Vector2i 数组
-	var path: Array[Vector2i] = []
-	for vec: Vector2 in path_array:
-		path.append(Vector2i(vec))
-	var path_cells: Array[Cell] = get_cells(path)
-
-	if not path.is_empty():
-		# 导航路径不为空，代表有路径
-		# 高亮路径
-		for c: Cell in path_cells:
-			c.highlight_path()
-
-		# 移除棋子
-		selected_cell.piece = null
-		selected_piece.position = selected_cell.position
-		self.add_child(selected_piece)
-
-		var move_duration: float = duration / path.size()
-
-		# 启动所有移动动画（顺序执行，每个完成后触发下一个）
-		await _move_along_path(path, move_duration)
-
-		# 放置棋子
-		self.remove_child(selected_piece)
-		target_cell.piece = selected_piece
-		selected_piece.position = Vector2.ZERO
-
-		# 取消高亮
-		for c: Cell in path_cells:
-			c.unhighlight()
-
-		selected_piece = null
-		# 检查消除
-		await MatchSystem.check_and_eliminate(self, target_cell)
-
-		# 移动完成，结束回合
-		await LevelUpSystem.resolve_pending_rewards(self)
-		if GameManager.is_game_over:
-			return true
-		GameManager.end_turn()
-		await LevelUpSystem.resolve_pending_rewards(self)
-		if GameManager.is_game_over:
-			return true
-
-		# 核心机制：如果创造了得分就不产生新的棋子（除非棋盘空了）
-		var should_spawn: bool = false
-		if not GameManager.score_earned_this_turn:
-			# 没有得分，正常生成新棋子
-			should_spawn = true
-		elif is_board_empty():
-			# 有得分但棋盘为空，必须生成新棋子
-			should_spawn = true
-			print("棋盘为空，强制生成新棋子")
-		else:
-			# 有得分且棋盘不为空，不生成新棋子
-			print("本轮产生了得分，不生成新棋子")
-
-		if should_spawn:
-			await get_tree().create_timer(0.5).timeout
-			await SpawnManager.spawn_random_pieces(self)
-
-		# 生成完成后开始新回合
-		if not GameManager.is_game_over:
-			await LevelUpSystem.resolve_pending_rewards(self)
-			if not GameManager.is_game_over:
-				GameManager.start_turn()
-
-	selected_piece = null
-	can_selected = not GameManager.is_game_over
-	return not path.is_empty()
-
-## 沿着路径顺序移动（顺序执行动画）
-func _move_along_path(path: Array[Vector2i], move_duration: float) -> void:
-	for p: Vector2i in path:
-		var cell: Cell = get_cell(p)
-		# 每次等待一个移动完成后再开始下一个
-		selected_piece.move_to_and_wait(cell, move_duration)
-		await selected_piece.movement_completed
+func _update_count_display() -> void:
+	# 旧HUD兼容字段是派生显示值，不能用于占格或寻路决策。
+	GameManager.piece_count = rules.state.get_piece_count()
+#endregion
