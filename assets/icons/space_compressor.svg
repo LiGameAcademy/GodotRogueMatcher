@@ -1,0 +1,28 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="compGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8800ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="compGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- 六边形主体 -->
+  <polygon points="32,10 48,20 48,36 32,46 16,36 16,20" fill="url(#compGrad)" filter="url(#compGlow)" opacity="0.9"/>
+  <!-- 内部压缩线 -->
+  <line x1="32" y1="20" x2="32" y2="36" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  <line x1="24" y1="24" x2="40" y2="32" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <line x1="24" y1="32" x2="40" y2="24" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  <!-- 压缩箭头 -->
+  <path d="M 20 28 L 24 28 L 22 26 M 24 28 L 22 30" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <path d="M 44 28 L 40 28 L 42 26 M 40 28 L 42 30" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- 中心点 -->
+  <circle cx="32" cy="28" r="2" fill="#ffffff" opacity="0.8"/>
+  <circle cx="32" cy="36" r="2" fill="#ffffff" opacity="0.8"/>
+</svg>
+

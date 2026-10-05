@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"blast_extra"
+title = "爆破补分"
+description = "每次消除了至少一枚棋子的爆炸额外分增加5。"
+action = 6
+base_weight = 6.0
+tags = Array[StringName]([&"exp", &"extra"])
+is_starter = false
+is_persistent = true
+fallback_only = false
+need_rule = &"explosion_payoff"
+minimum_reward = 3
