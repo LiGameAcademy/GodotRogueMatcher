@@ -22,23 +22,28 @@ func _run() -> void:
 	var start_seed: int = 1
 	var output: String = "user://bot_reports/latest"
 	var move_limit: int = 300
+	var telemetry_output: String = TelemetryFactory.CONFIG.local_directory
 	for arg: String in args:
 		if arg.begins_with("--count="): count = arg.trim_prefix("--count=").to_int()
 		elif arg.begins_with("--seed="): start_seed = arg.trim_prefix("--seed=").to_int()
 		elif arg.begins_with("--output="): output = arg.trim_prefix("--output=")
 		elif arg.begins_with("--moves="): move_limit = arg.trim_prefix("--moves=").to_int()
+		elif arg.begins_with("--telemetry-output="): telemetry_output = arg.trim_prefix("--telemetry-output=")
 	if count <= 0 or count > 1000 or move_limit <= 0:
 		push_error("Invalid batch bounds")
 		quit(2)
 		return
 	var analysis: RunAnalysis = RunAnalysis.new()
 	var failures: int = 0
+	var telemetry_factory: TelemetryFactory = TelemetryFactory.new()
+	telemetry_factory.directory = telemetry_output
 	for strategy_name: String in ["random", "greedy"]:
 		for index: int in range(count):
 			var strategy: RuleBot = RandomLegalBot.new(start_seed + index) if strategy_name == "random" else GreedyBot.new(start_seed + index)
 			strategy.config = strategy.config.duplicate(true) as BotConfig
 			strategy.config.move_limit = move_limit
 			var runner: BotRunner = BotRunner.new()
+			runner.telemetry_factory = telemetry_factory
 			var recorder: RunRecorder = runner.play(start_seed + index, start_seed + index + 100000, strategy, true, false)
 			# 实際落盘后再读回回放，而非只校验内存副本。
 			var replay: RuleReplay = RuleReplay.new()

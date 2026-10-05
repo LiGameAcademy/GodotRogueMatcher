@@ -1,6 +1,8 @@
 class_name RunRecorder
 extends RefCounted
 
+signal record_appended(record: Dictionary)
+
 const SCHEMA: String = "run-jsonl-v1"
 var records: Array[Dictionary] = []
 var path: String = ""
@@ -42,6 +44,7 @@ func append(kind: String, payload: Dictionary) -> void:
 	record["elapsed_ms"] = str(Time.get_ticks_msec() - _start_ms)
 	record = RunSnapshot.normalize(record)
 	records.append(record)
+	record_appended.emit(record.duplicate(true))
 	if _file != null and error.is_empty():
 		_file.store_line(RunSnapshot.canonical(record))
 		if _file.get_error() != OK: _fail("本局记录不完整：JSONL写入或刷新失败")

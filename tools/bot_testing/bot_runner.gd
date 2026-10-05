@@ -2,6 +2,8 @@ class_name BotRunner
 extends RefCounted
 
 var last_replay_error: String = ""
+var telemetry_factory: TelemetryFactory
+var last_telemetry: TelemetryProjector
 
 func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = true, verify: bool = true) -> RunRecorder:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value)
@@ -11,7 +13,9 @@ func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = t
 	strategy.random.seed = strategy_seed
 	if strategy is GreedyBot: strategy.version = "greedy-v1"
 	recorder.metadata = {"strategy": strategy.version, "strategy_seed": str(strategy_seed), "bot_config": RunSnapshot.resource_fields(strategy.config)}
+	if telemetry_factory != null: last_telemetry = telemetry_factory.attach(recorder, run.state.run_id)
 	recorder.begin(run, "bot", save)
+	if last_telemetry != null: last_telemetry.set_interval("busy")
 	var started: int = Time.get_ticks_msec()
 	var handled: int = 0
 	var status: String = "censored"

@@ -10,6 +10,8 @@ signal initialized
 var cell_size: Vector2 = Vector2(64, 64)
 var rules: BoardRules
 var run: RunController
+var telemetry_factory: TelemetryFactory
+var observation: BoardObservation = BoardObservation.new()
 var can_selected: bool = false
 var _generation: int = 0
 var _presented_events: Dictionary[int, bool] = {}
@@ -34,6 +36,10 @@ func _ready() -> void:
 	view.cell_pressed.connect(_on_coordinate_pressed)
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: observation.focused(false)
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN: observation.focused(true)
+	elif what == NOTIFICATION_PAUSED: observation.paused(not UIManager.current_popup is PopupSkillChoice)
+	elif what == NOTIFICATION_UNPAUSED: observation.paused(false)
 	if run == null or run.recorder == null or run.recorder.ended: return
 	if what == NOTIFICATION_PAUSED:
 		# 技能面板使用树暂停来接管输入，其等待单独归类。
@@ -67,13 +73,16 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	UIManager.close_popup()
 	await get_tree().process_frame
 	var initial: RunStepResult = run.initialize()
-	if record_run:
+	if record_run or telemetry_factory != null:
 		run.recorder = RunRecorder.new()
-		run.recorder.begin(run, "human")
+		observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
+		run.recorder.begin(run, "human", record_run)
+		observation.busy(true)
 	await _present_spawns(initial.spawns)
 	if generation != _generation: return
 	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
+	observation.busy(false)
 	initialized.emit()
 
 func retry_game(board_rules: BoardRules) -> void:
@@ -105,12 +114,14 @@ func load_explosion_demo() -> bool:
 	view.configure(cols, rows, cell_size, grid_gap)
 	run.initialize("fixture_f6")
 	run.recorder = RunRecorder.new()
+	observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
 	run.recorder.begin(run, "fixture")
 	view.rebuild(rules.state.get_snapshot())
 	refresh_ability_markers()
 	_update_count_display()
 	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = true
+	observation.busy(false)
 	return true
 
 func refresh_ability_markers() -> void:
@@ -251,7 +262,7 @@ func is_board_empty() -> bool:
 func _on_cell_pressed(cell: Cell) -> void:
 	await _on_coordinate_pressed(cell.coordinate)
 
-func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait_ms: int = -1) -> bool:
+func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait_ms: int = -1, input_id: String = "") -> bool:
 	if not can_selected or GameManager.is_game_over or not is_instance_valid(selected_piece) or target_cell == null:
 		return false
 	var command: MovePieceCommand = MovePieceCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
@@ -259,7 +270,10 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 	command.target = target_cell.coordinate
 	command.buffered = buffered_wait_ms >= 0
 	command.buffered_wait_ms = maxi(0, buffered_wait_ms)
+	if input_id.is_empty(): input_id = observation.input("move", command.buffered)
+	observation.busy(true)
 	var outcome: CommandResult = run.execute_command(command)
+	observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id), command.buffered_wait_ms)
 	var turn: TurnResult = outcome.turn
 	if turn == null: return false
 	var result: BoardMoveResult = turn.move
@@ -268,6 +282,7 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 		push_error(run.state.rule_error)
 		return false
 	if not result.is_valid():
+		observation.busy(false)
 		selected_piece = null
 		return false
 	var generation: int = _generation
@@ -300,6 +315,7 @@ func _continue_run(generation: int) -> void:
 			&"input":
 				GameManager.turn_started.emit(run.state.turn_count)
 				if run.recorder != null: run.recorder.set_interval("input")
+				observation.busy(false)
 				return
 			&"finished":
 				GameManager.finish_game()
@@ -324,18 +340,23 @@ func _present_spawns(spawns: Array[SpawnResult]) -> void:
 
 func _on_coordinate_pressed(coordinate: Vector2i) -> void:
 	if GameManager.is_game_over or get_tree().paused or not run.state.rule_error.is_empty():
+		observation.resolve(observation.input("click"), "discarded", "game_over" if GameManager.is_game_over else "paused_or_error")
 		return
 	if not can_selected:
 		if _turn_in_progress: _buffer_input(coordinate)
+		else: observation.resolve(observation.input("click"), "discarded", "busy")
 		return
 	var piece_id: int = rules.state.get_piece_id(coordinate)
 	if piece_id != 0:
 		selected_piece = view.get_piece(piece_id)
+		observation.resolve(observation.input("select"), "selected", "piece_selected")
 	elif is_instance_valid(selected_piece):
 		await move_selected_piece(get_cell(coordinate))
+	else: observation.resolve(observation.input("click"), "discarded", "no_selection")
 
 ## 只缓存下一次操作。奖励弹窗、重试和已消失的实体不继承旧意图。
-func cancel_buffered_input() -> void:
+func cancel_buffered_input(reason: String = "cancelled") -> void:
+	observation.cancel_buffer(reason)
 	if is_instance_valid(view):
 		var cell: Cell = view.get_cell(_buffered_coordinate)
 		if cell != null: cell.unhighlight()
@@ -350,29 +371,41 @@ func _buffer_input(coordinate: Vector2i) -> void:
 	if is_instance_valid(cell.piece):
 		var id: int = cell.piece.piece_id
 		if rules.state.get_piece(id) == null: return
-		cancel_buffered_input()
+		cancel_buffered_input("overwritten")
+		observation.buffered_input = observation.input("move", true)
 		_buffered_started_ms = Time.get_ticks_msec()
 		_buffered_piece_id = id
 		_buffered_coordinate = coordinate
 		cell.highlight_path()
 	elif _buffered_piece_id != 0:
+		if _buffered_target != Vector2i(-1, -1):
+			observation.cancel_buffer("overwritten")
+			observation.buffered_input = observation.input("move", true)
 		_buffered_target = coordinate
 
 func _resume_buffered_input() -> void:
 	var id: int = _buffered_piece_id
 	var target: Vector2i = _buffered_target
+	var input_id: String = observation.buffered_input
+	observation.buffered_input = ""
 	cancel_buffered_input()
-	if not can_selected or rules.state.get_piece(id) == null: return
+	if not can_selected or rules.state.get_piece(id) == null:
+		observation.resolve(input_id, "discarded", "piece_missing_or_busy")
+		return
 	selected_piece = view.get_piece(id)
 	if target != Vector2i(-1, -1):
 		# 下一帧在最新棋盘重新寻路，不与当前回合重入，也不跨局执行。
-		_commit_buffered_move.call_deferred(_generation, id, target, Time.get_ticks_msec() - _buffered_started_ms)
+		_commit_buffered_move.call_deferred(_generation, id, target, Time.get_ticks_msec() - _buffered_started_ms, input_id)
+	else: observation.resolve(input_id, "selected", "buffered_selection")
 
-func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_ms: int) -> void:
-	if generation != _generation or not can_selected or get_tree().paused: return
-	if not is_instance_valid(selected_piece) or selected_piece.piece_id != id: return
-	if rules.state.get_piece_id(target) != 0: return
-	await move_selected_piece(get_cell(target), 0.5, waiting_ms)
+func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_ms: int, input_id: String = "") -> void:
+	if generation != _generation or not can_selected or get_tree().paused:
+		observation.resolve(input_id, "discarded", "stale_run_or_busy")
+		return
+	if not is_instance_valid(selected_piece) or selected_piece.piece_id != id or rules.state.get_piece_id(target) != 0:
+		observation.resolve(input_id, "discarded", "piece_changed_or_target_occupied")
+		return
+	await move_selected_piece(get_cell(target), 0.5, waiting_ms, input_id)
 
 func _update_count_display() -> void:
 	# 旧HUD兼容字段是派生显示值，不能用于占格或寻路决策。

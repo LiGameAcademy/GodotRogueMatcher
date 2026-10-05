@@ -3,11 +3,13 @@ extends Node2D
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var board: Board = $Board
 @export var record_runs: bool = true
+@export var collect_telemetry: bool = true
 var board_rules: BoardRules
 @export var enable_debug_fixtures: bool = true
 
 func _ready() -> void:
 	GameManager.game_overed.connect(_on_game_over)
+	if collect_telemetry: board.telemetry_factory = TelemetryFactory.new()
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.start_game(board_rules, record_runs)
 
