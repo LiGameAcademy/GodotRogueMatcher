@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/popup_skill_choice.gd" id="1"]
+
+[node name="PopupSkillChoice" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.03, 0.06, 0.9)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+layout_mode = 2
+
+[node name="Column" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Heading" type="Label" parent="Center/Panel/Column"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="Center/Panel/Column"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Options" type="HBoxContainer" parent="Center/Panel/Column"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ChoiceOne" type="Button" parent="Center/Panel/Column/Options"]
+custom_minimum_size = Vector2(260, 230)
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="ChoiceTwo" type="Button" parent="Center/Panel/Column/Options"]
+custom_minimum_size = Vector2(260, 230)
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="ChoiceThree" type="Button" parent="Center/Panel/Column/Options"]
+custom_minimum_size = Vector2(260, 230)
+layout_mode = 2
+autowrap_mode = 2

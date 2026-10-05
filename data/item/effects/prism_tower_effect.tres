@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=4 format=3 uid="uid://prism_tower_effect"]
+
+[ext_resource type="Script" path="res://gameplay/items/item_effect_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://gameplay/items/conditions/condition_timing.gd" id="2_timing"]
+[ext_resource type="Script" path="res://gameplay/items/effects/effect_add_score.gd" id="3_score"]
+
+[sub_resource type="ConditionTiming" id="ConditionTiming_1"]
+condition_id = "timing"
+timing = 3
+
+[sub_resource type="EffectAddScore" id="EffectAddScore_1"]
+effect_id = "add_score"
+score_multiplier = 1.0
+fixed_bonus = 0
+
+[resource]
+script = ExtResource("1_config")
+effects = [SubResource("EffectAddScore_1")]
+conditions = [SubResource("ConditionTiming_1")]
+

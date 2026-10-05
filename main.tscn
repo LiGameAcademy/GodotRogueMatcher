@@ -1,56 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dier8r26uw7nq"]
+[gd_scene load_steps=3 format=3 uid="uid://dier8r26uw7nq"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_y87x1"]
-[ext_resource type="Script" path="res://src/entities/Board.gd" id="2_ck47c"]
-[ext_resource type="Script" path="res://src/widgets/framework/UIManager.gd" id="3_w6lc5"]
+[ext_resource type="Script" uid="uid://bw3id8eqglbfg" path="res://main.gd" id="1_y87x1"]
+[ext_resource type="PackedScene" uid="uid://08elmfaydy88" path="res://gameplay/game.tscn" id="3_h2yge"]
 
-[node name="main" type="Node2D"]
+[node name="Main" type="Node2D"]
 script = ExtResource("1_y87x1")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-
-[node name="ColorRect" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0, 0, 0, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -24.0
-offset_top = 30.0
-offset_right = 24.0
-offset_bottom = 70.0
-grow_horizontal = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Control/MarginContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "分数：0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Board" type="Node2D" parent="."]
-position = Vector2(312, 88)
-script = ExtResource("2_ck47c")
-
-[node name="UIManager" type="CanvasLayer" parent="."]
-process_mode = 3
-script = ExtResource("3_w6lc5")
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Game" parent="." instance=ExtResource("3_h2yge")]

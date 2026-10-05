@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"blast_reward"
+title = "余震奖励"
+description = "爆炸每实际消除一枚棋子，额外分再加5。最多3级。"
+action = 3
+base_weight = 10.0
+tags = Array[StringName]([&"exp", &"extra"])
+is_starter = false
+is_persistent = true
+fallback_only = false
+need_rule = &"explosion_payoff"

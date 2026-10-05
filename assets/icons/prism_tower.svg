@@ -1,0 +1,26 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="prismGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ff00ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00ffff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- 棱镜主体 -->
+  <polygon points="32,8 48,24 32,40 16,24" fill="url(#prismGrad)" filter="url(#glow)" opacity="0.9"/>
+  <!-- 内部高光 -->
+  <polygon points="32,12 44,24 32,36 20,24" fill="#ffffff" opacity="0.3"/>
+  <!-- 底部基座 -->
+  <rect x="24" y="40" width="16" height="4" fill="#00ffff" opacity="0.8"/>
+  <rect x="26" y="44" width="12" height="2" fill="#00ffff" opacity="0.6"/>
+  <!-- 顶部光点 -->
+  <circle cx="32" cy="8" r="2" fill="#ffffff" opacity="0.9"/>
+</svg>
+

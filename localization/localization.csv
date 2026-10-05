@@ -1,0 +1,39 @@
+key,zh_CN,en_US
+item.prism_tower.name,棱镜塔,Prism Tower
+item.prism_tower.description,视为万能色，参与消除时得分 x2,Acts as wildcard. Score x2 when participating in matches
+item.amplifier.name,增幅器,Amplifier
+item.amplifier.description,周围8格发生的消除，基础分 +100%,Surrounding 8 cells get +100% base score on matches
+item.dye_station.name,染色工厂,Dye Station
+item.dye_station.description,每回合将上下左右的1个随机球染成指定颜色,Each turn randomly dyes 1 ball around it to specified color
+item.space_compressor.name,空间压缩机,Space Compressor
+item.space_compressor.description,新生成的球有 20% 几率是"幽灵球",New balls have 20% chance to be "ghost balls"
+item.ether_totem.name,以太图腾,Ether Totem
+item.ether_totem.description,所有红球消除得分 x1.5 倍率,All red ball matches get x1.5 score multiplier
+item.energy_core.name,能量核心,Energy Core
+item.energy_core.description,所有消除得分 +50%,All matches get +50% score
+item.bomb.name,炸弹,Bomb
+item.bomb.description,放置时立即炸毁周围3x3区域的所有棋子,Immediately destroys all pieces in surrounding 3x3 area when placed
+item.drill.name,钻头,Drill
+item.drill.description,放置时清除周围3x3区域的棋子（不占用空间）,Clears all pieces in surrounding 3x3 area when placed (does not occupy space)
+item.swapper.name,移位器,Swapper
+item.swapper.description,放置时随机交换两个相邻建筑的位置,Randomly swaps positions of two adjacent buildings when placed
+ui.menu.title,矩阵连线,Matrix Link
+ui.menu.start,开始游戏,Start Game
+ui.menu.settings,设置,Settings
+ui.menu.quit,退出,Quit
+ui.button.retry,重试,Retry
+ui.button.next_level,下一关,Next Level
+ui.button.back,返回,Back
+ui.game.score,分数,Score
+ui.game.coins,金币,Coins
+ui.game.turn,回合,Turn
+ui.game.security_level,安全等级,Security Level
+message.game_over,游戏结束,Game Over
+message.level_complete,关卡完成,Level Complete
+message.insufficient_coins,金币不足,Insufficient Coins
+message.invalid_position,无法放置在此位置,Cannot place here
+message.level_up,等级提升,Level Up
+item.type.building,建筑,Building
+item.type.relic,遗物,Relic
+item.type.consumable,消耗品,Consumable
+item.type.passive,被动,Passive

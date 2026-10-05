@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"score_multiplier"
+title = "计分倍率"
+description = "五连基础分的全局倍率增加0.2，额外分不受倍率影响。"
+action = 4
+base_weight = 8.0
+tags = Array[StringName]([&"mult"])
+is_starter = false
+is_persistent = true
+fallback_only = false
+need_rule = &""

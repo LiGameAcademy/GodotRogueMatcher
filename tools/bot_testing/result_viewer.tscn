@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tools/bot_testing/result_viewer.gd" id="1"]
+[ext_resource type="PackedScene" path="res://gameplay/board/board_view.tscn" id="2"]
+
+[node name="ResultViewer" type="Node2D"]
+script = ExtResource("1")
+
+[node name="BoardView" parent="." instance=ExtResource("2")]
+position = Vector2(45, 160)
+scale = Vector2(0.75, 0.75)
+
+[node name="Controls" type="VBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 1110.0
+offset_bottom = 125.0
+
+[node name="Path" type="HBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="PathInput" type="LineEdit" parent="Controls/Path"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "输入 JSONL 文件路径（user://run_records/... 或绝对路径）"
+
+[node name="Load" type="Button" parent="Controls/Path"]
+layout_mode = 2
+text = "加载记录"
+
+[node name="Actions" type="HBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="Step" type="Button" parent="Controls/Actions"]
+layout_mode = 2
+text = "下一步"
+
+[node name="Play" type="CheckButton" parent="Controls/Actions"]
+layout_mode = 2
+text = "自动播放"
+
+[node name="Speed" type="OptionButton" parent="Controls/Actions"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "1 倍"
+popup/item_1/text = "4 倍"
+popup/item_2/text = "16 倍"
+
+[node name="Status" type="Label" parent="Controls"]
+layout_mode = 2
+text = "结果观看 · 不验证规则一致性"
+
+[node name="Clock" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true

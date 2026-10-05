@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"core_drop"
+title = "爆壳手登场"
+description = "随机空格出现一枚绿色爆壳手，被消除时爆炸。"
+action = 0
+base_weight = 10.0
+tags = Array[StringName]([&"exp"])
+is_starter = true
+is_persistent = false
+fallback_only = false
+need_rule = &"restore_explosion"
