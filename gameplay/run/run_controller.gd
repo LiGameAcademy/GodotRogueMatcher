@@ -3,10 +3,30 @@ extends RefCounted
 
 var state: RunState
 var abilities: AbilityResolver
+const PROGRESSION: ProgressionConfig = preload("res://gameplay/progression/content/progression_config.tres")
+var recorder: RunRecorder
+var continuation: StringName = &"idle"
+var last_command_id: int = 0
+var initialization: String = "normal"
+var _direct_match: bool = false
+var _last_payload: Dictionary = {}
+var _last_result: CommandResult
+
+func direct_match() -> bool:
+	return _direct_match
+
+## 驱动发现无法推进时也留下显式诊断；不伪造棋盘失败。
+func report_error(reason: String) -> void:
+	state.rule_error = reason
+	state.phase = RunState.Phase.ERROR
+	if recorder != null:
+		recorder.append("Diagnostic", {"reason": reason})
+		recorder.checkpoint(self)
 
 func _init(rules: BoardRules, run_seed: int) -> void:
 	state = RunState.new(rules, run_seed)
 	abilities = AbilityResolver.new(state)
+	state.run_id = "%d-%d" % [run_seed, Time.get_ticks_usec()]
 
 ## 合法操作一次提交移动、消除和基础计分；演出不重新计算。
 func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
@@ -21,6 +41,7 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	state.action_id += 1
 	state.phase = RunState.Phase.MOVING
 	result.matches = resolve_matches_at(target)
+	state.valid_moves += 1
 	result.direct_match = not result.matches.is_empty() and result.matches[0].cause == &"match"
 	return result
 
@@ -101,4 +122,105 @@ func _resolve_groups(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	if not abilities.last_error.is_empty():
 		state.rule_error = abilities.last_error
 		state.phase = RunState.Phase.ERROR
+	check_rewards()
+	return result
+
+## 初始化与自动阶段也使用规则结果，UI只选择何时请求下一步。
+func initialize(mode: String = "normal") -> RunStepResult:
+	initialization = mode
+	var result: RunStepResult = RunStepResult.new()
+	result.kind = &"initial"
+	if mode == "normal": result.spawns = spawn_batch()
+	elif mode == "fixture_f6": ExplosionDemo.populate(self)
+	else:
+		state.rule_error = "unsupported_initialization"
+		state.phase = RunState.Phase.ERROR
+	start_turn()
+	return result
+
+func check_rewards(score_override: int = -1) -> int:
+	return state.progression.check_score(state, PROGRESSION, score_override)
+
+func prepare_offer() -> SkillOffer:
+	if state.pending_rewards <= 0 or state.is_game_over: return null
+	enter_rewards()
+	var existing: SkillOffer = state.rewards.active_offer
+	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
+	var offer: SkillOffer = generator.generate(self)
+	if offer == null:
+		state.rule_error = generator.last_error
+		state.phase = RunState.Phase.ERROR
+	elif existing == null and recorder != null:
+		recorder.offer(self, offer)
+	return offer
+
+func execute_command(command: RunCommand) -> CommandResult:
+	var payload: Dictionary = CommandCodec.encode(command)
+	if command.command_id == last_command_id and _last_result != null and payload == _last_payload:
+		return _last_result
+	var before: Dictionary = RunSnapshot.capture(self)
+	var result: CommandResult = CommandResult.new()
+	if command.run_id != state.run_id: result.reason = "wrong_run"
+	elif command.command_id <= last_command_id or command.command_id <= 0: result.reason = "stale_command"
+	elif command.expected_action_id != state.action_id: result.reason = "stale_action"
+	elif not state.rule_error.is_empty(): result.reason = "rule_error"
+	elif command is MovePieceCommand:
+		var move: MovePieceCommand = command as MovePieceCommand
+		result.turn = move_piece(move.piece_id, move.target)
+		result.accepted = result.turn.move.is_valid() and state.rule_error.is_empty()
+		if result.accepted:
+			_direct_match = result.turn.direct_match
+			continuation = &"before_end"
+		else: result.reason = str(BoardMoveResult.Failure.keys()[result.turn.move.failure])
+	elif command is ChooseSkillCommand:
+		var choice: ChooseSkillCommand = command as ChooseSkillCommand
+		var offer: SkillOffer = state.rewards.active_offer
+		if offer == null or choice.reward_id != offer.reward_id: result.reason = "stale_reward"
+		else:
+			result.skill = SkillRules.apply(self, choice.offer_id, choice.skill_id)
+			result.accepted = result.skill.success
+			result.reason = result.skill.error
+			check_rewards()
+			if result.accepted and state.rules.state.get_empty_coordinates().is_empty(): finish_game()
+	else: result.reason = "unknown_command"
+	result.rule_error = not state.rule_error.is_empty()
+	if result.rule_error: result.reason = state.rule_error
+	if command.command_id > last_command_id:
+		last_command_id = command.command_id
+		_last_payload = payload.duplicate(true)
+		_last_result = result
+	if recorder != null: recorder.command(self, command, result, before)
+	return result
+
+## 每次仅越过一个安全阶段；机器人直接确认，真人先等演出。
+func advance() -> RunStepResult:
+	var result: RunStepResult = RunStepResult.new()
+	if not state.rule_error.is_empty():
+		result.kind = &"error"
+		return result
+	if state.is_game_over:
+		result.kind = &"finished"
+		return result
+	check_rewards()
+	if state.pending_rewards > 0:
+		result.kind = &"offer"
+		result.offer = prepare_offer()
+		return result
+	match continuation:
+		&"before_end":
+			end_turn()
+			continuation = &"after_end"
+			result.kind = &"end_turn"
+		&"after_end":
+			continuation = &"after_spawn"
+			result.kind = &"spawn"
+			if should_spawn(_direct_match): result.spawns = spawn_batch()
+		&"after_spawn":
+			continuation = &"idle"
+			start_turn()
+			result.kind = &"input"
+		_:
+			state.phase = RunState.Phase.INPUT
+			result.kind = &"input"
+	if recorder != null: recorder.step(self, result)
 	return result

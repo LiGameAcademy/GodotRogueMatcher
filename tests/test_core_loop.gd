@@ -130,7 +130,7 @@ func test_failed_spawn_does_not_offer_pending_rescue_reward() -> void:
 	await LevelUpSystem.resolve_pending_rewards(board)
 	await wait_process_frames(3)
 	assert_true(GameManager.is_game_over)
-	assert_false(UIManager.current_popup is PopupLevelUp)
+	assert_false(UIManager.current_popup is PopupSkillChoice)
 	assert_eq(LevelUpSystem.pending_rewards, 1)
 
 func test_candidate_ids_are_distinct() -> void:
@@ -144,18 +144,18 @@ func test_candidate_ids_are_distinct() -> void:
 func test_reward_filling_last_space_ends_before_next_reward() -> void:
 	_fill_without_lines()
 	_remove(Vector2i(8, 8))
-	GameManager.add_score(160)
+	GameManager.add_score(260)
 	LevelUpSystem.resolve_pending_rewards(board)
 	await wait_process_frames(3)
-	var popup: PopupLevelUp = UIManager.current_popup as PopupLevelUp
-	popup._on_item_selected(popup.item_options[0])
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	popup._select(_skill_index(popup, &"core_drop"))
 	await get_tree().create_timer(0.85).timeout
 	assert_true(GameManager.is_game_over)
 	assert_eq(board.get_empty_cells().size(), 0)
 	assert_eq(GameManager.turn_count, 1)
 	assert_eq(LevelUpSystem.pending_rewards, 1)
 	assert_false(board.can_selected)
-	assert_false(UIManager.current_popup is PopupLevelUp)
+	assert_false(UIManager.current_popup is PopupSkillChoice)
 
 func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	_fill_without_lines()
@@ -164,7 +164,7 @@ func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	GameManager.finish_game()
 	await wait_process_frames(3)
 	UIManager.current_popup.retry_requested.emit()
-	await wait_process_frames(5)
+	await board.initialized
 	assert_eq(GameManager.score, 0)
 	assert_eq(GameManager.turn_count, 1)
 	assert_eq(GameManager.piece_count, 3)
@@ -178,27 +178,88 @@ func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 		assert_eq(board.rules.state.get_piece_id(cell.coordinate), 0)
 
 func test_rewards_queue_and_selection_applies_once() -> void:
-	GameManager.add_score(160)
+	GameManager.add_score(260)
 	assert_eq(LevelUpSystem.pending_rewards, 2)
 	assert_false(is_instance_valid(UIManager.current_popup))
 	LevelUpSystem.resolve_pending_rewards(board)
 	await wait_process_frames(3)
-	var popup: PopupLevelUp = UIManager.current_popup as PopupLevelUp
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)
-	var item: ItemData = popup.item_options[0]
-	popup._on_item_selected(item)
-	popup._on_item_selected(item)
-	await get_tree().create_timer(0.85).timeout
-	assert_eq(ItemEffectSystem.placed_items.size(), 1)
-	var second: PopupLevelUp = UIManager.current_popup as PopupLevelUp
+	var index: int = _skill_index(popup, &"core_drop")
+	popup._select(index)
+	popup._select(index)
+	await wait_process_frames(3)
+	assert_eq(board.rules.state.get_piece_count(), 1)
+	assert_eq(board.run.state.rewards.consumed_count, 1)
+	var second: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_true(second != popup)
-	second._on_item_selected(second.item_options[0])
-	await get_tree().create_timer(0.85).timeout
-	assert_eq(ItemEffectSystem.placed_items.size(), 2)
-	assert_eq(GameManager.piece_count, 2)
+	second._select(_skill_index(second, &"score_multiplier"))
+	await wait_process_frames(3)
+	assert_eq(board.run.state.explosion.multiplier_level, 1)
+	assert_eq(board.run.state.rewards.consumed_count, 2)
+	assert_eq(GameManager.piece_count, 1)
 	assert_eq(LevelUpSystem.pending_rewards, 0)
 	assert_false(LevelUpSystem.is_resolving)
 	assert_false(get_tree().paused)
+
+func _skill_index(popup: PopupSkillChoice, id: StringName) -> int:
+	for index: int in range(popup.offer.choices.size()):
+		if popup.offer.choices[index].skill_id == id: return index
+	fail_test("Missing expected skill: " + String(id))
+	return 0
+
+func test_f7_uses_real_reward_popup_and_returns_to_same_turn() -> void:
+	var key: InputEventKey = InputEventKey.new()
+	key.pressed = true
+	key.physical_keycode = KEY_F7
+	main.get_node("Game")._unhandled_key_input(key)
+	await wait_process_frames(3)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(popup)
+	assert_true(get_tree().paused)
+	assert_false(board.can_selected)
+	assert_eq(LevelUpSystem.pending_rewards, 1)
+	popup._select(_skill_index(popup, &"core_drop"))
+	await wait_process_frames(3)
+	assert_false(get_tree().paused)
+	assert_true(board.can_selected)
+	assert_eq(board.run.state.phase, RunState.Phase.INPUT)
+	assert_eq(board.run.state.turn_count, 1)
+	assert_eq(board.run.state.rewards.applications.size(), 1)
+	assert_eq(board.run.state.rewards.applications[0].skill_id, &"core_drop")
+
+func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
+	GameManager.add_score(100)
+	LevelUpSystem.resolve_pending_rewards(board)
+	await wait_process_frames(3)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	var previous: int = popup.offer.offer_id
+	_place(popup.offer.targets[&"core_drop"].coordinate, 0)
+	popup._select(_skill_index(popup, &"core_drop"))
+	assert_eq(LevelUpSystem.pending_rewards, 1)
+	assert_eq(board.run.state.rewards.consumed_count, 0)
+	assert_ne(popup.offer.offer_id, previous)
+	assert_eq(board.run.state.rules.state.get_piece_count(), 1)
+	popup._select(_skill_index(popup, &"score_multiplier"))
+	await wait_process_frames(3)
+	assert_eq(LevelUpSystem.pending_rewards, 0)
+	assert_eq(board.run.state.explosion.multiplier_level, 1)
+
+func test_old_skill_callback_after_retry_cannot_modify_new_run() -> void:
+	GameManager.add_score(100)
+	LevelUpSystem.resolve_pending_rewards(board)
+	await wait_process_frames(3)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	var old_run: RunController = board.run
+	var old_id: int = popup.offer.offer_id
+	await board.retry_game(BoardRules.new(BoardState.new(9, 9), 5))
+	LevelUpSystem._apply_selected_skill(old_id, &"core_drop", board, old_run, null, SkillOfferGenerator.new())
+	assert_eq(board.run.state.rules.state.get_piece_count(), 3)
+	assert_eq(board.run.state.rewards.consumed_count, 0)
+	assert_false(board.run.state.explosion.unlocked)
+	assert_false(is_instance_valid(UIManager.current_popup))
+	assert_false(LevelUpSystem.is_resolving)
+	await wait_process_frames(2)
 
 func test_legacy_dye_and_destroy_route_through_rule_state() -> void:
 	_place(Vector2i(2, 2), 0)
@@ -233,7 +294,8 @@ func test_coordinator_rejects_rebuild_during_move_and_finishes_once() -> void:
 	_place(Vector2i(8, 8), 1)
 	board.move_selected_piece(board.get_cell(Vector2i(4, 0)), 0.1)
 	assert_false(board.rebuild_view())
-	await get_tree().create_timer(0.3).timeout
+	await GameManager.turn_started
+	await wait_process_frames(1)
 	assert_eq(GameManager.score, 50)
 	assert_eq(GameManager.turn_count, 2)
 	assert_eq(board.rules.state.get_piece_count(), 1)
@@ -245,7 +307,6 @@ func test_retry_cancels_old_move_without_advancing_new_turn() -> void:
 	board.move_selected_piece(board.get_cell(Vector2i(2, 0)), 0.5)
 	main.get_node("Game")._on_retry_requested()
 	await board.initialized
-	await get_tree().create_timer(0.6).timeout
 	assert_ne(board.rules, previous_rules)
 	assert_eq(GameManager.score, 0)
 	assert_eq(GameManager.turn_count, 1)
@@ -282,7 +343,8 @@ func test_move_rules_are_committed_while_animation_is_pending() -> void:
 	assert_eq(board.rules.state.get_piece_count(), 1)
 	assert_eq(board.run.state.phase, RunState.Phase.MOVING)
 	assert_false(board.can_selected)
-	await get_tree().create_timer(0.4).timeout
+	await GameManager.turn_started
+	await wait_process_frames(1)
 	assert_eq(GameManager.score, 50)
 	assert_eq(GameManager.turn_count, 2)
 	assert_true(board.can_selected)

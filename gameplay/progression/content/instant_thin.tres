@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"instant_thin"
+title = "材料疏整"
+description = "立即清理至多3枚随机普通材料，腾出通路。保留伙伴和引信，不得分。"
+action = 7
+base_weight = 5.0
+is_persistent = false
+minimum_reward = 3

@@ -47,7 +47,7 @@ func add_score(amount: int) -> void:
 ## 广播已提交总分并排队奖励；表现播放不重复提交账本。
 func publish_score() -> void:
 	score_changed.emit(score)
-	LevelUpSystem.check_level_up(score)
+	run.check_rewards()
 
 func finish_game() -> void:
 	if _game_over_notified or not run.state.rule_error.is_empty():

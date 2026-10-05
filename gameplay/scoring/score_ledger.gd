@@ -37,3 +37,6 @@ func get_entries() -> Array[ScoreEntry]:
 	for entry: ScoreEntry in _entries:
 		result.append(entry.copy())
 	return result
+
+func next_event_id() -> int:
+	return _next_event_id

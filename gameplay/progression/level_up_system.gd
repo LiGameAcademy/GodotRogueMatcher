@@ -6,7 +6,9 @@ extends Node
 signal level_up_triggered(items: Array[ItemData])
 
 ## 当前等级
-var current_level: int = 0
+var current_level: int:
+	get: return GameManager.run.state.progression.level
+	set(value): GameManager.run.state.progression.level = value
 var pending_rewards: int:
 	get:
 		return GameManager.run.state.pending_rewards
@@ -15,13 +17,14 @@ var pending_rewards: int:
 var is_resolving: bool = false
 
 ## 下一个里程碑分数
-var next_milestone: int = 500
+var next_milestone: int:
+	get: return GameManager.run.state.progression.next_milestone
+	set(value): GameManager.run.state.progression.next_milestone = value
 
-## 里程碑递增倍数
-@export var milestone_multiplier: float = 1.5
-
-## 初始里程碑分数
-@export var initial_milestone: int = 100
+const CONFIG: ProgressionConfig = preload("res://gameplay/progression/content/progression_config.tres")
+var previous_milestone: int:
+	get: return GameManager.run.state.progression.previous_milestone
+	set(value): GameManager.run.state.progression.previous_milestone = value
 
 ## 物品池（待实现）
 var item_pools: Dictionary = {}
@@ -34,7 +37,8 @@ func reset_system() -> void:
 	current_level = 0
 	pending_rewards = 0
 	is_resolving = false
-	next_milestone = initial_milestone
+	previous_milestone = 0
+	next_milestone = CONFIG.threshold(0)
 	initialize_item_pools()
 
 ## 初始化物品池（待实现具体物品数据）
@@ -107,41 +111,55 @@ func load_items_from_directory(directory_path: String) -> void:
 ## [param score: int] 当前分数
 ## [return: bool] 是否触发升级
 func check_level_up(score: int) -> bool:
-	var gained_reward: bool = false
-	while score >= next_milestone:
-		current_level += 1
-		pending_rewards += 1
-		next_milestone = maxi(next_milestone + 1, int(next_milestone * milestone_multiplier))
-		gained_reward = true
-	return gained_reward
+	return GameManager.run.check_rewards(score) > 0
 
-## 在回合安全点逐次处理奖励；生成失败时不补救命选择。
+## 在安全点逐项应用首片技能；旧道具池仅保留兼容查询，不进入正常奖励。
 func resolve_pending_rewards(board: Board) -> void:
-	if is_resolving or GameManager.is_game_over:
+	if is_resolving or GameManager.is_game_over or not board.run.state.rule_error.is_empty():
 		return
 	var active_run: RunController = board.run
+	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
 	is_resolving = true
-	while pending_rewards > 0 and not GameManager.is_game_over:
-		pending_rewards -= 1
-		var options: Array[ItemData] = generate_options()
-		if options.size() != 3:
-			push_error("升级候选不足三项")
+	while not GameManager.is_game_over:
+		if not await board.finish_presentation() or board.run != active_run: return
+		if pending_rewards <= 0: break
+		active_run.enter_rewards()
+		var offer: SkillOffer = active_run.prepare_offer()
+		if offer == null:
+			push_error(generator.last_error)
 			break
-		level_up_triggered.emit(options)
-		var popup: PopupLevelUp = await UIManager.open_popup("popup_level_up", {"items": options}) as PopupLevelUp
-		if not is_instance_valid(popup):
-			break
-		popup.item_selected.connect(_apply_selected_item.bind(board, active_run))
-		await popup.closed
-		if board.run != active_run:
+		board.cancel_buffered_input()
+		if active_run.recorder != null: active_run.recorder.set_interval("choice")
+		var popup: PopupSkillChoice = await UIManager.open_popup("popup_skill_choice", {"offer": offer}) as PopupSkillChoice
+		if not is_instance_valid(board) or board.run != active_run:
+			if is_instance_valid(popup): popup.accept_selection()
 			return
-		if board.get_empty_cells().is_empty():
-			GameManager.finish_game()
+		if not is_instance_valid(popup): break
+		popup.skill_selected.connect(_apply_selected_skill.bind(board, active_run, popup, generator))
+		await popup.closed
+		if not is_instance_valid(board) or board.run != active_run: return
+		if board.get_empty_cells().is_empty(): GameManager.finish_game()
 	is_resolving = false
 
-func _apply_selected_item(item_data: ItemData, board: Board, active_run: RunController) -> void:
-	if is_instance_valid(board) and board.run == active_run:
-		ItemPlacer.place_item_randomly(board, item_data)
+func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, active_run: RunController, popup: PopupSkillChoice, generator: SkillOfferGenerator) -> void:
+	if not is_instance_valid(board) or board.run != active_run: return
+	var command: ChooseSkillCommand = ChooseSkillCommand.new(active_run.state.run_id, active_run.last_command_id + 1, active_run.state.action_id)
+	command.offer_id = offer_id
+	command.reward_id = active_run.state.rewards.consumed_count + 1
+	command.skill_id = skill_id
+	var outcome: CommandResult = active_run.execute_command(command)
+	var result: SkillApplyResult = outcome.skill
+	if result == null: return
+	if not result.success:
+		# 只有当前组失效才重建；过期或伪造回调不得破坏下一组。
+		if active_run.state.rewards.active_offer != null and active_run.state.rewards.active_offer.offer_id == offer_id:
+			active_run.state.rewards.active_offer = null
+			var refreshed: SkillOffer = active_run.prepare_offer()
+			if refreshed != null: popup.show_offer(refreshed, result.error)
+			else: popup.show_error(result.error)
+		return
+	board.present_skill_result(result)
+	popup.accept_selection()
 
 ## 生成三选一选项
 ## [return: Array[ItemData]] 三个道具选项
@@ -213,9 +231,5 @@ func get_next_milestone() -> int:
 ## [param current_score: int] 当前分数
 ## [return: float] 升级进度
 func get_level_progress(current_score: int) -> float:
-	if current_level == 0:
-		return float(current_score) / float(initial_milestone)
-	
-	var previous_milestone: int = int(initial_milestone * pow(milestone_multiplier, current_level - 1))
 	var progress: float = float(current_score - previous_milestone) / float(next_milestone - previous_milestone)
 	return clamp(progress, 0.0, 1.0)
