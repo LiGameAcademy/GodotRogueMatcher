@@ -220,12 +220,38 @@ func test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids() -> void
 	assert_true(ItemPlacer.place_item_at(board, board.get_cell(Vector2i.ZERO), item))
 	var before: PieceState = board.rules.state.get_piece_at(Vector2i.ZERO)
 	var previous_display: ChessPiece = board.get_cell(Vector2i.ZERO).piece
-	board.rebuild_view()
+	assert_true(board.rebuild_view())
 	assert_eq(board.rules.state.get_piece_at(Vector2i.ZERO).piece_id, before.piece_id)
 	assert_ne(board.get_cell(Vector2i.ZERO).piece, previous_display)
 	assert_eq(board.get_cell(Vector2i.ZERO).piece.item_data, item)
 	assert_eq(ItemEffectSystem.placed_items.size(), 1)
 	assert_eq(GameManager.piece_count, 1)
+
+func test_coordinator_rejects_rebuild_during_move_and_finishes_once() -> void:
+	for x: int in range(4):
+		_place(Vector2i(x, 0), 0)
+	board.selected_piece = _place(Vector2i(4, 1), 0)
+	_place(Vector2i(8, 8), 1)
+	board.move_selected_piece(board.get_cell(Vector2i(4, 0)), 0.1)
+	assert_false(board.rebuild_view())
+	await get_tree().create_timer(0.3).timeout
+	assert_eq(GameManager.score, 50)
+	assert_eq(GameManager.turn_count, 2)
+	assert_eq(board.rules.state.get_piece_count(), 1)
+	assert_true(board.can_selected)
+
+func test_retry_cancels_old_move_without_advancing_new_turn() -> void:
+	board.selected_piece = _place(Vector2i.ZERO, 0)
+	var previous_rules: BoardRules = board.rules
+	board.move_selected_piece(board.get_cell(Vector2i(2, 0)), 0.5)
+	main.get_node("Game")._on_retry_requested()
+	await board.initialized
+	await get_tree().create_timer(0.6).timeout
+	assert_ne(board.rules, previous_rules)
+	assert_eq(GameManager.score, 0)
+	assert_eq(GameManager.turn_count, 1)
+	assert_eq(board.rules.state.get_piece_count(), 3)
+	assert_true(board.can_selected)
 
 func _clear_board() -> void:
 	board.selected_piece = null

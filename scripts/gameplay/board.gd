@@ -82,7 +82,10 @@ func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
 	view.show_color(piece_id, match_color)
 	return true
 
-func rebuild_view() -> void:
+## 只在等待输入的稳定点重建；播放/奖励期间拒绝，避免重入旧回合。
+func rebuild_view() -> bool:
+	if not can_selected or get_tree().paused:
+		return false
 	selected_piece = null
 	view.rebuild(rules.state.get_snapshot())
 	# 重建不是获得道具，不重新触发ON_PLACE。
@@ -90,6 +93,7 @@ func rebuild_view() -> void:
 	for snapshot: PieceState in rules.state.get_snapshot():
 		if not snapshot.content_id.is_empty():
 			ItemEffectSystem.placed_items.append(view.get_piece(snapshot.piece_id))
+	return true
 
 func get_cell(coordinate: Vector2i) -> Cell:
 	return view.get_cell(coordinate)
