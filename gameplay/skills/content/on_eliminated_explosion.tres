@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AbilityDefinition" format=3 uid="uid://cjw7rievn3t47"]
+
+[ext_resource type="Script" uid="uid://w81nioogc2pc" path="res://gameplay/skills/ability_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://crtxrgh4f3gsh" path="res://gameplay/skills/effects/explode_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+
+[resource]
+script = ExtResource("1")
+ability_id = &"on_eliminated_explosion"
+effect = SubResource("effect")

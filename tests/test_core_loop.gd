@@ -1,7 +1,7 @@
 extends GutTest
 
 const MAIN_SCENE: PackedScene = preload("res://main.tscn")
-const PIECE_SCENE: PackedScene = preload("res://prefabs/chess_piece.tscn")
+const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
 var main: Node2D
 var board: Board
 
@@ -85,16 +85,15 @@ func test_spawn_checks_match_before_full_board_failure() -> void:
 		board.set_piece_color(Vector2i(4 + n, 8), 0)
 		board.set_piece_color(Vector2i(8, 4 + n), 1)
 		board.set_piece_color(Vector2i(4 + n, 4 + n), 2)
-	# 使用确定种子寻找出生颜色0～2，随后恢复同一随机状态。
-	seed(17)
-	var random_state: int = 0
+	# 随机流现由本局拥有，寻找确定出生颜色0～2的种子。
+	var random_seed: int = 0
 	for attempt: int in range(100):
-		random_state = randi()
-		seed(random_state)
-		board.get_empty_cells().pick_random()
-		if randi_range(0, 4) <= 2:
+		random_seed = attempt
+		board.run.state.random.seed = random_seed
+		board.run.state.random.randi_range(0, 0)
+		if board.run.state.random.randi_range(0, 4) <= 2:
 			break
-	seed(random_state)
+	board.run.state.random.seed = random_seed
 	assert_eq(await SpawnManager.spawn_random_pieces(board), 3)
 	assert_false(GameManager.is_game_over)
 	assert_gt(GameManager.score, 0)
@@ -160,7 +159,7 @@ func test_reward_filling_last_space_ends_before_next_reward() -> void:
 
 func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	_fill_without_lines()
-	GameManager.score = 123
+	GameManager.add_score(123)
 	LevelUpSystem.pending_rewards = 2
 	GameManager.finish_game()
 	await wait_process_frames(3)
@@ -253,12 +252,72 @@ func test_retry_cancels_old_move_without_advancing_new_turn() -> void:
 	assert_eq(board.rules.state.get_piece_count(), 3)
 	assert_true(board.can_selected)
 
+func test_extra_score_does_not_exempt_ordinary_spawn() -> void:
+	board.selected_piece = _place(Vector2i.ZERO, 0)
+	var award: Callable = func(_turn: int) -> void: GameManager.add_score(1)
+	GameManager.turn_ended.connect(award, CONNECT_ONE_SHOT)
+	assert_true(await board.move_selected_piece(board.get_cell(Vector2i(2, 0)), 0.01))
+	assert_eq(GameManager.score, 1)
+	assert_eq(board.rules.state.get_piece_count(), 4)
+	assert_eq(GameManager.ledger.get_entries()[0].extra_score, 1)
+
+func test_score_reset_notifies_display_and_replaces_ledger() -> void:
+	GameManager.add_score(12)
+	var previous: ScoreLedger = GameManager.ledger
+	watch_signals(GameManager)
+	GameManager.reset_game()
+	assert_signal_emitted_with_parameters(GameManager, "score_changed", [0])
+	assert_eq(GameManager.score, 0)
+	assert_eq(GameManager.ledger.get_entries().size(), 0)
+	assert_ne(GameManager.ledger, previous)
+	assert_eq(previous.total, 12)
+
+func test_move_rules_are_committed_while_animation_is_pending() -> void:
+	for x: int in range(4):
+		_place(Vector2i(x, 0), 0)
+	board.selected_piece = _place(Vector2i(4, 1), 0)
+	_place(Vector2i(8, 8), 1)
+	board.move_selected_piece(board.get_cell(Vector2i(4, 0)), 0.2)
+	assert_eq(GameManager.score, 50)
+	assert_eq(board.rules.state.get_piece_count(), 1)
+	assert_eq(board.run.state.phase, RunState.Phase.MOVING)
+	assert_false(board.can_selected)
+	await get_tree().create_timer(0.4).timeout
+	assert_eq(GameManager.score, 50)
+	assert_eq(GameManager.turn_count, 2)
+	assert_true(board.can_selected)
+
+func test_presenting_committed_result_twice_does_not_repeat_effects() -> void:
+	for x: int in range(5):
+		_place(Vector2i(x, 0), 0)
+	var results: Array[MatchResult] = board.run.resolve_all_matches()
+	watch_signals(MatchSystem)
+	board.present_matches(results)
+	board.present_matches(results)
+	assert_eq(GameManager.score, 50)
+	assert_signal_emit_count(MatchSystem, "match_made", 1)
+	assert_eq(GameManager.ledger.get_entries().size(), 1)
+
+func test_fast_and_slow_move_playback_have_identical_rule_results() -> void:
+	for duration: float in [0.01, 0.1]:
+		_clear_board()
+		for x: int in range(4):
+			_place(Vector2i(x, 0), 0)
+		board.selected_piece = _place(Vector2i(4, 1), 0)
+		_place(Vector2i(8, 8), 1)
+		assert_true(await board.move_selected_piece(board.get_cell(Vector2i(4, 0)), duration))
+		assert_eq(GameManager.score, 50)
+		assert_eq(GameManager.turn_count, 2)
+		assert_eq(board.rules.state.get_piece_count(), 1)
+		assert_eq(GameManager.ledger.get_entries().size(), 1)
+
 func _clear_board() -> void:
 	board.selected_piece = null
 	for child: Node in board.view.get_cells():
 		if child is Cell:
 			_remove((child as Cell).coordinate)
 	GameManager.reset_game()
+	board._presented_events.clear()
 	GameManager.start_turn()
 	board.can_selected = true
 

@@ -20,14 +20,14 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
-GameManager="*res://scripts/global/game_manager.gd"
-MatchSystem="*res://scripts/global/match_system.gd"
-SpawnManager="*res://scripts/global/spawn_manager.gd"
-LevelUpSystem="*res://scripts/global/level_up_system.gd"
-ItemPlacer="*res://scripts/global/item_placer.gd"
-ItemEffectSystem="*res://scripts/global/item_effect_system.gd"
-UIManager="*res://scripts/global/ui_manager.gd"
-ItemRegistry="*res://scripts/resources/item_registry.gd"
+GameManager="*res://gameplay/run/game_manager.gd"
+MatchSystem="*res://gameplay/board/match_system.gd"
+SpawnManager="*res://gameplay/board/spawn_manager.gd"
+LevelUpSystem="*res://gameplay/progression/level_up_system.gd"
+ItemPlacer="*res://gameplay/items/item_placer.gd"
+ItemEffectSystem="*res://gameplay/items/item_effect_system.gd"
+UIManager="*res://ui/ui_manager.gd"
+ItemRegistry="*res://gameplay/items/item_registry.gd"
 
 [display]
 

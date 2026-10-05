@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=2 format=3 uid="uid://space_compressor_effect"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/item_effect_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://gameplay/items/item_effect_config.gd" id="1_config"]
 
 [resource]
 script = ExtResource("1_config")

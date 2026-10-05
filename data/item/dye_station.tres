@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://duvtlwur0avxw"]
 
 [ext_resource type="Texture2D" uid="uid://bah3icia4ijd5" path="res://assets/icons/dye_station.svg" id="1_dye"]
-[ext_resource type="Script" uid="uid://5a8ofd3plxug" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Script" uid="uid://5a8ofd3plxug" path="res://gameplay/items/item_data.gd" id="2_item"]
 [ext_resource type="Resource" uid="uid://dye_station_effect" path="res://data/item/effects/dye_station_effect.tres" id="3_effect"]
 
 [resource]
