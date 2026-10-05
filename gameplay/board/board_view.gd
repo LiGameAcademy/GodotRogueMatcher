@@ -2,8 +2,9 @@ class_name BoardView
 extends Node2D
 
 ## 只保存实体ID到显示节点的映射；配置和快照由调用者显式传入。
-const CELL_SCENE: PackedScene = preload("res://prefabs/cell.tscn")
-const PIECE_SCENE: PackedScene = preload("res://prefabs/chess_piece.tscn")
+const CELL_SCENE: PackedScene = preload("res://gameplay/board/cell/cell.tscn")
+const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
+const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explosion_visual/explosion_visual.tscn")
 
 signal cell_pressed(coordinate: Vector2i)
 
@@ -11,10 +12,14 @@ var _cells: Dictionary[Vector2i, Cell] = {}
 var _pieces: Dictionary[int, ChessPiece] = {}
 var _items: Dictionary[StringName, ItemData] = {}
 var _generation: int = 0
+var _spacing: Vector2
+var _dimensions: Vector2i
 
 #region 显示初始化与查询
 func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> void:
 	clear_display()
+	_spacing = cell_size + gap
+	_dimensions = Vector2i(columns, rows)
 	for cell: Cell in _cells.values():
 		remove_child(cell)
 		cell.queue_free()
@@ -41,6 +46,10 @@ func get_cells() -> Array[Cell]:
 
 func clear_display() -> void:
 	_generation += 1
+	for child: Node in get_children():
+		if child is ExplosionVisual:
+			remove_child(child)
+			child.queue_free()
 	for piece: ChessPiece in _pieces.values():
 		if is_instance_valid(piece):
 			piece.cancel_movement()
@@ -78,6 +87,23 @@ func show_color(piece_id: int, match_color: int) -> void:
 	var piece: ChessPiece = get_piece(piece_id)
 	if is_instance_valid(piece):
 		piece.piece_type = match_color
+
+func show_ability_marker(piece_id: int, text: String) -> void:
+	var piece: ChessPiece = get_piece(piece_id)
+	if is_instance_valid(piece):
+		piece.set_ability_marker(text)
+
+func show_blast(center: Vector2i, radius: int) -> void:
+	if radius < 0 or not _cells.has(center):
+		return
+	var visual: ExplosionVisual = EXPLOSION_SCENE.instantiate() as ExplosionVisual
+	add_child(visual)
+	visual.position = Vector2(center) * _spacing
+	var minimum: Vector2i = Vector2i(maxi(0, center.x - radius), maxi(0, center.y - radius))
+	var maximum: Vector2i = Vector2i(mini(center.x + radius, _dimensions.x - 1), mini(center.y + radius, _dimensions.y - 1))
+	var corner: Vector2 = Vector2(minimum - center) * _spacing - _spacing * 0.5
+	var size: Vector2 = Vector2(maximum - minimum + Vector2i.ONE) * _spacing
+	visual.setup(Rect2(corner, size))
 #endregion
 
 #region 结果演出

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=3 format=3 uid="uid://swapper_effect"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/item_effect_config.gd" id="1_config"]
-[ext_resource type="Script" path="res://scripts/gameplay/conditions/condition_timing.gd" id="2_timing"]
+[ext_resource type="Script" path="res://gameplay/items/item_effect_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://gameplay/items/conditions/condition_timing.gd" id="2_timing"]
 
 [sub_resource type="ConditionTiming" id="ConditionTiming_1"]
 condition_id = "timing"

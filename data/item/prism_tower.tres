@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bnpfih4fhmmk3"]
 
 [ext_resource type="Texture2D" path="res://assets/icons/prism_tower.svg" id="1_prism"]
-[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="2_item"]
+[ext_resource type="Script" path="res://gameplay/items/item_data.gd" id="2_item"]
 [ext_resource type="Resource" uid="uid://prism_tower_effect" path="res://data/item/effects/prism_tower_effect.tres" id="3_effect"]
 
 [resource]

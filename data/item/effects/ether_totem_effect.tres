@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=5 format=3 uid="uid://ether_totem_effect"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/item_effect_config.gd" id="1_config"]
-[ext_resource type="Script" path="res://scripts/gameplay/conditions/condition_timing.gd" id="2_timing"]
-[ext_resource type="Script" path="res://scripts/gameplay/conditions/condition_piece_color.gd" id="3_color"]
-[ext_resource type="Script" path="res://scripts/gameplay/effects/effect_add_score.gd" id="4_score"]
+[ext_resource type="Script" path="res://gameplay/items/item_effect_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://gameplay/items/conditions/condition_timing.gd" id="2_timing"]
+[ext_resource type="Script" path="res://gameplay/items/conditions/condition_piece_color.gd" id="3_color"]
+[ext_resource type="Script" path="res://gameplay/items/effects/effect_add_score.gd" id="4_score"]
 
 [sub_resource type="ConditionTiming" id="ConditionTiming_1"]
 condition_id = "timing"
