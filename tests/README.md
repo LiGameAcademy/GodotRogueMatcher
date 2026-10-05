@@ -39,3 +39,6 @@
 ## Git范围
 
 仅提交本次修复、测试及记录；工作区已有框架子模块迁移、旧docs删除和其他个人配置不纳入本次提交。外层教程更新对应说明并记录游戏子模块提交。
+
+## M1 · 2026-10-04
+最新36项测试、783个断言全部通过。使用相同GUT命令，将-gtest参数替换为-gdir=res://tests -ginclude_subdirs，日志使用.godot/m1-tests.log。PathfindingManager已退役，当前由BoardRules直接读取BoardState计算路径。窗口试玩与导出待验证。详见外层GDC/acceptance/m1-棋盘规则验收.md。

@@ -63,7 +63,7 @@ func eliminate_and_score(board: Board, to_eliminate: Array[Cell]) -> void:
 ## [param matched_cells: Array] 被消除的单元格数组
 ## [param base_score: int] 基础分数
 ## [return: int] 加成后的最终分数
-func calculate_item_bonus(board: Board, matched_cells: Array, base_score: int) -> int:
+func calculate_item_bonus(board: Board, matched_cells: Array[Cell], base_score: int) -> int:
 	var multiplier: float = 1.0  # 乘法倍率（棱镜塔、以太图腾）
 	var bonus: float = 0.0  # 加法加成（增幅器、能量核心）
 
