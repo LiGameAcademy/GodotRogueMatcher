@@ -14,6 +14,8 @@ var _items: Dictionary[StringName, ItemData] = {}
 var _generation: int = 0
 var _spacing: Vector2
 var _dimensions: Vector2i
+var _presentation_tweens: Array[Tween] = []
+var presentation_speed: float = 1.0
 
 #region 显示初始化与查询
 func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> void:
@@ -46,6 +48,9 @@ func get_cells() -> Array[Cell]:
 
 func clear_display() -> void:
 	_generation += 1
+	for animation: Tween in _presentation_tweens:
+		if animation.is_valid(): animation.kill()
+	_presentation_tweens.clear()
 	for child: Node in get_children():
 		if child is ExplosionVisual:
 			remove_child(child)
@@ -56,6 +61,11 @@ func clear_display() -> void:
 			piece.get_parent().remove_child(piece)
 			piece.queue_free()
 	_pieces.clear()
+	# 消除中的棋子已从ID映射注销，仍需在重试时清理。
+	for child: Node in get_children():
+		if child is ChessPiece:
+			remove_child(child)
+			child.queue_free()
 	for cell: Cell in _cells.values():
 		cell.unhighlight()
 
@@ -103,7 +113,7 @@ func show_blast(center: Vector2i, radius: int) -> void:
 	var maximum: Vector2i = Vector2i(mini(center.x + radius, _dimensions.x - 1), mini(center.y + radius, _dimensions.y - 1))
 	var corner: Vector2 = Vector2(minimum - center) * _spacing - _spacing * 0.5
 	var size: Vector2 = Vector2(maximum - minimum + Vector2i.ONE) * _spacing
-	visual.setup(Rect2(corner, size))
+	track_presentation(visual.setup(Rect2(corner, size)))
 #endregion
 
 #region 结果演出
@@ -137,8 +147,29 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 	if animated:
 		piece.position = cell.position
 		add_child(piece)
-		await piece.eliminate()
+		piece.eliminate()
+		track_presentation(piece.tween)
+		await piece.tween.finished
 	piece.queue_free()
+
+## 记录本视图实际启动的演出；等待不重新计算或修改规则结果。
+func track_presentation(animation: Tween) -> void:
+	animation.set_speed_scale(maxf(presentation_speed, 0.01))
+	_presentation_tweens.append(animation)
+
+func is_presenting() -> bool:
+	for index: int in range(_presentation_tweens.size() - 1, -1, -1):
+		var animation: Tween = _presentation_tweens[index]
+		if not animation.is_valid() or not animation.is_running():
+			_presentation_tweens.remove_at(index)
+	return not _presentation_tweens.is_empty()
+
+func wait_for_presentation() -> bool:
+	var generation: int = _generation
+	while is_presenting():
+		await get_tree().process_frame
+		if generation != _generation: return false
+	return true
 
 func _on_cell_pressed(cell: Cell) -> void:
 	cell_pressed.emit(cell.coordinate)

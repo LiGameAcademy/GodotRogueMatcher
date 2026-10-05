@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"blast_radius"
+title = "扩大爆破"
+description = "本局所有当前及未来爆壳手和引信的爆炸半径由1扩大到2。限1级。"
+action = 2
+base_weight = 8.0
+tags = Array[StringName]([&"exp"])
+is_starter = false
+is_persistent = true
+fallback_only = false
+need_rule = &""

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = &"match_extra"
+title = "连珠补分"
+description = "每次五连事件的额外分增加10。"
+action = 5
+base_weight = 6.0
+tags = Array[StringName]([&"extra"])
+is_starter = false
+is_persistent = true
+fallback_only = false
+need_rule = &""
+minimum_reward = 3

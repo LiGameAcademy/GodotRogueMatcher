@@ -55,7 +55,6 @@ func test_retry_while_explosion_move_is_playing_drops_old_abilities() -> void:
 	assert_eq(old_run.state.ledger.total, 70)
 	main.get_node("Game").call("_on_retry_requested")
 	await board.initialized
-	await get_tree().create_timer(0.5).timeout
 	assert_ne(board.run, old_run)
 	assert_eq(GameManager.score, 0)
 	assert_eq(board.run.state.explosion.instances.size(), 0)

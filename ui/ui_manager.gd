@@ -47,5 +47,8 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 ## 关闭当前弹窗
 func close_popup() -> void:
 	if is_instance_valid(current_popup):
-		current_popup.queue_free()
+		if current_popup is PopupSkillChoice:
+			(current_popup as PopupSkillChoice).accept_selection()
+		else:
+			current_popup.queue_free()
 		current_popup = null

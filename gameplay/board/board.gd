@@ -13,6 +13,12 @@ var run: RunController
 var can_selected: bool = false
 var _generation: int = 0
 var _presented_events: Dictionary[int, bool] = {}
+var _score_presentation_pending: bool = false
+var _turn_in_progress: bool = false
+var _buffered_started_ms: int = 0
+var _buffered_piece_id: int = 0
+var _buffered_coordinate: Vector2i = Vector2i(-1, -1)
+var _buffered_target: Vector2i = Vector2i(-1, -1)
 var selected_piece: ChessPiece = null:
 	set(value):
 		if is_instance_valid(selected_piece):
@@ -27,37 +33,64 @@ func _ready() -> void:
 	add_to_group("board")
 	view.cell_pressed.connect(_on_coordinate_pressed)
 
+func _notification(what: int) -> void:
+	if run == null or run.recorder == null or run.recorder.ended: return
+	if what == NOTIFICATION_PAUSED:
+		# 技能面板使用树暂停来接管输入，其等待单独归类。
+		run.recorder.set_interval("choice" if UIManager.current_popup is PopupSkillChoice else "pause")
+	elif what == NOTIFICATION_UNPAUSED:
+		run.recorder.set_interval("input" if can_selected else "busy")
+
+func _exit_tree() -> void:
+	if run == null or run.recorder == null: return
+	if not run.state.rule_error.is_empty(): run.recorder.finish(run, "rule_error", run.state.rule_error)
+	elif run.state.is_game_over: run.recorder.finish(run, "completed", "board_full")
+	else: run.recorder.finish(run, "abandoned", "scene_closed")
+
 #region 初始化与重试
 ## 规则对象由Game显式注入，重试传入全新的状态。
-func start_game(board_rules: BoardRules) -> void:
+func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
+	cancel_buffered_input()
+	_turn_in_progress = false
 	_generation += 1
 	var generation: int = _generation
 	can_selected = false
 	selected_piece = null
 	rules = board_rules
 	_presented_events.clear()
+	_score_presentation_pending = false
 	view.configure(cols, rows, cell_size, grid_gap)
+	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "restart")
 	run = RunController.new(rules, randi())
 	GameManager.reset_game(run)
+	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。
+	UIManager.close_popup()
 	await get_tree().process_frame
-	await SpawnManager.spawn_random_pieces(self)
-	if generation != _generation:
-		return
-	GameManager.start_turn()
+	var initial: RunStepResult = run.initialize()
+	if record_run:
+		run.recorder = RunRecorder.new()
+		run.recorder.begin(run, "human")
+	await _present_spawns(initial.spawns)
+	if generation != _generation: return
+	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
 	initialized.emit()
 
 func retry_game(board_rules: BoardRules) -> void:
+	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "restart")
 	get_tree().paused = false
 	ItemEffectSystem.placed_items.clear()
 	LevelUpSystem.reset_system()
 	ItemRegistry.register_all_items()
-	await start_game(board_rules)
+	await start_game(board_rules, true)
 
-## 调试入口只在稳定输入点加载；正式三选一接入留M4。
+## 调试入口只在稳定输入点加载固定爆炸盘面。
 func load_explosion_demo() -> bool:
 	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()):
 		return false
+	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "fixture_restart")
+	cancel_buffered_input()
+	_turn_in_progress = false
 	_generation += 1
 	can_selected = false
 	selected_piece = null
@@ -68,12 +101,15 @@ func load_explosion_demo() -> bool:
 	run = RunController.new(rules, 7)
 	GameManager.reset_game(run)
 	_presented_events.clear()
+	_score_presentation_pending = false
 	view.configure(cols, rows, cell_size, grid_gap)
-	ExplosionDemo.populate(run)
+	run.initialize("fixture_f6")
+	run.recorder = RunRecorder.new()
+	run.recorder.begin(run, "fixture")
 	view.rebuild(rules.state.get_snapshot())
 	refresh_ability_markers()
 	_update_count_display()
-	GameManager.start_turn()
+	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = true
 	return true
 
@@ -83,6 +119,23 @@ func refresh_ability_markers() -> void:
 		if run.state.explosion.instances.has(piece.piece_id):
 			marker = "爆" if piece.content_id == &"special_demolition" else "引"
 		view.show_ability_marker(piece.piece_id, marker)
+
+## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
+func open_skill_demo() -> bool:
+	if not can_selected or get_tree().paused or GameManager.is_game_over:
+		return false
+	var generation: int = _generation
+	can_selected = false
+	selected_piece = null
+	if run.recorder != null: run.recorder.finish(run, "abandoned", "debug_f7_not_balance_sample")
+	GameManager.add_score(maxi(0, LevelUpSystem.next_milestone - GameManager.score))
+	run.enter_rewards()
+	await LevelUpSystem.resolve_pending_rewards(self)
+	if generation != _generation: return false
+	if not GameManager.is_game_over and run.state.rule_error.is_empty():
+		run.state.phase = RunState.Phase.INPUT
+		can_selected = true
+	return true
 #endregion
 
 #region 单一棋盘写入口与显示适配
@@ -147,11 +200,30 @@ func present_matches(results: Array[MatchResult]) -> void:
 				ItemEffectSystem.unregister_item(piece)
 			view.remove_piece(snapshot, true)
 		_update_count_display()
-		GameManager.publish_score()
+		_score_presentation_pending = true
 		if result.cause == &"explosion":
 			view.show_blast(result.center, result.radius)
 		else:
 			MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
+
+## 演出完成后再广播已提交分数和检查门槛；重试取消旧批次。
+func finish_presentation() -> bool:
+	var active_run: RunController = run
+	if not await view.wait_for_presentation() or run != active_run: return false
+	if _score_presentation_pending:
+		_score_presentation_pending = false
+		GameManager.publish_score()
+	return true
+
+## 技能应用只消费已提交结果；落子查线也不会重复计分。
+func present_skill_result(result: SkillApplyResult) -> void:
+	for piece: PieceState in result.created:
+		view.show_piece(piece, BoardView.PIECE_SCENE.instantiate() as ChessPiece)
+	for piece: PieceState in result.removed:
+		view.remove_piece(piece, true)
+	present_matches(result.matches)
+	refresh_ability_markers()
+	_update_count_display()
 
 func get_cell(coordinate: Vector2i) -> Cell:
 	return view.get_cell(coordinate)
@@ -179,10 +251,17 @@ func is_board_empty() -> bool:
 func _on_cell_pressed(cell: Cell) -> void:
 	await _on_coordinate_pressed(cell.coordinate)
 
-func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
+func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait_ms: int = -1) -> bool:
 	if not can_selected or GameManager.is_game_over or not is_instance_valid(selected_piece) or target_cell == null:
 		return false
-	var turn: TurnResult = run.move_piece(selected_piece.piece_id, target_cell.coordinate)
+	var command: MovePieceCommand = MovePieceCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+	command.piece_id = selected_piece.piece_id
+	command.target = target_cell.coordinate
+	command.buffered = buffered_wait_ms >= 0
+	command.buffered_wait_ms = maxi(0, buffered_wait_ms)
+	var outcome: CommandResult = run.execute_command(command)
+	var turn: TurnResult = outcome.turn
+	if turn == null: return false
 	var result: BoardMoveResult = turn.move
 	if not run.state.rule_error.is_empty():
 		can_selected = false
@@ -193,6 +272,7 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 		return false
 	var generation: int = _generation
 	can_selected = false
+	_turn_in_progress = true
 	# 移动已经提交，演出只使用路径结果，不决定是否合法。
 	await view.animate_move(result, duration)
 	if generation != _generation:
@@ -201,45 +281,98 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5) -> bool:
 	present_matches(turn.matches)
 	if generation != _generation:
 		return false
-	run.enter_rewards()
-	await LevelUpSystem.resolve_pending_rewards(self)
-	if generation != _generation or GameManager.is_game_over:
-		return true
-	GameManager.end_turn()
-	run.enter_rewards()
-	await LevelUpSystem.resolve_pending_rewards(self)
-	if generation != _generation or GameManager.is_game_over:
-		return true
-	# 生成前采样真实占格；技能额外分不替代直接五连。
-	var should_spawn: bool = run.should_spawn(turn.direct_match)
-	if should_spawn:
-		await get_tree().create_timer(0.5).timeout
-		if generation != _generation:
-			return false
-		await SpawnManager.spawn_random_pieces(self)
-		if generation != _generation:
-			return false
-		if not run.state.rule_error.is_empty():
-			push_error(run.state.rule_error)
-			return false
-	if not GameManager.is_game_over:
-		run.enter_rewards()
-		await LevelUpSystem.resolve_pending_rewards(self)
-		if generation != _generation:
-			return false
-		if not GameManager.is_game_over:
-			GameManager.start_turn()
+	await _continue_run(generation)
+	if generation != _generation: return false
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
+	_turn_in_progress = false
+	_resume_buffered_input()
 	return true
 
+## 真人和无界面驱动共用advance；这里仅等待和消费阶段结果。
+func _continue_run(generation: int) -> void:
+	while generation == _generation:
+		if not await finish_presentation(): return
+		var step: RunStepResult = run.advance()
+		match step.kind:
+			&"offer": await LevelUpSystem.resolve_pending_rewards(self)
+			&"end_turn": GameManager.turn_ended.emit(run.state.turn_count)
+			&"spawn": await _present_spawns(step.spawns)
+			&"input":
+				GameManager.turn_started.emit(run.state.turn_count)
+				if run.recorder != null: run.recorder.set_interval("input")
+				return
+			&"finished":
+				GameManager.finish_game()
+				if run.recorder != null: run.recorder.finish(run, "completed", "board_full")
+				return
+			&"error":
+				if run.recorder != null: run.recorder.finish(run, "rule_error", run.state.rule_error)
+				return
+
+func _present_spawns(spawns: Array[SpawnResult]) -> void:
+	var active_run: RunController = run
+	for spawn: SpawnResult in spawns:
+		var piece: ChessPiece = BoardView.PIECE_SCENE.instantiate() as ChessPiece
+		view.show_piece(spawn.piece, piece)
+		piece.scale = Vector2.ZERO
+		var animation: Tween = piece.create_tween()
+		animation.tween_property(piece, "scale", Vector2.ONE, 0.3)
+		view.track_presentation(animation)
+		present_matches(spawn.matches)
+		if not await finish_presentation() or run != active_run: return
+	_update_count_display()
+
 func _on_coordinate_pressed(coordinate: Vector2i) -> void:
-	if not can_selected or GameManager.is_game_over:
+	if GameManager.is_game_over or get_tree().paused or not run.state.rule_error.is_empty():
+		return
+	if not can_selected:
+		if _turn_in_progress: _buffer_input(coordinate)
 		return
 	var piece_id: int = rules.state.get_piece_id(coordinate)
 	if piece_id != 0:
 		selected_piece = view.get_piece(piece_id)
 	elif is_instance_valid(selected_piece):
 		await move_selected_piece(get_cell(coordinate))
+
+## 只缓存下一次操作。奖励弹窗、重试和已消失的实体不继承旧意图。
+func cancel_buffered_input() -> void:
+	if is_instance_valid(view):
+		var cell: Cell = view.get_cell(_buffered_coordinate)
+		if cell != null: cell.unhighlight()
+	_buffered_piece_id = 0
+	_buffered_coordinate = Vector2i(-1, -1)
+	_buffered_target = Vector2i(-1, -1)
+
+func _buffer_input(coordinate: Vector2i) -> void:
+	var cell: Cell = view.get_cell(coordinate)
+	if cell == null: return
+	# 使用玩家看见的实体ID，再验证其仍在规则状态中；不能把新出生实体当旧目标。
+	if is_instance_valid(cell.piece):
+		var id: int = cell.piece.piece_id
+		if rules.state.get_piece(id) == null: return
+		cancel_buffered_input()
+		_buffered_started_ms = Time.get_ticks_msec()
+		_buffered_piece_id = id
+		_buffered_coordinate = coordinate
+		cell.highlight_path()
+	elif _buffered_piece_id != 0:
+		_buffered_target = coordinate
+
+func _resume_buffered_input() -> void:
+	var id: int = _buffered_piece_id
+	var target: Vector2i = _buffered_target
+	cancel_buffered_input()
+	if not can_selected or rules.state.get_piece(id) == null: return
+	selected_piece = view.get_piece(id)
+	if target != Vector2i(-1, -1):
+		# 下一帧在最新棋盘重新寻路，不与当前回合重入，也不跨局执行。
+		_commit_buffered_move.call_deferred(_generation, id, target, Time.get_ticks_msec() - _buffered_started_ms)
+
+func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_ms: int) -> void:
+	if generation != _generation or not can_selected or get_tree().paused: return
+	if not is_instance_valid(selected_piece) or selected_piece.piece_id != id: return
+	if rules.state.get_piece_id(target) != 0: return
+	await move_selected_piece(get_cell(target), 0.5, waiting_ms)
 
 func _update_count_display() -> void:
 	# 旧HUD兼容字段是派生显示值，不能用于占格或寻路决策。

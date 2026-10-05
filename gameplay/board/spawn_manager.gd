@@ -17,6 +17,7 @@ var s_piece: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn"
 ## [return] 成功生成的棋子数量
 func spawn_random_pieces(board: Board) -> int:
 	var spawned_count: int = 0
+	var active_run: RunController = board.run
 	for index: int in range(SPAWN_COUNT):
 		var result: SpawnResult = board.run.spawn_one()
 		if result == null:
@@ -30,8 +31,11 @@ func spawn_random_pieces(board: Board) -> int:
 		tween.set_trans(Tween.TRANS_BACK)
 		tween.set_ease(Tween.EASE_OUT)
 		tween.tween_property(piece, "scale", Vector2.ONE, 0.3)
+		board.view.track_presentation(tween)
 		spawned_count += 1
 		board.present_matches(result.matches)
+		if not await board.finish_presentation() or board.run != active_run:
+			return spawned_count
 		GameManager.piece_count = board.rules.state.get_piece_count()
 		if not board.run.state.rule_error.is_empty():
 			board.can_selected = false

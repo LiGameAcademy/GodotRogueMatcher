@@ -30,6 +30,9 @@ func get_piece_at(coordinate: Vector2i) -> PieceState:
 func get_piece_count() -> int:
 	return _pieces.size()
 
+func next_piece_id() -> int:
+	return _next_piece_id
+
 func get_empty_coordinates() -> Array[Vector2i]:
 	var coordinates: Array[Vector2i] = []
 	for x: int in range(columns):
