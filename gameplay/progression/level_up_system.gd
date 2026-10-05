@@ -128,7 +128,7 @@ func resolve_pending_rewards(board: Board) -> void:
 		if offer == null:
 			push_error(generator.last_error)
 			break
-		board.cancel_buffered_input()
+		board.cancel_buffered_input("reward_popup")
 		if active_run.recorder != null: active_run.recorder.set_interval("choice")
 		var popup: PopupSkillChoice = await UIManager.open_popup("popup_skill_choice", {"offer": offer}) as PopupSkillChoice
 		if not is_instance_valid(board) or board.run != active_run:
@@ -136,6 +136,7 @@ func resolve_pending_rewards(board: Board) -> void:
 			return
 		if not is_instance_valid(popup): break
 		popup.skill_selected.connect(_apply_selected_skill.bind(board, active_run, popup, generator))
+		if popup.visible: board.observation.present_offer(offer)
 		await popup.closed
 		if not is_instance_valid(board) or board.run != active_run: return
 		if board.get_empty_cells().is_empty(): GameManager.finish_game()
@@ -143,11 +144,14 @@ func resolve_pending_rewards(board: Board) -> void:
 
 func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, active_run: RunController, popup: PopupSkillChoice, generator: SkillOfferGenerator) -> void:
 	if not is_instance_valid(board) or board.run != active_run: return
+	board.observation.selecting_skill()
+	var input_id: String = board.observation.input("choose_skill")
 	var command: ChooseSkillCommand = ChooseSkillCommand.new(active_run.state.run_id, active_run.last_command_id + 1, active_run.state.action_id)
 	command.offer_id = offer_id
 	command.reward_id = active_run.state.rewards.consumed_count + 1
 	command.skill_id = skill_id
 	var outcome: CommandResult = active_run.execute_command(command)
+	board.observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id))
 	var result: SkillApplyResult = outcome.skill
 	if result == null: return
 	if not result.success:
@@ -157,6 +161,7 @@ func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, ac
 			var refreshed: SkillOffer = active_run.prepare_offer()
 			if refreshed != null: popup.show_offer(refreshed, result.error)
 			else: popup.show_error(result.error)
+			if refreshed != null: board.observation.present_offer(refreshed)
 		return
 	board.present_skill_result(result)
 	popup.accept_selection()

@@ -67,6 +67,11 @@ test_skill_rewards.gd验证首片合法过滤、权重算例、冻结目标、�
 
 ## GDC33命令记录回放与机器人
 
+
 新增test_commands_replay.gd覆盖请求幂等/拒绝、检查点、64位精度、篡改/截断/版本/真实结束分类、写入失败、策略不污染活随机、爆炸轨迹和固定种子复跑。test_command_scene.gd验证真人快慢演出与无UI命令一致、跨门槛后重试/F6保留旧日志。test_result_viewer.gd验证快慢结果观看、不重复计分、旧配置可看而重算拒绝，以及损坏记录明确失败。
 
 完整回归114项、1941断言通过（.godot/c33-reviewed.log）；最终新增损坏观看日志用例包含在观看专项3项23断言中（.godot/viewer-validated.log），完整回归与专项均没有脚本错误或孤立节点。首批两策略各100局、保留种子各3局均落盘读回回放一致。使用方式见[机器人工具说明](../tools/bot_testing/README.md)，采样与限制见外层GDC/acceptance/c33-命令记录回放验收.md。
+
+## GDC35本地采集 · 2026-10-06最终验收
+
+test_telemetry.gd验证采集不污染规则、曝光与选择去重、计时及输入、链式回合、文件错误与精度、插件JSON独立使用、实验分组和同局前缀合并；test_telemetry_scene.gd覆盖实际展示与重试。最终完整回归130项测试、2063断言通过，日志.godot/d35-verified-tests.log。使用说明见[本地采集](../services/telemetry/README.md)与[分析工具](../tools/telemetry_analysis/README.md)。

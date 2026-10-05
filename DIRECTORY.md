@@ -21,6 +21,8 @@ res://
 ├─ localization/           翻译
 ├─ tests/                  规则与场景集成验证
 ├─ tools/bot_testing/      策略配置、批次/分析CLI、独立结果观看器
+├─ tools/telemetry_analysis/ 分析事件校验、去重、CSV与分布报告
+├─ services/telemetry/     独立本地采集、规则事实投影与界面观察
 └─ addons/                 第三方依赖
 ```
 
