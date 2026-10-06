@@ -7,6 +7,7 @@ const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece
 const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explosion_visual/explosion_visual.tscn")
 
 signal cell_pressed(coordinate: Vector2i)
+signal presentation_changed
 
 var _cells: Dictionary[Vector2i, Cell] = {}
 var _pieces: Dictionary[int, ChessPiece] = {}
@@ -15,9 +16,25 @@ var _generation: int = 0
 var _spacing: Vector2
 var _dimensions: Vector2i
 var _presentation_tweens: Array[Tween] = []
-var presentation_speed: float = 1.0
+var presentation_speed: float = 1.0:
+	set(value):
+		presentation_speed = maxf(value, 0.01)
+		for animation: Tween in _presentation_tweens:
+			if animation.is_valid(): animation.set_speed_scale(presentation_speed)
+var _playback_pending: bool = false
 
 #region 显示初始化与查询
+func _exit_tree() -> void:
+	# 退出时仅取消任务；子节点由场景释放，不能先拆成游离节点。
+	_generation += 1
+	_playback_pending = false
+	for animation: Tween in _presentation_tweens:
+		if animation.is_valid(): animation.kill()
+	_presentation_tweens.clear()
+	for piece: ChessPiece in _pieces.values():
+		if is_instance_valid(piece): piece.cancel_movement()
+	presentation_changed.emit()
+
 func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> void:
 	clear_display()
 	_spacing = cell_size + gap
@@ -48,6 +65,7 @@ func get_cells() -> Array[Cell]:
 
 func clear_display() -> void:
 	_generation += 1
+	_playback_pending = false
 	for animation: Tween in _presentation_tweens:
 		if animation.is_valid(): animation.kill()
 	_presentation_tweens.clear()
@@ -68,6 +86,7 @@ func clear_display() -> void:
 			child.queue_free()
 	for cell: Cell in _cells.values():
 		cell.unhighlight()
+	presentation_changed.emit()
 
 ## 重建只消费快照，不改变规则或棋子ID。
 func rebuild(snapshot: Array[PieceState]) -> void:
@@ -117,10 +136,14 @@ func show_blast(center: Vector2i, radius: int) -> void:
 #endregion
 
 #region 结果演出
-func animate_move(result: BoardMoveResult, duration: float) -> void:
+func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	var generation: int = _generation
 	var piece: ChessPiece = get_piece(result.piece_id)
+	if not result.is_valid() or result.path.is_empty() or not is_instance_valid(piece): return false
+	for coordinate: Vector2i in result.path:
+		if get_cell(coordinate) == null: return false
 	var source: Cell = get_cell(result.path[0])
+	if source.piece != piece: return false
 	source.take_piece()
 	piece.position = source.position
 	add_child(piece)
@@ -128,14 +151,16 @@ func animate_move(result: BoardMoveResult, duration: float) -> void:
 		get_cell(coordinate).highlight_path()
 	for coordinate: Vector2i in result.path:
 		piece.move_to_and_wait(get_cell(coordinate), maxf(duration / result.path.size(), 0.001))
+		track_presentation(piece.tween)
 		await piece.movement_completed
 		if generation != _generation:
-			return
+			return false
 	remove_child(piece)
 	get_cell(result.path.back()).show_piece(piece)
 	piece.position = Vector2.ZERO
 	for coordinate: Vector2i in result.path:
 		get_cell(coordinate).unhighlight()
+	return true
 
 func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 	var piece: ChessPiece = get_piece(piece_state.piece_id)
@@ -156,18 +181,45 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 func track_presentation(animation: Tween) -> void:
 	animation.set_speed_scale(maxf(presentation_speed, 0.01))
 	_presentation_tweens.append(animation)
+	animation.finished.connect(_on_animation_finished)
 
 func is_presenting() -> bool:
+	return _playback_pending or _animations_running()
+
+func set_playback_pending(value: bool) -> void:
+	_playback_pending = value
+	presentation_changed.emit()
+
+func _on_animation_finished() -> void:
+	presentation_changed.emit()
+
+func _animations_running() -> bool:
 	for index: int in range(_presentation_tweens.size() - 1, -1, -1):
 		var animation: Tween = _presentation_tweens[index]
 		if not animation.is_valid() or not animation.is_running():
 			_presentation_tweens.remove_at(index)
 	return not _presentation_tweens.is_empty()
 
+func animate_spawn(snapshot: PieceState, duration: float) -> void:
+	var piece: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
+	show_piece(snapshot, piece)
+	piece.scale = Vector2.ZERO
+	var animation: Tween = piece.create_tween()
+	animation.tween_property(piece, "scale", Vector2.ONE, maxf(0.0, duration))
+	track_presentation(animation)
+
+## 导演每步只等待实际动画；队列状态由父级另行映射给公开查询。
+func wait_for_animations() -> bool:
+	var generation: int = _generation
+	while _animations_running():
+		await presentation_changed
+		if generation != _generation: return false
+	return true
+
 func wait_for_presentation() -> bool:
 	var generation: int = _generation
 	while is_presenting():
-		await get_tree().process_frame
+		await presentation_changed
 		if generation != _generation: return false
 	return true
 
