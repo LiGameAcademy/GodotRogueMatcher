@@ -6,6 +6,7 @@ extends Node2D
 @export var collect_telemetry: bool = true
 var board_rules: BoardRules
 @export var enable_debug_fixtures: bool = true
+var _fast_playback: bool = false
 
 func _ready() -> void:
 	GameManager.game_overed.connect(_on_game_over)
@@ -14,6 +15,11 @@ func _ready() -> void:
 	await board.start_game(board_rules, record_runs)
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		var playback_key: InputEventKey = event as InputEventKey
+		if playback_key.pressed and not playback_key.echo and playback_key.physical_keycode == KEY_F8:
+			_fast_playback = not _fast_playback
+			board.set_playback_fast(_fast_playback)
 	if enable_debug_fixtures and event is InputEventKey:
 		var key: InputEventKey = event as InputEventKey
 		if key.pressed and not key.echo and key.physical_keycode == KEY_F6:

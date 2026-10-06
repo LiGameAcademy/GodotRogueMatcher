@@ -40,3 +40,5 @@ M4：gameplay/progression/拥有首片技能定义、content配置、候选及�
 试玩反馈调整：progression/progression_config.gd及content/progression_config.tres管理累计目标；content/instant_thin.tres接入一次性疏整。Board只协调一条待执行输入，不改变BoardState的权威占格。当前配置与模型差异见../GDC/32-试玩反馈与节奏输入调整.md。
 
 GDC33：run/commands/定义移动与技能选择意图；run/recording/规范化快照并写本地JSONL；run/replay/重算共享规则并定位首处差异。progression/progression_state.gd拥有本局累计门槛，LevelUpSystem仅转发及协调界面。tools/bot_testing/只在显式运行时测试或观看，不自动代玩发行游戏，详见工具README。
+
+M5-A：presentation/presentation_director同名场景/脚本管理本局播放队列；playback_plan_builder复制结果，presentation_step承载步骤，presentation_config管理1×/2×与出生时长。导演和BoardView由Board共同协调；正常局及旧补棋显示入口统一。F8切换速度，完整政策和存档仍待后续。

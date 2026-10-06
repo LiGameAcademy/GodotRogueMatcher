@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ba35hldmoep" path="res://gameplay/game.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cy1b1q0q5h25h" path="res://ui/hud.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" path="res://gameplay/board/board_view.tscn" id="4_view"]
+[ext_resource type="PackedScene" path="res://gameplay/presentation/presentation_director.tscn" id="5_director"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -44,3 +45,5 @@ position = Vector2(312, 88)
 script = ExtResource("1_uwrxv")
 
 [node name="BoardView" parent="Board" instance=ExtResource("4_view")]
+
+[node name="PresentationDirector" parent="Board" instance=ExtResource("5_director")]

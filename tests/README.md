@@ -75,3 +75,8 @@ test_skill_rewards.gd验证首片合法过滤、权重算例、冻结目标、�
 ## GDC35本地采集 · 2026-10-06最终验收
 
 test_telemetry.gd验证采集不污染规则、曝光与选择去重、计时及输入、链式回合、文件错误与精度、插件JSON独立使用、实验分组和同局前缀合并；test_telemetry_scene.gd覆盖实际展示与重试。最终完整回归130项测试、2063断言通过，日志.godot/d35-verified-tests.log。使用说明见[本地采集](../services/telemetry/README.md)与[分析工具](../tools/telemetry_analysis/README.md)。
+
+## M5-A最小表现导演
+
+test_presentation_director.gd验证队列身份、空队列、重复完成、取消、暂停、结果复制、并行动画屏障和F8快慢规则/采集一致。测试核心奖励与F7改为等待实际导演完成，避免用固定帧数猜测新出生动画已结束。F8切换1×/2×，使用说明见[表现模块](../gameplay/presentation/README.md)，细节见外层GDC/acceptance/m5a-最小表现导演验收.md。
+最终完整回归138项测试、2103断言通过，日志.godot/m5a-delivery-tests.log。

@@ -24,17 +24,9 @@ func spawn_random_pieces(board: Board) -> int:
 			if board.run.state.rule_error.is_empty():
 				GameManager.finish_game()
 			return spawned_count
-		var piece: ChessPiece = s_piece.instantiate() as ChessPiece
-		board.view.show_piece(result.piece, piece)
-		piece.scale = Vector2.ZERO
-		var tween: Tween = piece.create_tween()
-		tween.set_trans(Tween.TRANS_BACK)
-		tween.set_ease(Tween.EASE_OUT)
-		tween.tween_property(piece, "scale", Vector2.ONE, 0.3)
-		board.view.track_presentation(tween)
 		spawned_count += 1
-		board.present_matches(result.matches)
-		if not await board.finish_presentation() or board.run != active_run:
+		await board.present_spawns([result])
+		if board.run != active_run or not board.director.error.is_empty():
 			return spawned_count
 		GameManager.piece_count = board.rules.state.get_piece_count()
 		if not board.run.state.rule_error.is_empty():

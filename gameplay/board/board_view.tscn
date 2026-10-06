@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://gameplay/board/board_view.gd" id="1"]
 
 [node name="BoardView" type="Node2D"]
+process_mode = 1
 script = ExtResource("1")

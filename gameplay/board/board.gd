@@ -30,10 +30,13 @@ var selected_piece: ChessPiece = null:
 			selected_piece.selected()
 
 @onready var view: BoardView = $BoardView
+@onready var director: PresentationDirector = $PresentationDirector
 
 func _ready() -> void:
 	add_to_group("board")
 	view.cell_pressed.connect(_on_coordinate_pressed)
+	director.step_requested.connect(_on_presentation_step_requested)
+	director.busy_changed.connect(view.set_playback_pending)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: observation.focused(false)
@@ -48,6 +51,7 @@ func _notification(what: int) -> void:
 		run.recorder.set_interval("input" if can_selected else "busy")
 
 func _exit_tree() -> void:
+	director.cancel()
 	if run == null or run.recorder == null: return
 	if not run.state.rule_error.is_empty(): run.recorder.finish(run, "rule_error", run.state.rule_error)
 	elif run.state.is_game_over: run.recorder.finish(run, "completed", "board_full")
@@ -59,6 +63,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	cancel_buffered_input()
 	_turn_in_progress = false
 	_generation += 1
+	director.cancel()
 	var generation: int = _generation
 	can_selected = false
 	selected_piece = null
@@ -78,7 +83,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 		observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
 		run.recorder.begin(run, "human", record_run)
 		observation.busy(true)
-	await _present_spawns(initial.spawns)
+	await present_spawns(initial.spawns)
 	if generation != _generation: return
 	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
@@ -101,6 +106,7 @@ func load_explosion_demo() -> bool:
 	cancel_buffered_input()
 	_turn_in_progress = false
 	_generation += 1
+	director.cancel()
 	can_selected = false
 	selected_piece = null
 	ItemEffectSystem.placed_items.clear()
@@ -197,10 +203,20 @@ func rebuild_view() -> bool:
 
 ## 消费已经提交的离场快照；旧道具信号暂保留为M3兼容边界。
 func present_matches(results: Array[MatchResult]) -> void:
+	_submit_plan(PlaybackPlanBuilder.matches(results))
+
+func _submit_plan(steps: Array[PresentationStep]) -> void:
+	for step: PresentationStep in steps:
+		var pending: Array[MatchResult] = []
+		for result: MatchResult in step.matches:
+			if _presented_events.has(result.score_entry.event_id): continue
+			_presented_events[result.score_entry.event_id] = true
+			pending.append(result)
+		step.matches = pending
+	director.enqueue(steps)
+
+func _show_matches(results: Array[MatchResult]) -> void:
 	for result: MatchResult in results:
-		if _presented_events.has(result.score_entry.event_id):
-			continue
-		_presented_events[result.score_entry.event_id] = true
 		var cells: Array[Cell] = []
 		for snapshot: PieceState in result.removed:
 			cells.append(get_cell(snapshot.coordinate))
@@ -220,6 +236,7 @@ func present_matches(results: Array[MatchResult]) -> void:
 ## 演出完成后再广播已提交分数和检查门槛；重试取消旧批次。
 func finish_presentation() -> bool:
 	var active_run: RunController = run
+	if not await director.wait_until_idle(): return false
 	if not await view.wait_for_presentation() or run != active_run: return false
 	if _score_presentation_pending:
 		_score_presentation_pending = false
@@ -228,13 +245,29 @@ func finish_presentation() -> bool:
 
 ## 技能应用只消费已提交结果；落子查线也不会重复计分。
 func present_skill_result(result: SkillApplyResult) -> void:
-	for piece: PieceState in result.created:
-		view.show_piece(piece, BoardView.PIECE_SCENE.instantiate() as ChessPiece)
-	for piece: PieceState in result.removed:
-		view.remove_piece(piece, true)
-	present_matches(result.matches)
+	_submit_plan(PlaybackPlanBuilder.skill(result, director.config.spawn_duration))
 	refresh_ability_markers()
 	_update_count_display()
+
+func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: int) -> void:
+	var completed: bool = true
+	match step.kind:
+		PresentationStep.Kind.MOVE:
+			completed = await view.animate_move(step.movement, step.duration)
+		PresentationStep.Kind.SPAWN:
+			for piece: PieceState in step.pieces: view.animate_spawn(piece, step.duration)
+		PresentationStep.Kind.REMOVE:
+			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
+		PresentationStep.Kind.MATCHES:
+			_show_matches(step.matches)
+	if completed: completed = await view.wait_for_animations()
+	if completed:
+		refresh_ability_markers()
+		_update_count_display()
+	director.complete_step(epoch, token, completed)
+
+func set_playback_fast(fast: bool) -> void:
+	view.presentation_speed = director.config.fast_speed if fast else director.config.normal_speed
 
 func get_cell(coordinate: Vector2i) -> Cell:
 	return view.get_cell(coordinate)
@@ -289,7 +322,8 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 	can_selected = false
 	_turn_in_progress = true
 	# 移动已经提交，演出只使用路径结果，不决定是否合法。
-	await view.animate_move(result, duration)
+	director.enqueue(PlaybackPlanBuilder.move(result, duration))
+	if not await director.wait_until_idle(): return false
 	if generation != _generation:
 		return false
 	selected_piece = null
@@ -298,6 +332,7 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 		return false
 	await _continue_run(generation)
 	if generation != _generation: return false
+	if not director.error.is_empty(): return false
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
 	_turn_in_progress = false
 	_resume_buffered_input()
@@ -311,7 +346,7 @@ func _continue_run(generation: int) -> void:
 		match step.kind:
 			&"offer": await LevelUpSystem.resolve_pending_rewards(self)
 			&"end_turn": GameManager.turn_ended.emit(run.state.turn_count)
-			&"spawn": await _present_spawns(step.spawns)
+			&"spawn": await present_spawns(step.spawns)
 			&"input":
 				GameManager.turn_started.emit(run.state.turn_count)
 				if run.recorder != null: run.recorder.set_interval("input")
@@ -325,17 +360,10 @@ func _continue_run(generation: int) -> void:
 				if run.recorder != null: run.recorder.finish(run, "rule_error", run.state.rule_error)
 				return
 
-func _present_spawns(spawns: Array[SpawnResult]) -> void:
+func present_spawns(spawns: Array[SpawnResult]) -> void:
 	var active_run: RunController = run
-	for spawn: SpawnResult in spawns:
-		var piece: ChessPiece = BoardView.PIECE_SCENE.instantiate() as ChessPiece
-		view.show_piece(spawn.piece, piece)
-		piece.scale = Vector2.ZERO
-		var animation: Tween = piece.create_tween()
-		animation.tween_property(piece, "scale", Vector2.ONE, 0.3)
-		view.track_presentation(animation)
-		present_matches(spawn.matches)
-		if not await finish_presentation() or run != active_run: return
+	_submit_plan(PlaybackPlanBuilder.spawns(spawns, director.config.spawn_duration))
+	if not await finish_presentation() or run != active_run: return
 	_update_count_display()
 
 func _on_coordinate_pressed(coordinate: Vector2i) -> void:
