@@ -117,6 +117,7 @@ func test_pausing_freezes_required_visual_tasks() -> void:
 
 func test_f8_fast_mode_keeps_f6_rule_snapshot_and_telemetry_counts_identical() -> void:
 	var main: Node2D = (load("res://main.tscn") as PackedScene).instantiate() as Node2D
+	main.get_node("Game").set("persist_preferences", false)
 	add_child_autofree(main)
 	var board: Board = main.get_node("Game/Board") as Board
 	await board.initialized

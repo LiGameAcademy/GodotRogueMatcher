@@ -136,7 +136,9 @@ func resolve_pending_rewards(board: Board) -> void:
 			return
 		if not is_instance_valid(popup): break
 		popup.skill_selected.connect(_apply_selected_skill.bind(board, active_run, popup, generator))
-		if popup.visible: board.observation.present_offer(offer)
+		if popup.visible:
+			board.observation.present_offer(offer)
+			board.feedback_requested.emit(&"reward")
 		await popup.closed
 		if not is_instance_valid(board) or board.run != active_run: return
 		if board.get_empty_cells().is_empty(): GameManager.finish_game()

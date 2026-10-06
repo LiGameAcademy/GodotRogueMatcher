@@ -9,6 +9,7 @@ func before_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
 	main = MAIN.instantiate() as Node2D
+	main.get_node("Game").set("persist_preferences", false)
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized

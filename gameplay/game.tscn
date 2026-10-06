@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cy1b1q0q5h25h" path="res://ui/hud.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" path="res://gameplay/board/board_view.tscn" id="4_view"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/presentation_director.tscn" id="5_director"]
+[ext_resource type="PackedScene" path="res://gameplay/presentation/game_feedback.tscn" id="6_feedback"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -26,6 +27,8 @@ script = ExtResource("1_yqjtg")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8cj0n")
 
+[node name="GameFeedback" parent="." instance=ExtResource("6_feedback")]
+
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +44,6 @@ layer = 128
 [node name="HUD" parent="UILayer" instance=ExtResource("2_lnu2h")]
 
 [node name="Board" type="Node2D" parent="."]
-position = Vector2(312, 88)
 script = ExtResource("1_uwrxv")
 
 [node name="BoardView" parent="Board" instance=ExtResource("4_view")]

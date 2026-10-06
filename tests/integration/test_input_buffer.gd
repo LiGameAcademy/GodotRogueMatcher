@@ -8,6 +8,7 @@ func before_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
 	var main: Node2D = MAIN.instantiate() as Node2D
+	main.get_node("Game").set("persist_preferences", false)
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
@@ -73,7 +74,8 @@ func test_reward_popup_discards_previous_board_intent() -> void:
 	board.move_selected_piece(board.get_cell(Vector2i(4, 0)), 0.1)
 	board._on_coordinate_pressed(Vector2i(8, 8))
 	board._on_coordinate_pressed(Vector2i(8, 7))
-	await get_tree().create_timer(0.7).timeout
+	await board.finish_presentation()
+	await wait_process_frames(3)
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_eq(board._buffered_piece_id, 0)
 	(UIManager.current_popup as PopupSkillChoice)._select(0)

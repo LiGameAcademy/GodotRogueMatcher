@@ -3,6 +3,13 @@ class_name Board
 
 ## M1兼容协调器：旧回合流程调用规则入口，表现由独立BoardView消费。
 signal initialized
+signal presentation_updated
+signal selection_changed(piece: PieceState, has_fuse: bool)
+signal operation_feedback(message: String)
+signal feedback_requested(cue: StringName)
+signal run_reset
+## Game显式提供兄弟HUD的等待入口，不从棋盘查找UI节点。
+var score_presenter: Callable
 
 @export var rows: int = 9
 @export var cols: int = 9
@@ -28,6 +35,10 @@ var selected_piece: ChessPiece = null:
 		selected_piece = value
 		if is_instance_valid(selected_piece):
 			selected_piece.selected()
+			var piece: PieceState = rules.state.get_piece(selected_piece.piece_id)
+			selection_changed.emit(piece, run.state.explosion.instances.has(selected_piece.piece_id))
+		else:
+			selection_changed.emit(null, false)
 
 @onready var view: BoardView = $BoardView
 @onready var director: PresentationDirector = $PresentationDirector
@@ -60,6 +71,7 @@ func _exit_tree() -> void:
 #region 初始化与重试
 ## 规则对象由Game显式注入，重试传入全新的状态。
 func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
+	run_reset.emit()
 	cancel_buffered_input()
 	_turn_in_progress = false
 	_generation += 1
@@ -102,6 +114,7 @@ func retry_game(board_rules: BoardRules) -> void:
 func load_explosion_demo() -> bool:
 	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()):
 		return false
+	run_reset.emit()
 	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "fixture_restart")
 	cancel_buffered_input()
 	_turn_in_progress = false
@@ -241,6 +254,9 @@ func finish_presentation() -> bool:
 	if _score_presentation_pending:
 		_score_presentation_pending = false
 		GameManager.publish_score()
+	if score_presenter.is_valid() and not await score_presenter.call(): return false
+	if run != active_run: return false
+	presentation_updated.emit()
 	return true
 
 ## 技能应用只消费已提交结果；落子查线也不会重复计分。
@@ -259,6 +275,10 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 		PresentationStep.Kind.REMOVE:
 			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
 		PresentationStep.Kind.MATCHES:
+			var cue: StringName = &"match"
+			for result: MatchResult in step.matches:
+				if result.cause == &"explosion": cue = &"blast"
+			if not step.matches.is_empty(): feedback_requested.emit(cue)
 			_show_matches(step.matches)
 	if completed: completed = await view.wait_for_animations()
 	if completed:
@@ -405,11 +425,13 @@ func _buffer_input(coordinate: Vector2i) -> void:
 		_buffered_piece_id = id
 		_buffered_coordinate = coordinate
 		cell.highlight_path()
+		operation_feedback.emit("下一枚棋子已暂存")
 	elif _buffered_piece_id != 0:
 		if _buffered_target != Vector2i(-1, -1):
 			observation.cancel_buffer("overwritten")
 			observation.buffered_input = observation.input("move", true)
 		_buffered_target = coordinate
+		operation_feedback.emit("下一步移动已暂存，结算后验证")
 
 func _resume_buffered_input() -> void:
 	var id: int = _buffered_piece_id
@@ -419,6 +441,7 @@ func _resume_buffered_input() -> void:
 	cancel_buffered_input()
 	if not can_selected or rules.state.get_piece(id) == null:
 		observation.resolve(input_id, "discarded", "piece_missing_or_busy")
+		if id != 0: operation_feedback.emit("暂存棋子已离场，操作已取消")
 		return
 	selected_piece = view.get_piece(id)
 	if target != Vector2i(-1, -1):
@@ -432,6 +455,7 @@ func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_m
 		return
 	if not is_instance_valid(selected_piece) or selected_piece.piece_id != id or rules.state.get_piece_id(target) != 0:
 		observation.resolve(input_id, "discarded", "piece_changed_or_target_occupied")
+		operation_feedback.emit("暂存目标失效，请重新选择")
 		return
 	await move_selected_piece(get_cell(target), 0.5, waiting_ms, input_id)
 
