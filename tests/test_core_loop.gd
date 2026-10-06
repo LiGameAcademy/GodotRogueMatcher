@@ -10,6 +10,7 @@ func before_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
 	main = MAIN_SCENE.instantiate() as Node2D
+	main.get_node("Game").set("persist_preferences", false)
 	main.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
@@ -128,6 +129,7 @@ func test_failed_spawn_does_not_offer_pending_rescue_reward() -> void:
 	GameManager.add_score(100)
 	assert_eq(await SpawnManager.spawn_random_pieces(board), 0)
 	await LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	assert_true(GameManager.is_game_over)
 	assert_false(UIManager.current_popup is PopupSkillChoice)
@@ -146,6 +148,7 @@ func test_reward_filling_last_space_ends_before_next_reward() -> void:
 	_remove(Vector2i(8, 8))
 	GameManager.add_score(260)
 	LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	popup._select(_skill_index(popup, &"core_drop"))
@@ -162,6 +165,7 @@ func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	GameManager.add_score(123)
 	LevelUpSystem.pending_rewards = 2
 	GameManager.finish_game()
+	await (main.get_node("Game/UILayer/HUD") as Hud).wait_for_score()
 	await wait_process_frames(3)
 	UIManager.current_popup.retry_requested.emit()
 	await board.initialized
@@ -182,6 +186,7 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	assert_eq(LevelUpSystem.pending_rewards, 2)
 	assert_false(is_instance_valid(UIManager.current_popup))
 	LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)
@@ -214,6 +219,7 @@ func test_f7_uses_real_reward_popup_and_returns_to_same_turn() -> void:
 	key.pressed = true
 	key.physical_keycode = KEY_F7
 	main.get_node("Game")._unhandled_key_input(key)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)
@@ -233,6 +239,7 @@ func test_f7_uses_real_reward_popup_and_returns_to_same_turn() -> void:
 func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
 	GameManager.add_score(100)
 	LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	var previous: int = popup.offer.offer_id
@@ -250,6 +257,7 @@ func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
 func test_old_skill_callback_after_retry_cannot_modify_new_run() -> void:
 	GameManager.add_score(100)
 	LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	var old_run: RunController = board.run

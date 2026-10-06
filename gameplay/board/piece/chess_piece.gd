@@ -56,6 +56,17 @@ var item_data: ItemData = null :
 
 var tween: Tween = null
 var is_selected: bool = false
+var low_effects: bool = false
+
+func set_low_effects(enabled: bool) -> void:
+	low_effects = enabled
+	if glow_particles:
+		glow_particles.emitting = false
+		glow_particles.visible = not enabled
+	# 演出进行中不取消移动/离场Tween；只有静止选择的装饰可以重建。
+	if is_selected and not _is_moving and not is_eliminating:
+		is_selected = false
+		selected()
 var is_eliminating: bool = false
 var is_ghost: bool = false  # 幽灵球标志（空间压缩机效果）
 var _is_moving: bool = false
@@ -184,6 +195,7 @@ func setup_glow_particles() -> void:
 	glow_particles.amount = 20
 	glow_particles.lifetime = 1.0
 	glow_particles.emitting = false
+	glow_particles.visible = not low_effects
 	
 	# 设置粒子材质
 	var particle_material: ParticleProcessMaterial = ParticleProcessMaterial.new()
@@ -213,14 +225,14 @@ func selected() -> void:
 		tween.kill()
 	
 	tween = create_tween()
-	tween.set_loops()
-	tween.set_trans(Tween.TRANS_ELASTIC)
+	if not low_effects: tween.set_loops()
+	tween.set_trans(Tween.TRANS_CUBIC if low_effects else Tween.TRANS_ELASTIC)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.15)
-	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.15)
+	tween.tween_property(self, "scale", Vector2.ONE * (1.1 if low_effects else 1.0), 0.15)
 	
 	# 启动辉光粒子
-	if glow_particles:
+	if glow_particles and not low_effects:
 		glow_particles.emitting = true
 		glow_particles.restart()
 
@@ -262,7 +274,7 @@ func eliminate() -> void:
 	is_eliminating = true
 	
 	# 爆炸粒子效果
-	if glow_particles:
+	if glow_particles and not low_effects:
 		glow_particles.emitting = true
 		glow_particles.restart()
 		var particle_material: ParticleProcessMaterial = glow_particles.process_material as ParticleProcessMaterial
@@ -275,8 +287,8 @@ func eliminate() -> void:
 		tween.kill()
 	
 	tween = create_tween()
-	tween.parallel().tween_property(self, "scale", Vector2(1.5, 1.5), 0.2)
-	tween.parallel().tween_property(self, "rotation", rotation + TAU, 0.2)
+	tween.parallel().tween_property(self, "scale", Vector2.ZERO if low_effects else Vector2(1.5, 1.5), 0.2)
+	if not low_effects: tween.parallel().tween_property(self, "rotation", rotation + TAU, 0.2)
 	
 	# 根据显示模式淡出对应的视觉元素
 	if display_mode == DisplayMode.SHAPE and polygon:
@@ -321,7 +333,7 @@ func spawn_animation() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	
 	# 启动辉光粒子
-	if glow_particles:
+	if glow_particles and not low_effects:
 		glow_particles.emitting = true
 		glow_particles.restart()
 

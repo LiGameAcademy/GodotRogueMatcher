@@ -15,6 +15,8 @@ var _items: Dictionary[StringName, ItemData] = {}
 var _generation: int = 0
 var _spacing: Vector2
 var _dimensions: Vector2i
+var _cell_size: Vector2
+var low_effects: bool = false
 var _presentation_tweens: Array[Tween] = []
 var presentation_speed: float = 1.0:
 	set(value):
@@ -38,6 +40,7 @@ func _exit_tree() -> void:
 func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> void:
 	clear_display()
 	_spacing = cell_size + gap
+	_cell_size = cell_size
 	_dimensions = Vector2i(columns, rows)
 	for cell: Cell in _cells.values():
 		remove_child(cell)
@@ -47,6 +50,7 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 		for y: int in range(rows):
 			var cell: Cell = CELL_SCENE.instantiate() as Cell
 			cell.coordinate = Vector2i(x, y)
+			cell.low_effects = low_effects
 			cell.position = Vector2(x, y) * (cell_size + gap)
 			cell.pressed.connect(_on_cell_pressed)
 			add_child(cell)
@@ -54,6 +58,18 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 
 func get_cell(coordinate: Vector2i) -> Cell:
 	return _cells.get(coordinate)
+
+## 格子以中心为原点，边框也计入布局；不用节点原点充当棋盘左上角。
+func get_display_rect() -> Rect2:
+	if _dimensions.x <= 0 or _dimensions.y <= 0: return Rect2()
+	return Rect2(-_cell_size * 0.5, Vector2(_dimensions - Vector2i.ONE) * _spacing + _cell_size).grow(2.0)
+
+func set_low_effects(enabled: bool) -> void:
+	low_effects = enabled
+	for cell: Cell in _cells.values(): cell.set_low_effects(enabled)
+	for piece: ChessPiece in _pieces.values(): piece.set_low_effects(enabled)
+	for child: Node in get_children():
+		if child is ExplosionVisual: (child as ExplosionVisual).set_low_effects(enabled)
 
 func get_piece(piece_id: int) -> ChessPiece:
 	return _pieces.get(piece_id)
@@ -103,6 +119,7 @@ func show_piece(piece_state: PieceState, piece: ChessPiece) -> void:
 	var cell: Cell = get_cell(piece_state.coordinate)
 	assert(cell != null and cell.piece == null)
 	piece.piece_id = piece_state.piece_id
+	piece.low_effects = low_effects
 	cell.show_piece(piece)
 	piece.position = Vector2.ZERO
 	piece.piece_type = piece_state.match_color
@@ -126,6 +143,7 @@ func show_blast(center: Vector2i, radius: int) -> void:
 	if radius < 0 or not _cells.has(center):
 		return
 	var visual: ExplosionVisual = EXPLOSION_SCENE.instantiate() as ExplosionVisual
+	visual.low_effects = low_effects
 	add_child(visual)
 	visual.position = Vector2(center) * _spacing
 	var minimum: Vector2i = Vector2i(maxi(0, center.x - radius), maxi(0, center.y - radius))

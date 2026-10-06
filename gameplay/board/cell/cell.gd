@@ -32,6 +32,22 @@ var path_tween: Tween = null
 
 ## 网格坐标（在棋盘当中的坐标）
 var coordinate: Vector2i = Vector2i.ZERO
+var low_effects: bool = false
+
+func set_low_effects(enabled: bool) -> void:
+	low_effects = enabled
+	stop_scan_animation()
+	if path_tween != null: path_tween.kill()
+	if highlight_tween != null: highlight_tween.kill()
+	glow_border.default_color = Color.TRANSPARENT
+	background.modulate = Color.WHITE
+	if is_path_highlighted:
+		is_path_highlighted = false
+		highlight_path()
+	else:
+		update_default_style()
+		if is_hovered: hover_effect(true)
+		else: start_scan_animation()
 
 func _ready() -> void:
 	area_2d.input_event.connect(_on_area_2d_input_event)
@@ -107,6 +123,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 
 ## 点击反馈
 func click_feedback() -> void:
+	if low_effects: return
 	# 快速闪烁效果
 	var flash_tween: Tween = create_tween()
 	flash_tween.set_trans(Tween.TRANS_QUART)
@@ -128,6 +145,7 @@ func highlight() -> void:
 	# 边框发光效果
 	highlight_tween.parallel().tween_property(border, "default_color", highlight_glow_color, 0.2)
 	highlight_tween.parallel().tween_property(glow_border, "default_color", Color(highlight_glow_color.r, highlight_glow_color.g, highlight_glow_color.b, 0.6), 0.2)
+	if low_effects: glow_border.visible = false
 	
 	# 启动扫描线动画
 	start_scan_animation(highlight_glow_color, 0.8)
@@ -151,6 +169,8 @@ func highlight_path() -> void:
 	# 边框颜色变化
 	highlight_tween.parallel().tween_property(border, "default_color", path_highlight_color, 0.15)
 	highlight_tween.parallel().tween_property(glow_border, "default_color", Color(path_highlight_color.r, path_highlight_color.g, path_highlight_color.b, 0.4), 0.15)
+	glow_border.visible = not low_effects
+	if low_effects: return
 	
 	# 脉冲效果
 	path_tween = create_tween()
@@ -185,6 +205,10 @@ func unhighlight() -> void:
 
 ## 启动扫描线动画（CRT 终端风格）
 func start_scan_animation(color: Color = Color(0, 1, 1, 0.3), intensity: float = 0.3) -> void:
+	if low_effects:
+		glow_border.visible = false
+		return
+	glow_border.visible = true
 	if not scan_line:
 		return
 	

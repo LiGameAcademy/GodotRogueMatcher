@@ -9,6 +9,7 @@ func before_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
 	main = MAIN.instantiate() as Node2D
+	main.get_node("Game").set("persist_preferences", false)
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
@@ -42,6 +43,7 @@ func test_real_popup_produces_visible_exposure_then_acquisition_once() -> void:
 	var telemetry: TelemetryProjector = board.observation.telemetry
 	GameManager.add_score(100)
 	LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node("Game/UILayer/HUD") as Hud).wait_for_score()
 	await wait_process_frames(4)
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_eq(_events(telemetry, "offer_generated").size(), 1)

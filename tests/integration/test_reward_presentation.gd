@@ -9,6 +9,7 @@ func before_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
 	main = MAIN.instantiate() as Node2D
+	main.get_node("Game").set("persist_preferences", false)
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
@@ -34,6 +35,9 @@ func test_match_finishes_before_score_notification_and_reward_popup() -> void:
 	assert_false(get_tree().paused)
 	assert_false(is_instance_valid(UIManager.current_popup))
 	await board.view.wait_for_presentation()
+	assert_false(is_instance_valid(UIManager.current_popup))
+	assert_lt((main.get_node("Game/UILayer/HUD") as Hud).displayed_score, 100)
+	await board.finish_presentation()
 	await wait_process_frames(3)
 	assert_signal_emitted_with_parameters(GameManager, "score_changed", [100])
 	assert_eq(LevelUpSystem.pending_rewards, 1)
@@ -52,7 +56,7 @@ func test_blast_waits_for_longer_visual_before_reward_pauses_game() -> void:
 	assert_true(board.view.is_presenting())
 	assert_false(get_tree().paused)
 	assert_false(is_instance_valid(UIManager.current_popup))
-	await board.view.wait_for_presentation()
+	await board.finish_presentation()
 	await wait_process_frames(3)
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_false(board.view.is_presenting())
@@ -63,6 +67,7 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	for x: int in range(4): _place(Vector2i(x, 0), 1)
 	GameManager.add_score(260)
 	LevelUpSystem.resolve_pending_rewards(board)
+	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	popup.offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
@@ -74,7 +79,7 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	assert_false(get_tree().paused)
 	await wait_process_frames(3)
 	assert_false(is_instance_valid(UIManager.current_popup) and UIManager.current_popup.visible)
-	await board.view.wait_for_presentation()
+	await board.finish_presentation()
 	await wait_process_frames(3)
 	var next: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(next)
