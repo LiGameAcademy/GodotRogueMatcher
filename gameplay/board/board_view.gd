@@ -8,6 +8,8 @@ const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explos
 
 signal cell_pressed(coordinate: Vector2i)
 signal presentation_changed
+signal piece_removing(piece: ChessPiece)
+signal match_visualized(result: MatchResult, cells: Array[Cell])
 
 var _cells: Dictionary[Vector2i, Cell] = {}
 var _pieces: Dictionary[int, ChessPiece] = {}
@@ -18,11 +20,12 @@ var _dimensions: Vector2i
 var _cell_size: Vector2
 var low_effects: bool = false
 var _presentation_tweens: Array[Tween] = []
+var _fixed_required: bool = false
 var presentation_speed: float = 1.0:
 	set(value):
 		presentation_speed = maxf(value, 0.01)
 		for animation: Tween in _presentation_tweens:
-			if animation.is_valid(): animation.set_speed_scale(presentation_speed)
+			if animation.is_valid(): animation.set_speed_scale(1.0 if _fixed_required else presentation_speed)
 var _playback_pending: bool = false
 
 #region 显示初始化与查询
@@ -184,6 +187,7 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 	var piece: ChessPiece = get_piece(piece_state.piece_id)
 	if not is_instance_valid(piece):
 		return
+	piece_removing.emit(piece)
 	_pieces.erase(piece_state.piece_id)
 	var cell: Cell = get_cell(piece_state.coordinate)
 	cell.take_piece()
@@ -192,12 +196,58 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 		add_child(piece)
 		piece.eliminate()
 		track_presentation(piece.tween)
-		await piece.tween.finished
-	piece.queue_free()
+		piece.tween.finished.connect(piece.queue_free)
+	else: piece.queue_free()
+
+func animate_matches(results: Array[MatchResult]) -> void:
+	for result: MatchResult in results:
+		var cells: Array[Cell] = []
+		for snapshot: PieceState in result.removed:
+			cells.append(get_cell(snapshot.coordinate))
+			remove_piece(snapshot, true)
+		if result.cause == &"explosion": show_blast(result.center, result.radius)
+		match_visualized.emit(result, cells)
+
+func set_step_policy(policy: PresentationStep.Policy) -> void:
+	_fixed_required = policy == PresentationStep.Policy.FIXED_REQUIRED
+
+## 仅取消当前视图任务，唤醒旧等待；跳过权限由导演判断。
+func cancel_animations() -> void:
+	_generation += 1
+	for animation: Tween in _presentation_tweens:
+		if animation.is_valid(): animation.kill()
+	_presentation_tweens.clear()
+	for piece: ChessPiece in _pieces.values():
+		if is_instance_valid(piece): piece.cancel_movement()
+	for child: Node in get_children():
+		if child is ExplosionVisual or (child is ChessPiece and (child as ChessPiece).is_eliminating):
+			remove_child(child)
+			child.queue_free()
+	presentation_changed.emit()
+
+## 仅应用当前爆炸代的离场，不能展示后续出生或最终盘面。
+func skip_step(step: PresentationStep) -> bool:
+	if step.policy != PresentationStep.Policy.SKIPPABLE or step.kind != PresentationStep.Kind.MATCHES: return false
+	cancel_animations()
+	for result: MatchResult in step.matches:
+		for piece: PieceState in result.removed: remove_piece(piece)
+	return true
+
+func align_snapshot(snapshot: Array[PieceState]) -> bool:
+	if not PlaybackPlanBuilder.valid_snapshot(snapshot, _dimensions): return false
+	var matches: bool = _pieces.size() == snapshot.size()
+	for state: PieceState in snapshot:
+		var piece: ChessPiece = get_piece(state.piece_id)
+		if not is_instance_valid(piece) or get_cell(state.coordinate).piece != piece:
+			matches = false
+		elif piece.piece_type != state.match_color or piece.is_ghost != state.is_ghost:
+			matches = false
+	if not matches: rebuild(snapshot)
+	return true
 
 ## 记录本视图实际启动的演出；等待不重新计算或修改规则结果。
 func track_presentation(animation: Tween) -> void:
-	animation.set_speed_scale(maxf(presentation_speed, 0.01))
+	animation.set_speed_scale(1.0 if _fixed_required else maxf(presentation_speed, 0.01))
 	_presentation_tweens.append(animation)
 	animation.finished.connect(_on_animation_finished)
 

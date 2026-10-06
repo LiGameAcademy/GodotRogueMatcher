@@ -95,11 +95,12 @@ func test_view_parallel_barrier_waits_for_all_required_tweens() -> void:
 	var short_task: Tween = view.create_tween()
 	short_task.tween_interval(0.0)
 	var long_task: Tween = view.create_tween()
-	long_task.tween_interval(0.1)
+	long_task.tween_interval(5.0)
 	view.track_presentation(short_task)
 	view.track_presentation(long_task)
 	await wait_process_frames(2)
 	assert_true(view.is_presenting())
+	long_task.custom_step(5.1)
 	assert_true(await view.wait_for_animations())
 	assert_false(view.is_presenting())
 
@@ -142,3 +143,88 @@ func test_f8_fast_mode_keeps_f6_rule_snapshot_and_telemetry_counts_identical() -
 		assert_eq(GameManager.score, 70)
 		assert_eq(board.director.error, "")
 		assert_false(board.director.is_busy())
+
+func test_skip_preserves_required_segments_and_rejects_old_completion() -> void:
+	var skipped: Array[Dictionary] = []
+	director.step_skip_requested.connect(func(step: PresentationStep, epoch: int, token: int) -> void:
+		skipped.append({"step": step, "epoch": epoch, "token": token}))
+	var first: PresentationStep = PresentationStep.new()
+	var required: PresentationStep = PresentationStep.new()
+	required.policy = PresentationStep.Policy.COMPLETE_REQUIRED
+	var fixed: PresentationStep = PresentationStep.new()
+	fixed.policy = PresentationStep.Policy.FIXED_REQUIRED
+	director.enqueue([first, required, fixed, PresentationStep.new()])
+	assert_true(director.request_skip())
+	assert_eq(skipped.size(), 1)
+	_complete(0)
+	assert_true(director.is_busy())
+	assert_eq(requests.size(), 1)
+	director.complete_step(skipped[0].epoch, skipped[0].token)
+	await wait_process_frames(2)
+	assert_same(requests[1].step, required)
+	_complete(1)
+	await wait_process_frames(2)
+	assert_same(requests[2].step, fixed)
+	_complete(2)
+	await wait_process_frames(2)
+	assert_eq(skipped.size(), 2)
+	director.complete_step(skipped[1].epoch, skipped[1].token)
+	assert_true(await director.wait_until_idle())
+
+func test_skip_stops_at_batch_alignment_and_pause_rejects_request() -> void:
+	var skipped: Array[Dictionary] = []
+	director.step_skip_requested.connect(func(step: PresentationStep, epoch: int, token: int) -> void:
+		skipped.append({"step": step, "epoch": epoch, "token": token}))
+	director.enqueue([PresentationStep.new()], [], true)
+	director.enqueue([PresentationStep.new()])
+	get_tree().paused = true
+	assert_false(director.request_skip())
+	get_tree().paused = false
+	assert_true(director.request_skip())
+	director.complete_step(skipped[0].epoch, skipped[0].token)
+	await wait_process_frames(2)
+	assert_eq((requests[1].step as PresentationStep).kind, PresentationStep.Kind.ALIGN)
+	_complete(1)
+	await wait_process_frames(2)
+	assert_eq(requests.size(), 3)
+	assert_eq(skipped.size(), 1)
+	_complete(2)
+	assert_true(await director.wait_until_idle())
+
+func test_fixed_required_clock_ignores_fast_speed_changes() -> void:
+	var view: BoardView = VIEW.instantiate() as BoardView
+	add_child_autofree(view)
+	view.set_step_policy(PresentationStep.Policy.FIXED_REQUIRED)
+	view.presentation_speed = 4.0
+	var task: Tween = view.create_tween()
+	task.tween_interval(0.3)
+	view.track_presentation(task)
+	await get_tree().create_timer(0.1).timeout
+	assert_true(view.is_presenting())
+	view.presentation_speed = 8.0
+	await get_tree().create_timer(0.1).timeout
+	assert_true(view.is_presenting())
+	assert_true(await view.wait_for_animations())
+
+func test_recovery_callback_starting_next_batch_keeps_new_barrier_busy() -> void:
+	director.playback_failed.connect(func(_reason: String) -> void:
+		director.confirm_recovery()
+		director.enqueue([PresentationStep.new()]))
+	director.enqueue([PresentationStep.new()])
+	_complete(0, false)
+	assert_eq(requests.size(), 2)
+	assert_true(director.is_busy())
+	_complete(1)
+	assert_true(await director.wait_until_idle())
+
+func test_step_guard_freezes_while_paused() -> void:
+	director.config = director.config.duplicate() as PresentationConfig
+	director.config.step_timeout_seconds = 0.1
+	director.enqueue([PresentationStep.new()])
+	get_tree().paused = true
+	await get_tree().create_timer(0.6).timeout
+	assert_true(director.is_busy())
+	assert_eq(director.error, "")
+	get_tree().paused = false
+	_complete(0)
+	assert_true(await director.wait_until_idle())

@@ -166,6 +166,12 @@ layout_mode = 2
 text = "操作提示\n选中棋子，再点击空格。\n横 / 竖 / 斜五连消除。\n未直接消除时通常补 3 枚。\n全清后也会补棋；填满即结束。"
 autowrap_mode = 2
 
+[node name="SkipButton" type="Button" parent="Margin/Rows/Body/Right/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "跳过本次可略演出（F9）"
+tooltip_text = "移动、出生和主消除仍需完成；仅略过本次爆炸细节与计分滚动。"
+
 [node name="LowEffectsButton" type="CheckButton" parent="Margin/Rows/Body/Right/Content"]
 unique_name_in_owner = true
 layout_mode = 2

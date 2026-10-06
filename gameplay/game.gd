@@ -27,10 +27,12 @@ func _ready() -> void:
 	board.score_presenter = _wait_for_score
 	hud.fast_requested.connect(_set_fast)
 	hud.pause_requested.connect(_toggle_pause)
+	hud.skip_requested.connect(_request_skip)
 	hud.low_effects_requested.connect(_set_low_effects)
 	hud.volume_requested.connect(_preview_volume)
 	hud.volume_committed.connect(_set_volume)
 	board.feedback_requested.connect(feedback.play)
+	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
 	board.selection_changed.connect(_on_selection_feedback)
 	board.selection_changed.connect(hud.show_selection)
@@ -114,7 +116,16 @@ func _on_playback_busy(busy: bool) -> void:
 
 func _wait_for_score() -> bool:
 	hud.show_status("正在累计得分…")
+	if board.director.skip_score_requested: hud.finish_score_now()
 	return await hud.wait_for_score()
+
+func _request_skip() -> void:
+	if get_tree().paused or is_instance_valid(UIManager.current_popup): return
+	var accepted: bool = board.director.request_skip()
+	var score_skipped: bool = hud.finish_score_now()
+	if accepted or score_skipped:
+		feedback.cancel()
+		hud.show_status("已请求略过可跳部分，必播动作仍需完成")
 
 func _toggle_pause() -> void:
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
