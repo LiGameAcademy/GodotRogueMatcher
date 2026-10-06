@@ -5,6 +5,7 @@ extends Control
 signal score_animation_changed
 signal fast_requested(fast: bool)
 signal pause_requested
+signal skip_requested
 signal low_effects_requested(enabled: bool)
 signal volume_requested(volume: float)
 signal volume_committed(volume: float)
@@ -28,6 +29,7 @@ signal board_area_changed
 @onready var board_area: Control = %BoardArea
 @onready var low_effects_button: CheckButton = %LowEffectsButton
 @onready var volume_slider: HSlider = %VolumeSlider
+@onready var skip_button: Button = %SkipButton
 var displayed_score: int = 0
 var _target_score: int = 0
 var _score_tween: Tween
@@ -37,6 +39,7 @@ var _fast: bool = false
 func _ready() -> void:
 	fast_button.toggled.connect(fast_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
+	skip_button.pressed.connect(skip_requested.emit)
 	low_effects_button.toggled.connect(low_effects_requested.emit)
 	volume_slider.value_changed.connect(_on_volume_changed)
 	volume_slider.drag_ended.connect(_on_volume_drag_ended)
@@ -54,6 +57,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		var key: InputEventKey = event as InputEventKey
 		if key.pressed and not key.echo and key.physical_keycode == KEY_ESCAPE:
 			pause_requested.emit()
+			get_viewport().set_input_as_handled()
+		elif key.pressed and not key.echo and key.physical_keycode == KEY_F9:
+			skip_requested.emit()
 			get_viewport().set_input_as_handled()
 
 func _exit_tree() -> void:
@@ -81,6 +87,13 @@ func wait_for_score() -> bool:
 	while _score_tween != null and _score_tween.is_valid() and _score_tween.is_running():
 		await score_animation_changed
 		if epoch != _epoch: return false
+	return true
+
+## 正常跳过只结束插值，不递增局身份，也不再次提交分数。
+func finish_score_now() -> bool:
+	if _score_tween == null or not _score_tween.is_valid() or not _score_tween.is_running(): return false
+	_score_tween.kill()
+	_finish_score(_target_score, _epoch)
 	return true
 
 func show_run(run: RunController) -> void:

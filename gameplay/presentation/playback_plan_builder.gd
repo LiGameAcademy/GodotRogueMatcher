@@ -5,6 +5,7 @@ extends RefCounted
 static func move(result: BoardMoveResult, duration: float) -> Array[PresentationStep]:
 	var step: PresentationStep = PresentationStep.new()
 	step.kind = PresentationStep.Kind.MOVE
+	step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 	step.duration = maxf(0.0, duration)
 	step.movement = BoardMoveResult.new()
 	step.movement.piece_id = result.piece_id
@@ -27,6 +28,8 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 		frozen.score_entry = result.score_entry.copy()
 		for piece: PieceState in result.removed: frozen.removed.append(piece.copy())
 		steps.back().matches.append(frozen)
+		if result.cause != &"explosion":
+			steps.back().policy = PresentationStep.Policy.COMPLETE_REQUIRED
 	return steps
 
 static func spawns(results: Array[SpawnResult], duration: float) -> Array[PresentationStep]:
@@ -34,6 +37,7 @@ static func spawns(results: Array[SpawnResult], duration: float) -> Array[Presen
 	for result: SpawnResult in results:
 		var step: PresentationStep = PresentationStep.new()
 		step.kind = PresentationStep.Kind.SPAWN
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		step.duration = maxf(0.0, duration)
 		step.pieces.append(result.piece.copy())
 		steps.append(step)
@@ -45,13 +49,29 @@ static func skill(result: SkillApplyResult, duration: float) -> Array[Presentati
 	for piece: PieceState in result.created:
 		var step: PresentationStep = PresentationStep.new()
 		step.kind = PresentationStep.Kind.SPAWN
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		step.duration = maxf(0.0, duration)
 		step.pieces.append(piece.copy())
 		steps.append(step)
 	if not result.removed.is_empty():
 		var step: PresentationStep = PresentationStep.new()
 		step.kind = PresentationStep.Kind.REMOVE
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		for piece: PieceState in result.removed: step.pieces.append(piece.copy())
 		steps.append(step)
 	steps.append_array(matches(result.matches))
 	return steps
+
+## 终态仅验证数据合法性，不修改或重新计算规则。
+static func valid_snapshot(snapshot: Array[PieceState], dimensions: Vector2i) -> bool:
+	var ids: Dictionary[int, bool] = {}
+	var coordinates: Dictionary[Vector2i, bool] = {}
+	if dimensions.x <= 0 or dimensions.y <= 0: return false
+	for piece: PieceState in snapshot:
+		if piece == null or piece.piece_id <= 0 or ids.has(piece.piece_id): return false
+		if piece.match_color < 0 or piece.match_color >= 5: return false
+		if not Rect2i(Vector2i.ZERO, dimensions).has_point(piece.coordinate): return false
+		if coordinates.has(piece.coordinate): return false
+		ids[piece.piece_id] = true
+		coordinates[piece.coordinate] = true
+	return true

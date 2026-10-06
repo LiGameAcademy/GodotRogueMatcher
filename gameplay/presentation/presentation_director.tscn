@@ -5,3 +5,8 @@
 [node name="PresentationDirector" type="Node"]
 process_mode = 1
 script = ExtResource("1")
+
+[node name="StepGuard" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="StepGuard" to="." method="_on_step_timeout"]

@@ -58,6 +58,7 @@ func test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant() -> voi
 	await wait_process_frames(2)
 	assert_null(board.selected_piece)
 	assert_eq(GameManager.turn_count, 2)
+	assert_eq(board.get_cell(Vector2i(8, 8)).piece.piece_id, board.rules.state.get_piece_id(Vector2i(8, 8)))
 
 func test_retry_discards_buffered_command() -> void:
 	board.move_selected_piece(board.get_cell(Vector2i(4, 0)), 0.1)
@@ -95,6 +96,7 @@ func test_buffered_move_rechecks_target_occupancy() -> void:
 	assert_eq(GameManager.turn_count, 2)
 	assert_same(board.selected_piece, next)
 	assert_eq(board.rules.state.get_piece(next.piece_id).coordinate, Vector2i(8, 8))
+	assert_eq(board.get_cell(Vector2i(8, 7)).piece.piece_id, board.rules.state.get_piece_id(Vector2i(8, 7)))
 
 func _place(coordinate: Vector2i, color: int) -> ChessPiece:
 	var piece: ChessPiece = BoardView.PIECE_SCENE.instantiate() as ChessPiece

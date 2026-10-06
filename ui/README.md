@@ -24,4 +24,4 @@ PlayerPreferences 使用插件 ConfigManager 保存快速播放、低特效和�
 
 GameFeedback 使用插件 AudioManager 播放五类原型提示音，详见 [提示音说明](../gameplay/presentation/audio/README.md)。规则和账本不依赖音频或配置插件。本项目关闭尚未使用的 SaveManager 模块和自动保存，具体插件问题与待讨论升级见[插件接入记录](../../GDC/acceptance/m5b-插件接入问题.md)。
 
-跳过按钮仍未提供：需要先为播放步骤建立终态对齐及可跳过政策，再验收奖励、暂停和重试边界。当前只有 1×/2× 和低特效，不能视为已完成31全部播放政策。
+右侧跳过按钮/F9仅作用于本批可跳步骤和计分插值，移动、出生与主消除仍需完成；弹窗和暂停期间不接受跳过。跳过终值保持整数精度，不提交账本。步骤终态、故障恢复和兼容边界见[表现说明](../gameplay/presentation/README.md)。首次接触者理解测试和完整UI过渡迁移仍未验收。

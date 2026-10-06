@@ -23,6 +23,7 @@ var can_selected: bool = false
 var _generation: int = 0
 var _presented_events: Dictionary[int, bool] = {}
 var _score_presentation_pending: bool = false
+var _compatibility_changed: bool = false
 var _turn_in_progress: bool = false
 var _buffered_started_ms: int = 0
 var _buffered_piece_id: int = 0
@@ -47,6 +48,10 @@ func _ready() -> void:
 	add_to_group("board")
 	view.cell_pressed.connect(_on_coordinate_pressed)
 	director.step_requested.connect(_on_presentation_step_requested)
+	director.step_skip_requested.connect(_on_step_skip_requested)
+	director.playback_failed.connect(_on_playback_failed)
+	view.piece_removing.connect(_on_piece_removing)
+	view.match_visualized.connect(_on_match_visualized)
 	director.busy_changed.connect(view.set_playback_pending)
 
 func _notification(what: int) -> void:
@@ -82,6 +87,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	rules = board_rules
 	_presented_events.clear()
 	_score_presentation_pending = false
+	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
 	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "restart")
 	run = RunController.new(rules, randi())
@@ -130,6 +136,7 @@ func load_explosion_demo() -> bool:
 	GameManager.reset_game(run)
 	_presented_events.clear()
 	_score_presentation_pending = false
+	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
 	run.initialize("fixture_f6")
 	run.recorder = RunRecorder.new()
@@ -175,6 +182,7 @@ func place_piece(coordinate: Vector2i, piece: ChessPiece) -> bool:
 	if snapshot == null:
 		return false
 	view.show_piece(snapshot, piece)
+	if director.is_busy(): _compatibility_changed = true
 	_update_count_display()
 	return true
 
@@ -190,6 +198,7 @@ func remove_piece(coordinate: Vector2i, animated: bool = false) -> bool:
 	if is_instance_valid(piece) and piece.item_data != null:
 		ItemEffectSystem.unregister_item(piece)
 	view.remove_piece(snapshot, animated)
+	if director.is_busy(): _compatibility_changed = true
 	_update_count_display()
 	return true
 
@@ -198,6 +207,7 @@ func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
 	if not rules.set_piece_color(piece_id, match_color):
 		return false
 	view.show_color(piece_id, match_color)
+	if director.is_busy(): _compatibility_changed = true
 	return true
 
 ## 只在等待输入的稳定点重建；播放/奖励期间拒绝，避免重入旧回合。
@@ -205,14 +215,20 @@ func rebuild_view() -> bool:
 	if not can_selected or get_tree().paused:
 		return false
 	selected_piece = null
-	view.rebuild(rules.state.get_snapshot())
-	refresh_ability_markers()
-	# 重建不是获得道具，不重新触发ON_PLACE。
-	ItemEffectSystem.placed_items.clear()
-	for snapshot: PieceState in rules.state.get_snapshot():
-		if view.get_piece(snapshot.piece_id).item_data != null:
-			ItemEffectSystem.placed_items.append(view.get_piece(snapshot.piece_id))
+	_restore_view(rules.state.get_snapshot())
 	return true
+
+## 重建不是获得道具，不重新触发ON_PLACE。
+func _restore_view(snapshot: Array[PieceState]) -> void:
+	view.rebuild(snapshot)
+	refresh_ability_markers()
+	_sync_items()
+
+func _sync_items() -> void:
+	ItemEffectSystem.placed_items.clear()
+	for cell: Cell in view.get_cells():
+		var piece: ChessPiece = cell.piece
+		if is_instance_valid(piece) and piece.item_data != null: ItemEffectSystem.placed_items.append(piece)
 
 ## 消费已经提交的离场快照；旧道具信号暂保留为M3兼容边界。
 func present_matches(results: Array[MatchResult]) -> void:
@@ -226,25 +242,15 @@ func _submit_plan(steps: Array[PresentationStep]) -> void:
 			_presented_events[result.score_entry.event_id] = true
 			pending.append(result)
 		step.matches = pending
-	director.enqueue(steps)
+		if not pending.is_empty(): _score_presentation_pending = true
+	director.enqueue(steps, rules.state.get_snapshot(), true)
 
-func _show_matches(results: Array[MatchResult]) -> void:
-	for result: MatchResult in results:
-		var cells: Array[Cell] = []
-		for snapshot: PieceState in result.removed:
-			cells.append(get_cell(snapshot.coordinate))
-			var piece: ChessPiece = view.get_piece(snapshot.piece_id)
-			if selected_piece == piece:
-				selected_piece = null
-			if is_instance_valid(piece) and piece.item_data != null:
-				ItemEffectSystem.unregister_item(piece)
-			view.remove_piece(snapshot, true)
-		_update_count_display()
-		_score_presentation_pending = true
-		if result.cause == &"explosion":
-			view.show_blast(result.center, result.radius)
-		else:
-			MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
+func _on_piece_removing(piece: ChessPiece) -> void:
+	if selected_piece == piece: selected_piece = null
+	if piece.item_data != null: ItemEffectSystem.unregister_item(piece)
+
+func _on_match_visualized(result: MatchResult, cells: Array[Cell]) -> void:
+	if result.cause != &"explosion": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
 
 ## 演出完成后再广播已提交分数和检查门槛；重试取消旧批次。
 func finish_presentation() -> bool:
@@ -256,6 +262,8 @@ func finish_presentation() -> bool:
 		GameManager.publish_score()
 	if score_presenter.is_valid() and not await score_presenter.call(): return false
 	if run != active_run: return false
+	_compatibility_changed = false
+	director.clear_skip_request()
 	presentation_updated.emit()
 	return true
 
@@ -267,6 +275,7 @@ func present_skill_result(result: SkillApplyResult) -> void:
 
 func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: int) -> void:
 	var completed: bool = true
+	view.set_step_policy(step.policy)
 	match step.kind:
 		PresentationStep.Kind.MOVE:
 			completed = await view.animate_move(step.movement, step.duration)
@@ -279,12 +288,36 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 			for result: MatchResult in step.matches:
 				if result.cause == &"explosion": cue = &"blast"
 			if not step.matches.is_empty(): feedback_requested.emit(cue)
-			_show_matches(step.matches)
+			view.animate_matches(step.matches)
+		PresentationStep.Kind.ALIGN:
+			# 旧公开写入口的额外提交只在全部步骤结束后纳入对齐。
+			var ending: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else step.pieces
+			completed = (_compatibility_changed and director.has_queued_steps()) or view.align_snapshot(ending)
+			if completed: _sync_items()
 	if completed: completed = await view.wait_for_animations()
+	if not director.is_current(epoch, token): return
 	if completed:
 		refresh_ability_markers()
 		_update_count_display()
 	director.complete_step(epoch, token, completed)
+
+func _on_step_skip_requested(step: PresentationStep, epoch: int, token: int) -> void:
+	director.complete_step(epoch, token, view.skip_step(step))
+
+func _on_playback_failed(reason: String) -> void:
+	can_selected = false
+	cancel_buffered_input("presentation_error")
+	var snapshot: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else director.recovery_snapshot
+	if not PlaybackPlanBuilder.valid_snapshot(snapshot, Vector2i(cols, rows)):
+		operation_feedback.emit("演出异常，无法恢复盘面：" + reason)
+		return
+	selected_piece = null
+	view.cancel_animations()
+	_restore_view(snapshot)
+	_compatibility_changed = false
+	_score_presentation_pending = true
+	director.confirm_recovery()
+	operation_feedback.emit("演出异常，已对齐本次结果")
 
 func set_playback_fast(fast: bool) -> void:
 	view.presentation_speed = director.config.fast_speed if fast else director.config.normal_speed
@@ -342,14 +375,13 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 	can_selected = false
 	_turn_in_progress = true
 	# 移动已经提交，演出只使用路径结果，不决定是否合法。
-	director.enqueue(PlaybackPlanBuilder.move(result, duration))
+	var plan: Array[PresentationStep] = PlaybackPlanBuilder.move(result, duration)
+	plan.append_array(PlaybackPlanBuilder.matches(turn.matches))
+	_submit_plan(plan)
 	if not await director.wait_until_idle(): return false
 	if generation != _generation:
 		return false
 	selected_piece = null
-	present_matches(turn.matches)
-	if generation != _generation:
-		return false
 	await _continue_run(generation)
 	if generation != _generation: return false
 	if not director.error.is_empty(): return false
