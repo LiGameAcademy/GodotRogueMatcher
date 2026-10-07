@@ -1,5 +1,21 @@
 extends GutTest
 
+func test_initialization_adds_five_and_ordinary_batch_still_adds_three() -> void:
+	var run: RunController = _new_run(9, 9, 7)
+	var initial: RunStepResult = run.initialize()
+	assert_eq(initial.spawns.size(), 5)
+	assert_eq(run.state.rules.state.get_piece_count(), 5)
+	assert_eq(run.state.phase, RunState.Phase.INPUT)
+	assert_eq(run.state.turn_count, 1)
+	assert_eq(run.state.valid_moves, 0)
+	assert_eq(run.spawn_batch().size(), 3)
+	assert_eq(run.state.spawn_history.size(), 8)
+	var repeated: RunController = _new_run(9, 9, 7)
+	var repeated_initial: RunStepResult = repeated.initialize()
+	for index: int in range(initial.spawns.size()):
+		assert_eq(initial.spawns[index].piece.coordinate, repeated_initial.spawns[index].piece.coordinate)
+		assert_eq(initial.spawns[index].piece.match_color, repeated_initial.spawns[index].piece.match_color)
+
 func test_move_commits_match_before_any_presentation() -> void:
 	var run: RunController = _new_run(9, 9)
 	for x: int in range(4):
@@ -122,9 +138,8 @@ func _new_run(columns: int, rows: int, run_seed: int = 0) -> RunController:
 
 func _seed_first_color(run: RunController, color: int) -> void:
 	for run_seed: int in range(1000):
-		run.state.random.seed = run_seed
-		run.state.random.randi_range(0, 0)
-		if run.state.random.randi_range(0, 4) == color:
-			run.state.random.seed = run_seed
+		run.state.spawning.content_random.seed = run_seed
+		if run.state.spawning.draw_color(run.state.spawning.content_random) == color:
+			run.state.spawning.content_random.seed = run_seed
 			return
 	fail_test("未找到固定颜色种子")

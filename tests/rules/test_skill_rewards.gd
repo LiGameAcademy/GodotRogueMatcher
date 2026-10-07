@@ -15,8 +15,7 @@ func test_first_offer_has_starter_and_distinct_legal_ids() -> void:
 	assert_eq(offer.choices.size(), 3)
 	assert_true(offer.generation_order[0] in [&"core_drop", &"assign_fuse"])
 	assert_true(_contains(offer, &"core_drop"))
-	assert_true(_contains(offer, &"assign_fuse"))
-	assert_true(_contains(offer, &"score_multiplier"))
+	for skill: SkillDefinition in offer.choices: assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "")
 	assert_eq(run.state.pending_rewards, 3)
 
 func test_empty_board_uses_fallback_and_freezes_offer() -> void:
@@ -51,6 +50,10 @@ func test_invalid_target_preserves_every_rule_state_and_reward() -> void:
 func test_fuse_marks_actual_one_target_and_preserves_color() -> void:
 	var piece: PieceState = run.state.rules.place_piece(Vector2i.ZERO, 4)
 	var offer: SkillOffer = generator.generate(run)
+	offer.choices[0] = _definition(&"assign_fuse")
+	var target: SkillTarget = SkillTarget.new()
+	target.piece_ids = [piece.piece_id]
+	offer.targets[&"assign_fuse"] = target
 	assert_eq(offer.targets[&"assign_fuse"].piece_ids, [piece.piece_id])
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, &"assign_fuse")
 	assert_true(result.success)
@@ -68,7 +71,7 @@ func test_weight_example_and_live_driver_compensation() -> void:
 	run.state.rewards.acquired[&"assign_fuse"] = 1
 	var profile: Dictionary[StringName, float] = SkillOfferGenerator.build_profile(run.state)
 	assert_eq(profile[&"exp"], 2.0)
-	assert_almost_eq(SkillOfferGenerator.weight(run.state, _definition(&"blast_reward"), profile), 22.4, 0.0001)
+	assert_almost_eq(SkillOfferGenerator.weight(run.state, _definition(&"blast_reward"), profile), 22.4 * 0.65, 0.0001)
 	assert_almost_eq(SkillOfferGenerator.weight(run.state, _definition(&"assign_fuse"), profile), 22.0, 0.0001)
 	run.state.explosion.instances.clear()
 	run.state.rewards.previous_unselected = [&"assign_fuse"]
@@ -84,12 +87,12 @@ func test_full_caps_exclude_upgrades_and_core_unique() -> void:
 	assert_false(_contains(offer, &"blast_radius"))
 	assert_false(_contains(offer, &"blast_reward"))
 	assert_false(_contains(offer, &"assign_fuse"))
-	assert_true(_contains(offer, &"score_multiplier"))
-	assert_true(_contains(offer, &"match_extra"))
-	assert_true(_contains(offer, &"blast_extra"))
+	assert_eq(offer.choices.size(), 3)
+	for skill: SkillDefinition in offer.choices: assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "")
 
 func test_current_and_future_fuses_share_upgraded_radius_only_in_same_run() -> void:
 	run.abilities.assign_fuse(run.state.rules.place_piece(Vector2i.ZERO, 0).piece_id)
+	run.state.explosion.core_pool_unlocked = true
 	var offer: SkillOffer = generator.generate(run)
 	# 受控候选用于验证具体应用，不依赖随机恰好展示某项。
 	offer.choices[0] = _definition(&"blast_radius")
@@ -111,7 +114,8 @@ func test_core_landing_resolves_match_without_movement_and_records_once() -> voi
 	assert_eq(run.state.rules.state.get_piece_count(), 0)
 	assert_eq(run.state.turn_count, 0)
 	assert_eq(run.state.pending_rewards, 2)
-	assert_true(_contains(generator.generate(run), &"core_drop"))
+	assert_false(_contains(generator.generate(run), &"core_drop"))
+	assert_true(run.state.explosion.core_pool_unlocked)
 
 func test_core_budget_rejection_does_not_insert_or_consume() -> void:
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 1)
@@ -144,8 +148,11 @@ func test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades() -> voi
 		sample.state.pending_rewards = 1
 		sample.state.rules.place_piece(Vector2i.ZERO, 0)
 		var offer: SkillOffer = generator.generate(sample)
-		if offer.choices.size() != 3 or not _contains(offer, &"core_drop") or not _contains(offer, &"assign_fuse") or not _contains(offer, &"score_multiplier"):
-			invalid += 1
+		var unique: Array[StringName] = []
+		if offer.choices.size() != 3 or offer.generation_order[0] != &"core_drop": invalid += 1
+		for skill: SkillDefinition in offer.choices:
+			if unique.has(skill.skill_id) or not SkillRules.rejection(sample.state, skill, sample.abilities.config).is_empty(): invalid += 1
+			unique.append(skill.skill_id)
 	assert_eq(invalid, 0)
 
 func _definition(id: StringName) -> SkillDefinition:

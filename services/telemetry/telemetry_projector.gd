@@ -80,7 +80,7 @@ func _resolved(row: Dictionary) -> void:
 	if row.has("command_id") and not _command.is_empty():
 		var request: Dictionary = _command.command
 		var context: Dictionary = {"command_id": request.command_id}
-		if _command.accepted and request.type == "move":
+		if _command.accepted and request.type in ["move", "detonate"]:
 			_turn = TelemetryTurn.new(row.before, request.command_id, row.after.action)
 		_emit("command_resolved", {"type": request.type, "accepted": _command.accepted, "reason": _command.reason, "buffered": request.buffered, "buffer_wait_ms": request.buffered_wait_ms, "action_before": row.before.action, "action_after": row.after.action}, context)
 		if not _skill.is_empty():
@@ -112,7 +112,7 @@ func _finish(footer: Dictionary) -> void:
 	_emit("observation_interval_closed", clock.change(clock.category))
 	var observed: int = 0
 	for duration: int in clock.times.values(): observed += duration
-	_emit("run_ended", {"status": footer.status, "reason": footer.reason, "score": footer.score, "moves": footer.moves, "choices": footer.choices, "times": clock.times.duplicate(), "observed_ms": observed, "active_ms": observed - clock.times.inactive, "robot_compute_ms": footer.times.robot_compute, "buffer_wait_ms": footer.times.buffer_wait, "record_complete": footer.record_complete and error.is_empty()})
+	_emit("run_ended", {"status": footer.status, "reason": footer.reason, "score": footer.score, "moves": footer.moves, "activations": footer.get("activations", "0"), "actions": footer.get("actions", footer.moves), "choices": footer.choices, "times": clock.times.duplicate(), "observed_ms": observed, "active_ms": observed - clock.times.inactive, "robot_compute_ms": footer.times.robot_compute, "buffer_wait_ms": footer.times.buffer_wait, "record_complete": footer.record_complete and error.is_empty()})
 	ended = true
 	_check(sink.close())
 

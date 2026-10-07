@@ -1,6 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dij52hrxv40e8"]
+[gd_scene load_steps=6 format=3 uid="uid://dij52hrxv40e8"]
 
 [ext_resource type="Script" uid="uid://db43lw5ionsge" path="res://gameplay/board/piece/chess_piece.gd" id="1_5vn5g"]
+[ext_resource type="Shader" path="res://gameplay/board/piece/piece_surface.gdshader" id="2"]
+[ext_resource type="PackedScene" path="res://gameplay/board/piece/piece_aura.tscn" id="3"]
+
+[sub_resource type="ShaderMaterial" id="Surface"]
+shader = ExtResource("2")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1"]
 initial_velocity_min = 5.0
@@ -11,10 +16,24 @@ gravity = Vector3(0, 0, 0)
 color = Color(1, 0, 0, 1)
 
 [node name="ChessPiece" type="Node2D"]
+z_index = 2
 script = ExtResource("1_5vn5g")
 
+[node name="ShadowPolygon" type="Polygon2D" parent="."]
+position = Vector2(1, 3)
+color = Color(0, 0, 0, 0.55)
+
 [node name="Polygon2D" type="Polygon2D" parent="."]
+material = SubResource("Surface")
 color = Color(1, 0, 0, 1)
+
+[node name="Outline" type="Line2D" parent="."]
+width = 1.2
+default_color = Color(1, 1, 1, 0.35)
+closed = true
+antialiased = true
+
+[node name="PieceAura" parent="." instance=ExtResource("3")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -36,3 +55,11 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TooltipRegion" type="Control" parent="."]
+process_mode = 3
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+mouse_filter = 2

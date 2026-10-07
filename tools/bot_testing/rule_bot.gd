@@ -15,16 +15,23 @@ func choose(run: RunController) -> RunCommand:
 		if offer == null: return null
 		var index: int = random.randi_range(0, offer.choices.size() - 1)
 		return skill_command(run, offer.choices[index].skill_id)
-	var moves: Array[MovePieceCommand] = legal_moves(run)
-	last_legal_count = moves.size()
-	if moves.is_empty(): return null
-	return moves[random.randi_range(0, moves.size() - 1)]
+	var actions: Array[RunCommand] = []
+	actions.append_array(legal_moves(run))
+	actions.append_array(legal_detonations(run))
+	last_legal_count = actions.size()
+	if actions.is_empty(): return null
+	return actions[random.randi_range(0, actions.size() - 1)]
 
 func skill_command(run: RunController, id: StringName) -> ChooseSkillCommand:
 	var command: ChooseSkillCommand = ChooseSkillCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
 	command.offer_id = run.state.rewards.active_offer.offer_id
 	command.reward_id = run.state.rewards.active_offer.reward_id
 	command.skill_id = id
+	var target: SkillTarget = run.state.rewards.active_offer.targets[id]
+	var colors: Array[int] = []
+	for color: int in range(target.color_groups.size()):
+		if not target.color_groups[color].is_empty(): colors.append(color)
+	if not colors.is_empty(): command.selected_color = colors[random.randi_range(0, colors.size() - 1)]
 	command.source = "bot"
 	return command
 
@@ -57,3 +64,15 @@ func legal_moves(run: RunController) -> Array[MovePieceCommand]:
 
 func _coordinate_order(a: Vector2i, b: Vector2i) -> bool:
 	return a.x < b.x or (a.x == b.x and a.y < b.y)
+
+func legal_detonations(run: RunController) -> Array[DetonateCoreCommand]:
+	var result: Array[DetonateCoreCommand] = []
+	if run.state.phase != RunState.Phase.INPUT or run.state.is_game_over or run.state.explosion.level(&"core_manual_detonation") == 0: return result
+	if not run.abilities.validation_error(1).is_empty(): return result
+	for piece: PieceState in run.state.rules.state.get_snapshot():
+		if piece.content_id != &"special_demolition": continue
+		var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+		command.piece_id = piece.piece_id
+		command.source = "bot"
+		result.append(command)
+	return result

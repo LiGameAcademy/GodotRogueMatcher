@@ -59,7 +59,8 @@ func test_hud_uses_real_reward_occupancy_skill_and_score_data() -> void:
 	assert_string_contains(hud.reward_label.text, "还差 15")
 	assert_string_contains(hud.board_label.text, "空位 81 / 81")
 	assert_string_contains(hud.skills_label.text, "Lv.1")
-	assert_string_contains(hud.tools_label.text, "已使用 2 次")
+	assert_string_contains(hud.history_label.text, "已使用 2 次")
+	assert_false(hud.history_label.visible)
 	assert_string_contains(hud.breakdown_label.text, "+85")
 	assert_string_contains(hud.breakdown_label.text, "爆炸")
 	assert_string_contains(HudDetails.summary(run.state), "85")
@@ -71,3 +72,51 @@ func test_prototype_layout_leaves_board_click_area_clear() -> void:
 	assert_eq(hud.mouse_filter, Control.MOUSE_FILTER_IGNORE)
 	assert_true(hud.skills_label.scroll_active)
 	assert_true(hud.breakdown_label.scroll_active)
+
+func test_volume_drag_previews_changes_and_commits_once_on_release() -> void:
+	watch_signals(hud)
+	hud.volume_slider.drag_started.emit()
+	hud.volume_slider.value = 0.25
+	hud.volume_slider.value = 0.35
+	assert_signal_emit_count(hud, "volume_requested", 2)
+	assert_signal_not_emitted(hud, "volume_committed")
+	hud.volume_slider.drag_ended.emit(true)
+	assert_signal_emit_count(hud, "volume_committed", 1)
+	assert_signal_emitted_with_parameters(hud, "volume_committed", [0.35])
+	hud.volume_slider.value = 0.55
+	assert_signal_emit_count(hud, "volume_committed", 2)
+	assert_signal_emitted_with_parameters(hud, "volume_committed", [0.55])
+
+func test_volume_loading_and_unchanged_drag_do_not_request_save() -> void:
+	watch_signals(hud)
+	hud.set_volume(0.4)
+	assert_signal_not_emitted(hud, "volume_requested")
+	hud.volume_slider.drag_started.emit()
+	hud.volume_slider.drag_ended.emit(false)
+	assert_signal_not_emitted(hud, "volume_committed")
+	hud.volume_slider.value = 0.6
+	assert_signal_emitted_with_parameters(hud, "volume_committed", [0.6])
+
+func test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 91)
+	run.initialize()
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	for index: int in range(5): hud.show_run(run)
+	get_tree().paused = true
+	hud.show_run(run)
+	assert_eq(hud.spawn_preview.title.text, "下次补棋 · 3 枚")
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	assert_true(hud.skills_label.bbcode_enabled)
+	assert_true(hud.breakdown_label.bbcode_enabled)
+	assert_true(hud.pause_button.get_theme_stylebox("hover") is StyleBoxFlat)
+
+func test_gain_fades_without_delaying_score_barrier_and_reset_cancels_fade() -> void:
+	hud.show_score(100)
+	assert_true(await hud.wait_for_score())
+	assert_eq(hud.gain_label.modulate.a, 1.0)
+	await wait_seconds(1.6)
+	assert_lt(hud.gain_label.modulate.a, 0.1)
+	hud.show_score(200)
+	assert_eq(hud.gain_label.modulate.a, 1.0)
+	hud.show_score(0)
+	assert_eq(hud.gain_label.text, "")

@@ -74,6 +74,7 @@ static func valid_record(row: Dictionary, dimensions: Vector2i) -> bool:
 		"RuleResult":
 			if not valid_state(row.get("after"), dimensions): return false
 			if row.has("before") and not valid_state(row.before, dimensions): return false
+			if not valid_pieces(row.get("removed", []), dimensions): return false
 			if not valid_events(row.get("events", []), dimensions) or not row.get("births", []) is Array: return false
 			for birth: Variant in row.get("births", []):
 				if not birth is Dictionary or not birth.get("piece") is Dictionary: return false

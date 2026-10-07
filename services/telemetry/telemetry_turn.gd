@@ -27,6 +27,7 @@ func consume(row: Dictionary, skill: Dictionary) -> void:
 	_milestone = after.milestone_level.to_int()
 	for data: Dictionary in skill.get("created", []): created[data.id] = data.content_id
 	for data: Dictionary in skill.get("removed", []): removed[data.id] = data.content_id
+	for data: Dictionary in row.get("removed", []): removed[data.id] = data.content_id
 	_events(row.get("events", []))
 	for birth: Dictionary in row.get("births", []):
 		created[birth.piece.id] = birth.piece.content_id
@@ -35,7 +36,7 @@ func consume(row: Dictionary, skill: Dictionary) -> void:
 func payload(complete: bool) -> Dictionary:
 	var added_companions: int = _companions(created)
 	var removed_companions: int = _companions(removed)
-	return {"turn_id": before.moves.to_int() + 1, "score_before": before.total, "score_after": after.total, "occupied_before": before.pieces.size(), "occupied_after": after.pieces.size(), "created": created.size(), "removed": removed.size(), "created_ordinary": created.size() - added_companions, "created_companions": added_companions, "removed_ordinary": removed.size() - removed_companions, "removed_companions": removed_companions, "match_removed": matched.size(), "blast_removed": blasted.size(), "ledger_entries": ledger.values(), "event_count": ledger.size(), "max_generation": max_generation, "rewards_added": rewards_added, "complete": complete, "space_consistent": after.pieces.size() - before.pieces.size() == created.size() - removed.size()}
+	return {"turn_id": before.turn.to_int(), "score_before": before.total, "score_after": after.total, "occupied_before": before.pieces.size(), "occupied_after": after.pieces.size(), "created": created.size(), "removed": removed.size(), "created_ordinary": created.size() - added_companions, "created_companions": added_companions, "removed_ordinary": removed.size() - removed_companions, "removed_companions": removed_companions, "match_removed": matched.size(), "blast_removed": blasted.size(), "ledger_entries": ledger.values(), "event_count": ledger.size(), "max_generation": max_generation, "rewards_added": rewards_added, "complete": complete, "space_consistent": after.pieces.size() - before.pieces.size() == created.size() - removed.size()}
 
 func _events(events: Array) -> void:
 	for event: Dictionary in events:

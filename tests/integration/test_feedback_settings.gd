@@ -63,8 +63,8 @@ func test_low_effects_and_fast_modes_preserve_f6_rule_snapshot() -> void:
 		for cell: Cell in board.view.get_cells():
 			assert_eq(cell.low_effects, low)
 			if low:
-				assert_false(cell.glow_border.visible)
-				assert_true(cell.scan_tween == null or not cell.scan_tween.is_running())
+				assert_eq(cell.background.modulate, Color.WHITE)
+				assert_true(cell.background.material is ShaderMaterial)
 
 func test_effect_toggle_during_movement_does_not_cancel_required_tween() -> void:
 	var command: MovePieceCommand = RandomLegalBot.new(28).choose(board.run) as MovePieceCommand
@@ -108,6 +108,19 @@ func test_finished_player_reused_by_other_caller_survives_game_cancel() -> void:
 	feedback.cancel()
 	assert_true(external.playing)
 	external.stop()
+
+func test_reborrow_before_finished_keeps_original_player_mode() -> void:
+	var feedback: GameFeedback = game.get_node("GameFeedback") as GameFeedback
+	feedback.cancel()
+	feedback.play(&"select")
+	var player: AudioStreamPlayer = feedback._players.front()
+	var original: int = feedback._original_modes[player]
+	player.stop()
+	feedback.play(&"reward")
+	assert_same(feedback._players.front(), player)
+	assert_eq(feedback._original_modes[player], original)
+	feedback.cancel()
+	assert_eq(player.process_mode, original)
 
 func test_environment_and_particle_resources_are_instance_local() -> void:
 	var other: Node2D = GAME.instantiate() as Node2D

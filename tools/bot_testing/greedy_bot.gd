@@ -16,9 +16,21 @@ func choose(run: RunController) -> RunCommand:
 				best = skill.skill_id
 				best_score = value
 		return skill_command(run, best)
+	var detonations: Array[DetonateCoreCommand] = legal_detonations(run)
+	if not detonations.is_empty():
+		var source: PieceState = run.state.rules.state.get_piece(detonations[0].piece_id)
+		var radius: int = DemolitionRules.radius(run.state, source, 1, run.abilities.config.base_radius)
+		var targets: BlastRequest = AbilityResolver.EXPLOSION.effect.build_request(run.state.rules.state, source, radius)
+		var hits: int = 0
+		for id: int in targets.target_ids:
+			var piece: PieceState = run.state.rules.state.get_piece(id)
+			if id == source.piece_id: continue
+			if run.state.explosion.level(&"selective_blast") > 0 and piece.match_color == source.match_color: continue
+			hits += 1
+		if hits >= run.state.rules.minimum_match_count: return detonations[0]
 	var moves: Array[MovePieceCommand] = legal_moves(run)
 	last_legal_count = moves.size()
-	if moves.is_empty(): return null
+	if moves.is_empty(): return detonations[0] if not detonations.is_empty() else null
 	var colors: Dictionary[Vector2i, int] = {}
 	var pieces: Dictionary[int, PieceState] = {}
 	for piece: PieceState in run.state.rules.state.get_snapshot():

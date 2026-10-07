@@ -15,3 +15,11 @@ enum Action { CORE_DROP, ASSIGN_FUSE, BLAST_RADIUS, BLAST_REWARD, SCORE_MULTIPLI
 @export var need_rule: StringName
 @export var minimum_reward: int = 1
 @export var target_count: int = 3
+@export var choice_effect: ChoiceEffect
+enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
+@export var rarity: Rarity = Rarity.COMMON
+@export var requires_core: bool = false
+@export var requires_fuse_unlock: bool = false
+@export var requires_fuse: bool = false
+@export var prerequisite: StringName
+@export var maximum_level: int = 0

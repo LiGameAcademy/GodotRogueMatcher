@@ -18,7 +18,7 @@ var s_piece: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn"
 func spawn_random_pieces(board: Board) -> int:
 	var spawned_count: int = 0
 	var active_run: RunController = board.run
-	for index: int in range(SPAWN_COUNT):
+	for index: int in range(board.run.state.spawning.consume_refill_count(RunController.SPAWN_CONFIG)):
 		var result: SpawnResult = board.run.spawn_one()
 		if result == null:
 			if board.run.state.rule_error.is_empty():

@@ -19,7 +19,7 @@ func add(records: Array[Dictionary], replay_error: String = "") -> void:
 	for record: Dictionary in records:
 		match record.kind:
 			"CommandAttempt":
-				if record.accepted and record.command.type == "move": last_move_command = record.command
+				if record.accepted and record.command.type in ["move", "detonate"]: last_move_command = record.command
 			"Offer":
 				for id: String in record.offer.choices:
 					var row: Dictionary = base.duplicate()
@@ -45,20 +45,20 @@ func add(records: Array[Dictionary], replay_error: String = "") -> void:
 							var move_number: int = record.after.moves.to_int()
 							row.merge({"selected": true, "score": record.after.total, "move": record.after.moves, "moves_since_reward": str(move_number - last_reward_move), "immediate_score": str(record.after.total.to_int() - record.before.total.to_int()), "net_empty": str(record.before.pieces.size() - record.after.pieces.size())}, true)
 							last_reward_move = move_number
-					elif record.after.moves.to_int() > record.before.moves.to_int(): move_before = record.before
+					elif _actions(record.after) > _actions(record.before): move_before = record.before
 				elif record.get("stage") == "input" and not move_before.is_empty():
 					_add_turn(base, move_before, record.after, last_move_command)
 					move_before = {}
 			"Footer":
 				if not move_before.is_empty(): _add_turn(base, move_before, record.final, last_move_command)
 				var row: Dictionary = base.duplicate()
-				row.merge({"status": record.status, "reason": record.reason, "score": record.score, "moves": record.moves, "choices": record.choices, "replay_error": replay_error, "record_complete": record.record_complete, "robot_compute_ms": record.times.robot_compute})
+				row.merge({"status": record.status, "reason": record.reason, "score": record.score, "moves": record.moves, "activations": record.get("activations", "0"), "actions": record.get("actions", record.moves), "choices": record.choices, "replay_error": replay_error, "record_complete": record.record_complete, "robot_compute_ms": record.times.robot_compute})
 				for bucket: String in ["pause", "choice", "busy", "input", "buffer_wait"]: row[bucket + "_ms"] = record.times.get(bucket, "")
 				runs.append(row)
 
 func _add_turn(base: Dictionary, before: Dictionary, after: Dictionary, command: Dictionary) -> void:
 	var row: Dictionary = base.duplicate()
-	row.merge({"command_id": command.get("command_id", ""), "move": after.moves, "score_before": before.total, "score_after": after.total, "occupied_before": str(before.pieces.size()), "occupied_after": str(after.pieces.size()), "choices_after": after.consumed})
+	row.merge({"command_id": command.get("command_id", ""), "move": after.moves, "actions": str(_actions(after)), "command_type": command.get("type", "move"), "score_before": before.total, "score_after": after.total, "occupied_before": str(before.pieces.size()), "occupied_after": str(after.pieces.size()), "choices_after": after.consumed})
 	turns.append(row)
 
 func write(directory: String) -> bool:
@@ -130,3 +130,6 @@ func _csv(path: String, rows: Array[Dictionary], empty_keys: PackedStringArray =
 	else: file.store_csv_line(empty_keys)
 	file.flush()
 	return file.get_error() == OK
+
+func _actions(snapshot: Dictionary) -> int:
+	return snapshot.moves.to_int() + str(snapshot.get("demolition", {}).get("activations", "0")).to_int()

@@ -1,15 +1,7 @@
 extends Node2D
 class_name ChessPiece
 
-## 棋子颜色配置（赛博霓虹色）
-## 色盲友好设计：每种颜色对应唯一形状
-const PIECE_COLORS: Array[Color] = [
-	Color("#ff0000"),  # 红色 - 圆形
-	Color("#00ff00"),  # 绿色 - 方形
-	Color("#0000ff"),  # 蓝色 - 三角形
-	Color("#ffff00"),  # 黄色 - 五边形
-	Color("#ff00ff"),  # 紫色 - 星形
-]
+const JUICE: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
 
 ## 棋子形状枚举（色盲友好：颜色和形状一一对应）
 enum ShapeType {
@@ -28,9 +20,14 @@ enum DisplayMode {
 
 ## 节点引用
 @onready var polygon: Polygon2D = $Polygon2D
+@onready var shadow_polygon: Polygon2D = $ShadowPolygon
+@onready var outline: Line2D = $Outline
+@onready var aura: PieceAura = $PieceAura
+var _surface: ShaderMaterial
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var glow_particles: GPUParticles2D = $GlowParticles
 @onready var ability_marker: Label = $AbilityMarker
+@onready var tooltip_region: Control = $TooltipRegion
 
 ## 显示模式
 var display_mode: DisplayMode = DisplayMode.SHAPE
@@ -60,6 +57,7 @@ var low_effects: bool = false
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	if is_instance_valid(aura): aura.show_selection(color_for(piece_type), is_selected and not is_eliminating, low_effects)
 	if glow_particles:
 		glow_particles.emitting = false
 		glow_particles.visible = not enabled
@@ -75,8 +73,10 @@ var _is_moving: bool = false
 signal movement_completed()
 
 func _ready() -> void:
-	update_visual()
+	_surface = polygon.material.duplicate() as ShaderMaterial
+	polygon.material = _surface
 	setup_glow_particles()
+	update_visual()
 
 ## 是否正在移动
 func is_moving() -> bool:
@@ -86,6 +86,11 @@ func is_moving() -> bool:
 func set_ability_marker(text: String) -> void:
 	ability_marker.text = text
 	ability_marker.visible = not text.is_empty()
+
+## 使用原生提示，不截获格子的点击与路径输入。
+func set_tooltip_text(text: String) -> void:
+	tooltip_region.tooltip_text = text
+	tooltip_region.mouse_filter = Control.MOUSE_FILTER_IGNORE if text.is_empty() else Control.MOUSE_FILTER_PASS
 
 ## 重建显示或重试时取消旧演出，释放等待中的移动协程。
 func cancel_movement() -> void:
@@ -116,8 +121,8 @@ func _update_shape_visual() -> void:
 		polygon.visible = true
 		
 		# 确保 piece_type 在有效范围内
-		var type_index: int = piece_type % PIECE_COLORS.size()
-		var color: Color = PIECE_COLORS[type_index]
+		var type_index: int = posmod(piece_type, JUICE.piece_colors.size())
+		var color: Color = color_for(type_index)
 		var shape_type: ShapeType = type_index as ShapeType  # 颜色和形状一一对应
 		
 		# 设置颜色
@@ -136,6 +141,11 @@ func _update_shape_visual() -> void:
 			ShapeType.STAR:  # 紫色 - 星形
 				polygon.polygon = generate_star_polygon(20)
 		
+		shadow_polygon.visible = true
+		shadow_polygon.polygon = polygon.polygon
+		outline.visible = true
+		outline.points = polygon.polygon
+		aura.show_selection(color, is_selected, low_effects)
 		# 更新辉光粒子颜色
 		if glow_particles:
 			update_particle_color(color)
@@ -217,43 +227,21 @@ func update_particle_color(color: Color) -> void:
 
 ## 选择动画效果
 func selected() -> void:
-	if is_selected:
-		return
-	
+	if is_selected or _is_moving or is_eliminating: return
 	is_selected = true
-	if tween:
-		tween.kill()
-	
+	if tween != null: tween.kill()
 	tween = create_tween()
-	if not low_effects: tween.set_loops()
-	tween.set_trans(Tween.TRANS_CUBIC if low_effects else Tween.TRANS_ELASTIC)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.15)
-	tween.tween_property(self, "scale", Vector2.ONE * (1.1 if low_effects else 1.0), 0.15)
-	
-	# 启动辉光粒子
-	if glow_particles and not low_effects:
-		glow_particles.emitting = true
-		glow_particles.restart()
-
+	tween.tween_property(self, "scale", Vector2.ONE * (1.04 if low_effects else JUICE.selected_scale), 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	aura.show_selection(color_for(piece_type), true, low_effects)
 ## 取消选择动画效果
 func deselected() -> void:
-	if not is_selected:
-		return
-	
+	if not is_selected: return
 	is_selected = false
-	if tween:
-		tween.kill()
-	
+	aura.show_selection(color_for(piece_type), false, low_effects)
+	if _is_moving or is_eliminating: return
+	if tween != null: tween.kill()
 	tween = create_tween()
-	tween.set_trans(Tween.TRANS_BACK)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
-	
-	# 停止辉光粒子
-	if glow_particles:
-		glow_particles.emitting = false
-
+	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 ## 移动到目标格子（等待完成）
 func move_to_and_wait(target_cell: Cell, duration: float = 0.15) -> void:
 	if tween:
@@ -268,44 +256,29 @@ func move_to_and_wait(target_cell: Cell, duration: float = 0.15) -> void:
 
 ## 消除动画
 func eliminate() -> void:
-	if is_eliminating:
-		return
-	
+	if is_eliminating: return
 	is_eliminating = true
-	
-	# 爆炸粒子效果
-	if glow_particles and not low_effects:
-		glow_particles.emitting = true
-		glow_particles.restart()
-		var particle_material: ParticleProcessMaterial = glow_particles.process_material as ParticleProcessMaterial
-		if particle_material:
-			particle_material.initial_velocity_min = 20.0
-			particle_material.initial_velocity_max = 50.0
-	
-	# 缩放和旋转动画
-	if tween:
-		tween.kill()
-	
+	is_selected = false
+	aura.show_selection(color_for(piece_type), false, low_effects)
+	if tween != null: tween.kill()
 	tween = create_tween()
-	tween.parallel().tween_property(self, "scale", Vector2.ZERO if low_effects else Vector2(1.5, 1.5), 0.2)
-	if not low_effects: tween.parallel().tween_property(self, "rotation", rotation + TAU, 0.2)
-	
-	# 根据显示模式淡出对应的视觉元素
-	if display_mode == DisplayMode.SHAPE and polygon:
-		tween.parallel().tween_property(polygon, "modulate:a", 0.0, 0.2)
-	elif display_mode == DisplayMode.ICON and sprite:
-		tween.parallel().tween_property(sprite, "modulate:a", 0.0, 0.2)
-	
-	await tween.finished
-	
-	# 节点生命周期由棋盘清理入口负责；演出不自行释放占格对象。
-
+	var anticipation: float = 0.0 if low_effects else JUICE.elimination_seconds * JUICE.anticipation_ratio
+	if anticipation > 0.0:
+		tween.tween_property(self, "scale", Vector2.ONE * 1.14, anticipation)
+		tween.parallel().tween_method(_set_flash, 0.0, 1.0, anticipation)
+	var collapse: float = JUICE.elimination_seconds - anticipation
+	tween.tween_property(self, "scale", Vector2.ONE * 0.05, collapse).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, "modulate:a", 0.0, collapse)
+	# BoardView按此Tween完成释放显示对象，规则已经提交。
 ## 重置状态
 func reset() -> void:
 	is_selected = false
 	is_eliminating = false
 	scale = Vector2.ONE
 	rotation = 0.0
+	modulate.a = 0.5 if is_ghost else 1.0
+	_set_flash(0.0)
+	aura.show_selection(color_for(piece_type), false, low_effects)
 	if polygon:
 		polygon.modulate.a = 1.0
 	if sprite:
@@ -319,27 +292,35 @@ func initialize_item(data: ItemData) -> void:
 	item_data = data
 
 ## 出现动画（用于道具）
-func spawn_animation() -> void:
-	scale = Vector2(0, 0)
+func spawn_animation(duration: float = 0.3) -> Tween:
+	if tween != null: tween.kill()
+	var opacity: float = 0.5 if is_ghost else 1.0
+	scale = Vector2.ONE * 0.25
 	modulate.a = 0.0
-	
-	if tween:
-		tween.kill()
-	
 	tween = create_tween()
-	tween.parallel().tween_property(self, "scale", Vector2(1.0, 1.0), 0.3)
-	tween.parallel().tween_property(self, "modulate:a", 1.0, 0.3)
-	tween.set_trans(Tween.TRANS_BACK)
-	tween.set_ease(Tween.EASE_OUT)
-	
-	# 启动辉光粒子
-	if glow_particles and not low_effects:
-		glow_particles.emitting = true
-		glow_particles.restart()
+	tween.set_parallel()
+	tween.tween_property(self, "scale", Vector2.ONE, maxf(duration, 0.001)).set_trans(Tween.TRANS_CUBIC if low_effects else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "modulate:a", opacity, maxf(duration, 0.001))
+	return tween
 
+## 路径结束后的落点反馈；和移动一起由视图等待，不修改占格。
+func land() -> Tween:
+	if tween != null: tween.kill()
+	tween = create_tween()
+	scale = Vector2.ONE if low_effects else Vector2(1.1, 0.94)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.06).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	return tween
+
+static func color_for(index: int) -> Color:
+	return JUICE.piece_colors[posmod(index, JUICE.piece_colors.size())]
+
+func _set_flash(value: float) -> void:
+	_surface.set_shader_parameter("flash", value)
 ## 更新图标视觉（道具）
 func _update_icon_visual() -> void:
 	# 隐藏形状，显示图标
+	shadow_polygon.visible = false
+	outline.visible = false
 	if polygon:
 		polygon.visible = false
 	if sprite and item_data:
@@ -347,6 +328,7 @@ func _update_icon_visual() -> void:
 		sprite.texture = item_data.icon
 		sprite.modulate = _get_rarity_color()
 		
+		aura.show_selection(_get_rarity_color(), is_selected, low_effects)
 		# 更新辉光粒子颜色
 		if glow_particles:
 			update_particle_color(_get_rarity_color())

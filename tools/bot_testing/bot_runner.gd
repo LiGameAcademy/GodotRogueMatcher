@@ -39,7 +39,7 @@ func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = t
 			run.advance()
 			handled += 1
 			continue
-		if run.state.phase == RunState.Phase.INPUT and run.state.valid_moves >= strategy.config.move_limit: break
+		if run.state.phase == RunState.Phase.INPUT and run.state.valid_moves + run.state.activations >= strategy.config.move_limit: break
 		var compute_started: int = Time.get_ticks_msec()
 		var command: RunCommand = strategy.choose(run)
 		recorder.times.robot_compute += Time.get_ticks_msec() - compute_started

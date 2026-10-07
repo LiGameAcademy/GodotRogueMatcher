@@ -136,6 +136,7 @@ func resolve_pending_rewards(board: Board) -> void:
 			return
 		if not is_instance_valid(popup): break
 		popup.skill_selected.connect(_apply_selected_skill.bind(board, active_run, popup, generator))
+		popup.color_skill_selected.connect(_apply_selected_color.bind(board, active_run, popup, generator))
 		if popup.visible:
 			board.observation.present_offer(offer)
 			board.feedback_requested.emit(&"reward")
@@ -144,7 +145,10 @@ func resolve_pending_rewards(board: Board) -> void:
 		if board.get_empty_cells().is_empty(): GameManager.finish_game()
 	is_resolving = false
 
-func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, active_run: RunController, popup: PopupSkillChoice, generator: SkillOfferGenerator) -> void:
+func _apply_selected_color(offer_id: int, skill_id: StringName, color: int, board: Board, active_run: RunController, popup: PopupSkillChoice, generator: SkillOfferGenerator) -> void:
+	_apply_selected_skill(offer_id, skill_id, board, active_run, popup, generator, color)
+
+func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, active_run: RunController, popup: PopupSkillChoice, _generator: SkillOfferGenerator, selected_color: int = -1) -> void:
 	if not is_instance_valid(board) or board.run != active_run: return
 	board.observation.selecting_skill()
 	var input_id: String = board.observation.input("choose_skill")
@@ -152,18 +156,27 @@ func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, ac
 	command.offer_id = offer_id
 	command.reward_id = active_run.state.rewards.consumed_count + 1
 	command.skill_id = skill_id
+	command.selected_color = selected_color
 	var outcome: CommandResult = active_run.execute_command(command)
 	board.observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id))
 	var result: SkillApplyResult = outcome.skill
 	if result == null: return
 	if not result.success:
-		# 只有当前组失效才重建；过期或伪造回调不得破坏下一组。
-		if active_run.state.rewards.active_offer != null and active_run.state.rewards.active_offer.offer_id == offer_id:
-			active_run.state.rewards.active_offer = null
-			var refreshed: SkillOffer = active_run.prepare_offer()
-			if refreshed != null: popup.show_offer(refreshed, result.error)
-			else: popup.show_error(result.error)
-			if refreshed != null: board.observation.present_offer(refreshed)
+		var active: SkillOffer = active_run.state.rewards.active_offer
+		var player_target: bool = false
+		if active != null and active.offer_id == offer_id:
+			for skill: SkillDefinition in active.choices:
+				if skill.skill_id == skill_id and skill.choice_effect != null:
+					player_target = skill.choice_effect.requires_color_choice()
+			# 玩家选色失败保留原候选；旧随机目标真正失效时保留原恢复策略。
+			if not player_target and result.error in ["原定空格已经被占用", "原定材料目标已经失效"]:
+				active_run.state.rewards.active_offer = null
+				var refreshed: SkillOffer = active_run.prepare_offer()
+				if refreshed != null:
+					popup.show_offer(refreshed, result.error)
+					board.observation.present_offer(refreshed)
+					return
+		popup.show_error(result.error)
 		return
 	board.present_skill_result(result)
 	popup.accept_selection()

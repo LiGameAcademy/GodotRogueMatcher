@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/presentation/score_float/score_float_layer.gd" id="1"]
+
+[node name="ScoreFloatLayer" type="Node2D"]
+z_index = 20
+script = ExtResource("1")

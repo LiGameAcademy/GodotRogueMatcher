@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+upgrade = &"blast_aftershock"
+[resource]
+script = ExtResource("1")
+skill_id = &"blast_aftershock"
+title = "终幕余震"
+description = "本局一次根行动首个有实际命中的核心爆炸队列结束后，在原位置追加一次半径1余震，可续引信连锁。余震不再触发余震，不享有范围升级。"
+base_weight = 10.0
+tags = Array[StringName]([&"exp", &"extra"])
+choice_effect = SubResource("effect")
+rarity = 4
+maximum_level = 1
+minimum_reward = 5
+is_persistent = true
+is_starter = false
+requires_core = true
+requires_fuse_unlock = false
+requires_fuse = false
+prerequisite = &"core_manual_detonation"

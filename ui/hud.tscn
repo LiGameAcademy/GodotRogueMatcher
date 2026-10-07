@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=5 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
+
+[ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://ui/spawn_preview.tscn" id="3"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.065, 0.085, 0.12, 0.96)
@@ -25,6 +28,7 @@ theme_override_colors/font_color = Color(0.9, 0.94, 1, 1)
 theme_override_font_sizes/font_size = 16
 process_mode = 3
 script = ExtResource("1")
+theme = ExtResource("2")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -52,36 +56,53 @@ theme_override_constants/separation = 16
 [node name="Title" type="Label" parent="Margin/Rows/Header"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(180, 0)
-text = "坚果连珠 · 原型"
-theme_override_font_sizes/font_size = 22
+custom_minimum_size = Vector2(150, 0)
+text = "技能连珠 · 试玩"
+theme_override_font_sizes/font_size = 20
 
-[node name="ScoreLabel" type="Label" parent="Margin/Rows/Header"]
+[node name="ScoreFrame" type="PanelContainer" parent="Margin/Rows/Header"]
+layout_mode = 2
+
+[node name="ScoreRow" type="HBoxContainer" parent="Margin/Rows/Header/ScoreFrame"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="Margin/Rows/Header/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(150, 0)
-theme_override_font_sizes/font_size = 30
+custom_minimum_size = Vector2(128, 0)
+theme_override_font_sizes/font_size = 28
 text = "分数  0"
 
-[node name="GainLabel" type="Label" parent="Margin/Rows/Header"]
+[node name="GainLabel" type="Label" parent="Margin/Rows/Header/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(60, 0)
-theme_override_font_sizes/font_size = 24
+custom_minimum_size = Vector2(40, 0)
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
 
-[node name="Growth" type="VBoxContainer" parent="Margin/Rows/Header"]
+[node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header"]
+layout_mode = 2
+
+[node name="SpawnPreview" parent="Margin/Rows/Header/PreviewFrame" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GrowthFrame" type="PanelContainer" parent="Margin/Rows/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RewardLabel" type="Label" parent="Margin/Rows/Header/Growth"]
+[node name="Growth" type="VBoxContainer" parent="Margin/Rows/Header/GrowthFrame"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RewardLabel" type="Label" parent="Margin/Rows/Header/GrowthFrame/Growth"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "下一次技能选择"
 theme_override_font_sizes/font_size = 16
 autowrap_mode = 2
 
-[node name="RewardBar" type="ProgressBar" parent="Margin/Rows/Header/Growth"]
+[node name="RewardBar" type="ProgressBar" parent="Margin/Rows/Header/GrowthFrame/Growth"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 10)
@@ -102,7 +123,7 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(260, 0)
-theme_override_styles/panel = SubResource("Panel")
+
 
 [node name="Content" type="VBoxContainer" parent="Margin/Rows/Body/Left"]
 layout_mode = 2
@@ -119,7 +140,7 @@ mouse_filter = 2
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(280, 0)
-theme_override_styles/panel = SubResource("Panel")
+
 
 [node name="Content" type="VBoxContainer" parent="Margin/Rows/Body/Right"]
 layout_mode = 2
@@ -128,26 +149,47 @@ theme_override_constants/separation = 12
 [node name="SkillsTitle" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 text = "本局构筑"
 
 [node name="SkillsLabel" type="RichTextLabel" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 text = "尚未获得持续技能"
+
+[node name="HistoryButton" type="Button" parent="Margin/Rows/Body/Left/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "展开使用记录"
+
+[node name="HistoryLabel" type="RichTextLabel" parent="Margin/Rows/Body/Left/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+text = "尚无使用记录"
 
 [node name="ScoreTitle" type="Label" parent="Margin/Rows/Body/Right/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 text = "本次连携"
 
 [node name="BreakdownLabel" type="RichTextLabel" parent="Margin/Rows/Body/Right/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 text = "尚未得分"
+
+[node name="ToolsTitle" type="Label" parent="Margin/Rows/Body/Right/Content"]
+layout_mode = 2
+text = "工具与播放"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.56, 0.89, 0.85, 1)
 
 [node name="ToolsLabel" type="Label" parent="Margin/Rows/Body/Right/Content"]
 unique_name_in_owner = true
@@ -163,13 +205,15 @@ text = "快速播放（F8）"
 [node name="HelpLabel" type="Label" parent="Margin/Rows/Body/Right/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "操作提示\n选中棋子，再点击空格。\n横 / 竖 / 斜五连消除。\n未直接消除时通常补 3 枚。\n全清后也会补棋；填满即结束。"
+text = "选棋子 → 点空格移动\n横 / 竖 / 斜五连消除\n全清也补棋 · 填满即结束"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.57, 0.66, 0.73, 1)
 autowrap_mode = 2
 
 [node name="SkipButton" type="Button" parent="Margin/Rows/Body/Right/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "跳过本次可略演出（F9）"
+text = "跳过细节演出（F9）"
 tooltip_text = "移动、出生和主消除仍需完成；仅略过本次爆炸细节与计分滚动。"
 
 [node name="LowEffectsButton" type="CheckButton" parent="Margin/Rows/Body/Right/Content"]
@@ -200,7 +244,7 @@ theme_override_constants/separation = 12
 [node name="SelectionLabel" type="Label" parent="Margin/Rows/Footer"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(260, 0)
 text = "未选中棋子"
 clip_text = true
 

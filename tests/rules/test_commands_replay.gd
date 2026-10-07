@@ -36,6 +36,14 @@ func test_record_replay_preserves_all_safety_checkpoints() -> void:
 	assert_eq(replay.checked_records, recorder.records.size())
 	assert_eq(replay.run.state.valid_moves, 8)
 
+func test_replay_rejects_changed_trigger_condition_configuration() -> void:
+	var run: RunController = _run()
+	var changed: Array[Dictionary] = run.recorder.records.duplicate(true)
+	changed[0].config.ability_trigger.conditions[0].parameters.conditions[1].parameters.allowed_causes = ["match"]
+	var replay: RuleReplay = RuleReplay.new()
+	assert_false(replay.replay(changed))
+	assert_eq(replay.error, "configuration_mismatch")
+
 func test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values() -> void:
 	for value: int in [-9223372036854775807 - 1, 9223372036854775807, 9007199254740993]:
 		assert_true(CommandCodec.valid_integer(str(value)))
@@ -64,6 +72,12 @@ func test_corrupt_command_configuration_and_truncation_are_detected() -> void:
 	assert_true(replay.error.contains("seq="))
 	changed = recorder.records.duplicate(true)
 	changed[0].config.columns = "8"
+	assert_false(replay.replay(changed))
+	assert_eq(replay.error, "configuration_mismatch")
+	changed = recorder.records.duplicate(true)
+	assert_eq(changed[0].config.initial_piece_count, "5")
+	changed[0].config.erase("initial_piece_count")
+	changed[0].config_hash = RunSnapshot.digest(changed[0].config)
 	assert_false(replay.replay(changed))
 	assert_eq(replay.error, "configuration_mismatch")
 	changed = recorder.records.duplicate(true)

@@ -25,10 +25,7 @@ var _presented_events: Dictionary[int, bool] = {}
 var _score_presentation_pending: bool = false
 var _compatibility_changed: bool = false
 var _turn_in_progress: bool = false
-var _buffered_started_ms: int = 0
-var _buffered_piece_id: int = 0
-var _buffered_coordinate: Vector2i = Vector2i(-1, -1)
-var _buffered_target: Vector2i = Vector2i(-1, -1)
+var input_buffer: BoardInputBuffer = BoardInputBuffer.new()
 var selected_piece: ChessPiece = null:
 	set(value):
 		if is_instance_valid(selected_piece):
@@ -47,6 +44,7 @@ var selected_piece: ChessPiece = null:
 func _ready() -> void:
 	add_to_group("board")
 	view.cell_pressed.connect(_on_coordinate_pressed)
+	view.piece_activated.connect(_on_piece_activated)
 	director.step_requested.connect(_on_presentation_step_requested)
 	director.step_skip_requested.connect(_on_step_skip_requested)
 	director.playback_failed.connect(_on_playback_failed)
@@ -151,11 +149,7 @@ func load_explosion_demo() -> bool:
 	return true
 
 func refresh_ability_markers() -> void:
-	for piece: PieceState in rules.state.get_snapshot():
-		var marker: String = ""
-		if run.state.explosion.instances.has(piece.piece_id):
-			marker = "爆" if piece.content_id == &"special_demolition" else "引"
-		view.show_ability_marker(piece.piece_id, marker)
+	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config)
 
 ## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
 func open_skill_demo() -> bool:
@@ -182,6 +176,7 @@ func place_piece(coordinate: Vector2i, piece: ChessPiece) -> bool:
 	if snapshot == null:
 		return false
 	view.show_piece(snapshot, piece)
+	refresh_ability_markers()
 	if director.is_busy(): _compatibility_changed = true
 	_update_count_display()
 	return true
@@ -207,6 +202,7 @@ func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
 	if not rules.set_piece_color(piece_id, match_color):
 		return false
 	view.show_color(piece_id, match_color)
+	refresh_ability_markers()
 	if director.is_busy(): _compatibility_changed = true
 	return true
 
@@ -250,7 +246,7 @@ func _on_piece_removing(piece: ChessPiece) -> void:
 	if piece.item_data != null: ItemEffectSystem.unregister_item(piece)
 
 func _on_match_visualized(result: MatchResult, cells: Array[Cell]) -> void:
-	if result.cause != &"explosion": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
+	if result.cause == &"match": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
 
 ## 演出完成后再广播已提交分数和检查门槛；重试取消旧批次。
 func finish_presentation() -> bool:
@@ -356,18 +352,26 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 	command.target = target_cell.coordinate
 	command.buffered = buffered_wait_ms >= 0
 	command.buffered_wait_ms = maxi(0, buffered_wait_ms)
-	if input_id.is_empty(): input_id = observation.input("move", command.buffered)
+	return await _execute_action(command, duration, input_id)
+
+func _on_piece_activated(coordinate: Vector2i) -> void:
+	if not can_selected or get_tree().paused or GameManager.is_game_over: return
+	var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+	command.piece_id = rules.state.get_piece_id(coordinate)
+	await _execute_action(command, director.config.spawn_duration)
+
+func _execute_action(command: RunCommand, duration: float, input_id: String = "") -> bool:
+	if input_id.is_empty(): input_id = observation.input("detonate" if command is DetonateCoreCommand else "move", command.buffered)
 	observation.busy(true)
 	var outcome: CommandResult = run.execute_command(command)
 	observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id), command.buffered_wait_ms)
 	var turn: TurnResult = outcome.turn
-	if turn == null: return false
-	var result: BoardMoveResult = turn.move
+
 	if not run.state.rule_error.is_empty():
 		can_selected = false
 		push_error(run.state.rule_error)
 		return false
-	if not result.is_valid():
+	if not outcome.accepted or turn == null:
 		observation.busy(false)
 		selected_piece = null
 		return false
@@ -375,7 +379,12 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 	can_selected = false
 	_turn_in_progress = true
 	# 移动已经提交，演出只使用路径结果，不决定是否合法。
-	var plan: Array[PresentationStep] = PlaybackPlanBuilder.move(result, duration)
+	var plan: Array[PresentationStep] = []
+	if turn.move != null: plan = PlaybackPlanBuilder.move(turn.move, duration)
+	if not turn.removed.is_empty():
+		var removal: SkillApplyResult = SkillApplyResult.new()
+		removal.removed = turn.removed
+		plan.append_array(PlaybackPlanBuilder.skill(removal, duration))
 	plan.append_array(PlaybackPlanBuilder.matches(turn.matches))
 	_submit_plan(plan)
 	if not await director.wait_until_idle(): return false
@@ -397,8 +406,12 @@ func _continue_run(generation: int) -> void:
 		var step: RunStepResult = run.advance()
 		match step.kind:
 			&"offer": await LevelUpSystem.resolve_pending_rewards(self)
-			&"end_turn": GameManager.turn_ended.emit(run.state.turn_count)
-			&"spawn": await present_spawns(step.spawns)
+			&"end_turn":
+				refresh_ability_markers()
+				GameManager.turn_ended.emit(run.state.turn_count)
+			&"spawn":
+				await present_spawns(step.spawns)
+				present_matches(step.matches)
 			&"input":
 				GameManager.turn_started.emit(run.state.turn_count)
 				if run.recorder != null: run.recorder.set_interval("input")
@@ -434,40 +447,16 @@ func _on_coordinate_pressed(coordinate: Vector2i) -> void:
 		await move_selected_piece(get_cell(coordinate))
 	else: observation.resolve(observation.input("click"), "discarded", "no_selection")
 
-## 只缓存下一次操作。奖励弹窗、重试和已消失的实体不继承旧意图。
 func cancel_buffered_input(reason: String = "cancelled") -> void:
-	observation.cancel_buffer(reason)
-	if is_instance_valid(view):
-		var cell: Cell = view.get_cell(_buffered_coordinate)
-		if cell != null: cell.unhighlight()
-	_buffered_piece_id = 0
-	_buffered_coordinate = Vector2i(-1, -1)
-	_buffered_target = Vector2i(-1, -1)
+	input_buffer.cancel(view, observation, reason)
 
 func _buffer_input(coordinate: Vector2i) -> void:
-	var cell: Cell = view.get_cell(coordinate)
-	if cell == null: return
-	# 使用玩家看见的实体ID，再验证其仍在规则状态中；不能把新出生实体当旧目标。
-	if is_instance_valid(cell.piece):
-		var id: int = cell.piece.piece_id
-		if rules.state.get_piece(id) == null: return
-		cancel_buffered_input("overwritten")
-		observation.buffered_input = observation.input("move", true)
-		_buffered_started_ms = Time.get_ticks_msec()
-		_buffered_piece_id = id
-		_buffered_coordinate = coordinate
-		cell.highlight_path()
-		operation_feedback.emit("下一枚棋子已暂存")
-	elif _buffered_piece_id != 0:
-		if _buffered_target != Vector2i(-1, -1):
-			observation.cancel_buffer("overwritten")
-			observation.buffered_input = observation.input("move", true)
-		_buffered_target = coordinate
-		operation_feedback.emit("下一步移动已暂存，结算后验证")
+	var message: String = input_buffer.receive(coordinate, view, rules.state, observation)
+	if not message.is_empty(): operation_feedback.emit(message)
 
 func _resume_buffered_input() -> void:
-	var id: int = _buffered_piece_id
-	var target: Vector2i = _buffered_target
+	var id: int = input_buffer.piece_id
+	var target: Vector2i = input_buffer.target
 	var input_id: String = observation.buffered_input
 	observation.buffered_input = ""
 	cancel_buffered_input()
@@ -478,7 +467,7 @@ func _resume_buffered_input() -> void:
 	selected_piece = view.get_piece(id)
 	if target != Vector2i(-1, -1):
 		# 下一帧在最新棋盘重新寻路，不与当前回合重入，也不跨局执行。
-		_commit_buffered_move.call_deferred(_generation, id, target, Time.get_ticks_msec() - _buffered_started_ms, input_id)
+		_commit_buffered_move.call_deferred(_generation, id, target, Time.get_ticks_msec() - input_buffer.started_ms, input_id)
 	else: observation.resolve(input_id, "selected", "buffered_selection")
 
 func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_ms: int, input_id: String = "") -> void:

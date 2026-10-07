@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+upgrade = &"fuse_match_plant"
+[resource]
+script = ExtResource("1")
+skill_id = &"fuse_match_plant"
+title = "消除布雷"
+description = "本局每根行动首批五连整批移除后、爆炸前，在离场坐标切比距离1内给1枚存活普通棋子附引信。"
+base_weight = 10.0
+tags = Array[StringName]([&"exp", &"extra"])
+choice_effect = SubResource("effect")
+rarity = 2
+maximum_level = 1
+minimum_reward = 1
+is_persistent = true
+is_starter = false
+requires_core = true
+requires_fuse_unlock = true
+requires_fuse = false
+prerequisite = &""
