@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/ignite_fuses_effect.gd" id="2"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+[resource]
+script = ExtResource("1")
+skill_id = &"instant_fuse_ignite"
+title = "引信齐鸣"
+description = "立即整批移除棋盘上全部带引信的普通棋子，并触发各自爆炸。先移除全部目标，再按来源ID逐代结算；不消耗行动。"
+base_weight = 10.0
+tags = Array[StringName]([&"exp", &"extra"])
+choice_effect = SubResource("effect")
+rarity = 2
+maximum_level = 0
+minimum_reward = 3
+is_persistent = false
+is_starter = false
+requires_core = true
+requires_fuse_unlock = false
+requires_fuse = true
+prerequisite = &""

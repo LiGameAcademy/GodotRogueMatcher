@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+upgrade = &"core_supply_up"
+[resource]
+script = ExtResource("1")
+skill_id = &"core_supply_up"
+title = "爆壳补给"
+description = "本局核心类型权重每级+1（基础1，普通类型20），最多2级。占用正常补棋名额；场上已有核心时不再生成。"
+base_weight = 10.0
+tags = Array[StringName]([&"exp", &"extra"])
+choice_effect = SubResource("effect")
+rarity = 1
+maximum_level = 2
+minimum_reward = 1
+is_persistent = true
+is_starter = false
+requires_core = true
+requires_fuse_unlock = false
+requires_fuse = false
+prerequisite = &""

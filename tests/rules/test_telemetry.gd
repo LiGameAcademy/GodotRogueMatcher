@@ -256,3 +256,28 @@ func test_experiment_variant_and_bot_configuration_are_separate_groups() -> void
 	report.add(conflicting)
 	assert_eq(report.runs.size(), 3)
 	assert_eq(report.errors.back().reason, "conflicting_run_metadata")
+
+func test_active_core_turn_counts_source_removal_and_reports_action() -> void:
+	run = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 77)
+	run.initialize("fixture_demolition")
+	run.recorder = RunRecorder.new()
+	projector = TelemetryProjector.new(MemorySink.new(), "session-active")
+	run.recorder.record_appended.connect(projector.observe_record)
+	run.recorder.begin(run, "fixture", false)
+	var command: RunCommand = GreedyBot.new().choose(run)
+	assert_true(command is DetonateCoreCommand)
+	assert_true(run.execute_command(command).accepted)
+	for stage: int in range(6):
+		if run.advance().kind == &"input": break
+	run.recorder.finish(run, "abandoned", "fixture_complete")
+	assert_eq(projector.error, "")
+	var turns: Array[Dictionary] = _events("turn_resolved")
+	assert_eq(turns.size(), 1)
+	assert_true(turns[0].payload.space_consistent)
+	assert_eq(turns[0].payload.removed_companions, "1")
+	assert_eq(_events("run_ended")[0].payload.actions, "1")
+	var report: RunAnalysis = RunAnalysis.new()
+	report.add(run.recorder.records)
+	assert_eq(report.turns.size(), 1)
+	assert_eq(report.turns[0].command_type, "detonate")
+	assert_eq(report.runs[0].activations, "1")

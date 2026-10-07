@@ -1,5 +1,7 @@
 # 单局表现 · M5-A / M5-B
 
+M4分数漂字：BoardView组合ScoreFloatLayer，读取冻结计分结果，在消除位置显示倍率后的主分和独立额外分；提示色、时间和排布预算由ScoreFloatConfig管理。漂字长尾不进入导演屏障，暂停/低特效/速度向下传递，取消清理、重试重置去重。面板样式按实例独占，不修改计分或随机。验收与Web链接见工程外`GDC/acceptance/juice-m4-分数漂字与收益认知验收.md`。
+
 PresentationDirector场景拥有队列与epoch/token，父Board响应步骤信号，调用BoardView，实际动画结束后确认步骤。规则由RunController提交，播放不再次计分、抽选或推进随机。
 
 PlaybackPlanBuilder在入队前复制路径、棋子与账本，保留规则事件顺序；同代匹配并行，跨代与逐枚出生顺序播放。旧SpawnManager也走同一队列，不独立创建出生Tween。奖励展示等待队列排空和已提交得分发布。

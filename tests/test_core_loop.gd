@@ -32,6 +32,21 @@ func test_occupied_start_can_move_and_restores_obstacle() -> void:
 	assert_ne(board.rules.state.get_piece_id(Vector2i.ZERO), 0)
 	assert_false(board.rules.validate_move(result.piece_id, Vector2i.ZERO).is_valid())
 
+func test_compatibility_writes_refresh_special_tooltips_at_rest() -> void:
+	var display: ChessPiece = _place(Vector2i.ZERO, 0)
+	assert_true(board.run.abilities.assign_fuse(display.piece_id))
+	board.refresh_ability_markers()
+	assert_string_contains(display.tooltip_region.tooltip_text, "红色")
+	assert_true(board.set_piece_color(Vector2i.ZERO, 3))
+	assert_string_contains(display.tooltip_region.tooltip_text, "黄色")
+	assert_false(display.tooltip_region.tooltip_text.contains("红色"))
+	var ghost: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
+	ghost.is_ghost = true
+	assert_true(board.place_piece(Vector2i(1, 0), ghost))
+	assert_string_contains(ghost.tooltip_region.tooltip_text, "幽灵棋子")
+	assert_eq(GameManager.turn_count, 1)
+	assert_eq(GameManager.score, 0)
+
 func test_click_move_advances_one_turn_and_spawns_three() -> void:
 	var piece: ChessPiece = _place(Vector2i.ZERO, 0)
 	board._on_cell_pressed(board.get_cell(Vector2i.ZERO))
@@ -171,7 +186,7 @@ func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	await board.initialized
 	assert_eq(GameManager.score, 0)
 	assert_eq(GameManager.turn_count, 1)
-	assert_eq(GameManager.piece_count, 3)
+	assert_eq(GameManager.piece_count, 5)
 	assert_eq(LevelUpSystem.pending_rewards, 0)
 	assert_eq(LevelUpSystem.current_level, 0)
 	assert_false(GameManager.is_game_over)
@@ -199,6 +214,7 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	assert_eq(board.run.state.rewards.consumed_count, 1)
 	var second: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_eq(second.offer.reward_id, 2)
+	_use_score_candidate(second)
 	second._select(_skill_index(second, &"score_multiplier"))
 	await wait_process_frames(3)
 	assert_eq(board.run.state.explosion.multiplier_level, 1)
@@ -249,6 +265,7 @@ func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
 	assert_eq(board.run.state.rewards.consumed_count, 0)
 	assert_ne(popup.offer.offer_id, previous)
 	assert_eq(board.run.state.rules.state.get_piece_count(), 1)
+	_use_score_candidate(popup)
 	popup._select(_skill_index(popup, &"score_multiplier"))
 	await wait_process_frames(3)
 	assert_eq(LevelUpSystem.pending_rewards, 0)
@@ -264,7 +281,7 @@ func test_old_skill_callback_after_retry_cannot_modify_new_run() -> void:
 	var old_id: int = popup.offer.offer_id
 	await board.retry_game(BoardRules.new(BoardState.new(9, 9), 5))
 	LevelUpSystem._apply_selected_skill(old_id, &"core_drop", board, old_run, null, SkillOfferGenerator.new())
-	assert_eq(board.run.state.rules.state.get_piece_count(), 3)
+	assert_eq(board.run.state.rules.state.get_piece_count(), 5)
 	assert_eq(board.run.state.rewards.consumed_count, 0)
 	assert_false(board.run.state.explosion.unlocked)
 	assert_false(is_instance_valid(UIManager.current_popup))
@@ -320,7 +337,7 @@ func test_retry_cancels_old_move_without_advancing_new_turn() -> void:
 	assert_ne(board.rules, previous_rules)
 	assert_eq(GameManager.score, 0)
 	assert_eq(GameManager.turn_count, 1)
-	assert_eq(board.rules.state.get_piece_count(), 3)
+	assert_eq(board.rules.state.get_piece_count(), 5)
 	assert_true(board.can_selected)
 
 func test_extra_score_does_not_exempt_ordinary_spawn() -> void:
@@ -406,3 +423,12 @@ func _fill_without_lines() -> void:
 	for x: int in range(board.cols):
 		for y: int in range(board.rows):
 			_place(Vector2i(x, y), (x + 2 * y) % 5)
+
+## 交互验收使用受控候选；候选概率在规则测试中独立验证。
+func _use_score_candidate(popup: PopupSkillChoice) -> void:
+	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
+		if skill.skill_id != &"score_multiplier": continue
+		popup.offer.choices[0] = skill
+		popup.offer.targets[skill.skill_id] = SkillTarget.new()
+		popup.show_offer(popup.offer)
+		return

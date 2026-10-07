@@ -1,10 +1,13 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v1"
+const RULES_VERSION: String = "run-commands-v5"
 
 ## 所有整数转十进制字符串；坐标、实体、字典有固定规范顺序。
 static func normalize(value: Variant) -> Variant:
+	if value is ChoiceEffect:
+		var script: Script = value.get_script() as Script
+		return {"script": script.resource_path, "parameters": resource_fields(value)}
 	if value is int: return str(value)
 	if value is StringName: return String(value)
 	if value is Vector2i: return [str(value.x), str(value.y)]
@@ -12,9 +15,13 @@ static func normalize(value: Variant) -> Variant:
 		var result: Array = []
 		for element: Variant in value: result.append(normalize(element))
 		return result
+	if value is PackedInt64Array:
+		var result: Array[String] = []
+		for element: int in value: result.append(str(element))
+		return result
 	if value is Dictionary:
 		var result: Dictionary = {}
-		for key: Variant in value: result[String(key)] = normalize(value[key])
+		for key: Variant in value: result[str(key)] = normalize(value[key])
 		return result
 	return value
 
@@ -28,7 +35,31 @@ static func resource_fields(resource: Resource) -> Dictionary:
 static func config(run: RunController) -> Dictionary:
 	var skills: Array[Dictionary] = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG: skills.append(resource_fields(skill))
-	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "spawn_count": 3, "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills})
+	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills})
+
+## 只登记只读触发参数，排除插件内部管理器、时间和共享运行计数。
+static func trigger_config(ability: AbilityDefinition) -> Dictionary:
+	var error: String = AbilityTriggerAdapter.validation_error(ability)
+	if not error.is_empty(): return {"adapter": "conditions-only-v1", "invalid": error}
+	var trigger: GameplayTrigger = ability.trigger
+	var conditions: Array[Dictionary] = []
+	for condition: TriggerCondition in trigger.conditions: conditions.append(_condition_config(condition))
+	return {"adapter": "conditions-only-v1", "ability_id": ability.ability_id, "type": trigger.trigger_type,
+		"event": trigger.trigger_event, "chance": trigger.trigger_chance, "limit": trigger.max_triggers, "conditions": conditions}
+
+static func _condition_config(condition: TriggerCondition) -> Dictionary:
+	var script: Script = condition.get_script() as Script
+	var fields: Dictionary = {}
+	for property: Dictionary in condition.get_property_list():
+		if int(property.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE and int(property.usage) & PROPERTY_USAGE_EDITOR:
+			var value: Variant = condition.get(property.name)
+			if value is Array:
+				var values: Array = []
+				for element: Variant in value:
+					values.append(_condition_config(element) if element is TriggerCondition else element)
+				value = values
+			fields[property.name] = value
+	return {"script": script.resource_path, "parameters": fields}
 
 static func piece(piece_state: PieceState) -> Dictionary:
 	return normalize({"id": piece_state.piece_id, "coordinate": piece_state.coordinate, "color": piece_state.match_color, "content_id": piece_state.content_id, "ghost": piece_state.is_ghost})
@@ -43,7 +74,7 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 	for skill: SkillDefinition in offer.choices:
 		choices.append(String(skill.skill_id))
 		var target: SkillTarget = offer.targets[skill.skill_id]
-		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids}
+		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": target.color_groups, "fuse_counts": target.fuse_counts}
 	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": choices, "targets": targets, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
 
 static func random_data(random: RandomNumberGenerator) -> Dictionary:
@@ -61,8 +92,21 @@ static func capture(run: RunController) -> Dictionary:
 	ids.sort()
 	for id: int in ids:
 		var ability: AbilityInstance = state.explosion.instances[id]
-		instances.append({"id": str(id), "ability": String(ability.definition.ability_id), "triggered": ability.has_triggered})
-	return normalize({"pieces": pieces, "instances": instances, "levels": [state.explosion.radius_level, state.explosion.reward_level, state.explosion.multiplier_level, state.explosion.match_extra_level, state.explosion.blast_extra_level], "unlocked": state.explosion.unlocked, "ledger": entries, "total": state.ledger.total, "phase": state.phase, "continuation": run.continuation, "direct_match": run.direct_match(), "turn": state.turn_count, "action": state.action_id, "moves": state.valid_moves, "last_command": run.last_command_id, "pending": state.pending_rewards, "milestone_level": state.progression.level, "previous_milestone": state.progression.previous_milestone, "next_milestone": state.progression.next_milestone, "acquired": state.rewards.acquired, "consumed": state.rewards.consumed_count, "history": state.rewards.previous_unselected, "offer": offer_data(state.rewards.active_offer), "next_offer_id": state.rewards.next_offer_id, "next_piece_id": state.rules.state.next_piece_id(), "next_event_id": state.ledger.next_event_id(), "game_over": state.is_game_over, "error": state.rule_error, "random": [random_data(state.random), random_data(state.rewards.candidate_random), random_data(state.rewards.target_random), random_data(state.rewards.display_random)]})
+		instances.append({"id": str(id), "ability": String(ability.definition.ability_id), "triggered": ability.has_triggered, "trigger_count": str(ability.trigger_count)})
+	var snapshot: Dictionary = normalize({"pieces": pieces, "instances": instances, "levels": [state.explosion.radius_level, state.explosion.reward_level, state.explosion.multiplier_level, state.explosion.match_extra_level, state.explosion.blast_extra_level], "unlocked": state.explosion.unlocked, "ledger": entries, "total": state.ledger.total, "phase": state.phase, "continuation": run.continuation, "direct_match": run.direct_match(), "turn": state.turn_count, "action": state.action_id, "moves": state.valid_moves, "last_command": run.last_command_id, "pending": state.pending_rewards, "milestone_level": state.progression.level, "previous_milestone": state.progression.previous_milestone, "next_milestone": state.progression.next_milestone, "acquired": state.rewards.acquired, "consumed": state.rewards.consumed_count, "history": state.rewards.previous_unselected, "offer": offer_data(state.rewards.active_offer), "next_offer_id": state.rewards.next_offer_id, "next_piece_id": state.rules.state.next_piece_id(), "next_event_id": state.ledger.next_event_id(), "game_over": state.is_game_over, "error": state.rule_error, "random": [random_data(state.random), random_data(state.rewards.candidate_random), random_data(state.rewards.target_random), random_data(state.rewards.display_random)]})
+	snapshot["spawning"] = normalize({"refill_batches": state.spawning.refill_batches, "color_weights": state.spawning.color_weights, "plan": state.spawning.plan_data(), "content_random": random_data(state.spawning.content_random), "plan_policy": "locked-prefix-conditional-core-v1"})
+	snapshot["demolition"] = normalize({"upgrades": state.explosion.upgrades, "core_pool": state.explosion.core_pool_unlocked, "fuse_unlocked": state.explosion.fuse_unlocked, "rule_action_id": state.rule_action_id, "turn_action_id": run.turn_action_id, "activations": state.activations, "roots": _roots(state)})
+	return snapshot
+
+static func _roots(state: RunState) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	var ids: Array[int] = []
+	ids.assign(state.explosion.actions.keys())
+	ids.sort()
+	for id: int in ids:
+		var stats: DemolitionActionState = state.explosion.actions[id]
+		result.append({"id": id, "plant": stats.plant_used, "aftershock": stats.aftershock_used, "effective_blasts": stats.effective_blasts, "removed": stats.blast_removed, "core": {} if stats.first_core == null else piece(stats.first_core)})
+	return result
 
 static func canonical(data: Variant) -> String:
 	return JSON.stringify(normalize(data), "", true)

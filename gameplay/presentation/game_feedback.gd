@@ -25,7 +25,8 @@ func play(cue: StringName) -> void:
 	_last_played[cue] = now
 	var player: AudioStreamPlayer = CoreSystem.audio_manager.play_sound(SOUNDS[cue], 0.5)
 	if player == null: return
-	_original_modes[player] = player.process_mode
+	# 插件池可能在finished信号派发前复用已停止播放器，保留首次借用模式。
+	if not _original_modes.has(player): _original_modes[player] = player.process_mode
 	player.process_mode = Node.PROCESS_MODE_ALWAYS if cue in [&"reward", &"finish"] else Node.PROCESS_MODE_PAUSABLE
 	if not _players.has(player): _players.append(player)
 	var finished: Callable = _on_sound_finished.bind(player)

@@ -1,6 +1,8 @@
 class_name OfferConfig
 extends Resource
 
+@export var rarity_factors: Array[float] = [1.0, 0.65, 0.35, 0.15, 0.06]
+
 @export var affinity_gain: float = 0.6
 @export var need_factor: float = 1.4
 @export var history_factor: float = 0.75

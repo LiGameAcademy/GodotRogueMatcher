@@ -6,9 +6,11 @@ static func encode(command: RunCommand) -> Dictionary:
 	if command is MovePieceCommand:
 		var move: MovePieceCommand = command as MovePieceCommand
 		result.merge({"type": "move", "piece_id": str(move.piece_id), "target": [str(move.target.x), str(move.target.y)]})
+	elif command is DetonateCoreCommand:
+		result.merge({"type": "detonate", "piece_id": str((command as DetonateCoreCommand).piece_id)})
 	elif command is ChooseSkillCommand:
 		var choice: ChooseSkillCommand = command as ChooseSkillCommand
-		result.merge({"type": "choose", "offer_id": str(choice.offer_id), "reward_id": str(choice.reward_id), "skill_id": String(choice.skill_id)})
+		result.merge({"type": "choose", "offer_id": str(choice.offer_id), "reward_id": str(choice.reward_id), "skill_id": String(choice.skill_id), "selected_color": str(choice.selected_color)})
 	else: result["type"] = "unknown"
 	return result
 
@@ -21,6 +23,11 @@ static func decode(data: Dictionary) -> RunCommand:
 	if not data.get("run_id") is String or not data.get("source") is String or not data.get("buffered") is bool: return null
 	var command: RunCommand
 	match data.get("type"):
+		"detonate":
+			if not valid_integer(data.get("piece_id")): return null
+			var detonate: DetonateCoreCommand = DetonateCoreCommand.new()
+			detonate.piece_id = data.piece_id.to_int()
+			command = detonate
 		"move":
 			var target: Variant = data.get("target")
 			if not valid_integer(data.get("piece_id")) or not target is Array or target.size() != 2: return null
@@ -37,6 +44,9 @@ static func decode(data: Dictionary) -> RunCommand:
 			choice.offer_id = data.offer_id.to_int()
 			choice.reward_id = data.reward_id.to_int()
 			choice.skill_id = StringName(data.skill_id)
+			if not valid_integer(data.get("selected_color")): return null
+			choice.selected_color = data.selected_color.to_int()
+			if choice.selected_color < -1 or choice.selected_color > 4: return null
 			command = choice
 		_: return null
 	command.run_id = data.run_id

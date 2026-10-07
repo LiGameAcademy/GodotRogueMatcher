@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+upgrade = &"blast_chain_radius"
+[resource]
+script = ExtResource("1")
+skill_id = &"blast_chain_radius"
+title = "连锁扩域"
+description = "本局第2代及以后引信爆炸半径+1，最终上限3；第一代与合成余震不享有。"
+base_weight = 10.0
+tags = Array[StringName]([&"exp", &"extra"])
+choice_effect = SubResource("effect")
+rarity = 3
+maximum_level = 1
+minimum_reward = 1
+is_persistent = true
+is_starter = false
+requires_core = true
+requires_fuse_unlock = true
+requires_fuse = false
+prerequisite = &""

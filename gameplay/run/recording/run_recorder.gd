@@ -56,13 +56,13 @@ func command(run: RunController, request: RunCommand, result: CommandResult, bef
 	var events: Array[Dictionary] = []
 	if result.turn != null: events = matches(result.turn.matches)
 	var movement: Dictionary = {}
-	if result.turn != null and result.turn.move.is_valid():
+	if result.turn != null and result.turn.move != null and result.turn.move.is_valid():
 		movement = {"piece_id": str(result.turn.move.piece_id), "path": RunSnapshot.normalize(result.turn.move.path)}
 	if result.skill != null:
 		events = matches(result.skill.matches)
 		if result.accepted:
 			append("SkillAcquired", {"command_id": str(request.command_id), "offer_id": str(result.skill.offer_id), "reward_id": str(result.skill.reward_id), "skill_id": String(result.skill.skill_id), "created": pieces(result.skill.created), "removed": pieces(result.skill.removed), "marked_ids": result.skill.marked_ids, "count_before": before.acquired.get(String(result.skill.skill_id), "0"), "count_after": str(run.state.rewards.acquired.get(result.skill.skill_id, 0)), "levels_before": before.levels, "levels_after": RunSnapshot.capture(run).levels})
-	append("RuleResult", {"command_id": str(request.command_id), "events": events, "move": movement, "before": before, "after": RunSnapshot.capture(run)})
+	append("RuleResult", {"command_id": str(request.command_id), "events": events, "removed": pieces(result.turn.removed) if result.turn != null else [], "move": movement, "before": before, "after": RunSnapshot.capture(run)})
 	checkpoint(run)
 	_flush()
 
@@ -70,7 +70,7 @@ func step(run: RunController, result: RunStepResult) -> void:
 	var births: Array[Dictionary] = []
 	for spawn: SpawnResult in result.spawns:
 		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches)})
-	append("RuleResult", {"stage": String(result.kind), "births": births, "after": RunSnapshot.capture(run)})
+	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "after": RunSnapshot.capture(run)})
 	checkpoint(run)
 	_flush()
 
@@ -86,7 +86,7 @@ func checkpoint(run: RunController) -> void:
 func finish(run: RunController, status: String, reason: String) -> void:
 	if ended: return
 	set_interval(_interval)
-	append("Footer", {"status": status, "reason": reason, "score": str(run.state.ledger.total), "moves": str(run.state.valid_moves), "choices": str(run.state.rewards.consumed_count), "times": times, "source": source, "record_complete": error.is_empty(), "last_valid_seq": str(records.size()), "final": RunSnapshot.capture(run)})
+	append("Footer", {"status": status, "reason": reason, "score": str(run.state.ledger.total), "moves": str(run.state.valid_moves), "activations": str(run.state.activations), "actions": str(run.state.valid_moves + run.state.activations), "choices": str(run.state.rewards.consumed_count), "times": times, "source": source, "record_complete": error.is_empty(), "last_valid_seq": str(records.size()), "final": RunSnapshot.capture(run)})
 	ended = true
 	_flush()
 	if _file != null:

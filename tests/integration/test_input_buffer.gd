@@ -68,7 +68,7 @@ func test_retry_discards_buffered_command() -> void:
 	await wait_process_frames(3)
 	assert_eq(GameManager.turn_count, 1)
 	assert_null(board.selected_piece)
-	assert_eq(board._buffered_piece_id, 0)
+	assert_eq(board.input_buffer.piece_id, 0)
 
 func test_reward_popup_discards_previous_board_intent() -> void:
 	GameManager.add_score(50)
@@ -78,7 +78,7 @@ func test_reward_popup_discards_previous_board_intent() -> void:
 	await board.finish_presentation()
 	await wait_process_frames(3)
 	assert_true(UIManager.current_popup is PopupSkillChoice)
-	assert_eq(board._buffered_piece_id, 0)
+	assert_eq(board.input_buffer.piece_id, 0)
 	(UIManager.current_popup as PopupSkillChoice)._select(0)
 	if not board.can_selected: await GameManager.turn_started
 	await wait_process_frames(3)

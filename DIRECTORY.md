@@ -1,4 +1,4 @@
-# 当前工程目录 · 2026-10-05
+# 当前工程目录 · 2026-10-07
 
 按功能组织代码和场景，同一功能的规则、配置类型与表现放在所属模块；不再使用scripts/作为第二套分类入口。
 
@@ -10,10 +10,11 @@ res://
 │  ├─ board/               状态、规则、匹配、生成、协调与BoardView
 │  │  ├─ cell/             Cell场景及同名脚本
 │  │  └─ piece/            ChessPiece场景及同名脚本
-│  ├─ run/                 RunController/RunState、结果数据、GameManager兼容桥
+│  ├─ run/                 RunController/RunState、补棋配置/每局权重、记录与回放
 │  ├─ scoring/             ScoreLedger、ScoreEntry
 │  ├─ items/               道具类型、索引、放置、效果、conditions/、effects/
-│  ├─ progression/         升级与候选流程
+│  ├─ progression/         升级/稀有度/候选流程、选择效果叶子及32项技能Resource
+│  ├─ skills/              Ability触发适配、爆炸/引信/根行动组合与只读配置
 │  └─ presentation/        现有辉光辅助
 ├─ ui/                     HUD、弹窗、UIManager
 ├─ data/item/              现有道具.tres配置，保留单一来源

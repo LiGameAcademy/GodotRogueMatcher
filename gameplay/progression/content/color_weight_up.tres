@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/color_weight_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+delta = 2
+
+[resource]
+script = ExtResource("1")
+skill_id = &"color_weight_up"
+title = "色彩聚焦"
+description = "本局持续提高一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。"
+base_weight = 10.0
+tags = Array[StringName]([&"generation", &"palette"])
+is_persistent = true
+minimum_reward = 1
+choice_effect = SubResource("effect")
+rarity = 1
+maximum_level = 3
+is_starter = false
+requires_core = false
+requires_fuse_unlock = false
+requires_fuse = false
+prerequisite = &""

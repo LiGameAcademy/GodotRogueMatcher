@@ -75,11 +75,12 @@ func test_birth_fault_stops_scene_input_without_full_board_game_over() -> void:
 	for x: int in range(4, 8):
 		board.rules.set_piece_color(board.rules.state.get_piece_id(Vector2i(x, 8)), 0)
 	board.view.rebuild(board.rules.state.get_snapshot())
+	# 固定出生故障夹具使用新的内容流与空计划，不重写普通局已锁定预告。
+	board.run.state.spawning = SpawnState.new(RunController.SPAWN_CONFIG)
 	for run_seed: int in range(1000):
-		board.run.state.random.seed = run_seed
-		board.run.state.random.randi_range(0, 0)
-		if board.run.state.random.randi_range(0, 4) == 0:
-			board.run.state.random.seed = run_seed
+		board.run.state.spawning.content_random.seed = run_seed
+		if board.run.state.spawning.draw_color(board.run.state.spawning.content_random) == 0:
+			board.run.state.spawning.content_random.seed = run_seed
 			break
 	var config: ExplosionConfig = board.run.abilities.config.duplicate() as ExplosionConfig
 	config.event_budget = 0

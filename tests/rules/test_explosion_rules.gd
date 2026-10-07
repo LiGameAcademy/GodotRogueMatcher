@@ -137,10 +137,10 @@ func test_birth_budget_fault_stops_batch_and_preserves_error_phase() -> void:
 	for x: int in range(4):
 		run.state.rules.place_piece(Vector2i(x, 0), 0)
 	for run_seed: int in range(1000):
-		run.state.random.seed = run_seed
+		run.state.spawning.content_random.seed = run_seed
 		run.state.random.randi_range(0, 0)
-		if run.state.random.randi_range(0, 4) == 0:
-			run.state.random.seed = run_seed
+		if run.state.spawning.draw_color(run.state.spawning.content_random) == 0:
+			run.state.spawning.content_random.seed = run_seed
 			break
 	var config: ExplosionConfig = run.abilities.config.duplicate() as ExplosionConfig
 	config.event_budget = 0

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/refill_count_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+delta = 1
+
+[resource]
+script = ExtResource("1")
+skill_id = &"refill_more"
+title = "加速播种"
+description = "接下来3次实际普通补棋各增加1枚，增加成线机会及占格压力。重复获得延长3次，不叠加幅度；增减同时生效时相抵。"
+base_weight = 6.0
+tags = Array[StringName]([&"generation"])
+is_persistent = false
+minimum_reward = 3
+choice_effect = SubResource("effect")
+rarity = 0
+maximum_level = 0
+is_starter = false
+requires_core = false
+requires_fuse_unlock = false
+requires_fuse = false
+prerequisite = &""

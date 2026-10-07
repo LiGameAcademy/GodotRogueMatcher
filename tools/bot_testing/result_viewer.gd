@@ -110,6 +110,7 @@ func _present(row: Dictionary) -> void:
 		for data: Dictionary in _skill.removed:
 			_remove_piece(data)
 		_skill = {}
+	for removed: Dictionary in row.get("removed", []): _remove_piece(removed)
 	_events(row.get("events", []))
 	if not await view.wait_for_presentation() or generation != _generation: return
 	_show_state(row.after)

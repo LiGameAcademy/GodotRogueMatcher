@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://ui/popup_skill_choice.gd" id="1"]
+[ext_resource type="Theme" path="res://ui/preview_theme.tres" id="Theme"]
+[ext_resource type="PackedScene" path="res://ui/color_target_picker.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://ui/skill_card.tscn" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.045, 0.065, 0.09, 0.98)
+content_margin_left = 24.0
+content_margin_right = 24.0
+content_margin_top = 22.0
+content_margin_bottom = 22.0
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26, 0.34, 0.45, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="StyleBoxFlat" id="Dock"]
+bg_color = Color(0.045, 0.065, 0.09, 0.98)
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
 [node name="PopupSkillChoice" type="Control"]
 process_mode = 3
@@ -11,6 +41,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+theme = ExtResource("Theme")
 
 [node name="Backdrop" type="ColorRect" parent="."]
 layout_mode = 1
@@ -27,35 +58,99 @@ anchor_bottom = 1.0
 
 [node name="Panel" type="PanelContainer" parent="Center"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("Panel")
 
 [node name="Column" type="VBoxContainer" parent="Center/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 16
 
 [node name="Heading" type="Label" parent="Center/Panel/Column"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.96, 0.94, 0.86, 1)
 horizontal_alignment = 1
 
 [node name="Message" type="Label" parent="Center/Panel/Column"]
 layout_mode = 2
+custom_minimum_size = Vector2(908, 0)
+theme_override_colors/font_color = Color(0.64, 0.73, 0.84, 1)
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 2
 horizontal_alignment = 1
 
 [node name="Options" type="HBoxContainer" parent="Center/Panel/Column"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="ChoiceOne" type="Button" parent="Center/Panel/Column/Options"]
-custom_minimum_size = Vector2(260, 230)
+[node name="ChoiceOne" parent="Center/Panel/Column/Options" instance=ExtResource("3")]
 layout_mode = 2
+
+[node name="ChoiceTwo" parent="Center/Panel/Column/Options" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChoiceThree" parent="Center/Panel/Column/Options" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ColorTargetPicker" parent="Center/Panel/Column" instance=ExtResource("2")]
+visible = false
+layout_mode = 2
+
+[node name="ViewButton" type="Button" parent="Center/Panel/Column"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 38)
+text = "查看棋盘 · 暂时收起面板，保留本次选择"
+theme_override_font_sizes/font_size = 16
+
+[node name="ReturnBar" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -170.0
+offset_right = 280.0
+offset_bottom = -72.0
+theme_override_styles/panel = SubResource("Dock")
+
+[node name="Row" type="VBoxContainer" parent="ReturnBar"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Message" type="Label" parent="ReturnBar/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "正在选择技能 · 棋盘仅供查看"
 autowrap_mode = 2
 
-[node name="ChoiceTwo" type="Button" parent="Center/Panel/Column/Options"]
-custom_minimum_size = Vector2(260, 230)
+[node name="Return" type="Button" parent="ReturnBar/Row"]
 layout_mode = 2
-autowrap_mode = 2
+text = "返回选择"
 
-[node name="ChoiceThree" type="Button" parent="Center/Panel/Column/Options"]
-custom_minimum_size = Vector2(260, 230)
+[node name="PausePanel" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="PausePanel"]
 layout_mode = 2
-autowrap_mode = 2
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Column" type="VBoxContainer" parent="PausePanel/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="PausePanel/Panel/Column"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+text = "已暂停 · 技能选择进度已保留"
+
+[node name="Resume" type="Button" parent="PausePanel/Panel/Column"]
+layout_mode = 2
+custom_minimum_size = Vector2(460, 50)
+text = "继续选择 / ESC"

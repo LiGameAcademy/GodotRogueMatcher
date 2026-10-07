@@ -7,6 +7,7 @@ const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece
 const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explosion_visual/explosion_visual.tscn")
 
 signal cell_pressed(coordinate: Vector2i)
+signal piece_activated(coordinate: Vector2i)
 signal presentation_changed
 signal piece_removing(piece: ChessPiece)
 signal match_visualized(result: MatchResult, cells: Array[Cell])
@@ -24,9 +25,12 @@ var _fixed_required: bool = false
 var presentation_speed: float = 1.0:
 	set(value):
 		presentation_speed = maxf(value, 0.01)
+		if is_instance_valid(score_floats): score_floats.set_speed(presentation_speed)
 		for animation: Tween in _presentation_tweens:
 			if animation.is_valid(): animation.set_speed_scale(1.0 if _fixed_required else presentation_speed)
 var _playback_pending: bool = false
+@onready var move_path: MovePathVisual = %MovePathVisual
+@onready var score_floats: ScoreFloatLayer = %ScoreFloatLayer
 
 #region 显示初始化与查询
 func _exit_tree() -> void:
@@ -56,6 +60,7 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 			cell.low_effects = low_effects
 			cell.position = Vector2(x, y) * (cell_size + gap)
 			cell.pressed.connect(_on_cell_pressed)
+			cell.activated.connect(func(clicked: Cell) -> void: piece_activated.emit(clicked.coordinate))
 			add_child(cell)
 			_cells[cell.coordinate] = cell
 
@@ -69,6 +74,7 @@ func get_display_rect() -> Rect2:
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	score_floats.set_low_effects(enabled)
 	for cell: Cell in _cells.values(): cell.set_low_effects(enabled)
 	for piece: ChessPiece in _pieces.values(): piece.set_low_effects(enabled)
 	for child: Node in get_children():
@@ -83,6 +89,8 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	move_path.clear()
+	score_floats.clear(true)
 	_generation += 1
 	_playback_pending = false
 	for animation: Tween in _presentation_tweens:
@@ -142,7 +150,18 @@ func show_ability_marker(piece_id: int, text: String) -> void:
 	if is_instance_valid(piece):
 		piece.set_ability_marker(text)
 
-func show_blast(center: Vector2i, radius: int) -> void:
+## 调用者传入当前规则快照，能力升级后同步标记和提示。
+func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig) -> void:
+	for piece_state: PieceState in snapshot:
+		var piece: ChessPiece = get_piece(piece_state.piece_id)
+		if not is_instance_valid(piece): continue
+		var marker: String = ""
+		if explosion.instances.has(piece_state.piece_id):
+			marker = "爆" if piece_state.content_id == &"special_demolition" else "引"
+		piece.set_ability_marker(marker)
+		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data))
+
+func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 	if radius < 0 or not _cells.has(center):
 		return
 	var visual: ExplosionVisual = EXPLOSION_SCENE.instantiate() as ExplosionVisual
@@ -153,7 +172,7 @@ func show_blast(center: Vector2i, radius: int) -> void:
 	var maximum: Vector2i = Vector2i(mini(center.x + radius, _dimensions.x - 1), mini(center.y + radius, _dimensions.y - 1))
 	var corner: Vector2 = Vector2(minimum - center) * _spacing - _spacing * 0.5
 	var size: Vector2 = Vector2(maximum - minimum + Vector2i.ONE) * _spacing
-	track_presentation(visual.setup(Rect2(corner, size)))
+	track_presentation(visual.setup(Rect2(corner, size), generation))
 #endregion
 
 #region 结果演出
@@ -170,15 +189,23 @@ func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	add_child(piece)
 	for coordinate: Vector2i in result.path:
 		get_cell(coordinate).highlight_path()
-	for coordinate: Vector2i in result.path:
+	var points: PackedVector2Array = PackedVector2Array()
+	for coordinate: Vector2i in result.path: points.append(get_cell(coordinate).position)
+	move_path.show_path(points)
+	for index: int in range(result.path.size()):
+		var coordinate: Vector2i = result.path[index]
 		piece.move_to_and_wait(get_cell(coordinate), maxf(duration / result.path.size(), 0.001))
 		track_presentation(piece.tween)
 		await piece.movement_completed
 		if generation != _generation:
 			return false
+		move_path.mark_reached(index)
+	track_presentation(piece.land())
+	if not await wait_for_animations() or generation != _generation: return false
 	remove_child(piece)
 	get_cell(result.path.back()).show_piece(piece)
 	piece.position = Vector2.ZERO
+	move_path.clear()
 	for coordinate: Vector2i in result.path:
 		get_cell(coordinate).unhighlight()
 	return true
@@ -187,6 +214,7 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 	var piece: ChessPiece = get_piece(piece_state.piece_id)
 	if not is_instance_valid(piece):
 		return
+	piece.set_tooltip_text("")
 	piece_removing.emit(piece)
 	_pieces.erase(piece_state.piece_id)
 	var cell: Cell = get_cell(piece_state.coordinate)
@@ -200,12 +228,13 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 	else: piece.queue_free()
 
 func animate_matches(results: Array[MatchResult]) -> void:
+	score_floats.show_results(results, _spacing, get_display_rect(), low_effects, presentation_speed)
 	for result: MatchResult in results:
 		var cells: Array[Cell] = []
 		for snapshot: PieceState in result.removed:
 			cells.append(get_cell(snapshot.coordinate))
 			remove_piece(snapshot, true)
-		if result.cause == &"explosion": show_blast(result.center, result.radius)
+		if result.cause == &"explosion": show_blast(result.center, result.radius, result.generation)
 		match_visualized.emit(result, cells)
 
 func set_step_policy(policy: PresentationStep.Policy) -> void:
@@ -213,6 +242,9 @@ func set_step_policy(policy: PresentationStep.Policy) -> void:
 
 ## 仅取消当前视图任务，唤醒旧等待；跳过权限由导演判断。
 func cancel_animations() -> void:
+	move_path.clear()
+	score_floats.clear()
+	for cell: Cell in _cells.values(): cell.unhighlight()
 	_generation += 1
 	for animation: Tween in _presentation_tweens:
 		if animation.is_valid(): animation.kill()
@@ -271,10 +303,7 @@ func _animations_running() -> bool:
 func animate_spawn(snapshot: PieceState, duration: float) -> void:
 	var piece: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
 	show_piece(snapshot, piece)
-	piece.scale = Vector2.ZERO
-	var animation: Tween = piece.create_tween()
-	animation.tween_property(piece, "scale", Vector2.ONE, maxf(0.0, duration))
-	track_presentation(animation)
+	track_presentation(piece.spawn_animation(duration))
 
 ## 导演每步只等待实际动画；队列状态由父级另行映射给公开查询。
 func wait_for_animations() -> bool:

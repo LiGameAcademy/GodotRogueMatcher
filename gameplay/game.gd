@@ -49,7 +49,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		var playback_key: InputEventKey = event as InputEventKey
 		if playback_key.pressed and not playback_key.echo and playback_key.physical_keycode == KEY_F8:
 			_set_fast(not _fast_playback)
-	if enable_debug_fixtures and event is InputEventKey:
+	if OS.is_debug_build() and enable_debug_fixtures and event is InputEventKey:
 		var key: InputEventKey = event as InputEventKey
 		if key.pressed and not key.echo and key.physical_keycode == KEY_F6:
 			board.load_explosion_demo()
@@ -128,6 +128,9 @@ func _request_skip() -> void:
 		hud.show_status("已请求略过可跳部分，必播动作仍需完成")
 
 func _toggle_pause() -> void:
+	if UIManager.current_popup is PopupSkillChoice:
+		(UIManager.current_popup as PopupSkillChoice).toggle_selection_pause()
+		return
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
 	get_tree().paused = not get_tree().paused
 	hud.pause_button.text = "继续 / ESC" if get_tree().paused else "暂停 / ESC"

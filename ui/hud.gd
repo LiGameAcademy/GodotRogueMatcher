@@ -30,18 +30,25 @@ signal board_area_changed
 @onready var low_effects_button: CheckButton = %LowEffectsButton
 @onready var volume_slider: HSlider = %VolumeSlider
 @onready var skip_button: Button = %SkipButton
+@onready var history_button: Button = %HistoryButton
+@onready var history_label: RichTextLabel = %HistoryLabel
+@onready var spawn_preview: SpawnPreview = %SpawnPreview
 var displayed_score: int = 0
 var _target_score: int = 0
 var _score_tween: Tween
 var _epoch: int = 0
 var _fast: bool = false
+var _volume_dragging: bool = false
+var _gain_tween: Tween
 
 func _ready() -> void:
 	fast_button.toggled.connect(fast_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
+	history_button.toggled.connect(_show_history)
 	skip_button.pressed.connect(skip_requested.emit)
 	low_effects_button.toggled.connect(low_effects_requested.emit)
 	volume_slider.value_changed.connect(_on_volume_changed)
+	volume_slider.drag_started.connect(_on_volume_drag_started)
 	volume_slider.drag_ended.connect(_on_volume_drag_ended)
 	board_area.item_rect_changed.connect(_notify_board_area)
 
@@ -75,6 +82,10 @@ func show_score(target: int) -> void:
 		gain_label.text = ""
 		return
 	gain_label.text = "+%d" % (target - previous)
+	gain_label.modulate.a = 1.0
+	_gain_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_STOP)
+	_gain_tween.tween_interval(1.2)
+	_gain_tween.tween_property(gain_label, "modulate:a", 0.0, 0.35)
 	_score_tween = create_tween()
 	_score_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 	_score_tween.set_speed_scale(2.0 if _fast else 1.0)
@@ -97,17 +108,19 @@ func finish_score_now() -> bool:
 	return true
 
 func show_run(run: RunController) -> void:
+	spawn_preview.show_plan(run.state.spawning.preview(run.state.spawning.next_refill_count(RunController.SPAWN_CONFIG)), run.state.is_game_over)
 	var state: RunState = run.state
 	var goal: int = state.progression.next_milestone
 	reward_label.text = "下一次技能选择：%d 分 · 还差 %d\n已选 %d 次 · 待选 %d 次" % [goal, maxi(0, goal - state.ledger.total), state.rewards.consumed_count, state.pending_rewards]
 	reward_bar.min_value = state.progression.previous_milestone
 	reward_bar.max_value = goal
 	reward_bar.value = state.ledger.total
-	turn_label.text = "回合 %d · 移动 %d" % [state.turn_count, state.valid_moves]
+	turn_label.text = "回合 %d · 行动 %d" % [state.turn_count, state.valid_moves + state.activations]
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
-	skills_label.text = HudDetails.skills(state)
-	breakdown_label.text = HudDetails.score_details(state.ledger.get_entries())
-	tools_label.text = "工具与临时状态\n" + HudDetails.tools(state)
+	skills_label.text = HudDetails.skills_rich(state)
+	breakdown_label.text = HudDetails.score_details_rich(state.ledger.get_entries())
+	tools_label.text = HudDetails.tools(state)
+	history_label.text = HudDetails.history(state)
 
 func show_occupancy(count: int, capacity: int = 81) -> void:
 	board_label.text = "空位 %d / %d" % [capacity - count, capacity]
@@ -117,14 +130,21 @@ func show_occupancy(count: int, capacity: int = 81) -> void:
 
 func show_status(text: String) -> void:
 	status_label.text = text
+	status_label.tooltip_text = text
 
 func show_selection(piece: PieceState, has_fuse: bool) -> void:
 	if piece == null:
 		selection_label.text = "未选中棋子"
+		selection_label.tooltip_text = "选择棋子后，再点击可到达的空格。"
 		return
 	var identity: String = "爆壳手 · 消除时爆炸" if piece.content_id == &"special_demolition" else "普通材料"
 	if has_fuse and piece.content_id.is_empty(): identity += " · 带引信，消除时爆炸"
 	selection_label.text = "%s · 格 (%d, %d)" % [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
+	selection_label.tooltip_text = selection_label.text
+
+func _show_history(expanded: bool) -> void:
+	history_label.visible = expanded
+	history_button.text = "收起使用记录" if expanded else "展开使用记录"
 
 func set_fast(fast: bool) -> void:
 	_fast = fast
@@ -138,12 +158,16 @@ func set_volume(volume: float) -> void:
 	volume_slider.set_value_no_signal(volume)
 	volume_slider.tooltip_text = "音量 %d%%（0 为静音）" % roundi(volume * 100.0)
 
-func _on_volume_drag_ended(_changed: bool) -> void:
-	volume_committed.emit(volume_slider.value)
+func _on_volume_drag_started() -> void:
+	_volume_dragging = true
+
+func _on_volume_drag_ended(changed: bool) -> void:
+	_volume_dragging = false
+	if changed: volume_committed.emit(volume_slider.value)
 
 func _on_volume_changed(volume: float) -> void:
 	volume_requested.emit(volume)
-	if not volume_slider.is_dragging(): volume_committed.emit(volume)
+	if not _volume_dragging: volume_committed.emit(volume)
 
 func _set_score(value: float) -> void:
 	displayed_score = roundi(value)
@@ -158,5 +182,6 @@ func _finish_score(target: int, epoch: int) -> void:
 func _cancel_score() -> void:
 	_epoch += 1
 	if _score_tween != null and _score_tween.is_valid(): _score_tween.kill()
+	if _gain_tween != null and _gain_tween.is_valid(): _gain_tween.kill()
 	_score_tween = null
 	score_animation_changed.emit()
