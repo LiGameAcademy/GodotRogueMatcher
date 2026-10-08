@@ -32,6 +32,7 @@ func test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults() -> vo
 	preferences.fast = true
 	preferences.low_effects = true
 	preferences.volume = 0.25
+	preferences.tutorial_seen = true
 	assert_true(preferences.save_values(config, SETTINGS_FILE))
 	config.reset_config()
 	assert_true(config.load_config(SETTINGS_FILE))
@@ -40,12 +41,15 @@ func test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults() -> vo
 	assert_true(restored.fast)
 	assert_true(restored.low_effects)
 	assert_eq(restored.volume, 0.25)
+	assert_true(restored.tutorial_seen)
 	config.set_value(PlayerPreferences.SECTION, "fast", "bad")
 	config.set_value(PlayerPreferences.SECTION, "volume", "bad")
+	config.set_value(PlayerPreferences.SECTION, "tutorial_seen", "bad")
 	var defaults: PlayerPreferences = PlayerPreferences.new()
 	defaults.load_values(config)
 	assert_false(defaults.fast)
 	assert_eq(defaults.volume, 0.7)
+	assert_false(defaults.tutorial_seen)
 
 func test_low_effects_and_fast_modes_preserve_f6_rule_snapshot() -> void:
 	var baseline: String = ""

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://gameplay/board/board_view.tscn" id="4_view"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/presentation_director.tscn" id="5_director"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_feedback.tscn" id="6_feedback"]
+[ext_resource type="PackedScene" path="res://ui/release_menu/release_menu.tscn" id="7_menu"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -49,3 +50,8 @@ script = ExtResource("1_uwrxv")
 [node name="BoardView" parent="Board" instance=ExtResource("4_view")]
 
 [node name="PresentationDirector" parent="Board" instance=ExtResource("5_director")]
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+layer = 130
+
+[node name="ReleaseMenu" parent="MenuLayer" instance=ExtResource("7_menu")]

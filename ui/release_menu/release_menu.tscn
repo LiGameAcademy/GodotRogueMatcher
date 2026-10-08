@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://ui/release_menu/release_menu.gd" id="1"]
+[ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://ui/tutorial/tutorial.tscn" id="3"]
+
+[node name="ReleaseMenu" type="Control"]
+visible = false
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2")
+script = ExtResource("1")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.025, 0.038, 0.055, 0.98)
+
+[node name="Home" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Home"]
+layout_mode = 2
+custom_minimum_size = Vector2(680, 0)
+
+[node name="Margin" type="MarginContainer" parent="Home/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="Home/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Home/Panel/Margin/Column"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.6, 0.94, 0.86, 1)
+text = "技能连珠"
+horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.84, 1)
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Play" type="Button" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+text = "开始试玩"
+
+[node name="Learn" type="Button" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+text = "先试一下 · 操作练习"
+
+[node name="New" type="Button" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "开始新一局"
+
+[node name="Help" type="Label" parent="Home/Panel/Margin/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.77, 0.84, 0.92, 1)
+text = "点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。\n没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。\n累计得分获得技能；悬停特殊棋子可查看能力。\n安装「主动爆破」后可双击爆破棋子，消耗一次行动。\nESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出"
+theme_override_font_sizes/font_size = 16
+
+[node name="Notice" type="Label" parent="Home/Panel/Margin/Column"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.53, 0.63, 0.73, 1)
+text = "桌面浏览器试玩 · 音量 / 低特效在右侧面板调整\n设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。\n反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。"
+autowrap_mode = 2
+
+[node name="Tutorial" parent="." instance=ExtResource("3")]
+unique_name_in_owner = true
+visible = false

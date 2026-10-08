@@ -1,6 +1,7 @@
 extends Control
 
 signal retry_requested
+signal menu_requested
 
 @onready var score_label: Label = $Panel/Content/ScoreLabel
 @onready var retry_button: Button = $Panel/Content/RetryButton
@@ -8,6 +9,7 @@ signal retry_requested
 
 func _ready() -> void:
 	retry_button.pressed.connect(_on_retry_pressed)
+	($Panel/Content/MenuButton as Button).pressed.connect(menu_requested.emit)
 
 func initialize(data: Dictionary = {}) -> void:
 	var score_value: Variant = data.get("score", 0)
