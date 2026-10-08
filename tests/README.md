@@ -1,5 +1,7 @@
 # 当前回归 · 2026-10-07
 
+M4轻量版：17脚本、99项集成测试/1180断言通过（`.godot/score_light_tests_output.log`）。漂字取消面板与解释文字，保留+数字；更新字体/颜色独立与数字实际矩形避让测试，增加高分弹出峰值包络测试。下方初版卡片记录为历史基线。
+
 Game Juice M4：17脚本、98项集成测试/1093断言通过（`.godot/score_float_final_tests_output.log`）。`test_score_floats.gd`覆盖倍率主分/额外精确拆分、零收益、提示色/面板隔离、边缘定位与整段运动避让、无离场奖励位置、暂停/低特效/加速/过期、重复事件、取消/重试及可选长尾。原生真实规则样本100+10+10=120，Web F6结算70分正常。
 
 Game Juice M3：集成16脚本、91项测试/1047断言通过（`.godot/juice_m3_final_tests_output.log`）。新增`test_board_juice.gd`覆盖棋子/棋格ShaderMaterial实例与模板隔离、ghost出生透明度、取消路径不改已提交规则、暂停光环及低特效停止脉动。实际Web移动/补棋与F6连锁结算通过，规则完整基线沿用下方M2结果。

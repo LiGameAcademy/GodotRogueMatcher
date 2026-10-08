@@ -1,5 +1,7 @@
 # 单局表现 · M5-A / M5-B
 
+M4最新轻量版去掉面板、来源与公式，只保留主分/额外分的分色数字；高分中心弹出与上漂完整包络纳入避让，低特效停止移动和缩放，淡出继续。旧版详细说明见下方历史记录，当前验收为`GDC/acceptance/juice-m4-轻量数字漂字验收.md`。
+
 M4分数漂字：BoardView组合ScoreFloatLayer，读取冻结计分结果，在消除位置显示倍率后的主分和独立额外分；提示色、时间和排布预算由ScoreFloatConfig管理。漂字长尾不进入导演屏障，暂停/低特效/速度向下传递，取消清理、重试重置去重。面板样式按实例独占，不修改计分或随机。验收与Web链接见工程外`GDC/acceptance/juice-m4-分数漂字与收益认知验收.md`。
 
 PresentationDirector场景拥有队列与epoch/token，父Board响应步骤信号，调用BoardView，实际动画结束后确认步骤。规则由RunController提交，播放不再次计分、抽选或推进随机。

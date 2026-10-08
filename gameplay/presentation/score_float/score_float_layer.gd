@@ -25,7 +25,7 @@ func show_results(results: Array[MatchResult], spacing: Vector2, bounds: Rect2, 
 		var card: ScoreFloat = FLOAT.instantiate() as ScoreFloat
 		card.config = config
 		add_child(card)
-		card.configure(entry, result.cause, result.generation)
+		card.configure(entry)
 		card.play(_find_origin(anchor, card.display_size, bounds), low_effects, speed)
 
 func clear(reset_history: bool = false) -> void:
