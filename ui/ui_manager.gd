@@ -36,6 +36,9 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 	
 	# 等待一帧，确保节点已完全初始化
 	await get_tree().process_frame
+	# 重试/关闭可能发生在这一帧内；旧弹窗不得初始化或暂停新局。
+	if not is_instance_valid(popup) or popup.is_queued_for_deletion() or current_popup != popup:
+		return null
 	
 	# 调用统一的初始化方法（如果弹窗实现了该方法）
 	if popup.has_method("initialize"):

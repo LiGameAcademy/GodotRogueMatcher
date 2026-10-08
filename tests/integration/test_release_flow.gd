@@ -4,6 +4,8 @@ const GAME: PackedScene = preload("res://gameplay/game.tscn")
 const LESSON: PackedScene = preload("res://ui/tutorial/tutorial.tscn")
 var game: Node2D
 var board: Board
+var _popup_result: Control
+var _popup_finished: bool = false
 
 func before_each() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -136,6 +138,20 @@ func test_build_label_uses_application_version_and_explicit_override() -> void:
 	var explicit: RunRecorder = RunRecorder.new()
 	explicit.begin(board.run, "test", false, "fixture-build")
 	assert_eq(explicit.records[0].build, "fixture-build")
+
+func test_closing_popup_during_initialization_does_not_resume_stale_dialog() -> void:
+	_popup_finished = false
+	_open_popup()
+	UIManager.close_popup()
+	await wait_process_frames(3)
+	assert_true(_popup_finished)
+	assert_null(_popup_result)
+	assert_null(UIManager.current_popup)
+	assert_false(get_tree().paused)
+
+func _open_popup() -> void:
+	_popup_result = await UIManager.open_popup("popup_game_over", {"score": 50})
+	_popup_finished = true
 
 func _drain(session: TutorialSession) -> RunStepResult:
 	var step: RunStepResult

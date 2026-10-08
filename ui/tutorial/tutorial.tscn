@@ -106,4 +106,5 @@ disabled = true
 
 [node name="Choices" parent="." instance=ExtResource("4")]
 unique_name_in_owner = true
+z_index = 200
 visible = false
