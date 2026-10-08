@@ -42,12 +42,16 @@ var _epoch: int = 0
 var _fast: bool = false
 var _volume_dragging: bool = false
 var _gain_tween: Tween
+var _run: RunController
+var _selection: PieceState
+var _selection_fuse: bool = false
+var _status_source: String = "准备棋盘…"
 
 func _ready() -> void:
 	fast_button.toggled.connect(fast_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
 	help_button.pressed.connect(help_requested.emit)
-	(%Title as Label).text = "技能连珠\nv%s · 试玩" % str(ProjectSettings.get_setting("application/config/version", "development"))
+	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
 	history_button.toggled.connect(_show_history)
 	skip_button.pressed.connect(skip_requested.emit)
 	low_effects_button.toggled.connect(low_effects_requested.emit)
@@ -55,6 +59,16 @@ func _ready() -> void:
 	volume_slider.drag_started.connect(_on_volume_drag_started)
 	volume_slider.drag_ended.connect(_on_volume_drag_ended)
 	board_area.item_rect_changed.connect(_notify_board_area)
+
+func _notification(what: int) -> void:
+	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
+	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	score_label.text = tr("分数  %d") % displayed_score
+	if _run != null: show_run(_run)
+	show_selection(_selection, _selection_fuse)
+	show_status(_status_source)
+	_show_history(history_button.button_pressed)
+	set_volume(volume_slider.value)
 
 ## Game负责将这一屏幕区域转换到棋盘的坐标系。
 func get_board_area() -> Rect2:
@@ -115,14 +129,15 @@ func finish_score_now() -> bool:
 	return true
 
 func show_run(run: RunController) -> void:
+	_run = run
 	spawn_preview.show_plan(run.state.spawning.preview(run.state.spawning.next_refill_count(RunController.SPAWN_CONFIG)), run.state.is_game_over)
 	var state: RunState = run.state
 	var goal: int = state.progression.next_milestone
-	reward_label.text = "下一次技能选择：%d 分 · 还差 %d\n已选 %d 次 · 待选 %d 次" % [goal, maxi(0, goal - state.ledger.total), state.rewards.consumed_count, state.pending_rewards]
+	reward_label.text = tr("下一次技能选择：%d 分 · 还差 %d\n已选 %d 次 · 待选 %d 次") % [goal, maxi(0, goal - state.ledger.total), state.rewards.consumed_count, state.pending_rewards]
 	reward_bar.min_value = state.progression.previous_milestone
 	reward_bar.max_value = goal
 	reward_bar.value = state.ledger.total
-	turn_label.text = "回合 %d · 行动 %d" % [state.turn_count, state.valid_moves + state.activations]
+	turn_label.text = tr("回合 %d · 行动 %d") % [state.turn_count, state.valid_moves + state.activations]
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
 	skills_label.text = HudDetails.skills_rich(state)
 	breakdown_label.text = HudDetails.score_details_rich(state.ledger.get_entries())
@@ -130,28 +145,31 @@ func show_run(run: RunController) -> void:
 	history_label.text = HudDetails.history(state)
 
 func show_occupancy(count: int, capacity: int = 81) -> void:
-	board_label.text = "空位 %d / %d" % [capacity - count, capacity]
+	board_label.text = tr("空位 %d / %d") % [capacity - count, capacity]
 	pressure_bar.max_value = capacity
 	pressure_bar.value = count
 	pressure_bar.modulate = Color(1.0, 0.5, 0.4) if count >= capacity * 0.8 else Color.WHITE
 
 func show_status(text: String) -> void:
-	status_label.text = text
-	status_label.tooltip_text = text
+	_status_source = text
+	status_label.text = tr(text)
+	status_label.tooltip_text = tr(text)
 
 func show_selection(piece: PieceState, has_fuse: bool) -> void:
+	_selection = piece
+	_selection_fuse = has_fuse
 	if piece == null:
-		selection_label.text = "未选中棋子"
-		selection_label.tooltip_text = "选择棋子后，再点击可到达的空格。"
+		selection_label.text = tr("未选中棋子")
+		selection_label.tooltip_text = tr("选择棋子后，再点击可到达的空格。")
 		return
-	var identity: String = "爆壳手 · 消除时爆炸" if piece.content_id == &"special_demolition" else "普通材料"
-	if has_fuse and piece.content_id.is_empty(): identity += " · 带引信，消除时爆炸"
-	selection_label.text = "%s · 格 (%d, %d)" % [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
+	var identity: String = tr("爆壳手 · 消除时爆炸") if piece.content_id == &"special_demolition" else tr("普通材料")
+	if has_fuse and piece.content_id.is_empty(): identity += tr(" · 带引信，消除时爆炸")
+	selection_label.text = tr("%s · 格 (%d, %d)") % [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
 	selection_label.tooltip_text = selection_label.text
 
 func _show_history(expanded: bool) -> void:
 	history_label.visible = expanded
-	history_button.text = "收起使用记录" if expanded else "展开使用记录"
+	history_button.text = tr("收起使用记录") if expanded else tr("展开使用记录")
 
 func set_fast(fast: bool) -> void:
 	_fast = fast
@@ -163,7 +181,7 @@ func set_low_effects(enabled: bool) -> void:
 
 func set_volume(volume: float) -> void:
 	volume_slider.set_value_no_signal(volume)
-	volume_slider.tooltip_text = "音量 %d%%（0 为静音）" % roundi(volume * 100.0)
+	volume_slider.tooltip_text = tr("音量 %d%%（0 为静音）") % roundi(volume * 100.0)
 
 func _on_volume_drag_started() -> void:
 	_volume_dragging = true
@@ -178,12 +196,12 @@ func _on_volume_changed(volume: float) -> void:
 
 func _set_score(value: float) -> void:
 	displayed_score = roundi(value)
-	score_label.text = "分数  %d" % displayed_score
+	score_label.text = tr("分数  %d") % displayed_score
 
 func _finish_score(target: int, epoch: int) -> void:
 	if epoch != _epoch: return
 	displayed_score = target
-	score_label.text = "分数  %d" % target
+	score_label.text = tr("分数  %d") % target
 	score_animation_changed.emit()
 
 func _cancel_score() -> void:

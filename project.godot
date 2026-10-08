@@ -41,6 +41,7 @@ window/size/viewport_height=720
 
 config_system/config_path="user://rogue_matcher_settings.cfg"
 module_enable/save_manager=false
+module_enable/localization_manager=true
 save_system/auto_save/enabled=false
 
 [gui]
@@ -49,7 +50,8 @@ theme/custom_font="res://assets/fonts/noto_sans_sc_regular.otf"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation")
+locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation", "res://localization/game.en_US.translation", "res://localization/game.zh_CN.translation")
+locale/fallback="en_US"
 
 [rendering]
 

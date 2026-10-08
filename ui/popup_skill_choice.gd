@@ -24,6 +24,8 @@ var _target_index: int = -1
 var _submitted: bool = false
 var _closed: bool = false
 var _entrance: Tween
+var _reason: String = ""
+var _error: String = ""
 
 func _ready() -> void:
 	for index: int in range(options.get_child_count()):
@@ -38,6 +40,23 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if _entrance != null: _entrance.kill()
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and offer != null:
+		_refresh_text()
+
+func _refresh_text() -> void:
+	heading.text = tr("目标达成 · 第%d次选择") % offer.reward_id
+	message.text = tr(_reason) if not _reason.is_empty() else tr("选择一项技能，继续你的构筑")
+	if _target_index >= 0:
+		var skill: SkillDefinition = offer.choices[_target_index]
+		heading.text = tr("%s · 选择颜色") % tr(skill.title)
+		message.text = tr(skill.description)
+	if not _error.is_empty(): message.text = tr(_error)
+	var target: String = ""
+	if _target_index >= 0:
+		target = tr(" · 尚未选色") if picker.selected_color == -1 else tr(" · 已选") + tr(PieceTooltip.COLOR_NAMES[picker.selected_color])
+	return_label.text = tr("正在选择技能%s · 棋盘仅供查看") % target
+
 func initialize(data: Dictionary = {}) -> void:
 	var value: Variant = data.get("offer")
 	if not value is SkillOffer:
@@ -48,14 +67,16 @@ func initialize(data: Dictionary = {}) -> void:
 
 func show_offer(next_offer: SkillOffer, reason: String = "") -> void:
 	offer = next_offer
+	_reason = reason
+	_error = ""
 	_submitted = false
 	_target_index = -1
 	viewing_board = false
 	selection_paused = false
 	picker.hide()
 	options.show()
-	heading.text = "目标达成 · 第%d次选择" % offer.reward_id
-	message.text = reason if not reason.is_empty() else "选择一项技能，继续你的构筑"
+	heading.text = tr("目标达成 · 第%d次选择") % offer.reward_id
+	message.text = tr(reason) if not reason.is_empty() else tr("选择一项技能，继续你的构筑")
 	for index: int in range(options.get_child_count()):
 		var button: SkillCard = options.get_child(index) as SkillCard
 		button.disabled = index >= offer.choices.size()
@@ -68,10 +89,12 @@ func show_offer(next_offer: SkillOffer, reason: String = "") -> void:
 func return_to_choices() -> void:
 	if _submitted: return
 	_target_index = -1
+	_error = ""
+	_reason = ""
 	picker.hide()
 	options.show()
-	heading.text = "目标达成 · 第%d次选择" % offer.reward_id
-	message.text = "选择一项技能，继续你的构筑"
+	heading.text = tr("目标达成 · 第%d次选择") % offer.reward_id
+	message.text = tr("选择一项技能，继续你的构筑")
 
 ## 仅收起表现；SceneTree仍暂停，规则仍处于REWARDS。
 func toggle_board_view() -> void:
@@ -79,8 +102,8 @@ func toggle_board_view() -> void:
 	viewing_board = not viewing_board
 	var target: String = ""
 	if _target_index >= 0:
-		target = " · 尚未选色" if picker.selected_color == -1 else " · 已选" + PieceTooltip.COLOR_NAMES[picker.selected_color]
-	return_label.text = "正在选择技能%s · 棋盘仅供查看" % target
+		target = tr(" · 尚未选色") if picker.selected_color == -1 else tr(" · 已选") + tr(PieceTooltip.COLOR_NAMES[picker.selected_color])
+	return_label.text = tr("正在选择技能%s · 棋盘仅供查看") % target
 	_update_visibility()
 	if viewing_board: return_button.grab_focus()
 	else: view_button.grab_focus()
@@ -100,7 +123,8 @@ func accept_selection() -> void:
 	queue_free()
 
 func show_error(reason: String) -> void:
-	message.text = reason
+	_error = reason
+	message.text = tr(reason)
 	_submitted = false
 	if _target_index >= 0: picker.show_error(reason)
 	for index: int in range(options.get_child_count()):
@@ -113,12 +137,13 @@ func _select(index: int) -> void:
 	if _submitted or offer == null or viewing_board or selection_paused or index < 0 or index >= offer.choices.size(): return
 	var skill: SkillDefinition = offer.choices[index]
 	if skill.choice_effect != null and skill.choice_effect.requires_color_choice():
+		_error = ""
 		_target_index = index
 		picker.configure(offer.targets[skill.skill_id])
 		options.hide()
 		picker.show()
-		heading.text = "%s · 选择颜色" % skill.title
-		message.text = skill.description
+		heading.text = tr("%s · 选择颜色") % tr(skill.title)
+		message.text = tr(skill.description)
 		return
 	_submit(index)
 

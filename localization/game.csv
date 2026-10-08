@@ -1,0 +1,401 @@
+key,zh_CN,en_US
+技能连珠,技能连珠,Skill Lines
+"技能连珠
+v%s · 试玩","技能连珠
+v%s · 试玩","Skill Lines
+v%s · Preview"
+技能连珠 · 试玩,技能连珠 · 试玩,Skill Lines · Preview
+v%s · Web 预览试玩,v%s · Web 预览试玩,v%s · Web Preview
+语言：跟随系统,语言：跟随系统,Language: System Default
+语言设置保存失败；当前选择仍可使用。,语言设置保存失败；当前选择仍可使用。,Could not save the language preference. Your selection still works this session.
+开始试玩,开始试玩,Play
+继续本局,继续本局,Resume Run
+开始新一局,开始新一局,New Run
+重看操作练习,重看操作练习,Replay Tutorial
+先试一下 · 操作练习,先试一下 · 操作练习,Learn to Play
+棋盘已满 · 可以开始新一局。,棋盘已满 · 可以开始新一局。,Board full. Start a new run!
+本局已暂停，返回后从原处继续。,本局已暂停，返回后从原处继续。,Your run is paused. Resume whenever you are ready.
+第一次来？用四步练习认识五连、补棋、技能和爆破。,第一次来？用四步练习认识五连、补棋、技能和爆破。,"New here? Learn matching, refills, skills, and explosions in four short lessons."
+练习完成！去正式棋盘试试自己的构筑。,练习完成！去正式棋盘试试自己的构筑。,Tutorial complete! Try your build on the full board.
+"点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。
+没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。
+累计得分获得技能；悬停特殊棋子可查看能力。
+安装「主动爆破」后可双击爆破棋子，消耗一次行动。
+ESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出","点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。
+没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。
+累计得分获得技能；悬停特殊棋子可查看能力。
+安装「主动爆破」后可双击爆破棋子，消耗一次行动。
+ESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出","Click a piece, then a reachable empty cell. Match 5+ of one color horizontally, vertically, or diagonally.
+Usually 3 pieces arrive if your move does not directly match. Clearing the entire board also triggers a refill. A full board ends the run.
+Earn score to choose skills. Hover special pieces to inspect their abilities.
+With Manual Detonation, double-click a Blast Core to detonate it, using one action.
+ESC Pause / Resume · F1 Help · F8 Fast Playback · F9 Skip Effects"
+"桌面浏览器试玩 · 音量 / 低特效在右侧面板调整
+设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。
+反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。","桌面浏览器试玩 · 音量 / 低特效在右侧面板调整
+设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。
+反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。","Desktop browser preview. Adjust volume and reduced effects in the right panel.
+Settings and run records stay in your browser. Refreshing starts a new run.
+Leave feedback on itch.io with your version, browser, and a screenshot."
+分数  %d,分数  %d,Score  %d
+分数  0,分数  0,Score  0
+"下一次技能选择：%d 分 · 还差 %d
+已选 %d 次 · 待选 %d 次","下一次技能选择：%d 分 · 还差 %d
+已选 %d 次 · 待选 %d 次","Next skill: %d · %d to go
+Chosen %d · Pending %d"
+下一次技能选择,下一次技能选择,Next Skill
+回合 %d · 行动 %d,回合 %d · 行动 %d,Turn %d · Actions %d
+空位 %d / %d,空位 %d / %d,Empty %d / %d
+未选中棋子,未选中棋子,No piece selected
+选择棋子后，再点击可到达的空格。,选择棋子后，再点击可到达的空格。,"Select a piece, then click a reachable empty cell."
+爆壳手 · 消除时爆炸,爆壳手 · 消除时爆炸,Blast Core · Explodes on removal
+普通材料,普通材料,Normal Piece
+ · 带引信，消除时爆炸, · 带引信，消除时爆炸, · Fused: explodes on removal
+"%s · 格 (%d, %d)","%s · 格 (%d, %d)","%s · Cell (%d, %d)"
+收起使用记录,收起使用记录,Hide History
+展开使用记录,展开使用记录,Show History
+音量 %d%%（0 为静音）,音量 %d%%（0 为静音）,Volume %d%% (0 = mute)
+本局构筑,本局构筑,Your Build
+本次连携,本次连携,Last Combo
+工具与播放,工具与播放,Tools & Playback
+工具状态,工具状态,Tool Status
+帮助,帮助,Help
+操作说明与练习（F1）,操作说明与练习（F1）,Instructions and tutorial (F1)
+暂停 / ESC,暂停 / ESC,Pause / ESC
+继续 / ESC,继续 / ESC,Resume / ESC
+快速播放（F8）,快速播放（F8）,Fast Playback (F8)
+"选棋子 → 点空格移动
+横 / 竖 / 斜五连消除
+全清也补棋 · 填满即结束","选棋子 → 点空格移动
+横 / 竖 / 斜五连消除
+全清也补棋 · 填满即结束","Select piece → Click empty cell
+Match 5+ in any straight line
+All-clear refills · Full board ends run"
+跳过细节演出（F9）,跳过细节演出（F9）,Skip Effects (F9)
+移动、出生和主消除仍需完成；仅略过本次爆炸细节与计分滚动。,移动、出生和主消除仍需完成；仅略过本次爆炸细节与计分滚动。,"Movement, spawning, and primary matches still play. Skips explosion details and score counting."
+低特效（减少闪光）,低特效（减少闪光）,Reduced Effects
+音量,音量,Volume
+准备棋盘…,准备棋盘…,Preparing board…
+空位 81 / 81,空位 81 / 81,Empty 81 / 81
+回合 0 · 移动 0,回合 0 · 移动 0,Turn 0 · Moves 0
+棋盘已满 · 本局结束,棋盘已满 · 本局结束,Board full · Run over
+已暂停,已暂停,Paused
+设置保存失败，本次仍可使用,设置保存失败，本次仍可使用,Could not save settings. They still work this session.
+等待技能选择…,等待技能选择…,Choose a skill…
+请选择棋子与目标空格,请选择棋子与目标空格,Select a piece and an empty cell
+正在结算与播放…,正在结算与播放…,Resolving action…
+正在累计得分…,正在累计得分…,Counting score…
+已请求略过可跳部分，必播动作仍需完成,已请求略过可跳部分，必播动作仍需完成,Skipping optional effects; required actions still play
+"%s · 补棋%+d
+剩余 %d 次实际补棋","%s · 补棋%+d
+剩余 %d 次实际补棋","%s · Refill %+d
+%d refill batches left"
+"爆壳手在场 %d · 引信 %d
+
+","爆壳手在场 %d · 引信 %d
+
+","Blast Cores %d · Fuses %d
+
+"
+"核心补给已解锁 · 场上唯一
+核心类型权重 %d／普通 %d
+","核心补给已解锁 · 场上唯一
+核心类型权重 %d／普通 %d
+","Core supply unlocked · One core at a time
+Type weight: Core %d / Normal %d
+"
+"已安装核心强化对下一枚生效
+","已安装核心强化对下一枚生效
+","Core upgrades carry over to the next core
+"
+"五连 G = %.2f · E = %d
+爆炸每目标奖励 %d
+
+","五连 G = %.2f · E = %d
+爆炸每目标奖励 %d
+
+","Match G = %.2f · E = %d
+Blast reward per target %d
+
+"
+"下次普通补棋 %d 枚（基础 %d）
+
+","下次普通补棋 %d 枚（基础 %d）
+
+","Next refill %d pieces (base %d)
+
+"
+"普通生成权重
+","普通生成权重
+","Normal color weights
+"
+尚未获得持续技能,尚未获得持续技能,No lasting skills yet
+"
+
+有效临时技能
+","
+
+有效临时技能
+","
+
+Active Temporary Skills
+"
+%s：剩余 %d 次补棋,%s：剩余 %d 次补棋,%s: %d refills left
+暂无生效的临时技能,暂无生效的临时技能,No active temporary skills
+爆壳手在场,爆壳手在场,Blast Cores
+五连 G,五连 G,Match G
+下次普通补棋,下次普通补棋,Next refill
+取得,取得,Acquired
+已使用,已使用,Used
+%s · %s %d 次,%s · %s %d 次,%s · %s %d times
+尚无使用记录,尚无使用记录,No usage history yet
+"尚未得分
+
+五枚同色连线即可消除。","尚未得分
+
+五枚同色连线即可消除。","No score yet
+
+Line up 5+ pieces of one color to clear them."
+尚未得分,尚未得分,No score yet
+爆炸,爆炸,Explosion
+连携回响,连携回响,Combo Echo
+印记收获,印记收获,Fuse Harvest
+消除,消除,Match
+%s：%d × %.2f + %d = %d,%s：%d × %.2f + %d = %d,%s: %d × %.2f + %d = %d
+"最近得分行动 +%d
+B × G + E
+
+%s","最近得分行动 +%d
+B × G + E
+
+%s","Last scoring action +%d
+B × G + E
+
+%s"
+"有效行动 %d 次 · 技能选择 %d 次
+最高单次行动得分 %d","有效行动 %d 次 · 技能选择 %d 次
+最高单次行动得分 %d","Actions %d · Skills chosen %d
+Best action score %d"
+本局得分：%d,本局得分：%d,Final score: %d
+棋盘已满，本局结束,棋盘已满，本局结束,Board full. Run over!
+再来一局,再来一局,Play Again
+返回开始页,返回开始页,Back to Menu
+限次持续,限次持续,Limited Duration
+局内强化,局内强化,Run Upgrade
+即时工具,即时工具,Instant Effect
+实际补棋时消耗次数,实际补棋时消耗次数,Uses a charge only when a refill occurs
+即时生效 · 不消耗行动,即时生效 · 不消耗行动,Applies instantly · No action cost
+  ·  满级,  ·  满级,  ·  MAX
+局内保留 · 核心离场不卸下,局内保留 · 核心离场不卸下,Lasts this run · Persists after core removal
+本局持续生效 · 重试后重置,本局持续生效 · 重试后重置,Lasts this run · Resets on a new run
+"实际补棋：%d → %d 枚
+剩余批次：%d → %d 次","实际补棋：%d → %d 枚
+剩余批次：%d → %d 次","Refill: %d → %d pieces
+Batches left: %d → %d"
+%s权重：%d → %d,%s权重：%d → %d,%s weight: %d → %d
+"由你选择要清理的颜色
+可收起面板查看棋盘","由你选择要清理的颜色
+可收起面板查看棋盘","Choose which color to clear
+Hide this panel to inspect the board"
+第%d%s,第%d%s,%d %s
+行,行,Row
+列,列,Column
+"%s · 直接清理 %d 枚
+引信爆炸可能继续扩大清理范围。","%s · 直接清理 %d 枚
+引信爆炸可能继续扩大清理范围。","%s · Clears %d pieces directly
+Fuse explosions may clear more pieces."
+爆,爆,B
+生,生,+
+清,清,X
+连,连,5
+未知颜色,未知颜色,Unknown Color
+白·普通,白·普通,Common
+绿·优秀,绿·优秀,Uncommon
+蓝·稀有,蓝·稀有,Rare
+紫·史诗,紫·史诗,Epic
+橙·传说,橙·传说,Legendary
+选择颜色 →,选择颜色 →,Choose Color →
+选择此技能 →,选择此技能 →,Choose Skill →
+技能效果,技能效果,Skill Effect
+目标达成 · 第%d次选择,目标达成 · 第%d次选择,Milestone reached · Choice %d
+选择一项技能，继续你的构筑,选择一项技能，继续你的构筑,Choose a skill to shape your build
+ · 尚未选色, · 尚未选色, · No color selected
+ · 已选, · 已选, · Selected: 
+正在选择技能%s · 棋盘仅供查看,正在选择技能%s · 棋盘仅供查看,Choosing a skill%s · Board is view-only
+%s · 选择颜色,%s · 选择颜色,%s · Choose a color
+查看棋盘 · 暂时收起面板，保留本次选择,查看棋盘 · 暂时收起面板，保留本次选择,"View Board · Hide panel, keep this choice"
+正在选择技能 · 棋盘仅供查看,正在选择技能 · 棋盘仅供查看,Choosing a skill · Board is view-only
+返回选择,返回选择,Back to Choice
+已暂停 · 技能选择进度已保留,已暂停 · 技能选择进度已保留,Paused · Your skill choice is preserved
+继续选择 / ESC,继续选择 / ESC,Resume Choice / ESC
+"%s · %s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s · %s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s · %s
+
+Clear %d pieces
+Including %d fuses"
+圆形,圆形,Circle
+方形,方形,Square
+三角形,三角形,Triangle
+五边形,五边形,Pentagon
+星形,星形,Star
+请选择要清理的颜色；确认前可以查看棋盘或返回三选一。,请选择要清理的颜色；确认前可以查看棋盘或返回三选一。,Choose a color. You can inspect the board or return to the cards before confirming.
+"✓ 已选
+","✓ 已选
+","✓ Selected
+"
+已选择%s。点击“确认清理”后才会应用技能。,已选择%s。点击“确认清理”后才会应用技能。,Selected %s. The skill applies only after Confirm Clear.
+请先选择颜色,请先选择颜色,Choose a color first
+返回技能选择,返回技能选择,Back to Skills
+确认清理,确认清理,Confirm Clear
+本局已结束,本局已结束,Run Over
+下次补棋 · %d 枚,下次补棋 · %d 枚,Next Refill · %d pieces
+下次补棋,下次补棋,Next Refill
+五连免补棋 · 全清除外,五连免补棋 · 全清除外,Match: no refill · All-clear: refill
+等待下一批预告,等待下一批预告,Waiting for next preview
+本次补棋结算后刷新,本次补棋结算后刷新,Updates after this refill resolves
+爆?：已有核心则转普通棋,爆?：已有核心则转普通棋,B?: becomes normal if a core exists
+爆?,爆?,B?
+"按从左到右的顺序补棋；落点随机。直接五连且棋盘未全清时保留这批预告。
+颜色权重调整只影响尚未生成的预告。爆? 表示爆破手候选：出生时场上已有爆破手则改为图中普通颜色。","按从左到右的顺序补棋；落点随机。直接五连且棋盘未全清时保留这批预告。
+颜色权重调整只影响尚未生成的预告。爆? 表示爆破手候选：出生时场上已有爆破手则改为图中普通颜色。","Refills arrive left to right at random empty cells. A direct match preserves this preview unless the board is cleared.
+Color weight changes affect future previews only. B? is a core candidate; if a core exists at spawn time, it becomes the normal color shown."
+红色,红色,Red
+绿色,绿色,Green
+蓝色,蓝色,Blue
+黄色,黄色,Yellow
+紫色,紫色,Purple
+爆壳手,爆壳手,Blast Core
+引信棋子,引信棋子,Fused Piece
+匹配色：%s；可移动、参与同色五连。,匹配色：%s；可移动、参与同色五连。,Match color: %s. Can move and join same-color lines.
+五连或爆炸,五连或爆炸,a match or explosion
+五连、爆炸或颜色／行列清理,五连、爆炸或颜色／行列清理,"a match, explosion, or color / line clear"
+被%s消除后引爆，自身离场。,被%s消除后引爆，自身离场。,Detonates when removed by %s. Consumes this piece.
+爆炸范围：周围半径 %d 格（%d×%d，边缘截断）。,爆炸范围：周围半径 %d 格（%d×%d，边缘截断）。,"Blast radius: %d cells (%d×%d, clipped at board edges)."
+命中其他引信 / 爆壳手会继续连锁。,命中其他引信 / 爆壳手会继续连锁。,Hitting another fuse or core triggers a chain.
+双击主动爆破：消耗本枚和一次行动，正常补棋。,双击主动爆破：消耗本枚和一次行动，正常补棋。,"Double-click to detonate: consumes this core and one action, then refills normally."
+异色爆破：跳过与来源同色的目标。,异色爆破：跳过与来源同色的目标。,Selective Blast: skips pieces matching the source color.
+第2代起引信半径额外+1，最终上限3。,第2代起引信半径额外+1，最终上限3。,"Generation 2+ fuses gain +1 radius, capped at 3."
+爆炸每清除一枚目标 +%d 分，不受五连倍率影响。,爆炸每清除一枚目标 +%d 分，不受五连倍率影响。,"Each target cleared by a blast awards +%d, unaffected by match multipliers."
+至少清除一枚目标时，本次爆炸另加 %d 分。,至少清除一枚目标时，本次爆炸另加 %d 分。,Blasts that hit at least one target award another %d points.
+幽灵棋子,幽灵棋子,Ghost Piece
+半透明显示；仍占一格，按当前颜色参与五连。,半透明显示；仍占一格，按当前颜色参与五连。,Translucent but still occupies a cell and matches its current color.
+移动与五连,移动与五连,Move and Match
+没有消除时会补棋,没有消除时会补棋,Refills after a non-match
+得分带来技能,得分带来技能,Score unlocks skills
+主动激活特殊棋子,主动激活特殊棋子,Activate a special piece
+"点击右下方高亮的绿色方块，再点击它上方的高亮空格。
+横、竖、斜方向同色五连即可消除。","点击右下方高亮的绿色方块，再点击它上方的高亮空格。
+横、竖、斜方向同色五连即可消除。","Click the highlighted green square at the lower right, then the highlighted empty cell above it.
+Match 5+ of one color horizontally, vertically, or diagonally."
+"点击左下角的红色圆棋子，再点击右侧高亮空格。
+这次没有五连，观察真实补入的 3 枚棋子。","点击左下角的红色圆棋子，再点击右侧高亮空格。
+这次没有五连，观察真实补入的 3 枚棋子。","Click the red circle at the lower left, then the highlighted cell to its right.
+This move does not match. Watch three new pieces arrive."
+"再完成一次绿色五连。累计达到 100 分后，选择一张技能卡。
+正式局会先完成消除与得分演出，再打开技能选择。","再完成一次绿色五连。累计达到 100 分后，选择一张技能卡。
+正式局会先完成消除与得分演出，再打开技能选择。","Make another green line. At 100 total points, choose a skill card.
+The match and score animations finish before the skill choice opens."
+"本练习已安装「主动爆破」。双击中间标有「爆」的棋子。
+爆破会清理周围棋子；主动爆破占用一次行动，之后通常会补棋。","本练习已安装「主动爆破」。双击中间标有「爆」的棋子。
+爆破会清理周围棋子；主动爆破占用一次行动，之后通常会补棋。","Manual Detonation is installed in this lesson. Double-click the center piece marked B.
+It clears nearby pieces. Detonation uses an action and is usually followed by a refill."
+这是独立练习，不计入正式局。,这是独立练习，不计入正式局。,"This is a separate practice board, outside your real run."
+完成练习,完成练习,Finish Tutorial
+下一步 →,下一步 →,Next →
+双击标有「爆」的棋子来主动引爆。,双击标有「爆」的棋子来主动引爆。,Double-click the piece marked B to detonate it.
+已选中棋子 · 再点击高亮空格,已选中棋子 · 再点击高亮空格,Piece selected · Click the highlighted empty cell
+正在结算…,正在结算…,Resolving…
+练习：选择一项技能。选择只影响练习盘。,练习：选择一项技能。选择只影响练习盘。,Practice: choose a skill. This affects only the practice board.
+完成！观察棋盘后，点击右下方继续。,完成！观察棋盘后，点击右下方继续。,"Done! Inspect the board, then continue at the lower right."
+练习未能继续，请返回并重新开始练习。,练习未能继续，请返回并重新开始练习。,Could not continue. Return to the menu and restart the tutorial.
+练习得分 %d · 空位 %d / 25,练习得分 %d · 空位 %d / 25,Practice score %d · Empty %d / 25
+返回 / 跳过练习,返回 / 跳过练习,Back / Skip Tutorial
+演出异常，已对齐本次结果,演出异常，已对齐本次结果,Playback interrupted. Board aligned to the resolved result.
+暂存棋子已离场，操作已取消,暂存棋子已离场，操作已取消,Queued piece was removed. Input cancelled.
+暂存目标失效，请重新选择,暂存目标失效，请重新选择,Queued target is no longer valid. Choose again.
+请先选择有效颜色,请先选择有效颜色,Choose a valid color first
+本局已经结束或规则异常,本局已经结束或规则异常,This run has ended or encountered a rule error
+没有空格,没有空格,No empty cells
+已满级,已满级,Maximum level reached
+奖励已处理或候选已失效,奖励已处理或候选已失效,This reward was handled or the offer expired
+该技能不在当前候选中,该技能不在当前候选中,That skill is not in this offer
+该技能无需选色,该技能无需选色,This skill does not need a color
+原定空格已经被占用,原定空格已经被占用,The target cell is occupied
+原定材料目标已经失效,原定材料目标已经失效,The target piece is no longer available
+需先获得爆壳手登场,需先获得爆壳手登场,Requires Blast Core Arrival
+需先解锁引信路线,需先解锁引信路线,Unlock the fuse route first
+棋盘上需要引信,棋盘上需要引信,Requires a fuse on the board
+缺少前置升级,缺少前置升级,A prerequisite upgrade is missing
+尚未解锁爆炸,尚未解锁爆炸,Explosions are not unlocked yet
+没有可疏整材料,没有可疏整材料,No normal pieces to thin
+没有可赋引信的普通棋子,没有可赋引信的普通棋子,No normal pieces available for fuses
+爆壳手仍在场,爆壳手仍在场,A Blast Core is still on the board
+已解锁核心供给,已解锁核心供给,Core supply already unlocked
+引信赋能,引信赋能,Fuse Infusion
+随机至多两枚未带引信普通棋子获得引信，保持原色。,随机至多两枚未带引信普通棋子获得引信，保持原色。,"Give fuses to up to 2 random unfused normal pieces, keeping their colors."
+终幕余震,终幕余震,Final Aftershock
+本局一次根行动首个有实际命中的核心爆炸队列结束后，在原位置追加一次半径1余震，可续引信连锁。余震不再触发余震，不享有范围升级。,本局一次根行动首个有实际命中的核心爆炸队列结束后，在原位置追加一次半径1余震，可续引信连锁。余震不再触发余震，不享有范围升级。,"Once per root action, after the first core blast that hits a target and its chain resolve, add a radius-1 aftershock at that core's original cell. It can chain into fuses, but cannot create another aftershock or gain radius upgrades."
+爆破节拍,爆破节拍,Blast Rhythm
+"本局有效爆炸世代≥2时，E+5×等级×min(世代−1,3)，最多3级；空爆炸无分。","本局有效爆炸世代≥2时，E+5×等级×min(世代−1,3)，最多3级；空爆炸无分。","Effective blasts at generation 2+ gain E +5 × level × min(generation − 1, 3). Max level 3. Empty blasts give no score."
+爆破补分,爆破补分,Blast Bonus
+每次消除了至少一枚棋子的爆炸额外分增加5。,每次消除了至少一枚棋子的爆炸额外分增加5。,Each explosion that clears at least one piece gains +5 extra score.
+连锁扩域,连锁扩域,Chain Expansion
+本局第2代及以后引信爆炸半径+1，最终上限3；第一代与合成余震不享有。,本局第2代及以后引信爆炸半径+1，最终上限3；第一代与合成余震不享有。,"Fuse blasts at generation 2+ gain +1 radius, capped at 3. First-generation blasts and aftershocks are unaffected."
+爆后留白,爆后留白,Breathing Room
+本局完整根行动爆炸实际独占清除≥8枚，结束后为下一实际补棋追加1次−1。与留白一手延次数，不叠为−2。,本局完整根行动爆炸实际独占清除≥8枚，结束后为下一实际补棋追加1次−1。与留白一手延次数，不叠为−2。,"If blasts exclusively clear at least 8 pieces in one complete action, the next actual refill gains one batch of −1 piece. Extends Less Is More rather than stacking to −2."
+扩大爆破,扩大爆破,Wider Blasts
+本局所有当前及未来爆壳手和引信的爆炸半径由1扩大到2。限1级。,本局所有当前及未来爆壳手和引信的爆炸半径由1扩大到2。限1级。,Increase the blast radius of all current and future cores and fuses from 1 to 2 this run. Max level 1.
+本局同根行动至少2次有实际命中的爆炸，含正常补棋，收束时一次E+10/级；最多3级。,本局同根行动至少2次有实际命中的爆炸，含正常补棋，收束时一次E+10/级；最多3级。,"When at least 2 explosions hit targets within one complete action, including its refills, gain E +10 per level once at resolution. Max level 3."
+余震奖励,余震奖励,Aftermath Reward
+爆炸每实际消除一枚棋子，额外分再加5。最多3级。,爆炸每实际消除一枚棋子，额外分再加5。最多3级。,Each piece actually cleared by an explosion awards another +5 extra score. Max level 3.
+色彩聚焦,色彩聚焦,Color Focus
+本局持续提高一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。,本局持续提高一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。,"Permanently increase one normal color's spawn weight by 2 this run. Repeatable. Affects future generation, not existing pieces."
+色彩稀释,色彩稀释,Color Dilution
+本局持续降低一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。,本局持续降低一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。,"Permanently reduce one normal color's spawn weight by 2 this run. Repeatable. Affects future generation, not existing pieces."
+爆壳手登场,爆壳手登场,Blast Core Arrival
+本局解锁爆壳手随机补给，并立即在随机空格放入首枚绿色核心。场上最多一枚；被消除时爆炸。,本局解锁爆壳手随机补给，并立即在随机空格放入首枚绿色核心。场上最多一枚；被消除时爆炸。,Unlock random Blast Core supply this run and immediately spawn the first green core in a random empty cell. At most one core exists at a time. It explodes on removal.
+引信装填,引信装填,Fuse Payload
+本局核心离场后、爆炸前，在切比距离2内给至多2枚未标记普通棋子附引信。按距离、坐标、ID选取，可立即连锁。,本局核心离场后、爆炸前，在切比距离2内给至多2枚未标记普通棋子附引信。按距离、坐标、ID选取，可立即连锁。,"After a core leaves but before it explodes, attach fuses to up to 2 unmarked normal pieces within Chebyshev distance 2. Selects by distance, coordinates, then ID. Can chain immediately."
+主动爆破,主动爆破,Manual Detonation
+本局可双击爆壳手主动消耗并引爆。消耗一次行动，正常补棋；无命中仍消耗。仅核心可主动引爆。,本局可双击爆壳手主动消耗并引爆。消耗一次行动，正常补棋；无命中仍消耗。仅核心可主动引爆。,"Double-click a Blast Core to consume and detonate it. Uses one action and refills normally, even if it hits nothing. Only cores can be manually detonated."
+重装爆壳,重装爆壳,Heavy Core
+本局当前及未来爆壳手的爆炸半径+1；仅核心来源，最终半径上限3。,本局当前及未来爆壳手的爆炸半径+1；仅核心来源，最终半径上限3。,"Current and future Blast Cores gain +1 blast radius this run, capped at 3. Only core-origin blasts benefit."
+双份引信,双份引信,Extra Fuses
+本局引信赋能目标上限每级+1（2→3→4），最多2级。不扩大装填、传播或布雷数量。,本局引信赋能目标上限每级+1（2→3→4），最多2级。不扩大装填、传播或布雷数量。,"Fuse Infusion targets +1 piece per level (2 → 3 → 4). Max level 2. Does not increase Payload, Relay, or Match Mines targets."
+爆壳补给,爆壳补给,Core Supply
+本局核心类型权重每级+1（基础1，普通类型20），最多2级。占用正常补棋名额；场上已有核心时不再生成。,本局核心类型权重每级+1（基础1，普通类型20），最多2级。占用正常补棋名额；场上已有核心时不再生成。,Increase core type weight by 1 per level (base Core 1 / Normal 20). Max level 2. Cores use normal refill slots and cannot spawn while a core exists.
+引信传递,引信传递,Fuse Relay
+本局回合结束，旧引信各向四邻域至多传播1枚，全局至多3枚。新标记下一回合才成为传播源；仅未标记普通棋子。,本局回合结束，旧引信各向四邻域至多传播1枚，全局至多3枚。新标记下一回合才成为传播源；仅未标记普通棋子。,"At turn end, each existing fuse can spread to one orthogonally adjacent unmarked normal piece, up to 3 total. New fuses become relay sources next turn."
+消除布雷,消除布雷,Match Mines
+本局每根行动首批五连整批移除后、爆炸前，在离场坐标切比距离1内给1枚存活普通棋子附引信。,本局每根行动首批五连整批移除后、爆炸前，在离场坐标切比距离1内给1枚存活普通棋子附引信。,"Once per action, after the first matching batch is removed but before explosions, attach a fuse to one surviving normal piece within Chebyshev distance 1 of a removed cell."
+引信齐鸣,引信齐鸣,Ignite All Fuses
+立即整批移除棋盘上全部带引信的普通棋子，并触发各自爆炸。先移除全部目标，再按来源ID逐代结算；不消耗行动。,立即整批移除棋盘上全部带引信的普通棋子，并触发各自爆炸。先移除全部目标，再按来源ID逐代结算；不消耗行动。,Immediately remove all fused normal pieces and trigger their explosions. All targets leave first; blasts then resolve by source ID and generation. No action cost.
+种色收获,种色收获,Color Harvest
+选择颜色后清理该色普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸正常计分。,选择颜色后清理该色普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸正常计分。,"Choose a color and clear its normal pieces, including fuses that trigger chains. Special companions stay. Direct clears give no score; blasts score normally."
+材料疏整,材料疏整,Thin the Board
+立即清理至多3枚随机普通材料，腾出通路。保留伙伴和引信，不得分。,立即清理至多3枚随机普通材料，腾出通路。保留伙伴和引信，不得分。,Immediately remove up to 3 random normal pieces to open paths. Keeps companions and fuses. Gives no score.
+长连收获,长连收获,Long Line Harvest
+本局至少6枚的五连事件E+20/级，最多3级；不受倍率影响。,本局至少6枚的五连事件E+20/级，最多3级；不受倍率影响。,Matches of at least 6 pieces gain E +20 per level. Max level 3. Unaffected by multipliers.
+林道开辟,林道开辟,Open a Lane
+立即清理一条行或列中的普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸按正常规则计分。,立即清理一条行或列中的普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸按正常规则计分。,"Immediately clear normal pieces in one row or column, including fuses that trigger chains. Special companions stay. Direct clears give no score; blasts score normally."
+本局带引信的普通棋子实际离场每枚E+5/级，最多3级；五连、爆炸与技能清理均计，每实体一次。,本局带引信的普通棋子实际离场每枚E+5/级，最多3级；五连、爆炸与技能清理均计，每实体一次。,"Each fused normal piece removed by a match, blast, or skill gives E +5 per level, once per piece. Max level 3."
+连珠补分,连珠补分,Match Bonus
+每次五连事件的额外分增加10。,每次五连事件的额外分增加10。,Each matching event gains +10 extra score.
+五枚正好,五枚正好,Exactly Five
+本局恰好5枚的五连事件E+5/级，可重复升级；不受倍率影响。,本局恰好5枚的五连事件E+5/级，可重复升级；不受倍率影响。,Matches of exactly 5 pieces gain E +5 per level. Repeatable. Unaffected by multipliers.
+留白一手,留白一手,Less Is More
+接下来3次实际普通补棋各减少1枚。重复获得延长3次，不叠加幅度；免补棋不消耗次数。增减同时生效时相抵。,接下来3次实际普通补棋各减少1枚。重复获得延长3次，不叠加幅度；免补棋不消耗次数。增减同时生效时相抵。,"The next 3 actual normal refills each add 1 fewer piece. Repeats extend duration by 3, not strength. Skipped refills use no charge. Cancels +1 when both apply."
+加速播种,加速播种,Rapid Refill
+接下来3次实际普通补棋各增加1枚，增加成线机会及占格压力。重复获得延长3次，不叠加幅度；增减同时生效时相抵。,接下来3次实际普通补棋各增加1枚，增加成线机会及占格压力。重复获得延长3次，不叠加幅度；增减同时生效时相抵。,"The next 3 actual normal refills each add 1 more piece, increasing match opportunities and board pressure. Repeats extend duration by 3, not strength. Cancels −1 when both apply."
+异色爆破,异色爆破,Selective Blast
+本局核心、引信与余震爆炸跳过与来源同色棋子；余震继承首个有效核心的颜色。清除数量与收益可能降低。,本局核心、引信与余震爆炸跳过与来源同色棋子；余震继承首个有效核心的颜色。清除数量与收益可能降低。,"Core, fuse, and aftershock blasts skip pieces matching their source color. Aftershocks inherit the first effective core's color. May reduce clears and score."
+计分倍率,计分倍率,Score Multiplier
+五连基础分的全局倍率增加0.2，额外分不受倍率影响。,五连基础分的全局倍率增加0.2，额外分不受倍率影响。,Increase the global match base-score multiplier by 0.2. Extra score is unaffected.
+传递接力,传递接力,Relay Capacity
+本局引信传递的全局目标上限每级+1，最多2级（3→4→5）；每源仍至多1枚。,本局引信传递的全局目标上限每级+1，最多2级（3→4→5）；每源仍至多1枚。,Increase Fuse Relay's global target cap by 1 per level (3 → 4 → 5). Max level 2. Each source still spreads to at most one piece.
+引,引,F
