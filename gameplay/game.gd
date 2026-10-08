@@ -4,6 +4,8 @@ extends Node2D
 @onready var board: Board = $Board
 @onready var hud: Hud = $UILayer/HUD
 @onready var feedback: GameFeedback = $GameFeedback
+@onready var release_menu: ReleaseMenu = $MenuLayer/ReleaseMenu
+@export var show_start_menu: bool = not OS.is_debug_build()
 @export var persist_preferences: bool = true
 var preferences: PlayerPreferences = PlayerPreferences.new()
 @export var record_runs: bool = true
@@ -11,6 +13,9 @@ var preferences: PlayerPreferences = PlayerPreferences.new()
 var board_rules: BoardRules
 @export var enable_debug_fixtures: bool = true
 var _fast_playback: bool = false
+var _has_played: bool = false
+var _menu_previous_pause: bool = false
+var _menu_owns_pause: bool = false
 
 func _ready() -> void:
 	world_environment.environment = world_environment.environment.duplicate() as Environment
@@ -27,6 +32,10 @@ func _ready() -> void:
 	board.score_presenter = _wait_for_score
 	hud.fast_requested.connect(_set_fast)
 	hud.pause_requested.connect(_toggle_pause)
+	hud.help_requested.connect(_show_menu)
+	release_menu.play_requested.connect(_play_from_menu)
+	release_menu.tutorial_completed.connect(_tutorial_completed)
+	get_window().focus_exited.connect(_pause_on_focus_loss)
 	hud.skip_requested.connect(_request_skip)
 	hud.low_effects_requested.connect(_set_low_effects)
 	hud.volume_requested.connect(_preview_volume)
@@ -43,6 +52,11 @@ func _ready() -> void:
 	if collect_telemetry: board.telemetry_factory = TelemetryFactory.new()
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.start_game(board_rules, record_runs)
+	if show_start_menu: _show_menu()
+	else: _has_played = true
+
+func _exit_tree() -> void:
+	if _menu_owns_pause: get_tree().paused = _menu_previous_pause
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -66,6 +80,33 @@ func _on_game_over() -> void:
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state)})
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
+		popup.menu_requested.connect(_end_to_menu)
+
+func _show_menu() -> void:
+	if release_menu.visible or is_instance_valid(UIManager.current_popup): return
+	_menu_previous_pause = get_tree().paused
+	_menu_owns_pause = true
+	get_tree().paused = true
+	release_menu.open(_has_played, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over)
+
+func _play_from_menu(new_run: bool) -> void:
+	get_tree().paused = false if new_run else _menu_previous_pause
+	_menu_owns_pause = false
+	_has_played = true
+	hud.pause_button.text = "继续 / ESC" if get_tree().paused else "暂停 / ESC"
+	if new_run: await _on_retry_requested()
+
+func _pause_on_focus_loss() -> void:
+	if _has_played and not get_tree().paused and not release_menu.visible:
+		_toggle_pause()
+
+func _tutorial_completed() -> void:
+	preferences.tutorial_seen = true
+	_save_preferences()
+
+func _end_to_menu() -> void:
+	UIManager.close_popup()
+	_show_menu()
 
 func _on_retry_requested() -> void:
 	feedback.cancel()
@@ -128,6 +169,7 @@ func _request_skip() -> void:
 		hud.show_status("已请求略过可跳部分，必播动作仍需完成")
 
 func _toggle_pause() -> void:
+	if release_menu.visible: return
 	if UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).toggle_selection_pause()
 		return

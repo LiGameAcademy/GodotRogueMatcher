@@ -57,3 +57,7 @@ text = "再来一局"
 [node name="SummaryLabel" type="Label" parent="Panel/Content"]
 layout_mode = 2
 horizontal_alignment = 1
+
+[node name="MenuButton" type="Button" parent="Panel/Content"]
+layout_mode = 2
+text = "返回开始页"

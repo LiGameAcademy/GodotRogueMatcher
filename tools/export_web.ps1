@@ -44,10 +44,14 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'LICENSE') -Destination (Join-Pat
 Copy-Item -LiteralPath (Join-Path $projectRoot 'addons/godot_core_system/LICENSE') -Destination (Join-Path $licenseRoot 'godot_core_system.txt')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'assets/fonts/OFL.txt') -Destination (Join-Path $licenseRoot 'noto_sans_sc.txt')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'assets/fonts/README.md') -Destination (Join-Path $outputRoot 'font_credits.md')
+Copy-Item -LiteralPath (Join-Path $projectRoot 'RELEASE.md') -Destination (Join-Path $outputRoot 'README.md')
+[string]$projectVersion = (Select-String -LiteralPath (Join-Path $projectRoot 'project.godot') -Pattern '^config/version="([^"]+)"$').Matches.Groups[1].Value
+if ([string]::IsNullOrWhiteSpace($projectVersion)) { throw 'Missing application release version.' }
 # ZIP contents start at index.html, without an extra enclosing directory.
 Compress-Archive -Path (Join-Path $outputRoot '*') -DestinationPath $archivePath
 [string]$archiveHash = (Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash
 [ordered]@{
+    application_version = $projectVersion
     engine = $engineVersion
     preset = 'Web'
     mode = "$BuildMode / Compatibility / single-threaded"

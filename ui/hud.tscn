@@ -108,6 +108,12 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 10)
 show_percentage = false
 
+[node name="HelpButton" type="Button" parent="Margin/Rows/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "帮助"
+tooltip_text = "操作说明与练习（F1）"
+
 [node name="PauseButton" type="Button" parent="Margin/Rows/Header"]
 unique_name_in_owner = true
 layout_mode = 2

@@ -5,6 +5,7 @@ extends Control
 signal score_animation_changed
 signal fast_requested(fast: bool)
 signal pause_requested
+signal help_requested
 signal skip_requested
 signal low_effects_requested(enabled: bool)
 signal volume_requested(volume: float)
@@ -26,6 +27,7 @@ signal board_area_changed
 @onready var selection_label: Label = %SelectionLabel
 @onready var tools_label: Label = %ToolsLabel
 @onready var pause_button: Button = %PauseButton
+@onready var help_button: Button = %HelpButton
 @onready var board_area: Control = %BoardArea
 @onready var low_effects_button: CheckButton = %LowEffectsButton
 @onready var volume_slider: HSlider = %VolumeSlider
@@ -44,6 +46,8 @@ var _gain_tween: Tween
 func _ready() -> void:
 	fast_button.toggled.connect(fast_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
+	help_button.pressed.connect(help_requested.emit)
+	(%Title as Label).text = "技能连珠\nv%s · 试玩" % str(ProjectSettings.get_setting("application/config/version", "development"))
 	history_button.toggled.connect(_show_history)
 	skip_button.pressed.connect(skip_requested.emit)
 	low_effects_button.toggled.connect(low_effects_requested.emit)
@@ -67,6 +71,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F9:
 			skip_requested.emit()
+			get_viewport().set_input_as_handled()
+		elif key.pressed and not key.echo and key.physical_keycode == KEY_F1:
+			help_requested.emit()
 			get_viewport().set_input_as_handled()
 
 func _exit_tree() -> void:
