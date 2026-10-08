@@ -17,6 +17,7 @@ var _selected: int = 0
 var _busy: bool = false
 var _completed: bool = false
 var _epoch: int = 0
+var _status_source: String = ""
 
 func _ready() -> void:
 	board_area.gui_input.connect(_board_input)
@@ -34,6 +35,17 @@ func start(low_effects: bool = false) -> void:
 	show()
 	_show_lesson()
 
+func _notification(what: int) -> void:
+	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
+	_refresh_text()
+	status.text = tr(_status_source)
+	if session.run != null: _refresh_details()
+
+func _refresh_text() -> void:
+	title.text = "%d / 4 · %s" % [session.lesson + 1, tr(TutorialSession.CONFIG.titles[session.lesson])]
+	instructions.text = tr(TutorialSession.CONFIG.instructions[session.lesson])
+	next_button.text = tr("完成练习") if session.lesson == 3 else tr("下一步 →")
+
 func cancel() -> void:
 	_epoch += 1
 	_busy = false
@@ -45,10 +57,9 @@ func _show_lesson() -> void:
 	_selected = 0
 	_completed = false
 	_busy = false
-	title.text = "%d / 4 · %s" % [session.lesson + 1, TutorialSession.CONFIG.titles[session.lesson]]
-	instructions.text = TutorialSession.CONFIG.instructions[session.lesson]
-	status.text = "这是独立练习，不计入正式局。"
-	next_button.text = "完成练习" if session.lesson == 3 else "下一步 →"
+	_refresh_text()
+	_set_status("这是独立练习，不计入正式局。")
+	next_button.text = tr("完成练习") if session.lesson == 3 else tr("下一步 →")
 	next_button.disabled = true
 	view.rebuild(session.run.state.rules.state.get_snapshot())
 	_refresh_details()
@@ -73,21 +84,21 @@ func _board_input(event: InputEvent) -> void:
 	if not session.run.state.rules.state.is_valid_coordinate(coordinate): return
 	if session.lesson == 3:
 		if click.double_click: _execute(session.detonate(coordinate))
-		else: status.text = "双击标有「爆」的棋子来主动引爆。"
+		else: _set_status("双击标有「爆」的棋子来主动引爆。")
 		return
 	var piece: PieceState = session.run.state.rules.state.get_piece_at(coordinate)
 	if piece != null:
 		_selected = piece.piece_id
-		status.text = "已选中棋子 · 再点击高亮空格"
+		_set_status("已选中棋子 · 再点击高亮空格")
 	elif _selected != 0: _execute(session.move(_selected, coordinate))
 
 func _execute(result: CommandResult) -> void:
 	if not result.accepted:
-		status.text = result.reason
+		_set_status(result.reason)
 		return
 	_busy = true
 	var epoch: int = _epoch
-	status.text = "正在结算…"
+	_set_status("正在结算…")
 	if result.turn.move != null:
 		if not await view.animate_move(result.turn.move, 0.2) or epoch != _epoch: return
 	for removed: PieceState in result.turn.removed: view.remove_piece(removed, true)
@@ -117,12 +128,12 @@ func _advance(epoch: int) -> void:
 			_refresh_details()
 			_busy = false
 			_completed = true
-			status.text = "完成！观察棋盘后，点击右下方继续。"
+			_set_status("完成！观察棋盘后，点击右下方继续。")
 			next_button.disabled = false
 			next_button.grab_focus()
 			return
 		if step.kind == &"error" or step.kind == &"finished": break
-	status.text = "练习未能继续，请返回并重新开始练习。"
+	_set_status("练习未能继续，请返回并重新开始练习。")
 	_busy = false
 
 func _choose(offer_id: int, skill_id: StringName, color: int = -1) -> void:
@@ -137,7 +148,7 @@ func _choose(offer_id: int, skill_id: StringName, color: int = -1) -> void:
 	await _advance(_epoch)
 
 func _refresh_details() -> void:
-	score.text = "练习得分 %d · 空位 %d / 25" % [session.run.state.ledger.total, session.run.state.rules.state.get_empty_coordinates().size()]
+	score.text = tr("练习得分 %d · 空位 %d / 25") % [session.run.state.ledger.total, session.run.state.rules.state.get_empty_coordinates().size()]
 	view.refresh_piece_details(session.run.state.rules.state.get_snapshot(), session.run.state.explosion, session.run.abilities.config)
 
 func _next() -> void:
@@ -152,3 +163,7 @@ func _next() -> void:
 func _skip() -> void:
 	cancel()
 	finished.emit(false)
+
+func _set_status(source: String) -> void:
+	_status_source = source
+	status.text = tr(source)

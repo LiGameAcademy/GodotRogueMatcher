@@ -3,3 +3,7 @@
 .vscode/
 .cursorrules
 production/
+
+# Local agent / MCP configuration
+.mcp.json
+.cursor/

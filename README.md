@@ -1,34 +1,77 @@
-当前工程已按功能统一目录，代码与场景位置以[目录说明](DIRECTORY.md)为准；下方旧目录介绍作为历史背景。
+# Skill Lines
 
-# GodotRogueMatcher
+[Play in your browser](https://godot-li.itch.io/roguematcher) · [中文说明](README.zh_CN.md) · [0.0.1 release](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.1)
 
-#### 介绍
-这是一个使用 Godot 4 开发的**单人肉鸽消除类游戏**Demo，是老李 Godot 教程案例第2作。
+![Skill Lines promotional cover](docs/preview/cover.png)
 
-**核心玩法**：游戏的核心玩法来源于经典游戏《五子连珠》，玩家需要在 9x9 的棋盘上移动棋子，形成五个或更多相同类型的连线来消除棋子并获得分数。
+**Five-in-a-row meets roguelite builds.** Move geometric pieces across a 9×9 board, line up five or more of the same color, and draft skills as your score grows. Keep space open, build explosive combinations, and see how long your board survives.
 
-**肉鸽元素灵感**：游戏的肉鸽（Roguelike）设计灵感主要来源于：
+An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy**. Human-directed design, implementation, testing, and iteration with Cursor and OpenAI Codex / ChatGPT are part of the learning process.
 
-- 《小丑牌》（Balatro）- 卡牌构建与策略选择
-- 《背包乱斗》（Backpack Battles）- 物品管理与空间规划
-- 《土豆兄弟》（Brotato）- 局内成长与随机性
+## In the 0.0.1 Web preview
 
-玩家通过策略性的移动和消除，在有限的棋盘空间内尽可能获得高分，体验每次游戏都不同的挑战。
+- 32 skills with five rarity tiers, weighted offers, and an evolving Blast Core build.
+- Persistent upgrades, limited-duration effects, color weights, and color / row / column clearing.
+- Explicit color selection, foldable skill choices, special-piece tooltips, and a real next-turn piece preview.
+- Score pop-ups, animated feedback, sound controls, and a low-effects option.
+- Four independent tutorial exercises, help, pause, and end-of-run summary.
+- English and Simplified Chinese. Choose **Language** on the start / pause menu; the preference is saved locally.
 
-后续我计划在哔哩哔哩更新关于这个项目的教程。
+![English gameplay](docs/preview/gameplay-en.jpg)
+![English skill choice](docs/preview/skills-en.jpg)
 
-本课程使用的素材：https://www.kenney.nl/assets/tappy-plane 感谢素材作者，有条件的同学可以考虑捐赠素材原作者。
+![中文界面](docs/preview/language-zh.jpg)
 
-【老李游戏学院】QQ频道：https://pd.qq.com/s/n93zqynt
+## How to play
 
-【老李游戏学院】知识星球：https://t.zsxq.com/12B5zOA6n
+Click a piece, then a reachable empty cell. Pieces can only travel through empty cells. Five or more matching colors in a horizontal, vertical, or diagonal line clear and score. A move without a direct line usually adds three pieces; a full-board clear also refills. A full board ends the run.
 
-后续教程项目都会采用这种形式开发。感谢你的支持和理解。
+Score thresholds offer three skill cards. After acquiring the manual detonation upgrade, double-click a Blast Core to detonate it; this spends an action. Hover over special pieces to read their abilities.
 
-你可以选择加入我们的知识星球，我们一起学习游戏开发、游戏设计相关的知识。
+| Control | Action |
+| --- | --- |
+| Mouse | Select and move; choose skills and colors |
+| Esc | Pause / resume |
+| F1 | Help / menu |
+| F8 | Fast playback |
+| F9 | Skip a skippable presentation |
 
-![老李游戏学院](docs/%E8%80%81%E6%9D%8E%E6%B8%B8%E6%88%8F%E5%AD%A6%E9%99%A2-%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83.jpg)
+## Run the source
 
-也可以请我喝杯咖啡，助力老李更快、更好的开发更多高质量教程内容。
+Use **Godot 4.7.2** with matching export templates. No C# runtime is required.
 
-![请我喝杯咖啡](docs/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg)
+```sh
+git clone --recurse-submodules https://github.com/LiGameAcademy/GodotRogueMatcher.git
+```
+
+Import `project.godot` and run the main scene. The `godot_core_system` submodule supplies reusable localization, settings, triggers, and other core services; gameplay rules remain separate from presentation.
+
+Run the headless GUT suite:
+
+```sh
+godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
+```
+
+Export a Web release with PowerShell:
+
+```powershell
+./tools/export_web.ps1 -GodotPath "C:/path/to/godot_console.exe" -BuildName web_preview
+```
+
+Serve `production/web_preview/` over HTTP, or upload the generated ZIP to an HTML5 host. See [directory guide](DIRECTORY.md) and [development notes](docs/README.md).
+
+## Preview scope
+
+Designed for desktop browsers with mouse and keyboard; 1280×720 or larger is recommended. Mobile touch controls and cross-refresh run continuation are not included. Balance is experimental. Missions and additional rescue pieces are planned, not shipped.
+
+Settings, tutorial progress, and run records stay in local browser storage; this build has no telemetry upload endpoint. Clearing site storage removes those records.
+
+## Learning, support, and credits
+
+- [Patreon — Godot tutorials and indie development](https://www.patreon.com/cw/LiGameAcademy)
+- [Bilibili](https://space.bilibili.com/8618918) · [YouTube](https://www.youtube.com/channel/UChFeMZTeF1HZbqVh_1HtN_w)
+- [Report feedback](https://github.com/LiGameAcademy/GodotRogueMatcher/issues) or comment on [itch.io](https://godot-li.itch.io/roguematcher).
+
+AI assistance was used for code, writing, and the promotional cover. The gameplay screenshots show the actual game. AI output is reviewed and tested; this project openly documents vibe-coding as a tutorial workflow.
+
+The game is licensed under [GPL-3.0](LICENSE). Dependency licenses are retained in their respective folders; [Noto Sans SC](assets/fonts/README.md) uses the SIL Open Font License. Godot uses the [MIT license](https://godotengine.org/license/).

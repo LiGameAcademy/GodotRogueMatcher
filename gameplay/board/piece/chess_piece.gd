@@ -84,7 +84,7 @@ func is_moving() -> bool:
 
 ## 标记由表现调用者根据本局能力映射传入。
 func set_ability_marker(text: String) -> void:
-	ability_marker.text = text
+	ability_marker.text = tr(text)
 	ability_marker.visible = not text.is_empty()
 
 ## 使用原生提示，不截获格子的点击与路径输入。

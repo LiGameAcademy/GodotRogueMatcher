@@ -1,29 +1,27 @@
-# 技能连珠 0.0.1 · Web 预览试玩
+# Skill Lines 0.0.1 — Web Preview
 
-通过移动棋子形成同色五连，逐步选择技能、组建自己的爆破构筑。
-当前提供32项技能、五档稀有度、真实补棋预告、特殊棋子说明与四步操作练习。
+[Play online](https://godot-li.itch.io/roguematcher) · [Source](https://github.com/LiGameAcademy/GodotRogueMatcher) · [Patreon](https://www.patreon.com/cw/LiGameAcademy)
 
-## 操作
+Five-in-a-row with 32 roguelite skills, Blast Core upgrades, score feedback, next-turn preview, and four independent tutorial exercises. An open-source AI-assisted vibe-coding tutorial by Li Game Academy, developed with Cursor and OpenAI Codex / ChatGPT.
 
-- 点击棋子，再点击可到达的空格；路径只能穿过空格。
-- 横、竖、两条斜线方向，同色五连或更多即可消除。
-- 没有直接五连时通常补3枚；全清后也会补棋。棋盘填满结束。
-- 累计得分达到门槛后选择技能；颜色清理需自行选色并确认。
-- 悬停特殊棋子查看能力；安装「主动爆破」后双击爆破棋子，占用一次行动。
-- ESC暂停/继续；F1帮助；F8快速播放；F9略过可跳演出。
-- 右侧面板可静音或启用低特效。开始页提供可跳过、可重看的独立练习。
+Choose English, 简体中文, or System on the start / pause menu. Language and presentation settings are stored locally.
 
-## 试玩边界与反馈
+Click a piece, then a reachable empty cell. Align at least five matching colors horizontally, vertically, or diagonally. Non-clearing moves usually refill three pieces; a full board ends the run. After acquiring manual detonation, double-click a Blast Core to spend an action and detonate it.
 
-面向桌面浏览器、鼠标与键盘，建议窗口不小于1280×720；手机触控尚未适配。
-分数与难度仍在调整，任务系统和新的主动救场棋子留待后续版本。
-本版本没有跨刷新续局；刷新页面会开始新局。
-设置、练习完成标记与局内记录仅保存在本机浏览器存储，没有上传端点。
-浏览器禁止或清空网站存储时，设置可能无法保留；游戏仍可继续。
+Esc pauses / resumes; F1 opens help; F8 changes playback speed; F9 skips skippable presentation. Hover over special pieces for details. Color-clearing skills require an explicit color choice.
 
-请在[原itch.io项目评论区](https://godot-li.itch.io/roguematcher)反馈，附上版本号、浏览器版本、操作步骤与截图。
+Desktop browsers with mouse and keyboard, recommended 1280×720 or larger. Mobile touch and cross-refresh run continuation are not included. Balance is experimental; missions and additional rescue pieces are planned. Settings and records stay in local browser storage, with no telemetry upload endpoint.
 
-## 运行与许可
+## 中文
 
-需要通过HTTP(S)访问index.html，不能直接双击本地HTML。构建为Godot 4.7.2 Compatibility单线程Web。
-资源许可见licenses/与font_credits.md；Godot引擎使用MIT许可，详见[引擎许可页](https://godotengine.org/license/)。
+技能连珠将五子连珠与肉鸽技能构筑结合，提供32项技能、五档稀有度、爆破升级链和四步独立练习。开始／暂停菜单可以切换中英文。
+
+点击棋子再点击空格；横竖斜同色五连消除。未直接消除通常补3枚，棋盘满时结束。取得主动爆破升级后，双击爆破棋子占用一次行动。Esc暂停，F1帮助，F8快速播放，F9略过演出。
+
+这是老李游戏学院的 AI 辅助 Vibe Coding 教程项目。[知识星球](https://wx.zsxq.com/group/28885154818841) · [中文说明](https://github.com/LiGameAcademy/GodotRogueMatcher/blob/master/README.zh_CN.md)。
+
+## Hosting and licenses
+
+Serve index.html through HTTP(S); opening a local file directly is unsupported. Godot 4.7.2 Compatibility, single-threaded Web export. No SharedArrayBuffer headers are required.
+
+Game: GPL-3.0. Dependency and font licenses are included in licenses/ and font_credits.md. Godot: [MIT](https://godotengine.org/license/).

@@ -18,6 +18,8 @@ extends Button
 @export var hover_duration: float = 0.12
 var _motion: Tween
 var _accent: Color = Color.WHITE
+var _skill: SkillDefinition
+var _target: SkillTarget
 
 func _ready() -> void:
 	_ignore_child_mouse(content)
@@ -32,23 +34,29 @@ func _exit_tree() -> void:
 	if _motion != null: _motion.kill()
 
 func configure(skill: SkillDefinition, target: SkillTarget) -> void:
+	_skill = skill
+	_target = target
 	_accent = SkillRarity.COLORS[skill.rarity]
 	SkillRarity.style(self, skill.rarity)
-	rarity_label.text = SkillRarity.LABELS[skill.rarity]
+	rarity_label.text = tr(SkillRarity.LABELS[skill.rarity])
 	rarity_label.add_theme_color_override("font_color", _accent)
 	kind_label.text = SkillChoiceText.kind(skill)
-	title_label.text = skill.title
+	title_label.text = tr(skill.title)
 	level_label.text = SkillChoiceText.level_text(skill, target)
-	effect_label.text = skill.description
+	effect_label.text = tr(skill.description)
 	preview_label.text = SkillChoiceText.preview(skill, target)
 	preview_frame.visible = not preview_label.text.is_empty()
-	action_label.text = "选择颜色 →" if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else "选择此技能 →"
+	action_label.text = tr("选择颜色 →") if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else tr("选择此技能 →")
 	emblem_label.text = SkillChoiceText.emblem(skill)
 	emblem_label.add_theme_color_override("font_color", _accent)
 	_style_frame(rarity_frame, 0.1)
 	_style_frame(emblem_frame, 0.12)
 	_style_frame(action_frame, 0.08)
 	_update_feedback()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _skill != null:
+		configure(_skill, _target)
 
 func _update_feedback() -> void:
 	var highlighted: bool = not disabled and (is_hovered() or has_focus())

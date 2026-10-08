@@ -35,6 +35,9 @@ func _ready() -> void:
 	hud.help_requested.connect(_show_menu)
 	release_menu.play_requested.connect(_play_from_menu)
 	release_menu.tutorial_completed.connect(_tutorial_completed)
+	release_menu.language_requested.connect(_set_language)
+	release_menu.set_language_preference(CoreSystem.localization_manager.get_preferred_locale())
+	CoreSystem.localization_manager.locale_changed.connect(_on_locale_changed)
 	get_window().focus_exited.connect(_pause_on_focus_loss)
 	hud.skip_requested.connect(_request_skip)
 	hud.low_effects_requested.connect(_set_low_effects)
@@ -58,6 +61,18 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if _menu_owns_pause: get_tree().paused = _menu_previous_pause
 
+func _set_language(preference: String) -> void:
+	var error: Error = CoreSystem.localization_manager.set_preferred_locale(preference, persist_preferences)
+	if error != OK:
+		push_warning("Language preference: " + error_string(error))
+		release_menu.show_language_error()
+
+func _on_locale_changed(_old: String, _new: String) -> void:
+	if board.run == null: return
+	_refresh_hud()
+	board.view.refresh_piece_details(board.run.state.rules.state.get_snapshot(), board.run.state.explosion, board.run.abilities.config)
+	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		var playback_key: InputEventKey = event as InputEventKey
@@ -77,7 +92,7 @@ func _on_game_over() -> void:
 	_refresh_hud()
 	hud.show_status("棋盘已满 · 本局结束")
 	feedback.play(&"finish")
-	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state)})
+	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state})
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
 		popup.menu_requested.connect(_end_to_menu)
@@ -93,7 +108,7 @@ func _play_from_menu(new_run: bool) -> void:
 	get_tree().paused = false if new_run else _menu_previous_pause
 	_menu_owns_pause = false
 	_has_played = true
-	hud.pause_button.text = "继续 / ESC" if get_tree().paused else "暂停 / ESC"
+	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
 	if new_run: await _on_retry_requested()
 
 func _pause_on_focus_loss() -> void:
@@ -175,7 +190,7 @@ func _toggle_pause() -> void:
 		return
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
 	get_tree().paused = not get_tree().paused
-	hud.pause_button.text = "继续 / ESC" if get_tree().paused else "暂停 / ESC"
+	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
 	hud.show_status("已暂停" if get_tree().paused else ("请选择棋子与目标空格" if board.can_selected else "正在结算与播放…"))
 
 func _update_board_layout() -> void:
