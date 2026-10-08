@@ -96,20 +96,10 @@ func test_partial_spawn_fills_last_empty_cell_and_ends_once() -> void:
 func test_spawn_checks_match_before_full_board_failure() -> void:
 	_fill_without_lines()
 	_remove(Vector2i(8, 8))
-	# 所有可能出生颜色均有一条经过最后空位的四连。
+	# 内容已由独立随机流锁入预告，按真实下一枚颜色构造最后空位五连。
+	var next_color: int = board.run.state.spawning.preview(1)[0].color
 	for n: int in range(4):
-		board.set_piece_color(Vector2i(4 + n, 8), 0)
-		board.set_piece_color(Vector2i(8, 4 + n), 1)
-		board.set_piece_color(Vector2i(4 + n, 4 + n), 2)
-	# 随机流现由本局拥有，寻找确定出生颜色0～2的种子。
-	var random_seed: int = 0
-	for attempt: int in range(100):
-		random_seed = attempt
-		board.run.state.random.seed = random_seed
-		board.run.state.random.randi_range(0, 0)
-		if board.run.state.random.randi_range(0, 4) <= 2:
-			break
-	board.run.state.random.seed = random_seed
+		board.set_piece_color(Vector2i(4 + n, 8), next_color)
 	assert_eq(await SpawnManager.spawn_random_pieces(board), 3)
 	assert_false(GameManager.is_game_over)
 	assert_gt(GameManager.score, 0)

@@ -1,4 +1,8 @@
-# 本地Web基线构建
+# Web构建与0.0.1预览版
+
+当前版本号由project.godot的application/config/version提供；开始页、HUD、JSONL Header与构建清单使用同一版本来源。
+0.0.1包含开始页及可跳过/重看的四步独立练习，Release启动显示开始页，Debug默认直接进入棋盘以保留开发测试入口。
+最终Release包为production/web_0_0_1.zip，包内README.md说明操作与已知边界。构建JSON保存版本与ZIP的SHA256。
 
 在Godot工程目录执行，传入本机Godot 4.7.2控制台程序路径；需要对应版本的Web导出模板。
 
