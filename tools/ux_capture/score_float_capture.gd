@@ -4,7 +4,7 @@ extends Node
 const MAIN: PackedScene = preload("res://main.tscn")
 var board: Board
 var hud: Hud
-const OUTPUT: String = "res://production/score_float_m4"
+const OUTPUT: String = "res://production/score_float_m4_light"
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
