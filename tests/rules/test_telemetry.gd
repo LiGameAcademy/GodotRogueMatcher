@@ -166,7 +166,7 @@ func test_turn_aggregates_chain_and_generated_entities_once() -> void:
 	assert_true(run.execute_command(command).accepted)
 	while run.state.phase != RunState.Phase.INPUT: run.advance()
 	run.recorder.finish(run, "abandoned", "chain_test")
-	var turns: Array[Dictionary] = _events("action_resolved")
+	var turns: Array[Dictionary] = _events("turn_resolved")
 	assert_eq(turns.size(), 1)
 	assert_true(turns[0].payload.space_consistent)
 	assert_true(turns[0].payload.complete)
@@ -175,16 +175,6 @@ func test_turn_aggregates_chain_and_generated_entities_once() -> void:
 	assert_eq(score, 70)
 	assert_eq(turns[0].payload.score_after, "70")
 	assert_eq(_events("run_ended")[0].payload.moves, "1")
-	assert_eq(TelemetrySchema.validate(turns[0]), "")
-	var malformed: Dictionary = turns[0].duplicate(true)
-	malformed.payload.P_after.L = "999"
-	assert_eq(TelemetrySchema.validate(malformed), "invalid_action_observation")
-	malformed = turns[0].duplicate(true)
-	malformed.payload.removed_ids = ["01"]
-	assert_eq(TelemetrySchema.validate(malformed), "invalid_action_entities")
-	malformed = turns[0].duplicate(true)
-	malformed.payload.ledger_entries[0].final_score = "not-a-score"
-	assert_eq(TelemetrySchema.validate(malformed), "invalid_action_ledger")
 
 func test_local_sink_readback_precision_truncation_and_schema_rejection() -> void:
 	var destination: LocalJsonlSink = LocalJsonlSink.new("telemetry-test-" + str(Time.get_ticks_usec()), "user://telemetry_tests")
@@ -281,7 +271,7 @@ func test_active_core_turn_counts_source_removal_and_reports_action() -> void:
 		if run.advance().kind == &"input": break
 	run.recorder.finish(run, "abandoned", "fixture_complete")
 	assert_eq(projector.error, "")
-	var turns: Array[Dictionary] = _events("action_resolved")
+	var turns: Array[Dictionary] = _events("turn_resolved")
 	assert_eq(turns.size(), 1)
 	assert_true(turns[0].payload.space_consistent)
 	assert_eq(turns[0].payload.removed_companions, "1")

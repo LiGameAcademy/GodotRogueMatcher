@@ -444,21 +444,3 @@ Action score %d | Carry %d | Actions used %d
 切换模式将开始新局，重置本局棋盘与构筑。,切换模式将开始新局，重置本局棋盘与构筑。,Switching modes starts a new run and resets the board and build.
 本局已结束 · 可以开始新一局。,本局已结束 · 可以开始新一局。,Run ended. You can start a new run.
 阶段配置无效，无法开始挑战,阶段配置无效，无法开始挑战,Invalid stage configuration. Cannot start the challenge.
-"记录目录","记录目录","Record folder"
-"导出记录","导出记录","Export records"
-"保存并退出","保存并退出","Save and quit"
-"本次未启用自动采集","本次未启用自动采集","Recording is disabled for this session"
-"部分记录不完整；游戏仍可继续","部分记录不完整；游戏仍可继续","Some records are incomplete; you can keep playing"
-"记录保存失败；游戏仍可继续","记录保存失败；游戏仍可继续","Recording failed; you can keep playing"
-"记录不完整；游戏仍可继续","记录不完整；游戏仍可继续","Recording is incomplete; you can keep playing"
-"记录等待保存…","记录等待保存…","Saving records…"
-"记录已保存到本机 · 不上传","记录已保存到本机 · 不上传","Records saved locally · no upload"
-"打开记录目录失败","打开记录目录失败","Could not open the record folder"
-"导出失败","导出失败","Export failed"
-"导出不完整；原始记录仍保留","导出不完整；原始记录仍保留","Export incomplete; original records are retained"
-"记录已导出，可在记录目录找到 ZIP","记录已导出，可在记录目录找到 ZIP","ZIP exported to the record folder"
-"v%s · 桌面试玩","v%s · 桌面试玩","v%s · Desktop playtest"
-"试玩记录保存在本机，不上传。
-从下方打开目录或导出记录；Excel 分析在离线工具中完成。","试玩记录保存在本机，不上传。
-从下方打开目录或导出记录；Excel 分析在离线工具中完成。","Playtest records stay on this computer. Nothing is uploaded.
-Open the folder or export below; spreadsheet analysis runs offline."

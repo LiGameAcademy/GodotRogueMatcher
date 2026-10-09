@@ -1,16 +1,10 @@
 extends Node2D
 
-const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
-
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var board: Board = $Board
 @onready var hud: Hud = $UILayer/HUD
 @onready var feedback: GameFeedback = $GameFeedback
 @onready var release_menu: ReleaseMenu = $MenuLayer/ReleaseMenu
-@onready var collection: RunCollection = $RunCollection
-@export var collection_context: String = "unknown"
-@export var intercept_window_close: bool = false
-var _restart_reason: String = "restart"
 @export var show_start_menu: bool = not OS.is_debug_build()
 @export var persist_preferences: bool = true
 var preferences: PlayerPreferences = PlayerPreferences.new()
@@ -31,7 +25,6 @@ func _ready() -> void:
 	GameManager.piece_count_changed.connect(hud.show_occupancy)
 	GameManager.turn_started.connect(_on_turn_started)
 	board.initialized.connect(_refresh_hud)
-	board.initialized.connect(func() -> void: collection.bind(board.run))
 	board.initialized.connect(_update_board_layout)
 	hud.board_area_changed.connect(_update_board_layout)
 	board.presentation_updated.connect(_refresh_hud)
@@ -60,25 +53,14 @@ func _ready() -> void:
 	_set_fast(preferences.fast, false)
 	_set_low_effects(preferences.low_effects, false)
 	_set_volume(preferences.volume, false)
-	if collect_telemetry and not OS.has_feature("web"):
-		collection.configure(collection_context)
-		board.telemetry_factory = collection.factory
-	_connect_collection_controls(release_menu.collection_controls)
-	collection.status_changed.connect(_show_collection_status)
-	if intercept_window_close: get_tree().auto_accept_quit = false
+	if collect_telemetry: board.telemetry_factory = TelemetryFactory.new()
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.start_game(board_rules, record_runs)
 	if show_start_menu: _show_menu()
-	else:
-		_has_played = true
-		if board.observation.telemetry != null: board.observation.telemetry.play_started()
+	else: _has_played = true
 
 func _exit_tree() -> void:
 	if _menu_owns_pause: get_tree().paused = _menu_previous_pause
-	if intercept_window_close: get_tree().auto_accept_quit = true
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST and intercept_window_close: _quit("window_close_requested")
 
 func _set_language(preference: String) -> void:
 	var error: Error = CoreSystem.localization_manager.set_preferred_locale(preference, persist_preferences)
@@ -118,8 +100,6 @@ func _on_game_over() -> void:
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
 		popup.menu_requested.connect(_end_to_menu)
-		if popup is GAME_OVER_POPUP: _connect_collection_controls((popup as GAME_OVER_POPUP).collection_controls)
-	_set_collection_location("result")
 
 func _show_menu() -> void:
 	if release_menu.visible or is_instance_valid(UIManager.current_popup): return
@@ -127,8 +107,6 @@ func _show_menu() -> void:
 	_menu_owns_pause = true
 	get_tree().paused = true
 	release_menu.open(_has_played, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over, board.run.state.mode_id())
-	_set_collection_location("help" if _has_played else "start_menu")
-	collection.flush()
 
 func _play_from_menu(new_run: bool) -> void:
 	get_tree().paused = false if new_run else _menu_previous_pause
@@ -136,8 +114,6 @@ func _play_from_menu(new_run: bool) -> void:
 	_has_played = true
 	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
 	if new_run: await _on_retry_requested()
-	else: _set_collection_location("")
-	if board.observation.telemetry != null: board.observation.telemetry.play_started()
 
 func _pause_on_focus_loss() -> void:
 	if _has_played and not get_tree().paused and not release_menu.visible:
@@ -152,14 +128,10 @@ func _end_to_menu() -> void:
 	_show_menu()
 
 func _on_retry_requested() -> void:
-	collection.finish(_restart_reason)
-	_restart_reason = "restart"
 	feedback.cancel()
 	UIManager.close_popup()
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.retry_game(board_rules)
-	_set_collection_location("")
-	if board.observation.telemetry != null: board.observation.telemetry.play_started()
 
 func _set_fast(fast: bool, save: bool = true) -> void:
 	_fast_playback = fast
@@ -224,7 +196,6 @@ func _toggle_pause() -> void:
 	get_tree().paused = not get_tree().paused
 	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
 	hud.show_status("已暂停" if get_tree().paused else ("请选择棋子与目标空格" if board.can_selected else "正在结算与播放…"))
-	collection.location("pause" if get_tree().paused else "board_input" if board.can_selected else "presentation")
 
 func _update_board_layout() -> void:
 	var bounds: Rect2 = board.view.transform * board.view.get_display_rect()
@@ -236,29 +207,4 @@ func _update_board_layout() -> void:
 
 func _select_mode(mode_id: StringName) -> void:
 	var mode: GameModeDefinition = GameModes.find(mode_id)
-	if mode != null:
-		if board.run != null and board.run.state.mode_id() != mode_id: _restart_reason = "mode_switch"
-		board.game_mode = mode
-
-func _set_collection_location(location: String) -> void:
-	board.observation.ui_location(location)
-	collection.location(location if not location.is_empty() else "board_input" if board.can_selected else "presentation")
-
-func _connect_collection_controls(controls: CollectionControls) -> void:
-	if controls == null: return
-	controls.folder_requested.connect(collection.open_directory)
-	controls.export_requested.connect(collection.export_files)
-	controls.quit_requested.connect(_quit.bind("quit_button"))
-	controls.show_status(collection.save_status(), collection.enabled, intercept_window_close)
-
-func _show_collection_status(message: String) -> void:
-	release_menu.collection_controls.show_status(message, collection.enabled, intercept_window_close)
-	if UIManager.current_popup is GAME_OVER_POPUP:
-		(UIManager.current_popup as GAME_OVER_POPUP).collection_controls.show_status(message, collection.enabled, intercept_window_close)
-
-func _quit(reason: String) -> void:
-	if not intercept_window_close: return
-	board.can_selected = false
-	board.cancel_buffered_input("window_close")
-	collection.close(reason)
-	get_tree().quit()
+	if mode != null: board.game_mode = mode
