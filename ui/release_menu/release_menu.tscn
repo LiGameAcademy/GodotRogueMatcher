@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://ui/release_menu/release_menu.gd" id="1"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://ui/tutorial/tutorial.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://ui/collection_controls/collection_controls.tscn" id="4"]
 
 [node name="ReleaseMenu" type="Control"]
 visible = false
@@ -41,40 +40,31 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 16
 
-[node name="Shell" type="VBoxContainer" parent="Home/Panel/Margin"]
+[node name="Column" type="VBoxContainer" parent="Home/Panel/Margin"]
 layout_mode = 2
-
-[node name="Scroll" type="ScrollContainer" parent="Home/Panel/Margin/Shell"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 470)
-horizontal_scroll_mode = 0
-
-[node name="Column" type="VBoxContainer" parent="Home/Panel/Margin/Shell/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Title" type="Label" parent="Home/Panel/Margin/Column"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 theme_override_colors/font_color = Color(0.6, 0.94, 0.86, 1)
 text = "技能连珠"
 horizontal_alignment = 1
 
-[node name="Version" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Version" type="Label" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.75, 0.84, 1)
 horizontal_alignment = 1
 
-[node name="Hint" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Hint" type="Label" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="Language" type="OptionButton" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Language" type="OptionButton" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -88,7 +78,7 @@ popup/item_1/id = 1
 popup/item_2/text = "简体中文"
 popup/item_2/id = 2
 
-[node name="Mode" type="OptionButton" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Mode" type="OptionButton" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(280, 40)
@@ -100,31 +90,31 @@ popup/item_0/id = 0
 popup/item_1/text = "阶段挑战"
 popup/item_1/id = 1
 
-[node name="ModeHint" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="ModeHint" type="Label" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="Play" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Play" type="Button" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 48)
 text = "开始试玩"
 
-[node name="Learn" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Learn" type="Button" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 44)
 text = "先试一下 · 操作练习"
 
-[node name="New" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="New" type="Button" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "开始新一局"
 
-[node name="Help" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Help" type="Label" parent="Home/Panel/Margin/Column"]
 layout_mode = 2
 custom_minimum_size = Vector2(616, 0)
 autowrap_mode = 2
@@ -132,8 +122,7 @@ theme_override_colors/font_color = Color(0.77, 0.84, 0.92, 1)
 text = "点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。\n没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。\n按模式规则获得技能；悬停特殊棋子可查看能力。\n安装「主动爆破」后可双击爆破棋子，消耗一次行动。\nESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出"
 theme_override_font_sizes/font_size = 16
 
-[node name="Notice" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
-unique_name_in_owner = true
+[node name="Notice" type="Label" parent="Home/Panel/Margin/Column"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.53, 0.63, 0.73, 1)
@@ -143,6 +132,3 @@ autowrap_mode = 2
 [node name="Tutorial" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true
 visible = false
-
-[node name="CollectionControls" parent="Home/Panel/Margin/Shell" instance=ExtResource("4")]
-unique_name_in_owner = true

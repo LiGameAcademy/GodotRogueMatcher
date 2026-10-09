@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://ui/popup_game_over.gd" id="1"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="Theme"]
-[ext_resource type="PackedScene" path="res://ui/collection_controls/collection_controls.tscn" id="3"]
 
 [node name="PopupGameOver" type="Control"]
 process_mode = 3
@@ -62,5 +61,3 @@ horizontal_alignment = 1
 [node name="MenuButton" type="Button" parent="Panel/Content"]
 layout_mode = 2
 text = "返回开始页"
-
-[node name="CollectionControls" parent="Panel/Content" instance=ExtResource("3")]

@@ -24,9 +24,3 @@ godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analys
 真人技能机会分母是已实际展示的唯一offer，机器人分母是已生成的唯一offer；fixture、replay和不同实验独立分组。conditional_selection_rate=成功取得/机会；无机会时null。生成未展示、展示未消费、失败选择另计；重复展示与重复确认不增加取得次数。尚未采集合法过滤全过程，资格率为null。
 
 基础分布采用排序后的 floor(q*(n-1)) 样本分位数，输出P10/P50/P90。小批次只能验收链路，不足以判断技能平衡或真人15分钟体验。深度H窗口、详细因果索引与线上平台接入留D2/D3。
-
-## #13 schema 2 基础协议
-
-Reader按版本校验v1/v2，v1缺失的新维度保持unknown。v2的turns.csv来自action_resolved，不再叠派生turn_resolved；mode_id/collection_context/commit/pressure/collection_config加入分组。可直接分析菜单导出ZIP中的telemetry JSONL；自动解包与Excel回填仍在#17，不声称现有CLI能一键处理ZIP/xlsx。
-
-工程场景 tools/telemetry_analysis/collection_benchmark.tscn 生成 .godot/collection_benchmark.json。它测冻结事实投影、编码与批量IO，排除规则、UI、初始化和终局，不能当作60FPS增量帧基准。collection_probe.tscn接收 -- hold|recover <测试目录>，只用于独立受控进程；结束该探针前核对ready.json的PID，不对作者运行中的编辑器进行强杀。真实Editor Stop仍须人工验收。

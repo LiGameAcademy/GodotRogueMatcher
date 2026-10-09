@@ -76,13 +76,11 @@ func test_mode_menu_fits_supported_viewport_in_both_languages() -> void:
 	for locale: String in ["zh_CN", "en_US"]:
 		TranslationServer.set_locale(locale)
 		menu.open(true, true, false)
-		menu.collection_controls.show_status("记录已保存到本机 · 不上传", true, true)
 		menu.mode_button.select(0)
 		menu.mode_button.item_selected.emit(0)
 		await wait_process_frames(3)
 		var panel_rect: Rect2 = (menu.get_node("Home/Panel") as Control).get_global_rect()
 		assert_true(Rect2(Vector2.ZERO, Vector2(viewport.size)).encloses(panel_rect), "%s %s" % [locale, panel_rect])
-		assert_true(panel_rect.encloses(menu.collection_controls.get_global_rect()), locale)
 	TranslationServer.set_locale(old_locale)
 	menu.close()
 

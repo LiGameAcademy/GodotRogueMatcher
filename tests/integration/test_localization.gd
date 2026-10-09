@@ -34,7 +34,7 @@ func test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run() 
 	var snapshot: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
 	assert_eq(CoreSystem.localization_manager.set_preferred_locale("en_US"), OK)
 	await wait_process_frames(1)
-	assert_true(menu.version_label.text.contains("Desktop playtest"))
+	assert_true(menu.version_label.text.contains("Web Preview"))
 	assert_eq(menu.play_button.text, "Play")
 	var hud: Hud = game.get_node("UILayer/HUD") as Hud
 	assert_eq(hud.score_label.text, "Score  0")
