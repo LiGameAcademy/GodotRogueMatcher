@@ -1,9 +1,21 @@
 extends GutTest
 
+func test_score_shortfall_does_not_end_at_old_tenth_action() -> void:
+	var runner: BotRunner = BotRunner.new()
+	runner.stage_config = _config([100000], [4])
+	var strategy: RuleBot = RandomLegalBot.new()
+	strategy.config = strategy.config.duplicate() as BotConfig
+	strategy.config.move_limit = 15
+	var records: RunRecorder = runner.play(7, 99, strategy, false)
+	assert_eq(records.records.back().status, "censored")
+	assert_eq(records.records.back().reason, "move_limit")
+	assert_eq(records.records.back().actions, "15")
+	assert_eq(runner.last_replay_error, "")
+
 func _config(targets: Array[int], limits: Array[int]) -> StageConfig:
 	var config: StageConfig = StageConfig.new()
 	config.targets = targets
-	config.action_limits = limits
+	config.pressure_intervals = limits
 	return config
 
 func _run(targets: Array[int] = [100, 150], limits: Array[int] = [1, 2]) -> RunController:
@@ -53,15 +65,15 @@ func test_last_action_passes_only_after_tail_and_grants_one_reward() -> void:
 	assert_eq(run.state.stage.history.size(), 1)
 	assert_eq(run.check_rewards(999999), 0)
 
-func test_last_action_one_point_short_fails_and_rejects_further_input() -> void:
+func test_one_point_short_keeps_playing_and_does_not_grant_reward() -> void:
 	var run: RunController = _run([106], [1])
 	assert_true(_move(run).accepted)
-	assert_eq(_drain(run).kind, &"finished")
-	assert_eq(run.state.end_reason, &"stage_target_missed")
+	assert_eq(_drain(run).kind, &"input")
+	assert_eq(run.state.end_reason, &"")
 	assert_eq(run.state.stage.missing_score(), 1)
 	assert_eq(run.state.pending_rewards, 0)
-	assert_false(_move(run, Vector2i(8, 8), Vector2i(8, 7)).accepted)
-	assert_eq(run.state.stage.used_actions, 1)
+	assert_true(_move(run, Vector2i(8, 8), Vector2i(8, 7)).accepted)
+	assert_eq(run.state.stage.used_actions, 2)
 
 func test_final_stage_completes_without_card_and_total_is_not_debited() -> void:
 	var run: RunController = _run([105], [1])
@@ -150,7 +162,7 @@ func test_active_core_counts_one_action_even_with_zero_score() -> void:
 	var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, 1, 0)
 	command.piece_id = piece.piece_id
 	assert_true(run.execute_command(command).accepted)
-	assert_eq(_drain(run).kind, &"finished")
+	assert_eq(_drain(run).kind, &"input")
 	assert_eq(run.state.stage.used_actions, 1)
 	assert_eq(run.state.stage.action_score, 0)
 	assert_eq(run.state.rules.state.get_piece_count(), 3)
@@ -167,10 +179,10 @@ func test_invalid_config_refuses_before_births_and_state_is_owned() -> void:
 	var b: RunController = _run()
 	_move(a)
 	assert_eq(b.state.stage.used_actions, 0)
-	assert_eq(a.state.stage.config.action_limits, [1, 2])
+	assert_eq(a.state.stage.config.pressure_intervals, [1, 2])
 
 func test_exact_replay_and_terminal_classification_for_challenge() -> void:
-	for target: int in [105, 106]:
+	for target: int in [100, 105]:
 		var run: RunController = _run([target], [1])
 		run.recorder = RunRecorder.new()
 		run.recorder.begin(run, "test", false)
@@ -185,13 +197,13 @@ func test_exact_replay_and_terminal_classification_for_challenge() -> void:
 func _draining_terminal(run: RunController) -> void:
 	assert_eq(_drain(run).kind, &"finished")
 
-func test_bot_challenge_has_budget_failure_and_exact_replay() -> void:
+func test_bot_challenge_ends_only_at_real_board_full_and_exact_replay() -> void:
 	var runner: BotRunner = BotRunner.new()
 	runner.stage_config = _config([100000], [2])
 	var records: RunRecorder = runner.play(7, 99, RandomLegalBot.new(), false)
 	assert_eq(runner.last_replay_error, "")
-	assert_eq(records.records.back().reason, "stage_target_missed")
-	assert_eq(records.records.back().actions, "2")
+	assert_eq(records.records.back().reason, "board_full")
+	assert_gt(int(records.records.back().actions), 10)
 
 func test_classic_mode_still_grants_score_rewards_without_stage_budget() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
@@ -206,9 +218,9 @@ func test_bot_prepares_stage_reward_before_requesting_a_skill_command() -> void:
 	runner.stage_config = _config([100, 100000], [10, 2])
 	var records: RunRecorder = runner.play(2, 100002, GreedyBot.new(), false)
 	assert_eq(runner.last_replay_error, "")
-	assert_eq(records.records.back().reason, "stage_target_missed")
+	assert_eq(records.records.back().reason, "board_full")
 	assert_eq(records.records.back().choices, "1")
-	assert_eq(records.records.back().actions, "12")
+	assert_gt(int(records.records.back().actions), 12)
 	var analysis: RunAnalysis = RunAnalysis.new()
 	analysis.add(records.records)
 	assert_eq(analysis.runs[0].mode_id, "stage_challenge")

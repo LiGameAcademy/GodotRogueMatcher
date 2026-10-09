@@ -1,5 +1,14 @@
 extends GutTest
 
+var previous_run: RunController
+
+func before_each() -> void:
+	previous_run = GameManager.run
+	GameManager.reset_game(RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7))
+
+func after_each() -> void:
+	GameManager.reset_game(previous_run)
+
 func test_one_thousand_points_grants_four_rewards_and_progress_uses_actual_interval() -> void:
 	LevelUpSystem.reset_system()
 	assert_true(LevelUpSystem.check_level_up(1000))

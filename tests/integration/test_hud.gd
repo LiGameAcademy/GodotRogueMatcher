@@ -32,6 +32,7 @@ func test_invalid_stage_table_displays_error_without_accessing_missing_target() 
 	assert_eq(run.state.phase, RunState.Phase.ERROR)
 	assert_string_contains(hud.reward_label.text, "阶段配置无效")
 	assert_eq(run.state.rules.state.get_piece_count(), 0)
+	assert_eq(run.state.next_refill_count(), 0)
 
 func test_reset_cancels_old_wait_and_score() -> void:
 	var result: Array[bool] = []

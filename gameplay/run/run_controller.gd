@@ -14,6 +14,7 @@ var _direct_match: bool = false
 var turn_action_id: int = 0
 var _last_payload: Dictionary = {}
 var _last_result: CommandResult
+var action_refill_count: int = 0
 
 func direct_match() -> bool:
 	return _direct_match
@@ -50,6 +51,7 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	state.action_id += 1
 	state.rule_action_id = state.action_id
 	turn_action_id = state.action_id
+	_freeze_action_refill()
 	state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
 	state.phase = RunState.Phase.MOVING
 	result.matches = resolve_matches_at(target)
@@ -84,7 +86,12 @@ func start_turn() -> void:
 
 func prepare_spawn_plan() -> void:
 	if not state.is_game_over and state.rule_error.is_empty():
-		state.spawning.ensure_plan(state.spawning.next_refill_count(SPAWN_CONFIG), state.explosion, abilities.config.core_color)
+		state.spawning.ensure_plan(state.next_refill_count(), state.explosion, abilities.config.core_color)
+
+## 在阶段u推进前冻结已预告批次；本行动越线不会改变其补棋代价。
+func _freeze_action_refill() -> void:
+	action_refill_count = state.next_refill_count()
+	state.spawning.ensure_plan(action_refill_count, state.explosion, abilities.config.core_color)
 
 func finish_game(reason: StringName = &"board_full") -> void:
 	if state.is_game_over or not state.rule_error.is_empty():
@@ -220,6 +227,7 @@ func execute_command(command: RunCommand) -> CommandResult:
 				state.action_id += 1
 				state.rule_action_id = state.action_id
 				turn_action_id = state.action_id
+				_freeze_action_refill()
 				state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
 				state.activations += 1
 				state.phase = RunState.Phase.MOVING
@@ -277,7 +285,11 @@ func advance() -> RunStepResult:
 			state.rule_action_id = turn_action_id
 			continuation = &"after_spawn"
 			result.kind = &"spawn"
-			if should_spawn(_direct_match): result.spawns = spawn_batch(state.spawning.consume_refill_count(SPAWN_CONFIG))
+			if should_spawn(_direct_match):
+				var count: int = action_refill_count
+				if state.stage.enabled(): state.spawning.consume_refill_modifiers()
+				else: count = state.spawning.consume_refill_count(SPAWN_CONFIG)
+				result.spawns = spawn_batch(count)
 			result.matches = DemolitionRules.settle(state, turn_action_id)
 			check_rewards()
 			result.challenge = _settle_stage()
@@ -299,5 +311,6 @@ func _settle_stage() -> StageResult:
 	if result.reason == &"stage_passed":
 		state.pending_rewards += 1
 		state.phase = RunState.Phase.REWARDS
+		prepare_spawn_plan()
 	else: finish_game(result.reason)
 	return result

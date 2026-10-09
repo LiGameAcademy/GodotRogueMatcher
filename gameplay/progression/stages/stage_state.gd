@@ -23,17 +23,19 @@ func enabled() -> bool:
 func target() -> int:
 	return config.targets[index]
 
-func action_limit() -> int:
-	return config.action_limits[index]
-
-func remaining_actions() -> int:
-	return maxi(0, action_limit() - used_actions)
+func base_refill_count() -> int:
+	# 错误局仍会刷新HUD，返回0表示没有合法的下一补棋批次。
+	if not enabled() or not config.validation_error().is_empty() or index < 0 or index >= config.targets.size(): return 0
+	if awaiting_reward: return config.base_refill
+	@warning_ignore("integer_division")
+	var increase: int = used_actions / config.pressure_intervals[index]
+	return mini(config.maximum_refill, config.base_refill + increase)
 
 func missing_score() -> int:
 	return maxi(0, target() - carry_in - action_score)
 
 func can_act() -> bool:
-	return not awaiting_reward and remaining_actions() > 0 and (history.is_empty() or history.back().stage_id <= index)
+	return not awaiting_reward and (history.is_empty() or history.back().stage_id <= index)
 
 func begin_action(root_id: int, offset: int) -> void:
 	if not enabled() or root_id == root_action_id: return
@@ -51,12 +53,12 @@ func settle(entries: Array[ScoreEntry], board_full: bool, next_reward_id: int) -
 	var reason: StringName = &""
 	if board_full: reason = &"board_full"
 	elif missing_score() == 0: reason = &"challenge_completed" if index == config.targets.size() - 1 else &"stage_passed"
-	elif remaining_actions() == 0: reason = &"stage_target_missed"
 	if reason.is_empty(): return null
 	var result: StageResult = StageResult.new()
 	result.stage_id = index + 1
 	result.target = target()
-	result.action_limit = action_limit()
+	result.pressure_interval = config.pressure_intervals[index]
+	result.base_refill_before_relief = base_refill_count()
 	result.carry_in = carry_in
 	result.action_score = action_score
 	result.used_actions = used_actions
@@ -68,6 +70,7 @@ func settle(entries: Array[ScoreEntry], board_full: bool, next_reward_id: int) -
 	if reason == &"stage_passed":
 		result.reward_id = next_reward_id
 		awaiting_reward = true
+		result.next_base_refill = base_refill_count()
 	history.append(result)
 	return result
 
