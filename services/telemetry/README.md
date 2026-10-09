@@ -1,19 +1,23 @@
-# 本地数据采集 · D1
+# 本地数据采集 · #13 首片
 
-Game 默认开启 `collect_telemetry`，在 Inspector 关闭即可停止本地分析采集；`record_runs` 独立控制33回放文件。采集写入 `user://telemetry/<run_id>.jsonl`，回放仍写入 `user://run_records/`。没有 SDK、网络上传或玩家身份采集。
+桌面/编辑器的 Game 默认开启 collect_telemetry；record_runs 独立控制精确回放文件。F1 菜单及结算页提供保存状态、记录目录、导出 ZIP，正常桌面入口还可“保存并退出”。文件仅写本机、不上传。Web 暂不承诺桌面文件/导出入口，发行验证归 #10。
 
-`TelemetryFactory` 由 Game 创建，一次启动共用 session_id，重试创建新 run_id。Board 显式持有投影；RunRecorder 的冻结记录信号提供已提交的规则事实，BoardObservation 补充真实弹窗、输入处置和观察时间。投影不引用棋盘节点、不调用规则、不消耗随机流。调试盘面标记 fixture，机器人标记 bot。
+- user://telemetry/<run_id>.jsonl：schema 2 观察与规则事实。
+- 同路径 .summary.json：正常终局/已知退出的唯一单局汇总。
+- 同路径 .recovered.summary.json：已确认停止后的持久前缀恢复，不修改原文件。
+- user://telemetry/sessions/：独立会话事件，含终局后的页面停留。
+- user://run_records/：run-jsonl-v1 精确回放；玩法规则仍是 v8-pressure。
 
-事件 schema 为1：run_started、command_resolved、turn_resolved、offer_generated、offer_presented、skill_acquired、observation_interval_closed、input_resolved、run_ended。独立 telemetry_seq 与稳定 event_id 用于分析去重；整数编码为十进制字符串，避免JSON数字损失64位精度，未知值为null。
+RunCollection 是 Game 的自包含服务子场景。它向 Board 注入 TelemetryFactory，消费绑定的 RunController 生命周期，并在下一可用帧批量刷新。2秒候选心跳在暂停时也处理；最终退出、切模式、重开与导出排空。TelemetryProjector 只消费 Recorder 的冻结值记录，BoardObservation 提供真实曝光/输入/互斥观察时间。它们不推进规则、不调用UI、不消耗游戏RNG。
 
-候选生成与实际展示分别记录。真人只把已显示的候选算作机会，同一 offer 多次展示不增加机会数；机器人使用生成候选作为机会。技能取得仅消费成功应用的规则结果。回合从有效移动开始，聚合剩余生成、连携和技能应用直到 INPUT；按实体ID去重创建/移除、按原账本事件ID去重得分，技能应用得分是回合得分的子集。
+完整有效移动/主动爆破在尾结算、实际补棋与阶段凭证产生后只有一条 action_resolved。途中退出的摘要 complete=false；选卡独立 reward 批次，不能充当新行动或重复叠入动作收益。stage_goal_completed、offer_generated、offer_presented、skill_acquired 分开；实际曝光不能由生成候选替代。v2不再产生 turn_resolved，离线 Reader 保留v1兼容，CSV turns 表按版本选择唯一来源。
 
-观察计时使用单调时钟，优先级为 inactive > pause > choice > busy > input，区间互斥。缓冲等待和机器人计算时间另列，不加到这些区间总和里。失焦不计入 active_ms。
+整数为十进制字符串，未知为null/unknown；模式、source/collection_context、配置、规则/内容/候选/压力版本分别分组。编辑器标 editor_playtest，嵌套测试标 automated_integration，fixture与bot另组。提交未知不冒用版本号；编辑器可只读 Git HEAD（未提交工作加+dirty），导出包从 application/config/commit_id 注入。没有提供真实父事件链时 parent_event_id=null。
 
-`TelemetrySink` 的写入结果区分 ACCEPTED、PERSISTED、FAILED。本地Sink每个事件刷新文件；首次失败提示“本局分析记录不完整”，游戏继续，最终 record_complete=false。突然退出无结束行、截断或序号缺口由离线读取器诊断；已有文件不会被新局覆盖。
+观察包括 UI、阶段/T/carry/u/q、n/empty/L/P、构筑/offer、最近成功命令/选卡、完整根边界及UTC/单调时间。α=0.7只是压力观察试调，不改变抽卡权重。观察时间按 inactive > pause > choice > busy > input 互斥，心跳不重复记账或复制全棋盘。
 
-实际复用 godot_core_system 的 JSONSerializationStrategy。插件修复范围仅序列化基类与JSON策略：移除独立策略对 CoreSystem.logger 的依赖，以 last_error 暴露失败；增加 indent/sort_keys 配置，默认格式保持原样。本地JSONL设置紧凑输出。未接插件异步IO、全局事件总线或随机选择器。
+字节队列上限4MiB，accepted_seq与persisted_seq分别报告。编码必要事实后整批store_buffer/flush，不每子事件flush。保存失败标记录不完整，游戏可继续。正常summary与会话退出唯一；窗口请求、quit_button、restart、mode_switch、scene_closed等原因分开。强停/Stop无法保证回调：Windows启动时检查现存PID，只对已确认停止的局校验前缀并恢复，原因unknown，不当成主动流失。其它平台/无法确认时保留待确认文件。
 
-工具角色由 telemetry_config.tres 管理，目前仅 instant_thin 标记 emergency。未接完整合法过滤资格明细，eligibility_rate=null；规则未提供父事件链，parent_event_id=null。工程没有完整存档恢复，暂不声称读档去重已验收。实验/变体可通过 RunRecorder.metadata 传入；未激活34通用工具或36容量玩法。
+本片性能尚未验收：冻结事实的131次普通/20次连锁诊断有明显CPU和IO长尾，不等同60FPS额外帧耗时。保留同步批量，后续先补真实成对帧测再优化。目标能力/救场权重/目标曲线/全能力尝试追踪的capabilities为false，相关未知收益不能填0或用于Excel估值。#17自动回填与#18新批测策略尚未接入。
 
-分析命令和字段口径见 [离线分析说明](../../tools/telemetry_analysis/README.md)。专项测试见 tests/rules/test_telemetry.gd 和 tests/integration/test_telemetry_scene.gd。
+分析入口见[工具说明](../../tools/telemetry_analysis/README.md)。测试为 tests/rules/test_collection_batches.gd、test_collection_lifecycle.gd、test_telemetry.gd 与 tests/integration/test_telemetry_scene.gd。collection_probe.tscn支持独立受控进程恢复验证，collection_benchmark.tscn输出冻结事实诊断；两者都不是真人样本。

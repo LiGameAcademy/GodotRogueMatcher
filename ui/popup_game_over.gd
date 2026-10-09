@@ -1,3 +1,4 @@
+class_name PopupGameOver
 extends Control
 
 signal retry_requested
@@ -7,6 +8,7 @@ signal menu_requested
 @onready var score_label: Label = $Panel/Content/ScoreLabel
 @onready var retry_button: Button = $Panel/Content/RetryButton
 @onready var summary_label: Label = $Panel/Content/SummaryLabel
+@onready var collection_controls: CollectionControls = $Panel/Content/CollectionControls
 var _final_score: int = 0
 var _run_state: RunState
 
