@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=7 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
 
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://ui/spawn_preview.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://ui/goal_progress/goal_progress.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://ui/piece_pool/piece_pool.tscn" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.065, 0.085, 0.12, 0.96)
@@ -60,7 +62,7 @@ theme_override_constants/separation = 16
 [node name="Title" type="Label" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(128, 0)
 text = "技能连珠 · 试玩"
 theme_override_font_sizes/font_size = 20
 
@@ -76,6 +78,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(128, 0)
 theme_override_font_sizes/font_size = 28
 text = "分数  0"
+tooltip_text = "总分 · 整局累计得分"
+mouse_filter = 0
 
 [node name="GainLabel" type="Label" parent="Margin/Rows/Header/Top/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
@@ -84,37 +88,16 @@ custom_minimum_size = Vector2(40, 0)
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
 
-[node name="Progress" type="HBoxContainer" parent="Margin/Rows/Header"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header/Progress"]
+[node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
 
-[node name="SpawnPreview" parent="Margin/Rows/Header/Progress/PreviewFrame" instance=ExtResource("3")]
+[node name="SpawnPreview" parent="Margin/Rows/Header/Top/PreviewFrame" instance=ExtResource("3")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="GrowthFrame" type="PanelContainer" parent="Margin/Rows/Header/Progress"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Growth" type="VBoxContainer" parent="Margin/Rows/Header/Progress/GrowthFrame"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="RewardLabel" type="Label" parent="Margin/Rows/Header/Progress/GrowthFrame/Growth"]
+[node name="PiecePool" parent="Margin/Rows/Header/Top" instance=ExtResource("5")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "下一次技能选择"
-theme_override_font_sizes/font_size = 16
-autowrap_mode = 2
-
-[node name="RewardBar" type="ProgressBar" parent="Margin/Rows/Header/Progress/GrowthFrame/Growth"]
-unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(0, 10)
-show_percentage = false
 
 [node name="Spacer" type="Control" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
@@ -290,3 +273,7 @@ show_percentage = false
 unique_name_in_owner = true
 layout_mode = 2
 text = "回合 0 · 移动 0"
+
+[node name="GoalProgress" parent="Margin/Rows" instance=ExtResource("4")]
+unique_name_in_owner = true
+layout_mode = 2

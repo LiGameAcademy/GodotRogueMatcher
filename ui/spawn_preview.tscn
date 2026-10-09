@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/spawn_preview.gd" id="1"]
 
 [node name="SpawnPreview" type="VBoxContainer"]
-custom_minimum_size = Vector2(216, 72)
+custom_minimum_size = Vector2(216, 56)
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("1")
@@ -22,6 +22,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Hint" type="Label" parent="."]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.66, 0.73, 1)
 theme_override_font_sizes/font_size = 12

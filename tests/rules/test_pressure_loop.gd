@@ -53,7 +53,7 @@ func test_action_at_pressure_boundary_pays_locked_cost_then_previews_increase() 
 func test_goal_action_pays_six_before_relief_and_offer_uses_next_stage_base() -> void:
 	var run: RunController = _run(_config([100, 200], [4, 4]))
 	run.state.stage.used_actions = 12
-	run.state.stage.carry_in = 100
+	run.state.ledger.commit(0, 1.0, 100, &"match", -1)
 	run.prepare_spawn_plan()
 	assert_true(_move(run, Vector2i.ZERO, Vector2i(1, 0)).accepted)
 	var step: RunStepResult = _finish_action(run)
@@ -72,7 +72,7 @@ func test_six_to_three_to_six_preserves_all_tokens_and_content_random() -> void:
 	var plan: String = RunSnapshot.canonical(run.state.spawning.plan_data())
 	var random_before: int = run.state.spawning.content_random.state
 	run.state.stage.begin_action(1, 0)
-	run.state.stage.carry_in = 1
+	run.state.ledger.commit(0, 1.0, 1, &"match", -1)
 	assert_eq(run.state.stage.settle([], false, 1).reason, &"stage_passed")
 	run.prepare_spawn_plan()
 	assert_eq(run.state.next_refill_count(), 3)
