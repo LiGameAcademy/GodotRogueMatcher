@@ -17,6 +17,8 @@ var _active_mode: StringName = &"stage_challenge"
 @onready var tutorial: Tutorial = %Tutorial
 @onready var hint: Label = %Hint
 @onready var language: OptionButton = %Language
+@onready var collection_controls: CollectionControls = %CollectionControls
+@onready var notice: Label = %Notice
 var _low_effects: bool = false
 var _has_game: bool = false
 var _tutorial_seen: bool = false
@@ -45,6 +47,9 @@ func show_language_error() -> void:
 
 func _refresh_text() -> void:
 	version_label.text = tr("v%s · Web 预览试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	if not OS.has_feature("web"):
+		version_label.text = tr("v%s · 桌面试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+		notice.text = tr("试玩记录保存在本机，不上传。\n从下方打开目录或导出记录；Excel 分析在离线工具中完成。")
 	language.set_item_text(0, tr("语言：跟随系统"))
 	play_button.text = tr("继续本局") if _has_game else tr("开始试玩")
 	learn_button.text = tr("重看操作练习") if _tutorial_seen else tr("先试一下 · 操作练习")
