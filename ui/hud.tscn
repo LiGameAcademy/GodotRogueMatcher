@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=8 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
 
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://ui/spawn_preview.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://ui/goal_progress/goal_progress.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://ui/piece_pool/piece_pool.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://ui/build_list/build_list.tscn" id="6"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.065, 0.085, 0.12, 0.96)
@@ -154,12 +155,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "本局构筑"
 
-[node name="SkillsLabel" type="RichTextLabel" parent="Margin/Rows/Body/Left/Content"]
+[node name="BuildList" parent="Margin/Rows/Body/Left/Content" instance=ExtResource("6")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-bbcode_enabled = true
-text = "尚未获得持续技能"
 
 [node name="HistoryButton" type="Button" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true

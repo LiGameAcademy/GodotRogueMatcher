@@ -3,6 +3,7 @@ extends Control
 
 const GOAL_PROGRESS: Script = preload("res://ui/goal_progress/goal_progress.gd")
 const PIECE_POOL: Script = preload("res://ui/piece_pool/piece_pool.gd")
+const BUILD_LIST: Script = preload("res://ui/build_list/build_list.gd")
 
 ## 只显示已提交数据；数字缓存和Tween不参与规则计算。
 signal score_animation_changed
@@ -26,7 +27,7 @@ signal piece_pool_visibility_changed(open: bool)
 @onready var board_label: Label = %BoardLabel
 @onready var pressure_bar: ProgressBar = %PressureBar
 @onready var turn_label: Label = %TurnLabel
-@onready var skills_label: RichTextLabel = %SkillsLabel
+@onready var build_list: BUILD_LIST = %BuildList
 @onready var breakdown_label: RichTextLabel = %BreakdownLabel
 @onready var status_label: Label = %StatusLabel
 @onready var fast_button: CheckButton = %FastButton
@@ -168,7 +169,7 @@ func show_run(run: RunController) -> void:
 		goal_progress.show_goal(state.run_id + ":classic:" + str(goal), state.ledger.total, state.progression.previous_milestone, goal, GoalProgressText.current_tooltip(state), GoalProgressText.target_tooltip(state), GoalProgressText.rule_tooltip(state))
 	turn_label.text = tr("回合 %d · 行动 %d") % [state.turn_count, state.valid_moves + state.activations]
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
-	skills_label.text = HudDetails.skills_rich(state)
+	build_list.show_state(state)
 	breakdown_label.text = HudDetails.score_details_rich(state.ledger.get_entries())
 	tools_label.text = HudDetails.tools(state)
 	history_label.text = HudDetails.history(state)

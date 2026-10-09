@@ -68,7 +68,7 @@ func test_hud_uses_real_reward_occupancy_skill_and_score_data() -> void:
 	assert_eq(hud.goal_progress.current_label.text, "85")
 	assert_eq(hud.goal_progress.target_label.text, "100")
 	assert_string_contains(hud.board_label.text, "空位 81 / 81")
-	assert_string_contains(hud.skills_label.text, "Lv.1")
+	assert_string_contains(HudDetails.skills(run.state), "Lv.1")
 	assert_string_contains(hud.history_label.text, "已使用 2 次")
 	assert_false(hud.history_label.visible)
 	assert_string_contains(hud.breakdown_label.text, "+85")
@@ -80,7 +80,7 @@ func test_prototype_layout_leaves_board_click_area_clear() -> void:
 	assert_lte((hud.get_node("%Left") as Control).get_global_rect().end.x, hud.board_area.get_global_rect().position.x)
 	assert_gte((hud.get_node("%Right") as Control).get_global_rect().position.x, hud.board_area.get_global_rect().end.x)
 	assert_eq(hud.mouse_filter, Control.MOUSE_FILTER_IGNORE)
-	assert_true(hud.skills_label.scroll_active)
+	assert_eq(hud.build_list.horizontal_scroll_mode, ScrollContainer.SCROLL_MODE_DISABLED)
 	assert_true(hud.breakdown_label.scroll_active)
 
 func test_volume_drag_previews_changes_and_commits_once_on_release() -> void:
@@ -116,7 +116,7 @@ func test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan() -> void:
 	hud.show_run(run)
 	assert_eq(hud.spawn_preview.title.text, "下次补棋 · 3 枚")
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
-	assert_true(hud.skills_label.bbcode_enabled)
+	assert_not_null(hud.build_list)
 	assert_true(hud.breakdown_label.bbcode_enabled)
 	assert_true(hud.pause_button.get_theme_stylebox("hover") is StyleBoxFlat)
 
@@ -127,8 +127,8 @@ func test_piece_pool_shows_current_conditional_weights_without_mutating_run() ->
 	run.state.explosion.core_pool_unlocked = true
 	var baseline: String = RunSnapshot.digest(RunSnapshot.capture(run))
 	hud.show_run(run)
-	assert_false(hud.skills_label.text.contains("普通生成权重"))
-	assert_false(hud.skills_label.text.contains("核心类型权重"))
+	assert_false(HudDetails.skills(run.state).contains("普通生成权重"))
+	assert_false(HudDetails.skills(run.state).contains("核心类型权重"))
 	hud.piece_pool.button.mouse_entered.emit()
 	assert_true(hud.piece_pool.panel.visible)
 	assert_string_contains(hud.piece_pool.details.text, "6/22（27.3%）")
@@ -149,7 +149,7 @@ func test_stage_progress_uses_same_total_including_choice_without_settling() -> 
 	assert_eq(hud.goal_progress.current_label.text, "120")
 	assert_string_contains(hud.goal_progress.current_label.tooltip_text, "选卡额外得分")
 	assert_string_contains(hud.score_label.tooltip_text, "行动 50 + 选卡 70 + 其他 0 = 120")
-	assert_string_contains(hud.score_label.tooltip_text, "floor(B × G + E)")
+	assert_string_contains(hud.score_label.tooltip_text, "基础分 × 分数倍率 + 额外得分")
 	assert_eq(run.state.ledger.total, 120)
 	assert_eq(run.state.stage.action_score, 0)
 	assert_eq(run.state.stage.history.size(), 0)

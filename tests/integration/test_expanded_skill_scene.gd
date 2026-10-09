@@ -39,13 +39,16 @@ func test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
 	for card: SkillCard in popup.options.get_children(): texts.append(card.preview_label.text)
 	assert_string_contains(texts[0], "3 → 2 枚")
 	assert_string_contains(texts[1], "4 → 6")
-	assert_string_contains(texts[2], "直接清理 1 枚")
+	assert_string_contains(texts[2], "清理1枚普通棋")
 	popup.show_offer(offer)
 	assert_eq(run.state.rewards.target_random.state, random_before)
 	run.state.spawning.extend_refill(-1, 3)
 	run.state.spawning.color_weights[0] = 6
-	assert_string_contains(HudDetails.skills(run.state), "下次普通补棋 2 枚")
-	assert_string_contains(HudDetails.skills(run.state), "红色 6／22（27.3%）")
+	var hud: Hud = main.get_node("Game/UILayer/HUD") as Hud
+	hud.show_run(run)
+	assert_string_contains(hud.spawn_preview.title.text, "2 枚")
+	assert_string_contains(hud.piece_pool.details.text, "6/22（27.3%）")
+	assert_false(HudDetails.skills(run.state).contains("27.3%"))
 
 func test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds() -> void:
 	for fast: bool in [false, true]:
