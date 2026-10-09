@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"match_dye_echo"
 title = "染色接续"
 description = "五连消除后，将相邻的1枚异色普通棋子染成消除色；每次行动最多1波。"
+short_description = "五连后 → 染1枚邻近异色普通棋。\n染成消除色；每行动最多1波。"
 base_weight = 10.0
 tags = Array[StringName]([&"dye", &"match"])
 choice_effect = SubResource("effect")

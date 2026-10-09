@@ -34,7 +34,11 @@ static func resource_fields(resource: Resource) -> Dictionary:
 
 static func config(run: RunController) -> Dictionary:
 	var skills: Array[Dictionary] = []
-	for skill: SkillDefinition in SkillOfferGenerator.CATALOG: skills.append(resource_fields(skill))
+	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
+		var fields: Dictionary = resource_fields(skill)
+		# 纯展示摘要不改变规则；保留原有完整描述字段以兼容已有配置哈希。
+		fields.erase("short_description")
+		skills.append(fields)
 	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
 ## 只登记只读触发参数，排除插件内部管理器、时间和共享运行计数。

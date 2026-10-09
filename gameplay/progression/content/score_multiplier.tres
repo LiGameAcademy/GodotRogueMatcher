@@ -7,6 +7,7 @@ script = ExtResource("1")
 skill_id = &"score_multiplier"
 title = "计分倍率"
 description = "五连基础分的全局倍率增加0.2，额外分不受倍率影响。"
+short_description = "五连基础分倍率+0.2/级；额外分不变。"
 action = 4
 base_weight = 8.0
 tags = Array[StringName]([&"mult"])

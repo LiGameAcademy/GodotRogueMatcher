@@ -508,3 +508,119 @@ Action score %d · starting excess %d · actions used %d
 "
 "阶段 %d / %d","阶段 %d / %d","Stage %d / %d"
 "关闭","关闭","Close"
+随机给至多2枚普通棋装引信，保留原色。,随机给至多2枚普通棋装引信，保留原色。,Arm up to 2 random ordinary pieces with fuses. Keep their colors.
+"双击核心 → 消耗并引爆。
+花1次行动，正常补棋；空爆也消耗。","双击核心 → 消耗并引爆。
+花1次行动，正常补棋；空爆也消耗。","Double-click a core to consume and detonate it.
+Costs 1 action and a refill, even with no hits."
+所有爆炸保留同色棋，只清异色棋。,所有爆炸保留同色棋，只清异色棋。,All blasts spare pieces matching the source color.
+"核心生成权重+1/级。
+占正常补棋名额；场上限1枚。","核心生成权重+1/级。
+占正常补棋名额；场上限1枚。","Core spawn weight +1 per level.
+Uses a refill slot; only 1 core on the board."
+第2代起的引信爆炸 → 半径+1，上限3。,第2代起的引信爆炸 → 半径+1，上限3。,"Fuse blasts from generation 2 onward: radius +1, capped at 3."
+每波染色：1枚 → 2枚。,每波染色：1枚 → 2枚。,Pieces dyed per wave: 1 → 2.
+"核心离场 → 在周围2格内装填至多2枚引信。
+爆炸前生效，可立即连锁。","核心离场 → 在周围2格内装填至多2枚引信。
+爆炸前生效，可立即连锁。","Core leaves: arm up to 2 nearby pieces within 2 cells.
+Before the blast; can chain immediately."
+五连基础分倍率+0.2/级；额外分不变。,五连基础分倍率+0.2/级；额外分不变。,Match base-score multiplier +0.2 per level. Extras are unchanged.
+每次命中爆炸 → 额外+5分/级。,每次命中爆炸 → 额外+5分/级。,Each blast that hits a piece: +5 extra points per level.
+"解锁核心补给，立即放入绿色核心。
+场上限1枚；离场时爆炸。","解锁核心补给，立即放入绿色核心。
+场上限1枚；离场时爆炸。","Unlock core spawns and place a green core now.
+Only 1 on the board; explodes when removed."
+"引信传递总上限+1/级：3 → 4 → 5。
+每枚引信仍只传1枚。","引信传递总上限+1/级：3 → 4 → 5。
+每枚引信仍只传1枚。","Fuse spread limit +1 per level: 3 → 4 → 5.
+Each source still spreads to just 1 piece."
+"核心命中爆炸后 → 原位追加半径1余震。
+每行动1次；可连锁，不吃范围升级。","核心命中爆炸后 → 原位追加半径1余震。
+每行动1次；可连锁，不吃范围升级。","After a core blast hits: a radius-1 aftershock at its origin.
+Once per action; can chain, ignores radius upgrades."
+"第2/3/≥4代命中爆炸
+→ 额外+5/10/15分/级。","第2/3/≥4代命中爆炸
+→ 额外+5/10/15分/级。","Blast hits in generations 2 / 3 / 4+
+→ +5 / 10 / 15 extra points per level."
+"每行动首个命中爆炸 → 在爆区外沿染1枚异色普通棋。
+与五连共用染色波数。","每行动首个命中爆炸 → 在爆区外沿染1枚异色普通棋。
+与五连共用染色波数。","First blast hit per action: dye 1 ordinary piece of another color near the blast edge.
+Shares the match dye-wave limit."
+染过色的棋子参与五连 → 每枚+5分/级。,染过色的棋子参与五连 → 每枚+5分/级。,Dyed pieces in a match: +5 points per piece per level.
+核心爆炸半径+1，上限3；引信与余震不变。,核心爆炸半径+1，上限3；引信与余震不变。,"Core blast radius +1, capped at 3. Fuses and aftershocks are unchanged."
+爆炸每清除1枚棋子 → 额外+5分/级。,爆炸每清除1枚棋子 → 额外+5分/级。,Each piece removed by a blast: +5 extra points per level.
+一次行动至少2次命中爆炸 → 额外+10分/级。,一次行动至少2次命中爆炸 → 额外+10分/级。,At least 2 blast hits in one action: +10 extra points per level.
+一种颜色的生成权重+2；只影响未来补棋。,一种颜色的生成权重+2；只影响未来补棋。,One color gains +2 spawn weight. Future refills only.
+核心与引信爆炸半径：1 → 2；余震不变。,核心与引信爆炸半径：1 → 2；余震不变。,Core and fuse blast radius: 1 → 2. Aftershocks are unchanged.
+"一次行动爆炸清除≥8枚 → 下次补棋−1。
+重复触发延长次数，不叠加减量。","一次行动爆炸清除≥8枚 → 下次补棋−1。
+重复触发延长次数，不叠加减量。","Blasts clear 8+ pieces in one action: next refill −1.
+Repeats add uses, not a larger reduction."
+"染色补出五连 → 再染1波。
+每行动最多2波。","染色补出五连 → 再染1波。
+每行动最多2波。","A dye wave makes a match: dye again.
+Up to 2 waves per action."
+"随机清理至多3枚普通棋，保留引信。
+不得分。","随机清理至多3枚普通棋，保留引信。
+不得分。","Clear up to 3 random ordinary pieces, sparing fuses.
+No points."
+立即引爆全部普通引信棋，可触发连锁。,立即引爆全部普通引信棋，可触发连锁。,Detonate all ordinary fuse pieces now. Can chain.
+"任选一色，清理该色普通棋。
+直接清理无分；引信爆炸照常计分。","任选一色，清理该色普通棋。
+直接清理无分；引信爆炸照常计分。","Choose a color; clear its ordinary pieces.
+No direct points; fuse blasts score normally."
+每行动首批五连 → 给消除处邻近1枚普通棋装引信。,每行动首批五连 → 给消除处邻近1枚普通棋装引信。,First match batch per action: arm 1 ordinary piece next to the cleared cells.
+至多3枚异色普通棋染成同色，并检验五连。,至多3枚异色普通棋染成同色，并检验五连。,"Dye up to 3 ordinary pieces to one color, then check for matches."
+一种颜色的生成权重−2；只影响未来补棋。,一种颜色的生成权重−2；只影响未来补棋。,One color loses 2 spawn weight. Future refills only.
+"回合结束 → 旧引信各向四邻传1枚，总计至多3枚。
+新引信下回合才传播。","回合结束 → 旧引信各向四邻传1枚，总计至多3枚。
+新引信下回合才传播。","Turn end: old fuses spread to 1 orthogonal neighbor each, up to 3 total.
+New fuses spread from the next turn."
+"引信棋离场 → 每枚额外+5分/级。
+五连、爆炸、技能清理均计分。","引信棋离场 → 每枚额外+5分/级。
+五连、爆炸、技能清理均计分。","Fuse pieces removed: +5 extra points each per level.
+Matches, blasts, and skill clears all count."
+"清理一条行或列的普通棋。
+直接清理无分；引信爆炸照常计分。","清理一条行或列的普通棋。
+直接清理无分；引信爆炸照常计分。","Clear ordinary pieces in one row or column.
+No direct points; fuse blasts score normally."
+"引信赋能目标数+1/级：2 → 3 → 4。
+不影响其他装填或传递。","引信赋能目标数+1/级：2 → 3 → 4。
+不影响其他装填或传递。","Fuse Empowerment targets +1 per level: 2 → 3 → 4.
+Other arming and spreading are unchanged."
+一次消除≥6枚 → 额外+20分/级，不吃倍率。,一次消除≥6枚 → 额外+20分/级，不吃倍率。,"Clear 6+ pieces in a match: +20 extra points per level, not multiplied."
+一次恰好消除5枚 → 额外+5分/级，不吃倍率。,一次恰好消除5枚 → 额外+5分/级，不吃倍率。,"Clear exactly 5 pieces in a match: +5 extra points per level, not multiplied."
+"五连后 → 染1枚邻近异色普通棋。
+染成消除色；每行动最多1波。","五连后 → 染1枚邻近异色普通棋。
+染成消除色；每行动最多1波。","After a match: dye 1 adjacent ordinary piece to the match color.
+Up to 1 wave per action."
+每次五连 → 额外+10分/级。,每次五连 → 额外+10分/级。,Each match: +10 extra points per level.
+本次补棋：%d → %d 枚 · 余%d次,本次补棋：%d → %d 枚 · 余%d次,Refill: %d → %d pieces · %d uses left
+自选颜色 · 保留特殊棋,自选颜色 · 保留特殊棋,Choose a color · special pieces stay
+%s · 清理%d枚普通棋,%s · 清理%d枚普通棋,%s · clear %d ordinary pieces
+消耗,消耗,Consumable
+消耗（正文）,消耗,consumed
+普通,普通,Common
+优秀,优秀,Uncommon
+稀有,稀有,Rare
+史诗,史诗,Epic
+传说,传说,Legendary
+即时,即时,Instant
+连珠,连珠,Match
+倍率,倍率,Multiplier
+生成,生成,Spawning
+染色,染色,Dye
+清理,清理,Clear
+点击选择此技能,点击选择此技能,Click to choose
+点击选择颜色,点击选择颜色,Click to choose a color
+"补棋数量+1；
+3次补棋后消耗。","补棋数量+1；
+3次补棋后消耗。","Refill count +1;
+consumed after 3 refills."
+"补棋数量−1；
+3次补棋后消耗。","补棋数量−1；
+3次补棋后消耗。","Refill count −1;
+consumed after 3 refills."
+爆破,爆破,Blast
+空间,空间,Space
+每次实际补棋扣1次，次数用完后失效；免补棋不扣次数。,每次实际补棋扣1次，次数用完后失效；免补棋不扣次数。,Each actual refill uses 1 charge. Expires when charges run out; skipped refills use none.

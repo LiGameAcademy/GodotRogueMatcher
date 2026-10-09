@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"dye_mark_reward"
 title = "留色赏金"
 description = "被染色棋子参与五连消除时，每枚额外获得5分；最多2级。"
+short_description = "染过色的棋子参与五连 → 每枚+5分/级。"
 base_weight = 10.0
 tags = Array[StringName]([&"dye", &"match"])
 choice_effect = SubResource("effect")

@@ -56,10 +56,15 @@ func test_every_skill_has_english_text_without_mutating_resources() -> void:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		var title: String = skill.title
 		var description: String = skill.description
+		var short_description: String = skill.short_description
+		assert_false(short_description.is_empty(), skill.skill_id)
 		assert_null(chinese.search(String(TranslationServer.translate(title))), skill.skill_id)
 		assert_null(chinese.search(String(TranslationServer.translate(description))), skill.skill_id)
+		assert_null(chinese.search(SkillChoiceText.summary(skill)), skill.skill_id)
+		assert_null(chinese.search(SkillChoiceText.tags(skill)), skill.skill_id)
 		assert_eq(skill.title, title)
 		assert_eq(skill.description, description)
+		assert_eq(skill.short_description, short_description)
 
 func test_color_picker_switch_preserves_selected_target_and_board_view() -> void:
 	var popup: PopupSkillChoice = preload("res://ui/popup_skill_choice.tscn").instantiate() as PopupSkillChoice

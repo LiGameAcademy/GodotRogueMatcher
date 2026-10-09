@@ -7,6 +7,7 @@ script = ExtResource("1")
 skill_id = &"blast_extra"
 title = "爆破补分"
 description = "每次消除了至少一枚棋子的爆炸额外分增加5。"
+short_description = "每次命中爆炸 → 额外+5分/级。"
 action = 6
 base_weight = 6.0
 tags = Array[StringName]([&"exp", &"extra"])

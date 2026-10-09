@@ -50,7 +50,7 @@ func _refresh_text() -> void:
 	if _target_index >= 0:
 		var skill: SkillDefinition = offer.choices[_target_index]
 		heading.text = tr("%s · 选择颜色") % tr(skill.title)
-		message.text = tr(skill.description)
+		message.text = SkillChoiceText.summary(skill)
 	if not _error.is_empty(): message.text = tr(_error)
 	var target: String = ""
 	if _target_index >= 0:
@@ -143,7 +143,7 @@ func _select(index: int) -> void:
 		options.hide()
 		picker.show()
 		heading.text = tr("%s · 选择颜色") % tr(skill.title)
-		message.text = tr(skill.description)
+		message.text = SkillChoiceText.summary(skill)
 		return
 	_submit(index)
 

@@ -9,8 +9,7 @@ static func skills(state: RunState) -> String:
 		var acquired: int = state.rewards.acquired.get(skill.skill_id, 0)
 		if acquired == 0: continue
 		if skill.is_persistent:
-			var progress: String = "Lv.%d" % SkillRules.level(state, skill)
-			persistent.append("%s · %s · %s\n%s" % [TranslationServer.translate(SkillRarity.LABELS[skill.rarity]), TranslationServer.translate(skill.title), progress, TranslationServer.translate(skill.description)])
+			persistent.append(_skill_header(skill, state) + "\n" + SkillChoiceText.summary(skill))
 		elif skill.choice_effect is RefillCountEffect:
 			var effect: RefillCountEffect = skill.choice_effect as RefillCountEffect
 			var remaining: int = state.spawning.refill_batches[effect.delta]
@@ -52,6 +51,9 @@ static func skills_rich(state: RunState) -> String:
 		if line.begins_with(TranslationServer.translate("爆壳手在场")) or line.begins_with(TranslationServer.translate("五连 G")) or line.begins_with(TranslationServer.translate("下次普通补棋")):
 			lines[index] = "[color=#8fe3da]%s[/color]" % line
 	return "\n".join(lines)
+
+static func _skill_header(skill: SkillDefinition, state: RunState) -> String:
+	return "%s · %s · Lv.%d" % [TranslationServer.translate(SkillRarity.LABELS[skill.rarity]), TranslationServer.translate(skill.title), SkillRules.level(state, skill)]
 
 static func history(state: RunState) -> String:
 	var lines: PackedStringArray = []

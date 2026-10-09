@@ -8,6 +8,7 @@ script = ExtResource("1")
 skill_id = &"instant_color_dye"
 title = "即时染色"
 description = "立即将最多3枚异色普通棋子染成同一颜色，并检验五连。"
+short_description = "至多3枚异色普通棋染成同色，并检验五连。"
 base_weight = 10.0
 tags = Array[StringName]([&"dye", &"match"])
 choice_effect = SubResource("effect")

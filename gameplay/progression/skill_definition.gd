@@ -6,6 +6,8 @@ enum Action { CORE_DROP, ASSIGN_FUSE, BLAST_RADIUS, BLAST_REWARD, SCORE_MULTIPLI
 @export var skill_id: StringName
 @export var title: String
 @export_multiline var description: String
+## 卡面摘要；完整规则仍由description保存，不参与玩法配置哈希。
+@export_multiline var short_description: String
 @export var action: Action
 @export var base_weight: float = 1.0
 @export var tags: Array[StringName] = []

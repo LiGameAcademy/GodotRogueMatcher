@@ -12,6 +12,7 @@ script = ExtResource("1")
 skill_id = &"refill_more"
 title = "加速播种"
 description = "接下来3次实际普通补棋各增加1枚，增加成线机会及占格压力。重复获得延长3次，不叠加幅度；增减同时生效时相抵。"
+short_description = "补棋数量+1；\n3次补棋后消耗。"
 base_weight = 6.0
 tags = Array[StringName]([&"generation"])
 is_persistent = false

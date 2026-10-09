@@ -12,6 +12,7 @@ script = ExtResource("1")
 skill_id = &"instant_color_clear"
 title = "种色收获"
 description = "选择颜色后清理该色普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸正常计分。"
+short_description = "任选一色，清理该色普通棋。\n直接清理无分；引信爆炸照常计分。"
 base_weight = 8.0
 tags = Array[StringName]([&"space", &"exp"])
 is_persistent = false

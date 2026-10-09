@@ -8,6 +8,7 @@ script = ExtResource("1")
 skill_id = &"instant_fuse_ignite"
 title = "引信齐鸣"
 description = "立即整批移除棋盘上全部带引信的普通棋子，并触发各自爆炸。先移除全部目标，再按来源ID逐代结算；不消耗行动。"
+short_description = "立即引爆全部普通引信棋，可触发连锁。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

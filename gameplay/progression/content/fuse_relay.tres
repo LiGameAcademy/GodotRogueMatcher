@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"fuse_relay"
 title = "引信传递"
 description = "本局回合结束，旧引信各向四邻域至多传播1枚，全局至多3枚。新标记下一回合才成为传播源；仅未标记普通棋子。"
+short_description = "回合结束 → 旧引信各向四邻传1枚，总计至多3枚。\n新引信下回合才传播。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")
