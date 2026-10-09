@@ -19,6 +19,21 @@ func after_each() -> void:
 	UIManager.close_popup()
 	await wait_process_frames(2)
 
+func test_game_over_connects_collection_controls_and_refreshes_save_status() -> void:
+	board.run.finish_game(&"board_full")
+	var game: Node2D = main.get_node("Game") as Node2D
+	await game.call("_on_game_over")
+	var popup: Control = UIManager.current_popup
+	assert_not_null(popup)
+	if popup == null: return
+	var controls: CollectionControls = popup.get_node("Panel/Content/CollectionControls") as CollectionControls
+	var collection: RunCollection = game.get_node("RunCollection") as RunCollection
+	assert_true(controls.visible)
+	assert_true(controls.folder_requested.is_connected(collection.open_directory))
+	assert_true(controls.export_requested.is_connected(collection.export_files))
+	game.call("_show_collection_status", "记录等待保存…")
+	assert_eq(controls.status.text, tr("记录等待保存…"))
+
 func test_normal_scene_records_submitted_command_and_turn_without_false_exposure() -> void:
 	var command: MovePieceCommand = RandomLegalBot.new(9).choose(board.run) as MovePieceCommand
 	var telemetry: TelemetryProjector = board.observation.telemetry

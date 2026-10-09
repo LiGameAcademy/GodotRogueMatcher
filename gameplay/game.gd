@@ -1,5 +1,7 @@
 extends Node2D
 
+const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
+
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var board: Board = $Board
 @onready var hud: Hud = $UILayer/HUD
@@ -116,7 +118,7 @@ func _on_game_over() -> void:
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
 		popup.menu_requested.connect(_end_to_menu)
-		if popup is PopupGameOver: _connect_collection_controls((popup as PopupGameOver).collection_controls)
+		if popup is GAME_OVER_POPUP: _connect_collection_controls((popup as GAME_OVER_POPUP).collection_controls)
 	_set_collection_location("result")
 
 func _show_menu() -> void:
@@ -251,8 +253,8 @@ func _connect_collection_controls(controls: CollectionControls) -> void:
 
 func _show_collection_status(message: String) -> void:
 	release_menu.collection_controls.show_status(message, collection.enabled, intercept_window_close)
-	if UIManager.current_popup is PopupGameOver:
-		(UIManager.current_popup as PopupGameOver).collection_controls.show_status(message, collection.enabled, intercept_window_close)
+	if UIManager.current_popup is GAME_OVER_POPUP:
+		(UIManager.current_popup as GAME_OVER_POPUP).collection_controls.show_status(message, collection.enabled, intercept_window_close)
 
 func _quit(reason: String) -> void:
 	if not intercept_window_close: return
