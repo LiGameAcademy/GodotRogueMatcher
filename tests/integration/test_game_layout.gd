@@ -83,3 +83,33 @@ func test_mode_menu_fits_supported_viewport_in_both_languages() -> void:
 		assert_true(Rect2(Vector2.ZERO, Vector2(viewport.size)).encloses(panel_rect), "%s %s" % [locale, panel_rect])
 	TranslationServer.set_locale(old_locale)
 	menu.close()
+
+func test_six_piece_preview_fits_panel_at_supported_sizes_in_both_languages() -> void:
+	var old_locale: String = TranslationServer.get_locale()
+	board.run.state.stage.used_actions = 12
+	board.run.prepare_spawn_plan()
+	var baseline: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		for resolution: Vector2i in [Vector2i(1024, 640), Vector2i(1280, 720), Vector2i(1920, 1080)]:
+			viewport.size = resolution
+			hud.show_run(board.run)
+			await wait_process_frames(5)
+			var preview: SpawnPreview = hud.spawn_preview
+			var bounds: Rect2 = Rect2(Vector2.ZERO, preview.size)
+			assert_eq(preview._tokens.size(), 6)
+			# 与实际画出的32像素槽位对应，捕获固定面板只容纳五枚的溢出。
+			for index: int in range(6):
+				var slot: Rect2 = Rect2(Vector2(2 + index * 36, 21), Vector2(32, 32))
+				assert_true(bounds.encloses(slot), "%s %s slot %d" % [locale, resolution, index + 1])
+			assert_true(bounds.encloses(preview.title.get_rect()))
+			assert_true(bounds.encloses(preview.hint.get_rect()))
+			assert_lte(preview.title.get_minimum_size().x, preview.title.size.x)
+			assert_lte(preview.hint.get_minimum_size().x, preview.hint.size.x)
+			var frame: Control = hud.get_node("Margin/Rows/Header/Progress/PreviewFrame") as Control
+			var growth: Control = hud.get_node("Margin/Rows/Header/Progress/GrowthFrame") as Control
+			assert_lte(frame.get_global_rect().end.x, growth.get_global_rect().position.x)
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(frame.get_global_rect()), "%s %s preview %s" % [locale, resolution, frame.get_global_rect()])
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(growth.get_global_rect()), "%s %s growth %s" % [locale, resolution, growth.get_global_rect()])
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline)
+	TranslationServer.set_locale(old_locale)

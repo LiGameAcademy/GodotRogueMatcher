@@ -48,73 +48,86 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 12
 
-[node name="Header" type="HBoxContainer" parent="Margin/Rows"]
+[node name="Header" type="VBoxContainer" parent="Margin/Rows"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
 theme_override_constants/separation = 16
 
-[node name="Title" type="Label" parent="Margin/Rows/Header"]
+[node name="Top" type="HBoxContainer" parent="Margin/Rows/Header"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(150, 0)
 text = "技能连珠 · 试玩"
 theme_override_font_sizes/font_size = 20
 
-[node name="ScoreFrame" type="PanelContainer" parent="Margin/Rows/Header"]
+[node name="ScoreFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
 
-[node name="ScoreRow" type="HBoxContainer" parent="Margin/Rows/Header/ScoreFrame"]
+[node name="ScoreRow" type="HBoxContainer" parent="Margin/Rows/Header/Top/ScoreFrame"]
 layout_mode = 2
 
-[node name="ScoreLabel" type="Label" parent="Margin/Rows/Header/ScoreFrame/ScoreRow"]
+[node name="ScoreLabel" type="Label" parent="Margin/Rows/Header/Top/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(128, 0)
 theme_override_font_sizes/font_size = 28
 text = "分数  0"
 
-[node name="GainLabel" type="Label" parent="Margin/Rows/Header/ScoreFrame/ScoreRow"]
+[node name="GainLabel" type="Label" parent="Margin/Rows/Header/Top/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(40, 0)
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
 
-[node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header"]
+[node name="Progress" type="HBoxContainer" parent="Margin/Rows/Header"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header/Progress"]
 layout_mode = 2
 
-[node name="SpawnPreview" parent="Margin/Rows/Header/PreviewFrame" instance=ExtResource("3")]
+[node name="SpawnPreview" parent="Margin/Rows/Header/Progress/PreviewFrame" instance=ExtResource("3")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="GrowthFrame" type="PanelContainer" parent="Margin/Rows/Header"]
+[node name="GrowthFrame" type="PanelContainer" parent="Margin/Rows/Header/Progress"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Growth" type="VBoxContainer" parent="Margin/Rows/Header/GrowthFrame"]
+[node name="Growth" type="VBoxContainer" parent="Margin/Rows/Header/Progress/GrowthFrame"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RewardLabel" type="Label" parent="Margin/Rows/Header/GrowthFrame/Growth"]
+[node name="RewardLabel" type="Label" parent="Margin/Rows/Header/Progress/GrowthFrame/Growth"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "下一次技能选择"
 theme_override_font_sizes/font_size = 16
 autowrap_mode = 2
 
-[node name="RewardBar" type="ProgressBar" parent="Margin/Rows/Header/GrowthFrame/Growth"]
+[node name="RewardBar" type="ProgressBar" parent="Margin/Rows/Header/Progress/GrowthFrame/Growth"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 10)
 show_percentage = false
 
-[node name="HelpButton" type="Button" parent="Margin/Rows/Header"]
+[node name="Spacer" type="Control" parent="Margin/Rows/Header/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="HelpButton" type="Button" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "帮助"
 tooltip_text = "操作说明与练习（F1）"
 
-[node name="PauseButton" type="Button" parent="Margin/Rows/Header"]
+[node name="PauseButton" type="Button" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "暂停 / ESC"
