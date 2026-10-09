@@ -171,11 +171,11 @@ func test_switching_modes_starts_new_runs_and_preserves_mode_on_retry() -> void:
 
 func test_challenge_hud_and_end_titles_use_stage_state() -> void:
 	var hud: Hud = game.get_node("UILayer/HUD") as Hud
-	assert_string_contains(hud.reward_label.text, "阶段 1 / 8")
-	assert_string_contains(hud.reward_label.text, "下次应补 3 枚")
-	board.run.state.stage.carry_in = 100
+	assert_string_contains(hud.goal_progress.target_label.tooltip_text, "阶段 1 / 8")
+	assert_string_contains(hud.spawn_preview.tooltip_text, "下次应补 3 枚")
+	board.run.state.ledger.commit(0, 1.0, 100, &"match", -1)
 	hud.show_run(board.run)
-	assert_string_contains(hud.reward_label.text, "完成一次有效行动")
+	assert_string_contains(hud.goal_progress.bar.tooltip_text, "完成一次有效行动")
 	board.run.state.stage.used_actions = 10
 	board.run.finish_game()
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": 0, "run_state": board.run.state})

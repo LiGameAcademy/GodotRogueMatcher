@@ -1,6 +1,8 @@
 class_name ScoreFloatLayer
 extends Node2D
 
+signal score_visualized(entry: ScoreEntry, origin: Vector2)
+
 const FLOAT: PackedScene = preload("res://gameplay/presentation/score_float/score_float.tscn")
 @export var config: ScoreFloatConfig = preload("res://gameplay/presentation/score_float/score_float_config.tres")
 var _seen_events: Dictionary[int, bool] = {}
@@ -18,6 +20,7 @@ func show_results(results: Array[MatchResult], spacing: Vector2, bounds: Rect2, 
 			_action_anchors[entry.root_action_id] = anchor
 		else:
 			anchor = _action_anchors.get(entry.root_action_id, anchor)
+		score_visualized.emit(entry.copy(), anchor)
 		while get_child_count() >= maxi(1, config.maximum_visible):
 			var oldest: Node = get_child(0)
 			remove_child(oldest)

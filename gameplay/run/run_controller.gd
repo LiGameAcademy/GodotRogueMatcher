@@ -29,9 +29,9 @@ func report_error(reason: String) -> void:
 
 func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null) -> void:
 	state = RunState.new(rules, run_seed)
-	state.stage = StageState.new(stage_config)
+	state.stage = StageState.new(stage_config, state.ledger)
 	abilities = AbilityResolver.new(state)
-	state.run_id = "%d-%d" % [run_seed, Time.get_ticks_usec()]
+	state.run_id = "%d-%d-%d-%d" % [run_seed, OS.get_process_id(), int(Time.get_unix_time_from_system() * 1000000.0), Time.get_ticks_usec()]
 
 ## 合法操作一次提交移动、消除和基础计分；演出不重新计算。
 func move_piece(piece_id: int, target: Vector2i) -> TurnResult:

@@ -42,7 +42,7 @@ func reset_counters() -> void:
 	activations = 0
 	is_game_over = false
 	end_reason = &""
-	stage = StageState.new(stage.config)
+	stage = StageState.new(stage.config, ledger)
 	pending_rewards = 0
 	rewards = RewardState.new(_initial_seed)
 	progression = ProgressionState.new(RunController.PROGRESSION)

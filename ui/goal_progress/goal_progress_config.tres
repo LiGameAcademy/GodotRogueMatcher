@@ -1,0 +1,4 @@
+[gd_resource type="Resource" script_class="GoalProgressConfig" load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/goal_progress/goal_progress_config.gd" id="1"]
+[resource]
+script = ExtResource("1")

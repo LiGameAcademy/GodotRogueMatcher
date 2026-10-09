@@ -68,7 +68,9 @@ func write(directory: String) -> bool:
 		row.merge(event.payload)
 		tables.events.append(row)
 		match event.event_name:
-			"turn_resolved": tables.turns.append(row)
+			"action_resolved": tables.turns.append(row)
+			"turn_resolved":
+				if event.schema_version == "1": tables.turns.append(row)
 			"offer_generated", "offer_presented": tables.offers.append(row)
 			"input_resolved": tables.inputs.append(row)
 			"observation_interval_closed": tables.intervals.append(row)
@@ -122,11 +124,13 @@ func _opportunities() -> Dictionary:
 func _base(event: Dictionary) -> Dictionary:
 	var result: Dictionary = {}
 	for key: String in ["run_id", "session_id", "source", "initialization", "schema_version", "rule_version", "content_version", "offer_version", "build_id", "config_hash", "strategy_version", "bot_config_hash", "experiment_id", "variant_id"]: result[key] = event.get(key)
+	for key: String in ["mode_id", "collection_context", "commit_id", "pressure_version", "collection_config_hash"]: result[key] = event.get(key, "unknown")
 	return result
 
 func _dimensions(event: Dictionary) -> Dictionary:
 	var result: Dictionary = {}
 	for key: String in ["source", "initialization", "schema_version", "rule_version", "content_version", "offer_version", "build_id", "config_hash", "strategy_version", "bot_config_hash", "experiment_id", "variant_id"]: result[key] = event.get(key)
+	for key: String in ["mode_id", "collection_context", "commit_id", "pressure_version", "collection_config_hash"]: result[key] = event.get(key, "unknown")
 	return result
 
 func _group_key(event: Dictionary) -> String:

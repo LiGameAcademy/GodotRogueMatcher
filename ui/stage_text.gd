@@ -17,4 +17,4 @@ static func end_title(state: RunState) -> String:
 static func end_summary(state: RunState) -> String:
 	if not state.stage.enabled(): return ""
 	var stage: StageState = state.stage
-	return TranslationServer.translate("阶段 %d / %d · 目标 %d · 尚差 %d 分\n行动得分 %d · 抵扣 %d · 已用行动 %d\n\n") % [stage.index + 1, stage.config.targets.size(), stage.target(), stage.missing_score(), stage.action_score, stage.carry_in, stage.used_actions]
+	return TranslationServer.translate("阶段 %d / %d · 目标总分 %d · 总分 %d\n行动得分 %d · 起始超额 %d · 已用行动 %d\n\n") % [stage.index + 1, stage.config.targets.size(), stage.target_total(), state.ledger.total, stage.action_score, stage.carry_in, stage.used_actions]

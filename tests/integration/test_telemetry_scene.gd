@@ -19,6 +19,21 @@ func after_each() -> void:
 	UIManager.close_popup()
 	await wait_process_frames(2)
 
+func test_game_over_connects_collection_controls_and_refreshes_save_status() -> void:
+	board.run.finish_game(&"board_full")
+	var game: Node2D = main.get_node("Game") as Node2D
+	await game.call("_on_game_over")
+	var popup: Control = UIManager.current_popup
+	assert_not_null(popup)
+	if popup == null: return
+	var controls: CollectionControls = popup.get_node("Panel/Content/CollectionControls") as CollectionControls
+	var collection: RunCollection = game.get_node("RunCollection") as RunCollection
+	assert_true(controls.visible)
+	assert_true(controls.folder_requested.is_connected(collection.open_directory))
+	assert_true(controls.export_requested.is_connected(collection.export_files))
+	game.call("_show_collection_status", "记录等待保存…")
+	assert_eq(controls.status.text, tr("记录等待保存…"))
+
 func test_normal_scene_records_submitted_command_and_turn_without_false_exposure() -> void:
 	var command: MovePieceCommand = RandomLegalBot.new(9).choose(board.run) as MovePieceCommand
 	var telemetry: TelemetryProjector = board.observation.telemetry
@@ -28,7 +43,7 @@ func test_normal_scene_records_submitted_command_and_turn_without_false_exposure
 	var submitted: Dictionary = _events(telemetry, "input_resolved").back()
 	assert_eq(submitted.payload.disposition, "submitted")
 	assert_eq(submitted.command_id, "1")
-	assert_eq(_events(telemetry, "turn_resolved").size(), 1)
+	assert_eq(_events(telemetry, "action_resolved").size(), 1)
 	assert_eq(_events(telemetry, "offer_presented").size(), 0)
 	board.run.recorder.finish(board.run, "abandoned", "scene_sample")
 	var reader: TelemetryReader = TelemetryReader.new()
@@ -84,3 +99,42 @@ func _events(telemetry: TelemetryProjector, name: String) -> Array[Dictionary]:
 	for event: Dictionary in telemetry.events:
 		if event.event_name == name: result.append(event)
 	return result
+
+func test_mode_switch_records_own_reason_and_integration_context() -> void:
+	var game: Node2D = main.get_node("Game") as Node2D
+	var old: TelemetryProjector = board.observation.telemetry
+	var before: StringName = board.run.state.mode_id()
+	game._select_mode(&"classic_endless" if before == &"stage_challenge" else &"stage_challenge")
+	await game._on_retry_requested()
+	assert_true(old.ended)
+	assert_eq(_events(old, "run_ended")[0].payload.reason, "mode_switch")
+	assert_eq(old.events[0].collection_context, "automated_integration")
+	assert_ne(board.observation.telemetry.events[0].run_id, old.events[0].run_id)
+	assert_ne(board.run.state.mode_id(), before)
+
+func test_help_export_controls_preserve_rules_and_normalize_ui_exit_location() -> void:
+	var game: Node2D = main.get_node("Game") as Node2D
+	var collection: RunCollection = game.get_node("RunCollection") as RunCollection
+	var baseline: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	game.set("_has_played", true)
+	game._show_menu()
+	assert_true(get_tree().paused)
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	assert_false(menu.collection_controls.export_button.disabled)
+	menu.collection_controls.export_requested.emit()
+	assert_false(collection.last_export.is_empty())
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline)
+	collection.close("window_close_requested")
+	var summary: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(board.observation.telemetry.summary_path))
+	assert_eq(summary.exit_observation.ui, "help")
+	assert_eq(summary.reason, "window_close_requested")
+
+func test_piece_pool_location_is_observed_and_viewing_preserves_rules() -> void:
+	var game: Node2D = main.get_node("Game") as Node2D
+	var hud: Hud = game.get_node("UILayer/HUD") as Hud
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	hud.piece_pool.open()
+	assert_eq(board.observation.telemetry.observation().ui, "piece_pool")
+	hud.piece_pool.close()
+	assert_eq(board.observation.telemetry.observation().ui, "board_input")
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
