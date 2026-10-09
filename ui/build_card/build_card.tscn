@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://ui/build_card/build_card.gd" id="1"]
+[ext_resource type="PackedScene" path="res://ui/skill_text.tscn" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.045, 0.07, 0.10, 1)
+border_width_left = 3
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[node name="BuildCard" type="PanelContainer"]
+size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("1")
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Column" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Heading" type="HBoxContainer" parent="Column"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Column/Heading"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 2
+
+[node name="Level" type="Label" parent="Column/Heading"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.68, 0.76, 0.82, 1)
+
+[node name="Metadata" type="Label" parent="Column"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 2
+
+[node name="Effect" parent="Column" instance=ExtResource("2")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+fit_content = true
+scroll_active = false
+
+[node name="Remaining" type="Label" parent="Column"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.56, 0.89, 0.85, 1)
+autowrap_mode = 2

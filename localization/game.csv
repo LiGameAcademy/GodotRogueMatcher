@@ -624,3 +624,25 @@ consumed after 3 refills."
 爆破,爆破,Blast
 空间,空间,Space
 每次实际补棋扣1次，次数用完后失效；免补棋不扣次数。,每次实际补棋扣1次，次数用完后失效；免补棋不扣次数。,Each actual refill uses 1 charge. Expires when charges run out; skipped refills use none.
+"每笔得分 = 基础分 × 分数倍率 + 额外得分（向下取整）
+总分为每笔得分的累加。
+五连基础分 = 消除数量 ×（消除数量 + 5）。","每笔得分 = 基础分 × 分数倍率 + 额外得分（向下取整）
+总分为每笔得分的累加。
+五连基础分 = 消除数量 ×（消除数量 + 5）。","Each score = base score × score multiplier + bonus score (rounded down).
+Total score is the sum of all scores.
+Match base score = pieces cleared × (pieces cleared + 5)."
+"当前五连：分数倍率 %.2f · 额外得分 %d
+独立技能奖励只计额外得分。","当前五连：分数倍率 %.2f · 额外得分 %d
+独立技能奖励只计额外得分。","Current match: score multiplier %.2f · bonus score %d
+Standalone skill rewards only award bonus score."
+"最近得分行动 +%d
+
+%s","最近得分行动 +%d
+
+%s","Latest scoring action +%d
+
+%s"
+"剩余 %d 次实际补棋","剩余 %d 次实际补棋","%d actual refills remaining"
+"五连分数倍率+0.2/级；额外得分不变。","五连分数倍率+0.2/级；额外得分不变。","Match score multiplier +0.2/level; bonus score unchanged."
+"恰好消除5枚 → 额外得分+5/级，不受倍率影响。","恰好消除5枚 → 额外得分+5/级，不受倍率影响。","Clear exactly 5 → bonus score +5/level, unaffected by multipliers."
+"%s +%d","%s +%d","%s +%d"

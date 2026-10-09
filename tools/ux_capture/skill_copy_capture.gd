@@ -24,6 +24,10 @@ func _ready() -> void:
 	board.rebuild_view()
 	game.call("_refresh_hud")
 	game.call("_set_volume", 0.0, false)
+	if "--build" in OS.get_cmdline_user_args():
+		await _capture_build(board)
+		get_tree().quit()
+		return
 	var label: String = "after"
 	for argument: String in OS.get_cmdline_user_args():
 		if argument == "--before": label = "before"
@@ -62,6 +66,32 @@ func _ready() -> void:
 					await _hover(Vector2(1.0, 1.0))
 	print("SKILL_COPY_CAPTURE_COMPLETE ", label, " CONFIG ", RunSnapshot.digest(RunSnapshot.config(board.run)))
 	get_tree().quit()
+
+func _capture_build(board: Board) -> void:
+	var state: RunState = board.run.state
+	for id: StringName in [&"score_multiplier", &"precision_reward", &"core_manual_detonation", &"blast_dye", &"refill_less"]:
+		state.rewards.acquired[id] = 1
+	state.explosion.multiplier_level = 1
+	state.explosion.upgrades[&"precision_reward"] = 1
+	state.spawning.extend_refill(-1, 3)
+	state.ledger.commit(5, 1.2, 10, &"match", 1)
+	var hud: Hud = game.get_node("UILayer/HUD") as Hud
+	hud.show_run(board.run)
+	hud.show_score(state.ledger.total)
+	await hud.wait_for_score()
+	var output: String = "res://production/skill_copy/build"
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1024, 640)]:
+			get_window().size = resolution
+			hud.build_list.scroll_vertical = 0
+			await _frames(10)
+			await _capture(output.path_join("hud_%s_%d.png" % [locale, resolution.x]))
+			await _hover(hud.score_label.get_global_rect().get_center())
+			await _capture(output.path_join("score_%s_%d.png" % [locale, resolution.x]))
+			await _hover(Vector2(1.0, 1.0))
+	print("BUILD_CAPTURE_COMPLETE ", RunSnapshot.digest(RunSnapshot.config(board.run)))
 
 func _offer(run: RunController, ids: Array[StringName]) -> SkillOffer:
 	var offer: SkillOffer = SkillOffer.new()

@@ -115,7 +115,7 @@ func test_build_summary_and_config_hash_are_unchanged_by_presentation_fields() -
 	run.state.rewards.acquired[&"core_manual_detonation"] = 1
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_manual_detonation.tres")
 	assert_string_contains(HudDetails.skills(run.state), skill.short_description)
-	assert_false(HudDetails.skills_rich(run.state).contains("[hint="))
+	assert_false(HudDetails.skills(run.state).contains("[hint="))
 	# 与本片改动前同一真实截图fixture的配置哈希比较，覆盖38份运行配置。
 	assert_eq(RunSnapshot.digest(RunSnapshot.config(run)), "fbd0c72ec2a86c8beb73827e05b5bb2ee8aac391fdd125cd2730bdc51ff009ba")
 
