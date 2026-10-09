@@ -32,7 +32,7 @@ func read_file(path: String) -> Array[Dictionary]:
 			error = validation
 			break
 		if seen.has(event.event_id):
-			if seen[event.event_id] == RunSnapshot.canonical(event): continue
+			if seen[event.event_id] == JSON.stringify(event, '', true): continue
 			error = "conflicting_event_id"
 			break
 		if event.telemetry_seq.to_int() != last_seq + 1 or (not run_id.is_empty() and event.run_id != run_id):
@@ -46,7 +46,7 @@ func read_file(path: String) -> Array[Dictionary]:
 			break
 		run_id = event.run_id
 		last_seq += 1
-		seen[event.event_id] = RunSnapshot.canonical(event)
+		seen[event.event_id] = JSON.stringify(event, '', true)
 		result.append(event)
 		if event.event_name == "run_ended":
 			ended_seen = true

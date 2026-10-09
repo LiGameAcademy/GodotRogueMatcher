@@ -113,6 +113,23 @@ func test_bot_opportunities_use_generated_offers_without_fake_presentations() ->
 	for row: Dictionary in report.summary().opportunities.skills.values(): assert_eq(row.opportunities, 1)
 	assert_eq(_events("offer_presented").size(), 0)
 
+func test_exported_csv_keeps_the_complete_event_envelope() -> void:
+	_start("bot")
+	run.recorder.finish(run, "censored", "test_limit")
+	var report: TelemetryReport = TelemetryReport.new()
+	report.add(projector.events)
+	var directory: String = "user://model_csv_roundtrip"
+	assert_true(report.write(directory))
+	var file: FileAccess = FileAccess.open(directory.path_join("events.csv"), FileAccess.READ)
+	var headers: PackedStringArray = file.get_csv_line()
+	var column: int = headers.find("event_json")
+	assert_gte(column, 0)
+	for original: Dictionary in projector.events:
+		var fields: PackedStringArray = file.get_csv_line()
+		var restored: Dictionary = JSON.parse_string(fields[column])
+		assert_eq(JSON.stringify(restored, "", true), JSON.stringify(original, "", true))
+		assert_eq(TelemetrySchema.validate(restored), "")
+
 func test_clock_priority_focus_and_closing_total_are_exclusive() -> void:
 	var timer: FakeClock = FakeClock.new()
 	_start("human", 7, null, timer.now)
