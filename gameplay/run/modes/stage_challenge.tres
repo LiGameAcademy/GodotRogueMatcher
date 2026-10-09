@@ -5,5 +5,5 @@
 script = ExtResource("1")
 mode_id = &"stage_challenge"
 title = "阶段挑战"
-description = "在行动上限内达成阶段目标，过关三选一；超额分结转，棋盘与构筑保留。"
+description = "未达目标持续补棋升压，达标降压并三选一；满盘结束，超额分、棋盘与构筑延续。"
 stage_config = ExtResource("2")

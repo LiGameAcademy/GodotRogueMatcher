@@ -26,7 +26,7 @@ func after_each() -> void:
 func _bind(targets: Array[int]) -> RunController:
 	var config: StageConfig = StageConfig.new()
 	config.targets = targets
-	for target: int in targets: config.action_limits.append(1)
+	for target: int in targets: config.pressure_intervals.append(1)
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7, config)
 	run.initialize("fixture_dye")
 	run.recorder = RunRecorder.new()
@@ -82,15 +82,19 @@ func test_real_stage_pass_waits_for_presentation_then_enters_next_stage() -> voi
 	var replay: RuleReplay = RuleReplay.new()
 	assert_true(replay.replay(run.recorder.records), replay.error)
 
-func test_real_stage_failure_opens_failure_summary_after_visuals() -> void:
+func test_real_score_shortfall_returns_to_input_after_visuals() -> void:
 	var run: RunController = _bind([106])
 	_move()
-	await _wait_popup()
-	assert_eq(run.state.end_reason, &"stage_target_missed")
-	assert_false(board.can_selected)
+	for frame: int in range(360):
+		if board.can_selected: break
+		await wait_process_frames(1)
+	assert_true(board.can_selected)
+	assert_false(run.state.is_game_over)
+	assert_eq(run.state.stage.missing_score(), 1)
 	assert_false(board.view.is_presenting())
-	assert_eq((UIManager.current_popup.get_node("Panel/Content/Title") as Label).text, "行动耗尽 · 阶段挑战失败")
-	assert_string_contains((UIManager.current_popup.get_node("Panel/Content/SummaryLabel") as Label).text, "尚差 1 分")
+	assert_null(UIManager.current_popup)
+	assert_string_contains(hud.reward_label.text, "下次应补 4 枚")
+	run.recorder.finish(run, "abandoned", "stage_scene")
 	var replay: RuleReplay = RuleReplay.new()
 	assert_true(replay.replay(run.recorder.records), replay.error)
 

@@ -26,9 +26,9 @@ An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy
 
 The source now offers **Stage challenge** (default) and **Classic endless** in the F1 menu. Switching modes starts a new run; retry keeps the selected mode. The published 0.0.1 Web release remains the baseline described above.
 
-In Stage challenge, each accepted move or manual detonation uses one action. Complete the target before actions run out to earn one skill choice, then continue with the same board and build. Excess eligible action points carry over; each next stage still needs one new action. A full board takes priority over passing. The last stage completes the challenge without another card. Instant skill rewards affect total score, not stage progress.
+In Stage challenge, each accepted move or manual detonation advances pressure. Refills grow from 3 to at most 6 pieces while the target remains unmet. Passing restores the base refill to 3 and earns one skill choice, keeping the board and build. There is no action deadline. Excess eligible action points carry over; each next stage still needs one new action. A full board takes priority over passing. The last stage completes the challenge without another card. Instant skill rewards affect total score, not stage progress.
 
-The eight-stage target/action table is experimental and editable in [StageConfig](gameplay/progression/stages/stage_config.tres). Test this slice directly in the Godot editor; Web exports are reserved for release or Web-specific checks. Headless bot batches use stage rules by default; add `--legacy` after `--` to compare classic rules.
+The eight-stage targets and pressure intervals (4/4/4/3/3/3/2/2 actions) are experimental and editable in [StageConfig](gameplay/progression/stages/stage_config.tres). Each action pays its previously previewed refill; passing does not waive that cost. Direct matches still skip refills unless the board is fully cleared. Test this slice directly in the Godot editor; Web exports are reserved for release or Web-specific checks. Headless bot batches use stage rules by default; add `--legacy` after `--` to compare classic rules.
 
 ## How to play
 

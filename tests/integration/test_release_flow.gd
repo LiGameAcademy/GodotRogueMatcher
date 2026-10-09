@@ -172,15 +172,15 @@ func test_switching_modes_starts_new_runs_and_preserves_mode_on_retry() -> void:
 func test_challenge_hud_and_end_titles_use_stage_state() -> void:
 	var hud: Hud = game.get_node("UILayer/HUD") as Hud
 	assert_string_contains(hud.reward_label.text, "阶段 1 / 8")
-	assert_string_contains(hud.reward_label.text, "剩余行动 10 / 10")
+	assert_string_contains(hud.reward_label.text, "下次应补 3 枚")
 	board.run.state.stage.carry_in = 100
 	hud.show_run(board.run)
 	assert_string_contains(hud.reward_label.text, "完成一次有效行动")
 	board.run.state.stage.used_actions = 10
-	board.run.finish_game(&"stage_target_missed")
+	board.run.finish_game()
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": 0, "run_state": board.run.state})
-	assert_eq((popup.get_node("Panel/Content/Title") as Label).text, "行动耗尽 · 阶段挑战失败")
-	assert_string_contains(HudDetails.summary(board.run.state), "已用行动 10 / 10")
+	assert_eq((popup.get_node("Panel/Content/Title") as Label).text, "棋盘已满，本局结束")
+	assert_string_contains(HudDetails.summary(board.run.state), "已用行动 10")
 	UIManager.close_popup()
 	board.run.state.end_reason = &"challenge_completed"
 	assert_eq(StageText.end_title(board.run.state), "挑战完成")

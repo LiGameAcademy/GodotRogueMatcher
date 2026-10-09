@@ -94,7 +94,7 @@ func replay(records: Array[Dictionary]) -> bool:
 					else: return _fail("seq=%d missing_command_result" % (index + 1))
 				"Footer":
 					if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
-					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"stage_target_missed", &"challenge_completed"]):
+					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"challenge_completed"]):
 						return _fail("invalid_completed_footer")
 					if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
 						return _fail("invalid_completed_footer")

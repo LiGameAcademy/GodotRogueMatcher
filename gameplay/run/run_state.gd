@@ -57,3 +57,10 @@ func reset_counters() -> void:
 
 func mode_id() -> StringName:
 	return &"stage_challenge" if stage.enabled() else &"classic_endless"
+
+func base_refill_count() -> int:
+	return stage.base_refill_count() if stage.enabled() else RunController.SPAWN_CONFIG.refill_count
+
+func next_refill_count() -> int:
+	var base: int = base_refill_count()
+	return spawning.next_refill_count(RunController.SPAWN_CONFIG, base) if base > 0 else 0

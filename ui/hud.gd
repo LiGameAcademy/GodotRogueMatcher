@@ -130,12 +130,12 @@ func finish_score_now() -> bool:
 
 func show_run(run: RunController) -> void:
 	_run = run
-	spawn_preview.show_plan(run.state.spawning.preview(run.state.spawning.next_refill_count(RunController.SPAWN_CONFIG)), run.state.is_game_over)
+	spawn_preview.show_plan(run.state.spawning.preview(run.state.next_refill_count()), run.state.is_game_over)
 	var state: RunState = run.state
 	if state.stage.enabled() and state.stage.config.validation_error().is_empty():
 		reward_label.text = StageText.progress(state)
 		reward_label.add_theme_font_size_override("font_size", 16)
-		reward_label.modulate = Color("ffad83") if state.stage.remaining_actions() <= 2 else Color.WHITE
+		reward_label.modulate = Color("ffad83") if state.base_refill_count() >= state.stage.config.maximum_refill else Color.WHITE
 		reward_bar.min_value = 0
 		reward_bar.max_value = state.stage.target()
 		reward_bar.value = state.stage.carry_in + state.stage.action_score

@@ -3,4 +3,6 @@
 [resource]
 script = ExtResource("1")
 targets = Array[int]([100, 150, 200, 300, 400, 550, 750, 1000])
-action_limits = Array[int]([10, 10, 9, 9, 9, 8, 8, 8])
+pressure_intervals = Array[int]([4, 4, 4, 3, 3, 3, 2, 2])
+base_refill = 3
+maximum_refill = 6

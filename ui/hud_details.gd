@@ -27,7 +27,7 @@ static func skills(state: RunState) -> String:
 		text += "\n"
 	var config: ExplosionConfig = AbilityResolver.DEFAULT_CONFIG
 	text += TranslationServer.translate("五连 G = %.2f · E = %d\n爆炸每目标奖励 %d\n\n") % [1.0 + state.explosion.multiplier_level * config.multiplier_per_level, state.explosion.match_extra_level * config.bonus_per_match, state.explosion.reward_level * config.reward_per_target]
-	text += TranslationServer.translate("下次普通补棋 %d 枚（基础 %d）\n\n") % [state.spawning.next_refill_count(RunController.SPAWN_CONFIG), RunController.SPAWN_CONFIG.refill_count]
+	text += TranslationServer.translate("下次普通补棋 %d 枚（基础 %d）\n\n") % [state.next_refill_count(), state.base_refill_count()]
 	if state.spawning.color_weights != RunController.SPAWN_CONFIG.color_weights:
 		var total_weight: int = 0
 		for weight: int in state.spawning.color_weights: total_weight += weight

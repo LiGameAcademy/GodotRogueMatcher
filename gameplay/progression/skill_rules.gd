@@ -25,7 +25,7 @@ static func unmarked_material(state: RunState) -> Array[int]:
 static func effect_context(state: RunState) -> ChoiceEffectContext:
 	var context: ChoiceEffectContext = ChoiceEffectContext.new()
 	context.spawn_config = RunController.SPAWN_CONFIG
-	context.next_refill = state.spawning.next_refill_count(context.spawn_config)
+	context.next_refill = state.next_refill_count()
 	context.color_weights = state.spawning.color_weights.duplicate()
 	context.refill_batches = state.spawning.refill_batches.duplicate()
 	context.upgrades = state.explosion.upgrades.duplicate()
