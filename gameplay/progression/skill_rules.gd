@@ -3,6 +3,8 @@ extends RefCounted
 
 ## 技能合法条件和应用入口；与界面、回合动画无关。
 static func level(state: RunState, skill: SkillDefinition) -> int:
+	if skill.choice_effect is InstallDyeUpgradeEffect:
+		return state.dye.level((skill.choice_effect as InstallDyeUpgradeEffect).upgrade)
 	if skill.choice_effect is InstallUpgradeEffect:
 		return state.explosion.level((skill.choice_effect as InstallUpgradeEffect).upgrade)
 	match skill.action:
@@ -27,6 +29,7 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.color_weights = state.spawning.color_weights.duplicate()
 	context.refill_batches = state.spawning.refill_batches.duplicate()
 	context.upgrades = state.explosion.upgrades.duplicate()
+	context.dye_upgrades = state.dye.upgrades.duplicate()
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id.is_empty(): context.material.append(piece.copy())
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
@@ -101,7 +104,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	if skill.choice_effect != null:
 		request = skill.choice_effect.build(effect_context(state), targets)
 		result.error = request.error
-		if result.error.is_empty() and request.kind == ChoiceEffectRequest.Kind.CLEAR:
+		if result.error.is_empty() and request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE]:
 			result.error = run.abilities.validation_error(1)
 		if not result.error.is_empty(): return result
 	elif skill.action == SkillDefinition.Action.CORE_DROP:
@@ -139,6 +142,10 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 			ChoiceEffectRequest.Kind.UPGRADE:
 				state.explosion.upgrades[request.upgrade] = state.explosion.level(request.upgrade) + 1
 				if request.upgrade in [&"core_fuse_payload", &"fuse_match_plant"]: state.explosion.fuse_unlocked = true
+			ChoiceEffectRequest.Kind.DYE_UPGRADE:
+				state.dye.upgrades[request.upgrade] = state.dye.level(request.upgrade) + 1
+			ChoiceEffectRequest.Kind.DYE:
+				result.matches = DyeRules.recolor(run.abilities, request.piece_ids, request.color)
 			ChoiceEffectRequest.Kind.CLEAR:
 				for id: int in request.piece_ids: result.removed.append(state.rules.state.get_piece(id).copy())
 				result.matches = run.abilities.resolve_removal(result.removed, &"skill_clear")

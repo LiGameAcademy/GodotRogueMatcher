@@ -47,7 +47,7 @@ func test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run() 
 
 func test_every_skill_has_english_text_without_mutating_resources() -> void:
 	TranslationServer.set_locale("en_US")
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 32)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 38)
 	var chinese: RegEx = RegEx.new()
 	chinese.compile("[\\x{4e00}-\\x{9fff}]")
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:

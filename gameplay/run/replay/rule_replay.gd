@@ -63,7 +63,7 @@ func replay(records: Array[Dictionary]) -> bool:
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
-	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition"]: return _fail("unsupported_initialization")
+	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye"]: return _fail("unsupported_initialization")
 	run.initialize(header.initialization)
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()

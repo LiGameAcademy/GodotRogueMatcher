@@ -55,7 +55,7 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 		for piece_id: int in group.piece_ids:
 			result.removed.append(state.rules.state.get_piece(piece_id))
 		result.center = result.removed[result.removed.size() / 2].coordinate
-		result.score_entry = state.ledger.commit(group.piece_ids.size(), LegacyScoreModifiers.calculate(state.rules.state, group) + global_multiplier, state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.match_score(state, group.piece_ids.size()) + DemolitionRules.marked_score(state, result.removed), &"match", DemolitionRules.root_id(state), group.piece_ids)
+		result.score_entry = state.ledger.commit(group.piece_ids.size(), LegacyScoreModifiers.calculate(state.rules.state, group) + global_multiplier, state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.match_score(state, group.piece_ids.size()) + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, group.piece_ids), &"match", DemolitionRules.root_id(state), group.piece_ids)
 		results.append(result)
 	for result: MatchResult in results:
 		_remove_and_enqueue(result.removed, result.cause, 1, queue)
@@ -67,6 +67,7 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 			for piece: PieceState in result.removed: centers.append(piece.coordinate)
 		DemolitionRules.mark_near(self, centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
 	results.append_array(_resolve_blasts(queue))
+	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
 ## 清理与五连共用离场触发和爆炸队列。调用者在提交根行动前预检。
@@ -83,6 +84,7 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[Matc
 		reward.score_entry = state.ledger.commit(0, 1.0, extra, &"marked_reward", DemolitionRules.root_id(state), [])
 		results.append(reward)
 	results.append_array(_resolve_blasts(queue))
+	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
 func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0) -> String:
@@ -115,6 +117,7 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 		var result: MatchResult = MatchResult.new()
 		result.cause = &"explosion"
 		result.source_id = event.source.piece_id
+		result.source_color = event.source.match_color
 		result.center = event.source.coordinate
 		result.radius = request.radius
 		result.generation = event.generation
@@ -147,6 +150,7 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 			aftershock.synthetic = true
 			aftershock.generation = event.generation + 1
 			queue.append(aftershock)
+	results.append_array(DyeRules.after_blasts(self, results))
 	return results
 
 func _attach(piece_id: int) -> void:
@@ -160,6 +164,7 @@ func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generatio
 	for piece: PieceState in pieces:
 		if state.rules.remove_piece(piece.piece_id) == null:
 			continue
+		state.dye.marks.erase(piece.piece_id)
 		var instance: AbilityInstance = state.explosion.instances.get(piece.piece_id)
 		state.explosion.instances.erase(piece.piece_id)
 		if instance == null:

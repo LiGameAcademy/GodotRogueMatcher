@@ -16,6 +16,7 @@ var pending_rewards: int = 0
 var rewards: RewardState
 var spawn_history: Array[SpawnResult] = []
 var explosion: ExplosionState = ExplosionState.new()
+var dye: DyeState = DyeState.new()
 var rule_error: String = ""
 var run_id: String = ""
 var valid_moves: int = 0
@@ -45,6 +46,7 @@ func reset_counters() -> void:
 	spawning = SpawnState.new(RunController.SPAWN_CONFIG, _initial_seed)
 	spawn_history.clear()
 	explosion = ExplosionState.new()
+	dye = DyeState.new()
 	rule_error = ""
 	random.seed = _initial_seed
 	phase = Phase.INITIALIZING

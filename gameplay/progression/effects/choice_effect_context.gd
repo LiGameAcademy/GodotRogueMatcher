@@ -9,3 +9,4 @@ var spawn_config: SpawnConfig
 var refill_batches: Dictionary[int, int] = {}
 var fuse_ids: Array[int] = []
 var upgrades: Dictionary[StringName, int] = {}
+var dye_upgrades: Dictionary[StringName, int] = {}

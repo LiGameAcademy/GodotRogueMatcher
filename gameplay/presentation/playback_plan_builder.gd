@@ -17,11 +17,14 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 	var steps: Array[PresentationStep] = []
 	for result: MatchResult in results:
 		# 同代同时显示；下一代只在本代必需动画完成后派发。
-		if steps.is_empty() or steps.back().matches.back().generation != result.generation:
+		if steps.is_empty() or steps.back().matches.back().generation != result.generation or steps.back().matches.back().cause != result.cause:
 			steps.append(PresentationStep.new())
 		var frozen: MatchResult = MatchResult.new()
 		frozen.cause = result.cause
 		frozen.source_id = result.source_id
+		frozen.source_color = result.source_color
+		frozen.previous_colors = result.previous_colors.duplicate()
+		for piece: PieceState in result.recolored: frozen.recolored.append(piece.copy())
 		frozen.center = result.center
 		frozen.radius = result.radius
 		frozen.generation = result.generation

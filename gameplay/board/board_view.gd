@@ -230,6 +230,10 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 func animate_matches(results: Array[MatchResult]) -> void:
 	score_floats.show_results(results, _spacing, get_display_rect(), low_effects, presentation_speed)
 	for result: MatchResult in results:
+		for changed: PieceState in result.recolored:
+			show_color(changed.piece_id, changed.match_color)
+			var dyed: ChessPiece = get_piece(changed.piece_id)
+			if is_instance_valid(dyed) and not low_effects: track_presentation(dyed.land())
 		var cells: Array[Cell] = []
 		for snapshot: PieceState in result.removed:
 			cells.append(get_cell(snapshot.coordinate))

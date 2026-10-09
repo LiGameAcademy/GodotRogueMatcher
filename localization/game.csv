@@ -399,3 +399,18 @@ It clears nearby pieces. Detonation uses an action and is usually followed by a 
 传递接力,传递接力,Relay Capacity
 本局引信传递的全局目标上限每级+1，最多2级（3→4→5）；每源仍至多1枚。,本局引信传递的全局目标上限每级+1，最多2级（3→4→5）；每源仍至多1枚。,Increase Fuse Relay's global target cap by 1 per level (3 → 4 → 5). Max level 2. Each source still spreads to at most one piece.
 引,引,F
+爆破染色,爆破染色,Blast Dye
+每次行动首个有效爆炸后，染色1枚爆区边缘外侧1格内存活的异色普通棋子；与五连共用波数。,每次行动首个有效爆炸后，染色1枚爆区边缘外侧1格内存活的异色普通棋子；与五连共用波数。,"After the first effective blast each action, dye 1 surviving ordinary piece of another color within one cell outside its edge. Shares the match wave limit."
+再续一线,再续一线,Second Echo
+染色补出新五连时可再染1波；每次行动最多2波。,染色补出新五连时可再染1波；每次行动最多2波。,A match created by dye can trigger another wave. At most 2 waves per action.
+留色赏金,留色赏金,Dye Bounty
+被染色棋子参与五连消除时，每枚额外获得5分；最多2级。,被染色棋子参与五连消除时，每枚额外获得5分；最多2级。,Dyed pieces cleared by a match grant 5 extra points each per level. Maximum level: 2.
+染色扩散,染色扩散,Spread Dye
+每波染色目标从1枚增加到2枚。,每波染色目标从1枚增加到2枚。,Increase dye targets from 1 to 2 per wave.
+即时染色,即时染色,Instant Dye
+立即将最多3枚异色普通棋子染成同一颜色，并检验五连。,立即将最多3枚异色普通棋子染成同一颜色，并检验五连。,"Immediately dye up to 3 ordinary pieces of another color to one color, then check for matches."
+染色接续,染色接续,Dye Echo
+五连消除后，将相邻的1枚异色普通棋子染成消除色；每次行动最多1波。,五连消除后，将相邻的1枚异色普通棋子染成消除色；每次行动最多1波。,"After a five-piece match, dye 1 adjacent ordinary piece of another color to the match color. At most 1 wave per action."
+染,染,Dye
+%s · 同时染色 %d 枚,%s · 同时染色 %d 枚,%s · Dye %d pieces
+染色试玩：将第5列第7行红棋移到第5列第5行,染色试玩：将第5列第7行红棋移到第5列第5行,"Dye trial: move the red piece at column 5, row 7 to column 5, row 5."

@@ -134,3 +134,16 @@ func test_rebuild_does_not_reuse_old_run_tooltip_for_same_piece_id() -> void:
 	view.refresh_piece_details(next_rules.state.get_snapshot(), ExplosionState.new(), run.abilities.config)
 	assert_eq(view.get_piece(ordinary.piece_id).tooltip_region.tooltip_text, "")
 	assert_false(view.get_piece(ordinary.piece_id).ability_marker.visible)
+
+func test_dye_step_changes_visual_color_before_following_match_without_rule_mutation() -> void:
+	var run: RunController = RunController.new(rules, 7)
+	var piece: PieceState = rules.place_piece(Vector2i.ZERO, 2)
+	view.rebuild(rules.state.get_snapshot())
+	var results: Array[MatchResult] = DyeRules.recolor(run.abilities, [piece.piece_id], 0)
+	var steps: Array[PresentationStep] = PlaybackPlanBuilder.matches(results)
+	rules.set_piece_color(piece.piece_id, 1)
+	view.animate_matches(steps[0].matches)
+	await view.wait_for_presentation()
+	assert_eq(view.get_piece(piece.piece_id).piece_type, 0)
+	assert_eq(rules.state.get_piece(piece.piece_id).match_color, 1)
+	assert_eq(steps[0].matches[0].recolored[0].match_color, 0)

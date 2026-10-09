@@ -75,7 +75,7 @@ static func score_details(entries: Array[ScoreEntry]) -> String:
 	var lines: PackedStringArray = []
 	var total: int = 0
 	for entry: ScoreEntry in entries:
-		if entry.root_action_id != action: continue
+		if entry.root_action_id != action or entry.reason == &"dye": continue
 		total += entry.final_score
 		var reason: String = TranslationServer.translate("爆炸") if entry.reason == &"explosion" else (TranslationServer.translate("连携回响") if entry.reason == &"chain_reward" else (TranslationServer.translate("印记收获") if entry.reason == &"marked_reward" else TranslationServer.translate("消除")))
 		lines.append("%s：%d × %.2f + %d = %d" % [reason, entry.base_score, entry.multiplier, entry.extra_score, entry.final_score])

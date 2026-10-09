@@ -33,9 +33,9 @@ ItemRegistry="*res://gameplay/items/item_registry.gd"
 
 [display]
 
-window/stretch/mode="canvas_items"
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [godot_core_system]
 
@@ -55,8 +55,7 @@ locale/fallback="en_US"
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.025, 0.038, 0.055, 1)
-
+textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-textures/canvas_textures/default_texture_filter=3
+environment/defaults/default_clear_color=Color(0.025, 0.038, 0.055, 1)

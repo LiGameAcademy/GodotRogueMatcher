@@ -82,6 +82,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		var key: InputEventKey = event as InputEventKey
 		if key.pressed and not key.echo and key.physical_keycode == KEY_F6:
 			board.load_explosion_demo()
+		elif key.pressed and not key.echo and key.physical_keycode == KEY_F10:
+			if await board.load_explosion_demo("fixture_dye"):
+				hud.show_status("染色试玩：将第5列第7行红棋移到第5列第5行")
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F7:
 			board.open_skill_demo()
 

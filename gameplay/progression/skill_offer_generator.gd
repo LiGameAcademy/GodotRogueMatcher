@@ -35,7 +35,13 @@ const CATALOG: Array[SkillDefinition] = [
 	preload("res://gameplay/progression/content/core_fuse_payload.tres"),
 	preload("res://gameplay/progression/content/blast_chain_radius.tres"),
 	preload("res://gameplay/progression/content/blast_refill_relief.tres"),
-	preload("res://gameplay/progression/content/blast_aftershock.tres")]
+	preload("res://gameplay/progression/content/blast_aftershock.tres"),
+	preload("res://gameplay/progression/content/match_dye_echo.tres"),
+	preload("res://gameplay/progression/content/dye_target_up.tres"),
+	preload("res://gameplay/progression/content/dye_chain_depth.tres"),
+	preload("res://gameplay/progression/content/dye_mark_reward.tres"),
+	preload("res://gameplay/progression/content/blast_dye.tres"),
+	preload("res://gameplay/progression/content/instant_color_dye.tres")]
 
 var last_error: String = ""
 
@@ -73,7 +79,7 @@ func generate(run: RunController) -> SkillOffer:
 		var pool_name: String = "normal"
 		if slot == 0 and offer.reward_id <= 2 and not _ever_started(state):
 			for skill: SkillDefinition in remaining:
-				if skill.skill_id == &"core_drop": pool.append(skill)
+				if skill.is_starter: pool.append(skill)
 			if not pool.is_empty(): pool_name = "starter"
 		if pool.is_empty() and not remaining.is_empty():
 			var split: float = unit_random(rewards.candidate_random)
@@ -162,7 +168,7 @@ func _remaining(pool: Array[SkillDefinition], used: Array[StringName]) -> Array[
 	return result
 
 func _ever_started(state: RunState) -> bool:
-	return state.explosion.core_pool_unlocked
+	return state.explosion.core_pool_unlocked or state.dye.level(&"match_dye_echo") > 0
 
 func _related(skill: SkillDefinition, profile: Dictionary[StringName, float]) -> bool:
 	for tag: StringName in skill.tags:
@@ -170,7 +176,7 @@ func _related(skill: SkillDefinition, profile: Dictionary[StringName, float]) ->
 	return false
 
 func _explores(skill: SkillDefinition, profile: Dictionary[StringName, float]) -> bool:
-	return (skill.tags.has(&"exp") and profile.get(&"exp", 0.0) < 1.0) or not _related(skill, profile)
+	return (skill.tags.has(&"dye") and profile.get(&"dye", 0.0) < 1.0) or (skill.tags.has(&"exp") and profile.get(&"exp", 0.0) < 1.0) or not _related(skill, profile)
 
 func _by_id(a: SkillDefinition, b: SkillDefinition) -> bool:
 	return String(a.skill_id) < String(b.skill_id)

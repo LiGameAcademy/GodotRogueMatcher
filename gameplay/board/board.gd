@@ -115,7 +115,7 @@ func retry_game(board_rules: BoardRules) -> void:
 	await start_game(board_rules, true)
 
 ## 调试入口只在稳定输入点加载固定爆炸盘面。
-func load_explosion_demo() -> bool:
+func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()):
 		return false
 	run_reset.emit()
@@ -136,7 +136,7 @@ func load_explosion_demo() -> bool:
 	_score_presentation_pending = false
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
-	run.initialize("fixture_f6")
+	run.initialize(mode)
 	run.recorder = RunRecorder.new()
 	observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
 	run.recorder.begin(run, "fixture")

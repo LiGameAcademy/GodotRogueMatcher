@@ -111,5 +111,5 @@ static func pieces(values: Array[PieceState]) -> Array[Dictionary]:
 static func matches(values: Array[MatchResult]) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for value: MatchResult in values:
-		result.append(RunSnapshot.normalize({"cause": value.cause, "removed": pieces(value.removed), "center": value.center, "source_id": value.source_id, "radius": value.radius, "generation": value.generation, "score": RunSnapshot.score(value.score_entry)}))
+		result.append(RunSnapshot.normalize({"cause": value.cause, "removed": pieces(value.removed), "recolored": pieces(value.recolored), "previous_colors": value.previous_colors, "source_color": value.source_color, "center": value.center, "source_id": value.source_id, "radius": value.radius, "generation": value.generation, "score": RunSnapshot.score(value.score_entry)}))
 	return result

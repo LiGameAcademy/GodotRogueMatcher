@@ -158,6 +158,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	if mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
 	elif mode == "fixture_f6": ExplosionDemo.populate(self)
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
+	elif mode == "fixture_dye": DyeDemo.populate(self)
 	else:
 		state.rule_error = "unsupported_initialization"
 		state.phase = RunState.Phase.ERROR

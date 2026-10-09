@@ -13,7 +13,7 @@ func test_first_offer_has_starter_and_distinct_legal_ids() -> void:
 	run.state.rules.place_piece(Vector2i.ZERO, 0)
 	var offer: SkillOffer = generator.generate(run)
 	assert_eq(offer.choices.size(), 3)
-	assert_true(offer.generation_order[0] in [&"core_drop", &"assign_fuse"])
+	assert_true(offer.generation_order[0] in [&"core_drop", &"match_dye_echo"])
 	assert_true(_contains(offer, &"core_drop"))
 	for skill: SkillDefinition in offer.choices: assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "")
 	assert_eq(run.state.pending_rewards, 3)
@@ -149,7 +149,7 @@ func test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades() -> voi
 		sample.state.rules.place_piece(Vector2i.ZERO, 0)
 		var offer: SkillOffer = generator.generate(sample)
 		var unique: Array[StringName] = []
-		if offer.choices.size() != 3 or offer.generation_order[0] != &"core_drop": invalid += 1
+		if offer.choices.size() != 3 or offer.generation_order[0] not in [&"core_drop", &"match_dye_echo"]: invalid += 1
 		for skill: SkillDefinition in offer.choices:
 			if unique.has(skill.skill_id) or not SkillRules.rejection(sample.state, skill, sample.abilities.config).is_empty(): invalid += 1
 			unique.append(skill.skill_id)

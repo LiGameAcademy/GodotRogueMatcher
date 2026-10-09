@@ -17,12 +17,14 @@ static func level_text(skill: SkillDefinition, target: SkillTarget) -> String:
 
 static func preview(skill: SkillDefinition, target: SkillTarget) -> String:
 	var detail: String = ""
-	if skill.choice_effect is InstallUpgradeEffect:
+	if skill.choice_effect is InstallUpgradeEffect or skill.choice_effect is InstallDyeUpgradeEffect:
 		detail = TranslationServer.translate("局内保留 · 核心离场不卸下") if skill.requires_core else TranslationServer.translate("本局持续生效 · 重试后重置")
 	if skill.choice_effect is RefillCountEffect:
 		detail = TranslationServer.translate("实际补棋：%d → %d 枚\n剩余批次：%d → %d 次") % [target.value_before, target.value_after, target.remaining_before, target.remaining_after]
 	elif skill.choice_effect is ColorWeightEffect:
 		detail = TranslationServer.translate("%s权重：%d → %d") % [_color_name(target.color), target.value_before, target.value_after]
+	elif skill.choice_effect is DyeMaterialEffect:
+		detail = TranslationServer.translate("%s · 同时染色 %d 枚") % [_color_name(target.color), target.piece_ids.size()]
 	elif skill.choice_effect is ClearMaterialEffect:
 		if skill.choice_effect.requires_color_choice():
 			return TranslationServer.translate("由你选择要清理的颜色\n可收起面板查看棋盘")
@@ -31,6 +33,7 @@ static func preview(skill: SkillDefinition, target: SkillTarget) -> String:
 	return detail
 
 static func emblem(skill: SkillDefinition) -> String:
+	if skill.tags.has(&"dye"): return TranslationServer.translate("染")
 	if skill.tags.has(&"exp"): return TranslationServer.translate("爆")
 	if skill.tags.has(&"generation"): return TranslationServer.translate("生")
 	if skill.tags.has(&"utility"): return TranslationServer.translate("清")

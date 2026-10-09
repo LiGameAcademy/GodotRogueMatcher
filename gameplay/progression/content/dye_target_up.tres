@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_dye_upgrade_effect.gd" id="2"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+upgrade = &"dye_target_up"
+[resource]
+script = ExtResource("1")
+skill_id = &"dye_target_up"
+title = "染色扩散"
+description = "每波染色目标从1枚增加到2枚。"
+base_weight = 10.0
+tags = Array[StringName]([&"dye", &"match"])
+choice_effect = SubResource("effect")
+rarity = 1
+maximum_level = 1
+is_starter = false
+is_persistent = true
+minimum_reward = 1
+prerequisite = &"match_dye_echo"

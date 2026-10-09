@@ -1,7 +1,7 @@
 class_name ChoiceEffectRequest
 extends RefCounted
 
-enum Kind { REFILL, COLOR_WEIGHT, CLEAR, UPGRADE }
+enum Kind { REFILL, COLOR_WEIGHT, CLEAR, UPGRADE, DYE_UPGRADE, DYE }
 var upgrade: StringName
 var kind: Kind = Kind.REFILL
 var error: String = ""

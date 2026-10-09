@@ -18,7 +18,7 @@ func _detonate(run: RunController, id: int) -> CommandResult:
 func _install(run: RunController, key: StringName, value: int = 1) -> void:
 	run.state.explosion.upgrades[key] = value
 
-func test_catalog_has_32_real_distinct_effects_and_five_grades() -> void:
+func test_catalog_has_38_real_distinct_effects_and_five_grades() -> void:
 	var ids: Array[StringName] = []
 	var grades: Array[int] = [0, 0, 0, 0, 0]
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
@@ -30,6 +30,7 @@ func test_catalog_has_32_real_distinct_effects_and_five_grades() -> void:
 		run.state.explosion.fuse_unlocked = true
 		run.state.rewards.acquired[&"core_manual_detonation"] = 1
 		run.state.rewards.acquired[&"fuse_relay"] = 1
+		run.state.rewards.acquired[&"match_dye_echo"] = 1
 		run.state.rewards.consumed_count = 5
 		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, 1), x)
 		run.abilities.assign_fuse(run.state.rules.state.get_piece_id(Vector2i.ZERO + Vector2i.DOWN))
@@ -49,8 +50,8 @@ func test_catalog_has_32_real_distinct_effects_and_five_grades() -> void:
 		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else -1)
 		assert_true(result.success, "%s: %s" % [skill.skill_id, result.error])
 		if skill.choice_effect is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
-	assert_eq(ids.size(), 32)
-	assert_eq(grades, [10, 9, 8, 4, 1])
+	assert_eq(ids.size(), 38)
+	assert_eq(grades, [11, 11, 10, 5, 1])
 
 func test_prerequisites_and_rarity_multiply_after_clamp_once() -> void:
 	var run: RunController = _run()

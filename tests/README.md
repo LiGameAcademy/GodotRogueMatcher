@@ -104,3 +104,5 @@ test_telemetry.gd验证采集不污染规则、曝光与选择去重、计时及
 
 test_presentation_director.gd验证队列身份、空队列、重复完成、取消、暂停、结果复制、并行动画屏障和F8快慢规则/采集一致。测试核心奖励与F7改为等待实际导演完成，避免用固定帧数猜测新出生动画已结束。F8切换1×/2×，使用说明见[表现模块](../gameplay/presentation/README.md)，细节见外层GDC/acceptance/m5a-最小表现导演验收.md。
 最终完整回归138项测试、2103断言通过，日志.godot/m5a-delivery-tests.log。
+
+2026-10-09染色试玩：完整32脚本/230项回归229通过，新增英文翻译随后补齐；最终染色/视图/本地化3脚本22项266断言全部通过，日志`.godot/dye_verified_final_tests.log`。新增9项规则与1项冻结变色视图用例；开发Catalog38项。详见外层GDC/acceptance/0.0.2-染色试玩切片.md；不将子集结果当作完整全绿回归。

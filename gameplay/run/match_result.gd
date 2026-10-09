@@ -2,6 +2,9 @@ class_name MatchResult
 extends RefCounted
 
 var removed: Array[PieceState] = []
+var recolored: Array[PieceState] = []
+var previous_colors: Array[int] = []
+var source_color: int = -1
 var score_entry: ScoreEntry
 var cause: StringName = &"match"
 var source_id: int = 0
