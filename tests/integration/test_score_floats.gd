@@ -158,3 +158,17 @@ func _show(result: MatchResult) -> ScoreFloat:
 
 func _show_results(results: Array[MatchResult]) -> void:
 	view.score_floats.show_results(results, Vector2(65, 65), view.get_display_rect(), view.low_effects, view.presentation_speed)
+
+func test_score_burst_notifies_once_with_an_independent_entry_and_local_anchor() -> void:
+	var events: Array[ScoreEntry] = []
+	var origins: Array[Vector2] = []
+	view.score_floats.score_visualized.connect(func(entry: ScoreEntry, origin: Vector2) -> void:
+		events.append(entry)
+		origins.append(origin))
+	var result: MatchResult = _result(5, 1.0, 0, Vector2i(4, 4))
+	_show_results([result, result])
+	assert_eq(events.size(), 1)
+	assert_eq(origins, [Vector2(260, 260)])
+	events[0].extra_score = 500
+	assert_eq(result.score_entry.extra_score, 0)
+	assert_eq(ledger.total, 50)

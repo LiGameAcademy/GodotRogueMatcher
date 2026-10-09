@@ -105,13 +105,19 @@ func test_six_piece_preview_fits_panel_at_supported_sizes_in_both_languages() ->
 				var slot: Rect2 = Rect2(Vector2(2 + index * 36, 21), Vector2(32, 32))
 				assert_true(bounds.encloses(slot), "%s %s slot %d" % [locale, resolution, index + 1])
 			assert_true(bounds.encloses(preview.title.get_rect()))
-			assert_true(bounds.encloses(preview.hint.get_rect()))
 			assert_lte(preview.title.get_minimum_size().x, preview.title.size.x)
-			assert_lte(preview.hint.get_minimum_size().x, preview.hint.size.x)
-			var frame: Control = hud.get_node("Margin/Rows/Header/Progress/PreviewFrame") as Control
-			var growth: Control = hud.get_node("Margin/Rows/Header/Progress/GrowthFrame") as Control
-			assert_lte(frame.get_global_rect().end.x, growth.get_global_rect().position.x)
+			assert_false(preview.hint.visible)
+			var frame: Control = hud.get_node("Margin/Rows/Header/Top/PreviewFrame") as Control
+			var score: Control = hud.get_node("Margin/Rows/Header/Top/ScoreFrame") as Control
+			var pool: PiecePool = hud.piece_pool
+			assert_lte(score.get_global_rect().end.x, frame.get_global_rect().position.x)
+			assert_lte(frame.get_global_rect().end.x, pool.get_global_rect().position.x)
 			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(frame.get_global_rect()), "%s %s preview %s" % [locale, resolution, frame.get_global_rect()])
-			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(growth.get_global_rect()), "%s %s growth %s" % [locale, resolution, growth.get_global_rect()])
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(hud.goal_progress.get_global_rect()))
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(hud.pause_button.get_global_rect()), "%s %s pause %s" % [locale, resolution, hud.pause_button.get_global_rect()])
+			pool.open()
+			await wait_process_frames(3)
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(pool.panel.get_global_rect()))
+			pool.close()
 			assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline)
 	TranslationServer.set_locale(old_locale)

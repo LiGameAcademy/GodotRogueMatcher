@@ -462,3 +462,49 @@ Action score %d | Carry %d | Actions used %d
 从下方打开目录或导出记录；Excel 分析在离线工具中完成。","试玩记录保存在本机，不上传。
 从下方打开目录或导出记录；Excel 分析在离线工具中完成。","Playtest records stay on this computer. Nothing is uploaded.
 Open the folder or export below; spreadsheet analysis runs offline."
+"棋子池","棋子池","Piece pool"
+"点击固定棋子池；再次点击或按 ESC 关闭。","点击固定棋子池；再次点击或按 ESC 关闭。","Click to pin the piece pool; click again or press ESC to close."
+"类型候选 · 新生成的预告","类型候选 · 新生成的预告","Type candidates · newly generated previews"
+"普通 %d/%d（%.1f%%）","普通 %d/%d（%.1f%%）","Normal %d/%d (%.1f%%)"
+"爆破手候选 %d/%d（%.1f%%）","爆破手候选 %d/%d（%.1f%%）","Demolition candidate %d/%d (%.1f%%)"
+"普通 100% · 爆破手尚未解锁","普通 100% · 爆破手尚未解锁","Normal 100% · demolition not unlocked"
+"
+普通类型内的颜色概率","
+普通类型内的颜色概率","
+Color probabilities within the normal type"
+"
+颜色权重只影响新预告，已显示的棋子不会重抽。
+爆破手场上唯一：候选出生时若已有爆破手，会转成预告中的普通颜色。","
+颜色权重只影响新预告，已显示的棋子不会重抽。
+爆破手场上唯一：候选出生时若已有爆破手，会转成预告中的普通颜色。","
+Color weights affect new previews; displayed pieces are not rerolled.
+Only one demolition core may exist: if a core is present at birth, the candidate uses its previewed normal color."
+"当前分数","当前分数","Current score"
+"目标分数","目标分数","Target score"
+"总分 · 整局累计得分","总分 · 整局累计得分","Total score · cumulative for the run"
+"当前分数 · 整局累计，过关不扣分。选卡额外得分也推进目标。","当前分数 · 整局累计，过关不扣分。选卡额外得分也推进目标。","Current score · cumulative for the run, never deducted on passing. Skill-choice scores also advance the goal."
+"达到目标分数后触发技能三选一。","达到目标分数后触发技能三选一。","Reach the target score for a choice of three skills."
+"未达标持续增加补棋数量，达标恢复并触发技能三选一。","未达标持续增加补棋数量，达标恢复并触发技能三选一。","Refills grow until the goal is reached; passing resets pressure and grants a choice of three skills."
+"下次应补 %d 枚 · 基础 %d 枚","下次应补 %d 枚 · 基础 %d 枚","Next refill %d pieces · base %d pieces"
+"整局总分 %d · 过关不扣分","整局总分 %d · 过关不扣分","Run total %d · passing never deducts score"
+"每笔得分 = floor(B × G + E)
+五连基础 B = N × (N + 5)，N 为消除数量（至少5枚）。
+G 为该笔倍率，E 为额外得分；独立技能奖励的 B 为0。","每笔得分 = floor(B × G + E)
+五连基础 B = N × (N + 5)，N 为消除数量（至少5枚）。
+G 为该笔倍率，E 为额外得分；独立技能奖励的 B 为0。","Each entry = floor(B × G + E)
+Line base B = N × (N + 5), where N is the clear count (at least 5).
+G is the entry multiplier; E is bonus score. Standalone skill bonuses have B = 0."
+"实际构成：行动 %d + 选卡 %d + 其他 %d = %d","实际构成：行动 %d + 选卡 %d + 其他 %d = %d","Breakdown: actions %d + skill choices %d + other %d = %d"
+"总分是各笔最终得分之和，采用得分当时的倍率。","总分是各笔最终得分之和，采用得分当时的倍率。","Total is the sum of finalized entries, using the multiplier at the time of scoring."
+"阶段 %d / %d · 目标总分 %d · 总分 %d
+行动得分 %d · 起始超额 %d · 已用行动 %d
+
+","阶段 %d / %d · 目标总分 %d · 总分 %d
+行动得分 %d · 起始超额 %d · 已用行动 %d
+
+","Stage %d / %d · total target %d · score %d
+Action score %d · starting excess %d · actions used %d
+
+"
+"阶段 %d / %d","阶段 %d / %d","Stage %d / %d"
+"关闭","关闭","Close"

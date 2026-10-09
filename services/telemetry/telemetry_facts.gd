@@ -41,7 +41,9 @@ static func stage(state: Dictionary, config: Dictionary) -> Dictionary:
 	if index < 0 or index >= table.get("targets", []).size(): return {"enabled": true, "invalid": true}
 	var base: int = int(table.base_refill) if value.awaiting_reward else mini(int(table.maximum_refill), int(table.base_refill) + int(float(value.used_actions) / int(table.pressure_intervals[index])))
 	var next_count: int = clampi(base + delta, 1, 6)
-	return {"enabled": true, "stage_id": index + 1, "u": value.used_actions, "q": next_count, "base_q": base, "T": table.targets[index], "action_score": value.action_score, "carry": value.carry_in, "missing": maxi(0, int(table.targets[index]) - int(value.action_score) - int(value.carry_in)), "awaiting_reward": value.awaiting_reward}
+	var cumulative: int = 0
+	for stage_index: int in range(index + 1): cumulative += int(table.targets[stage_index])
+	return {"enabled": true, "stage_id": index + 1, "u": value.used_actions, "q": next_count, "base_q": base, "T": table.targets[index], "target_total": cumulative, "score_total": state.total, "action_score": value.action_score, "carry": value.carry_in, "missing": maxi(0, cumulative - int(state.total)), "awaiting_reward": value.awaiting_reward}
 
 static func ending(status: String) -> String:
 	return {"completed": "gameplay_terminal", "abandoned": "user_stop", "censored": "tool_censored", "rule_error": "error"}.get(status, "error")

@@ -22,19 +22,11 @@ static func skills(state: RunState) -> String:
 		elif state.explosion.instances.has(piece.piece_id): fuses += 1
 	var text: String = TranslationServer.translate("爆壳手在场 %d · 引信 %d\n\n") % [cores, fuses]
 	if state.explosion.core_pool_unlocked:
-		text += TranslationServer.translate("核心补给已解锁 · 场上唯一\n核心类型权重 %d／普通 %d\n") % [DemolitionRules.CONFIG.core_type_weight + state.explosion.level(&"core_supply_up"), DemolitionRules.CONFIG.ordinary_type_weight]
+		text += TranslationServer.translate("核心补给已解锁 · 场上唯一\n")
 		if cores == 0: text += TranslationServer.translate("已安装核心强化对下一枚生效\n")
 		text += "\n"
 	var config: ExplosionConfig = AbilityResolver.DEFAULT_CONFIG
 	text += TranslationServer.translate("五连 G = %.2f · E = %d\n爆炸每目标奖励 %d\n\n") % [1.0 + state.explosion.multiplier_level * config.multiplier_per_level, state.explosion.match_extra_level * config.bonus_per_match, state.explosion.reward_level * config.reward_per_target]
-	text += TranslationServer.translate("下次普通补棋 %d 枚（基础 %d）\n\n") % [state.next_refill_count(), state.base_refill_count()]
-	if state.spawning.color_weights != RunController.SPAWN_CONFIG.color_weights:
-		var total_weight: int = 0
-		for weight: int in state.spawning.color_weights: total_weight += weight
-		var chances: PackedStringArray = []
-		for color: int in range(state.spawning.color_weights.size()):
-			chances.append("%s %d／%d（%.1f%%）" % [TranslationServer.translate(PieceTooltip.COLOR_NAMES[color]), state.spawning.color_weights[color], total_weight, 100.0 * state.spawning.color_weights[color] / total_weight])
-		text += TranslationServer.translate("普通生成权重\n") + "\n".join(chances) + "\n\n"
 	text += "\n\n".join(persistent) if not persistent.is_empty() else TranslationServer.translate("尚未获得持续技能")
 	if not temporary.is_empty(): text += TranslationServer.translate("\n\n有效临时技能\n") + "\n\n".join(temporary)
 	return text

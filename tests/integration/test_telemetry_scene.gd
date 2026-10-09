@@ -128,3 +128,13 @@ func test_help_export_controls_preserve_rules_and_normalize_ui_exit_location() -
 	var summary: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(board.observation.telemetry.summary_path))
 	assert_eq(summary.exit_observation.ui, "help")
 	assert_eq(summary.reason, "window_close_requested")
+
+func test_piece_pool_location_is_observed_and_viewing_preserves_rules() -> void:
+	var game: Node2D = main.get_node("Game") as Node2D
+	var hud: Hud = game.get_node("UILayer/HUD") as Hud
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	hud.piece_pool.open()
+	assert_eq(board.observation.telemetry.observation().ui, "piece_pool")
+	hud.piece_pool.close()
+	assert_eq(board.observation.telemetry.observation().ui, "board_input")
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)

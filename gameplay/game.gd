@@ -54,6 +54,9 @@ func _ready() -> void:
 	board.feedback_requested.connect(feedback.play)
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
+	board.run_reset.connect(hud.reset_score_effects)
+	board.view.score_floats.score_visualized.connect(_on_score_visualized)
+	hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
 	board.selection_changed.connect(_on_selection_feedback)
 	board.selection_changed.connect(hud.show_selection)
 	board.operation_feedback.connect(hud.show_status)
@@ -123,6 +126,7 @@ func _on_game_over() -> void:
 
 func _show_menu() -> void:
 	if release_menu.visible or is_instance_valid(UIManager.current_popup): return
+	hud.piece_pool.close()
 	_menu_previous_pause = get_tree().paused
 	_menu_owns_pause = true
 	get_tree().paused = true
@@ -190,6 +194,12 @@ func _preview_volume(volume: float) -> void:
 
 func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
 	if piece != null: feedback.play(&"select")
+
+func _on_score_visualized(entry: ScoreEntry, origin: Vector2) -> void:
+	hud.show_score_burst(entry, board.view.score_floats.get_global_transform_with_canvas() * origin)
+
+func _on_piece_pool_visibility_changed(open: bool) -> void:
+	_set_collection_location("piece_pool" if open else "")
 
 func _refresh_hud() -> void:
 	hud.show_run(board.run)

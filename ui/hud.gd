@@ -1,6 +1,9 @@
 class_name Hud
 extends Control
 
+const GOAL_PROGRESS: Script = preload("res://ui/goal_progress/goal_progress.gd")
+const PIECE_POOL: Script = preload("res://ui/piece_pool/piece_pool.gd")
+
 ## 只显示已提交数据；数字缓存和Tween不参与规则计算。
 signal score_animation_changed
 signal fast_requested(fast: bool)
@@ -11,12 +14,15 @@ signal low_effects_requested(enabled: bool)
 signal volume_requested(volume: float)
 signal volume_committed(volume: float)
 signal board_area_changed
+signal piece_pool_visibility_changed(open: bool)
 
 @export var score_duration: float = 0.45
 @onready var score_label: Label = %ScoreLabel
 @onready var gain_label: Label = %GainLabel
-@onready var reward_label: Label = %RewardLabel
-@onready var reward_bar: ProgressBar = %RewardBar
+@onready var goal_progress: GOAL_PROGRESS = %GoalProgress
+@onready var piece_pool: PIECE_POOL = %PiecePool
+@onready var reward_label: Label = goal_progress.current_label
+@onready var reward_bar: ProgressBar = goal_progress.bar
 @onready var board_label: Label = %BoardLabel
 @onready var pressure_bar: ProgressBar = %PressureBar
 @onready var turn_label: Label = %TurnLabel
@@ -59,6 +65,8 @@ func _ready() -> void:
 	volume_slider.drag_started.connect(_on_volume_drag_started)
 	volume_slider.drag_ended.connect(_on_volume_drag_ended)
 	board_area.item_rect_changed.connect(_notify_board_area)
+	piece_pool.pool_view_changed.connect(piece_pool_visibility_changed.emit)
+	goal_progress.value_changed.connect(_on_goal_value_changed)
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
@@ -107,6 +115,10 @@ func show_score(target: int) -> void:
 	_gain_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 	_gain_tween.tween_interval(1.2)
 	_gain_tween.tween_property(gain_label, "modulate:a", 0.0, 0.35)
+	# 有光点时上下两个读数共享同一填充插值，不各自播放两套计数。
+	if not goal_progress.context.is_empty() and goal_progress.accepted_value() == target:
+		if not goal_progress.is_animating(): _set_score(float(target))
+		return
 	_score_tween = create_tween()
 	_score_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 	_score_tween.set_speed_scale(2.0 if _fast else 1.0)
@@ -119,39 +131,41 @@ func wait_for_score() -> bool:
 	while _score_tween != null and _score_tween.is_valid() and _score_tween.is_running():
 		await score_animation_changed
 		if epoch != _epoch: return false
-	return true
+	return await goal_progress.wait_until_settled()
 
 ## 正常跳过只结束插值，不递增局身份，也不再次提交分数。
 func finish_score_now() -> bool:
-	if _score_tween == null or not _score_tween.is_valid() or not _score_tween.is_running(): return false
-	_score_tween.kill()
-	_finish_score(_target_score, _epoch)
-	return true
+	var finished: bool = goal_progress.finish_now()
+	if _score_tween != null and _score_tween.is_valid() and _score_tween.is_running():
+		_score_tween.kill()
+		_finish_score(_target_score, _epoch)
+		finished = true
+	return finished
+
+func show_score_burst(entry: ScoreEntry, origin: Vector2) -> void:
+	if _run == null: return
+	goal_progress.add_gain(entry.final_score, origin)
+
+func reset_score_effects() -> void:
+	goal_progress.cancel()
+	piece_pool.close()
 
 func show_run(run: RunController) -> void:
 	_run = run
 	spawn_preview.show_plan(run.state.spawning.preview(run.state.next_refill_count()), run.state.is_game_over)
 	var state: RunState = run.state
+	piece_pool.show_state(state)
+	score_label.tooltip_text = ScoreTooltip.describe(state)
 	if state.stage.enabled() and state.stage.config.validation_error().is_empty():
-		reward_label.text = StageText.progress(state)
-		reward_label.add_theme_font_size_override("font_size", 16)
-		reward_label.modulate = Color("ffad83") if state.base_refill_count() >= state.stage.config.maximum_refill else Color.WHITE
-		reward_bar.min_value = 0
-		reward_bar.max_value = state.stage.target()
-		reward_bar.value = state.stage.carry_in + state.stage.action_score
+		goal_progress.show_goal(state.run_id + ":stage:" + str(state.stage.index), GoalProgressText.current(state), state.stage.previous_target_total(), state.stage.target_total(), GoalProgressText.current_tooltip(state), GoalProgressText.target_tooltip(state), GoalProgressText.rule_tooltip(state))
+		spawn_preview.tooltip_text += "\n" + tr("下次应补 %d 枚 · 基础 %d 枚") % [state.next_refill_count(), state.base_refill_count()]
+		spawn_preview.tooltip_text += "\n" + GoalProgressText.rule_tooltip(state)
 	elif state.stage.enabled():
+		goal_progress.show_goal(state.run_id + ":invalid", 0, 0, 1, "", "", "")
 		reward_label.text = tr("阶段配置无效，无法开始挑战")
-		reward_bar.min_value = 0
-		reward_bar.max_value = 1
-		reward_bar.value = 0
 	else:
-		reward_label.remove_theme_font_size_override("font_size")
-		reward_label.modulate = Color.WHITE
 		var goal: int = state.progression.next_milestone
-		reward_label.text = tr("下一次技能选择：%d 分 · 还差 %d\n已选 %d 次 · 待选 %d 次") % [goal, maxi(0, goal - state.ledger.total), state.rewards.consumed_count, state.pending_rewards]
-		reward_bar.min_value = state.progression.previous_milestone
-		reward_bar.max_value = goal
-		reward_bar.value = state.ledger.total
+		goal_progress.show_goal(state.run_id + ":classic:" + str(goal), state.ledger.total, state.progression.previous_milestone, goal, GoalProgressText.current_tooltip(state), GoalProgressText.target_tooltip(state), GoalProgressText.rule_tooltip(state))
 	turn_label.text = tr("回合 %d · 行动 %d") % [state.turn_count, state.valid_moves + state.activations]
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
 	skills_label.text = HudDetails.skills_rich(state)
@@ -190,9 +204,11 @@ func set_fast(fast: bool) -> void:
 	_fast = fast
 	fast_button.set_pressed_no_signal(fast)
 	if _score_tween != null and _score_tween.is_valid(): _score_tween.set_speed_scale(2.0 if fast else 1.0)
+	goal_progress.set_speed(2.0 if fast else 1.0)
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects_button.set_pressed_no_signal(enabled)
+	goal_progress.set_low_effects(enabled)
 
 func set_volume(volume: float) -> void:
 	volume_slider.set_value_no_signal(volume)
@@ -208,6 +224,9 @@ func _on_volume_drag_ended(changed: bool) -> void:
 func _on_volume_changed(volume: float) -> void:
 	volume_requested.emit(volume)
 	if not _volume_dragging: volume_committed.emit(volume)
+
+func _on_goal_value_changed(value: int) -> void:
+	_set_score(float(value))
 
 func _set_score(value: float) -> void:
 	displayed_score = roundi(value)

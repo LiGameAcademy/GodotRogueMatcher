@@ -86,7 +86,7 @@ func test_final_stage_completes_without_card_and_total_is_not_debited() -> void:
 func test_board_full_wins_over_carry_and_actual_refill_finishes_first() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7, _config([100], [1]))
 	run.state.phase = RunState.Phase.INPUT
-	run.state.stage.carry_in = 100
+	run.state.ledger.commit(0, 1.0, 100, &"match", -1)
 	for y: int in range(9):
 		for x: int in range(9):
 			if Vector2i(x, y) != Vector2i(4, 4): run.state.rules.place_piece(Vector2i(x, y), (x + y * 2) % 5)
@@ -121,7 +121,7 @@ func _draining_choice(run: RunController) -> void:
 func _draining_offer(run: RunController) -> void:
 	assert_eq(_drain(run).kind, &"offer")
 
-func test_instant_choice_match_scores_total_but_not_next_stage_or_carry() -> void:
+func test_instant_choice_scores_next_goal_without_consuming_action_or_auto_pass() -> void:
 	var run: RunController = _run([100, 150], [1, 1])
 	assert_true(_move(run).accepted)
 	_draining_offer(run)
@@ -133,7 +133,13 @@ func test_instant_choice_match_scores_total_but_not_next_stage_or_carry() -> voi
 	assert_eq(run.state.stage.action_score, 105)
 	assert_eq(run.state.stage.used_actions, 1)
 	assert_eq(_drain(run).kind, &"input")
-	assert_eq(run.state.stage.carry_in, 5)
+	assert_eq(run.state.stage.carry_in, 55)
+	assert_eq(run.state.stage.missing_score(), 95)
+	assert_eq(run.state.stage.target_total(), 250)
+	var fact: Dictionary = TelemetryFacts.stage(RunSnapshot.capture(run), RunSnapshot.config(run))
+	assert_eq(fact.target_total, 250)
+	assert_eq(fact.score_total, "155")
+	assert_eq(fact.missing, 95)
 	assert_eq(run.state.stage.action_score, 0)
 	assert_eq(run.state.stage.used_actions, 0)
 
@@ -224,3 +230,25 @@ func test_bot_prepares_stage_reward_before_requesting_a_skill_command() -> void:
 	var analysis: RunAnalysis = RunAnalysis.new()
 	analysis.add(records.records)
 	assert_eq(analysis.runs[0].mode_id, "stage_challenge")
+
+func test_choice_excess_counts_but_waits_for_new_action() -> void:
+	var run: RunController = _run([100, 50], [4, 4])
+	assert_true(_move(run).accepted)
+	_draining_offer(run)
+	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 1)
+	# 手动补齐即时选卡的五连机会，验证选卡收束与新行动门槛。
+	var target: SkillTarget = SkillTarget.new()
+	target.coordinate = Vector2i(4, 0)
+	assert_true(_choose(run, preload("res://gameplay/progression/content/core_drop.tres"), target).accepted)
+	assert_eq(_drain(run).kind, &"input")
+	assert_eq(run.state.ledger.total, 155)
+	assert_eq(run.state.stage.target_total(), 150)
+	assert_eq(run.state.stage.used_actions, 0)
+	assert_eq(run.state.stage.missing_score(), 0)
+	assert_eq(run.state.stage.history.size(), 1)
+	assert_false(run.state.is_game_over)
+	assert_true(_move(run, Vector2i(8, 8), Vector2i(8, 7)).accepted)
+	assert_eq(_drain(run).kind, &"finished")
+	assert_eq(run.state.stage.history[1].score_total, 155)
+	assert_eq(run.state.stage.history[1].carry_out, 5)
+	assert_eq(run.state.end_reason, &"challenge_completed")
