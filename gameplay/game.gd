@@ -33,6 +33,7 @@ func _ready() -> void:
 	hud.fast_requested.connect(_set_fast)
 	hud.pause_requested.connect(_toggle_pause)
 	hud.help_requested.connect(_show_menu)
+	release_menu.mode_requested.connect(_select_mode)
 	release_menu.play_requested.connect(_play_from_menu)
 	release_menu.tutorial_completed.connect(_tutorial_completed)
 	release_menu.language_requested.connect(_set_language)
@@ -93,7 +94,7 @@ func _on_game_over() -> void:
 	var active_run: RunController = board.run
 	if not await board.finish_presentation() or board.run != active_run: return
 	_refresh_hud()
-	hud.show_status("棋盘已满 · 本局结束")
+	hud.show_status(StageText.end_title(active_run.state))
 	feedback.play(&"finish")
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state})
 	if is_instance_valid(popup):
@@ -105,7 +106,7 @@ func _show_menu() -> void:
 	_menu_previous_pause = get_tree().paused
 	_menu_owns_pause = true
 	get_tree().paused = true
-	release_menu.open(_has_played, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over)
+	release_menu.open(_has_played, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over, board.run.state.mode_id())
 
 func _play_from_menu(new_run: bool) -> void:
 	get_tree().paused = false if new_run else _menu_previous_pause
@@ -203,3 +204,7 @@ func _update_board_layout() -> void:
 	var factor: float = minf(area.size.x / bounds.size.x, area.size.y / bounds.size.y)
 	board.scale = Vector2.ONE * maxf(factor, 0.01)
 	board.position = area.position + (area.size - bounds.size * factor) * 0.5 - bounds.position * factor
+
+func _select_mode(mode_id: StringName) -> void:
+	var mode: GameModeDefinition = GameModes.find(mode_id)
+	if mode != null: board.game_mode = mode

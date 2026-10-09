@@ -2,7 +2,9 @@
 
 适用 Godot 4.7.2。正常游戏默认录制 `user://run_records/<run_id>.jsonl`，每个命令、安全阶段和终局刷新；重试、F6切换和关闭场景会结束旧记录。F6来源为fixture，F7会先关闭正常采样，再进行调试加分。写入失败显示“本局记录不完整”，游戏继续。
 
-2026-10-07：正常池32项，候选规则`offer-explosion-depth-v1`，命令规则`run-commands-v4`。新增`detonate`主动核心命令；随机/贪心策略都可提交，行动限制按移动＋主动次数统计。RunAnalysis保留moves并增加activations/actions，turns可含detonate；结果观看器消费其直接离场。规则回放另支持`fixture_demolition`确定性验证来源，F6专项仍保持原盘面。旧规则/配置记录明确拒绝精确重算。
+当前开发池38项，候选规则`offer-dye-trial-v1`，命令规则`run-commands-v7-stages`。新增阶段配置/状态/结果和明确终局原因；日志头含mode_id、目标/预算表与配置指纹。旧规则/配置日志拒绝精确重算，结果观看仍按schema消费。
+
+CLI默认阶段挑战；在`--`后的参数中加`--legacy`可运行经典无尽对照。BotRunner的程序调用默认经典规则，显式传stage_config启用挑战。阶段通过时先advance生成候选，再提交技能命令，选择完成才开启下一阶段。CLI入口仅负责Autoload安装后加载batch_job，避免GameplayTrigger提前解析CoreSystem；编译/规则错误与回放错误均不能作为正常平衡样本。
 
 从实际 Godot 工程目录运行，替换以下引擎路径为本机控制台可执行文件：
 
@@ -13,7 +15,7 @@ $godotExe = 'D:/GameMaker/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win6
 
 `--count` 为**每策略**局数，范围1～1000；两种策略均运行，`--seed` 为连续局种子起点，策略种子为局种子+100000。默认限制300次有效行动、3000次命令/推进、60秒；`--moves` 覆盖行动上限（兼容原参数名），其余参数在只读 `bot_config.tres` 配置。每局复制策略配置，游戏随机流不参与策略决策。
 
-每局落盘后重新读回并重算全部规则记录，再输出 `runs.csv`、`turns.csv`、`rewards.csv`、`summary.json`。运行错误或回放失败返回非零退出码；上限是 `censored`，未满盘无合法移动是 `censored/no_legal_move`。`completed/board_full` 只对应真实满盘；异常诊断保留为 `rule_error`。
+每局落盘后重新读回并重算全部规则记录，再输出 `runs.csv`、`turns.csv`、`rewards.csv`、`summary.json`。运行错误或回放失败返回非零退出码；上限是 `censored`，未满盘无合法移动是 `censored/no_legal_move`。`completed/board_full`只对应真实满盘；挑战另外记录`completed/stage_target_missed`或`completed/challenge_completed`，completed指本局结束，不代表挑战成功。异常诊断保留为`rule_error`并让批测退出非零。runs/turns/rewards CSV都包含mode_id，配置摘要分组，截尾和失败分别统计。
 
 验证指定日志：
 

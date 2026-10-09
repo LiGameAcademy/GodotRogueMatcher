@@ -71,7 +71,7 @@ func step(run: RunController, result: RunStepResult) -> void:
 	var births: Array[Dictionary] = []
 	for spawn: SpawnResult in result.spawns:
 		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches)})
-	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "after": RunSnapshot.capture(run)})
+	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "challenge": {} if result.challenge == null else result.challenge.data(), "after": RunSnapshot.capture(run)})
 	checkpoint(run)
 	_flush()
 

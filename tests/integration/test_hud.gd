@@ -25,6 +25,14 @@ func test_score_counts_up_without_mutating_ledger() -> void:
 	assert_eq(hud.score_label.text, "分数  125")
 	assert_eq(GameManager.score, before)
 
+func test_invalid_stage_table_displays_error_without_accessing_missing_target() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7, StageConfig.new())
+	run.initialize()
+	hud.show_run(run)
+	assert_eq(run.state.phase, RunState.Phase.ERROR)
+	assert_string_contains(hud.reward_label.text, "阶段配置无效")
+	assert_eq(run.state.rules.state.get_piece_count(), 0)
+
 func test_reset_cancels_old_wait_and_score() -> void:
 	var result: Array[bool] = []
 	hud.show_score(100)

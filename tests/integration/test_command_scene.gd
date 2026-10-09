@@ -26,7 +26,7 @@ func test_human_slow_scene_and_headless_command_have_same_state() -> void:
 	await _compare_command(0.3)
 
 func _compare_command(duration: float) -> void:
-	var shadow: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), board.run.state.random.seed)
+	var shadow: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), board.run.state.random.seed, board.run.state.stage.config)
 	shadow.state.run_id = board.run.state.run_id
 	shadow.initialize()
 	var command: MovePieceCommand = RandomLegalBot.new(99).choose(shadow) as MovePieceCommand

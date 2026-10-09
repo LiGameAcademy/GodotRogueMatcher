@@ -87,7 +87,7 @@ static func summary(state: RunState) -> String:
 	for entry: ScoreEntry in state.ledger.get_entries():
 		totals[entry.root_action_id] = totals.get(entry.root_action_id, 0) + entry.final_score
 		best = maxi(best, totals[entry.root_action_id])
-	return TranslationServer.translate("有效行动 %d 次 · 技能选择 %d 次\n最高单次行动得分 %d") % [state.valid_moves + state.activations, state.rewards.consumed_count, best]
+	return StageText.end_summary(state) + TranslationServer.translate("有效行动 %d 次 · 技能选择 %d 次\n最高单次行动得分 %d") % [state.valid_moves + state.activations, state.rewards.consumed_count, best]
 
 static func score_details_rich(entries: Array[ScoreEntry]) -> String:
 	var lines: PackedStringArray = score_details(entries).split("\n")

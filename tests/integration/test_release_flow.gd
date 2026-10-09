@@ -139,6 +139,52 @@ func test_build_label_uses_application_version_and_explicit_override() -> void:
 	explicit.begin(board.run, "test", false, "fixture-build")
 	assert_eq(explicit.records[0].build, "fixture-build")
 
+func test_switching_modes_starts_new_runs_and_preserves_mode_on_retry() -> void:
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	var original: RunController = board.run
+	assert_eq(original.state.mode_id(), &"stage_challenge")
+	game.call("_show_menu")
+	menu.mode_button.select(0)
+	menu.mode_button.item_selected.emit(0)
+	assert_string_contains(menu.mode_hint.text, "重置")
+	menu.play_button.pressed.emit()
+	await board.initialized
+	assert_ne(board.run.state.run_id, original.state.run_id)
+	assert_eq(board.run.state.mode_id(), &"classic_endless")
+	assert_eq(board.run.state.valid_moves, 0)
+	assert_eq(board.run.state.rewards.consumed_count, 0)
+	assert_false(get_tree().paused)
+	game.call("_show_menu")
+	assert_eq(menu.mode_button.selected, 0)
+	menu.mode_button.select(1)
+	menu.play_button.pressed.emit()
+	await board.initialized
+	assert_eq(board.run.state.mode_id(), &"stage_challenge")
+	assert_eq(board.run.state.stage.used_actions, 0)
+	assert_eq(board.run.state.stage.index, 0)
+	var previous_id: String = board.run.state.run_id
+	game.call("_show_menu")
+	menu.new_button.pressed.emit()
+	await board.initialized
+	assert_ne(board.run.state.run_id, previous_id)
+	assert_eq(board.run.state.mode_id(), &"stage_challenge")
+
+func test_challenge_hud_and_end_titles_use_stage_state() -> void:
+	var hud: Hud = game.get_node("UILayer/HUD") as Hud
+	assert_string_contains(hud.reward_label.text, "阶段 1 / 8")
+	assert_string_contains(hud.reward_label.text, "剩余行动 10 / 10")
+	board.run.state.stage.carry_in = 100
+	hud.show_run(board.run)
+	assert_string_contains(hud.reward_label.text, "完成一次有效行动")
+	board.run.state.stage.used_actions = 10
+	board.run.finish_game(&"stage_target_missed")
+	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": 0, "run_state": board.run.state})
+	assert_eq((popup.get_node("Panel/Content/Title") as Label).text, "行动耗尽 · 阶段挑战失败")
+	assert_string_contains(HudDetails.summary(board.run.state), "已用行动 10 / 10")
+	UIManager.close_popup()
+	board.run.state.end_reason = &"challenge_completed"
+	assert_eq(StageText.end_title(board.run.state), "挑战完成")
+
 func test_closing_popup_during_initialization_does_not_resume_stale_dialog() -> void:
 	_popup_finished = false
 	_open_popup()

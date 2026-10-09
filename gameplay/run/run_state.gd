@@ -16,6 +16,8 @@ var pending_rewards: int = 0
 var rewards: RewardState
 var spawn_history: Array[SpawnResult] = []
 var explosion: ExplosionState = ExplosionState.new()
+var stage: StageState = StageState.new()
+var end_reason: StringName = &""
 var dye: DyeState = DyeState.new()
 var rule_error: String = ""
 var run_id: String = ""
@@ -39,6 +41,8 @@ func reset_counters() -> void:
 	rule_action_id = -1
 	activations = 0
 	is_game_over = false
+	end_reason = &""
+	stage = StageState.new(stage.config)
 	pending_rewards = 0
 	rewards = RewardState.new(_initial_seed)
 	progression = ProgressionState.new(RunController.PROGRESSION)
@@ -50,3 +54,6 @@ func reset_counters() -> void:
 	rule_error = ""
 	random.seed = _initial_seed
 	phase = Phase.INITIALIZING
+
+func mode_id() -> StringName:
+	return &"stage_challenge" if stage.enabled() else &"classic_endless"

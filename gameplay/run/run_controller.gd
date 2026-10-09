@@ -26,15 +26,16 @@ func report_error(reason: String) -> void:
 		recorder.append("Diagnostic", {"reason": reason})
 		recorder.checkpoint(self)
 
-func _init(rules: BoardRules, run_seed: int) -> void:
+func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null) -> void:
 	state = RunState.new(rules, run_seed)
+	state.stage = StageState.new(stage_config)
 	abilities = AbilityResolver.new(state)
 	state.run_id = "%d-%d" % [run_seed, Time.get_ticks_usec()]
 
 ## 合法操作一次提交移动、消除和基础计分；演出不重新计算。
 func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	var result: TurnResult = TurnResult.new()
-	if state.phase != RunState.Phase.INPUT or state.is_game_over:
+	if state.phase != RunState.Phase.INPUT or state.is_game_over or (state.stage.enabled() and not state.stage.can_act()):
 		result.move = BoardMoveResult.new()
 		result.move.failure = BoardMoveResult.Failure.BUSY
 		return result
@@ -49,6 +50,7 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	state.action_id += 1
 	state.rule_action_id = state.action_id
 	turn_action_id = state.action_id
+	state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
 	state.phase = RunState.Phase.MOVING
 	result.matches = resolve_matches_at(target)
 	state.valid_moves += 1
@@ -84,9 +86,10 @@ func prepare_spawn_plan() -> void:
 	if not state.is_game_over and state.rule_error.is_empty():
 		state.spawning.ensure_plan(state.spawning.next_refill_count(SPAWN_CONFIG), state.explosion, abilities.config.core_color)
 
-func finish_game() -> void:
-	if not state.rule_error.is_empty():
+func finish_game(reason: StringName = &"board_full") -> void:
+	if state.is_game_over or not state.rule_error.is_empty():
 		return
+	state.end_reason = reason
 	state.is_game_over = true
 	state.phase = RunState.Phase.FINISHED
 
@@ -155,6 +158,9 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	initialization = mode
 	var result: RunStepResult = RunStepResult.new()
 	result.kind = &"initial"
+	if state.stage.enabled() and not state.stage.config.validation_error().is_empty():
+		report_error(state.stage.config.validation_error())
+		return result
 	if mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
 	elif mode == "fixture_f6": ExplosionDemo.populate(self)
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
@@ -167,7 +173,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	return result
 
 func check_rewards(score_override: int = -1) -> int:
-	return state.progression.check_score(state, PROGRESSION, score_override)
+	return 0 if state.stage.enabled() else state.progression.check_score(state, PROGRESSION, score_override)
 
 func prepare_offer() -> SkillOffer:
 	if state.pending_rewards <= 0 or state.is_game_over: return null
@@ -205,7 +211,7 @@ func execute_command(command: RunCommand) -> CommandResult:
 	elif command is DetonateCoreCommand:
 		var detonate: DetonateCoreCommand = command as DetonateCoreCommand
 		var piece: PieceState = state.rules.state.get_piece(detonate.piece_id)
-		if state.phase != RunState.Phase.INPUT or state.is_game_over: result.reason = "busy"
+		if state.phase != RunState.Phase.INPUT or state.is_game_over or (state.stage.enabled() and not state.stage.can_act()): result.reason = "busy"
 		elif state.explosion.level(&"core_manual_detonation") == 0: result.reason = "manual_not_installed"
 		elif piece == null or piece.content_id != &"special_demolition": result.reason = "invalid_core"
 		else:
@@ -214,6 +220,7 @@ func execute_command(command: RunCommand) -> CommandResult:
 				state.action_id += 1
 				state.rule_action_id = state.action_id
 				turn_action_id = state.action_id
+				state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
 				state.activations += 1
 				state.phase = RunState.Phase.MOVING
 				result.turn = TurnResult.new()
@@ -259,6 +266,7 @@ func advance() -> RunStepResult:
 		result.kind = &"offer"
 		result.offer = prepare_offer()
 		return result
+	if state.stage.awaiting_reward: state.stage.start_next()
 	match continuation:
 		&"before_end":
 			state.rule_action_id = turn_action_id
@@ -272,6 +280,7 @@ func advance() -> RunStepResult:
 			if should_spawn(_direct_match): result.spawns = spawn_batch(state.spawning.consume_refill_count(SPAWN_CONFIG))
 			result.matches = DemolitionRules.settle(state, turn_action_id)
 			check_rewards()
+			result.challenge = _settle_stage()
 		&"after_spawn":
 			continuation = &"idle"
 			start_turn()
@@ -280,4 +289,15 @@ func advance() -> RunStepResult:
 			state.phase = RunState.Phase.INPUT
 			result.kind = &"input"
 	if recorder != null: recorder.step(self, result)
+	return result
+
+## 完整根行动收束的唯一阶段结算入口，演出只消费结果。
+func _settle_stage() -> StageResult:
+	if not state.stage.enabled() or not state.rule_error.is_empty(): return null
+	var result: StageResult = state.stage.settle(state.ledger.get_entries(), state.rules.state.get_empty_coordinates().is_empty(), state.rewards.consumed_count + 1)
+	if result == null: return null
+	if result.reason == &"stage_passed":
+		state.pending_rewards += 1
+		state.phase = RunState.Phase.REWARDS
+	else: finish_game(result.reason)
 	return result

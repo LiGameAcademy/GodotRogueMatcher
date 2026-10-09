@@ -22,6 +22,14 @@ An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy
 
 ![中文界面](docs/preview/language-zh.jpg)
 
+## Current development slice (unreleased 0.0.2)
+
+The source now offers **Stage challenge** (default) and **Classic endless** in the F1 menu. Switching modes starts a new run; retry keeps the selected mode. The published 0.0.1 Web release remains the baseline described above.
+
+In Stage challenge, each accepted move or manual detonation uses one action. Complete the target before actions run out to earn one skill choice, then continue with the same board and build. Excess eligible action points carry over; each next stage still needs one new action. A full board takes priority over passing. The last stage completes the challenge without another card. Instant skill rewards affect total score, not stage progress.
+
+The eight-stage target/action table is experimental and editable in [StageConfig](gameplay/progression/stages/stage_config.tres). Test this slice directly in the Godot editor; Web exports are reserved for release or Web-specific checks. Headless bot batches use stage rules by default; add `--legacy` after `--` to compare classic rules.
+
 ## How to play
 
 Click a piece, then a reachable empty cell. Pieces can only travel through empty cells. Five or more matching colors in a horizontal, vertical, or diagonal line clear and score. A move without a direct line usually adds three pieces; a full-board clear also refills. A full board ends the run.

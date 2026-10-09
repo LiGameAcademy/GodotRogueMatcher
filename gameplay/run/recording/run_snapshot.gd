@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v6-dye"
+const RULES_VERSION: String = "run-commands-v7-stages"
 
 ## 所有整数转十进制字符串；坐标、实体、字典有固定规范顺序。
 static func normalize(value: Variant) -> Variant:
@@ -35,7 +35,7 @@ static func resource_fields(resource: Resource) -> Dictionary:
 static func config(run: RunController) -> Dictionary:
 	var skills: Array[Dictionary] = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG: skills.append(resource_fields(skill))
-	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills})
+	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
 ## 只登记只读触发参数，排除插件内部管理器、时间和共享运行计数。
 static func trigger_config(ability: AbilityDefinition) -> Dictionary:
@@ -97,6 +97,8 @@ static func capture(run: RunController) -> Dictionary:
 	snapshot["spawning"] = normalize({"refill_batches": state.spawning.refill_batches, "color_weights": state.spawning.color_weights, "plan": state.spawning.plan_data(), "content_random": random_data(state.spawning.content_random), "plan_policy": "locked-prefix-conditional-core-v1"})
 	snapshot["demolition"] = normalize({"upgrades": state.explosion.upgrades, "core_pool": state.explosion.core_pool_unlocked, "fuse_unlocked": state.explosion.fuse_unlocked, "rule_action_id": state.rule_action_id, "turn_action_id": run.turn_action_id, "activations": state.activations, "roots": _roots(state)})
 	snapshot["dye"] = normalize({"upgrades": state.dye.upgrades, "marks": state.dye.marks, "root": state.dye.root_id, "waves": state.dye.waves_used, "match": state.dye.considered_match, "blast": state.dye.considered_blast, "chain": state.dye.allow_chain, "ids": state.dye.dyed_ids})
+	snapshot["challenge"] = normalize(state.stage.data())
+	snapshot["end_reason"] = String(state.end_reason)
 	return snapshot
 
 static func _roots(state: RunState) -> Array[Dictionary]:

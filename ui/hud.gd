@@ -132,11 +132,26 @@ func show_run(run: RunController) -> void:
 	_run = run
 	spawn_preview.show_plan(run.state.spawning.preview(run.state.spawning.next_refill_count(RunController.SPAWN_CONFIG)), run.state.is_game_over)
 	var state: RunState = run.state
-	var goal: int = state.progression.next_milestone
-	reward_label.text = tr("下一次技能选择：%d 分 · 还差 %d\n已选 %d 次 · 待选 %d 次") % [goal, maxi(0, goal - state.ledger.total), state.rewards.consumed_count, state.pending_rewards]
-	reward_bar.min_value = state.progression.previous_milestone
-	reward_bar.max_value = goal
-	reward_bar.value = state.ledger.total
+	if state.stage.enabled() and state.stage.config.validation_error().is_empty():
+		reward_label.text = StageText.progress(state)
+		reward_label.add_theme_font_size_override("font_size", 16)
+		reward_label.modulate = Color("ffad83") if state.stage.remaining_actions() <= 2 else Color.WHITE
+		reward_bar.min_value = 0
+		reward_bar.max_value = state.stage.target()
+		reward_bar.value = state.stage.carry_in + state.stage.action_score
+	elif state.stage.enabled():
+		reward_label.text = tr("阶段配置无效，无法开始挑战")
+		reward_bar.min_value = 0
+		reward_bar.max_value = 1
+		reward_bar.value = 0
+	else:
+		reward_label.remove_theme_font_size_override("font_size")
+		reward_label.modulate = Color.WHITE
+		var goal: int = state.progression.next_milestone
+		reward_label.text = tr("下一次技能选择：%d 分 · 还差 %d\n已选 %d 次 · 待选 %d 次") % [goal, maxi(0, goal - state.ledger.total), state.rewards.consumed_count, state.pending_rewards]
+		reward_bar.min_value = state.progression.previous_milestone
+		reward_bar.max_value = goal
+		reward_bar.value = state.ledger.total
 	turn_label.text = tr("回合 %d · 行动 %d") % [state.turn_count, state.valid_moves + state.activations]
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
 	skills_label.text = HudDetails.skills_rich(state)

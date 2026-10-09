@@ -59,7 +59,12 @@ func replay(records: Array[Dictionary]) -> bool:
 	var rows: int = config.rows.to_int()
 	var match_count: int = config.match_count.to_int()
 	if columns <= 0 or columns > 64 or rows <= 0 or rows > 64 or match_count < 2 or match_count > 128: return _fail("invalid_board_dimensions")
-	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count), header.seed.to_int())
+	var stage_config: StageConfig = null
+	if not config.get("challenge") is Dictionary: return _fail("invalid_stage_config")
+	if not config.challenge.is_empty():
+		stage_config = StageConfig.from_record(config.challenge)
+		if stage_config == null: return _fail("invalid_stage_config")
+	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count), header.seed.to_int(), stage_config)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
@@ -89,7 +94,9 @@ func replay(records: Array[Dictionary]) -> bool:
 					else: return _fail("seq=%d missing_command_result" % (index + 1))
 				"Footer":
 					if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
-					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != "board_full" or not run.state.rules.state.get_empty_coordinates().is_empty()):
+					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"stage_target_missed", &"challenge_completed"]):
+						return _fail("invalid_completed_footer")
+					if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
 						return _fail("invalid_completed_footer")
 					if expected.status == "rule_error" and run.state.rule_error.is_empty(): return _fail("invalid_rule_error_footer")
 					if expected.status == "rule_error" and expected.get("reason") != run.state.rule_error: return _fail("invalid_rule_error_reason")

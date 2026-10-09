@@ -2,9 +2,13 @@ class_name ReleaseMenu
 extends Control
 
 signal play_requested(new_run: bool)
+signal mode_requested(mode_id: StringName)
 signal tutorial_completed
 signal language_requested(preference: String)
 
+@onready var mode_button: OptionButton = %Mode
+@onready var mode_hint: Label = %ModeHint
+var _active_mode: StringName = &"stage_challenge"
 @onready var home: CenterContainer = %Home
 @onready var play_button: Button = %Play
 @onready var new_button: Button = %New
@@ -26,6 +30,7 @@ func _ready() -> void:
 	learn_button.pressed.connect(_learn)
 	tutorial.finished.connect(_tutorial_finished)
 	language.item_selected.connect(func(index: int) -> void: language_requested.emit(LOCALES[index]))
+	mode_button.item_selected.connect(func(_index: int) -> void: _refresh_text())
 	_refresh_text()
 
 func _notification(what: int) -> void:
@@ -43,10 +48,19 @@ func _refresh_text() -> void:
 	language.set_item_text(0, tr("语言：跟随系统"))
 	play_button.text = tr("继续本局") if _has_game else tr("开始试玩")
 	learn_button.text = tr("重看操作练习") if _tutorial_seen else tr("先试一下 · 操作练习")
-	hint.text = tr("棋盘已满 · 可以开始新一局。") if _game_over else (tr("本局已暂停，返回后从原处继续。") if _has_game else tr("第一次来？用四步练习认识五连、补棋、技能和爆破。"))
+	hint.text = tr("本局已结束 · 可以开始新一局。") if _game_over else (tr("本局已暂停，返回后从原处继续。") if _has_game else tr("第一次来？用四步练习认识五连、补棋、技能和爆破。"))
+	for index: int in range(GameModes.ALL.size()): mode_button.set_item_text(index, tr(GameModes.ALL[index].title))
+	var selected: GameModeDefinition = GameModes.ALL[mode_button.selected]
+	mode_hint.text = tr(selected.description)
+	if selected.mode_id != _active_mode:
+		play_button.text = tr("开始所选模式 · 新局")
+		mode_hint.text += "\n" + tr("切换模式将开始新局，重置本局棋盘与构筑。")
 	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
 
-func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: bool = false) -> void:
+func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: bool = false, mode_id: StringName = &"stage_challenge") -> void:
+	_active_mode = mode_id
+	for index: int in range(GameModes.ALL.size()):
+		if GameModes.ALL[index].mode_id == mode_id: mode_button.select(index)
 	_low_effects = low_effects
 	_has_game = has_game
 	_tutorial_seen = tutorial_seen
@@ -67,7 +81,9 @@ func close() -> void:
 
 func _play(new_run: bool) -> void:
 	close()
-	play_requested.emit(new_run)
+	var selected: StringName = GameModes.ALL[mode_button.selected].mode_id
+	mode_requested.emit(selected)
+	play_requested.emit(new_run or selected != _active_mode)
 
 func _learn() -> void:
 	home.hide()

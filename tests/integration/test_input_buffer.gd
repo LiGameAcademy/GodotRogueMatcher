@@ -9,6 +9,7 @@ func before_each() -> void:
 	UIManager.close_popup()
 	var main: Node2D = MAIN.instantiate() as Node2D
 	main.get_node("Game").set("persist_preferences", false)
+	(main.get_node("Game/Board") as Board).game_mode = GameModes.CLASSIC
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized

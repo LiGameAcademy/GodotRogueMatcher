@@ -69,3 +69,17 @@ func test_scaled_corner_picking_and_move_use_same_grid_coordinates() -> void:
 	assert_true(await board.move_selected_piece(board.get_cell(command.target), 0.01))
 	assert_eq(board.rules.state.get_piece(command.piece_id).coordinate, command.target)
 	assert_eq(board.view.get_piece(command.piece_id).global_position, board.get_cell(command.target).global_position)
+
+func test_mode_menu_fits_supported_viewport_in_both_languages() -> void:
+	var old_locale: String = TranslationServer.get_locale()
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		menu.open(true, true, false)
+		menu.mode_button.select(0)
+		menu.mode_button.item_selected.emit(0)
+		await wait_process_frames(3)
+		var panel_rect: Rect2 = (menu.get_node("Home/Panel") as Control).get_global_rect()
+		assert_true(Rect2(Vector2.ZERO, Vector2(viewport.size)).encloses(panel_rect), "%s %s" % [locale, panel_rect])
+	TranslationServer.set_locale(old_locale)
+	menu.close()

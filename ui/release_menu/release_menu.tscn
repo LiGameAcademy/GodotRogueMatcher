@@ -31,18 +31,18 @@ anchor_bottom = 1.0
 
 [node name="Panel" type="PanelContainer" parent="Home"]
 layout_mode = 2
-custom_minimum_size = Vector2(680, 0)
+custom_minimum_size = Vector2(900, 0)
 
 [node name="Margin" type="MarginContainer" parent="Home/Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 16
 
 [node name="Column" type="VBoxContainer" parent="Home/Panel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 6
 
 [node name="Title" type="Label" parent="Home/Panel/Margin/Column"]
 layout_mode = 2
@@ -62,6 +62,7 @@ unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 2
+theme_override_font_sizes/font_size = 16
 
 [node name="Language" type="OptionButton" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
@@ -76,6 +77,25 @@ popup/item_1/text = "English"
 popup/item_1/id = 1
 popup/item_2/text = "简体中文"
 popup/item_2/id = 2
+
+[node name="Mode" type="OptionButton" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(280, 40)
+size_flags_horizontal = 4
+item_count = 2
+selected = 1
+popup/item_0/text = "经典无尽"
+popup/item_0/id = 0
+popup/item_1/text = "阶段挑战"
+popup/item_1/id = 1
+
+[node name="ModeHint" type="Label" parent="Home/Panel/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 16
 
 [node name="Play" type="Button" parent="Home/Panel/Margin/Column"]
 unique_name_in_owner = true
@@ -99,7 +119,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(616, 0)
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.77, 0.84, 0.92, 1)
-text = "点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。\n没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。\n累计得分获得技能；悬停特殊棋子可查看能力。\n安装「主动爆破」后可双击爆破棋子，消耗一次行动。\nESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出"
+text = "点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。\n没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。\n按模式规则获得技能；悬停特殊棋子可查看能力。\n安装「主动爆破」后可双击爆破棋子，消耗一次行动。\nESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出"
 theme_override_font_sizes/font_size = 16
 
 [node name="Notice" type="Label" parent="Home/Panel/Margin/Column"]

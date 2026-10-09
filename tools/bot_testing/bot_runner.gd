@@ -1,12 +1,13 @@
 class_name BotRunner
 extends RefCounted
 
+var stage_config: StageConfig
 var last_replay_error: String = ""
 var telemetry_factory: TelemetryFactory
 var last_telemetry: TelemetryProjector
 
 func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = true, verify: bool = true) -> RunRecorder:
-	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value)
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value, stage_config)
 	run.initialize()
 	var recorder: RunRecorder = RunRecorder.new()
 	run.recorder = recorder
@@ -27,7 +28,7 @@ func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = t
 			break
 		if run.state.is_game_over:
 			status = "completed"
-			reason = "board_full"
+			reason = String(run.state.end_reason)
 			break
 		if handled >= strategy.config.command_limit:
 			reason = "command_limit"
@@ -35,6 +36,10 @@ func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = t
 		if Time.get_ticks_msec() - started >= strategy.config.timeout_ms:
 			reason = "timeout"
 			break
+		if run.state.phase == RunState.Phase.REWARDS and run.state.rewards.active_offer == null:
+			run.advance()
+			handled += 1
+			continue
 		if run.state.phase != RunState.Phase.INPUT and run.state.phase != RunState.Phase.REWARDS:
 			run.advance()
 			handled += 1

@@ -33,6 +33,7 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 	# 添加到场景树
 	add_child(popup)
 	current_popup = popup
+	popup.tree_exiting.connect(_on_popup_exiting.bind(popup), CONNECT_ONE_SHOT)
 	
 	# 等待一帧，确保节点已完全初始化
 	await get_tree().process_frame
@@ -54,4 +55,7 @@ func close_popup() -> void:
 			(current_popup as PopupSkillChoice).accept_selection()
 		else:
 			current_popup.queue_free()
-		current_popup = null
+	current_popup = null
+
+func _on_popup_exiting(popup: Control) -> void:
+	if current_popup == popup: current_popup = null

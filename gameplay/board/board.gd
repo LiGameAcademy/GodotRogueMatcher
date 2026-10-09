@@ -11,6 +11,7 @@ signal run_reset
 ## Game显式提供兄弟HUD的等待入口，不从棋盘查找UI节点。
 var score_presenter: Callable
 
+@export var game_mode: GameModeDefinition = preload("res://gameplay/run/modes/stage_challenge.tres")
 @export var rows: int = 9
 @export var cols: int = 9
 @export var grid_gap: Vector2 = Vector2(1, 1)
@@ -68,7 +69,7 @@ func _exit_tree() -> void:
 	director.cancel()
 	if run == null or run.recorder == null: return
 	if not run.state.rule_error.is_empty(): run.recorder.finish(run, "rule_error", run.state.rule_error)
-	elif run.state.is_game_over: run.recorder.finish(run, "completed", "board_full")
+	elif run.state.is_game_over: run.recorder.finish(run, "completed", String(run.state.end_reason))
 	else: run.recorder.finish(run, "abandoned", "scene_closed")
 
 #region 初始化与重试
@@ -88,7 +89,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
 	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "restart")
-	run = RunController.new(rules, randi())
+	run = RunController.new(rules, randi(), game_mode.stage_config)
 	GameManager.reset_game(run)
 	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。
 	UIManager.close_popup()
@@ -153,6 +154,9 @@ func refresh_ability_markers() -> void:
 
 ## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
 func open_skill_demo() -> bool:
+	if run.state.stage.enabled():
+		operation_feedback.emit("技能调试请先切换经典无尽，或按 F6 / F10 加载独立示例")
+		return false
 	if not can_selected or get_tree().paused or GameManager.is_game_over:
 		return false
 	var generation: int = _generation
@@ -419,7 +423,7 @@ func _continue_run(generation: int) -> void:
 				return
 			&"finished":
 				GameManager.finish_game()
-				if run.recorder != null: run.recorder.finish(run, "completed", "board_full")
+				if run.recorder != null: run.recorder.finish(run, "completed", String(run.state.end_reason))
 				return
 			&"error":
 				if run.recorder != null: run.recorder.finish(run, "rule_error", run.state.rule_error)

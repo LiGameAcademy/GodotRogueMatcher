@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GameModeDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://gameplay/run/modes/game_mode_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+mode_id = &"classic_endless"
+title = "经典无尽"
+description = "累计得分触发三选一；棋盘填满结束。没有阶段行动上限。"

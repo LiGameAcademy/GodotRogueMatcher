@@ -19,15 +19,15 @@ v%s · Web 预览试玩,v%s · Web 预览试玩,v%s · Web Preview
 练习完成！去正式棋盘试试自己的构筑。,练习完成！去正式棋盘试试自己的构筑。,Tutorial complete! Try your build on the full board.
 "点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。
 没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。
-累计得分获得技能；悬停特殊棋子可查看能力。
+按模式规则获得技能；悬停特殊棋子可查看能力。
 安装「主动爆破」后可双击爆破棋子，消耗一次行动。
 ESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出","点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。
 没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。
-累计得分获得技能；悬停特殊棋子可查看能力。
+按模式规则获得技能；悬停特殊棋子可查看能力。
 安装「主动爆破」后可双击爆破棋子，消耗一次行动。
 ESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出","Click a piece, then a reachable empty cell. Match 5+ of one color horizontally, vertically, or diagonally.
 Usually 3 pieces arrive if your move does not directly match. Clearing the entire board also triggers a refill. A full board ends the run.
-Earn score to choose skills. Hover special pieces to inspect their abilities.
+Earn skills according to the selected mode. Hover special pieces to inspect their abilities.
 With Manual Detonation, double-click a Blast Core to detonate it, using one action.
 ESC Pause / Resume · F1 Help · F8 Fast Playback · F9 Skip Effects"
 "桌面浏览器试玩 · 音量 / 低特效在右侧面板调整
@@ -414,3 +414,34 @@ It clears nearby pieces. Detonation uses an action and is usually followed by a 
 染,染,Dye
 %s · 同时染色 %d 枚,%s · 同时染色 %d 枚,%s · Dye %d pieces
 染色试玩：将第5列第7行红棋移到第5列第5行,染色试玩：将第5列第7行红棋移到第5列第5行,"Dye trial: move the red piece at column 5, row 7 to column 5, row 5."
+过关三选一 · 行动耗尽未达标失败,过关三选一 · 行动耗尽未达标失败,Pass for one skill choice. Miss the target when actions run out to fail.
+末阶段达标即完成挑战,末阶段达标即完成挑战,Meet the final target to complete the challenge.
+抵扣已足，完成一次有效行动后检验,抵扣已足，完成一次有效行动后检验,Carry covers the target. Complete one valid action to check the stage.
+阶段通过 · 选择一项技能后进入下一阶段,阶段通过 · 选择一项技能后进入下一阶段,Stage passed. Choose a skill to enter the next stage.
+"阶段 %d / %d · 目标 %d · 还差 %d
+行动得分 %d + 抵扣 %d · 剩余行动 %d / %d
+%s","阶段 %d / %d · 目标 %d · 还差 %d
+行动得分 %d + 抵扣 %d · 剩余行动 %d / %d
+%s","Stage %d / %d | Target %d | Need %d
+Action score %d + Carry %d | Actions left %d / %d
+%s"
+挑战完成,挑战完成,Challenge complete
+行动耗尽 · 阶段挑战失败,行动耗尽 · 阶段挑战失败,No actions left. Stage failed.
+"阶段 %d / %d · 目标 %d · 尚差 %d 分
+行动得分 %d · 抵扣 %d · 已用行动 %d / %d
+
+","阶段 %d / %d · 目标 %d · 尚差 %d 分
+行动得分 %d · 抵扣 %d · 已用行动 %d / %d
+
+","Stage %d / %d | Target %d | Need %d more points
+Action score %d | Carry %d | Actions used %d / %d
+
+"
+经典无尽,经典无尽,Classic endless
+阶段挑战,阶段挑战,Stage challenge
+累计得分触发三选一；棋盘填满结束。没有阶段行动上限。,累计得分触发三选一；棋盘填满结束。没有阶段行动上限。,Earn skill choices at score milestones. A full board ends the run. No stage action limit.
+在行动上限内达成阶段目标，过关三选一；超额分结转，棋盘与构筑保留。,在行动上限内达成阶段目标，过关三选一；超额分结转，棋盘与构筑保留。,Reach each target within the action limit to earn a skill choice. Excess points carry over; the board and build stay.
+开始所选模式 · 新局,开始所选模式 · 新局,Start selected mode — new run
+切换模式将开始新局，重置本局棋盘与构筑。,切换模式将开始新局，重置本局棋盘与构筑。,Switching modes starts a new run and resets the board and build.
+本局已结束 · 可以开始新一局。,本局已结束 · 可以开始新一局。,Run ended. You can start a new run.
+阶段配置无效，无法开始挑战,阶段配置无效，无法开始挑战,Invalid stage configuration. Cannot start the challenge.
