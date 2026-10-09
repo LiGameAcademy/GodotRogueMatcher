@@ -7,6 +7,7 @@ script = ExtResource("1")
 skill_id = &"blast_reward"
 title = "余震奖励"
 description = "爆炸每实际消除一枚棋子，额外分再加5。最多3级。"
+short_description = "爆炸每清除1枚棋子 → 额外+5分/级。"
 action = 3
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])

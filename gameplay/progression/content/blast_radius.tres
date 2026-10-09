@@ -7,6 +7,7 @@ script = ExtResource("1")
 skill_id = &"blast_radius"
 title = "扩大爆破"
 description = "本局所有当前及未来爆壳手和引信的爆炸半径由1扩大到2。限1级。"
+short_description = "核心与引信爆炸半径：1 → 2；余震不变。"
 action = 2
 base_weight = 8.0
 tags = Array[StringName]([&"exp"])

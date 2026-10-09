@@ -48,8 +48,18 @@ func after_each() -> void:
 func test_color_has_no_default_invalid_confirm_only_highlights_without_consumption() -> void:
 	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
 	var card: SkillCard = popup.options.get_child(0) as SkillCard
-	assert_eq(card.effect_label.mouse_filter, Control.MOUSE_FILTER_IGNORE)
-	card.pressed.emit()
+	assert_eq(card.effect_label.mouse_filter, Control.MOUSE_FILTER_PASS, "术语提示接收悬停，点击继续向整卡传递")
+	var motion: InputEventMouseMotion = InputEventMouseMotion.new()
+	motion.position = card.effect_label.global_position + Vector2(8.0, 8.0)
+	get_viewport().push_input(motion, true)
+	var press: InputEventMouseButton = InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.position = motion.position
+	press.pressed = true
+	get_viewport().push_input(press, true)
+	var release: InputEventMouseButton = press.duplicate() as InputEventMouseButton
+	release.pressed = false
+	get_viewport().push_input(release, true)
 	assert_true(popup.picker.visible)
 	assert_eq(popup.picker.selected_color, -1)
 	assert_string_contains((popup.picker.colors.get_child(0) as Button).text, "其中引信 1 枚")

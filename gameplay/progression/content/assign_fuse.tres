@@ -7,6 +7,7 @@ script = ExtResource("1")
 skill_id = &"assign_fuse"
 title = "引信赋能"
 description = "随机至多两枚未带引信普通棋子获得引信，保持原色。"
+short_description = "随机给至多2枚普通棋装引信，保留原色。"
 action = 1
 base_weight = 10.0
 tags = Array[StringName]([&"exp"])

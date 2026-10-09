@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"core_supply_up"
 title = "爆壳补给"
 description = "本局核心类型权重每级+1（基础1，普通类型20），最多2级。占用正常补棋名额；场上已有核心时不再生成。"
+short_description = "核心生成权重+1/级。\n占正常补棋名额；场上限1枚。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

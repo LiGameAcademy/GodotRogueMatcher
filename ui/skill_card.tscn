@@ -1,52 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://ui/skill_card.gd" id="1"]
-
-[sub_resource type="StyleBoxFlat" id="Badge"]
-bg_color = Color(0.1, 0.14, 0.2, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.28, 0.38, 0.5, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_left = 6
-corner_radius_bottom_right = 6
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_top = 5.0
-content_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="EffectPanel"]
-bg_color = Color(0.035, 0.065, 0.11, 0.85)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2, 0.29, 0.4, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_left = 7
-corner_radius_bottom_right = 7
-content_margin_left = 12.0
-content_margin_right = 12.0
-content_margin_top = 12.0
-content_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxFlat" id="PreviewPanel"]
-bg_color = Color(0.11, 0.15, 0.22, 1)
-border_width_left = 3
-border_color = Color(0.39, 0.51, 0.65, 1)
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_top = 8.0
-content_margin_bottom = 8.0
+[ext_resource type="PackedScene" path="res://ui/skill_text.tscn" id="2"]
 
 [node name="SkillCard" type="Button"]
-custom_minimum_size = Vector2(292, 452)
+custom_minimum_size = Vector2(292, 320)
 size_flags_horizontal = 3
 script = ExtResource("1")
 
@@ -65,114 +23,70 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Badges" type="HBoxContainer" parent="Content/Column"]
+[node name="Tags" type="HBoxContainer" parent="Content/Column"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="RarityFrame" type="PanelContainer" parent="Content/Column/Badges"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("Badge")
-
-[node name="Rarity" type="Label" parent="Content/Column/Badges/RarityFrame"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "白·普通"
-
-[node name="Kind" type="Label" parent="Content/Column/Badges"]
+[node name="Kind" type="Label" parent="Content/Column/Tags"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.64, 0.72, 0.82, 1)
-theme_override_font_sizes/font_size = 14
-text = "局内强化"
-horizontal_alignment = 2
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 2
 
-[node name="Identity" type="HBoxContainer" parent="Content/Column"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="EmblemFrame" type="PanelContainer" parent="Content/Column/Identity"]
+[node name="Consumable" parent="Content/Column/Tags" instance=ExtResource("2")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(46, 46)
+custom_minimum_size = Vector2(78, 20)
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("Badge")
+theme_override_colors/default_color = Color(0.64, 0.72, 0.82, 1)
+theme_override_font_sizes/normal_font_size = 13
+fit_content = true
+scroll_active = false
 
-[node name="Emblem" type="Label" parent="Content/Column/Identity/EmblemFrame"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 23
-text = "爆"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Name" type="VBoxContainer" parent="Content/Column/Identity"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="Title" type="Label" parent="Content/Column/Identity/Name"]
+[node name="Title" type="Label" parent="Content/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.97, 1, 1)
-theme_override_font_sizes/font_size = 24
-text = "终幕余震"
+theme_override_font_sizes/font_size = 26
 autowrap_mode = 2
 
-[node name="Level" type="Label" parent="Content/Column/Identity/Name"]
+[node name="Metadata" type="HBoxContainer" parent="Content/Column"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Rarity" type="Label" parent="Content/Column/Metadata"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+
+[node name="Level" type="Label" parent="Content/Column/Metadata"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.76, 0.43, 1)
 theme_override_font_sizes/font_size = 14
-text = "Lv.0 → Lv.1"
-autowrap_mode = 2
 
-[node name="EffectFrame" type="PanelContainer" parent="Content/Column"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("EffectPanel")
-
-[node name="Column" type="VBoxContainer" parent="Content/Column/EffectFrame"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Caption" type="Label" parent="Content/Column/EffectFrame/Column"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.54, 0.65, 0.77, 1)
-theme_override_font_sizes/font_size = 13
-text = "技能效果"
-
-[node name="Effect" type="Label" parent="Content/Column/EffectFrame/Column"]
+[node name="Effect" parent="Content/Column" instance=ExtResource("2")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.85, 0.9, 0.97, 1)
-theme_override_font_sizes/font_size = 17
-theme_override_constants/line_spacing = 3
-autowrap_mode = 2
+theme_override_colors/default_color = Color(0.85, 0.9, 0.97, 1)
+theme_override_font_sizes/normal_font_size = 19
+theme_override_font_sizes/bold_font_size = 19
+theme_override_constants/line_separation = 4
+fit_content = true
+scroll_active = false
 
-[node name="PreviewFrame" type="PanelContainer" parent="Content/Column"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("PreviewPanel")
-
-[node name="Preview" type="Label" parent="Content/Column/PreviewFrame"]
+[node name="Preview" type="Label" parent="Content/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.69, 0.79, 0.9, 1)
 theme_override_font_sizes/font_size = 14
 autowrap_mode = 2
 
-[node name="ActionFrame" type="PanelContainer" parent="Content/Column"]
+[node name="Action" type="Label" parent="Content/Column"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/panel = SubResource("Badge")
-
-[node name="Action" type="Label" parent="Content/Column/ActionFrame"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "选择此技能 →"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.51, 0.58, 0.67, 1)
+theme_override_font_sizes/font_size = 12

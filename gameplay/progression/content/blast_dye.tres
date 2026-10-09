@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"blast_dye"
 title = "爆破染色"
 description = "每次行动首个有效爆炸后，染色1枚爆区边缘外侧1格内存活的异色普通棋子；与五连共用波数。"
+short_description = "每行动首个命中爆炸 → 在爆区外沿染1枚异色普通棋。\n与五连共用染色波数。"
 base_weight = 10.0
 tags = Array[StringName]([&"dye", &"exp"])
 choice_effect = SubResource("effect")

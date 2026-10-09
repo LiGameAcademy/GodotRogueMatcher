@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"core_fuse_payload"
 title = "引信装填"
 description = "本局核心离场后、爆炸前，在切比距离2内给至多2枚未标记普通棋子附引信。按距离、坐标、ID选取，可立即连锁。"
+short_description = "核心离场 → 在周围2格内装填至多2枚引信。\n爆炸前生效，可立即连锁。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

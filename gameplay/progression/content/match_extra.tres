@@ -7,6 +7,7 @@ script = ExtResource("1")
 skill_id = &"match_extra"
 title = "连珠补分"
 description = "每次五连事件的额外分增加10。"
+short_description = "每次五连 → 额外+10分/级。"
 action = 5
 base_weight = 6.0
 tags = Array[StringName]([&"extra"])

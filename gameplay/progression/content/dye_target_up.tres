@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"dye_target_up"
 title = "染色扩散"
 description = "每波染色目标从1枚增加到2枚。"
+short_description = "每波染色：1枚 → 2枚。"
 base_weight = 10.0
 tags = Array[StringName]([&"dye", &"match"])
 choice_effect = SubResource("effect")

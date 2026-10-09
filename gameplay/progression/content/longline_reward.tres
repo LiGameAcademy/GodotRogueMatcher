@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"longline_reward"
 title = "长连收获"
 description = "本局至少6枚的五连事件E+20/级，最多3级；不受倍率影响。"
+short_description = "一次消除≥6枚 → 额外+20分/级，不吃倍率。"
 base_weight = 10.0
 tags = Array[StringName]([&"match", &"extra"])
 choice_effect = SubResource("effect")

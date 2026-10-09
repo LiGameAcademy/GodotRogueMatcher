@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"core_manual_detonation"
 title = "主动爆破"
 description = "本局可双击爆壳手主动消耗并引爆。消耗一次行动，正常补棋；无命中仍消耗。仅核心可主动引爆。"
+short_description = "双击核心 → 消耗并引爆。\n花1次行动，正常补棋；空爆也消耗。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"blast_chain_bonus"
 title = "爆破节拍"
 description = "本局有效爆炸世代≥2时，E+5×等级×min(世代−1,3)，最多3级；空爆炸无分。"
+short_description = "第2/3/≥4代命中爆炸\n→ 额外+5/10/15分/级。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"precision_reward"
 title = "五枚正好"
 description = "本局恰好5枚的五连事件E+5/级，可重复升级；不受倍率影响。"
+short_description = "一次恰好消除5枚 → 额外+5分/级，不吃倍率。"
 base_weight = 10.0
 tags = Array[StringName]([&"match", &"extra"])
 choice_effect = SubResource("effect")

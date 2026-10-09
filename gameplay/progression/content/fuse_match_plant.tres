@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"fuse_match_plant"
 title = "消除布雷"
 description = "本局每根行动首批五连整批移除后、爆炸前，在离场坐标切比距离1内给1枚存活普通棋子附引信。"
+short_description = "每行动首批五连 → 给消除处邻近1枚普通棋装引信。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")
