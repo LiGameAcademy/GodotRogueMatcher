@@ -3,6 +3,7 @@ extends RefCounted
 
 const VERSION: String = "2"
 const REQUIRED_V2: Dictionary[String, Array] = {
+	"paired_window_resolved": ["protocol", "pair_id", "parent_run_id", "skill_id", "control_skill_id", "level", "H", "known", "delta_score", "delta_space", "missing_reason", "branches"],
 	"action_resolved": ["complete", "action_score_delta", "q_frozen", "P_before", "P_after", "stage_before", "stage_after", "created_ids", "removed_ids"],
 	"stage_goal_completed": ["result", "P_before", "P_after", "installed_build", "goal_effects_implemented"],
 	"rule_fact": ["fact"],
@@ -53,6 +54,7 @@ static func validate(event: Dictionary) -> String:
 		if not event.has(key) or (event[key] != null and not event[key] is String): return "invalid_envelope_" + key
 	if not event.get("payload") is Dictionary or not plain(event): return "non_serializable_telemetry"
 	if event.get("bot_config_hash") != null and not event.bot_config_hash is String: return "invalid_envelope_bot_config_hash"
+	if event.get("parent_run_id") != null and (not event.parent_run_id is String or not safe_id(event.parent_run_id)): return "invalid_envelope_parent_run_id"
 	if event.schema_version == VERSION:
 		for key: String in ["mode_id", "collection_context", "commit_id", "seed", "pressure_version", "collection_config_hash"]:
 			if not event.get(key) is String: return "invalid_envelope_" + key
@@ -68,6 +70,23 @@ static func _payload(name: String, data: Dictionary) -> String:
 	var booleans: PackedStringArray = []
 	var strings: PackedStringArray = []
 	match name:
+		"paired_window_resolved":
+			if data.protocol != "legal-choice-window-v1" or data.H not in ["20", "50"] or not data.known is bool: return "invalid_pair_protocol"
+			if not data.branches is Array or data.branches.size() != 2: return "invalid_pair_branches"
+			if data.skill_id == data.control_skill_id: return "invalid_pair_comparator"
+			for branch: Variant in data.branches:
+				if not branch is Dictionary or not branch.get("known") is bool: return "invalid_pair_branch"
+				for key: String in ["actual_actions", "score_delta", "space_delta", "final_score", "final_occupied"]:
+					if not valid_integer(branch.get(key)): return "invalid_pair_branch_integer"
+				if int(branch.actual_actions) < 0 or int(branch.actual_actions) > int(data.H): return "invalid_pair_action_count"
+				if branch.known and not (branch.get("status") == "completed" and branch.get("reason") in ["board_full", "challenge_completed"] or branch.get("reason") == "horizon_reached" and int(branch.actual_actions) == int(data.H)): return "invalid_pair_known_endpoint"
+			if data.known != (data.branches[0].known and data.branches[1].known): return "invalid_pair_known"
+			for key: String in ["delta_score", "delta_space"]:
+				if data.known and not valid_integer(data[key]): return "invalid_pair_delta"
+				if not data.known and data[key] != null: return "censored_pair_delta"
+			if data.known and (int(data.delta_score) != int(data.branches[0].score_delta) - int(data.branches[1].score_delta) or int(data.delta_space) != int(data.branches[0].space_delta) - int(data.branches[1].space_delta)): return "inconsistent_pair_delta"
+			integers = ["level", "H"]
+			strings = ["protocol", "pair_id", "parent_run_id", "skill_id", "control_skill_id", "missing_reason"]
 		"action_resolved":
 			if not data.complete is bool or not data.P_before is Dictionary or not data.P_after is Dictionary: return "invalid_action_summary"
 			if not _pressure(data.P_before) or not _pressure(data.P_after) or not _stage(data.stage_before) or not _stage(data.stage_after): return "invalid_action_observation"

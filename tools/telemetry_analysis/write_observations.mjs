@@ -16,7 +16,7 @@ const labels = {
   stage_completion: '阶段完成率', selection_rate: '候选选择率', unshown_offer: '未展示候选率',
   choice_score: '选卡应用得分', choice_net_space: '选卡应用净空间',
   skill_action_exposure: '安装后行动暴露', skill_trigger_rate: '能力触发率',
-  paired_score: '反事实窗口净分', paired_space: '反事实窗口净空间',
+  paired_score: '成对选择窗口净分', paired_space: '成对选择窗口净空间',
   p_direct: '直接成线率', p_allclear: '全清联合率',
   interval_input: '等待输入区间', interval_busy: '演出区间', interval_choice: '选卡区间',
   interval_pause: '暂停区间', interval_inactive: '失焦区间',
@@ -76,10 +76,10 @@ summary.getRange('K:K').format.columnWidth = 36;
 summary.getRange('L:L').format.columnWidth = 23;
 const skillRows = data.metrics.filter(r => r.skill_id !== null);
 const skills = add('技能观测', '技能观测（不替代净收益对照）',
-  ['技能ID', '等级', '指标', '数值', '单位', '局数', '事件数', '质量', '窗口H', '组哈希', '方法', '缺失原因'],
+  ['技能ID', '等级', '指标', '数值', '单位', '局数', '事件数', '质量', '窗口H', '组哈希', '方法', '缺失原因', '对照技能', '窗口协议', '原局簇数'],
   skillRows.map(r => [r.skill_id, r.level, labels[r.metric_id] ?? r.metric_id,
     r.value ?? '待测', r.unit, r.n_runs, r.n_events, quality[r.quality], r.H,
-    r.group_hash, r.method, r.missing_reasons.join('; ')]));
+    r.group_hash, r.method, r.missing_reasons.join('; '),r.control_skill_id,r.window_protocol,r.n_clusters]));
 skills.getRange('A:A').format.columnWidth = 30;
 skills.getRange('C:C').format.columnWidth = 25;
 skills.getRange('E:E').format.columnWidth = 25;
