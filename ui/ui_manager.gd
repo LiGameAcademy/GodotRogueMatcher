@@ -1,4 +1,6 @@
 extends CanvasLayer
+
+signal popup_opened(popup: Control)
 ## 简化的 UI 管理器
 ## 职责：提供便捷的 UI 打开/关闭方法
 
@@ -46,6 +48,7 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 		popup.initialize(data)
 	
 	popup.show()
+	popup_opened.emit(popup)
 	return popup
 
 ## 关闭当前弹窗

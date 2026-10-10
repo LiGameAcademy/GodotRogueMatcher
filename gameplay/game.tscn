@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" path="res://ui/release_menu/release_menu.tscn" id="7_menu"]
 [ext_resource type="PackedScene" path="res://services/telemetry/run_collection.tscn" id="8_collection"]
 
+[ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="9_pool"]
+
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
 ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
@@ -58,3 +60,5 @@ script = ExtResource("1_uwrxv")
 layer = 130
 
 [node name="ReleaseMenu" parent="MenuLayer" instance=ExtResource("7_menu")]
+
+[node name="SkillPool" parent="." instance=ExtResource("9_pool")]

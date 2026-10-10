@@ -3,6 +3,7 @@ extends Control
 
 signal skill_selected(offer_id: int, skill_id: StringName)
 signal color_skill_selected(offer_id: int, skill_id: StringName, color: int)
+signal skill_pool_requested
 signal closed
 
 @onready var heading: Label = $Center/Panel/Column/Heading
@@ -33,6 +34,7 @@ func _ready() -> void:
 		button.pressed.connect(_select.bind(index))
 	picker.confirmed.connect(_confirm_color)
 	picker.back_requested.connect(return_to_choices)
+	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
 	view_button.pressed.connect(toggle_board_view)
 	return_button.pressed.connect(toggle_board_view)
 	resume_button.pressed.connect(toggle_selection_pause)

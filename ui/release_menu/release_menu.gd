@@ -3,6 +3,7 @@ extends Control
 
 signal play_requested(new_run: bool)
 signal mode_requested(mode_id: StringName)
+signal skill_pool_requested
 signal tutorial_completed
 signal language_requested(preference: String)
 
@@ -27,6 +28,7 @@ var _practice_done: bool = false
 const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
 
 func _ready() -> void:
+	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
 	play_button.pressed.connect(_play.bind(false))
 	new_button.pressed.connect(_play.bind(true))
 	learn_button.pressed.connect(_learn)
