@@ -86,12 +86,12 @@ func start_turn() -> void:
 
 func prepare_spawn_plan() -> void:
 	if not state.is_game_over and state.rule_error.is_empty():
-		state.spawning.ensure_plan(state.next_refill_count(), state.explosion, abilities.config.core_color)
+		state.spawning.ensure_plan(state.next_refill_count(), state.explosion)
 
 ## 在阶段u推进前冻结已预告批次；本行动越线不会改变其补棋代价。
 func _freeze_action_refill() -> void:
 	action_refill_count = state.next_refill_count()
-	state.spawning.ensure_plan(action_refill_count, state.explosion, abilities.config.core_color)
+	state.spawning.ensure_plan(action_refill_count, state.explosion)
 
 func finish_game(reason: StringName = &"board_full") -> void:
 	if state.is_game_over or not state.rule_error.is_empty():
@@ -106,7 +106,7 @@ func spawn_batch(count: int = 3) -> Array[SpawnResult]:
 	if state.is_game_over or not state.rule_error.is_empty() or count <= 0:
 		return result
 	state.phase = RunState.Phase.SPAWNING
-	state.spawning.ensure_plan(count, state.explosion, abilities.config.core_color)
+	state.spawning.ensure_plan(count, state.explosion)
 	for index: int in range(count):
 		var spawn: SpawnResult = spawn_one()
 		if spawn == null:
@@ -126,7 +126,7 @@ func spawn_one() -> SpawnResult:
 		finish_game()
 		return null
 	var coordinate: Vector2i = empty[state.random.randi_range(0, empty.size() - 1)]
-	state.spawning.ensure_plan(1, state.explosion, abilities.config.core_color)
+	state.spawning.ensure_plan(1, state.explosion)
 	var token: SpawnToken = state.spawning.consume_token()
 	var core: bool = false
 	if token.core_candidate:
@@ -134,14 +134,14 @@ func spawn_one() -> SpawnResult:
 		for piece: PieceState in state.rules.state.get_snapshot():
 			if piece.content_id == &"special_demolition": has_core = true
 		core = not has_core
-	var color: int = token.core_color if core else token.color
+	var color: int = token.color
 	var ghost: bool = false
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id == &"space_compressor" and state.random.randf() < 0.2:
 			ghost = true
 			break
 	var result: SpawnResult = SpawnResult.new()
-	result.piece = abilities.add_core(coordinate) if core else state.rules.place_piece(coordinate, color, &"", ghost)
+	result.piece = abilities.add_core(coordinate, color) if core else state.rules.place_piece(coordinate, color, &"", ghost)
 	result.matches = resolve_matches_at(coordinate)
 	state.spawn_history.append(result)
 	return result
