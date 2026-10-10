@@ -124,6 +124,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "开始新一局"
 
+[node name="SkillPoolButton" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "查看技能池"
+
 [node name="Help" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
 layout_mode = 2
 custom_minimum_size = Vector2(616, 0)

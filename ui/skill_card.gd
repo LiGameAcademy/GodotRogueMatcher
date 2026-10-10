@@ -15,6 +15,7 @@ extends Button
 var _motion: Tween
 var _accent: Color = Color.WHITE
 var _skill: SkillDefinition
+var _catalog_run: RunController
 var _target: SkillTarget
 
 func _ready() -> void:
@@ -25,11 +26,15 @@ func _ready() -> void:
 	focus_exited.connect(_update_feedback)
 	button_down.connect(_press_feedback)
 	button_up.connect(_update_feedback)
+	content.minimum_size_changed.connect(_fit_catalog_height)
 
 func _exit_tree() -> void:
 	if _motion != null: _motion.kill()
 
 func configure(skill: SkillDefinition, target: SkillTarget) -> void:
+	_catalog_run = null
+	action_label.show()
+	focus_mode = Control.FOCUS_ALL
 	_skill = skill
 	_target = target
 	_accent = SkillRarity.COLORS[skill.rarity]
@@ -50,9 +55,28 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	action_label.text = tr("点击选择颜色") if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else tr("点击选择此技能")
 	_update_feedback()
 
+## 技能池只读卡面，不冻结随机目标或提供选取动作。
+func configure_catalog(skill: SkillDefinition, run: RunController) -> void:
+	configure(skill, SkillTarget.new())
+	_catalog_run = run
+	_target = null
+	level_label.hide()
+	var details: PackedStringArray = SkillPoolText.details(run, skill).split("\n")
+	var effect_lines: int = SkillChoiceText.summary(skill).split("\n").size()
+	preview_label.text = "\n".join(details.slice(effect_lines))
+	preview_label.show()
+	action_label.hide()
+	focus_mode = Control.FOCUS_NONE
+	_fit_catalog_height.call_deferred()
+
+func _fit_catalog_height() -> void:
+	if _catalog_run == null: return
+	custom_minimum_size.y = maxf(320.0, content.get_combined_minimum_size().y + 36.0)
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _skill != null:
-		configure(_skill, _target)
+		if _catalog_run != null: configure_catalog(_skill, _catalog_run)
+		else: configure(_skill, _target)
 
 func _update_feedback() -> void:
 	var highlighted: bool = not disabled and (is_hovered() or has_focus())
@@ -63,7 +87,7 @@ func _update_feedback() -> void:
 	_motion.tween_property(action_label, "modulate", Color.WHITE if highlighted else Color("acbacb"), hover_duration)
 
 func _press_feedback() -> void:
-	if disabled: return
+	if disabled or _catalog_run != null: return
 	if _motion != null: _motion.kill()
 	_motion = create_tween()
 	_motion.tween_property(content, "modulate", Color("bacadd"), hover_duration * 0.5)

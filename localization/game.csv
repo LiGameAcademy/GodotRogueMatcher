@@ -646,3 +646,29 @@ Standalone skill rewards only award bonus score."
 "五连分数倍率+0.2/级；额外得分不变。","五连分数倍率+0.2/级；额外得分不变。","Match score multiplier +0.2/level; bonus score unchanged."
 "恰好消除5枚 → 额外得分+5/级，不受倍率影响。","恰好消除5枚 → 额外得分+5/级，不受倍率影响。","Clear exactly 5 → bonus score +5/level, unaffected by multipliers."
 "%s +%d","%s +%d","%s +%d"
+技能池,技能池,Skill pool
+查看技能池,查看技能池,View skill pool
+查看技能与条件；不会改变本次选择。,查看技能与条件；不会改变本次选择。,Browse skills and requirements; your current choices stay unchanged.
+返回 / ESC,返回 / ESC,Back / ESC
+前置：%s,前置：%s,Requires: %s
+无,无,None
+第%d次选择起,第%d次选择起,From choice %d
+等级 %d / %s,等级 %d / %s,Level %d / %s
+可重复升级,可重复升级,Repeatable upgrades
+当前资格：%s,当前资格：%s,Current eligibility: %s
+满足条件,满足条件,Requirements met
+当前不可选,当前不可选,Currently unavailable
+等级已达安全上限,等级已达安全上限,Upgrade limit reached
+尚未进入候选阶段,尚未进入候选阶段,Not yet available at this choice
+尚未进入中期候选池,尚未进入中期候选池,Available in later choices
+全部 Tag,全部 Tag,All tags
+全部稀有度,全部稀有度,All rarities
+全部等级,全部等级,All levels
+当前等级 %d,当前等级 %d,Current level %d
+默认：稀有度 → 等级 → 名称,默认：稀有度 → 等级 → 名称,Default: rarity → level → name
+稀有度降序,稀有度降序,Rarity: high to low
+当前等级降序,当前等级降序,Level: high to low
+名称升序,名称升序,Name: A to Z
+重置筛选,重置筛选,Reset filters
+显示 %d / %d 项技能,显示 %d / %d 项技能,Showing %d / %d skills
+没有符合筛选条件的技能。,没有符合筛选条件的技能。,No skills match these filters.

@@ -66,7 +66,7 @@ func observe(kind: String) -> void:
 			var projector: TelemetryProjector = factory.projectors.back()
 			observation.observation = projector.observation(false)
 			observation.run_ended = projector.ended
-			if ui not in ["help", "start_menu", "result"]: observation.ui = observation.observation.ui
+			if ui not in ["help", "start_menu", "result", "skill_pool"]: observation.ui = observation.observation.ui
 	session.append(kind, observation)
 
 func flush(force: bool = true) -> void:

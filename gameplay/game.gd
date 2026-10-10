@@ -10,6 +10,8 @@ const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 @onready var collection: RunCollection = $RunCollection
 @export var collection_context: String = "unknown"
 @export var intercept_window_close: bool = false
+@onready var skill_pool: SkillPool = $SkillPool
+var _pool_previous_location: String = ""
 var _restart_reason: String = "restart"
 @export var show_start_menu: bool = not OS.is_debug_build()
 @export var persist_preferences: bool = true
@@ -40,6 +42,9 @@ func _ready() -> void:
 	hud.fast_requested.connect(_set_fast)
 	hud.pause_requested.connect(_toggle_pause)
 	hud.help_requested.connect(_show_menu)
+	release_menu.skill_pool_requested.connect(_open_skill_pool)
+	skill_pool.view_changed.connect(_on_skill_pool_view_changed)
+	UIManager.popup_opened.connect(_on_popup_opened)
 	release_menu.mode_requested.connect(_select_mode)
 	release_menu.play_requested.connect(_play_from_menu)
 	release_menu.tutorial_completed.connect(_tutorial_completed)
@@ -156,6 +161,7 @@ func _end_to_menu() -> void:
 	_show_menu()
 
 func _on_retry_requested() -> void:
+	skill_pool.close()
 	collection.finish(_restart_reason)
 	_restart_reason = "restart"
 	feedback.cancel()
@@ -197,6 +203,20 @@ func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
 
 func _on_score_visualized(entry: ScoreEntry, origin: Vector2) -> void:
 	hud.show_score_burst(entry, board.view.score_floats.get_global_transform_with_canvas() * origin)
+
+func _open_skill_pool() -> void:
+	skill_pool.open(board.run)
+
+func _on_popup_opened(popup: Control) -> void:
+	if popup is PopupSkillChoice:
+		(popup as PopupSkillChoice).skill_pool_requested.connect(_open_skill_pool)
+
+func _on_skill_pool_view_changed(open: bool) -> void:
+	if open:
+		_pool_previous_location = collection.ui
+		_set_collection_location("skill_pool")
+	else:
+		_set_collection_location(_pool_previous_location)
 
 func _on_piece_pool_visibility_changed(open: bool) -> void:
 	_set_collection_location("piece_pool" if open else "")
