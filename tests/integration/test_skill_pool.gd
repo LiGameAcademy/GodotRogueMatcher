@@ -94,3 +94,60 @@ func test_terminal_and_presentation_views_restore_their_previous_state() -> void
 		pool.close()
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), original)
 		assert_false(get_tree().paused)
+
+func test_default_sort_uses_rarity_then_level_then_translated_name() -> void:
+	run.state.explosion.multiplier_level = 2
+	var skills: Array[SkillDefinition] = SkillPoolQuery.select(run)
+	for index: int in range(1, skills.size()):
+		var a: SkillDefinition = skills[index - 1]
+		var b: SkillDefinition = skills[index]
+		assert_true(a.rarity >= b.rarity)
+		if a.rarity != b.rarity: continue
+		assert_true(SkillPoolQuery.level(run, a) >= SkillPoolQuery.level(run, b))
+		if SkillPoolQuery.level(run, a) != SkillPoolQuery.level(run, b): continue
+		assert_lte(tr(a.title).naturalnocasecmp_to(tr(b.title)), 0)
+
+func test_filters_intersect_and_instant_history_is_not_a_level() -> void:
+	run.state.rewards.acquired[&"instant_thin"] = 5
+	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
+		if skill.skill_id == &"instant_thin": assert_eq(SkillPoolQuery.level(run, skill), 0)
+	var expected: int = 0
+	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
+		if skill.tags.has(&"exp") and skill.rarity == SkillDefinition.Rarity.COMMON and SkillPoolQuery.level(run, skill) == 0: expected += 1
+	var filtered: Array[SkillDefinition] = SkillPoolQuery.select(run, &"exp", SkillDefinition.Rarity.COMMON, 0)
+	assert_eq(filtered.size(), expected)
+	assert_gt(expected, 0)
+	assert_eq(SkillPoolQuery.select(run, &"missing").size(), 0)
+
+func test_grid_cards_filter_sort_reset_without_changing_rules() -> void:
+	var original: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	pool.open(run)
+	var card: SkillCard = pool.entries.get_child(0) as SkillCard
+	assert_not_null(card)
+	assert_false(card.action_label.visible)
+	assert_false(card.level_label.visible, "没有虚构的升级预览")
+	pool.rarity_filter.select(1)
+	pool.level_filter.select(1)
+	pool.order_select.select(SkillPoolQuery.Order.NAME)
+	pool._refresh()
+	for child: SkillCard in pool.entries.get_children():
+		assert_eq(child._skill.rarity, SkillDefinition.Rarity.COMMON)
+		assert_eq(SkillPoolQuery.level(run, child._skill), 0)
+	pool._reset_filters()
+	assert_eq(pool.entries.get_child_count(), SkillOfferGenerator.CATALOG.size())
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), original)
+
+func test_empty_filter_and_grid_column_count() -> void:
+	pool.open(run)
+	pool.tag_filter.add_item("missing")
+	pool._tags.append(&"missing")
+	pool.tag_filter.select(pool._tags.size() - 1)
+	pool._refresh()
+	assert_true(pool.empty_label.visible)
+	assert_eq(pool.entries.get_child_count(), 0)
+	pool.scroll.size.x = 600
+	pool._resize_grid()
+	assert_eq(pool.entries.columns, 1)
+	pool.scroll.size.x = 950
+	pool._resize_grid()
+	assert_eq(pool.entries.columns, 3)
