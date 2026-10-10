@@ -17,7 +17,7 @@ func add(values: Array[Dictionary], read_error: String = "") -> void:
 		errors.append({"run_id": header.run_id, "reason": "conflicting_run_metadata"})
 		return
 	for event: Dictionary in values:
-		var encoded: String = RunSnapshot.canonical(event)
+		var encoded: String = JSON.stringify(event, '', true)
 		if _seen.has(event.event_id):
 			if _seen[event.event_id] != encoded: errors.append({"run_id": event.run_id, "reason": "conflicting_event_id"})
 			continue
@@ -51,8 +51,8 @@ func summary() -> Dictionary:
 		var scores: Array[int] = []
 		var moves: Array[int] = []
 		for run: Dictionary in groups[key]:
-			if CommandCodec.valid_integer(run.score): scores.append(run.score.to_int())
-			if CommandCodec.valid_integer(run.moves): moves.append(run.moves.to_int())
+			if TelemetrySchema.valid_integer(run.score): scores.append(run.score.to_int())
+			if TelemetrySchema.valid_integer(run.moves): moves.append(run.moves.to_int())
 		result.groups[key] = {"dimensions": _dimensions(groups[key][0]), "status": groups[key][0].status, "count": groups[key].size(), "score_p10_p50_p90": _quantiles(scores), "moves_p10_p50_p90": _quantiles(moves)}
 	return result
 
@@ -66,6 +66,8 @@ func write(directory: String) -> bool:
 		var row: Dictionary = _base(event)
 		row.merge({"event_id": event.event_id, "telemetry_seq": event.telemetry_seq, "event_name": event.event_name, "elapsed_ms": event.elapsed_ms, "action_id": event.action_id, "turn_index": event.turn_index, "command_id": event.command_id})
 		row.merge(event.payload)
+		# 保留完整信封，使七表CSV可无损重新导入；扁平列继续供现有分析使用。
+		row["event_json"] = event.duplicate(true)
 		tables.events.append(row)
 		match event.event_name:
 			"action_resolved": tables.turns.append(row)
@@ -134,7 +136,7 @@ func _dimensions(event: Dictionary) -> Dictionary:
 	return result
 
 func _group_key(event: Dictionary) -> String:
-	return String(event.source) + "/" + RunSnapshot.digest(_dimensions(event))
+	return String(event.source) + "/" + JSON.stringify(_dimensions(event), '', true).sha256_text()
 
 func _quantiles(values: Array[int]) -> Array[int]:
 	var result: Array[int] = []
@@ -157,7 +159,7 @@ func _csv(path: String, rows: Array[Dictionary]) -> bool:
 		var fields: PackedStringArray = []
 		for key: String in keys:
 			var value: Variant = row.get(key)
-			fields.append("" if value == null else RunSnapshot.canonical(value) if value is Dictionary or value is Array else str(value))
+			fields.append("" if value == null else JSON.stringify(value, '', true) if value is Dictionary or value is Array else str(value))
 		file.store_csv_line(fields)
 	file.flush()
 	return file.get_error() == OK

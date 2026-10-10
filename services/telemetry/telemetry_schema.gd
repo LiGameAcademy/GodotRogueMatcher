@@ -24,6 +24,10 @@ const REQUIRED: Dictionary[String, Array] = {
 static func safe_id(value: String) -> bool:
 	return not value.is_empty() and RegEx.create_from_string("^[A-Za-z0-9_-]+$").search(value) != null
 
+## 与命令协议相同的规范十进制校验；离线Reader不加载整套RunCommand类型。
+static func valid_integer(value: Variant) -> bool:
+	return value is String and value.is_valid_int() and str(value.to_int()) == value
+
 static func plain(value: Variant) -> bool:
 	if value == null or value is String or value is bool: return true
 	if value is float: return is_finite(value)
@@ -42,9 +46,9 @@ static func validate(event: Dictionary) -> String:
 	if not event.get("event_name") is String or (not REQUIRED.has(event.event_name) and (event.schema_version == "1" or not REQUIRED_V2.has(event.event_name))): return "unknown_telemetry_event"
 	for key: String in ["event_id", "run_id", "session_id", "rule_version", "content_version", "offer_version", "build_id", "config_hash", "source", "initialization"]:
 		if not event.get(key) is String: return "invalid_envelope_" + key
-	if not safe_id(event.run_id) or not CommandCodec.valid_integer(event.get("telemetry_seq")) or event.telemetry_seq.to_int() <= 0: return "invalid_telemetry_id"
+	if not safe_id(event.run_id) or not TelemetrySchema.valid_integer(event.get("telemetry_seq")) or event.telemetry_seq.to_int() <= 0: return "invalid_telemetry_id"
 	if event.event_id != event.run_id + ":" + event.telemetry_seq: return "invalid_event_id"
-	if not CommandCodec.valid_integer(event.get("elapsed_ms")) or event.elapsed_ms.to_int() < 0: return "invalid_elapsed"
+	if not TelemetrySchema.valid_integer(event.get("elapsed_ms")) or event.elapsed_ms.to_int() < 0: return "invalid_elapsed"
 	for key: String in ["action_id", "turn_index", "command_id", "experiment_id", "variant_id", "strategy_version"]:
 		if not event.has(key) or (event[key] != null and not event[key] is String): return "invalid_envelope_" + key
 	if not event.get("payload") is Dictionary or not plain(event): return "non_serializable_telemetry"
@@ -116,7 +120,7 @@ static func _payload(name: String, data: Dictionary) -> String:
 			strings = ["status", "reason"]
 			if data.status not in ["completed", "abandoned", "rule_error", "censored"] or not data.times is Dictionary: return "invalid_ending"
 	for key: String in integers:
-		if not CommandCodec.valid_integer(data.get(key)): return "invalid_integer_" + key
+		if not TelemetrySchema.valid_integer(data.get(key)): return "invalid_integer_" + key
 	for key: String in booleans:
 		if not data.get(key) is bool: return "invalid_boolean_" + key
 	for key: String in strings:
@@ -126,26 +130,26 @@ static func _payload(name: String, data: Dictionary) -> String:
 static func _pressure(value: Variant) -> bool:
 	if not value is Dictionary: return false
 	for key: String in ["n", "empty", "L"]:
-		if not CommandCodec.valid_integer(value.get(key)) or int(value[key]) < 0: return false
+		if not TelemetrySchema.valid_integer(value.get(key)) or int(value[key]) < 0: return false
 	return value.get("P") is float and float(value.P) >= 0.0 and float(value.P) <= 100.0 and int(value.L) <= int(value.empty)
 
 static func _stage(value: Variant) -> bool:
 	if not value is Dictionary or not value.get("enabled") is bool: return false
 	if value.get("invalid", false): return value.invalid is bool
-	if not CommandCodec.valid_integer(value.get("q")) or int(value.q) < 1 or int(value.q) > 6: return false
+	if not TelemetrySchema.valid_integer(value.get("q")) or int(value.q) < 1 or int(value.q) > 6: return false
 	if not value.enabled: return value.get("u") == null and value.get("T") == null
 	for key: String in ["stage_id", "u", "T", "action_score", "carry", "missing"]:
-		if not CommandCodec.valid_integer(value.get(key)): return false
+		if not TelemetrySchema.valid_integer(value.get(key)): return false
 	return true
 
 static func _ids(value: Variant) -> bool:
 	if not value is Array: return false
 	for id: Variant in value:
-		if not CommandCodec.valid_integer(id) or int(id) <= 0: return false
+		if not TelemetrySchema.valid_integer(id) or int(id) <= 0: return false
 	return true
 
 static func _ledger(value: Variant) -> bool:
 	if not value is Dictionary or not value.get("reason") is String or not _ids(value.get("targets")): return false
 	for key: String in ["event_id", "action_id", "source_id", "N", "B", "E", "final_score"]:
-		if not CommandCodec.valid_integer(value.get(key)): return false
+		if not TelemetrySchema.valid_integer(value.get(key)): return false
 	return value.get("G") is float
