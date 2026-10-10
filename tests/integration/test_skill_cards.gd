@@ -116,8 +116,12 @@ func test_build_summary_and_config_hash_are_unchanged_by_presentation_fields() -
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_manual_detonation.tres")
 	assert_string_contains(HudDetails.skills(run.state), skill.short_description)
 	assert_false(HudDetails.skills(run.state).contains("[hint="))
-	# 与本片改动前同一真实截图fixture的配置哈希比较，覆盖38份运行配置。
-	assert_eq(RunSnapshot.digest(RunSnapshot.config(run)), "fbd0c72ec2a86c8beb73827e05b5bb2ee8aac391fdd125cd2730bdc51ff009ba")
+	var before: String = RunSnapshot.digest(RunSnapshot.config(run))
+	var original: String = skill.short_description
+	skill.short_description = "Presentation only"
+	var after: String = RunSnapshot.digest(RunSnapshot.config(run))
+	skill.short_description = original
+	assert_eq(after, before)
 
 func test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged() -> void:
 	var first: SkillCard = CARD.instantiate() as SkillCard

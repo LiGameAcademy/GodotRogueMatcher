@@ -22,6 +22,8 @@ static func tags(skill: SkillDefinition) -> String:
 
 ## 卡面只显示此次选择的具体变化，不重复展示共同生命周期。
 static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> String:
+	if skill.choice_effect is PercentClearEffect:
+		return TranslationServer.translate("本次清理：%d枚普通棋") % target.piece_ids.size()
 	if skill.choice_effect is RefillCountEffect:
 		return TranslationServer.translate("本次补棋：%d → %d 枚 · 余%d次") % [target.value_before, target.value_after, target.remaining_after]
 	if skill.choice_effect is ClearMaterialEffect:
