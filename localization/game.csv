@@ -661,3 +661,14 @@ Standalone skill rewards only award bonus score."
 等级已达安全上限,等级已达安全上限,Upgrade limit reached
 尚未进入候选阶段,尚未进入候选阶段,Not yet available at this choice
 尚未进入中期候选池,尚未进入中期候选池,Available in later choices
+全部 Tag,全部 Tag,All tags
+全部稀有度,全部稀有度,All rarities
+全部等级,全部等级,All levels
+当前等级 %d,当前等级 %d,Current level %d
+默认：稀有度 → 等级 → 名称,默认：稀有度 → 等级 → 名称,Default: rarity → level → name
+稀有度降序,稀有度降序,Rarity: high to low
+当前等级降序,当前等级降序,Level: high to low
+名称升序,名称升序,Name: A to Z
+重置筛选,重置筛选,Reset filters
+显示 %d / %d 项技能,显示 %d / %d 项技能,Showing %d / %d skills
+没有符合筛选条件的技能。,没有符合筛选条件的技能。,No skills match these filters.
