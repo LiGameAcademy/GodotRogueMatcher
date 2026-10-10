@@ -58,6 +58,10 @@ func set_interval(category: String) -> void:
 	if ended or _base.is_empty() or not clock.times.has(category) or category == clock.category: return
 	_emit("observation_interval_closed", clock.change(category))
 
+## 离线成对工具的整窗结果；不修改游戏状态或运行时采集节奏。
+func paired_window_resolved(result: Dictionary) -> void:
+	_emit("paired_window_resolved", result)
+
 func offer_presented(offer_id: int, order: Array[String]) -> bool:
 	if ended or _base.get("source") not in ["human", "fixture"] or not _offers.has(str(offer_id)): return false
 	_presentation_seq += 1
@@ -85,6 +89,7 @@ func _start(header: Dictionary) -> void:
 	_base = {"schema_version": TelemetrySchema.VERSION, "run_id": header.run_id, "session_id": _session_id, "rule_version": header.rules_version, "content_version": header.content_version, "offer_version": header.offer_version, "build_id": header.build, "config_hash": header.config_hash, "source": header.source, "initialization": header.initialization, "action_id": null, "turn_index": null, "command_id": null, "experiment_id": header.metadata.get("experiment_id"), "variant_id": header.metadata.get("variant_id"), "strategy_version": header.metadata.get("strategy"), "columns": header.config.columns, "rows": header.config.rows}
 	# 初始化规则与文件创建不冒充玩家观察区间。
 	var bot_config: Dictionary = header.metadata.get("bot_config", {})
+	_base["parent_run_id"] = header.metadata.get("parent_run_id")
 	_base["bot_config_hash"] = null if bot_config.is_empty() else RunSnapshot.digest(bot_config)
 	_base.merge({"mode_id": header.config.mode_id, "collection_context": header.metadata.get("collection_context", "bot_batch" if header.source == "bot" else "fixture" if header.source == "fixture" else "unknown"), "commit_id": header.metadata.get("commit_id", "unknown"), "seed": header.seed, "pressure_version": TelemetryFacts.CONFIG.pressure_version, "collection_config_hash": RunSnapshot.digest(RunSnapshot.resource_fields(TelemetryFacts.CONFIG)), "rule_event_id": null, "parent_event_id": null, "root_action_id": null, "batch_id": null, "stage_id": null, "reward_id": null, "offer_id": null})
 	if header.source in ["bot", "fixture"]: _base["collection_context"] = "bot_batch" if header.source == "bot" else "fixture"

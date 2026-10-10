@@ -6,7 +6,8 @@ export function referenceUpdates(inputs, previousRows) {
   for (const input of inputs) {
     const scope = JSON.stringify({skill_id:input.skill_id,level:input.level,H:input.H,
       stage_id:input.stage_id,action_type:input.action_type,build_hash:input.build_hash,
-      pressure_band:input.pressure_band});
+      pressure_band:input.pressure_band,control_skill_id:input.control_skill_id,
+      window_protocol:input.window_protocol});
     const key = JSON.stringify([input.metric_id,input.group_hash,scope]);
     const old = previous.get(key);
     const eligible = input.selected && input.quality==='candidate' && Number.isFinite(input.value);
