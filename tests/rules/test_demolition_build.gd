@@ -18,7 +18,7 @@ func _detonate(run: RunController, id: int) -> CommandResult:
 func _install(run: RunController, key: StringName, value: int = 1) -> void:
 	run.state.explosion.upgrades[key] = value
 
-func test_catalog_has_38_real_distinct_effects_and_five_grades() -> void:
+func test_catalog_has_39_real_distinct_effects_and_five_grades() -> void:
 	var ids: Array[StringName] = []
 	var grades: Array[int] = [0, 0, 0, 0, 0]
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
@@ -52,8 +52,8 @@ func test_catalog_has_38_real_distinct_effects_and_five_grades() -> void:
 		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else -1)
 		assert_true(result.success, "%s: %s" % [skill.skill_id, result.error])
 		if skill.choice_effect is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
-	assert_eq(ids.size(), 38)
-	assert_eq(grades, [11, 11, 10, 5, 1])
+	assert_eq(ids.size(), 39)
+	assert_eq(grades, [11, 11, 11, 5, 1])
 
 func test_prerequisites_and_rarity_multiply_after_clamp_once() -> void:
 	var run: RunController = _run()

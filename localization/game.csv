@@ -673,4 +673,11 @@ Standalone skill rewards only award bonus score."
 显示 %d / %d 项技能,显示 %d / %d 项技能,Showing %d / %d skills
 没有符合筛选条件的技能。,没有符合筛选条件的技能。,No skills match these filters.
 拥挤时可提前出现,拥挤时可提前出现,May appear earlier on crowded boards
+随机疏林,随机疏林,Thinning
+随机清理25%的普通棋，数量向下取整，保留特殊伙伴。直接清理无分；引信爆炸照常计分。,随机清理25%的普通棋，数量向下取整，保留特殊伙伴。直接清理无分；引信爆炸照常计分。,"Clear a random 25% of ordinary pieces, rounded down. Preserve special partners. No direct score; explosions score normally."
+"随机清理25%普通棋（向下取整）。
+直接清理无分；引信爆炸照常计分。","随机清理25%普通棋（向下取整）。
+直接清理无分；引信爆炸照常计分。","Clear 25% of ordinary pieces (round down).
+No direct score; explosions score normally."
+本次清理：%d枚普通棋,本次清理：%d枚普通棋,Clear %d pieces
 立即投放：%s,立即投放：%s,Spawn now: %s

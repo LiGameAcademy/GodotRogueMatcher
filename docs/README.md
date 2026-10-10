@@ -6,6 +6,7 @@ Skill Lines is a five-in-a-row roguelite preview. Start with the [English README
 - [Web export tool](../tools/export_web.ps1)
 - [Core System documentation](../addons/godot_core_system/docs/)
 - [Localization configuration](../localization/game.csv)
+- [比例清理试调与600分试玩观察](percent_clear.md)
 - [爆破手预告颜色修复](core_preview_color_fix.md)
 - [Preview artwork and real gameplay screenshots](preview/)
 

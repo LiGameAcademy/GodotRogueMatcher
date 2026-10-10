@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1")
-rules_version = "offer-dye-trial-v1"
+rules_version = "offer-dye-trial-v2-percent-clear"
 profile_id = "preview_dual_dye"

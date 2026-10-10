@@ -10,6 +10,7 @@ const CATALOG: Array[SkillDefinition] = [
 	preload("res://gameplay/progression/content/score_multiplier.tres"),
 	preload("res://gameplay/progression/content/match_extra.tres"),
 	preload("res://gameplay/progression/content/instant_thin.tres"),
+	preload("res://gameplay/progression/content/instant_percent_clear.tres"),
 	preload("res://gameplay/progression/content/refill_less.tres"),
 	preload("res://gameplay/progression/content/refill_more.tres"),
 	preload("res://gameplay/progression/content/precision_reward.tres"),

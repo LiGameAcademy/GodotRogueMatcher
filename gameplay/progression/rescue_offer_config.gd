@@ -5,7 +5,7 @@ extends Resource
 @export var pressure_start: float = 40.0
 @export var maximum_gain: float = 1.2
 @export var early_pressure: float = 70.0
-@export var rules_version: String = "offer-pressure-trial-v1"
+@export var rules_version: String = "offer-pressure-trial-v2-percent-clear"
 
 func validation_error() -> String:
 	if not is_finite(occupancy_weight) or occupancy_weight < 0.0 or occupancy_weight > 1.0: return "Invalid pressure occupancy weight"
