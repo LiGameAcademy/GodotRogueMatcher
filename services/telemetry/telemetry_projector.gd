@@ -92,7 +92,7 @@ func _start(header: Dictionary) -> void:
 	var companions: int = 0
 	for piece: Dictionary in _state.pieces:
 		if not piece.content_id.is_empty(): companions += 1
-	_emit("run_started", {"columns": header.config.columns, "rows": header.config.rows, "ordinary": _state.pieces.size() - companions, "companions": companions, "score": _state.total, "config": _config, "pressure_config": RunSnapshot.resource_fields(TelemetryFacts.CONFIG), "capabilities": {"goal_effects": false, "rescue_weights": false, "target_curve": false, "all_ability_attempts": false}, "initial_observation": observation()})
+	_emit("run_started", {"columns": header.config.columns, "rows": header.config.rows, "ordinary": _state.pieces.size() - companions, "companions": companions, "score": _state.total, "config": _config, "pressure_config": RunSnapshot.resource_fields(TelemetryFacts.CONFIG), "capabilities": {"goal_effects": false, "rescue_weights": not _config.get("challenge", {}).is_empty(), "target_curve": false, "all_ability_attempts": false}, "initial_observation": observation()})
 
 func _resolved(row: Dictionary) -> void:
 	_state = row.after
@@ -129,7 +129,7 @@ func _generated_offer() -> void:
 	_offers[offer.offer_id] = true
 	var levels: Dictionary = {}
 	for id: String in offer.choices: levels[id] = _state.acquired.get(id, "0")
-	_emit("offer_generated", {"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": offer.choices.duplicate(), "levels": levels, "weights": offer.weights.duplicate(true), "targets": offer.targets.duplicate(true), "generation_order": offer.generation_order, "density": _density(), "build": _state.acquired.duplicate(true), "reward_stage": offer.reward_id, "stage": TelemetryFacts.stage(_state, _config), "P_offer": _pressure(_state), "offer_fingerprint": RunSnapshot.digest(offer)}, {"offer_id": offer.offer_id, "reward_id": offer.reward_id})
+	_emit("offer_generated", {"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": offer.choices.duplicate(), "levels": levels, "baseline_weights": offer.get("baseline_weights", {}).duplicate(true), "weights": offer.weights.duplicate(true), "targets": offer.targets.duplicate(true), "generation_order": offer.generation_order, "density": _density(), "build": _state.acquired.duplicate(true), "reward_stage": offer.reward_id, "stage": TelemetryFacts.stage(_state, _config), "P_offer": offer.get("pressure_snapshot", {}) if not offer.get("pressure_snapshot", {}).is_empty() else _pressure(_state), "rescue_multiplier": offer.get("rescue_multiplier", "1"), "offer_rules_version": offer.get("offer_rules_version"), "offer_fingerprint": RunSnapshot.digest(offer)}, {"offer_id": offer.offer_id, "reward_id": offer.reward_id})
 	needs_flush = true
 
 func _end_turn(complete: bool) -> void:

@@ -16,6 +16,7 @@ short_description = "任选一色，清理该色普通棋。\n直接清理无分
 base_weight = 8.0
 tags = Array[StringName]([&"space", &"exp"])
 is_persistent = false
+rescue_offer = true
 minimum_reward = 3
 choice_effect = SubResource("effect")
 rarity = 2

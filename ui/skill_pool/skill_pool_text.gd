@@ -14,6 +14,7 @@ static func details(run: RunController, skill: SkillDefinition) -> String:
 				requirements.append(TranslationServer.translate(entry.title))
 	if skill.minimum_reward > 1:
 		requirements.append(TranslationServer.translate("第%d次选择起") % skill.minimum_reward)
+		if skill.rescue_offer and run.state.stage.enabled(): requirements.append(TranslationServer.translate("拥挤时可提前出现"))
 	lines.append(TranslationServer.translate("前置：%s") % (" · ".join(requirements) if not requirements.is_empty() else TranslationServer.translate("无")))
 	var maximum: int = skill.maximum_level
 	if skill.choice_effect == null:

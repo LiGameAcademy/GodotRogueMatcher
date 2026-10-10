@@ -15,6 +15,7 @@ enum Action { CORE_DROP, ASSIGN_FUSE, BLAST_RADIUS, BLAST_REWARD, SCORE_MULTIPLI
 @export var is_persistent: bool = true
 @export var fallback_only: bool = false
 @export var need_rule: StringName
+@export var rescue_offer: bool = false
 @export var minimum_reward: int = 1
 @export var target_count: int = 3
 @export var choice_effect: ChoiceEffect

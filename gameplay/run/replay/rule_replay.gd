@@ -51,7 +51,7 @@ func replay(records: Array[Dictionary]) -> bool:
 	if not CommandCodec.valid_integer(header.get("seed")) or not header.get("config") is Dictionary or not header.get("run_id") is String:
 		return _fail("invalid_header")
 	var config: Dictionary = header.config
-	if header.get("rules_version") != RunSnapshot.RULES_VERSION or header.get("offer_version") != SkillOfferGenerator.CONFIG.rules_version or header.get("content_version") != RunSnapshot.digest(config.get("skills")):
+	if header.get("rules_version") != RunSnapshot.RULES_VERSION or header.get("offer_version") != SkillOfferGenerator.version_for_mode(StringName(str(config.get("mode_id", "classic_endless")))) or header.get("content_version") != RunSnapshot.digest(config.get("skills")):
 		return _fail("record_version_mismatch")
 	for key: String in ["columns", "rows", "match_count"]:
 		if not CommandCodec.valid_integer(config.get(key)): return _fail("invalid_board_config")

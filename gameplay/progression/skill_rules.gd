@@ -35,7 +35,7 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
 	return context
 
-static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig) -> String:
+static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, frozen_pressure: float = -1.0) -> String:
 	if state.is_game_over or not state.rule_error.is_empty():
 		return "本局已经结束或规则异常"
 	if not is_finite(skill.base_weight) or skill.base_weight <= 0.0:
@@ -46,9 +46,10 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 	if not skill.prerequisite.is_empty() and state.rewards.acquired.get(skill.prerequisite, 0) == 0: return "缺少前置升级"
 	if skill.maximum_level > 0 and level(state, skill) >= skill.maximum_level: return "已满级"
 	if level(state, skill) >= 1000000: return "等级已达安全上限"
-	if state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
+	var early_rescue: bool = RescueOfferRules.early_allowed(state, skill, frozen_pressure)
+	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
 	if skill.choice_effect != null:
-		if state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
+		if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
 		return skill.choice_effect.rejection(effect_context(state))
 	match skill.action:
 		SkillDefinition.Action.CORE_DROP:
@@ -67,7 +68,7 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 		SkillDefinition.Action.BLAST_EXTRA:
 			if not state.explosion.unlocked: return "尚未解锁爆炸"
 		SkillDefinition.Action.THIN:
-			if state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
+			if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
 			if unmarked_material(state).is_empty(): return "没有可疏整材料"
 	return ""
 
