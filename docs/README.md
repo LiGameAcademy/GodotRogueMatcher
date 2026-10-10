@@ -8,6 +8,7 @@ Skill Lines is a five-in-a-row roguelite preview. Start with the [English README
 - [Localization configuration](../localization/game.csv)
 - [比例清理试调与600分试玩观察](percent_clear.md)
 - [爆破手预告颜色修复](core_preview_color_fix.md)
+- [过关嘉奖与目标奖励采集](goal_score_bonus.md)
 - [Preview artwork and real gameplay screenshots](preview/)
 
 The former Matrix Link design index referred to files absent from this repository and has been retired. Current behavior is defined by the shipped gameplay resources and tests; planned missions and mobile support are not preview features.

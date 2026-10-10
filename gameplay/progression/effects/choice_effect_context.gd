@@ -10,3 +10,5 @@ var refill_batches: Dictionary[int, int] = {}
 var fuse_ids: Array[int] = []
 var upgrades: Dictionary[StringName, int] = {}
 var dye_upgrades: Dictionary[StringName, int] = {}
+var stage_enabled: bool = false
+var goal_bonus_score: int = 0

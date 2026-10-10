@@ -4,6 +4,7 @@ class_name Board
 ## M1兼容协调器：旧回合流程调用规则入口，表现由独立BoardView消费。
 signal initialized
 signal presentation_updated
+signal goal_bonus_ready(entry: ScoreEntry)
 signal selection_changed(piece: PieceState, has_fuse: bool)
 signal operation_feedback(message: String)
 signal feedback_requested(cue: StringName)
@@ -408,6 +409,9 @@ func _continue_run(generation: int) -> void:
 	while generation == _generation:
 		if not await finish_presentation(): return
 		var step: RunStepResult = run.advance()
+		if step.challenge != null and step.challenge.goal_score_entry != null:
+			_score_presentation_pending = true
+			goal_bonus_ready.emit(step.challenge.goal_score_entry)
 		match step.kind:
 			&"offer": await LevelUpSystem.resolve_pending_rewards(self)
 			&"end_turn":

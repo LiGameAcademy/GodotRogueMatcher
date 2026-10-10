@@ -292,7 +292,7 @@ func advance() -> RunStepResult:
 				result.spawns = spawn_batch(count)
 			result.matches = DemolitionRules.settle(state, turn_action_id)
 			check_rewards()
-			result.challenge = _settle_stage()
+			result.challenge = _settle_stage(result)
 		&"after_spawn":
 			continuation = &"idle"
 			start_turn()
@@ -304,10 +304,13 @@ func advance() -> RunStepResult:
 	return result
 
 ## 完整根行动收束的唯一阶段结算入口，演出只消费结果。
-func _settle_stage() -> StageResult:
+func _settle_stage(step: RunStepResult) -> StageResult:
 	if not state.stage.enabled() or not state.rule_error.is_empty(): return null
 	var result: StageResult = state.stage.settle(state.ledger.get_entries(), state.rules.state.get_empty_coordinates().is_empty(), state.rewards.consumed_count + 1)
 	if result == null: return null
+	if result.reason in [&"stage_passed", &"challenge_completed"]:
+		step.goal_before = RunSnapshot.capture(self)
+		GoalCompletionRules.resolve(state, result)
 	if result.reason == &"stage_passed":
 		state.pending_rewards += 1
 		state.phase = RunState.Phase.REWARDS

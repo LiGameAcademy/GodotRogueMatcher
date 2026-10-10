@@ -252,5 +252,5 @@ func test_choice_excess_counts_but_waits_for_new_action() -> void:
 	assert_true(_move(run, Vector2i(8, 8), Vector2i(8, 7)).accepted)
 	assert_eq(_drain(run).kind, &"finished")
 	assert_eq(run.state.stage.history[1].score_total, 155)
-	assert_eq(run.state.stage.history[1].carry_out, 5)
+	assert_eq(run.state.stage.history[1].carry_out, 0, "末阶段不生成下一阶段抵扣")
 	assert_eq(run.state.end_reason, &"challenge_completed")

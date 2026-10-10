@@ -3,6 +3,7 @@ extends RefCounted
 
 ## 技能合法条件和应用入口；与界面、回合动画无关。
 static func level(state: RunState, skill: SkillDefinition) -> int:
+	if skill.choice_effect is InstallGoalBonusEffect: return 1 if state.goal_bonus_score > 0 else 0
 	if skill.choice_effect is InstallDyeUpgradeEffect:
 		return state.dye.level((skill.choice_effect as InstallDyeUpgradeEffect).upgrade)
 	if skill.choice_effect is InstallUpgradeEffect:
@@ -30,6 +31,8 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.refill_batches = state.spawning.refill_batches.duplicate()
 	context.upgrades = state.explosion.upgrades.duplicate()
 	context.dye_upgrades = state.dye.upgrades.duplicate()
+	context.stage_enabled = state.stage.enabled()
+	context.goal_bonus_score = state.goal_bonus_score
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id.is_empty(): context.material.append(piece.copy())
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
@@ -141,6 +144,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	state.rule_action_id = state.action_id
 	if request != null:
 		match request.kind:
+			ChoiceEffectRequest.Kind.GOAL_BONUS: state.goal_bonus_score = request.score_bonus
 			ChoiceEffectRequest.Kind.REFILL: state.spawning.extend_refill(request.delta, request.batches)
 			ChoiceEffectRequest.Kind.COLOR_WEIGHT: state.spawning.color_weights[request.color] += request.delta
 			ChoiceEffectRequest.Kind.UPGRADE:

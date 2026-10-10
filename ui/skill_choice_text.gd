@@ -1,6 +1,6 @@
 class_name SkillChoiceText
 extends RefCounted
-const TAG_LABELS: Dictionary[StringName, String] = {&"exp": "爆破", &"dye": "染色", &"generation": "生成", &"match": "连珠", &"mult": "倍率", &"space": "空间"}
+const TAG_LABELS: Dictionary[StringName, String] = {&"exp": "爆破", &"dye": "染色", &"generation": "生成", &"match": "连珠", &"mult": "倍率", &"space": "空间", &"goal": "目标", &"extra": "额外分"}
 const CONSUME_HINT: String = "每次实际补棋扣1次，次数用完后失效；免补棋不扣次数。"
 
 ## 卡面消费已冻结目标，不自行抽取或改变规则。
@@ -22,6 +22,8 @@ static func tags(skill: SkillDefinition) -> String:
 
 ## 卡面只显示此次选择的具体变化，不重复展示共同生命周期。
 static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> String:
+	if skill.choice_effect is InstallGoalBonusEffect:
+		return TranslationServer.translate("每次达标：+%d分") % target.value_after
 	if skill.choice_effect is PercentClearEffect:
 		return TranslationServer.translate("本次清理：%d枚普通棋") % target.piece_ids.size()
 	if skill.choice_effect == null and skill.action == SkillDefinition.Action.CORE_DROP:

@@ -24,6 +24,7 @@ var run_id: String = ""
 var valid_moves: int = 0
 var progression: ProgressionState
 var spawning: SpawnState
+var goal_bonus_score: int = 0
 var _initial_seed: int
 
 func _init(board_rules: BoardRules, run_seed: int) -> void:
@@ -51,6 +52,7 @@ func reset_counters() -> void:
 	spawn_history.clear()
 	explosion = ExplosionState.new()
 	dye = DyeState.new()
+	goal_bonus_score = 0
 	rule_error = ""
 	random.seed = _initial_seed
 	phase = Phase.INITIALIZING
