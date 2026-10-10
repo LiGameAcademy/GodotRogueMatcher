@@ -1,22 +1,23 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_dye_upgrade_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://d03twu46wwayr"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bx1cirtl07lgw" path="res://gameplay/progression/effects/install_dye_upgrade_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"blast_dye"
+
 [resource]
 script = ExtResource("1")
 skill_id = &"blast_dye"
 title = "爆破染色"
 description = "每次行动首个有效爆炸后，染色1枚爆区边缘外侧1格内存活的异色普通棋子；与五连共用波数。"
-short_description = "每行动首个命中爆炸 → 在爆区外沿染1枚异色普通棋。\n与五连共用染色波数。"
+short_description = "每行动首个命中爆炸 → 在爆区外沿染1枚异色普通棋。
+与五连共用染色波数。"
 base_weight = 10.0
 tags = Array[StringName]([&"dye", &"exp"])
 choice_effect = SubResource("effect")
 rarity = 3
-maximum_level = 1
-is_starter = false
-is_persistent = true
-minimum_reward = 1
-prerequisite = &"match_dye_echo"
 requires_core = true
+prerequisite = &"match_dye_echo"
+maximum_level = 1

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://hh6uh4ut2xqh"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -11,14 +11,3 @@ short_description = "五连分数倍率+0.2/级；额外得分不变。"
 action = 4
 base_weight = 8.0
 tags = Array[StringName]([&"mult"])
-is_starter = false
-is_persistent = true
-fallback_only = false
-need_rule = &""
-rarity = 0
-maximum_level = 0
-minimum_reward = 1
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://ceyd4cdifgbe5"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -11,14 +11,5 @@ short_description = "随机给至多2枚普通棋装引信，保留原色。"
 action = 1
 base_weight = 10.0
 tags = Array[StringName]([&"exp"])
-is_starter = false
 is_persistent = false
-fallback_only = false
 need_rule = &"restore_explosion"
-rarity = 0
-maximum_level = 0
-minimum_reward = 1
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

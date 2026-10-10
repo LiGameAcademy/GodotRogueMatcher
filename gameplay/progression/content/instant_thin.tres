@@ -1,22 +1,16 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://g3omietm33f3"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 skill_id = &"instant_thin"
 title = "材料疏整"
 description = "立即清理至多3枚随机普通材料，腾出通路。保留伙伴和引信，不得分。"
-short_description = "随机清理至多3枚普通棋，保留引信。\n不得分。"
+short_description = "随机清理至多3枚普通棋，保留引信。
+不得分。"
 action = 7
 base_weight = 5.0
 is_persistent = false
 rescue_offer = true
 minimum_reward = 3
-rarity = 0
-maximum_level = 0
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

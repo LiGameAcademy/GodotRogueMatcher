@@ -1,24 +1,22 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://cswxt1bewxqww"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://cg52kaerpec12" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"relay_capacity"
+
 [resource]
 script = ExtResource("1")
 skill_id = &"relay_capacity"
 title = "传递接力"
 description = "本局引信传递的全局目标上限每级+1，最多2级（3→4→5）；每源仍至多1枚。"
-short_description = "引信传递总上限+1/级：3 → 4 → 5。\n每枚引信仍只传1枚。"
+short_description = "引信传递总上限+1/级：3 → 4 → 5。
+每枚引信仍只传1枚。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")
 rarity = 1
-maximum_level = 2
-minimum_reward = 1
-is_persistent = true
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
 prerequisite = &"fuse_relay"
+maximum_level = 2

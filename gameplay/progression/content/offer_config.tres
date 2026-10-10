@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="OfferConfig" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="OfferConfig" format=3 uid="uid://cycwnmqdtbh84"]
 
-[ext_resource type="Script" path="res://gameplay/progression/offer_config.gd" id="1"]
+[ext_resource type="Script" uid="uid://blua2kksn6f1p" path="res://gameplay/progression/offer_config.gd" id="1"]
 
 [resource]
 script = ExtResource("1")

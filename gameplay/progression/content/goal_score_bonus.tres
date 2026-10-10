@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://cbcpx7nrl0tvd"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_goal_bonus_effect.gd" id="2"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://upb0kyfbkrds" path="res://gameplay/progression/effects/install_goal_bonus_effect.gd" id="2"]
 
 [sub_resource type="Resource" id="GoalBonus"]
 script = ExtResource("2")
@@ -12,11 +12,11 @@ script = ExtResource("1")
 skill_id = &"goal_score_bonus"
 title = "过关嘉奖"
 description = "从下一个目标起，每次完成阶段目标额外获得25分，不受倍率影响。末阶段仍得分；不重复触发过关。"
-short_description = "完成阶段目标后 +25分。\n从下个目标起生效。"
-choice_effect = SubResource("GoalBonus")
+short_description = "完成阶段目标后 +25分。
+从下个目标起生效。"
 base_weight = 5.0
 tags = Array[StringName]([&"goal", &"extra"])
-is_persistent = true
+minimum_reward = 2
+choice_effect = SubResource("GoalBonus")
 rarity = 1
 maximum_level = 1
-minimum_reward = 2

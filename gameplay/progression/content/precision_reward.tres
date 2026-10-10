@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://btj1bli685axl"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://cg52kaerpec12" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"precision_reward"
+
 [resource]
 script = ExtResource("1")
 skill_id = &"precision_reward"
@@ -13,12 +16,3 @@ short_description = "恰好消除5枚 → 额外得分+5/级，不受倍率影�
 base_weight = 10.0
 tags = Array[StringName]([&"match", &"extra"])
 choice_effect = SubResource("effect")
-rarity = 0
-maximum_level = 0
-minimum_reward = 1
-is_persistent = true
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

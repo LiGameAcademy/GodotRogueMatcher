@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://dgv5ws158t8ow"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://cg52kaerpec12" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"longline_reward"
+
 [resource]
 script = ExtResource("1")
 skill_id = &"longline_reward"
@@ -15,10 +18,3 @@ tags = Array[StringName]([&"match", &"extra"])
 choice_effect = SubResource("effect")
 rarity = 1
 maximum_level = 3
-minimum_reward = 1
-is_persistent = true
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

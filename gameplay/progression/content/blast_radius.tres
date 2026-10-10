@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://du841ly1mja6h"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -11,14 +11,6 @@ short_description = "核心与引信爆炸半径：1 → 2；余震不变。"
 action = 2
 base_weight = 8.0
 tags = Array[StringName]([&"exp"])
-is_starter = false
-is_persistent = true
-fallback_only = false
-need_rule = &""
 rarity = 1
-maximum_level = 1
-minimum_reward = 1
 requires_core = true
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""
+maximum_level = 1

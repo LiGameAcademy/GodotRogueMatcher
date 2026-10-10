@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_feedback.tscn" id="6_feedback"]
 [ext_resource type="PackedScene" path="res://ui/release_menu/release_menu.tscn" id="7_menu"]
 [ext_resource type="PackedScene" path="res://services/telemetry/run_collection.tscn" id="8_collection"]
-
 [ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="9_pool"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
@@ -25,17 +24,17 @@ glow_strength = 1.2
 glow_mix = 0.5
 glow_bloom = 0.3
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=1633214524]
 script = ExtResource("1_yqjtg")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=834860167]
 environment = SubResource("Environment_8cj0n")
 
-[node name="GameFeedback" parent="." instance=ExtResource("6_feedback")]
+[node name="GameFeedback" parent="." unique_id=479407280 instance=ExtResource("6_feedback")]
 
-[node name="RunCollection" parent="." instance=ExtResource("8_collection")]
+[node name="RunCollection" parent="." unique_id=1088828490 instance=ExtResource("8_collection")]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1816173040]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -44,21 +43,23 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1476983897]
 layer = 128
 
-[node name="HUD" parent="UILayer" instance=ExtResource("2_lnu2h")]
+[node name="HUD" parent="UILayer" unique_id=718875121 instance=ExtResource("2_lnu2h")]
 
-[node name="Board" type="Node2D" parent="."]
+[node name="Board" type="Node2D" parent="." unique_id=557934088]
 script = ExtResource("1_uwrxv")
 
-[node name="BoardView" parent="Board" instance=ExtResource("4_view")]
+[node name="BoardView" parent="Board" unique_id=171690823 instance=ExtResource("4_view")]
 
-[node name="PresentationDirector" parent="Board" instance=ExtResource("5_director")]
+[node name="PresentationDirector" parent="Board" unique_id=1630541566 instance=ExtResource("5_director")]
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
+[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=1152770875]
 layer = 130
 
-[node name="ReleaseMenu" parent="MenuLayer" instance=ExtResource("7_menu")]
+[node name="ReleaseMenu" parent="MenuLayer" unique_id=216189497 instance=ExtResource("7_menu")]
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SkillPool" parent="." instance=ExtResource("9_pool")]
+[node name="SkillPool" parent="." unique_id=1434666822 instance=ExtResource("9_pool")]

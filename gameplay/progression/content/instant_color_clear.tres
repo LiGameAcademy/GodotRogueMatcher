@@ -1,18 +1,18 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://kphg3k18fn5m"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/clear_material_effect.gd" id="2"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dth2nowsry5lv" path="res://gameplay/progression/effects/clear_material_effect.gd" id="2"]
 
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
-selector = 0
 
 [resource]
 script = ExtResource("1")
 skill_id = &"instant_color_clear"
 title = "种色收获"
 description = "选择颜色后清理该色普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸正常计分。"
-short_description = "任选一色，清理该色普通棋。\n直接清理无分；引信爆炸照常计分。"
+short_description = "任选一色，清理该色普通棋。
+直接清理无分；引信爆炸照常计分。"
 base_weight = 8.0
 tags = Array[StringName]([&"space", &"exp"])
 is_persistent = false
@@ -20,9 +20,3 @@ rescue_offer = true
 minimum_reward = 3
 choice_effect = SubResource("effect")
 rarity = 2
-maximum_level = 0
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

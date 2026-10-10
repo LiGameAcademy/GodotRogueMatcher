@@ -1,27 +1,20 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://bopn2kx78yt5c"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/refill_count_effect.gd" id="2"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dwyl306wgnpas" path="res://gameplay/progression/effects/refill_count_effect.gd" id="2"]
 
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
-delta = -1
 
 [resource]
 script = ExtResource("1")
 skill_id = &"refill_less"
 title = "留白一手"
 description = "接下来3次实际普通补棋各减少1枚。重复获得延长3次，不叠加幅度；免补棋不消耗次数。增减同时生效时相抵。"
-short_description = "补棋数量−1；\n3次补棋后消耗。"
+short_description = "补棋数量−1；
+3次补棋后消耗。"
 base_weight = 8.0
 tags = Array[StringName]([&"generation", &"space"])
 is_persistent = false
 minimum_reward = 3
 choice_effect = SubResource("effect")
-rarity = 0
-maximum_level = 0
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

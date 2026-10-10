@@ -1,24 +1,16 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://bqglataexmf3k"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 skill_id = &"core_drop"
 title = "爆壳手登场"
 description = "本局解锁爆壳手随机补给，并立即在随机空格放入首枚核心。颜色按当前棋子池权重抽取，候选时锁定。场上最多一枚；被消除时爆炸。"
-short_description = "解锁核心补给，立即放入核心。\n场上限1枚；离场时爆炸。"
-action = 0
+short_description = "解锁核心补给，立即放入核心。
+场上限1枚；离场时爆炸。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp"])
 is_starter = true
-is_persistent = true
-fallback_only = false
 need_rule = &"restore_explosion"
-rarity = 0
 maximum_level = 1
-minimum_reward = 1
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""

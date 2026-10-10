@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://m1o00dhjqeg8"]
 
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
@@ -11,14 +11,6 @@ short_description = "每次命中爆炸 → 额外+5分/级。"
 action = 6
 base_weight = 6.0
 tags = Array[StringName]([&"exp", &"extra"])
-is_starter = false
-is_persistent = true
-fallback_only = false
 need_rule = &"explosion_payoff"
-minimum_reward = 1
-rarity = 0
-maximum_level = 3
 requires_core = true
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""
+maximum_level = 3

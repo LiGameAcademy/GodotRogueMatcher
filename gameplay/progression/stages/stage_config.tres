@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="StageConfig" load_steps=2 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/stages/stage_config.gd" id="1"]
+[gd_resource type="Resource" script_class="StageConfig" format=3 uid="uid://bh4dwwgh805a1"]
+
+[ext_resource type="Script" uid="uid://csmbxdr0nqayj" path="res://gameplay/progression/stages/stage_config.gd" id="1"]
+
 [resource]
 script = ExtResource("1")
 targets = Array[int]([100, 150, 200, 300, 400, 550, 750, 1000])
 pressure_intervals = Array[int]([4, 4, 4, 4, 4, 4, 4, 4])
-base_refill = 3
-maximum_refill = 6

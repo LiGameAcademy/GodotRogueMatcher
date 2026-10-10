@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/ignite_fuses_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://cs4kur70oej2v"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://du54af4fpkpos" path="res://gameplay/progression/effects/ignite_fuses_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
+
 [resource]
 script = ExtResource("1")
 skill_id = &"instant_fuse_ignite"
@@ -11,13 +14,9 @@ description = "立即整批移除棋盘上全部带引信的普通棋子，并�
 short_description = "立即引爆全部普通引信棋，可触发连锁。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
+is_persistent = false
+minimum_reward = 3
 choice_effect = SubResource("effect")
 rarity = 2
-maximum_level = 0
-minimum_reward = 3
-is_persistent = false
-is_starter = false
 requires_core = true
-requires_fuse_unlock = false
 requires_fuse = true
-prerequisite = &""

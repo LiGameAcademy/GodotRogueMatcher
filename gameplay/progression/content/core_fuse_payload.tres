@@ -1,24 +1,22 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://celjto4jmghn2"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://cg52kaerpec12" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"core_fuse_payload"
+
 [resource]
 script = ExtResource("1")
 skill_id = &"core_fuse_payload"
 title = "引信装填"
 description = "本局核心离场后、爆炸前，在切比距离2内给至多2枚未标记普通棋子附引信。按距离、坐标、ID选取，可立即连锁。"
-short_description = "核心离场 → 在周围2格内装填至多2枚引信。\n爆炸前生效，可立即连锁。"
+short_description = "核心离场 → 在周围2格内装填至多2枚引信。
+爆炸前生效，可立即连锁。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")
 rarity = 3
-maximum_level = 1
-minimum_reward = 1
-is_persistent = true
-is_starter = false
 requires_core = true
-requires_fuse_unlock = false
-requires_fuse = false
-prerequisite = &""
+maximum_level = 1

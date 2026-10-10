@@ -1,24 +1,23 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
-[ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://bieoq1uhwruyv"]
+
+[ext_resource type="Script" uid="uid://bdijgaa3uu328" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://cg52kaerpec12" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"fuse_relay"
+
 [resource]
 script = ExtResource("1")
 skill_id = &"fuse_relay"
 title = "引信传递"
 description = "本局回合结束，旧引信各向四邻域至多传播1枚，全局至多3枚。新标记下一回合才成为传播源；仅未标记普通棋子。"
-short_description = "回合结束 → 旧引信各向四邻传1枚，总计至多3枚。\n新引信下回合才传播。"
+short_description = "回合结束 → 旧引信各向四邻传1枚，总计至多3枚。
+新引信下回合才传播。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")
 rarity = 2
-maximum_level = 1
-minimum_reward = 1
-is_persistent = true
-is_starter = false
 requires_core = true
-requires_fuse_unlock = false
 requires_fuse = true
-prerequisite = &""
+maximum_level = 1

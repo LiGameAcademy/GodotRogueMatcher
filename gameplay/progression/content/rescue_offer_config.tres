@@ -1,9 +1,6 @@
-[gd_resource type="Resource" script_class="RescueOfferConfig" load_steps=2 format=3]
-[ext_resource type="Script" path="res://gameplay/progression/rescue_offer_config.gd" id="1"]
+[gd_resource type="Resource" script_class="RescueOfferConfig" format=3 uid="uid://dp1j7pw38lkjc"]
+
+[ext_resource type="Script" uid="uid://kqo2yqw101uq" path="res://gameplay/progression/rescue_offer_config.gd" id="1"]
+
 [resource]
 script = ExtResource("1")
-occupancy_weight = 0.7
-pressure_start = 40.0
-maximum_gain = 1.2
-early_pressure = 70.0
-rules_version = "offer-pressure-trial-v2-percent-clear"
