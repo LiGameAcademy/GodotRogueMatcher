@@ -35,7 +35,7 @@ func begin(run: RunController, execution_source: String, save_file: bool = true,
 		if _file == null: _fail("本局记录不完整：无法创建JSONL文件")
 	var config: Dictionary = RunSnapshot.config(run)
 	if build == "unknown": build = str(ProjectSettings.get_setting("application/config/version", "development"))
-	append("Header", {"schema_version": SCHEMA, "run_id": run.state.run_id, "source": source, "rules_version": RunSnapshot.RULES_VERSION, "content_version": RunSnapshot.digest(config.skills), "offer_version": SkillOfferGenerator.CONFIG.rules_version, "build": build, "godot": Engine.get_version_info().string, "platform": OS.get_name(), "config": config, "config_hash": RunSnapshot.digest(config), "seed": str(run.state.random.seed), "initialization": run.initialization, "initial": RunSnapshot.capture(run), "metadata": metadata, "support": "normal_pool_and_fixture_f6"})
+	append("Header", {"schema_version": SCHEMA, "run_id": run.state.run_id, "source": source, "rules_version": RunSnapshot.RULES_VERSION, "content_version": RunSnapshot.digest(config.skills), "offer_version": SkillOfferGenerator.version_for_mode(run.state.mode_id()), "build": build, "godot": Engine.get_version_info().string, "platform": OS.get_name(), "config": config, "config_hash": RunSnapshot.digest(config), "seed": str(run.state.random.seed), "initialization": run.initialization, "initial": RunSnapshot.capture(run), "metadata": metadata, "support": "normal_pool_and_fixture_f6"})
 	checkpoint(run)
 	_flush()
 	set_interval("input")

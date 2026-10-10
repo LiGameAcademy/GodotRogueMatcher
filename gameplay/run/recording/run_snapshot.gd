@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v9-total-goals"
+const RULES_VERSION: String = "run-commands-v10-pressure-offers"
 
 ## 所有整数转十进制字符串；坐标、实体、字典有固定规范顺序。
 static func normalize(value: Variant) -> Variant:
@@ -39,7 +39,7 @@ static func config(run: RunController) -> Dictionary:
 		# 纯展示摘要不改变规则；保留原有完整描述字段以兼容已有配置哈希。
 		fields.erase("short_description")
 		skills.append(fields)
-	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
+	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
 ## 只登记只读触发参数，排除插件内部管理器、时间和共享运行计数。
 static func trigger_config(ability: AbilityDefinition) -> Dictionary:
@@ -79,7 +79,7 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 		choices.append(String(skill.skill_id))
 		var target: SkillTarget = offer.targets[skill.skill_id]
 		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": target.color_groups, "fuse_counts": target.fuse_counts}
-	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": choices, "targets": targets, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
+	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": choices, "targets": targets, "pressure_snapshot": offer.pressure_snapshot, "rescue_multiplier": offer.rescue_multiplier, "offer_rules_version": offer.rules_version, "baseline_weights": offer.baseline_weights, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
 
 static func random_data(random: RandomNumberGenerator) -> Dictionary:
 	return {"seed": str(random.seed), "state": str(random.state)}

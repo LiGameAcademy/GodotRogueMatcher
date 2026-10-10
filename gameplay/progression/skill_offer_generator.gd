@@ -51,23 +51,32 @@ func generate(run: RunController) -> SkillOffer:
 	var state: RunState = run.state
 	if state.pending_rewards <= 0 or state.is_game_over or not state.rule_error.is_empty(): return null
 	if state.rewards.active_offer != null: return state.rewards.active_offer
+	if state.stage.enabled():
+		last_error = RescueOfferRules.CONFIG.validation_error()
+		if not last_error.is_empty(): return null
 	var rewards: RewardState = state.rewards
 	var offer: SkillOffer = SkillOffer.new()
 	offer.offer_id = rewards.next_offer_id
 	offer.reward_id = rewards.consumed_count + 1
 	offer.rules_version = CONFIG.rules_version
 	offer.profile_id = CONFIG.profile_id
+	if state.stage.enabled():
+		offer.rules_version = RescueOfferRules.CONFIG.rules_version
+		offer.pressure_snapshot = RescueOfferRules.pressure(state)
+		offer.rescue_multiplier = RescueOfferRules.multiplier(float(offer.pressure_snapshot.P), RescueOfferRules.CONFIG)
+	var pressure_value: float = float(offer.pressure_snapshot.get("P", -1.0))
 	offer.candidate_state_before = rewards.candidate_random.state
 	var profile: Dictionary[StringName, float] = build_profile(state)
 	var normal: Array[SkillDefinition] = []
 	var fallback: Array[SkillDefinition] = []
 	for skill: SkillDefinition in CATALOG:
-		var reason: String = SkillRules.rejection(state, skill, run.abilities.config)
+		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, pressure_value)
 		if not reason.is_empty():
 			offer.pool_log.append("%s: %s" % [skill.skill_id, reason])
 			continue
-		offer.weights[skill.skill_id] = weight(state, skill, profile)
-		if not skill.fallback_only and offer.reward_id >= skill.minimum_reward: normal.append(skill)
+		offer.baseline_weights[skill.skill_id] = weight(state, skill, profile, 0.0)
+		offer.weights[skill.skill_id] = weight(state, skill, profile, pressure_value)
+		if not skill.fallback_only and (offer.reward_id >= skill.minimum_reward or RescueOfferRules.early_allowed(state, skill, pressure_value)): normal.append(skill)
 		if skill.fallback_only or skill.action in [SkillDefinition.Action.SCORE_MULTIPLIER, SkillDefinition.Action.MATCH_EXTRA] or skill.skill_id == &"precision_reward": fallback.append(skill)
 	var used: Array[StringName] = []
 	var utility_used: bool = false
@@ -146,7 +155,7 @@ static func build_profile(state: RunState) -> Dictionary[StringName, float]:
 			profile[tag] = minf(3.0, profile.get(tag, 0.0) + contribution)
 	return profile
 
-static func weight(state: RunState, skill: SkillDefinition, profile: Dictionary[StringName, float]) -> float:
+static func weight(state: RunState, skill: SkillDefinition, profile: Dictionary[StringName, float], frozen_pressure: float = -1.0) -> float:
 	var affinity: float = 0.0
 	for tag: StringName in skill.tags: affinity += profile.get(tag, 0.0)
 	if not skill.tags.is_empty(): affinity /= skill.tags.size()
@@ -156,7 +165,10 @@ static func weight(state: RunState, skill: SkillDefinition, profile: Dictionary[
 	if skill.need_rule == &"explosion_payoff" and driver and state.explosion.reward_level == 0 and state.explosion.blast_extra_level == 0: factor *= CONFIG.need_factor
 	if state.rewards.previous_unselected.has(skill.skill_id): factor *= CONFIG.history_factor
 	if skill.is_persistent and SkillRules.level(state, skill) > 0: factor *= CONFIG.repeat_factor
-	return skill.base_weight * clampf(factor, CONFIG.factor_min, CONFIG.factor_max) * CONFIG.rarity_factors[skill.rarity]
+	return skill.base_weight * clampf(factor, CONFIG.factor_min, CONFIG.factor_max) * CONFIG.rarity_factors[skill.rarity] * RescueOfferRules.factor(state, skill, frozen_pressure)
+
+static func version_for_mode(mode_id: StringName) -> String:
+	return RescueOfferRules.CONFIG.rules_version if mode_id == &"stage_challenge" else CONFIG.rules_version
 
 static func unit_random(random: RandomNumberGenerator) -> float:
 	return float(random.randi()) / 4294967296.0

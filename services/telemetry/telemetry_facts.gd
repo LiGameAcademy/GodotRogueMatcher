@@ -5,31 +5,11 @@ const CONFIG: TelemetryConfig = preload("res://services/telemetry/telemetry_conf
 
 ## 纯快照观察；不持有真实棋盘或随机对象，不改变候选权重。
 static func pressure(state: Dictionary, columns: int, rows: int) -> Dictionary:
-	var occupied: Dictionary[Vector2i, bool] = {}
-	for piece: Dictionary in state.get("pieces", []):
-		occupied[Vector2i(int(piece.coordinate[0]), int(piece.coordinate[1]))] = true
-	var empty: Dictionary[Vector2i, bool] = {}
-	for x: int in range(columns):
-		for y: int in range(rows):
-			var coordinate: Vector2i = Vector2i(x, y)
-			if not occupied.has(coordinate): empty[coordinate] = true
-	var remaining: Dictionary[Vector2i, bool] = empty.duplicate()
-	var largest: int = 0
-	while not remaining.is_empty():
-		var queue: Array[Vector2i] = [remaining.keys()[0]]
-		remaining.erase(queue[0])
-		var cursor: int = 0
-		while cursor < queue.size():
-			var current: Vector2i = queue[cursor]
-			cursor += 1
-			for direction: Vector2i in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
-				var neighbor: Vector2i = current + direction
-				if remaining.erase(neighbor): queue.append(neighbor)
-		largest = maxi(largest, queue.size())
-	var fragmentation: float = 1.0 - float(largest) / empty.size() if not empty.is_empty() else 1.0
-	var capacity: int = columns * rows
-	var value: float = 100.0 * (CONFIG.occupancy_weight * occupied.size() / capacity + (1.0 - CONFIG.occupancy_weight) * fragmentation)
-	return {"n": occupied.size(), "empty": empty.size(), "L": largest, "P": value, "alpha": CONFIG.occupancy_weight, "version": CONFIG.pressure_version}
+	var occupied: Array[Vector2i] = []
+	for piece: Dictionary in state.get("pieces", []): occupied.append(Vector2i(int(piece.coordinate[0]), int(piece.coordinate[1])))
+	var result: Dictionary = BoardPressure.evaluate(columns, rows, occupied, CONFIG.occupancy_weight)
+	result["version"] = CONFIG.pressure_version
+	return result
 
 static func stage(state: Dictionary, config: Dictionary) -> Dictionary:
 	var value: Dictionary = state.get("challenge", {})
