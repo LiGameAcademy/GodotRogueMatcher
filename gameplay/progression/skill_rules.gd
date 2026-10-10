@@ -109,6 +109,9 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 			result.error = run.abilities.validation_error(1)
 		if not result.error.is_empty(): return result
 	elif skill.action == SkillDefinition.Action.CORE_DROP:
+		if targets.color < 0 or targets.color >= state.spawning.color_weights.size():
+			result.error = "爆破手预告颜色无效"
+			return result
 		var coordinate: Vector2i = targets.coordinate
 		if not state.rules.state.is_valid_coordinate(coordinate) or state.rules.state.get_piece_id(coordinate) != 0:
 			result.error = "原定空格已经被占用"
@@ -117,7 +120,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 		var preview: BoardRules = BoardRules.new(BoardState.new(state.rules.state.columns, state.rules.state.rows), state.rules.minimum_match_count)
 		for piece: PieceState in state.rules.state.get_snapshot():
 			preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
-		preview.place_piece(coordinate, run.abilities.config.core_color, &"special_demolition")
+		preview.place_piece(coordinate, targets.color, &"special_demolition")
 		var groups: Array[BoardMatchGroup] = preview.find_matches_at(coordinate)
 		result.error = run.abilities.validation_error(groups.size(), 1, 1)
 		if not result.error.is_empty():
@@ -172,7 +175,7 @@ static func _apply_legacy(run: RunController, skill: SkillDefinition, targets: S
 	match skill.action:
 		SkillDefinition.Action.CORE_DROP:
 			state.explosion.core_pool_unlocked = true
-			var core: PieceState = run.abilities.add_core(targets.coordinate)
+			var core: PieceState = run.abilities.add_core(targets.coordinate, targets.color)
 			result.created.append(core)
 			result.matches = run.resolve_matches_at(core.coordinate)
 		SkillDefinition.Action.ASSIGN_FUSE:

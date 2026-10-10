@@ -124,6 +124,7 @@ func generate(run: RunController) -> SkillOffer:
 		elif skill.action == SkillDefinition.Action.CORE_DROP:
 			var empty: Array[Vector2i] = state.rules.state.get_empty_coordinates()
 			targets.coordinate = empty[rewards.target_random.randi_range(0, empty.size() - 1)]
+			targets.color = state.spawning.draw_color(rewards.target_random)
 		elif skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
 			var ids: Array[int] = SkillRules.unmarked_material(state)
 			var count: int = 2 + state.explosion.level(&"fuse_capacity") if skill.action == SkillDefinition.Action.ASSIGN_FUSE else skill.target_count

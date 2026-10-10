@@ -41,7 +41,9 @@ func test_catalog_has_38_real_distinct_effects_and_five_grades() -> void:
 		offer.choices = [skill]
 		var target: SkillTarget = SkillTarget.new()
 		if skill.choice_effect != null: target = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		elif skill.action == SkillDefinition.Action.CORE_DROP: target.coordinate = Vector2i(4, 4)
+		elif skill.action == SkillDefinition.Action.CORE_DROP:
+			target.coordinate = Vector2i(4, 4)
+			target.color = 1
 		elif skill.action in [SkillDefinition.Action.THIN, SkillDefinition.Action.ASSIGN_FUSE]: target.piece_ids = [run.state.rules.state.get_piece_id(Vector2i(1, 1))]
 		offer.targets[skill.skill_id] = target
 		run.state.rewards.active_offer = offer
@@ -212,6 +214,7 @@ func test_core_drop_new_budget_preflight_preserves_entire_choice() -> void:
 	offer.choices = [_skill(&"core_drop")]
 	var target: SkillTarget = SkillTarget.new()
 	target.coordinate = Vector2i(4, 0)
+	target.color = 1
 	offer.targets[&"core_drop"] = target
 	run.state.rewards.active_offer = offer
 	run.state.pending_rewards = 1

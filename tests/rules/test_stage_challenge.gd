@@ -128,6 +128,7 @@ func test_instant_choice_scores_next_goal_without_consuming_action_or_auto_pass(
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 1)
 	var target: SkillTarget = SkillTarget.new()
 	target.coordinate = Vector2i(4, 0)
+	target.color = 1
 	assert_true(_choose(run, preload("res://gameplay/progression/content/core_drop.tres"), target).accepted)
 	assert_eq(run.state.ledger.total, 155)
 	assert_eq(run.state.stage.action_score, 105)
@@ -239,6 +240,7 @@ func test_choice_excess_counts_but_waits_for_new_action() -> void:
 	# 手动补齐即时选卡的五连机会，验证选卡收束与新行动门槛。
 	var target: SkillTarget = SkillTarget.new()
 	target.coordinate = Vector2i(4, 0)
+	target.color = 1
 	assert_true(_choose(run, preload("res://gameplay/progression/content/core_drop.tres"), target).accepted)
 	assert_eq(_drain(run).kind, &"input")
 	assert_eq(run.state.ledger.total, 155)

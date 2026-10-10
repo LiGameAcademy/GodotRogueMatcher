@@ -149,6 +149,7 @@ func test_goal_reward_score_stays_outside_completed_action_and_has_own_identity(
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
 	var target: SkillTarget = SkillTarget.new()
 	target.coordinate = Vector2i(4, 0)
+	target.color = 1
 	var offer: SkillOffer = SkillOffer.new()
 	offer.offer_id = run.state.rewards.next_offer_id
 	offer.reward_id = run.state.rewards.consumed_count + 1
