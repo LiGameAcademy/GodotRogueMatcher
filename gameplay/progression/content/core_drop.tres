@@ -6,8 +6,8 @@
 script = ExtResource("1")
 skill_id = &"core_drop"
 title = "爆壳手登场"
-description = "本局解锁爆壳手随机补给，并立即在随机空格放入首枚绿色核心。场上最多一枚；被消除时爆炸。"
-short_description = "解锁核心补给，立即放入绿色核心。\n场上限1枚；离场时爆炸。"
+description = "本局解锁爆壳手随机补给，并立即在随机空格放入首枚核心。颜色按当前棋子池权重抽取，候选时锁定。场上最多一枚；被消除时爆炸。"
+short_description = "解锁核心补给，立即放入核心。\n场上限1枚；离场时爆炸。"
 action = 0
 base_weight = 10.0
 tags = Array[StringName]([&"exp"])

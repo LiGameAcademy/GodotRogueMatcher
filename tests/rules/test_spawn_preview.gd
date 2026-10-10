@@ -94,3 +94,76 @@ func test_full_board_does_not_consume_pending_token() -> void:
 	assert_null(run.spawn_one())
 	assert_true(run.state.is_game_over)
 	assert_eq(RunSnapshot.canonical(run.state.spawning.plan_data()), before)
+
+func test_core_birth_uses_all_five_preview_colors_and_fallback_stays_locked() -> void:
+	var seen: Array[int] = []
+	for seed_value: int in range(500):
+		var run: RunController = _run(seed_value)
+		run.state.explosion.core_pool_unlocked = true
+		run.prepare_spawn_plan()
+		var token: SpawnToken = run.state.spawning.preview(1)[0]
+		if not token.core_candidate or seen.has(token.color): continue
+		seen.append(token.color)
+		assert_eq(token.core_color, token.color, "记录中的特殊棋颜色也应等于预告")
+		var random_before: int = run.state.spawning.content_random.state
+		var birth: SpawnResult = run.spawn_one()
+		assert_eq(birth.piece.content_id, &"special_demolition")
+		assert_eq(birth.piece.match_color, token.color, "实际爆破手颜色必须等于预告")
+		assert_true(run.state.explosion.instances.has(birth.piece.piece_id))
+		assert_eq(run.state.spawning.content_random.state, random_before)
+		var fallback: RunController = _run(seed_value)
+		fallback.state.explosion.core_pool_unlocked = true
+		fallback.prepare_spawn_plan()
+		fallback.abilities.add_core(Vector2i(4, 4))
+		var ordinary: SpawnResult = fallback.spawn_one()
+		assert_eq(ordinary.piece.content_id, &"")
+		assert_eq(ordinary.piece.match_color, token.color)
+		if seen.size() == 5: break
+	assert_eq(seen.size(), 5)
+
+func test_preview_colored_core_participates_in_same_color_five_match() -> void:
+	var seen: Array[int] = []
+	for seed_value: int in range(500):
+		var run: RunController = RunController.new(BoardRules.new(BoardState.new(5, 1), 5), seed_value)
+		run.state.explosion.core_pool_unlocked = true
+		run.prepare_spawn_plan()
+		var token: SpawnToken = run.state.spawning.preview(1)[0]
+		if not token.core_candidate or seen.has(token.color): continue
+		seen.append(token.color)
+		for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), token.color)
+		var birth: SpawnResult = run.spawn_one()
+		assert_eq(birth.piece.match_color, token.color)
+		assert_false(birth.matches.is_empty(), "预告颜色应参与同色五连")
+		assert_gt(run.state.ledger.total, 0)
+		if seen.size() == 5: break
+	assert_eq(seen.size(), 5)
+
+func test_non_default_core_birth_replays_from_real_commands() -> void:
+	var seen: bool = false
+	for seed_value: int in range(16):
+		var run: RunController = _run(seed_value)
+		run.initialize("fixture_demolition")
+		run.recorder = RunRecorder.new()
+		run.recorder.begin(run, "test", false)
+		var bot: GreedyBot = GreedyBot.new(seed_value)
+		for step: int in range(80):
+			if run.state.is_game_over or not run.state.rule_error.is_empty(): break
+			if run.state.phase == RunState.Phase.REWARDS and run.state.rewards.active_offer == null:
+				run.advance()
+			elif run.state.phase in [RunState.Phase.INPUT, RunState.Phase.REWARDS]:
+				var command: RunCommand = bot.choose(run)
+				if command == null: break
+				assert_true(run.execute_command(command).accepted)
+			else:
+				run.advance()
+			for birth: SpawnResult in run.state.spawn_history:
+				if birth.piece.content_id == &"special_demolition" and birth.piece.match_color != run.abilities.config.core_color:
+					seen = true
+			if seen: break
+		if not seen: continue
+		run.recorder.finish(run, "abandoned", "test_complete")
+		var replay: RuleReplay = RuleReplay.new()
+		assert_true(replay.replay(run.recorder.records), replay.error)
+		assert_eq(replay.checked_records, run.recorder.records.size())
+		break
+	assert_true(seen, "正常命令产生非默认颜色爆破手，并精确回放")

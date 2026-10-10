@@ -107,6 +107,7 @@ func test_core_landing_resolves_match_without_movement_and_records_once() -> voi
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 1)
 	var offer: SkillOffer = generator.generate(run)
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
+	offer.targets[&"core_drop"].color = 1
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, &"core_drop")
 	assert_true(result.success)
 	assert_eq(result.matches.size(), 2)
@@ -124,6 +125,7 @@ func test_core_budget_rejection_does_not_insert_or_consume() -> void:
 	run.abilities = AbilityResolver.new(run.state, config)
 	var offer: SkillOffer = generator.generate(run)
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
+	offer.targets[&"core_drop"].color = 1
 	assert_false(SkillRules.apply(run, offer.offer_id, &"core_drop").success)
 	assert_eq(run.state.rules.state.get_piece_count(), 4)
 	assert_eq(run.state.pending_rewards, 3)

@@ -12,13 +12,14 @@ func _init(config: SpawnConfig, run_seed: int = 0) -> void:
 	content_random.seed = run_seed ^ 0x535041574E
 
 ## 只在规则入口补足计划；已显示的前缀不因权重或数量变化重抽。
-func ensure_plan(count: int, explosion: ExplosionState, core_color: int) -> void:
+func ensure_plan(count: int, explosion: ExplosionState) -> void:
 	while _plan.size() < count:
 		var core: bool = false
 		if explosion.core_pool_unlocked:
 			var weight: int = DemolitionRules.CONFIG.core_type_weight + explosion.level(&"core_supply_up") * DemolitionRules.CONFIG.core_supply_per_level
 			core = content_random.randi_range(1, DemolitionRules.CONFIG.ordinary_type_weight + weight) <= weight
-		_plan.append(SpawnToken.new(draw_color(content_random), core, core_color))
+		var color: int = draw_color(content_random)
+		_plan.append(SpawnToken.new(color, core, color))
 
 func consume_token() -> SpawnToken:
 	return _plan.pop_front()

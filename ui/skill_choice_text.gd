@@ -24,6 +24,8 @@ static func tags(skill: SkillDefinition) -> String:
 static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> String:
 	if skill.choice_effect is PercentClearEffect:
 		return TranslationServer.translate("本次清理：%d枚普通棋") % target.piece_ids.size()
+	if skill.choice_effect == null and skill.action == SkillDefinition.Action.CORE_DROP:
+		return TranslationServer.translate("立即投放：%s") % _color_name(target.color)
 	if skill.choice_effect is RefillCountEffect:
 		return TranslationServer.translate("本次补棋：%d → %d 枚 · 余%d次") % [target.value_before, target.value_after, target.remaining_after]
 	if skill.choice_effect is ClearMaterialEffect:

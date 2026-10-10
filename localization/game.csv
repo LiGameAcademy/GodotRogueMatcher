@@ -358,7 +358,7 @@ It clears nearby pieces. Detonation uses an action and is usually followed by a 
 色彩稀释,色彩稀释,Color Dilution
 本局持续降低一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。,本局持续降低一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。,"Permanently reduce one normal color's spawn weight by 2 this run. Repeatable. Affects future generation, not existing pieces."
 爆壳手登场,爆壳手登场,Blast Core Arrival
-本局解锁爆壳手随机补给，并立即在随机空格放入首枚绿色核心。场上最多一枚；被消除时爆炸。,本局解锁爆壳手随机补给，并立即在随机空格放入首枚绿色核心。场上最多一枚；被消除时爆炸。,Unlock random Blast Core supply this run and immediately spawn the first green core in a random empty cell. At most one core exists at a time. It explodes on removal.
+本局解锁爆壳手随机补给，并立即在随机空格放入首枚核心。颜色按当前棋子池权重抽取，候选时锁定。场上最多一枚；被消除时爆炸。,本局解锁爆壳手随机补给，并立即在随机空格放入首枚核心。颜色按当前棋子池权重抽取，候选时锁定。场上最多一枚；被消除时爆炸。,Unlock random Blast Core supply and spawn the first core in a random empty cell. Its color is drawn using current piece weights and locked when offered. At most one core exists; it explodes on removal.
 引信装填,引信装填,Fuse Payload
 本局核心离场后、爆炸前，在切比距离2内给至多2枚未标记普通棋子附引信。按距离、坐标、ID选取，可立即连锁。,本局核心离场后、爆炸前，在切比距离2内给至多2枚未标记普通棋子附引信。按距离、坐标、ID选取，可立即连锁。,"After a core leaves but before it explodes, attach fuses to up to 2 unmarked normal pieces within Chebyshev distance 2. Selects by distance, coordinates, then ID. Can chain immediately."
 主动爆破,主动爆破,Manual Detonation
@@ -526,9 +526,9 @@ Uses a refill slot; only 1 core on the board."
 Before the blast; can chain immediately."
 五连基础分倍率+0.2/级；额外分不变。,五连基础分倍率+0.2/级；额外分不变。,Match base-score multiplier +0.2 per level. Extras are unchanged.
 每次命中爆炸 → 额外+5分/级。,每次命中爆炸 → 额外+5分/级。,Each blast that hits a piece: +5 extra points per level.
-"解锁核心补给，立即放入绿色核心。
-场上限1枚；离场时爆炸。","解锁核心补给，立即放入绿色核心。
-场上限1枚；离场时爆炸。","Unlock core spawns and place a green core now.
+"解锁核心补给，立即放入核心。
+场上限1枚；离场时爆炸。","解锁核心补给，立即放入核心。
+场上限1枚；离场时爆炸。","Unlock core spawns and place a core now.
 Only 1 on the board; explodes when removed."
 "引信传递总上限+1/级：3 → 4 → 5。
 每枚引信仍只传1枚。","引信传递总上限+1/级：3 → 4 → 5。
@@ -680,3 +680,4 @@ Standalone skill rewards only award bonus score."
 直接清理无分；引信爆炸照常计分。","Clear 25% of ordinary pieces (round down).
 No direct score; explosions score normally."
 本次清理：%d枚普通棋,本次清理：%d枚普通棋,Clear %d pieces
+立即投放：%s,立即投放：%s,Spawn now: %s
