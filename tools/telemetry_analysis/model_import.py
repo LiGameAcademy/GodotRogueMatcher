@@ -12,6 +12,7 @@ from typing import Any
 from import_sources import Json, canonical, ingest
 from model_statistics import VERSION, analyze
 from xlsx_append import append_observations, read_auto, read_managed_cells
+from verify_workbook import verify
 
 
 def write_json(path: Path, value: Any) -> None:
@@ -130,6 +131,8 @@ def run(args: argparse.Namespace) -> int:
     if process.returncode:
         raise ValueError("Artifact Tool export failed; see workbook.log")
     append_observations(workbook, output / "observations.xlsx", output / "model-observed.xlsx")
+    write_json(output / "verification.json", verify(workbook, output / "model-observed.xlsx",
+                                                   output / "changes.csv"))
     print(f"{len(result['runs'])} runs, {len(events)} unique events, {len(diagnostics)} diagnostics")
     print(f"Workbook: {output / 'model-observed.xlsx'}")
     return 1 if diagnostics else 0

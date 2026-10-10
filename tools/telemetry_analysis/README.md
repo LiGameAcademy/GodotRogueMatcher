@@ -76,4 +76,4 @@ node tools/telemetry_analysis/test_reference_updates.mjs
 godot --headless --text-driver Dummy --path . -s addons/gut/gut_cmdln.gd '-gtest=res://tests/rules/test_telemetry.gd' -gexit
 ```
 
-Python覆盖去重/前缀补齐/冲突/坏行/ZIP路径/完整CSV/会话、明确分母与跨版本隔离；JS覆盖参考值的有效0、缺值保护、分组/等级/H与重复导入。工作簿追加后读回检查原包部件字节保持、公式错误及单元格变更；正式样本还需核对预览与工作簿读回。
+Python覆盖去重/前缀补齐/冲突/坏行/ZIP路径/完整CSV/会话、明确分母与跨版本隔离；JS覆盖参考值的有效0、缺值保护、分组/等级/H与重复导入。入口追加后自动执行`verify_workbook.py`，读回核对原包部件、错误单元格及changes每格旧/新值，输出`verification.json`；缺少变更记录或记录与文件不符则失败。正式样本还需查看预览。

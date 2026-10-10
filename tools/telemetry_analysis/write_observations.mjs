@@ -140,7 +140,7 @@ for(const change of changes) {
 }
 const written = new Set(changes.map(c=>JSON.stringify([c.sheet,c.cell])));
 for(const [sheet,cells] of Object.entries(data.previous_cells??{})) for(const [cell,oldValue] of Object.entries(cells)) {
-  if(!written.has(JSON.stringify([sheet,cell]))) changes.push({sheet,cell,old_value:oldValue,new_value:null,
+  if(oldValue!==null && !written.has(JSON.stringify([sheet,cell]))) changes.push({sheet,cell,old_value:oldValue,new_value:null,
     result:'old_observation_cell_cleared',cell_changed:oldValue!==null});
 }
 const keys = [...new Set(changes.flatMap(r=>Object.keys(r)))];

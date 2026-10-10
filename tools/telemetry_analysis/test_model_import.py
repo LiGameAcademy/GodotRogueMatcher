@@ -140,6 +140,24 @@ class ImportTests(unittest.TestCase):
         self.assertEqual([],result["sessions"])
         self.assertEqual("invalid_session_sequence_or_schema",result["diagnostics"][0]["reason"])
 
+    def test_missing_input_is_not_silently_skipped(self) -> None:
+        valid=self.write("valid.jsonl",[event(1,"run_started",{})])
+        with self.assertRaisesRegex(ValueError,"input source does not exist"):
+            ingest([valid,self.root/"missing.jsonl"],self.root/"out")
+
+    def test_invalid_summary_identity_is_diagnostic(self) -> None:
+        source=self.root/"invalid.summary.json"
+        source.write_text('{"run_id":[]}',encoding="utf-8")
+        result=ingest([source],self.root/"out")
+        self.assertEqual("invalid_summary_run_id",result["diagnostics"][0]["reason"])
+
+    def test_missing_csv_event_json_is_diagnostic(self) -> None:
+        source=self.root/"events.csv"
+        source.write_text("run_id,event_json\nrun1\n",encoding="utf-8")
+        result=ingest([source],self.root/"out")
+        self.assertEqual(0,result["events"])
+        self.assertTrue(result["diagnostics"])
+
 
 class StatisticTests(unittest.TestCase):
     def metric(self, rows: list[dict], metric: str) -> dict:

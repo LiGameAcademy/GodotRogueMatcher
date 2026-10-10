@@ -44,6 +44,8 @@ def read_members(paths: list[Path]) -> list[tuple[str, bytes]]:
     result: list[tuple[str, bytes]] = []
     total = 0
     for path in paths:
+        if not path.exists():
+            raise ValueError(f"input source does not exist: {path}")
         files = sorted(path.rglob("*")) if path.is_dir() else [path]
         for file in files:
             if not file.is_file():
