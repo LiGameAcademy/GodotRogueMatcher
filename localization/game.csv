@@ -681,3 +681,22 @@ Standalone skill rewards only award bonus score."
 No direct score; explosions score normally."
 本次清理：%d枚普通棋,本次清理：%d枚普通棋,Clear %d pieces
 立即投放：%s,立即投放：%s,Spawn now: %s
+过关嘉奖,过关嘉奖,Goal Bounty
+从下一个目标起，每次完成阶段目标额外获得25分，不受倍率影响。末阶段仍得分；不重复触发过关。,从下一个目标起，每次完成阶段目标额外获得25分，不受倍率影响。末阶段仍得分；不重复触发过关。,"From the next goal, gain 25 extra points whenever you complete a stage goal. Multipliers do not apply. Includes the final goal; does not trigger another completion."
+"完成阶段目标后 +25分。
+从下个目标起生效。","完成阶段目标后 +25分。
+从下个目标起生效。","+25 points on goal completion.
+Starts from the next goal."
+仅阶段挑战可用,仅阶段挑战可用,Stage challenge only
+目标奖励分必须为正数,目标奖励分必须为正数,Goal bonus must be positive
+目标奖励配置已失效,目标奖励配置已失效,Goal bonus configuration changed
+每次达标：+%d分,每次达标：+%d分,Each goal: +%d points
+目标,目标,Goal
+额外分,额外分,Extra score
+"目标完成奖励 +%d
+
+%s","目标完成奖励 +%d
+
+%s","Goal completion bonus +%d
+
+%s"

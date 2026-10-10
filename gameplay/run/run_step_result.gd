@@ -8,3 +8,4 @@ var spawns: Array[SpawnResult] = []
 var offer: SkillOffer
 
 var challenge: StageResult
+var goal_before: Dictionary = {}

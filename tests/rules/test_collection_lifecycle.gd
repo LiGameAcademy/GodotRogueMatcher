@@ -144,8 +144,9 @@ func test_goal_reward_score_stays_outside_completed_action_and_has_own_identity(
 	assert_eq(action.payload.action_score_delta, "105")
 	assert_eq(_events(projector, "stage_goal_completed").size(), 1)
 	var goal: Dictionary = _events(projector, "stage_goal_completed")[0]
-	assert_false(goal.payload.goal_effects_implemented)
-	assert_null(goal.payload.P_after)
+	assert_true(goal.payload.goal_effects_implemented)
+	assert_eq(goal.payload.implemented_goal_effects, ["goal_score_bonus"])
+	assert_eq(goal.payload.P_before, goal.payload.P_after)
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
 	var target: SkillTarget = SkillTarget.new()
 	target.coordinate = Vector2i(4, 0)

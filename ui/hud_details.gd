@@ -47,18 +47,22 @@ static func score_details(entries: Array[ScoreEntry], show_formula: bool = false
 	var total: int = 0
 	for entry: ScoreEntry in entries:
 		if entry.root_action_id != action or entry.reason == &"dye": continue
+		if entries.back().reason == &"goal_score_bonus" and entry.event_id != entries.back().event_id: continue
 		total += entry.final_score
 		var reason: String = TranslationServer.translate("爆炸") if entry.reason == &"explosion" else (TranslationServer.translate("连携回响") if entry.reason == &"chain_reward" else (TranslationServer.translate("印记收获") if entry.reason == &"marked_reward" else TranslationServer.translate("消除")))
+		if entry.reason == &"goal_score_bonus": reason = TranslationServer.translate("过关嘉奖")
 		if show_formula:
 			lines.append(TranslationServer.translate("%s：%d × %.2f + %d = %d") % [reason, entry.base_score, entry.multiplier, entry.extra_score, entry.final_score])
 		else:
 			lines.append(TranslationServer.translate("%s +%d") % [reason, entry.final_score])
-	return TranslationServer.translate("最近得分行动 +%d\n\n%s") % [total, "\n".join(lines)]
+	var heading: String = "目标完成奖励 +%d\n\n%s" if entries.back().reason == &"goal_score_bonus" else "最近得分行动 +%d\n\n%s"
+	return TranslationServer.translate(heading) % [total, "\n".join(lines)]
 
 static func summary(state: RunState) -> String:
 	var totals: Dictionary[int, int] = {}
 	var best: int = 0
 	for entry: ScoreEntry in state.ledger.get_entries():
+		if entry.reason == &"goal_score_bonus": continue
 		totals[entry.root_action_id] = totals.get(entry.root_action_id, 0) + entry.final_score
 		best = maxi(best, totals[entry.root_action_id])
 	return StageText.end_summary(state) + TranslationServer.translate("有效行动 %d 次 · 技能选择 %d 次\n最高单次行动得分 %d") % [state.valid_moves + state.activations, state.rewards.consumed_count, best]

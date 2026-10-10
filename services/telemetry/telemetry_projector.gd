@@ -92,7 +92,7 @@ func _start(header: Dictionary) -> void:
 	var companions: int = 0
 	for piece: Dictionary in _state.pieces:
 		if not piece.content_id.is_empty(): companions += 1
-	_emit("run_started", {"columns": header.config.columns, "rows": header.config.rows, "ordinary": _state.pieces.size() - companions, "companions": companions, "score": _state.total, "config": _config, "pressure_config": RunSnapshot.resource_fields(TelemetryFacts.CONFIG), "capabilities": {"goal_effects": false, "rescue_weights": not _config.get("challenge", {}).is_empty(), "target_curve": false, "all_ability_attempts": false}, "initial_observation": observation()})
+	_emit("run_started", {"columns": header.config.columns, "rows": header.config.rows, "ordinary": _state.pieces.size() - companions, "companions": companions, "score": _state.total, "config": _config, "pressure_config": RunSnapshot.resource_fields(TelemetryFacts.CONFIG), "capabilities": {"goal_effects": true, "implemented_goal_effects": ["goal_score_bonus"], "rescue_weights": not _config.get("challenge", {}).is_empty(), "target_curve": false, "all_ability_attempts": false}, "initial_observation": observation()})
 
 func _resolved(row: Dictionary) -> void:
 	_state = row.after
@@ -113,12 +113,20 @@ func _resolved(row: Dictionary) -> void:
 			if _turn != null: _turn.exclude_choice(row)
 		_command = {}
 	if _turn != null:
-		if _skill.is_empty(): _turn.consume(row, {})
+		if _skill.is_empty():
+			# 目标奖励属于独立批次，行动统计停在奖励入账之前。
+			var action_row: Dictionary = row.duplicate()
+			if not row.get("goal_before", {}).is_empty(): action_row["after"] = row.goal_before
+			_turn.consume(action_row, {})
 		if row.get("stage") == "spawn": _end_turn(true)
 	_facts(row)
 	var goal: Dictionary = row.get("challenge", {})
 	if goal.get("reason") in ["stage_passed", "challenge_completed"]:
-		_emit("stage_goal_completed", {"result": goal, "P_before": _pressure(_state), "P_after": null, "installed_build": _state.acquired.duplicate(true), "goal_effects_implemented": false}, {"stage_id": goal.stage_id, "root_action_id": goal.root_action_id})
+		var before_goal: Dictionary = row.get("goal_before", _state)
+		_emit("stage_goal_completed", {"result": goal, "P_before": _pressure(before_goal), "P_after": _pressure(_state), "installed_build": _state.acquired.duplicate(true), "goal_effects_implemented": true, "implemented_goal_effects": ["goal_score_bonus"]}, {"stage_id": goal.stage_id, "root_action_id": goal.root_action_id})
+		var bonus: Dictionary = goal.get("goal_score", {})
+		if not bonus.is_empty():
+			_emit("rule_fact", {"fact": "score", "score": bonus, "batch_kind": "goal_completed"}, {"root_action_id": null, "action_id": null, "stage_id": goal.stage_id, "batch_id": "goal:" + str(goal.stage_id), "rule_event_id": bonus.event_id})
 		needs_flush = true
 	_skill = {}
 	_emit("observation_checkpoint", observation())

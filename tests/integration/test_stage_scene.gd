@@ -51,6 +51,29 @@ func _wait_popup() -> void:
 		await wait_process_frames(1)
 	fail_test("expected terminal or skill popup")
 
+func test_goal_bonus_keeps_score_label_and_progress_in_sync() -> void:
+	var run: RunController = _bind([100, 150])
+	run.state.goal_bonus_score = 25
+	_move()
+	await _wait_popup()
+	assert_eq(run.state.ledger.total, 130)
+	assert_eq(hud.goal_progress.accepted_value(), 130)
+	assert_eq(roundi(hud.goal_progress.displayed_value), 130)
+	assert_string_contains(hud.score_label.text, "130")
+	assert_string_contains(hud.score_label.tooltip_text, "25")
+	assert_string_contains(hud.breakdown_label.text, "25")
+	# 完成弹窗生命周期，避免挂起的旧奖励协程影响下一用例。
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	for index: int in range(popup.offer.choices.size()):
+		var skill: SkillDefinition = popup.offer.choices[index]
+		if skill.choice_effect == null or not skill.choice_effect.requires_color_choice():
+			popup._select(index)
+			break
+	for frame: int in range(360):
+		if board.can_selected: break
+		await wait_process_frames(1)
+	assert_true(board.can_selected)
+
 func test_real_stage_pass_waits_for_presentation_then_enters_next_stage() -> void:
 	var run: RunController = _bind([100, 150])
 	_move()

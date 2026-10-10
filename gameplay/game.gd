@@ -61,6 +61,7 @@ func _ready() -> void:
 	board.run_reset.connect(feedback.cancel)
 	board.run_reset.connect(hud.reset_score_effects)
 	board.view.score_floats.score_visualized.connect(_on_score_visualized)
+	board.goal_bonus_ready.connect(_on_goal_bonus_ready)
 	hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
 	board.selection_changed.connect(_on_selection_feedback)
 	board.selection_changed.connect(hud.show_selection)
@@ -203,6 +204,9 @@ func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
 
 func _on_score_visualized(entry: ScoreEntry, origin: Vector2) -> void:
 	hud.show_score_burst(entry, board.view.score_floats.get_global_transform_with_canvas() * origin)
+
+func _on_goal_bonus_ready(entry: ScoreEntry) -> void:
+	hud.show_score_burst(entry, hud.score_label.get_global_rect().get_center())
 
 func _open_skill_pool() -> void:
 	skill_pool.open(board.run)

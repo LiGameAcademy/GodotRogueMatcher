@@ -89,7 +89,7 @@ func step(run: RunController, result: RunStepResult) -> void:
 	var births: Array[Dictionary] = []
 	for spawn: SpawnResult in result.spawns:
 		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches)})
-	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "challenge": {} if result.challenge == null else result.challenge.data(), "after": after})
+	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "challenge": {} if result.challenge == null else result.challenge.data(), "goal_before": result.goal_before, "after": after})
 	checkpoint(run, after)
 	needs_flush = result.kind in [&"spawn", &"input"] or needs_flush
 
