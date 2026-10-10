@@ -12,11 +12,13 @@ func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) 
 	state = run_state
 	config = rules_config
 
-func add_core(coordinate: Vector2i) -> PieceState:
+func add_core(coordinate: Vector2i, match_color: int = -1) -> PieceState:
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id == &"special_demolition":
 			return null
-	var core: PieceState = state.rules.place_piece(coordinate, config.core_color, &"special_demolition")
+	# 自然补棋显式传入已预告颜色；技能召唤和教学样例保留配置默认值。
+	var color: int = config.core_color if match_color == -1 else match_color
+	var core: PieceState = state.rules.place_piece(coordinate, color, &"special_demolition")
 	if core != null:
 		_attach(core.piece_id)
 	return core
