@@ -15,7 +15,7 @@ MAX_PACKAGE = 512 * 1024 * 1024
 STABLE_ENVELOPE = ("schema_version", "run_id", "session_id", "source", "initialization",
     "mode_id", "collection_context", "rule_version", "content_version", "offer_version",
     "build_id", "commit_id", "config_hash", "pressure_version", "collection_config_hash",
-    "strategy_version", "bot_config_hash", "experiment_id", "variant_id", "seed")
+    "strategy_version", "bot_config_hash", "experiment_id", "variant_id", "seed", "parent_run_id")
 
 
 def canonical(value: Any) -> str:

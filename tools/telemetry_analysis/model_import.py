@@ -112,7 +112,7 @@ def run(args: argparse.Namespace) -> int:
     write_json(output / "groups.json", result["groups"])
     write_json(output / "quality_report.json", {"diagnostics": diagnostics,
                "thresholds": result["thresholds"], "runs": result["runs"],
-               "limitations": ["能力attempt分母、直接成线时点、完整H反事实尚无采集证据，保留null",
+               "limitations": ["能力attempt分母、直接成线时点仍无证据，保留null；成对窗口比较真实候选的选择差异，包含替代卡机会成本",
                                "旧human/unknown上下文不作为真人体验或默认参考",
                                "规则目标、难度与技能Resource不由本工具修改"]})
     write_csv(output / "observations.csv", result["metrics"])

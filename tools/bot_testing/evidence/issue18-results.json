@@ -1,0 +1,803 @@
+{
+  "date": "2026-10-10",
+  "base_game_commit": "d4c77d9",
+  "tool_branch": "feat/issue-18-paired-bot-windows",
+  "rules": "run-commands-v15-goal-score-bonus",
+  "engine": "4.7.2.stable",
+  "sampling_note": "normal-pool groups use 100 seeds each, 80 effective-action tool limit; pilot configuration, not gameplay death or player evidence",
+  "excluded_batches": "Pre-fix greedy batches exhausted the unflushed recorder queue; all greedy exploration groups were rerun. Damaged groups excluded, not padded with zeros.",
+  "groups": [
+    {
+      "mode": "stage_challenge",
+      "strategy": "random-legal-v1",
+      "seeds": [
+        1000,
+        1099
+      ],
+      "runs": 100,
+      "disk_replay_failures": 0,
+      "statuses": {
+        "completed": 100
+      },
+      "end_reasons": {
+        "board_full": 100
+      },
+      "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+      "bot_config": {
+        "command_limit": "3000",
+        "congestion_penalty": 1.0,
+        "dense_thin_weight": 90.0,
+        "dense_threshold": 0.65,
+        "line_potential_weight": 10.0,
+        "match_priority": 10000.0,
+        "move_limit": "80",
+        "skill_weights": {
+          "assign_fuse": 15.0,
+          "blast_extra": 10.0,
+          "blast_radius": 18.0,
+          "blast_reward": 20.0,
+          "core_drop": 16.0,
+          "instant_thin": 5.0,
+          "match_extra": 10.0,
+          "score_multiplier": 12.0
+        },
+        "starter_weight": 100.0,
+        "timeout_ms": "60000"
+      },
+      "score_p50_p90": [
+        0,
+        50
+      ],
+      "stages": {
+        "1": {
+          "actions_p50_p90": [
+            15,
+            15
+          ],
+          "board_full_unmet": 97,
+          "censored": 0,
+          "completed": 3,
+          "completion_rate_known": 0.03,
+          "reached": 100
+        },
+        "2": {
+          "actions_p50_p90": [
+            null,
+            null
+          ],
+          "board_full_unmet": 3,
+          "censored": 0,
+          "completed": 0,
+          "completion_rate_known": 0.0,
+          "reached": 3
+        }
+      },
+      "q_p50_p90": [
+        5,
+        6
+      ],
+      "P_p50_p90": [
+        41.6435185185185,
+        82.358024691358
+      ],
+      "carry_p50_p90": [
+        16,
+        16
+      ],
+      "report": ".godot\\issue18\\explore-pressure\\pressure_summary.json",
+      "report_sha256": "089a149f219ced46172640ab5a2a044a61716cfd5b57637422165632c6cf8a0f"
+    },
+    {
+      "mode": "stage_challenge",
+      "strategy": "greedy-v1",
+      "seeds": [
+        1000,
+        1099
+      ],
+      "runs": 100,
+      "disk_replay_failures": 0,
+      "statuses": {
+        "completed": 100
+      },
+      "end_reasons": {
+        "board_full": 100
+      },
+      "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+      "bot_config": {
+        "command_limit": "3000",
+        "congestion_penalty": 1.0,
+        "dense_thin_weight": 90.0,
+        "dense_threshold": 0.65,
+        "line_potential_weight": 10.0,
+        "match_priority": 10000.0,
+        "move_limit": "80",
+        "skill_weights": {
+          "assign_fuse": 15.0,
+          "blast_extra": 10.0,
+          "blast_radius": 18.0,
+          "blast_reward": 20.0,
+          "core_drop": 16.0,
+          "instant_thin": 5.0,
+          "match_extra": 10.0,
+          "score_multiplier": 12.0
+        },
+        "starter_weight": 100.0,
+        "timeout_ms": "60000"
+      },
+      "score_p50_p90": [
+        366,
+        766
+      ],
+      "stages": {
+        "1": {
+          "actions_p50_p90": [
+            9,
+            12
+          ],
+          "board_full_unmet": 7,
+          "censored": 0,
+          "completed": 93,
+          "completion_rate_known": 0.93,
+          "reached": 100
+        },
+        "2": {
+          "actions_p50_p90": [
+            10,
+            13
+          ],
+          "board_full_unmet": 14,
+          "censored": 0,
+          "completed": 79,
+          "completion_rate_known": 0.849462365591398,
+          "reached": 93
+        },
+        "3": {
+          "actions_p50_p90": [
+            12,
+            14
+          ],
+          "board_full_unmet": 34,
+          "censored": 0,
+          "completed": 45,
+          "completion_rate_known": 0.569620253164557,
+          "reached": 79
+        },
+        "4": {
+          "actions_p50_p90": [
+            16,
+            18
+          ],
+          "board_full_unmet": 34,
+          "censored": 0,
+          "completed": 11,
+          "completion_rate_known": 0.244444444444444,
+          "reached": 45
+        },
+        "5": {
+          "actions_p50_p90": [
+            null,
+            null
+          ],
+          "board_full_unmet": 11,
+          "censored": 0,
+          "completed": 0,
+          "completion_rate_known": 0.0,
+          "reached": 11
+        }
+      },
+      "q_p50_p90": [
+        4,
+        6
+      ],
+      "P_p50_p90": [
+        38.7251744498121,
+        75.685510071475
+      ],
+      "carry_p50_p90": [
+        0,
+        16
+      ],
+      "report": ".godot\\issue18\\explore-pressure-fixed\\pressure_summary.json",
+      "report_sha256": "53bd34518c656c4c3a8c5e4f16c6d2e22648f99c3945debcad2ec530290c35c4"
+    },
+    {
+      "mode": "classic_endless",
+      "strategy": "random-legal-v1",
+      "seeds": [
+        1000,
+        1099
+      ],
+      "runs": 100,
+      "disk_replay_failures": 0,
+      "statuses": {
+        "completed": 100
+      },
+      "end_reasons": {
+        "board_full": 100
+      },
+      "config_hash": "0a12d79b6f9ae08c3c7b60b327b6669337d7e60f7978d8cb27cb86f86011ac15",
+      "bot_config": {
+        "command_limit": "3000",
+        "congestion_penalty": 1.0,
+        "dense_thin_weight": 90.0,
+        "dense_threshold": 0.65,
+        "line_potential_weight": 10.0,
+        "match_priority": 10000.0,
+        "move_limit": "80",
+        "skill_weights": {
+          "assign_fuse": 15.0,
+          "blast_extra": 10.0,
+          "blast_radius": 18.0,
+          "blast_reward": 20.0,
+          "core_drop": 16.0,
+          "instant_thin": 5.0,
+          "match_extra": 10.0,
+          "score_multiplier": 12.0
+        },
+        "starter_weight": 100.0,
+        "timeout_ms": "60000"
+      },
+      "score_p50_p90": [
+        0,
+        50
+      ],
+      "stages": {},
+      "q_p50_p90": [
+        3,
+        3
+      ],
+      "P_p50_p90": [
+        54.4674131495837,
+        84.1500474833808
+      ],
+      "carry_p50_p90": [
+        null,
+        null
+      ],
+      "report": ".godot\\issue18\\explore-classic\\pressure_summary.json",
+      "report_sha256": "82d0393676605cebbd8031889c3d7669fbb0decdfe5fda1cc1cbf8efac027c7f"
+    },
+    {
+      "mode": "classic_endless",
+      "strategy": "greedy-v1",
+      "seeds": [
+        1000,
+        1099
+      ],
+      "runs": 100,
+      "disk_replay_failures": 0,
+      "statuses": {
+        "completed": 84,
+        "censored": 16
+      },
+      "end_reasons": {
+        "board_full": 84,
+        "move_limit": 16
+      },
+      "config_hash": "0a12d79b6f9ae08c3c7b60b327b6669337d7e60f7978d8cb27cb86f86011ac15",
+      "bot_config": {
+        "command_limit": "3000",
+        "congestion_penalty": 1.0,
+        "dense_thin_weight": 90.0,
+        "dense_threshold": 0.65,
+        "line_potential_weight": 10.0,
+        "match_priority": 10000.0,
+        "move_limit": "80",
+        "skill_weights": {
+          "assign_fuse": 15.0,
+          "blast_extra": 10.0,
+          "blast_radius": 18.0,
+          "blast_reward": 20.0,
+          "core_drop": 16.0,
+          "instant_thin": 5.0,
+          "match_extra": 10.0,
+          "score_multiplier": 12.0
+        },
+        "starter_weight": 100.0,
+        "timeout_ms": "60000"
+      },
+      "score_p50_p90": [
+        550,
+        1092
+      ],
+      "stages": {},
+      "q_p50_p90": [
+        3,
+        3
+      ],
+      "P_p50_p90": [
+        38.2264378199338,
+        76.7978395061728
+      ],
+      "carry_p50_p90": [
+        null,
+        null
+      ],
+      "report": ".godot\\issue18\\explore-classic-fixed\\pressure_summary.json",
+      "report_sha256": "5182e2548ff8570a39da9f8e75df227e755f8172941c5697e6da7cfd8aabe04a"
+    }
+  ],
+  "smoke": {
+    "runs": 12,
+    "per_strategy_per_mode": 3,
+    "disk_replay_failures": 0,
+    "seed_range": [
+      1000,
+      1002
+    ]
+  },
+  "paired_windows": {
+    "windows": [
+      {
+        "pair_id": "031ff26dd5d3085d4b3a1f03",
+        "parent_run_id": "23-39888-1791640133845000-1595082",
+        "skill_id": "match_dye_echo",
+        "control_skill_id": "core_drop",
+        "level_before": "0",
+        "level": "1",
+        "H": "20",
+        "known": true,
+        "delta_score": "-90",
+        "delta_space": "-16",
+        "config_hash": "9ff2f9245835a6cc8367b963c61d34c9028ba496e5c9754205a85cf8f5b48715",
+        "start_digest": "88aee32f2dbbcaa3e3f796587cac7ffe845a8c5aaf655eabb7e3590f6aa9e4ed",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "fixture_f6",
+        "branches": [
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "285",
+            "final_occupied": "40",
+            "final_digest": "1a93f8d5f4c025b0c1d7721c2e37d2f4bb1608fc3f13bc1248511c522fff0427"
+          },
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "375",
+            "final_occupied": "24",
+            "final_digest": "1826d84b65e5e32052d923e0726a389e189ad3e90d32c0a9ccdcf4b68d230c04"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-fixture-final\\031ff26dd5d3085d4b3a1f03.pair.json"
+      },
+      {
+        "pair_id": "043cd939fd49333954a422d6",
+        "parent_run_id": "23-39888-1791640133845000-1595082",
+        "skill_id": "precision_reward",
+        "control_skill_id": "match_dye_echo",
+        "level_before": "0",
+        "level": "1",
+        "H": "20",
+        "known": true,
+        "delta_score": "65",
+        "delta_space": "7",
+        "config_hash": "9ff2f9245835a6cc8367b963c61d34c9028ba496e5c9754205a85cf8f5b48715",
+        "start_digest": "88aee32f2dbbcaa3e3f796587cac7ffe845a8c5aaf655eabb7e3590f6aa9e4ed",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "fixture_f6",
+        "branches": [
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "350",
+            "final_occupied": "33",
+            "final_digest": "376a0e2951736cc4f788eae06c2f3eae92ac1d5942b2aa1a577d8479c93fe735"
+          },
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "285",
+            "final_occupied": "40",
+            "final_digest": "1a93f8d5f4c025b0c1d7721c2e37d2f4bb1608fc3f13bc1248511c522fff0427"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-fixture-final\\043cd939fd49333954a422d6.pair.json"
+      },
+      {
+        "pair_id": "1b823e9b8a3d9fc905756c18",
+        "parent_run_id": "23-39888-1791640133845000-1595082",
+        "skill_id": "core_drop",
+        "control_skill_id": "precision_reward",
+        "level_before": "0",
+        "level": "1",
+        "H": "50",
+        "known": true,
+        "delta_score": "601",
+        "delta_space": "31",
+        "config_hash": "9ff2f9245835a6cc8367b963c61d34c9028ba496e5c9754205a85cf8f5b48715",
+        "start_digest": "88aee32f2dbbcaa3e3f796587cac7ffe845a8c5aaf655eabb7e3590f6aa9e4ed",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "fixture_f6",
+        "branches": [
+          {
+            "actual_actions": "50",
+            "reason": "horizon_reached",
+            "final_score": "1001",
+            "final_occupied": "50",
+            "final_digest": "677072af51e233d418d401efeb4dca8e4910ef8e119f895a982a39792a06f149"
+          },
+          {
+            "actual_actions": "32",
+            "reason": "board_full",
+            "final_score": "400",
+            "final_occupied": "81",
+            "final_digest": "e0dfba247cb59d7a481da387f092af645339cb5ca7d99f54568e359b82eabf2a"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-fixture-final\\1b823e9b8a3d9fc905756c18.pair.json"
+      },
+      {
+        "pair_id": "52aa0bc7f851e0d01c698492",
+        "parent_run_id": "23-39888-1791640133845000-1595082",
+        "skill_id": "core_drop",
+        "control_skill_id": "precision_reward",
+        "level_before": "0",
+        "level": "1",
+        "H": "20",
+        "known": true,
+        "delta_score": "30",
+        "delta_space": "8",
+        "config_hash": "9ff2f9245835a6cc8367b963c61d34c9028ba496e5c9754205a85cf8f5b48715",
+        "start_digest": "88aee32f2dbbcaa3e3f796587cac7ffe845a8c5aaf655eabb7e3590f6aa9e4ed",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "fixture_f6",
+        "branches": [
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "375",
+            "final_occupied": "24",
+            "final_digest": "1826d84b65e5e32052d923e0726a389e189ad3e90d32c0a9ccdcf4b68d230c04"
+          },
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "345",
+            "final_occupied": "32",
+            "final_digest": "1fdf79c480b08c554bc3236b0a48e5dcda00ffbeef6f875f1abbeead8a80723d"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-fixture-final\\52aa0bc7f851e0d01c698492.pair.json"
+      },
+      {
+        "pair_id": "92fc617c14697b0aa0719ebe",
+        "parent_run_id": "23-39888-1791640133845000-1595082",
+        "skill_id": "precision_reward",
+        "control_skill_id": "match_dye_echo",
+        "level_before": "0",
+        "level": "1",
+        "H": "50",
+        "known": true,
+        "delta_score": "201",
+        "delta_space": "0",
+        "config_hash": "9ff2f9245835a6cc8367b963c61d34c9028ba496e5c9754205a85cf8f5b48715",
+        "start_digest": "88aee32f2dbbcaa3e3f796587cac7ffe845a8c5aaf655eabb7e3590f6aa9e4ed",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "fixture_f6",
+        "branches": [
+          {
+            "actual_actions": "40",
+            "reason": "board_full",
+            "final_score": "636",
+            "final_occupied": "81",
+            "final_digest": "45edfa22821e4914f62a898d8b23631c88aaee073bc6947a956c37e6e76b4118"
+          },
+          {
+            "actual_actions": "37",
+            "reason": "board_full",
+            "final_score": "435",
+            "final_occupied": "81",
+            "final_digest": "0b9c74b145849fbd40746cdd9049817f5adc149a56362c6b7b7bc12f6e949cdc"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-fixture-final\\92fc617c14697b0aa0719ebe.pair.json"
+      },
+      {
+        "pair_id": "ec09a9645fd5a33d7143c87a",
+        "parent_run_id": "23-39888-1791640133845000-1595082",
+        "skill_id": "match_dye_echo",
+        "control_skill_id": "core_drop",
+        "level_before": "0",
+        "level": "1",
+        "H": "50",
+        "known": true,
+        "delta_score": "-566",
+        "delta_space": "-31",
+        "config_hash": "9ff2f9245835a6cc8367b963c61d34c9028ba496e5c9754205a85cf8f5b48715",
+        "start_digest": "88aee32f2dbbcaa3e3f796587cac7ffe845a8c5aaf655eabb7e3590f6aa9e4ed",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "fixture_f6",
+        "branches": [
+          {
+            "actual_actions": "37",
+            "reason": "board_full",
+            "final_score": "435",
+            "final_occupied": "81",
+            "final_digest": "0b9c74b145849fbd40746cdd9049817f5adc149a56362c6b7b7bc12f6e949cdc"
+          },
+          {
+            "actual_actions": "50",
+            "reason": "horizon_reached",
+            "final_score": "1001",
+            "final_occupied": "50",
+            "final_digest": "677072af51e233d418d401efeb4dca8e4910ef8e119f895a982a39792a06f149"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-fixture-final\\ec09a9645fd5a33d7143c87a.pair.json"
+      },
+      {
+        "pair_id": "242a1b20065e430086a3c858",
+        "parent_run_id": "1000-39128-1791639191120000-5577556",
+        "skill_id": "longline_reward",
+        "control_skill_id": "precision_reward",
+        "level_before": "0",
+        "level": "1",
+        "H": "50",
+        "known": true,
+        "delta_score": "-10",
+        "delta_space": "0",
+        "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+        "start_digest": "e46fc1ff8a780c4e1fc4925885715835d9274e29463fe0ff8947a3578ca5c18f",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "normal",
+        "branches": [
+          {
+            "actual_actions": "47",
+            "reason": "board_full",
+            "final_score": "750",
+            "final_occupied": "81",
+            "final_digest": "cc9be6d16b2e43f391048dd04e6b89717e03720e178a86b689b7f62766993f27"
+          },
+          {
+            "actual_actions": "45",
+            "reason": "board_full",
+            "final_score": "760",
+            "final_occupied": "81",
+            "final_digest": "30ae611ed8f19815ed0f4ae88080fd800b8b110b95602170180797cb9804c4e8"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-real-final\\242a1b20065e430086a3c858.pair.json"
+      },
+      {
+        "pair_id": "33439d7336a0ad1246794e3d",
+        "parent_run_id": "1000-39128-1791639191120000-5577556",
+        "skill_id": "precision_reward",
+        "control_skill_id": "core_drop",
+        "level_before": "0",
+        "level": "1",
+        "H": "20",
+        "known": true,
+        "delta_score": "9",
+        "delta_space": "1",
+        "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+        "start_digest": "e46fc1ff8a780c4e1fc4925885715835d9274e29463fe0ff8947a3578ca5c18f",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "normal",
+        "branches": [
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "430",
+            "final_occupied": "38",
+            "final_digest": "8a1c713a2e816cef4183131aa4328f4be688d4f33c6b037c2995a25c032125dc"
+          },
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "421",
+            "final_occupied": "39",
+            "final_digest": "9f61caf21d3f6f0f0b5c76f0aaada9e2227648cb96224b1417011b0f196e9929"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-real-final\\33439d7336a0ad1246794e3d.pair.json"
+      },
+      {
+        "pair_id": "52bd831877bf3d4f2efda908",
+        "parent_run_id": "1000-39128-1791639191120000-5577556",
+        "skill_id": "core_drop",
+        "control_skill_id": "longline_reward",
+        "level_before": "0",
+        "level": "1",
+        "H": "50",
+        "known": true,
+        "delta_score": "-29",
+        "delta_space": "0",
+        "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+        "start_digest": "e46fc1ff8a780c4e1fc4925885715835d9274e29463fe0ff8947a3578ca5c18f",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "normal",
+        "branches": [
+          {
+            "actual_actions": "41",
+            "reason": "board_full",
+            "final_score": "721",
+            "final_occupied": "81",
+            "final_digest": "a7c8f313346c161816234e12e892cefec21dc38548dc9f84b18cd88a4a126cbc"
+          },
+          {
+            "actual_actions": "47",
+            "reason": "board_full",
+            "final_score": "750",
+            "final_occupied": "81",
+            "final_digest": "cc9be6d16b2e43f391048dd04e6b89717e03720e178a86b689b7f62766993f27"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-real-final\\52bd831877bf3d4f2efda908.pair.json"
+      },
+      {
+        "pair_id": "68a63603c185e78e30f14c15",
+        "parent_run_id": "1000-39128-1791639191120000-5577556",
+        "skill_id": "precision_reward",
+        "control_skill_id": "core_drop",
+        "level_before": "0",
+        "level": "1",
+        "H": "50",
+        "known": true,
+        "delta_score": "39",
+        "delta_space": "0",
+        "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+        "start_digest": "e46fc1ff8a780c4e1fc4925885715835d9274e29463fe0ff8947a3578ca5c18f",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "normal",
+        "branches": [
+          {
+            "actual_actions": "45",
+            "reason": "board_full",
+            "final_score": "760",
+            "final_occupied": "81",
+            "final_digest": "30ae611ed8f19815ed0f4ae88080fd800b8b110b95602170180797cb9804c4e8"
+          },
+          {
+            "actual_actions": "41",
+            "reason": "board_full",
+            "final_score": "721",
+            "final_occupied": "81",
+            "final_digest": "a7c8f313346c161816234e12e892cefec21dc38548dc9f84b18cd88a4a126cbc"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-real-final\\68a63603c185e78e30f14c15.pair.json"
+      },
+      {
+        "pair_id": "821380bb1d29d5611f6d83d7",
+        "parent_run_id": "1000-39128-1791639191120000-5577556",
+        "skill_id": "core_drop",
+        "control_skill_id": "longline_reward",
+        "level_before": "0",
+        "level": "1",
+        "H": "20",
+        "known": true,
+        "delta_score": "21",
+        "delta_space": "-1",
+        "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+        "start_digest": "e46fc1ff8a780c4e1fc4925885715835d9274e29463fe0ff8947a3578ca5c18f",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "normal",
+        "branches": [
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "421",
+            "final_occupied": "39",
+            "final_digest": "9f61caf21d3f6f0f0b5c76f0aaada9e2227648cb96224b1417011b0f196e9929"
+          },
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "400",
+            "final_occupied": "38",
+            "final_digest": "08435b251784f99cd5f8a6c89886b682d6525c255806f78807a0e29944821db4"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-real-final\\821380bb1d29d5611f6d83d7.pair.json"
+      },
+      {
+        "pair_id": "f609ded0d1f6c8bea7ded8d9",
+        "parent_run_id": "1000-39128-1791639191120000-5577556",
+        "skill_id": "longline_reward",
+        "control_skill_id": "precision_reward",
+        "level_before": "0",
+        "level": "1",
+        "H": "20",
+        "known": true,
+        "delta_score": "-30",
+        "delta_space": "0",
+        "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+        "start_digest": "e46fc1ff8a780c4e1fc4925885715835d9274e29463fe0ff8947a3578ca5c18f",
+        "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value",
+        "target_trigger_count": null,
+        "target_trigger_missing_reason": "all_ability_attempts_not_recorded; zero score is not proof of no trigger",
+        "source": "fixture",
+        "initialization": "normal",
+        "branches": [
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "400",
+            "final_occupied": "38",
+            "final_digest": "08435b251784f99cd5f8a6c89886b682d6525c255806f78807a0e29944821db4"
+          },
+          {
+            "actual_actions": "20",
+            "reason": "horizon_reached",
+            "final_score": "430",
+            "final_occupied": "38",
+            "final_digest": "8a1c713a2e816cef4183131aa4328f4be688d4f33c6b037c2995a25c032125dc"
+          }
+        ],
+        "report": ".godot\\issue18\\pairs-real-final\\f609ded0d1f6c8bea7ded8d9.pair.json"
+      }
+    ],
+    "branches": 24,
+    "original_run_clusters": 2,
+    "H_groups": [
+      20,
+      50
+    ],
+    "disk_replay_failures": 0,
+    "negative_score_windows": 5,
+    "censor_evidence": "test_censored_window_has_null_delta_and_includes_immediate_choice; command_limit=0, both branches full rule replay",
+    "trigger_limit": "all_ability_attempts_not_recorded; zero score never relabelled as no trigger"
+  },
+  "excel": {
+    "runs": 24,
+    "events": 8361,
+    "diagnostics": 0,
+    "analyzer_version": "model-analysis-v2-paired-choice",
+    "paired_score_measurements": 12,
+    "auto_reference_group_selected": false,
+    "workbook": ".godot\\issue18\\excel-reviewed\\model-observed.xlsx",
+    "verification": {
+      "sheets": 15,
+      "preserved_parts": 16,
+      "preserved_formulas": 4595,
+      "validated_changes": 34483
+    }
+  },
+  "tests": {
+    "godot_tests": 56,
+    "godot_assertions": 2037,
+    "python_tests": 33,
+    "node_tests": 4,
+    "files_under_500_lines": true
+  },
+  "remaining_O1": [
+    "#19 offline reference curve and calibration",
+    "author review",
+    "human first-play understanding and failure explanation",
+    "ability attempts / first non-score effects remain explicitly missing; not inferred from score"
+  ]
+}

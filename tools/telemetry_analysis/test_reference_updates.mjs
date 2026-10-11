@@ -15,7 +15,7 @@ test('unselected or insufficient data preserves previous reference',()=>{
 });
 test('other group, level and H do not overwrite a reference',()=>{
   const old=referenceUpdates([input],[]).rows;
-  for(const change of [{group_hash:'group2'},{level:2},{H:50}]) {
+  for(const change of [{group_hash:'group2'},{level:2},{H:50},{control_skill_id:'other'},{window_protocol:'other'}]) {
     const result=referenceUpdates([{...input,...change,value:100}],old);
     assert.equal(result.rows.length,2);
     assert.equal(result.rows[1][3],5);

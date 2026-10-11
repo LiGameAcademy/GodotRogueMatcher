@@ -8,7 +8,7 @@ from typing import Any
 
 from import_sources import Json, digest
 
-VERSION = "model-analysis-v1"
+VERSION = "model-analysis-v2-paired-choice"
 HUMAN_CONTEXTS = {"editor_playtest", "web_playtest"}
 DIMENSIONS = ("mode_id", "source", "collection_context", "initialization", "schema_version",
               "rule_version", "content_version", "offer_version", "build_id", "commit_id",
@@ -65,7 +65,8 @@ class Metrics:
                 row["missing_reasons"].append(missing)
         else:
             seed = event.get("seed")
-            self.clusters[event["run_id"]] = ("seed:" + seed if self.dimensions.get("source") == "bot"
+            parent = event.get("parent_run_id") or event.get("payload", {}).get("parent_run_id")
+            self.clusters[event["run_id"]] = (parent if parent else "seed:" + seed if self.dimensions.get("source") == "bot"
                                               and isinstance(seed,str) and seed != "unknown" else event["run_id"])
             row["samples"].append((event["run_id"], event["event_id"], value))
 
@@ -122,6 +123,7 @@ def analyze(events: list[Json], min_runs: int = 30, min_events: int = 100,
     run_rows: list[Json] = []
     exits: list[Json] = []
     runtime_configs: list[Json] = []
+    seen_pairs: set[str] = set()
     for run, rows in sorted(runs.items()):
         rows.sort(key=lambda e: int(e["telemetry_seq"]))
         header = rows[0]
@@ -157,7 +159,19 @@ def analyze(events: list[Json], min_runs: int = 30, min_events: int = 100,
             if stage_id is not None:
                 reached.setdefault(stage_id, event)
             scope: Json = {"stage_id": stage_id}
-            if name == "offer_generated":
+            if name == "paired_window_resolved":
+                pair_id = payload["pair_id"]
+                if pair_id in seen_pairs:
+                    raise ValueError("duplicate paired measurement in run")
+                seen_pairs.add(pair_id)
+                pair_scope = {"skill_id": payload["skill_id"], "level": int(payload["level"]),
+                              "H": int(payload["H"]), "control_skill_id": payload["control_skill_id"],
+                              "window_protocol": payload["protocol"]}
+                for key, field, unit in (("paired_score", "delta_score", "points/window"),
+                                         ("paired_space", "delta_space", "cells/window")):
+                    metric.add(key, unit, event, number(payload[field]) if payload["known"] else None,
+                               pair_scope, missing=payload["missing_reason"])
+            elif name == "offer_generated":
                 generated[str(payload["offer_id"])] = event
                 pressure = number(payload.get("P_offer", {}).get("P"))
                 metric.add("pressure_offer", "pressure", event, pressure, scope)

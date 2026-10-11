@@ -41,6 +41,13 @@ func replay_file(path: String) -> bool:
 	return result
 
 func replay(records: Array[Dictionary]) -> bool:
+	return _replay(records, false)
+
+## 从完整命令前缀重建全部状态和随机流；未结束记录仍不能冒充完整回放。
+func restore_prefix(records: Array[Dictionary]) -> bool:
+	return _replay(records, true)
+
+func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	error = ""
 	complete = false
 	checked_records = 0
@@ -116,6 +123,13 @@ func replay(records: Array[Dictionary]) -> bool:
 			if index != records.size() - 1: return _fail("records_after_footer")
 			if not expected.get("record_complete", false): return _fail("record_write_incomplete")
 			complete = true
+	if prefix:
+		if complete or records.back().get("kind") != "Checkpoint" or generated.records.size() != records.size(): return _fail("unsafe_prefix_boundary")
+		if run.state.is_game_over or run.state.phase not in [RunState.Phase.INPUT, RunState.Phase.REWARDS]: return _fail("unsafe_prefix_phase")
+		# Header元数据不参与规则比较，但后续工具记录必须保留来源。
+		generated.records[0] = header.duplicate(true)
+		generated.metadata = header.get("metadata", {}).duplicate(true)
+		return true
 	if not complete: return _fail("incomplete_record_no_footer")
 	return true
 

@@ -15,13 +15,16 @@ func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = t
 	if strategy is GreedyBot: strategy.version = "greedy-v1"
 	recorder.metadata = {"strategy": strategy.version, "strategy_seed": str(strategy_seed), "bot_config": RunSnapshot.resource_fields(strategy.config)}
 	if telemetry_factory != null: last_telemetry = telemetry_factory.attach(recorder, run.state.run_id)
-	recorder.begin(run, "bot", save)
+	recorder.begin(run, "bot", save, "unknown", telemetry_factory.record_directory if telemetry_factory != null else "user://run_records")
 	if last_telemetry != null: last_telemetry.set_interval("busy")
 	var started: int = Time.get_ticks_msec()
 	var handled: int = 0
 	var status: String = "censored"
 	var reason: String = "move_limit"
 	while true:
+		# 无界面驱动没有RunCollection的帧刷新；在规则安全点批量写盘。
+		if recorder.needs_flush: recorder.flush_pending()
+		if last_telemetry != null and last_telemetry.needs_flush: last_telemetry.flush_pending()
 		if not run.state.rule_error.is_empty():
 			status = "rule_error"
 			reason = run.state.rule_error
