@@ -6,6 +6,10 @@ static func populate(run: RunController) -> void:
 	run.state.explosion.core_pool_unlocked = true
 	run.state.explosion.fuse_unlocked = true
 	run.state.rewards.acquired[&"core_drop"] = 1
+	var skill: SkillDefinition = load("res://gameplay/progression/content/core_drop.tres") as SkillDefinition
+	var instance: SkillInstance = SkillInstance.new(skill, 1)
+	instance.commit_next_level()
+	run.state.skill_instances[skill.skill_id] = instance
 	for id: StringName in [&"core_manual_detonation", &"core_fuse_payload", &"chain_reward", &"blast_aftershock", &"blast_chain_bonus", &"blast_refill_relief"]:
 		run.state.explosion.upgrades[id] = 1
 		run.state.rewards.acquired[id] = 1

@@ -17,6 +17,7 @@ func before_each() -> void:
 	run = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 864)
 	run.initialize("fixture_dye")
 	run.state.rewards.acquired.clear()
+	run.state.skill_instances.clear()
 
 func after_each() -> void:
 	TranslationServer.set_locale(previous_locale)

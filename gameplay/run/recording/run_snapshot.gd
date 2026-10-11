@@ -1,11 +1,11 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v16-frozen-target-curve"
+const RULES_VERSION: String = "run-commands-v17-skill-instances"
 
 ## 所有整数转十进制字符串；坐标、实体、字典有固定规范顺序。
 static func normalize(value: Variant) -> Variant:
-	if value is ChoiceEffect:
+	if value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
 		var script: Script = value.get_script() as Script
 		return {"script": script.resource_path, "parameters": resource_fields(value)}
 	if value is int: return str(value)
@@ -102,6 +102,12 @@ static func capture(run: RunController) -> Dictionary:
 	snapshot["demolition"] = normalize({"upgrades": state.explosion.upgrades, "core_pool": state.explosion.core_pool_unlocked, "fuse_unlocked": state.explosion.fuse_unlocked, "rule_action_id": state.rule_action_id, "turn_action_id": run.turn_action_id, "activations": state.activations, "roots": _roots(state)})
 	snapshot["dye"] = normalize({"upgrades": state.dye.upgrades, "marks": state.dye.marks, "root": state.dye.root_id, "waves": state.dye.waves_used, "match": state.dye.considered_match, "blast": state.dye.considered_blast, "chain": state.dye.allow_chain, "ids": state.dye.dyed_ids})
 	snapshot["goal_bonus_score"] = str(state.goal_bonus_score)
+	var skills: Array[Dictionary] = []
+	var owned: Array[SkillInstance] = []
+	owned.assign(state.skill_instances.values())
+	owned.sort_custom(func(a: SkillInstance, b: SkillInstance) -> bool: return a.instance_id < b.instance_id)
+	for instance: SkillInstance in owned: skills.append(instance.data())
+	snapshot["skills"] = normalize(skills)
 	snapshot["challenge"] = normalize(state.stage.data())
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)

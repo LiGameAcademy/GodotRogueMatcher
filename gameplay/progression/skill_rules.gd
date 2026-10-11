@@ -3,6 +3,9 @@ extends RefCounted
 
 ## 技能合法条件和应用入口；与界面、回合动画无关。
 static func level(state: RunState, skill: SkillDefinition) -> int:
+	if not skill.levels.is_empty():
+		var instance: SkillInstance = state.skill_instances.get(skill.skill_id)
+		return instance.level if instance != null else 0
 	if skill.choice_effect is InstallGoalBonusEffect: return 1 if state.goal_bonus_score > 0 else 0
 	if skill.choice_effect is InstallDyeUpgradeEffect:
 		return state.dye.level((skill.choice_effect as InstallDyeUpgradeEffect).upgrade)
@@ -33,12 +36,17 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.dye_upgrades = state.dye.upgrades.duplicate()
 	context.stage_enabled = state.stage.enabled()
 	context.goal_bonus_score = state.goal_bonus_score
+	context.core_pool_unlocked = state.explosion.core_pool_unlocked
+	context.empty_coordinates = state.rules.state.get_empty_coordinates()
 	for piece: PieceState in state.rules.state.get_snapshot():
+		if piece.content_id == &"special_demolition": context.core_present = true
 		if piece.content_id.is_empty(): context.material.append(piece.copy())
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
 	return context
 
 static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, frozen_pressure: float = -1.0) -> String:
+	var definition_error: String = skill.validation_error()
+	if not definition_error.is_empty(): return definition_error
 	if state.is_game_over or not state.rule_error.is_empty():
 		return "本局已经结束或规则异常"
 	if not is_finite(skill.base_weight) or skill.base_weight <= 0.0:
@@ -47,19 +55,21 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 	if skill.requires_fuse_unlock and not state.explosion.fuse_unlocked: return "需先解锁引信路线"
 	if skill.requires_fuse and effect_context(state).fuse_ids.is_empty(): return "棋盘上需要引信"
 	if not skill.prerequisite.is_empty() and state.rewards.acquired.get(skill.prerequisite, 0) == 0: return "缺少前置升级"
+	var owned: SkillInstance = state.skill_instances.get(skill.skill_id)
+	if owned != null and owned.definition != skill: return "技能定义与已安装实例不符"
 	if skill.maximum_level > 0 and level(state, skill) >= skill.maximum_level: return "已满级"
 	if level(state, skill) >= 1000000: return "等级已达安全上限"
 	var early_rescue: bool = RescueOfferRules.early_allowed(state, skill, frozen_pressure)
 	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
-	if skill.choice_effect != null:
+	var effect: ChoiceEffect = skill.acquisition_effect(level(state, skill))
+	if effect != null:
 		if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
-		return skill.choice_effect.rejection(effect_context(state))
+		if not skill.levels.is_empty() and effect is InstallUpgradeEffect:
+			var upgrade: StringName = (effect as InstallUpgradeEffect).upgrade
+			if state.explosion.level(upgrade) != level(state, skill): return "技能等级与生成修正不一致"
+		return effect.rejection(effect_context(state))
+	if skill.action == SkillDefinition.Action.CORE_DROP: return "技能缺少执行配置"
 	match skill.action:
-		SkillDefinition.Action.CORE_DROP:
-			if state.explosion.core_pool_unlocked: return "已解锁核心供给"
-			if state.rules.state.get_empty_coordinates().is_empty(): return "没有空格"
-			for piece: PieceState in state.rules.state.get_snapshot():
-				if piece.content_id == &"special_demolition": return "爆壳手仍在场"
 		SkillDefinition.Action.ASSIGN_FUSE:
 			if unmarked_material(state).is_empty(): return "没有可赋引信的普通棋子"
 		SkillDefinition.Action.BLAST_RADIUS:
@@ -95,8 +105,9 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	if targets == null:
 		result.error = "Missing frozen target"
 		return result
-	if skill.choice_effect != null and skill.choice_effect.requires_color_choice():
-		targets = (skill.choice_effect as ClearMaterialEffect).choose_color(targets, selected_color)
+	var effect: ChoiceEffect = skill.acquisition_effect(level(state, skill))
+	if effect != null and effect.requires_color_choice():
+		targets = (effect as ClearMaterialEffect).choose_color(targets, selected_color)
 		if targets == null:
 			result.error = "请先选择有效颜色"
 			return result
@@ -105,30 +116,23 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 		return result
 	var request: ChoiceEffectRequest = null
 	# 冻结目标在提交前再次校验，失败不修改棋盘、不消费奖励。
-	if skill.choice_effect != null:
-		request = skill.choice_effect.build(effect_context(state), targets)
+	if effect != null:
+		request = effect.build(effect_context(state), targets)
 		result.error = request.error
 		if result.error.is_empty() and request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE]:
 			result.error = run.abilities.validation_error(1)
 		if not result.error.is_empty(): return result
-	elif skill.action == SkillDefinition.Action.CORE_DROP:
-		if targets.color < 0 or targets.color >= state.spawning.color_weights.size():
-			result.error = "爆破手预告颜色无效"
-			return result
-		var coordinate: Vector2i = targets.coordinate
-		if not state.rules.state.is_valid_coordinate(coordinate) or state.rules.state.get_piece_id(coordinate) != 0:
-			result.error = "原定空格已经被占用"
-			return result
+	if request != null and request.kind == ChoiceEffectRequest.Kind.UNLOCK_CORE:
 		# 先在独立棋盘预检事件预算，避免落子后才发现无法完整结算。
 		var preview: BoardRules = BoardRules.new(BoardState.new(state.rules.state.columns, state.rules.state.rows), state.rules.minimum_match_count)
 		for piece: PieceState in state.rules.state.get_snapshot():
 			preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
-		preview.place_piece(coordinate, targets.color, &"special_demolition")
-		var groups: Array[BoardMatchGroup] = preview.find_matches_at(coordinate)
+		preview.place_piece(request.coordinate, request.color, &"special_demolition")
+		var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
 		result.error = run.abilities.validation_error(groups.size(), 1, 1)
 		if not result.error.is_empty():
 			return result
-	elif skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
+	elif request == null and skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
 		var legal: Array[int] = unmarked_material(state)
 		var maximum: int = 2 + state.explosion.level(&"fuse_capacity") if skill.action == SkillDefinition.Action.ASSIGN_FUSE else skill.target_count
 		if targets.piece_ids.is_empty() or targets.piece_ids.size() > maximum:
@@ -144,6 +148,11 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	state.rule_action_id = state.action_id
 	if request != null:
 		match request.kind:
+			ChoiceEffectRequest.Kind.UNLOCK_CORE:
+				state.explosion.core_pool_unlocked = true
+				var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
+				result.created.append(core)
+				result.matches = run.resolve_matches_at(core.coordinate)
 			ChoiceEffectRequest.Kind.GOAL_BONUS: state.goal_bonus_score = request.score_bonus
 			ChoiceEffectRequest.Kind.REFILL: state.spawning.extend_refill(request.delta, request.batches)
 			ChoiceEffectRequest.Kind.COLOR_WEIGHT: state.spawning.color_weights[request.color] += request.delta
@@ -160,6 +169,12 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	else:
 		_apply_legacy(run, skill, targets, result)
 	result.matches.append_array(DemolitionRules.settle(state, state.rule_action_id))
+	if not skill.levels.is_empty():
+		var instance: SkillInstance = state.skill_instances.get(skill_id)
+		if instance == null:
+			instance = SkillInstance.new(skill, offer.reward_id)
+			state.skill_instances[skill_id] = instance
+		instance.commit_next_level()
 	rewards.acquired[skill_id] = rewards.acquired.get(skill_id, 0) + 1
 	rewards.previous_unselected.clear()
 	for choice: SkillDefinition in offer.choices:
@@ -177,11 +192,6 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 static func _apply_legacy(run: RunController, skill: SkillDefinition, targets: SkillTarget, result: SkillApplyResult) -> void:
 	var state: RunState = run.state
 	match skill.action:
-		SkillDefinition.Action.CORE_DROP:
-			state.explosion.core_pool_unlocked = true
-			var core: PieceState = run.abilities.add_core(targets.coordinate, targets.color)
-			result.created.append(core)
-			result.matches = run.resolve_matches_at(core.coordinate)
 		SkillDefinition.Action.ASSIGN_FUSE:
 			state.explosion.fuse_unlocked = true
 			for target: int in targets.piece_ids:

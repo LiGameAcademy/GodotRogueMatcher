@@ -5,7 +5,8 @@ extends RefCounted
 static func active_skills(state: RunState) -> Array[SkillDefinition]:
 	var result: Array[SkillDefinition] = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
-		if state.rewards.acquired.get(skill.skill_id, 0) == 0: continue
+		var acquired: bool = SkillRules.level(state, skill) > 0 if not skill.levels.is_empty() else state.rewards.acquired.get(skill.skill_id, 0) > 0
+		if not acquired: continue
 		if skill.is_persistent or remaining_refills(skill, state) > 0: result.append(skill)
 	return result
 

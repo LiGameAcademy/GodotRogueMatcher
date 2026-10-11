@@ -53,13 +53,16 @@ func consume_refill_modifiers() -> void:
 		refill_batches[delta] = maxi(0, refill_batches[delta] - 1)
 
 func draw_color(random: RandomNumberGenerator) -> int:
+	return sample_color(color_weights, random)
+
+static func sample_color(weights: Array[int], random: RandomNumberGenerator) -> int:
 	# 均匀权重直接抽颜色；内容随机流与落点流相互独立。
-	if color_weights.all(func(weight: int) -> bool: return weight == color_weights[0]):
-		return random.randi_range(0, color_weights.size() - 1)
+	if weights.all(func(weight: int) -> bool: return weight == weights[0]):
+		return random.randi_range(0, weights.size() - 1)
 	var total: int = 0
-	for weight: int in color_weights: total += weight
+	for weight: int in weights: total += weight
 	var sample: int = random.randi_range(1, total)
-	for color: int in range(color_weights.size()):
-		sample -= color_weights[color]
+	for color: int in range(weights.size()):
+		sample -= weights[color]
 		if sample <= 0: return color
-	return color_weights.size() - 1
+	return weights.size() - 1
