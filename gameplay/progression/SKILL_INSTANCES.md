@@ -19,7 +19,7 @@
 - 先校验配置、资格、冻结目标、颜色与连携预算，再落子/安装修正。失败不修改实例、不消费奖励，也不重抽已展示计划。
 - 核心离场只销毁该棋子的离场能力，持久SkillInstance及供给修正继续保留。重试清空本局实例。
 
-取得能力仍经已有ChoiceEffect生成请求、SkillRules提交。AbilityDefinition.effect的Resource加载边界显式检查类型；旧离场适配只接受ExplodeEffect，取得等级只接受ChoiceEffect。不存在任意Resource的隐式执行。
+取得能力仍经已有ChoiceEffect生成请求、SkillRules提交。AbilityDefinition.effect的Resource加载边界显式检查类型；离场只接受ExplodeEffect，取得等级只接受ChoiceEffect。不存在任意Resource的隐式执行。
 已删除CORE_DROP的旧资格/目标生成/应用分支，空等级配置不能退回无效果取得。
 其余38项尚未迁移，沿用各自原路径；同一已迁移卡没有旧新双执行。
 
@@ -37,4 +37,6 @@ Godot 4.7.2，13个相关脚本107测试/3311断言通过，日志 `.godot/issue
 
 作者可在当前开发分支试玩：取得爆壳手登场，确认首枚颜色与预告一致；取得爆壳补给并重复升级，横卡及技能池显示Lv.1→Lv.2/满级；消除核心后供给和升级继续保留。
 
-后续按#60局内事件/条件、#61有序Composite统一请求、#62其余技能与生命周期、#63记录调试工具、#64旧路径清理逐片推进。本片没有提前实现局内总线、条件树或多叶Composite。
+#59已获作者review并合并PR #66。本页保留该首片的验证证据。
+#60已接入局内离场事件/条件、应用后消费及重试隔离，当前记录版本为v18；细节见../skills/ABILITY_EVENTS.md。
+后续按#61有序Composite统一请求、#62其余技能与生命周期、#63记录调试工具、#64旧路径清理逐片推进。

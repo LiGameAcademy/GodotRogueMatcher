@@ -61,6 +61,7 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 		results.append(result)
 	for result: MatchResult in results:
 		_remove_and_enqueue(result.removed, result.cause, 1, queue)
+		if not last_error.is_empty(): return results
 	var stats: DemolitionActionState = DemolitionRules.action(state)
 	if state.explosion.level(&"fuse_match_plant") > 0 and not stats.plant_used:
 		stats.plant_used = true
@@ -79,6 +80,7 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[Matc
 	var queue: Array[BlastRequest] = []
 	var extra: int = DemolitionRules.marked_score(state, pieces)
 	_remove_and_enqueue(pieces, cause, 1, queue)
+	if not last_error.is_empty(): return []
 	var results: Array[MatchResult] = []
 	if extra > 0:
 		var reward: MatchResult = MatchResult.new()
@@ -142,7 +144,12 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 				extra_score += DemolitionRules.CONFIG.chain_bonus * state.explosion.level(&"blast_chain_bonus") * mini(event.generation - 1, DemolitionRules.CONFIG.chain_depth_cap)
 		var ability_id: StringName = &"blast_aftershock" if event.synthetic else event.ability.definition.ability_id
 		result.score_entry = state.ledger.commit(0, 1.0, extra_score, &"explosion", DemolitionRules.root_id(state), actual_ids, result.source_id, ability_id)
-		_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue)
+		var parent_id: int = 0 if event.synthetic else event.activation.event.event_id
+		_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, parent_id, ability_id)
+		if not event.synthetic:
+			if not state.ability_events.complete(event.activation, true, result.removed.size()):
+				_event_error("能力执行票据失效")
+		if not last_error.is_empty(): return results
 		results.append(result)
 		# 普通队列收束后只追加一次，后代不能再次制造余震。
 		if queue.is_empty() and stats.first_core != null and not stats.aftershock_used and state.explosion.level(&"blast_aftershock") > 0:
@@ -162,7 +169,9 @@ func _attach(piece_id: int) -> void:
 	state.explosion.instances[piece_id] = instance
 	state.explosion.unlocked = true
 
-func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generation: int, queue: Array[BlastRequest]) -> void:
+func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generation: int, queue: Array[BlastRequest], parent_id: int = 0, source_ability: StringName = &"") -> void:
+	var events: Array[AbilityEvent] = []
+	var listeners: Array[AbilityInstance] = []
 	for piece: PieceState in pieces:
 		if state.rules.remove_piece(piece.piece_id) == null:
 			continue
@@ -171,17 +180,23 @@ func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generatio
 		state.explosion.instances.erase(piece.piece_id)
 		if instance == null:
 			continue
-		var trigger_event: AbilityEvent = AbilityEvent.new()
-		trigger_event.cause = cause
-		trigger_event.source = piece.copy()
-		trigger_event.root_action_id = DemolitionRules.root_id(state)
-		trigger_event.generation = generation
-		if not AbilityTriggerAdapter.try_accept(instance, trigger_event): continue
+		listeners.append(instance)
+		events.append(state.ability_events.removal(piece, cause, DemolitionRules.root_id(state), generation, state.run_id, parent_id, source_ability))
+	# 整批离场后分发；离场实例只在本批显式订阅，来源使用冻结快照。
+	for activation: AbilityActivation in state.ability_events.dispatch(events, listeners):
 		var event: BlastRequest = BlastRequest.new()
-		event.source = piece.copy()
-		event.ability = instance
+		event.source = activation.event.source.copy()
+		event.ability = activation.instance
+		event.activation = activation
 		event.generation = generation
 		queue.append(event)
+	if not state.ability_events.last_error.is_empty(): _event_error(state.ability_events.last_error)
+
+## 预检后的内部错误明确终止；已提交结果不假装能够任意回滚。
+func _event_error(reason: String) -> void:
+	last_error = reason
+	state.rule_error = reason
+	state.phase = RunState.Phase.ERROR
 
 func _comes_before(a: BlastRequest, b: BlastRequest) -> bool:
 	return a.generation < b.generation if a.generation != b.generation else a.source.piece_id < b.source.piece_id

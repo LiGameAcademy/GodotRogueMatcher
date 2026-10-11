@@ -3,31 +3,31 @@ extends RefCounted
 
 const MAX_CONDITION_DEPTH: int = 8
 
-## 复用插件的只读条件判断，实例次数仍属于本局。
-## 不activate/execute共享Resource，不订阅全局总线、不使用时间或全局RNG。
+const EVENTS: Array[StringName] = [&"piece_eliminated", &"skill_acquired", &"skill_upgraded"]
+const CAUSES: Array[StringName] = [&"match", &"explosion", &"skill_clear", &"consume"]
+
+## 仅复用插件的只读Condition；不激活GameplayTrigger或订阅全局总线。
 static func validation_error(definition: AbilityDefinition) -> String:
-	if definition == null or not definition.effect is ExplodeEffect: return "离场能力需要爆炸效果"
-	var trigger: GameplayTrigger = definition.trigger
-	if trigger == null: return "能力触发配置缺失"
-	if trigger.trigger_type != GameplayTrigger.TRIGGER_TYPE.ON_EVENT or trigger.trigger_event.is_empty():
-		return "本局能力仅支持明确事件触发"
-	if trigger.trigger_chance != 1.0:
-		return "概率触发尚未接入局内随机协议"
-	if trigger.trigger_count != 0:
-		return "共享触发定义含运行计数"
-	for condition: TriggerCondition in trigger.conditions:
+	if definition == null or definition.ability_id.is_empty(): return "能力ID缺失"
+	if not EVENTS.has(definition.event_type): return "能力事件未接入"
+	if definition.max_triggers < 0: return "能力次数不能为负"
+	if definition.event_type == AbilityEvent.PIECE_ELIMINATED:
+		if not definition.effect is ExplodeEffect: return "离场能力需要爆炸效果"
+	elif not definition.effect is ChoiceEffect: return "取得能力需要选择效果"
+	for condition: TriggerCondition in definition.conditions:
 		var error: String = _condition_error(condition, [])
 		if not error.is_empty(): return error
 	return ""
 
-static func try_accept(instance: AbilityInstance, event: AbilityEvent) -> bool:
+## 纯查询，次数仅由应用完成后的AbilityEvents.complete提交。
+static func matches(instance: AbilityInstance, event: AbilityEvent) -> bool:
 	if not validation_error(instance.definition).is_empty(): return false
 	if event.source == null or instance.owner_id != event.source.piece_id: return false
-	var trigger: GameplayTrigger = instance.definition.trigger
-	if trigger.trigger_event != event.event_type: return false
-	if trigger.max_triggers > 0 and instance.trigger_count >= trigger.max_triggers: return false
-	if not trigger.should_trigger(event.to_context()): return false
-	instance.trigger_count += 1
+	var definition: AbilityDefinition = instance.definition
+	if definition.event_type != event.event_type: return false
+	if definition.max_triggers > 0 and instance.trigger_count >= definition.max_triggers: return false
+	for condition: TriggerCondition in definition.conditions:
+		if not _evaluate(condition, event.to_context()): return false
 	return true
 
 static func _condition_error(condition: TriggerCondition, ancestors: Array[TriggerCondition]) -> String:
@@ -36,10 +36,32 @@ static func _condition_error(condition: TriggerCondition, ancestors: Array[Trigg
 	if ancestors.size() >= MAX_CONDITION_DEPTH: return "能力触发条件嵌套过深"
 	if condition is CompositeTriggerCondition:
 		var composite: CompositeTriggerCondition = condition as CompositeTriggerCondition
-		if not ["AND", "OR", "XOR", "NAND", "NOR"].has(composite.operator): return "未知条件组合运算"
+		if not ["AND", "OR", "NOR"].has(composite.operator): return "未支持的条件组合运算"
+		if composite.conditions.is_empty(): return "组合条件缺少子项"
+		if composite.operator == "NOR" and composite.conditions.size() != 1: return "否定条件需要一个子项"
 		ancestors.append(condition)
 		for child: TriggerCondition in composite.conditions:
 			var error: String = _condition_error(child, ancestors)
 			if not error.is_empty(): return error
 		ancestors.pop_back()
+	elif condition is RemovalCauseCondition:
+		var causes: Array[StringName] = (condition as RemovalCauseCondition).allowed_causes
+		if causes.is_empty(): return "离场原因条件缺少原因"
+		for cause: StringName in causes:
+			if not CAUSES.has(cause): return "未支持的离场原因"
+	elif condition is EventTypeTriggerCondition:
+		if not EVENTS.has((condition as EventTypeTriggerCondition).event_type): return "条件事件未接入"
+	elif not condition is AlwaysAbilityCondition: return "未支持的触发条件；概率尚未接入局内随机协议"
 	return ""
+
+## 固定配置顺序短路求值；拒绝未支持的插件条件，避免时间或全局RNG。
+static func _evaluate(condition: TriggerCondition, context: Dictionary) -> bool:
+	if condition is CompositeTriggerCondition:
+		var composite: CompositeTriggerCondition = condition as CompositeTriggerCondition
+		if composite.operator == "NOR": return not _evaluate(composite.conditions[0], context)
+		for child: TriggerCondition in composite.conditions:
+			var accepted: bool = _evaluate(child, context)
+			if composite.operator == "AND" and not accepted: return false
+			if composite.operator == "OR" and accepted: return true
+		return composite.operator == "AND"
+	return condition.evaluate(context)

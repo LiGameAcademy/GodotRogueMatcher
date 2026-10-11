@@ -1,13 +1,16 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v17-skill-instances"
+const RULES_VERSION: String = "run-commands-v18-ability-events"
 
 ## 所有整数转十进制字符串；坐标、实体、字典有固定规范顺序。
 static func normalize(value: Variant) -> Variant:
 	if value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
+		if value is AbilityDefinition and not AbilityTriggerAdapter.validation_error(value as AbilityDefinition).is_empty():
+			return {"invalid": AbilityTriggerAdapter.validation_error(value as AbilityDefinition)}
 		var script: Script = value.get_script() as Script
 		return {"script": script.resource_path, "parameters": resource_fields(value)}
+	if value is TriggerCondition: return _condition_config(value as TriggerCondition)
 	if value is int: return str(value)
 	if value is StringName: return String(value)
 	if value is Vector2i: return [str(value.x), str(value.y)]
@@ -41,15 +44,14 @@ static func config(run: RunController) -> Dictionary:
 		skills.append(fields)
 	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
-## 只登记只读触发参数，排除插件内部管理器、时间和共享运行计数。
+## 登记显式局内触发参数，排除插件管理器、时间和共享运行计数。
 static func trigger_config(ability: AbilityDefinition) -> Dictionary:
 	var error: String = AbilityTriggerAdapter.validation_error(ability)
-	if not error.is_empty(): return {"adapter": "conditions-only-v1", "invalid": error}
-	var trigger: GameplayTrigger = ability.trigger
+	if not error.is_empty(): return {"adapter": "local-events-v1", "invalid": error}
 	var conditions: Array[Dictionary] = []
-	for condition: TriggerCondition in trigger.conditions: conditions.append(_condition_config(condition))
-	return {"adapter": "conditions-only-v1", "ability_id": ability.ability_id, "type": trigger.trigger_type,
-		"event": trigger.trigger_event, "chance": trigger.trigger_chance, "limit": trigger.max_triggers, "conditions": conditions}
+	for condition: TriggerCondition in ability.conditions: conditions.append(_condition_config(condition))
+	return {"adapter": "local-events-v1", "ability_id": ability.ability_id,
+		"event": ability.event_type, "limit": ability.max_triggers, "consume_on_empty": ability.consume_on_empty, "conditions": conditions}
 
 static func _condition_config(condition: TriggerCondition) -> Dictionary:
 	var script: Script = condition.get_script() as Script
@@ -96,7 +98,7 @@ static func capture(run: RunController) -> Dictionary:
 	ids.sort()
 	for id: int in ids:
 		var ability: AbilityInstance = state.explosion.instances[id]
-		instances.append({"id": str(id), "ability": String(ability.definition.ability_id), "triggered": ability.has_triggered, "trigger_count": str(ability.trigger_count)})
+		instances.append({"id": str(id), "ability": String(ability.definition.ability_id), "triggered": ability.has_triggered, "trigger_count": str(ability.trigger_count), "pending_event_id": str(ability.pending_event_id)})
 	var snapshot: Dictionary = normalize({"pieces": pieces, "instances": instances, "levels": [state.explosion.radius_level, state.explosion.reward_level, state.explosion.multiplier_level, state.explosion.match_extra_level, state.explosion.blast_extra_level], "unlocked": state.explosion.unlocked, "ledger": entries, "total": state.ledger.total, "phase": state.phase, "continuation": run.continuation, "direct_match": run.direct_match(), "turn": state.turn_count, "action": state.action_id, "moves": state.valid_moves, "last_command": run.last_command_id, "pending": state.pending_rewards, "milestone_level": state.progression.level, "previous_milestone": state.progression.previous_milestone, "next_milestone": state.progression.next_milestone, "acquired": state.rewards.acquired, "consumed": state.rewards.consumed_count, "history": state.rewards.previous_unselected, "offer": offer_data(state.rewards.active_offer), "next_offer_id": state.rewards.next_offer_id, "next_piece_id": state.rules.state.next_piece_id(), "next_event_id": state.ledger.next_event_id(), "game_over": state.is_game_over, "error": state.rule_error, "random": [random_data(state.random), random_data(state.rewards.candidate_random), random_data(state.rewards.target_random), random_data(state.rewards.display_random)]})
 	snapshot["spawning"] = normalize({"refill_batches": state.spawning.refill_batches, "color_weights": state.spawning.color_weights, "plan": state.spawning.plan_data(), "content_random": random_data(state.spawning.content_random), "plan_policy": "locked-prefix-conditional-core-v1"})
 	snapshot["demolition"] = normalize({"upgrades": state.explosion.upgrades, "core_pool": state.explosion.core_pool_unlocked, "fuse_unlocked": state.explosion.fuse_unlocked, "rule_action_id": state.rule_action_id, "turn_action_id": run.turn_action_id, "activations": state.activations, "roots": _roots(state)})
@@ -108,6 +110,7 @@ static func capture(run: RunController) -> Dictionary:
 	owned.sort_custom(func(a: SkillInstance, b: SkillInstance) -> bool: return a.instance_id < b.instance_id)
 	for instance: SkillInstance in owned: skills.append(instance.data())
 	snapshot["skills"] = normalize(skills)
+	snapshot["ability_events"] = normalize(state.ability_events.data())
 	snapshot["challenge"] = normalize(state.stage.data())
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)
