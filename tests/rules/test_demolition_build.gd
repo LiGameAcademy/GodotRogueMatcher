@@ -17,6 +17,11 @@ func _detonate(run: RunController, id: int) -> CommandResult:
 
 func _install(run: RunController, key: StringName, value: int = 1) -> void:
 	run.state.explosion.upgrades[key] = value
+	var skill: SkillDefinition = _skill(key)
+	if skill != null and not skill.levels.is_empty():
+		var instance: SkillInstance = SkillInstance.new(skill, 1)
+		for index: int in range(value): instance.commit_next_level()
+		run.state.skill_instances[key] = instance
 
 func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 	var ids: Array[StringName] = []
@@ -45,10 +50,8 @@ func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 		offer.reward_id = 6
 		offer.choices = [skill]
 		var target: SkillTarget = SkillTarget.new()
-		if skill.choice_effect != null: target = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		elif skill.action == SkillDefinition.Action.CORE_DROP:
-			target.coordinate = Vector2i(4, 4)
-			target.color = 1
+		var effect: ChoiceEffect = skill.acquisition_effect()
+		if effect != null: target = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 		elif skill.action in [SkillDefinition.Action.THIN, SkillDefinition.Action.ASSIGN_FUSE]: target.piece_ids = [run.state.rules.state.get_piece_id(Vector2i(1, 1))]
 		offer.targets[skill.skill_id] = target
 		run.state.rewards.active_offer = offer

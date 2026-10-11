@@ -1,9 +1,33 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=10 format=3]
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="4"]
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"core_supply_up"
+
+[sub_resource type="Resource" id="acquired"]
+script = ExtResource("4")
+ability_id = &"increase_core_supply"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="upgraded"]
+script = ExtResource("4")
+ability_id = &"increase_core_supply"
+event_type = &"skill_upgraded"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("3")
+level = 1
+abilities = Array[ExtResource("4")]([SubResource("acquired")])
+
+[sub_resource type="Resource" id="level_2"]
+script = ExtResource("3")
+level = 2
+abilities = Array[ExtResource("4")]([SubResource("upgraded")])
 [resource]
 script = ExtResource("1")
 skill_id = &"core_supply_up"
@@ -12,7 +36,7 @@ description = "本局核心类型权重每级+1（基础1，普通类型20），
 short_description = "核心生成权重+1/级。\n占正常补棋名额；场上限1枚。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
-choice_effect = SubResource("effect")
+levels = Array[ExtResource("3")]([SubResource("level_1"), SubResource("level_2")])
 rarity = 1
 maximum_level = 2
 minimum_reward = 1

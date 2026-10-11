@@ -6,7 +6,7 @@ const MAX_CONDITION_DEPTH: int = 8
 ## 复用插件的只读条件判断，实例次数仍属于本局。
 ## 不activate/execute共享Resource，不订阅全局总线、不使用时间或全局RNG。
 static func validation_error(definition: AbilityDefinition) -> String:
-	if definition == null or definition.effect == null: return "能力效果缺失"
+	if definition == null or not definition.effect is ExplodeEffect: return "离场能力需要爆炸效果"
 	var trigger: GameplayTrigger = definition.trigger
 	if trigger == null: return "能力触发配置缺失"
 	if trigger.trigger_type != GameplayTrigger.TRIGGER_TYPE.ON_EVENT or trigger.trigger_event.is_empty():

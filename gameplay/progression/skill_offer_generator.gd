@@ -121,12 +121,9 @@ func generate(run: RunController) -> SkillOffer:
 	# 即时目标与显示次序分别使用独立流，避免影响候选和普通生成。
 	for skill: SkillDefinition in offer.choices:
 		var targets: SkillTarget = SkillTarget.new()
-		if skill.choice_effect != null:
-			targets = skill.choice_effect.freeze(SkillRules.effect_context(state), rewards.target_random)
-		elif skill.action == SkillDefinition.Action.CORE_DROP:
-			var empty: Array[Vector2i] = state.rules.state.get_empty_coordinates()
-			targets.coordinate = empty[rewards.target_random.randi_range(0, empty.size() - 1)]
-			targets.color = state.spawning.draw_color(rewards.target_random)
+		var effect: ChoiceEffect = skill.acquisition_effect(SkillRules.level(state, skill))
+		if effect != null:
+			targets = effect.freeze(SkillRules.effect_context(state), rewards.target_random)
 		elif skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
 			var ids: Array[int] = SkillRules.unmarked_material(state)
 			var count: int = 2 + state.explosion.level(&"fuse_capacity") if skill.action == SkillDefinition.Action.ASSIGN_FUSE else skill.target_count

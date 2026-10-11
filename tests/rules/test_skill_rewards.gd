@@ -68,6 +68,9 @@ func test_fuse_marks_actual_one_target_and_preserves_color() -> void:
 func test_weight_example_and_live_driver_compensation() -> void:
 	run.abilities.add_core(Vector2i.ZERO)
 	run.state.rewards.acquired[&"core_drop"] = 1
+	var instance: SkillInstance = SkillInstance.new(_definition(&"core_drop"), 1)
+	instance.commit_next_level()
+	run.state.skill_instances[&"core_drop"] = instance
 	run.state.rewards.acquired[&"assign_fuse"] = 1
 	var profile: Dictionary[StringName, float] = SkillOfferGenerator.build_profile(run.state)
 	assert_eq(profile[&"exp"], 2.0)

@@ -114,7 +114,7 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 		if not event.synthetic and event.source.content_id == &"special_demolition" and state.explosion.level(&"core_fuse_payload") > 0:
 			DemolitionRules.mark_near(self, [event.source.coordinate], DemolitionRules.CONFIG.payload_radius, DemolitionRules.CONFIG.payload_count)
 		var radius: int = DemolitionRules.CONFIG.aftershock_radius if event.synthetic else DemolitionRules.radius(state, event.source, event.generation, config.base_radius)
-		var effect: ExplodeEffect = EXPLOSION.effect if event.synthetic else event.ability.definition.effect
+		var effect: ExplodeEffect = (EXPLOSION.effect if event.synthetic else event.ability.definition.effect) as ExplodeEffect
 		var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius)
 		var result: MatchResult = MatchResult.new()
 		result.cause = &"explosion"
