@@ -16,7 +16,8 @@ var entry_offset: int = 0
 var history: Array[StageResult] = []
 
 func _init(stage_config: StageConfig = null, ledger: ScoreLedger = null) -> void:
-	config = stage_config
+	# 冻结整局目标、升压参数和曲线来源；编辑配置或另一局不得改动本局。
+	config = stage_config.duplicate(true) as StageConfig if stage_config != null else null
 	_ledger = ledger if ledger != null else ScoreLedger.new()
 
 func enabled() -> bool:

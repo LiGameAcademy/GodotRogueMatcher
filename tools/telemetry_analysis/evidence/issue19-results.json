@@ -1,0 +1,348 @@
+{
+  "protocol": "offline-reference-target-v1",
+  "profile": {
+    "profile_id": "greedy-normal-pool-pilot-v1",
+    "curve_version": "greedy-reference-trial-v1",
+    "selection": {
+      "rule_version": "run-commands-v15-goal-score-bonus",
+      "content_version": "665d9f906c59cd11b6caae5ef382139ad10a3961d8e44e4c64a3e78ce6ab53f7",
+      "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+      "offer_version": "offer-pressure-trial-v2-percent-clear",
+      "pressure_version": "pressure-observation-v1-alpha-0.7-trial",
+      "strategy_version": "greedy-v1",
+      "bot_config_hash": "dcb36bf620a9ec1a175bcd6928034136491a4ed40690b8b77e4582216dd671ce",
+      "commit_id": "d4c77d9",
+      "collection_config_hash": "ae833abf8c4f0c5085c05146bd39b969a4bb5086767817aa797046cc7f47d3d8",
+      "build_id": "0.0.1"
+    },
+    "fallback_targets": [
+      100,
+      150,
+      200,
+      300,
+      400,
+      550,
+      750,
+      1000
+    ],
+    "pressure_intervals": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "base_refill": 3,
+    "maximum_refill": 6,
+    "bot_config": {
+      "command_limit": "3000",
+      "congestion_penalty": 1.0,
+      "dense_thin_weight": 90.0,
+      "dense_threshold": 0.65,
+      "line_potential_weight": 10.0,
+      "match_priority": 10000.0,
+      "move_limit": "80",
+      "skill_weights": {
+        "assign_fuse": 15.0,
+        "blast_extra": 10.0,
+        "blast_radius": 18.0,
+        "blast_reward": 20.0,
+        "core_drop": 16.0,
+        "instant_thin": 5.0,
+        "match_extra": 10.0,
+        "score_multiplier": 12.0
+      },
+      "starter_weight": 100.0,
+      "timeout_ms": "60000"
+    },
+    "min_seeds": 30,
+    "min_actions": 100,
+    "smooth": true,
+    "difficulty": 1,
+    "rounding_step": 5,
+    "note": "#18 retained normal-pool greedy pilot. Historical fingerprints select this dataset only; not a final balanced reference or a current live profile. All numerical settings remain trial hypotheses."
+  },
+  "dataset_hash": "0d6a1427b9179f477219e98c174d5cc867c42455cff6ae61df685fcedea32cec",
+  "stages": [
+    {
+      "stage_id": 1,
+      "reference_actions": 3,
+      "mu_reference_observed": 9.716012084592146,
+      "space_drift_observed": 2.080563947633434,
+      "eligible_score_total": 9648,
+      "complete_actions": 993,
+      "independent_seeds": 100,
+      "quality": "candidate",
+      "build_exposure": {
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a": 993
+      },
+      "observed_reached": 100,
+      "endings": {
+        "passed": 93,
+        "board_full_unmet": 7
+      },
+      "passed_actions_p50_p90": [
+        9,
+        12
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": 0.0
+    },
+    {
+      "stage_id": 2,
+      "reference_actions": 3,
+      "mu_reference_observed": 12.32301740812379,
+      "space_drift_observed": 1.7504835589941974,
+      "eligible_score_total": 12742,
+      "complete_actions": 1034,
+      "independent_seeds": 93,
+      "quality": "candidate",
+      "build_exposure": {
+        "0f216f0ee6df3972aa384e8dac82f24c8f15aec0c6ffa39fb448207a62e62038": 750,
+        "bc82c2d08ac823ad20f5509a2fc1b86d27a7b027264b4ba38cbbcee5416d1dc4": 284
+      },
+      "observed_reached": 93,
+      "endings": {
+        "passed": 79,
+        "board_full_unmet": 14
+      },
+      "passed_actions_p50_p90": [
+        10,
+        13
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": 0.0
+    },
+    {
+      "stage_id": 3,
+      "reference_actions": 3,
+      "mu_reference_observed": 11.650251256281408,
+      "space_drift_observed": 1.9015075376884423,
+      "eligible_score_total": 11592,
+      "complete_actions": 995,
+      "independent_seeds": 79,
+      "quality": "candidate",
+      "build_exposure": {
+        "dbd049c3ef36d72ea873f8c600a1bc3514f6211546f3b520af761915acc06adb": 80,
+        "0f8b4175cc067133a6623b1040a1a33bf8dc26723dbac51c1b49e7bddaa47398": 8,
+        "652a666141e65a9df8990a397e0310e9044dbae31329a62fb5c37ec184174b02": 49,
+        "112c8fb62e9ca1b9c007fe8fbe3229eed76ea259c031a735c1287534d1f26867": 36,
+        "8c6892e80b3ea517aaa1e9875498c30defd2ab032be3e6c7988345b829025f4f": 39,
+        "0ff6fde333fcaef83441901d87c37149c399df66f696c48b3726390f2c4d4213": 184,
+        "0a67008f43cb6fafc660aaed0888113df3863ca0c205f21af28ef51a3eb3b321": 58,
+        "bc73810861ddcc8c54621f0960e6e3cf044831ab7959075aac209dd102a44bfa": 212,
+        "b315d9c0e83552e733b7d827ff18511c403537f9cd7521174991a1186ca24496": 9,
+        "134873d537bdd179a194b7bc72c8bbdca5471bcfbacf48e89d9f839b361fb1cf": 27,
+        "5d862e25f515365d05b256a37b67478d48dff69f1bbe6a84d8bf42282237f777": 12,
+        "c80d64d5752138cca2d3ac0777554d1a805a7265d41429230866f2595d4da91e": 38,
+        "f28143cbe06f18f4ce3997553b396e7cc5bbe600bf15fd0f2ae4a5b519634605": 76,
+        "f51e83c6e15e8024b285e95db6f373107159dc59e6a5a011a55771ae97fece31": 13,
+        "1f16219587f7b4a0973c40ceb85355d1bebc47828232640e132afe4608a14c8d": 47,
+        "9b05415ed482cd4d5200f85095a4caa770bcaed2d08f37fbe5ac3483a3af1a9a": 27,
+        "a0b71d845802b1060923bf16c93ba02e987b2199892c4d920a1ae80e86360010": 41,
+        "9afd31f39ac9c268cd617a7369e0f5b0533dbb366317f088ab5572f021053d0f": 13,
+        "9589c3f68d2f44f7968e183fed143b03a8c9ea95e4b5d7b1765add24573bff40": 12,
+        "7d4ef4249b8081140c7db204915c1207f8ca203c0d509857ef5cd1c36565fef5": 14
+      },
+      "observed_reached": 79,
+      "endings": {
+        "passed": 45,
+        "board_full_unmet": 34
+      },
+      "passed_actions_p50_p90": [
+        12,
+        14
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": 0.0
+    },
+    {
+      "stage_id": 4,
+      "reference_actions": 4,
+      "mu_reference_observed": 11.615503875968992,
+      "space_drift_observed": 2.226356589147287,
+      "eligible_score_total": 7492,
+      "complete_actions": 645,
+      "independent_seeds": 45,
+      "quality": "candidate",
+      "build_exposure": {
+        "c6078cb6ada1e485fe3abd1528c6be8b24fad8b601494b6d56a43a3d44ece0d2": 19,
+        "cd1fab3927b5d35c310205dbd84cedbfcd4eedb639a2d4b6dcf74bf0bcbce22f": 28,
+        "37cd7f4122be55960ae3ff7d9d1e97d3327b2e3e0e089c221373b4eacb19ef7e": 18,
+        "fffa600ff97796e95e7f721acf0bc100b6a13c3c245c7534936dfe032ec5b68c": 53,
+        "08a9a0d92d42486bf5194d8a7af9decbcb598dd610bc17d56e903ff6627247d0": 17,
+        "5b7b279c1a2b30093f1e798d4374689ea19a6283325f4e5875588c9106f1ca94": 34,
+        "6ed3dbff42b8dbf726688cb775d52bb3fff12001c2b6eebbac87f71dd7fe00cc": 27,
+        "9ba70cd4885c6f011fef6b6a3f74a46a01ec7ed3eef49722b9a1f201c441876b": 16,
+        "421c8af4ff00accdcdbeee2743cb8a0f0c5d01cc84ec347e15c8869fc9a14fbc": 46,
+        "9930271c1a8620dcb7ddd67b104baf0fc6764f7b82925d31b0cecb9f732de74c": 16,
+        "7da39673f799dbc21fce5164d576f2a4968cd404843965ba4c4b97f0820ffe37": 13,
+        "d336588722c3ca4514c35e13840083ddeb16b07a769a29cb7e2e972a20fecd56": 41,
+        "09b39bc3fbe4edec1fb93fd50ab9992d43c7c9956dbc0ba9dfaae4a295be1d85": 13,
+        "f3bbcda79f1fd830e9ce90f50af3bee634c3e407db952d5ebe1079bd03017f58": 7,
+        "1bd0d5aadbb48e001e9d68f3b04b30c80b07d0ed839c77b77eafb472e01a899e": 16,
+        "6a48440ec8db1b38d60ea13bb7c0e6cdf8dff4387c16bc22ff8f3c12c27f1532": 11,
+        "743a957e050708ae799e0fe29aba3ba7e3b4518ec73dd344a424fdef54329109": 12,
+        "a1d07c52e4a15b093aaf54c35b97888e9d0b90c339a246ef74e89a9f193275cc": 14,
+        "81d1de2aa27ab1c63382d2c70d844bee83f358f6e36279af72cebeb700af433a": 12,
+        "f162f4d287a5bbe4c19a4b32a4273318390930fc81cf641eacf99b2b191fd286": 16,
+        "b9ec7d375f44050fd366003e4698d67996f5f03d840785384cf980a00c2f349d": 34,
+        "1d30bebc3d4b2c50499b825cb6acfccf9341a4ebda6fcea9540771dd89e0243c": 10,
+        "5307c16788540061dc854468321024c70c06196aa23d25fea68e7f4c55bb5b55": 14,
+        "849beac2b2700955aca7b84efffc6223535025506e912c33baccd22fb2127508": 14,
+        "437dc4e92ac51375899983646299bc70cec2919893ce3f569b231fa0108bbb7f": 15,
+        "ba9aa43058b0b974b68170079ad343bb869cac8e9e2a7755e891a5df88482979": 18,
+        "969962a053a168d87d4c69b0f5861b2fe958750bc8c0011c1fe08c8f2bf7e4ad": 16,
+        "ff93d24faa1a2092fab59f378295c7931a6261544d80a26196dce840ff81074a": 15,
+        "850fee34bc2f90341f7ee62db9c3ac522d3e829d5ea61fcffc6eae93ae92a90e": 14,
+        "6f3ae305b868cf8ed2c4bc3a9bf885a810605a82a8f191d0ebbf9502ea6af521": 20,
+        "4eeeca505678afa61b2589c5c1d3ad7b1b6e73ff8a04ac08d71f6afc562094c0": 14,
+        "4a9a9ef3aeeee3e3c67706f4dd4e1819133415cbbf2e7c13cd2bb458091b770b": 14,
+        "54eaf8640b4685f5c9d38225ddb1312b5e14b868c1793f4a4865a0b009af8932": 18
+      },
+      "observed_reached": 45,
+      "endings": {
+        "board_full_unmet": 34,
+        "passed": 11
+      },
+      "passed_actions_p50_p90": [
+        16,
+        18
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": 0.0
+    },
+    {
+      "stage_id": 5,
+      "reference_actions": 5,
+      "mu_reference_observed": 9.598484848484848,
+      "space_drift_observed": 2.537878787878788,
+      "eligible_score_total": 1267,
+      "complete_actions": 132,
+      "independent_seeds": 11,
+      "quality": "insufficient_coverage",
+      "build_exposure": {
+        "e9b2e47606d9aef69440dd0d3372cfcde6316b2095be6e23015193f41c1ae86a": 10,
+        "8c44b09637551f0b2cc20361d9eb8b55316a801c6841161121423abd86635e6f": 6,
+        "844b317509678ea3c26bcc6d6baded440defaff92b287eafdb8f952084e7442c": 11,
+        "733fa294bd520592168d5aa75da217549d89da9bad35ec6e8819bc400c570ce7": 14,
+        "8ee5ce9c9aa173dea50867d6868a26956fb54b0116b37e9b28f68d4916a8e24b": 13,
+        "3729befca33540dc175f34dd6952bdc3cc32856e96ab47ebd725c968c66eb6d9": 14,
+        "55cabab29b95f5d950275f5d8e34ce0dc0911f052a354b1359d575376c400073": 18,
+        "a1c6fcb31fa8fccaf63f4fbf702d2a0859b3a89ea7594c38cf973798c0c1ff0a": 16,
+        "e8951058d043b788639d21b8ca8c6c62618e4f5f8534f77953884e3a401e9820": 11,
+        "47246572e39f1ae0c3f268f5bd45a502cc44e183dbfc1429c9cbfd7bd72f927a": 5,
+        "f7bdd292927109cae6bf8e40383a4ec48aeab2b45a6470f44120597303e23184": 14
+      },
+      "observed_reached": 11,
+      "endings": {
+        "board_full_unmet": 11
+      },
+      "passed_actions_p50_p90": [
+        null,
+        null
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": 0.0
+    },
+    {
+      "stage_id": 6,
+      "reference_actions": 5,
+      "mu_reference_observed": null,
+      "space_drift_observed": null,
+      "eligible_score_total": 0,
+      "complete_actions": 0,
+      "independent_seeds": 0,
+      "quality": "insufficient_coverage",
+      "build_exposure": {},
+      "observed_reached": 0,
+      "endings": {},
+      "passed_actions_p50_p90": [
+        null,
+        null
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": null
+    },
+    {
+      "stage_id": 7,
+      "reference_actions": 5,
+      "mu_reference_observed": null,
+      "space_drift_observed": null,
+      "eligible_score_total": 0,
+      "complete_actions": 0,
+      "independent_seeds": 0,
+      "quality": "insufficient_coverage",
+      "build_exposure": {},
+      "observed_reached": 0,
+      "endings": {},
+      "passed_actions_p50_p90": [
+        null,
+        null
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": null
+    },
+    {
+      "stage_id": 8,
+      "reference_actions": 5,
+      "mu_reference_observed": null,
+      "space_drift_observed": null,
+      "eligible_score_total": 0,
+      "complete_actions": 0,
+      "independent_seeds": 0,
+      "quality": "insufficient_coverage",
+      "build_exposure": {},
+      "observed_reached": 0,
+      "endings": {},
+      "passed_actions_p50_p90": [
+        null,
+        null
+      ],
+      "within_reference_actions": 0,
+      "within_reference_actions_rate_known": null
+    }
+  ],
+  "excluded_events": {},
+  "candidate_targets": null,
+  "exported_targets": [
+    100,
+    150,
+    200,
+    300,
+    400,
+    550,
+    750,
+    1000
+  ],
+  "target_policy": "fixed_fallback",
+  "reason": "insufficient_stage_reference",
+  "limitations": "Observed old-target distributions are not a candidate-curve simulation or player expectation. R is not a death deadline. Space/extra choices are not unconditional score multipliers.",
+  "input_fingerprints": {
+    "reader_events_sha256": "31356f7261a5c80c3ccb49dd051dd9243e360a883454a09f636e97957a4ccf47",
+    "reader_summary": "ac9d54b4bf764e6f0c7d0a23d45eff30afc07faf4ebcb775342e94c25e1b527c",
+    "replay_report": "eb4861653333ac4b92766979f344c42a84aaf6913ca94acf6680e8f0f4613494",
+    "profile": "5ae1f693e8583a229a9363d370b1bdc6dc371d938bd55378f132730a1a22acb7"
+  },
+  "validation": {
+    "date": "2026-10-11",
+    "engine": "4.7.2.stable",
+    "base_game_commit": "12cabc5",
+    "runtime_rules": "run-commands-v16-frozen-target-curve",
+    "godot_tests": 72,
+    "godot_assertions": 1394,
+    "python_tests": 11,
+    "resource_exports_loaded": [
+      "offline_reference_fixture",
+      "fixed_fallback_observed"
+    ],
+    "live_balance_changed": false,
+    "source_batch": ".godot/issue18/explore-pressure-fixed",
+    "reader_events": 37196,
+    "reader_runs": 100,
+    "reader_errors": 0
+  }
+}
