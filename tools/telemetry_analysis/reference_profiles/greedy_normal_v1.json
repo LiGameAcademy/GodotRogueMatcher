@@ -1,0 +1,47 @@
+{
+  "profile_id": "greedy-normal-pool-pilot-v1",
+  "curve_version": "greedy-reference-trial-v1",
+  "selection": {
+    "rule_version": "run-commands-v15-goal-score-bonus",
+    "content_version": "665d9f906c59cd11b6caae5ef382139ad10a3961d8e44e4c64a3e78ce6ab53f7",
+    "config_hash": "2729e4528df5a39f7efc49ffcc496c0f152f7e67a992e358e0d4bb33cf2581a7",
+    "offer_version": "offer-pressure-trial-v2-percent-clear",
+    "pressure_version": "pressure-observation-v1-alpha-0.7-trial",
+    "strategy_version": "greedy-v1",
+    "bot_config_hash": "dcb36bf620a9ec1a175bcd6928034136491a4ed40690b8b77e4582216dd671ce",
+    "commit_id": "d4c77d9",
+    "collection_config_hash": "ae833abf8c4f0c5085c05146bd39b969a4bb5086767817aa797046cc7f47d3d8",
+    "build_id": "0.0.1"
+  },
+  "fallback_targets": [100, 150, 200, 300, 400, 550, 750, 1000],
+  "pressure_intervals": [4, 4, 4, 4, 4, 4, 4, 4],
+  "base_refill": 3,
+  "maximum_refill": 6,
+  "bot_config": {
+    "command_limit": "3000",
+    "congestion_penalty": 1.0,
+    "dense_thin_weight": 90.0,
+    "dense_threshold": 0.65,
+    "line_potential_weight": 10.0,
+    "match_priority": 10000.0,
+    "move_limit": "80",
+    "skill_weights": {
+      "assign_fuse": 15.0,
+      "blast_extra": 10.0,
+      "blast_radius": 18.0,
+      "blast_reward": 20.0,
+      "core_drop": 16.0,
+      "instant_thin": 5.0,
+      "match_extra": 10.0,
+      "score_multiplier": 12.0
+    },
+    "starter_weight": 100.0,
+    "timeout_ms": "60000"
+  },
+  "min_seeds": 30,
+  "min_actions": 100,
+  "smooth": true,
+  "difficulty": 1,
+  "rounding_step": 5,
+  "note": "#18 retained normal-pool greedy pilot. Historical fingerprints select this dataset only; not a final balanced reference or a current live profile. All numerical settings remain trial hypotheses."
+}
