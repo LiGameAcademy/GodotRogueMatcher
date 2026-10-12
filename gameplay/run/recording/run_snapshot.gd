@@ -83,7 +83,8 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 	for skill: SkillDefinition in offer.choices:
 		choices.append(String(skill.skill_id))
 		var target: SkillTarget = offer.targets[skill.skill_id]
-		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": target.color_groups, "fuse_counts": target.fuse_counts}
+		var picker: SkillTarget = target.color_picker_source()
+		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": picker.color_groups, "fuse_counts": picker.fuse_counts}
 	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": choices, "targets": targets, "pressure_snapshot": offer.pressure_snapshot, "rescue_multiplier": offer.rescue_multiplier, "offer_rules_version": offer.rules_version, "baseline_weights": offer.baseline_weights, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
 
 static func random_data(random: RandomNumberGenerator) -> Dictionary:

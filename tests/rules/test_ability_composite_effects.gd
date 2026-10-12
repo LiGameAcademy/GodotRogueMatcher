@@ -170,3 +170,18 @@ func test_single_leaf_core_drop_still_applies_through_runner() -> void:
 	run.state.rewards.active_offer = offer
 	assert_true(SkillRules.apply(run, offer.offer_id, core.skill_id).success)
 	assert_true(run.state.explosion.core_pool_unlocked)
+
+func test_composite_clear_color_picker_reads_clear_leaf_groups() -> void:
+	var run: RunController = _run()
+	for color: int in range(3):
+		run.state.rules.place_piece(Vector2i(color, 0), color)
+	var composite: CompositeEffect = _clear_dye_composite()
+	var frozen: CompositeSkillTarget = composite.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	assert_true(frozen.color_groups.is_empty())
+	var picker: SkillTarget = frozen.color_picker_source()
+	assert_ne(picker, frozen)
+	assert_eq(picker.color_groups.size(), 5)
+	assert_eq(picker.color_groups[0].size(), 1)
+	assert_eq(picker.color_groups[1].size(), 1)
+	assert_eq(picker.color_groups[2].size(), 1)
+	assert_true(preload("res://gameplay/progression/content/composite_clear_dye.tres").requires_color_choice())

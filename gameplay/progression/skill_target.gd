@@ -14,3 +14,7 @@ var color_groups: Array[PackedInt64Array] = []
 var fuse_counts: Array[int] = []
 var level_before: int = 0
 var level_after: int = 0
+
+## Color picker / bots read groups here; CompositeSkillTarget redirects to the clear leaf.
+func color_picker_source() -> SkillTarget:
+	return self
