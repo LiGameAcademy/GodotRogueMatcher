@@ -9,7 +9,7 @@ static func summary(skill: SkillDefinition) -> String:
 
 static func summary_rich(skill: SkillDefinition) -> String:
 	var text: String = summary(skill)
-	if skill.choice_effect is RefillCountEffect:
+	if skill.refill_effect() != null:
 		text = text.replace(TranslationServer.translate("消耗（正文）"), '[hint="%s"][b]%s[/b][/hint]' % [TranslationServer.translate(CONSUME_HINT), TranslationServer.translate("消耗（正文）")])
 	return text
 
@@ -17,23 +17,24 @@ static func tags(skill: SkillDefinition) -> String:
 	var labels: PackedStringArray = []
 	for tag: StringName in skill.tags:
 		if TAG_LABELS.has(tag): labels.append(TranslationServer.translate(TAG_LABELS[tag]))
-	if not skill.is_persistent and not skill.choice_effect is RefillCountEffect: labels.append(TranslationServer.translate("即时"))
+	if not skill.is_persistent and skill.refill_effect() == null: labels.append(TranslationServer.translate("即时"))
 	return " · ".join(labels)
 
 ## 卡面只显示此次选择的具体变化，不重复展示共同生命周期。
 static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> String:
-	if skill.choice_effect is InstallGoalBonusEffect:
+	var effect: SkillEffect = skill.acquisition_effect(target.level_before)
+	if effect is InstallGoalBonusEffect:
 		return TranslationServer.translate("每次达标：+%d分") % target.value_after
-	if skill.choice_effect is PercentClearEffect:
+	if effect is PercentClearEffect:
 		return TranslationServer.translate("本次清理：%d枚普通棋") % target.piece_ids.size()
-	if skill.acquisition_effect() is UnlockCoreSupplyEffect:
+	if effect is UnlockCoreSupplyEffect:
 		return TranslationServer.translate("立即投放：%s") % _color_name(target.color)
-	if skill.acquisition_effect() is CompositeEffect:
+	if effect is CompositeEffect:
 		var composite_target: CompositeSkillTarget = target as CompositeSkillTarget
 		if composite_target == null or composite_target.leaf_targets.is_empty():
 			return TranslationServer.translate("有序组合效果")
 		var lines: PackedStringArray = []
-		var composite: CompositeEffect = skill.acquisition_effect() as CompositeEffect
+		var composite: CompositeEffect = effect as CompositeEffect
 		for index: int in range(mini(composite.children.size(), composite_target.leaf_targets.size())):
 			var leaf: SkillEffect = composite.children[index]
 			var leaf_target: SkillTarget = composite_target.leaf_targets[index]
@@ -46,15 +47,15 @@ static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> Stri
 			elif leaf is DyeMaterialEffect:
 				lines.append(TranslationServer.translate("染色预览：%s · %d枚") % [_color_name(leaf_target.color), leaf_target.piece_ids.size()])
 		return " → ".join(lines) if not lines.is_empty() else TranslationServer.translate("有序组合效果")
-	if skill.choice_effect is RefillCountEffect:
+	if effect is RefillCountEffect:
 		return TranslationServer.translate("本次补棋：%d → %d 枚 · 余%d次") % [target.value_before, target.value_after, target.remaining_after]
-	if skill.choice_effect is ClearMaterialEffect:
-		if skill.choice_effect.requires_color_choice(): return TranslationServer.translate("自选颜色 · 保留特殊棋")
+	if effect is ClearMaterialEffect:
+		if (effect as ClearMaterialEffect).requires_color_choice(): return TranslationServer.translate("自选颜色 · 保留特殊棋")
 		var group: String = _color_name(target.color) if target.line_axis == -1 else TranslationServer.translate("第%d%s") % [target.line_index + 1, TranslationServer.translate("行") if target.line_axis == 0 else TranslationServer.translate("列")]
 		return TranslationServer.translate("%s · 清理%d枚普通棋") % [group, target.piece_ids.size()]
-	if skill.choice_effect is ColorWeightEffect:
+	if effect is ColorWeightEffect:
 		return TranslationServer.translate("%s权重：%d → %d") % [_color_name(target.color), target.value_before, target.value_after]
-	if skill.choice_effect is DyeMaterialEffect:
+	if effect is DyeMaterialEffect:
 		return TranslationServer.translate("%s · 同时染色 %d 枚") % [_color_name(target.color), target.piece_ids.size()]
 	return ""
 

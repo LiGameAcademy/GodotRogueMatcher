@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const SKILL: SkillDefinition = preload("res://gameplay/progression/content/goal_score_bonus.tres")
 
@@ -34,7 +34,7 @@ func _choose(run: RunController, skill: SkillDefinition) -> void:
 	offer.offer_id = run.state.rewards.next_offer_id
 	offer.reward_id = run.state.rewards.consumed_count + 1
 	offer.choices = [skill]
-	offer.targets[skill.skill_id] = SkillTarget.new() if skill.choice_effect == null else skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	offer.targets[skill.skill_id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	var command: ChooseSkillCommand = ChooseSkillCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
 	command.offer_id = offer.offer_id
@@ -107,7 +107,7 @@ func test_configuration_eligibility_stale_target_and_reset() -> void:
 	assert_false(SKILL.choice_effect.rejection(SkillRules.effect_context(classic.state)).is_empty())
 	var run: RunController = _run()
 	var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
-	var target: SkillTarget = SKILL.choice_effect.freeze(context, run.state.rewards.target_random)
+	var target: SkillTarget = SkillRules.freeze_target(run.state, SKILL, run.state.rewards.target_random)
 	context.goal_bonus_score = 25
 	assert_false(SKILL.choice_effect.build(context, target).error.is_empty())
 	var effect: InstallGoalBonusEffect = SKILL.choice_effect.duplicate() as InstallGoalBonusEffect

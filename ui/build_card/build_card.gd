@@ -1,4 +1,4 @@
-extends PanelContainer
+﻿extends PanelContainer
 
 ## 已取得技能的只读横卡；不提交选择或查找外部节点。
 @onready var title_label: Label = %Title
@@ -16,7 +16,7 @@ func configure(skill: SkillDefinition, level: int, remaining: int) -> void:
 	level_label.text = "Lv.%d" % level
 	level_label.visible = skill.is_persistent
 	effect_label.text = SkillChoiceText.summary_rich(skill)
-	remaining_label.visible = skill.choice_effect is RefillCountEffect
+	remaining_label.visible = skill.refill_effect() != null
 	remaining_label.text = tr("剩余 %d 次实际补棋") % remaining
 	var style: StyleBoxFlat = get_theme_stylebox("panel").duplicate() as StyleBoxFlat
 	style.border_color = SkillRarity.COLORS[skill.rarity]

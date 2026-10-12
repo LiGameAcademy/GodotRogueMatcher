@@ -700,3 +700,14 @@ Starts from the next goal."
 %s","Goal completion bonus +%d
 
 %s"
+留白调色,留白调色,Tinted Whitespace
+"有序组合：先降低接下来3次实际普通补棋各1枚，再提高一种颜色的普通生成权重+2。先提交补棋修正，再读取更新后的权重状态。","有序组合：先降低接下来3次实际普通补棋各1枚，再提高一种颜色的普通生成权重+2。先提交补棋修正，再读取更新后的权重状态。","Ordered combo: first reduce the next 3 actual normal refills by 1 piece each, then raise one color's normal spawn weight by +2. Commits the refill change before reading updated weights."
+有序：补棋−1（3次）→ 单色权重+2。,有序：补棋−1（3次）→ 单色权重+2。,"Ordered: refill −1 (×3) → +2 weight for one color."
+清色后染,清色后染,Clear Then Dye
+"有序组合：先自选颜色清理该色普通棋（含引信），再对存活异色材料染色。清理触发的引信爆炸等整段组合结束后再结算。","有序组合：先自选颜色清理该色普通棋（含引信），再对存活异色材料染色。清理触发的引信爆炸等整段组合结束后再结算。","Ordered combo: first clear one chosen color of normal pieces (including fuses), then dye surviving other-color material. Fuse blasts from the clear wait until the whole combo finishes."
+"有序：清一色（含引信）→ 再染色。
+引信爆炸延后到组合结束。","有序：清一色（含引信）→ 再染色。
+引信爆炸延后到组合结束。","Ordered: clear one color (fuses included) → then dye.
+Fuse blasts wait until the combo ends."
+event budget exceeded; resolve rejected,事件预算超限，已拒绝结算,event budget exceeded; resolve rejected
+爆破手预告颜色无效,爆破手预告颜色无效,Invalid demolition preview color

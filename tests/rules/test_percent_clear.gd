@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const SKILL: SkillDefinition = preload("res://gameplay/progression/content/instant_percent_clear.tres")
 
@@ -19,7 +19,7 @@ func _offer(run: RunController) -> SkillOffer:
 	offer.offer_id = 1
 	offer.reward_id = 3
 	offer.choices = [SKILL]
-	offer.targets[SKILL.skill_id] = SKILL.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	offer.targets[SKILL.skill_id] = SkillRules.freeze_target(run.state, SKILL, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	return offer
 
@@ -29,7 +29,7 @@ func test_floor_zero_and_invalid_ratio() -> void:
 		var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
 		assert_eq(SKILL.choice_effect.rejection(context).is_empty(), count >= 4)
 		var before: int = run.state.rewards.target_random.state
-		var target: SkillTarget = SKILL.choice_effect.freeze(context, run.state.rewards.target_random)
+		var target: SkillTarget = SkillRules.freeze_target(run.state, SKILL, run.state.rewards.target_random)
 		assert_eq(target.piece_ids.size(), count / 4)
 		if count < 4: assert_eq(run.state.rewards.target_random.state, before)
 	var config: PercentClearEffect = SKILL.choice_effect.duplicate() as PercentClearEffect
@@ -44,7 +44,7 @@ func test_freeze_is_unique_reproducible_and_preserves_board_random() -> void:
 		run.state.rewards.target_random.seed = seed_value
 		var random: int = run.state.random.state
 		var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
-		var target: SkillTarget = SKILL.choice_effect.freeze(context, run.state.rewards.target_random)
+		var target: SkillTarget = SkillRules.freeze_target(run.state, SKILL, run.state.rewards.target_random)
 		assert_eq(target.piece_ids.size(), 10)
 		var ids: Array[int] = []
 		for id: int in target.piece_ids:
@@ -52,7 +52,7 @@ func test_freeze_is_unique_reproducible_and_preserves_board_random() -> void:
 			ids.append(id)
 		var other: RandomNumberGenerator = RandomNumberGenerator.new()
 		other.seed = seed_value
-		assert_eq(SKILL.choice_effect.freeze(context, other).piece_ids, target.piece_ids)
+		assert_eq(SkillRules.freeze_target(run.state, SKILL, other).piece_ids, target.piece_ids)
 		assert_eq(run.state.random.state, random)
 
 func test_plain_clear_preserves_partner_score_turn_and_refill() -> void:

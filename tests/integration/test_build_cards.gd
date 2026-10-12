@@ -18,6 +18,14 @@ func before_each() -> void:
 	run.initialize("fixture_dye")
 	run.state.rewards.acquired.clear()
 	run.state.skill_instances.clear()
+	run.state.explosion.upgrades.clear()
+	run.state.dye.upgrades.clear()
+	run.state.explosion.multiplier_level = 0
+	run.state.explosion.radius_level = 0
+	run.state.explosion.reward_level = 0
+	run.state.explosion.blast_extra_level = 0
+	run.state.explosion.match_extra_level = 0
+	run.state.goal_bonus_score = 0
 
 func after_each() -> void:
 	TranslationServer.set_locale(previous_locale)

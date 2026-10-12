@@ -1,7 +1,7 @@
 class_name DemolitionStatEffect
 extends ChoiceEffect
 
-## Bumps ExplosionState demolition stats that previously lived behind SkillDefinition.Action.
+## Bumps ExplosionState demolition stats (radius / reward / multiplier / match / blast extra).
 enum Stat { RADIUS, REWARD, MULTIPLIER, MATCH_EXTRA, BLAST_EXTRA }
 
 @export var stat: Stat = Stat.RADIUS

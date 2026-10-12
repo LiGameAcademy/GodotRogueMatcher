@@ -1,7 +1,7 @@
 # O4 / #60: In-run events and conditions
 
 Target branch `feature/skill-refactor`, feature branch `feat/issue-60-ability-events`.
-Migrates existing core/fuse removal blasts; keeps the 40-item runtime catalog, numbers, match, and refill rules.
+Migrates existing core/fuse removal blasts; keeps the runtime catalog (42 items including composites), numbers, match, and refill rules.
 
 ## Configuration and state
 

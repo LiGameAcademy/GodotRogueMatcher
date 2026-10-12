@@ -122,15 +122,7 @@ func generate(run: RunController) -> SkillOffer:
 		offer.pool_log.append("slot=%d pool=%s sample=%.8f selected=%s" % [slot, pool_name, sample, picked.skill_id])
 	# 即时目标与显示次序分别使用独立流，避免影响候选和普通生成。
 	for skill: SkillDefinition in offer.choices:
-		var targets: SkillTarget = SkillTarget.new()
-		var effect: SkillEffect = skill.acquisition_effect(SkillRules.level(state, skill))
-		if effect is ChoiceEffect:
-			targets = (effect as ChoiceEffect).freeze(SkillRules.effect_context(state), rewards.target_random)
-		elif effect is CompositeEffect:
-			targets = (effect as CompositeEffect).freeze(SkillRules.effect_context(state), rewards.target_random)
-		targets.level_before = SkillRules.level(state, skill)
-		targets.level_after = targets.level_before + 1
-		offer.targets[skill.skill_id] = targets
+		offer.targets[skill.skill_id] = SkillRules.freeze_target(state, skill, rewards.target_random)
 	for index: int in range(offer.choices.size() - 1, 0, -1):
 		var chosen: int = rewards.display_random.randi_range(0, index)
 		var temp: SkillDefinition = offer.choices[index]

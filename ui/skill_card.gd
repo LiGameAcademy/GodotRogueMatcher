@@ -43,7 +43,7 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	rarity_label.add_theme_color_override("font_color", _accent)
 	kind_label.text = SkillChoiceText.tags(skill)
 	kind_label.visible = not kind_label.text.is_empty()
-	consume_label.visible = skill.choice_effect is RefillCountEffect
+	consume_label.visible = skill.refill_effect() != null
 	consume_label.text = tr("消耗")
 	consume_label.tooltip_text = tr(SkillChoiceText.CONSUME_HINT)
 	title_label.text = tr(skill.title)

@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const MAIN: PackedScene = preload("res://main.tscn")
 var main: Node2D
@@ -33,7 +33,7 @@ func before_each() -> void:
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id != id: continue
 			offer.choices.append(skill)
-			offer.targets[id] = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random) if skill.choice_effect != null else SkillTarget.new()
+			offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	LevelUpSystem.resolve_pending_rewards(board)
 	await wait_process_frames(4)
@@ -138,8 +138,7 @@ func test_non_color_budget_refusal_keeps_offer_random_and_reward() -> void:
 	var offer: SkillOffer = run.state.rewards.active_offer
 	var core: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
 	offer.choices[0] = core
-	var target: SkillTarget = SkillTarget.new()
-	target.coordinate = Vector2i(4, 0)
+	var target: SkillTarget = SkillRules.freeze_target(run.state, core, run.state.rewards.target_random)
 	offer.targets[core.skill_id] = target
 	popup.show_offer(offer)
 	var original_config: ExplosionConfig = run.abilities.config
@@ -153,7 +152,7 @@ func test_non_color_budget_refusal_keeps_offer_random_and_reward() -> void:
 	assert_eq(run.state.pending_rewards, 1)
 	assert_eq(run.state.action_id, action_before)
 	assert_eq(board.rules.state.get_piece_id(target.coordinate), 0)
-	assert_string_contains(popup.message.text, "预算")
+	assert_true(popup.message.text.contains("预算") or popup.message.text.contains("budget"), popup.message.text)
 	run.abilities.config = original_config
 
 func test_paused_card_body_mouse_click_opens_picker_once_without_reroll() -> void:

@@ -42,4 +42,5 @@ Godot 4.7.2，13个相关脚本107测试/3311断言通过，日志 `.godot/issue
 #61 ordered CompositeEffect + AbilityEffectRunner: see ../skills/EFFECT_COMPOSITE.md (rules v19).
 #62 Action-branch migration: see `SKILL_MIGRATION.md` (rules v20).
 #63 recording/debug: see `../skills/SKILL_RECORDING.md` (rules v21).
-Next: #64 cleanup.
+#64 cleanup / pipeline index: see `SKILL_PIPELINE.md`.
+
