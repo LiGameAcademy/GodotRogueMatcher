@@ -31,6 +31,13 @@ func commit_next_level() -> void:
 func data() -> Dictionary:
 	var states: Array[Dictionary] = []
 	for ability: AbilityInstance in abilities:
-		states.append({"ability_id": ability.definition.ability_id, "event_type": ability.definition.event_type,
-			"trigger_count": ability.trigger_count, "skill_instance_id": ability.skill_instance_id})
+		states.append({
+			"ability_id": ability.definition.ability_id,
+			"event_type": ability.definition.event_type,
+			"trigger_count": ability.trigger_count,
+			"pending_event_id": ability.pending_event_id,
+			"skill_instance_id": ability.skill_instance_id,
+			"max_triggers": ability.definition.max_triggers,
+			"consume_on_empty": ability.definition.consume_on_empty,
+		})
 	return {"instance_id": instance_id, "skill_id": definition.skill_id, "level": level, "abilities": states}

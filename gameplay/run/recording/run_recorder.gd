@@ -80,7 +80,7 @@ func command(run: RunController, request: RunCommand, result: CommandResult, bef
 		events = matches(result.skill.matches)
 		if result.accepted:
 			append("SkillAcquired", {"command_id": str(request.command_id), "offer_id": str(result.skill.offer_id), "reward_id": str(result.skill.reward_id), "skill_id": String(result.skill.skill_id), "created": pieces(result.skill.created), "removed": pieces(result.skill.removed), "marked_ids": result.skill.marked_ids, "count_before": before.acquired.get(String(result.skill.skill_id), "0"), "count_after": str(run.state.rewards.acquired.get(result.skill.skill_id, 0)), "levels_before": before.levels, "levels_after": RunSnapshot.capture(run).levels})
-	append("RuleResult", {"command_id": str(request.command_id), "events": events, "removed": pieces(result.turn.removed) if result.turn != null else [], "move": movement, "before": before, "after": after})
+	append("RuleResult", {"command_id": str(request.command_id), "events": events, "activations": run.state.ability_events.take_traces(), "removed": pieces(result.turn.removed) if result.turn != null else [], "move": movement, "before": before, "after": after})
 	checkpoint(run, after)
 	needs_flush = true
 
@@ -89,7 +89,7 @@ func step(run: RunController, result: RunStepResult) -> void:
 	var births: Array[Dictionary] = []
 	for spawn: SpawnResult in result.spawns:
 		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches)})
-	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "challenge": {} if result.challenge == null else result.challenge.data(), "goal_before": result.goal_before, "after": after})
+	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "activations": run.state.ability_events.take_traces(), "challenge": {} if result.challenge == null else result.challenge.data(), "goal_before": result.goal_before, "after": after})
 	checkpoint(run, after)
 	needs_flush = result.kind in [&"spawn", &"input"] or needs_flush
 

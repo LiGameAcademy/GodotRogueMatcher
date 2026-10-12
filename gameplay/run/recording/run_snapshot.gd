@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v20-skill-migration"
+const RULES_VERSION: String = "run-commands-v21-skill-recording"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -102,7 +102,18 @@ static func capture(run: RunController) -> Dictionary:
 	ids.sort()
 	for id: int in ids:
 		var ability: AbilityInstance = state.explosion.instances[id]
-		instances.append({"id": str(id), "ability": String(ability.definition.ability_id), "triggered": ability.has_triggered, "trigger_count": str(ability.trigger_count), "pending_event_id": str(ability.pending_event_id)})
+		instances.append({
+			"id": str(id),
+			"owner_id": str(ability.owner_id),
+			"skill_instance_id": str(ability.skill_instance_id),
+			"ability": String(ability.definition.ability_id),
+			"event_type": String(ability.definition.event_type),
+			"max_triggers": str(ability.definition.max_triggers),
+			"consume_on_empty": ability.definition.consume_on_empty,
+			"triggered": ability.has_triggered,
+			"trigger_count": str(ability.trigger_count),
+			"pending_event_id": str(ability.pending_event_id),
+		})
 	var snapshot: Dictionary = normalize({"pieces": pieces, "instances": instances, "levels": [state.explosion.radius_level, state.explosion.reward_level, state.explosion.multiplier_level, state.explosion.match_extra_level, state.explosion.blast_extra_level], "unlocked": state.explosion.unlocked, "ledger": entries, "total": state.ledger.total, "phase": state.phase, "continuation": run.continuation, "direct_match": run.direct_match(), "turn": state.turn_count, "action": state.action_id, "moves": state.valid_moves, "last_command": run.last_command_id, "pending": state.pending_rewards, "milestone_level": state.progression.level, "previous_milestone": state.progression.previous_milestone, "next_milestone": state.progression.next_milestone, "acquired": state.rewards.acquired, "consumed": state.rewards.consumed_count, "history": state.rewards.previous_unselected, "offer": offer_data(state.rewards.active_offer), "next_offer_id": state.rewards.next_offer_id, "next_piece_id": state.rules.state.next_piece_id(), "next_event_id": state.ledger.next_event_id(), "game_over": state.is_game_over, "error": state.rule_error, "random": [random_data(state.random), random_data(state.rewards.candidate_random), random_data(state.rewards.target_random), random_data(state.rewards.display_random)]})
 	snapshot["spawning"] = normalize({"refill_batches": state.spawning.refill_batches, "color_weights": state.spawning.color_weights, "plan": state.spawning.plan_data(), "content_random": random_data(state.spawning.content_random), "plan_policy": "locked-prefix-conditional-core-v1"})
 	snapshot["demolition"] = normalize({"upgrades": state.explosion.upgrades, "core_pool": state.explosion.core_pool_unlocked, "fuse_unlocked": state.explosion.fuse_unlocked, "rule_action_id": state.rule_action_id, "turn_action_id": run.turn_action_id, "activations": state.activations, "roots": _roots(state)})

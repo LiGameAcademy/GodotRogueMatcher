@@ -151,3 +151,30 @@ func _difference(expected: Variant, actual: Variant, path: String) -> String:
 func _fail(reason: String) -> bool:
 	error = reason
 	return false
+
+## Human-readable Chinese summary for tools / ResultViewer; keeps machine `error` code intact.
+static func describe_error(code: String) -> String:
+	if code.is_empty(): return ""
+	if code.begins_with("seq=") and code.contains(" expected="):
+		return "第%s条记录状态不一致：%s" % [code.get_slice(" ", 0).trim_prefix("seq="), code]
+	match code:
+		"cannot_read_record": return "无法读取记录文件"
+		"incomplete_last_line": return "记录截断：最后一行不完整"
+		"invalid_json_line_1", "invalid_record_sequence": return "记录格式或序号无效"
+		"missing_header": return "缺少 Header"
+		"unsupported_schema": return "不支持的记录 schema"
+		"godot_version_mismatch": return "Godot 版本与录制时不一致"
+		"invalid_header": return "Header 字段无效"
+		"record_version_mismatch": return "规则/内容/候选版本与当前构建不匹配（旧局不能跨版本精确回放）"
+		"configuration_mismatch": return "配置指纹与当前规则不一致"
+		"initial_state_mismatch": return "初始盘面与记录不一致"
+		"incomplete_record_no_footer": return "记录截断：缺少 Footer"
+		"record_write_incomplete": return "记录写入不完整（Footer.record_complete=false）"
+		"records_after_footer": return "Footer 之后仍有多余记录"
+		"unsupported_initialization": return "不支持的初始化方式"
+		"invalid_completed_footer", "invalid_rule_error_footer", "invalid_rule_error_reason", "invalid_unfinished_footer":
+			return "Footer 终局语义与规则状态不符"
+		_: pass
+	if code.begins_with("invalid_json_line_"): return "第%s行 JSON 无效" % code.trim_prefix("invalid_json_line_")
+	if code.begins_with("seq="): return "回放在序号 %s 失败：%s" % [code.get_slice(" ", 0).trim_prefix("seq="), code]
+	return code
