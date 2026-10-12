@@ -1,14 +1,14 @@
 class_name AbilityEvents
 extends RefCounted
 
-## 本局确定性分发。订阅者由权威实例集合显式传入，不保存第二份注册表。
+## Deterministic in-run dispatcher. Callers pass the authoritative listener set; no second registry.
 var last_error: String = ""
 var _scope: RefCounted = RefCounted.new()
 var _next_id: int = 1
 var _dispatched: Dictionary[int, bool] = {}
 var _active: bool = true
 
-## 从离场棋子冻结来源快照，分配本局唯一事件编号。
+## Freeze a removal source snapshot and assign a unique in-run event id.
 func removal(source: PieceState, cause: StringName, root: int, generation: int, run_id: String = "", parent_id: int = 0, source_ability: StringName = &"") -> AbilityEvent:
 	var event: AbilityEvent = AbilityEvent.new()
 	event.event_id = _next_id
@@ -23,25 +23,25 @@ func removal(source: PieceState, cause: StringName, root: int, generation: int, 
 	event.source_ability_id = source_ability
 	return event
 
-## 批次预检后，按世代、来源编号、事件编号以及拥有者、安装序、能力标识稳定分发。
+## After batch preflight, dispatch in stable generation/source/event and owner/install/ability order.
 func dispatch(events: Array[AbilityEvent], listeners: Array[AbilityInstance]) -> Array[AbilityActivation]:
 	last_error = ""
 	if not _active: return []
 	var identities: Dictionary[String, AbilityInstance] = {}
 	for instance: AbilityInstance in listeners:
 		if instance == null:
-			last_error = "能力实例缺失"
+			last_error = "ability instance missing"
 			return []
 		last_error = AbilityTriggerAdapter.validation_error(instance.definition)
 		if not last_error.is_empty(): return []
 		var key: String = "%d/%d/%s" % [instance.owner_id, instance.skill_instance_id, instance.definition.ability_id]
 		if identities.has(key) and identities[key] != instance:
-			last_error = "能力实例身份重复"
+			last_error = "duplicate ability instance identity"
 			return []
 		identities[key] = instance
 	for event: AbilityEvent in events:
 		if event == null or event.source == null:
-			last_error = "事件来源快照缺失"
+			last_error = "event source snapshot missing"
 			return []
 	var ordered_events: Array[AbilityEvent] = events.duplicate()
 	ordered_events.sort_custom(_event_before)
@@ -72,10 +72,10 @@ func dispatch(events: Array[AbilityEvent], listeners: Array[AbilityInstance]) ->
 			result.append(activation)
 	return result
 
-## 拒绝不消费；合法空结果按定义政策消费。重复或旧局完成票据无效。
+## Rejected applications do not consume. Legal empty results follow definition policy. Duplicate or stale tickets are no-ops.
 func complete(activation: AbilityActivation, applied: bool, affected_count: int) -> bool:
 	if activation == null or activation.event == null or activation.instance == null or affected_count < 0:
-		last_error = "无效能力应用结果"
+		last_error = "invalid ability application result"
 		return false
 	if not _active or activation.completed or activation.event.scope != _scope: return false
 	var instance: AbilityInstance = activation.instance
@@ -86,12 +86,12 @@ func complete(activation: AbilityActivation, applied: bool, affected_count: int)
 		instance.trigger_count += 1
 	return applied
 
-## 关闭本局分发器；旧事件与未完成票据随后失效。
+## Close this run's dispatcher; old events and pending tickets become invalid.
 func close() -> void:
 	_active = false
 	_dispatched.clear()
 
-## 导出去重与编号状态，供规则快照记录。
+## Export dedupe and id state for rule snapshots.
 func data() -> Dictionary:
 	var ids: Array[int] = []
 	ids.assign(_dispatched.keys())

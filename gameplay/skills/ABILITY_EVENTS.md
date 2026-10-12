@@ -1,52 +1,52 @@
-# O4 / #60：局内事件与条件
+# O4 / #60: In-run events and conditions
 
-目标分支 `feature/skill-refactor`，独立分支 `feat/issue-60-ability-events`。
-迁移现有核心/引信离场爆破；保留 40 项运行目录、数值、匹配及补棋规则。
+Target branch `feature/skill-refactor`, feature branch `feat/issue-60-ability-events`.
+Migrates existing core/fuse removal blasts; keeps the 40-item runtime catalog, numbers, match, and refill rules.
 
-## 配置与状态
+## Configuration and state
 
-能力定义使用事件类型、条件、次数上限和空结果消费政策（`event_type`、`conditions`、`max_triggers`、`consume_on_empty`）。
-`on_eliminated_explosion.tres` 配置为棋子离场，允许的原因包括匹配、爆炸、技能清理与主动引爆，最多一次。
-离场原因条件限制主动引爆只对核心成立；清理与重试不引爆。
-已移除能力定义上的旧触发器字段及其执行路径，不再在接受事件时提前增加触发次数。
+Ability definitions use `event_type`, `conditions`, `max_triggers`, and `consume_on_empty`.
+`on_eliminated_explosion.tres` listens for `piece_eliminated`, allows causes `match` / `explosion` / `skill_clear` / `consume`, and fires at most once.
+`RemovalCauseCondition` limits `consume` to cores; cleanup and retry do not detonate.
+`AbilityDefinition.trigger` and the GameplayTrigger execution path are removed; counts are no longer incremented when an event is merely accepted.
 
-条件继续复用 CoreSystem 的只读条件契约，但不激活共享触发器或连接全局触发管理器。
-支持恒真条件、事件类型、离场原因，以及组合条件：
-且对应全部满足，或对应任一满足，单子项非对应否定。固定配置顺序短路求值。
-空条件数组表示无附加条件；空组合、缺失子项、循环、嵌套超过 8 层、负次数、未知事件/原因/条件明确拒绝。
-概率、时间等插件条件未接入，拒绝它们，避免共享计数与全局随机数影响规则。
+Conditions still reuse CoreSystem read-only `TriggerCondition` contracts, without activating GameplayTrigger or connecting TriggerManager.
+Supported leaves: `AlwaysAbilityCondition`, event type, removal cause, and `CompositeTriggerCondition`:
+AND = all, OR = any, single-child NOR = not. Evaluation short-circuits in configured order.
+An empty condition array means no extras; empty composites, missing children, cycles, nesting beyond 8, negative limits, and unknown events/causes/conditions are rejected with diagnostics.
+Probability and timer plugin conditions are not wired and are rejected so shared counters and global RNG cannot affect rules.
 
-## 分发与应用
+## Dispatch and application
 
-本局状态拥有事件分发器；调用者从权威运行实例集合提供本批订阅者，不另存注册表。
-棋子整批离场后冻结来源快照并分发，再交已有爆炸队列执行，不递归执行效果。
-事件按世代、来源编号、事件编号排序，订阅者按拥有者编号、安装序、能力标识排序；不同实例身份重复时拒绝。
-已有爆炸队列仍按世代与来源编号处理后代；装填、布雷、余震和染色的原结算边界不变。
+`RunState` owns `AbilityEvents`. Callers pass the authoritative run-instance listener set for the batch; there is no second registry.
+After a full removal batch, sources are frozen and dispatched, then the existing blast queue runs descendants. Effects are not executed recursively from dispatch.
+Events sort by generation / source id / event id; listeners sort by owner id / install order / ability id. Duplicate instance identities are rejected.
+The blast queue still processes descendants by generation / source id; plant, mine, aftershock, and dye keep their previous settle boundaries.
 
-规则事件携带本局唯一事件编号、局标识、根行动、世代、原因、来源快照及可用的父事件/来源能力标识。
-离场事件编号与计分账本的计分事件编号分别编号，不能混用；分发顺序由上述规则决定。
-首代匹配/清理的父事件编号为 0；爆炸造成的后代引用其离场触发事件。
-合成余震尚未迁移为普通能力事件，因此不虚构它的离场父事件，来源能力标记仍保留。
+`AbilityEvent` carries a unique in-run event id, run id, root action, generation, cause, source snapshot, and optional parent event / source ability id.
+Removal event ids and ScoreLedger score event ids are numbered separately and must not be mixed; dispatch order follows the rules above.
+First-generation match/clear uses `parent_event_id = 0`; explosion descendants reference their removal trigger event.
+Synthetic aftershock is not yet a normal ability event, so no fake removal parent is invented; the source-ability mark remains.
 
-分发只生成执行票据并保留待执行事件编号，不消费次数。
-规则解析器提交效果后调用完成：拒绝不扣次数，合法空结果按空结果消费政策决定。
-既有爆破配置保留空结果也消费；空爆炸仍 0 分，主动空爆破仍消耗核心及一次行动。
-重复事件、重复票据提交不会再次执行或消费；已排队的同实例能力不能重复排队。
-预检发生在占格/计分提交前；提交后的内部错误显式进入错误阶段，不承诺任意回滚。
+`dispatch` only builds `AbilityActivation` tickets and sets `pending_event_id`; it does not consume charges.
+The resolver calls `complete` after committing effects: rejects do not consume; legal empty results follow `consume_on_empty`.
+Existing blast content keeps `consume_on_empty = true`; empty blasts still score 0, and manual empty detonation still costs the core and one action.
+Duplicate events or duplicate ticket completions never re-run or re-consume; a pending instance cannot enqueue again.
+Preflight happens before occupancy/score commits; post-commit internal errors enter `ERROR` explicitly with no arbitrary rollback promise.
 
-重试关闭旧分发器并建立新实例；本局身份令牌使旧事件及未完成票据失效。
-定义只读，计数按能力实例独占，分发器不保留跨局订阅或场景节点。
+Retry closes the old `AbilityEvents` and builds a new one; the run identity token invalidates old events and unfinished tickets.
+Definitions stay read-only, counts stay exclusive to `AbilityInstance`, and the dispatcher keeps no cross-run subscriptions or scene nodes.
 
-## 记录、范围与验收
+## Recording, scope, and acceptance
 
-规则版本升级为 `run-commands-v18-ability-events`，记录条件配置、消费政策、事件编号/去重状态及待执行编号。
-v17 及更早命令不跨版本重算；历史采集文件保留。当前记录仍可精确回放，不要求重跑旧试玩。
-取得/升级能力沿用 #59 定向选择效果流程；本片不广播取得事实，不增加新技能或全量时机。
-通用叶子请求、有序效果组合归 #61；全部技能迁移归 #62；详细触发分析工具归 #63。
+Rules version is `run-commands-v18-ability-events`, recording condition config, consume policy, event ids / dedupe state, and pending ids.
+v17 and earlier commands are not recomputed across versions; historical telemetry files are kept. Current records still exact-replay; old play sessions need not be re-run.
+Acquire/upgrade still uses the #59 directed ChoiceEffect path; this slice does not broadcast acquire facts or add new skills / full timing coverage.
+Generic leaf requests and ordered Effect composition belong to #61; full skill migration to #62; detailed trigger tooling to #63.
 
-核心验收脚本：`tests/rules/test_ability_events.gd`、`test_ability_triggers.gd`、`test_explosion_rules.gd`。
-Godot 4.7.2 相关 13 脚本 112 测试 / 2283 断言通过，日志 `.godot/issue60-regression.log`。
-覆盖重复事件/票据、合法空结果与失败消费、快照、稳定排序、且/或/非、非法配置、重试隔离、真实主动空爆破，以及原爆破/阶段/预告/机器人窗口/回放/卡片回归。
-脚本及资源导入通过；没有导出 Web 或做数值分析，编辑器真人试玩待作者 review。
-作者可用编辑器试玩核心五连、引信连锁、主动空爆破与重开；新局不继承引信、强化或旧票据。
-可按能力定义 → 触发适配（纯查询）→ 事件分发（分发与消费）→ 规则解析（规则提交）阅读代码。
+Primary acceptance scripts: `tests/rules/test_ability_events.gd`, `test_ability_triggers.gd`, `test_explosion_rules.gd`.
+Godot 4.7.2: 13 related scripts, 112 tests / 2283 asserts, log `.godot/issue60-regression.log`.
+Coverage includes duplicate event/ticket, legal empty and failed consume policy, snapshots, stable ordering, All/Any/Not, invalid config, retry isolation, real manual empty detonation, plus prior blast/stage/preview/bot-window/replay/card regressions.
+Script and Resource import passed; no Web export or numeric analysis. Author playtest remains for review.
+Authors can playtest core five-match, fuse chains, manual empty detonation, and restart; a new run must not inherit fuses, upgrades, or stale tickets.
+Suggested reading order: AbilityDefinition → AbilityTriggerAdapter (query only) → AbilityEvents (dispatch/consume) → AbilityResolver (rule commit).

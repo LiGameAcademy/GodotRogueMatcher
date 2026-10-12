@@ -33,7 +33,7 @@ func test_duplicate_event_and_completion_never_repeat_unlimited_ability() -> voi
 	var event: AbilityEvent = bus.removal(_source(), &"match", 9, 1)
 	var accepted: Array[AbilityActivation] = bus.dispatch([event, event], [instance, instance])
 	assert_eq(accepted.size(), 1)
-	assert_eq(instance.trigger_count, 0, "接受事件时不能提前消费")
+	assert_eq(instance.trigger_count, 0, "accepting an event must not consume early")
 	assert_true(bus.complete(accepted[0], true, 1))
 	assert_false(bus.complete(accepted[0], true, 1))
 	assert_true(bus.dispatch([event], [instance]).is_empty())
@@ -55,7 +55,7 @@ func test_failed_application_does_not_consume_and_empty_policy_is_explicit() -> 
 	assert_eq(instance.trigger_count, 0)
 	instance.definition.consume_on_empty = true
 	accepted = bus.dispatch([bus.removal(_source(), &"consume", 3, 1)], [instance])
-	assert_true(accepted.is_empty(), "普通引信不允许主动引爆")
+	assert_true(accepted.is_empty(), "normal fuses must not accept consume")
 	accepted = bus.dispatch([bus.removal(_source(1, true), &"consume", 3, 1)], [instance])
 	assert_true(bus.complete(accepted[0], true, 0))
 	assert_eq(instance.trigger_count, 1)
@@ -89,7 +89,7 @@ func test_shuffled_events_and_listeners_have_stable_generation_source_ability_or
 	a.definition.ability_id = &"a"
 	b.definition.ability_id = &"b"
 	var accepted: Array[AbilityActivation] = bus.dispatch([later, second, first], [_instance(2), b, a])
-	assert_eq(accepted.size(), 3, "未完成的同实例能力不能再排第二次")
+	assert_eq(accepted.size(), 3, "a pending instance must not enqueue a second time")
 	assert_eq(accepted[0].event.event_id, first.event_id)
 	assert_same(accepted[0].instance, a)
 	assert_same(accepted[1].instance, b)
@@ -115,18 +115,18 @@ func test_all_any_not_and_always_only_query_and_do_not_consume_rng() -> void:
 func test_invalid_event_cause_composition_or_depth_is_diagnostic() -> void:
 	var definition: AbilityDefinition = AbilityResolver.EXPLOSION.duplicate(true) as AbilityDefinition
 	definition.conditions = [_cause([&"typo"])]
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "原因")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "cause")
 	definition.conditions = [_composite("AND", [])]
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "子项")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "children")
 	definition.conditions = [_composite("XOR", [AlwaysAbilityCondition.new()])]
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "未支持")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "unsupported")
 	var nested: TriggerCondition = AlwaysAbilityCondition.new()
 	for index: int in range(9): nested = _composite("AND", [nested])
 	definition.conditions = [nested]
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "过深")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "too deep")
 	definition.conditions = []
 	definition.max_triggers = -1
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "为负")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "negative")
 
 func test_reset_invalidates_old_bus_events_and_pending_completion() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
@@ -151,15 +151,15 @@ func test_invalid_batch_is_rejected_before_reserving_or_consuming_any_instance()
 	invalid.definition.event_type = &"typo"
 	var event: AbilityEvent = bus.removal(_source(), &"match", 1, 1)
 	assert_true(bus.dispatch([event], [first, invalid]).is_empty())
-	assert_string_contains(bus.last_error, "未接入")
+	assert_string_contains(bus.last_error, "not supported")
 	assert_eq(first.pending_event_id, 0)
 	assert_eq(first.trigger_count, 0)
 	assert_true(bus.data().dispatched.is_empty())
 	assert_true(bus.dispatch([null], [first]).is_empty())
-	assert_string_contains(bus.last_error, "来源")
+	assert_string_contains(bus.last_error, "source")
 	assert_true(bus.dispatch([event], [first, _instance()]).is_empty())
-	assert_string_contains(bus.last_error, "身份重复")
-	assert_eq(bus.dispatch([event], [first]).size(), 1, "无效批次没有吞掉事件")
+	assert_string_contains(bus.last_error, "duplicate")
+	assert_eq(bus.dispatch([event], [first]).size(), 1, "an invalid batch must not consume the event")
 
 func test_real_empty_manual_detonation_keeps_action_cost_and_consumes_once() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)

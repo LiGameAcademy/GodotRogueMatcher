@@ -1,7 +1,7 @@
 class_name BlastRequest
 extends RefCounted
 
-## 爆炸队列项。可携带分发票据，或表示合成余震。
+## Blast queue item. May carry a dispatch ticket or represent a synthetic aftershock.
 var synthetic: bool = false
 var source: PieceState
 var ability: AbilityInstance

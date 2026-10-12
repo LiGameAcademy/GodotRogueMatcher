@@ -43,8 +43,8 @@ func test_instances_own_counts_without_mutating_shared_trigger_or_global_rng() -
 	var expected: int = randi()
 	seed(123)
 	assert_true(_accept(first, _event()))
-	assert_false(_accept(first, _event()), "同一实例只接受一次")
-	assert_eq(randi(), expected, "确定触发不能消费全局随机数")
+	assert_false(_accept(first, _event()), "the same instance accepts only once")
+	assert_eq(randi(), expected, "deterministic triggers must not consume global RNG")
 	assert_same(first.definition, second.definition)
 	assert_eq(first.trigger_count, 1)
 	assert_eq(second.trigger_count, 0)
@@ -75,12 +75,12 @@ func test_changing_only_condition_changes_real_resolver_trigger() -> void:
 	run.state.rules.place_piece(Vector2i(2, 1), 0)
 	var random_state: int = run.state.random.state
 	var results: Array[MatchResult] = run.resolve_all_matches()
-	assert_eq(results.size(), 1, "匹配依然成立，但条件阻止核心爆炸")
+	assert_eq(results.size(), 1, "the match still resolves, but conditions block the core blast")
 	assert_eq(run.state.ledger.total, 50)
 	assert_eq(run.state.rules.state.get_piece_count(), 1)
 	assert_eq(instance.trigger_count, 0)
 	assert_eq(run.state.random.state, random_state)
-	assert_true(AbilityTriggerAdapter.matches(_instance(), _event()), "模板不能被实例配置修改")
+	assert_true(AbilityTriggerAdapter.matches(_instance(), _event()), "the shared template must not be mutated by instance config")
 
 func test_unsupported_condition_refuses_entire_batch_before_board_or_score_commit() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
@@ -90,7 +90,7 @@ func test_unsupported_condition_refuses_entire_batch_before_board_or_score_commi
 	instance.definition.conditions = [TriggerCondition.new()]
 	for x: int in [0, 1, 3, 4]: run.state.rules.place_piece(Vector2i(x, 0), 1)
 	assert_eq(run.abilities.resolve(run.state.rules.find_matches()).size(), 0)
-	assert_string_contains(run.abilities.last_error, "随机协议")
+	assert_string_contains(run.abilities.last_error, "RNG protocol")
 	assert_eq(run.state.ledger.total, 0)
 	assert_eq(run.state.rules.state.get_piece_count(), 5)
 	assert_eq(instance.trigger_count, 0)
@@ -101,14 +101,14 @@ func test_cyclic_or_missing_condition_is_a_diagnostic_not_recursive_evaluation()
 	var composite: CompositeTriggerCondition = CompositeTriggerCondition.new()
 	composite.conditions = [composite]
 	definition.conditions = [composite]
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "循环")
-	assert_string_contains(String(RunSnapshot.trigger_config(definition).invalid), "循环")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "cycle")
+	assert_string_contains(String(RunSnapshot.trigger_config(definition).invalid), "cycle")
 	composite.conditions.clear()
 	definition.conditions = [null]
-	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "缺失")
-	assert_string_contains(String(RunSnapshot.trigger_config(definition).invalid), "缺失")
+	assert_string_contains(AbilityTriggerAdapter.validation_error(definition), "missing")
+	assert_string_contains(String(RunSnapshot.trigger_config(definition).invalid), "missing")
 	definition.event_type = &"unimplemented"
-	assert_string_contains(String(RunSnapshot.trigger_config(definition).invalid), "未接入")
+	assert_string_contains(String(RunSnapshot.trigger_config(definition).invalid), "not supported")
 
 func test_configuration_and_snapshot_include_trigger_parameters_and_instance_counts() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)

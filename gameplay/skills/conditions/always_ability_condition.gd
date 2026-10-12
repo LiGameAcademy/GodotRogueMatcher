@@ -1,6 +1,6 @@
 class_name AlwaysAbilityCondition
 extends TriggerCondition
 
-## 始终成立的只读条件，用作组合条件中的恒真叶。
+## Always-true read-only condition used as a constant leaf in composites.
 func evaluate(_context: Dictionary) -> bool:
 	return true

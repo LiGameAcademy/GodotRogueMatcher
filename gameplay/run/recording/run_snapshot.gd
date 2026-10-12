@@ -3,7 +3,7 @@ extends RefCounted
 
 const RULES_VERSION: String = "run-commands-v18-ability-events"
 
-## 所有整数转十进制字符串；坐标、实体、字典有固定规范顺序。
+## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
 	if value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
 		if value is AbilityDefinition and not AbilityTriggerAdapter.validation_error(value as AbilityDefinition).is_empty():
@@ -39,12 +39,12 @@ static func config(run: RunController) -> Dictionary:
 	var skills: Array[Dictionary] = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		var fields: Dictionary = resource_fields(skill)
-		# 纯展示摘要不改变规则；保留原有完整描述字段以兼容已有配置哈希。
+		# Display-only summary does not change rules; keep the full description field for existing config hashes.
 		fields.erase("short_description")
 		skills.append(fields)
 	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
-## 登记显式局内触发参数，排除插件管理器、时间字段和共享运行计数。
+## Record explicit in-run trigger parameters; exclude plugin managers, time fields, and shared run counters.
 static func trigger_config(ability: AbilityDefinition) -> Dictionary:
 	var error: String = AbilityTriggerAdapter.validation_error(ability)
 	if not error.is_empty(): return {"adapter": "local-events-v1", "invalid": error}
