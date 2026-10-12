@@ -1,9 +1,15 @@
 class_name AbilityDefinition
 extends Resource
 
+## Unique ability id.
 @export var ability_id: StringName = &""
-@export var trigger: GameplayTrigger
-## 取得能力使用本局事件键；旧离场触发在#60迁移。
+## Explicit timing; conditions only query value context and never own run counts.
 @export var event_type: StringName = &""
-## 加载边界校验具体类型；取得/离场请求将在#61统一执行。
+## Extra trigger conditions; an empty array means no additional limits.
+@export var conditions: Array[TriggerCondition] = []
+## Maximum trigger count; 0 means unlimited.
+@export var max_triggers: int = 0
+## Whether a legal empty result consumes a charge; removal blasts keep the existing policy.
+@export var consume_on_empty: bool = true
+## Effect resource; load-time type checks apply. Acquire/removal request unification lands in #61.
 @export var effect: Resource

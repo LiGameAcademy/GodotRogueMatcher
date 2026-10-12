@@ -12,17 +12,19 @@ func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) 
 	state = run_state
 	config = rules_config
 
+## Place a core and attach its removal-blast instance; reject if a core already exists.
 func add_core(coordinate: Vector2i, match_color: int = -1) -> PieceState:
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id == &"special_demolition":
 			return null
-	# 自然补棋显式传入已预告颜色；技能召唤和教学样例保留配置默认值。
+	# Natural refill passes the previewed color; skill summons and teaching samples keep config defaults.
 	var color: int = config.core_color if match_color == -1 else match_color
 	var core: PieceState = state.rules.place_piece(coordinate, color, &"special_demolition")
 	if core != null:
 		_attach(core.piece_id)
 	return core
 
+## Install a fuse on a normal piece; reject if it already has content or an instance.
 func assign_fuse(piece_id: int) -> bool:
 	var piece: PieceState = state.rules.state.get_piece(piece_id)
 	if piece == null or not piece.content_id.is_empty() or state.explosion.instances.has(piece_id):
@@ -42,7 +44,7 @@ func upgrade_reward() -> bool:
 	state.explosion.reward_level += 1
 	return true
 
-## 同代按来源ID排序；后代只在当前代完成后执行。没有UI或动画依赖。
+## Same-generation order is by source id; descendants run only after the current generation finishes. No UI or animation dependency.
 func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	var results: Array[MatchResult] = []
 	last_error = ""
@@ -61,6 +63,7 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 		results.append(result)
 	for result: MatchResult in results:
 		_remove_and_enqueue(result.removed, result.cause, 1, queue)
+		if not last_error.is_empty(): return results
 	var stats: DemolitionActionState = DemolitionRules.action(state)
 	if state.explosion.level(&"fuse_match_plant") > 0 and not stats.plant_used:
 		stats.plant_used = true
@@ -72,13 +75,14 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
-## 清理与五连共用离场触发和爆炸队列。调用者在提交根行动前预检。
+## Clears and five-matches share removal triggers and the blast queue. Callers preflight before committing the root action.
 func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[MatchResult]:
 	last_error = validation_error(1)
 	if not last_error.is_empty(): return []
 	var queue: Array[BlastRequest] = []
 	var extra: int = DemolitionRules.marked_score(state, pieces)
 	_remove_and_enqueue(pieces, cause, 1, queue)
+	if not last_error.is_empty(): return []
 	var results: Array[MatchResult] = []
 	if extra > 0:
 		var reward: MatchResult = MatchResult.new()
@@ -89,11 +93,12 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[Matc
 	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
+## Preflight configuration and event budget before resolve; return an English diagnostic on failure.
 func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0) -> String:
 	if new_sources > 0:
 		var configuration_error: String = AbilityTriggerAdapter.validation_error(EXPLOSION)
 		if not configuration_error.is_empty(): return configuration_error
-	# 配置错误、预算不足必须在任何占格/计分提交前拒绝。
+	# Config errors and budget shortfalls must reject before any occupancy or score commit.
 	for instance: AbilityInstance in state.explosion.instances.values():
 		var error: String = AbilityTriggerAdapter.validation_error(instance.definition)
 		if not error.is_empty(): return error
@@ -102,7 +107,7 @@ func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 
 		possible = state.rules.state.get_piece_count() + new_pieces
 	if state.explosion.level(&"blast_aftershock") > 0: possible += 1
 	if root_events + possible > config.event_budget:
-		return "事件预算不足，拒绝结算"
+		return "event budget exceeded; resolve rejected"
 	return ""
 
 func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
@@ -142,9 +147,14 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 				extra_score += DemolitionRules.CONFIG.chain_bonus * state.explosion.level(&"blast_chain_bonus") * mini(event.generation - 1, DemolitionRules.CONFIG.chain_depth_cap)
 		var ability_id: StringName = &"blast_aftershock" if event.synthetic else event.ability.definition.ability_id
 		result.score_entry = state.ledger.commit(0, 1.0, extra_score, &"explosion", DemolitionRules.root_id(state), actual_ids, result.source_id, ability_id)
-		_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue)
+		var parent_id: int = 0 if event.synthetic else event.activation.event.event_id
+		_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, parent_id, ability_id)
+		if not event.synthetic:
+			if not state.ability_events.complete(event.activation, true, result.removed.size()):
+				_event_error("ability activation ticket invalid")
+		if not last_error.is_empty(): return results
 		results.append(result)
-		# 普通队列收束后只追加一次，后代不能再次制造余震。
+		# Append aftershock once after the normal queue drains; descendants cannot spawn another.
 		if queue.is_empty() and stats.first_core != null and not stats.aftershock_used and state.explosion.level(&"blast_aftershock") > 0:
 			stats.aftershock_used = true
 			var aftershock: BlastRequest = BlastRequest.new()
@@ -162,7 +172,9 @@ func _attach(piece_id: int) -> void:
 	state.explosion.instances[piece_id] = instance
 	state.explosion.unlocked = true
 
-func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generation: int, queue: Array[BlastRequest]) -> void:
+func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generation: int, queue: Array[BlastRequest], parent_id: int = 0, source_ability: StringName = &"") -> void:
+	var events: Array[AbilityEvent] = []
+	var listeners: Array[AbilityInstance] = []
 	for piece: PieceState in pieces:
 		if state.rules.remove_piece(piece.piece_id) == null:
 			continue
@@ -171,17 +183,23 @@ func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generatio
 		state.explosion.instances.erase(piece.piece_id)
 		if instance == null:
 			continue
-		var trigger_event: AbilityEvent = AbilityEvent.new()
-		trigger_event.cause = cause
-		trigger_event.source = piece.copy()
-		trigger_event.root_action_id = DemolitionRules.root_id(state)
-		trigger_event.generation = generation
-		if not AbilityTriggerAdapter.try_accept(instance, trigger_event): continue
+		listeners.append(instance)
+		events.append(state.ability_events.removal(piece, cause, DemolitionRules.root_id(state), generation, state.run_id, parent_id, source_ability))
+	# Dispatch after the whole removal batch; removed instances subscribe only for this batch and use frozen sources.
+	for activation: AbilityActivation in state.ability_events.dispatch(events, listeners):
 		var event: BlastRequest = BlastRequest.new()
-		event.source = piece.copy()
-		event.ability = instance
+		event.source = activation.event.source.copy()
+		event.ability = activation.instance
+		event.activation = activation
 		event.generation = generation
 		queue.append(event)
+	if not state.ability_events.last_error.is_empty(): _event_error(state.ability_events.last_error)
+
+## Internal errors after preflight terminate explicitly; already committed results are not pretended to roll back.
+func _event_error(reason: String) -> void:
+	last_error = reason
+	state.rule_error = reason
+	state.phase = RunState.Phase.ERROR
 
 func _comes_before(a: BlastRequest, b: BlastRequest) -> bool:
 	return a.generation < b.generation if a.generation != b.generation else a.source.piece_id < b.source.piece_id

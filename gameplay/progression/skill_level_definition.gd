@@ -1,16 +1,20 @@
 class_name SkillLevelDefinition
 extends Resource
 
-## 每级只读配置。首个迁移切片支持一个取得能力；多效果执行在#61扩展。
+## Per-level read-only config. The first migration slice allows one acquire ability; multi-effect execution expands in #61.
 @export var level: int = 1
 @export var abilities: Array[AbilityDefinition] = []
 
+## Validate this level; return an English diagnostic on failure, or an empty string when valid.
 func validation_error() -> String:
-	if level < 1 or abilities.size() != 1: return "本片等级配置需要一个取得能力"
+	if level < 1 or abilities.size() != 1: return "this slice requires exactly one acquire ability per level"
 	var ability: AbilityDefinition = abilities[0]
-	if ability == null or ability.ability_id.is_empty(): return "能力ID缺失"
-	if ability.trigger != null: return "取得能力不能同时配置旧触发器"
+	if ability == null or ability.ability_id.is_empty(): return "ability id missing"
+	var error: String = AbilityTriggerAdapter.validation_error(ability)
+	if not error.is_empty(): return error
+	if not ability.conditions.is_empty() or ability.max_triggers != 0:
+		return "acquire conditions and limits remain owned by choice preflight"
 	var expected: StringName = &"skill_acquired" if level == 1 else &"skill_upgraded"
-	if ability.event_type != expected: return "取得/升级时机与等级不符"
-	if not ability.effect is ChoiceEffect: return "取得能力需要选择效果"
+	if ability.event_type != expected: return "acquire/upgrade event timing does not match level"
+	if not ability.effect is ChoiceEffect: return "acquire ability requires choice effect"
 	return ""

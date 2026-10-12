@@ -15,6 +15,7 @@ var is_game_over: bool = false
 var pending_rewards: int = 0
 var rewards: RewardState
 var skill_instances: Dictionary[StringName, SkillInstance] = {}
+var ability_events: AbilityEvents = AbilityEvents.new()
 var spawn_history: Array[SpawnResult] = []
 var explosion: ExplosionState = ExplosionState.new()
 var stage: StageState = StageState.new()
@@ -48,6 +49,8 @@ func reset_counters() -> void:
 	pending_rewards = 0
 	rewards = RewardState.new(_initial_seed)
 	skill_instances.clear()
+	ability_events.close()
+	ability_events = AbilityEvents.new()
 	progression = ProgressionState.new(RunController.PROGRESSION)
 	valid_moves = 0
 	spawning = SpawnState.new(RunController.SPAWN_CONFIG, _initial_seed)
