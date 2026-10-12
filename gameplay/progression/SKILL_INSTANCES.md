@@ -38,5 +38,6 @@ Godot 4.7.2，13个相关脚本107测试/3311断言通过，日志 `.godot/issue
 作者可在当前开发分支试玩：取得爆壳手登场，确认首枚颜色与预告一致；取得爆壳补给并重复升级，横卡及技能池显示Lv.1→Lv.2/满级；消除核心后供给和升级继续保留。
 
 #59已获作者review并合并PR #66。本页保留该首片的验证证据。
-#60已接入局内离场事件/条件、应用后消费及重试隔离，当前记录版本为v18；细节见../skills/ABILITY_EVENTS.md。
-后续按#61有序Composite统一请求、#62其余技能与生命周期、#63记录调试工具、#64旧路径清理逐片推进。
+#60 merged (PR #67): in-run removal events/conditions; see ../skills/ABILITY_EVENTS.md.
+#61 ordered CompositeEffect + AbilityEffectRunner: see ../skills/EFFECT_COMPOSITE.md (rules v19).
+Next: #62 remaining skill migration, #63 record/debug tools, #64 cleanup.

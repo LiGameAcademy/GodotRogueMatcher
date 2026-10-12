@@ -7,6 +7,7 @@ const EXPLOSION: AbilityDefinition = preload("res://gameplay/skills/content/on_e
 var state: RunState
 var config: ExplosionConfig
 var last_error: String = ""
+var _held_blasts: Array[BlastRequest] = []
 
 func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) -> void:
 	state = run_state
@@ -76,7 +77,8 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	return results
 
 ## Clears and five-matches share removal triggers and the blast queue. Callers preflight before committing the root action.
-func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[MatchResult]:
+## When hold_blasts is true, removal tickets enqueue but descendants wait for flush_held_blasts().
+func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: bool = false) -> Array[MatchResult]:
 	last_error = validation_error(1)
 	if not last_error.is_empty(): return []
 	var queue: Array[BlastRequest] = []
@@ -89,9 +91,28 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[Matc
 		reward.cause = &"bonus"
 		reward.score_entry = state.ledger.commit(0, 1.0, extra, &"marked_reward", DemolitionRules.root_id(state), [])
 		results.append(reward)
+	if hold_blasts:
+		_held_blasts.append_array(queue)
+		return results
 	results.append_array(_resolve_blasts(queue))
 	results.append_array(DyeRules.after_matches(self, results))
 	return results
+
+## Drain blast tickets held during an ordered CompositeEffect.
+func flush_held_blasts() -> Array[MatchResult]:
+	if _held_blasts.is_empty(): return []
+	var queue: Array[BlastRequest] = _held_blasts.duplicate()
+	_held_blasts.clear()
+	var results: Array[MatchResult] = _resolve_blasts(queue)
+	results.append_array(DyeRules.after_matches(self, results))
+	return results
+
+## Drop held tickets without resolving blasts (composite aborted after removals).
+func abandon_held_blasts() -> void:
+	for event: BlastRequest in _held_blasts:
+		if event.activation != null:
+			state.ability_events.complete(event.activation, false, 0)
+	_held_blasts.clear()
 
 ## Preflight configuration and event budget before resolve; return an English diagnostic on failure.
 func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0) -> String:

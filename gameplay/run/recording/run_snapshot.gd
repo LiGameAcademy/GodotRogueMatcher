@@ -1,13 +1,16 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v18-ability-events"
+const RULES_VERSION: String = "run-commands-v19-effect-composite"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
-	if value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
+	if value is SkillEffect or value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
 		if value is AbilityDefinition and not AbilityTriggerAdapter.validation_error(value as AbilityDefinition).is_empty():
 			return {"invalid": AbilityTriggerAdapter.validation_error(value as AbilityDefinition)}
+		if value is CompositeEffect:
+			var composite_error: String = (value as CompositeEffect).validation_error()
+			if not composite_error.is_empty(): return {"invalid": composite_error}
 		var script: Script = value.get_script() as Script
 		return {"script": script.resource_path, "parameters": resource_fields(value)}
 	if value is TriggerCondition: return _condition_config(value as TriggerCondition)

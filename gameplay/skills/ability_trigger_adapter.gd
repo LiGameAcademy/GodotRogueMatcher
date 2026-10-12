@@ -13,7 +13,11 @@ static func validation_error(definition: AbilityDefinition) -> String:
 	if definition.max_triggers < 0: return "ability trigger limit cannot be negative"
 	if definition.event_type == AbilityEvent.PIECE_ELIMINATED:
 		if not definition.effect is ExplodeEffect: return "removal ability requires explode effect"
-	elif not definition.effect is ChoiceEffect: return "acquire ability requires choice effect"
+	elif definition.effect is CompositeEffect:
+		var composite_error: String = (definition.effect as CompositeEffect).validation_error()
+		if not composite_error.is_empty(): return composite_error
+	elif not definition.effect is ChoiceEffect:
+		return "acquire ability requires choice or composite effect"
 	for condition: TriggerCondition in definition.conditions:
 		var error: String = _condition_error(condition, [])
 		if not error.is_empty(): return error
