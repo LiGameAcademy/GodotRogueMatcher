@@ -52,7 +52,7 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	effect_label.text = SkillChoiceText.summary_rich(skill)
 	preview_label.text = SkillChoiceText.compact_preview(skill, target)
 	preview_label.visible = not preview_label.text.is_empty()
-	action_label.text = tr("点击选择颜色") if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else tr("点击选择此技能")
+	action_label.text = tr("点击选择颜色") if skill.requires_color_choice(target.level_before) else tr("点击选择此技能")
 	_update_feedback()
 
 ## 技能池只读卡面，不冻结随机目标或提供选取动作。

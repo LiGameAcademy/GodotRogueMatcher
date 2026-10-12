@@ -4,6 +4,8 @@ extends RefCounted
 const CONFIG: OfferConfig = preload("res://gameplay/progression/content/offer_config.tres")
 
 const CATALOG: Array[SkillDefinition] = [
+	preload("res://gameplay/progression/content/composite_refill_color.tres"),
+	preload("res://gameplay/progression/content/composite_clear_dye.tres"),
 	preload("res://gameplay/progression/content/goal_score_bonus.tres"),
 	preload("res://gameplay/progression/content/core_drop.tres"),
 	preload("res://gameplay/progression/content/assign_fuse.tres"),

@@ -166,8 +166,8 @@ func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, ac
 		var player_target: bool = false
 		if active != null and active.offer_id == offer_id:
 			for skill: SkillDefinition in active.choices:
-				if skill.skill_id == skill_id and skill.choice_effect != null:
-					player_target = skill.choice_effect.requires_color_choice()
+				if skill.skill_id == skill_id:
+					player_target = skill.requires_color_choice()
 			# 玩家选色失败保留原候选；旧随机目标真正失效时保留原恢复策略。
 			if not player_target and result.error in ["原定空格已经被占用", "原定材料目标已经失效"]:
 				active_run.state.rewards.active_offer = null

@@ -36,6 +36,13 @@ func acquisition_effect(current_level: int = 0) -> SkillEffect:
 	if config == null or config.abilities.size() != 1 or config.abilities[0] == null: return null
 	return config.abilities[0].effect as SkillEffect
 
+## Color picker for clear-style leaves, including CompositeEffect roots.
+func requires_color_choice(current_level: int = 0) -> bool:
+	var effect: SkillEffect = acquisition_effect(current_level)
+	if effect is ChoiceEffect: return (effect as ChoiceEffect).requires_color_choice()
+	if effect is CompositeEffect: return (effect as CompositeEffect).requires_color_choice()
+	return false
+
 func validation_error() -> String:
 	if levels.is_empty(): return ""
 	if skill_id.is_empty() or not is_persistent: return "leveled skills need a stable id and persistent lifetime"

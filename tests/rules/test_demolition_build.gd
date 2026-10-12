@@ -58,11 +58,11 @@ func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 		run.state.rewards.active_offer = offer
 		run.state.pending_rewards = 1
 		run.enter_rewards()
-		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else -1)
+		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.requires_color_choice() else -1)
 		assert_true(result.success, "%s: %s" % [skill.skill_id, result.error])
 		if skill.choice_effect is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
-	assert_eq(ids.size(), 40)
-	assert_eq(grades, [11, 12, 11, 5, 1])
+	assert_eq(ids.size(), 42)
+	assert_eq(grades, [11, 13, 12, 5, 1])
 
 func test_prerequisites_and_rarity_multiply_after_clamp_once() -> void:
 	var run: RunController = _run()
