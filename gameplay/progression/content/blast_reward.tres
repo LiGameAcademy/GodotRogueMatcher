@@ -1,6 +1,40 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/demolition_stat_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+stat = 1
+
+[sub_resource type="Resource" id="acquired"]
+script = ExtResource("3")
+ability_id = &"blast_reward"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="upgraded"]
+script = ExtResource("3")
+ability_id = &"blast_reward"
+event_type = &"skill_upgraded"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("acquired")])
+
+[sub_resource type="Resource" id="level_2"]
+script = ExtResource("2")
+level = 2
+abilities = Array[ExtResource("3")]([SubResource("upgraded")])
+
+[sub_resource type="Resource" id="level_3"]
+script = ExtResource("2")
+level = 3
+abilities = Array[ExtResource("3")]([SubResource("upgraded")])
 
 [resource]
 script = ExtResource("1")
@@ -8,7 +42,7 @@ skill_id = &"blast_reward"
 title = "余震奖励"
 description = "爆炸每实际消除一枚棋子，额外分再加5。最多3级。"
 short_description = "爆炸每清除1枚棋子 → 额外+5分/级。"
-action = 3
+levels = Array[ExtResource("2")]([SubResource("level_1"), SubResource("level_2"), SubResource("level_3")])
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 is_starter = false

@@ -81,13 +81,13 @@ func generate(run: RunController) -> SkillOffer:
 		offer.baseline_weights[skill.skill_id] = weight(state, skill, profile, 0.0)
 		offer.weights[skill.skill_id] = weight(state, skill, profile, pressure_value)
 		if not skill.fallback_only and (offer.reward_id >= skill.minimum_reward or RescueOfferRules.early_allowed(state, skill, pressure_value)): normal.append(skill)
-		if skill.fallback_only or skill.action in [SkillDefinition.Action.SCORE_MULTIPLIER, SkillDefinition.Action.MATCH_EXTRA] or skill.skill_id == &"precision_reward": fallback.append(skill)
+		if skill.is_fallback_skill(): fallback.append(skill)
 	var used: Array[StringName] = []
 	var utility_used: bool = false
 	for slot: int in range(3):
 		var remaining: Array[SkillDefinition] = _remaining(normal, used)
 		if utility_used:
-			remaining = remaining.filter(func(skill: SkillDefinition) -> bool: return skill.is_persistent or skill.action == SkillDefinition.Action.ASSIGN_FUSE)
+			remaining = remaining.filter(func(skill: SkillDefinition) -> bool: return not skill.counts_as_utility_pick())
 		var pool: Array[SkillDefinition] = []
 		var pool_name: String = "normal"
 		if slot == 0 and offer.reward_id <= 2 and not _ever_started(state):
@@ -116,7 +116,7 @@ func generate(run: RunController) -> SkillOffer:
 		var sample: float = unit_random(rewards.candidate_random)
 		var picked: SkillDefinition = _draw(pool, offer.weights, sample)
 		used.append(picked.skill_id)
-		if not picked.is_persistent and picked.action != SkillDefinition.Action.ASSIGN_FUSE: utility_used = true
+		if picked.counts_as_utility_pick(): utility_used = true
 		offer.choices.append(picked)
 		offer.generation_order.append(picked.skill_id)
 		offer.pool_log.append("slot=%d pool=%s sample=%.8f selected=%s" % [slot, pool_name, sample, picked.skill_id])
@@ -128,13 +128,6 @@ func generate(run: RunController) -> SkillOffer:
 			targets = (effect as ChoiceEffect).freeze(SkillRules.effect_context(state), rewards.target_random)
 		elif effect is CompositeEffect:
 			targets = (effect as CompositeEffect).freeze(SkillRules.effect_context(state), rewards.target_random)
-		elif skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
-			var ids: Array[int] = SkillRules.unmarked_material(state)
-			var count: int = 2 + state.explosion.level(&"fuse_capacity") if skill.action == SkillDefinition.Action.ASSIGN_FUSE else skill.target_count
-			for index: int in range(mini(count, ids.size())):
-				var chosen: int = rewards.target_random.randi_range(0, ids.size() - 1)
-				targets.piece_ids.append(ids[chosen])
-				ids.remove_at(chosen)
 		targets.level_before = SkillRules.level(state, skill)
 		targets.level_after = targets.level_before + 1
 		offer.targets[skill.skill_id] = targets
@@ -151,7 +144,7 @@ func generate(run: RunController) -> SkillOffer:
 static func build_profile(state: RunState) -> Dictionary[StringName, float]:
 	var profile: Dictionary[StringName, float] = {}
 	for skill: SkillDefinition in CATALOG:
-		if skill.action == SkillDefinition.Action.THIN or (skill.choice_effect != null and not skill.is_persistent): continue
+		if not skill.contributes_affinity(): continue
 		var current: int = SkillRules.level(state, skill)
 		if current <= 0: continue
 		var contribution: float = 1.0 + 0.25 * mini(maxi(current - 1, 0), 2)

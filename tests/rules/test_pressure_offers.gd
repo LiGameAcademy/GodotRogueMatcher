@@ -116,7 +116,7 @@ func test_high_pressure_groups_keep_distinct_legal_choices_and_one_utility() -> 
 			assert_false(ids.has(skill.skill_id))
 			ids.append(skill.skill_id)
 			assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "")
-			if not skill.is_persistent and skill.action != SkillDefinition.Action.ASSIGN_FUSE: utility += 1
+			if skill.counts_as_utility_pick(): utility += 1
 		assert_lte(utility, 1)
 
 func test_telemetry_pressure_matches_candidate_snapshot_and_does_not_touch_board_rng() -> void:

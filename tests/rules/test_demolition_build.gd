@@ -44,6 +44,7 @@ func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 		run.state.rewards.consumed_count = 5
 		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, 1), x)
 		run.abilities.assign_fuse(run.state.rules.state.get_piece_id(Vector2i.ZERO + Vector2i.DOWN))
+		run.state.explosion.unlocked = true
 		assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "", String(skill.skill_id))
 		var offer: SkillOffer = SkillOffer.new()
 		offer.offer_id = 1
@@ -53,7 +54,6 @@ func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 		var effect: SkillEffect = skill.acquisition_effect()
 		if effect is ChoiceEffect: target = (effect as ChoiceEffect).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 		elif effect is CompositeEffect: target = (effect as CompositeEffect).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		elif skill.action in [SkillDefinition.Action.THIN, SkillDefinition.Action.ASSIGN_FUSE]: target.piece_ids = [run.state.rules.state.get_piece_id(Vector2i(1, 1))]
 		offer.targets[skill.skill_id] = target
 		run.state.rewards.active_offer = offer
 		run.state.pending_rewards = 1

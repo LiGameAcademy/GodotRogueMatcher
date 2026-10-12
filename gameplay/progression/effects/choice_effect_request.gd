@@ -1,7 +1,7 @@
 class_name ChoiceEffectRequest
 extends RefCounted
 
-enum Kind { REFILL, COLOR_WEIGHT, CLEAR, UPGRADE, DYE_UPGRADE, DYE, GOAL_BONUS, UNLOCK_CORE }
+enum Kind { REFILL, COLOR_WEIGHT, CLEAR, UPGRADE, DYE_UPGRADE, DYE, GOAL_BONUS, UNLOCK_CORE, ASSIGN_FUSE, DEMOLITION_STAT, THIN }
 var coordinate: Vector2i = Vector2i(-1, -1)
 var score_bonus: int = 0
 var upgrade: StringName
@@ -11,3 +11,4 @@ var delta: int = 0
 var batches: int = 0
 var color: int = -1
 var piece_ids: Array[int] = []
+var stat: int = 0

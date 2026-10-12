@@ -17,9 +17,11 @@ static func details(run: RunController, skill: SkillDefinition) -> String:
 		if skill.rescue_offer and run.state.stage.enabled(): requirements.append(TranslationServer.translate("拥挤时可提前出现"))
 	lines.append(TranslationServer.translate("前置：%s") % (" · ".join(requirements) if not requirements.is_empty() else TranslationServer.translate("无")))
 	var maximum: int = skill.maximum_level
-	if skill.choice_effect == null and skill.levels.is_empty():
-		if skill.action == SkillDefinition.Action.BLAST_RADIUS: maximum = run.abilities.config.maximum_radius_level
-		elif skill.action == SkillDefinition.Action.BLAST_REWARD: maximum = run.abilities.config.reward_maximum_level
+	var effect: SkillEffect = skill.acquisition_effect(SkillRules.level(run.state, skill))
+	if effect is DemolitionStatEffect:
+		match (effect as DemolitionStatEffect).stat:
+			DemolitionStatEffect.Stat.RADIUS: maximum = run.abilities.config.maximum_radius_level
+			DemolitionStatEffect.Stat.REWARD: maximum = run.abilities.config.reward_maximum_level
 	if skill.is_persistent:
 		lines.append(TranslationServer.translate("等级 %d / %s") % [SkillRules.level(run.state, skill), str(maximum) if maximum > 0 else TranslationServer.translate("可重复升级")])
 	var reason: String = SkillRules.rejection(run.state, skill, run.abilities.config)

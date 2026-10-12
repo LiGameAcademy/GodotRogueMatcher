@@ -40,4 +40,5 @@ Godot 4.7.2，13个相关脚本107测试/3311断言通过，日志 `.godot/issue
 #59已获作者review并合并PR #66。本页保留该首片的验证证据。
 #60 merged (PR #67): in-run removal events/conditions; see ../skills/ABILITY_EVENTS.md.
 #61 ordered CompositeEffect + AbilityEffectRunner: see ../skills/EFFECT_COMPOSITE.md (rules v19).
-Next: #62 remaining skill migration, #63 record/debug tools, #64 cleanup.
+#62 Action-branch migration: see `SKILL_MIGRATION.md` (rules v20).
+Next: #63 record/debug tools, #64 cleanup.

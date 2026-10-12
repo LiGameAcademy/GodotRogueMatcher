@@ -61,6 +61,26 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 				batch.append(piece)
 				result.removed.append(piece)
 			result.matches.append_array(run.abilities.resolve_removal(batch, &"skill_clear", hold_blasts))
+		ChoiceEffectRequest.Kind.THIN:
+			for id: int in request.piece_ids:
+				result.removed.append(state.rules.remove_piece(id))
+		ChoiceEffectRequest.Kind.ASSIGN_FUSE:
+			state.explosion.fuse_unlocked = true
+			for target: int in request.piece_ids:
+				run.abilities.assign_fuse(target)
+				result.marked_ids.append(target)
+		ChoiceEffectRequest.Kind.DEMOLITION_STAT:
+			match request.stat as DemolitionStatEffect.Stat:
+				DemolitionStatEffect.Stat.RADIUS:
+					if not run.abilities.upgrade_radius(): return "已满级"
+				DemolitionStatEffect.Stat.REWARD:
+					if not run.abilities.upgrade_reward(): return "已满级"
+				DemolitionStatEffect.Stat.MULTIPLIER:
+					state.explosion.multiplier_level += 1
+				DemolitionStatEffect.Stat.MATCH_EXTRA:
+					state.explosion.match_extra_level += 1
+				DemolitionStatEffect.Stat.BLAST_EXTRA:
+					state.explosion.blast_extra_level += 1
 	return ""
 
 static func _apply_choice(run: RunController, effect: ChoiceEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, hold_blasts: bool) -> String:
