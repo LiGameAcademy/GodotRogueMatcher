@@ -14,9 +14,9 @@ Game Juice M3：集成16脚本、91项测试/1047断言通过（`.godot/juice_m3
 
 Game Juice M2：完整28脚本、229项测试/6170断言通过（.godot/hud_m2_final_tests_output.log）。真实补棋预告使用独立内容随机流与锁定前缀，v5快照/回放包含内容计划；覆盖UI读操作、免补棋、数量/权重变化、核心条件回退、满盘与重试。提示音借用插件池的原process_mode只保存一次，复借/结束/取消均有验证。
 
-Game Juice M1技能卡：最新集成目录15脚本、83项测试/991断言通过（`.godot/skill_cards_release_tests_output.log`），增加32项真实冻结目标布局、卡面样式隔离与暂停时真实正文鼠标点击。以下217项为此前完整规则基线，不把本轮集成子集当成完整回归。
+Game Juice M1技能卡：集成目录历史基线保留；当前运行目录为42项技能（含组合卡）。O4 技能重构后规则版本见 `gameplay/progression/SKILL_PIPELINE.md`（`run-commands-v21-skill-recording`）。
 
-Godot 4.7.2 / Compatibility，GUT 9.6.0。32项运行技能、五档稀有度、核心供给/主动爆破、引信与连锁组合、HUD/精确回放/机器人/采集接通后，完整26个脚本、217项测试、5991断言通过。日志`.godot/skill_depth_verified_output.log`。新增`tests/rules/test_demolition_build.gd`覆盖32项取得、合法前置、稀有度、顺序/去重/终止与状态隔离；主动行动埋点见`test_telemetry.gd`。
+Godot 4.7.2 / Compatibility，GUT 9.6.0。42项运行技能、五档稀有度、核心供给/主动爆破、引信与连锁组合、HUD/精确回放/机器人/采集接通。`tests/rules/test_demolition_build.gd` 覆盖目录取得与稀有度；主动行动埋点见`test_telemetry.gd`。历史完整回归数字见旧日志，不把单片子集当成全库声明。
 
 ```powershell
 & 'D:/GameMaker/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe' --headless --path . --fixed-fps 60 --log-file .godot/tests.log -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit

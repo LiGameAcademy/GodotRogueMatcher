@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const CARD: PackedScene = preload("res://ui/skill_card.tscn")
 const POPUP: PackedScene = preload("res://ui/popup_skill_choice.tscn")
@@ -36,7 +36,7 @@ func _assert_all_cards_fit() -> void:
 		for index: int in range(offset, mini(offset + 3, SkillOfferGenerator.CATALOG.size())):
 			var skill: SkillDefinition = SkillOfferGenerator.CATALOG[index]
 			offer.choices.append(skill)
-			var target: SkillTarget = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random) if skill.choice_effect != null else SkillTarget.new()
+			var target: SkillTarget = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 			target.level_before = SkillRules.level(run.state, skill)
 			target.level_after = target.level_before + 1
 			offer.targets[skill.skill_id] = target
@@ -113,6 +113,7 @@ func test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle() -> voi
 func test_build_summary_and_config_hash_are_unchanged_by_presentation_fields() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 864, preload("res://gameplay/progression/stages/stage_config.tres"))
 	run.state.rewards.acquired[&"core_manual_detonation"] = 1
+	run.state.explosion.upgrades[&"core_manual_detonation"] = 1
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_manual_detonation.tres")
 	assert_string_contains(HudDetails.skills(run.state), skill.short_description)
 	assert_false(HudDetails.skills(run.state).contains("[hint="))

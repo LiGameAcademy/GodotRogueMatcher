@@ -1,15 +1,11 @@
 class_name SkillDefinition
 extends Resource
 
-## Legacy Action enum kept only so old .tres `action = N` still import; runtime no longer branches on it.
-enum Action { CORE_DROP, ASSIGN_FUSE, BLAST_RADIUS, BLAST_REWARD, SCORE_MULTIPLIER, MATCH_EXTRA, BLAST_EXTRA, THIN }
-
 @export var skill_id: StringName
 @export var title: String
 @export_multiline var description: String
 ## 卡面摘要；完整规则仍由description保存，不参与玩法配置哈希。
 @export_multiline var short_description: String
-@export var action: Action
 @export var base_weight: float = 1.0
 @export var tags: Array[StringName] = []
 @export var is_starter: bool = false
@@ -43,6 +39,15 @@ func requires_color_choice(current_level: int = 0) -> bool:
 	if effect is ChoiceEffect: return (effect as ChoiceEffect).requires_color_choice()
 	if effect is CompositeEffect: return (effect as CompositeEffect).requires_color_choice()
 	return false
+
+## First RefillCountEffect leaf for HUD / consume chrome (supports CompositeEffect).
+func refill_effect(current_level: int = 0) -> RefillCountEffect:
+	var effect: SkillEffect = acquisition_effect(current_level)
+	if effect is RefillCountEffect: return effect as RefillCountEffect
+	if effect is CompositeEffect:
+		for child: SkillEffect in (effect as CompositeEffect).children:
+			if child is RefillCountEffect: return child as RefillCountEffect
+	return null
 
 ## Fuse assign stays available after another instant utility filled a reward slot.
 func counts_as_utility_pick() -> bool:

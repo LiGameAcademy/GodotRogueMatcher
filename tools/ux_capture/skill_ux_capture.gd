@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 
 ## 固定验收盘面，只用于渲染真实场景截图；tools不进入Web发布包。
 const MAIN: PackedScene = preload("res://main.tscn")
@@ -104,7 +104,7 @@ func _offer(ids: Array[StringName]) -> SkillOffer:
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id != id: continue
 			offer.choices.append(skill)
-			offer.targets[id] = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random) if skill.choice_effect != null else SkillTarget.new()
+			offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	return offer
 

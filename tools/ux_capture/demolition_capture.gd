@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 
 ## 固定验收盘面；只走真实技能与棋盘入口，不进入发布包或采集样本。
 const MAIN: PackedScene = preload("res://main.tscn")
@@ -89,7 +89,7 @@ func _offer(ids: Array[StringName]) -> SkillOffer:
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id != id: continue
 			offer.choices.append(skill)
-			var target: SkillTarget = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random) if skill.choice_effect != null else SkillTarget.new()
+			var target: SkillTarget = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 			target.level_before = SkillRules.level(run.state, skill)
 			target.level_after = target.level_before + 1
 			offer.targets[id] = target

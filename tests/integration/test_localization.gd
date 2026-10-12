@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
 var game: Node2D
@@ -50,7 +50,7 @@ func test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run() 
 
 func test_every_skill_has_english_text_without_mutating_resources() -> void:
 	TranslationServer.set_locale("en_US")
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 40)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 42)
 	var chinese: RegEx = RegEx.new()
 	chinese.compile("[\\x{4e00}-\\x{9fff}]")
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
@@ -75,7 +75,7 @@ func test_color_picker_switch_preserves_selected_target_and_board_view() -> void
 	offer.offer_id = 12
 	offer.reward_id = 4
 	offer.choices = [skill]
-	offer.targets[skill.skill_id] = skill.choice_effect.freeze(SkillRules.effect_context(board.run.state), board.run.state.rewards.target_random)
+	offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill, board.run.state.rewards.target_random)
 	popup.show_offer(offer)
 	popup._select(0)
 	var chosen: int = -1

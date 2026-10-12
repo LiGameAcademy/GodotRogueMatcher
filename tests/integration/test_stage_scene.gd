@@ -66,7 +66,7 @@ func test_goal_bonus_keeps_score_label_and_progress_in_sync() -> void:
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	for index: int in range(popup.offer.choices.size()):
 		var skill: SkillDefinition = popup.offer.choices[index]
-		if skill.choice_effect == null or not skill.choice_effect.requires_color_choice():
+		if not skill.requires_color_choice():
 			popup._select(index)
 			break
 	for frame: int in range(360):
@@ -87,7 +87,7 @@ func test_real_stage_pass_waits_for_presentation_then_enters_next_stage() -> voi
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	for index: int in range(popup.offer.choices.size()):
 		var skill: SkillDefinition = popup.offer.choices[index]
-		if skill.choice_effect == null or not skill.choice_effect.requires_color_choice():
+		if not skill.requires_color_choice():
 			popup._select(index)
 			break
 	for frame: int in range(360):

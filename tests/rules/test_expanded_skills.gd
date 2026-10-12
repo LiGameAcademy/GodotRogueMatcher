@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const NEW_IDS: Array[StringName] = [&"refill_less", &"refill_more", &"color_weight_up", &"color_weight_down", &"instant_color_clear", &"instant_line_clear", &"instant_percent_clear"]
 
@@ -21,7 +21,7 @@ func _offer(run: RunController, id: StringName) -> SkillOffer:
 	offer.reward_id = run.state.rewards.consumed_count + 1
 	var skill: SkillDefinition = _skill(id)
 	offer.choices = [skill]
-	offer.targets[id] = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	run.enter_rewards()
 	return offer
@@ -32,7 +32,7 @@ func _apply(run: RunController, id: StringName) -> SkillApplyResult:
 	return SkillRules.apply(run, offer.offer_id, id)
 
 func test_40_resources_and_support_skills_can_be_drawn_at_third_reward() -> void:
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 40)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 42)
 	var seen: Array[StringName] = []
 	for seed_value: int in range(150):
 		var run: RunController = _run(seed_value)
@@ -171,7 +171,7 @@ func test_line_clear_freezes_both_axes_removes_all_ordinary_targets_without_dire
 	var skill: SkillDefinition = _skill(&"instant_line_clear")
 	var axes: Array[int] = []
 	for index: int in range(30):
-		var target: SkillTarget = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+		var target: SkillTarget = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 		if not axes.has(target.line_axis): axes.append(target.line_axis)
 	assert_eq(axes.size(), 2)
 	var offer: SkillOffer = _offer(run, &"instant_line_clear")
@@ -193,7 +193,8 @@ func test_changed_targets_and_invalid_trigger_refuse_without_consuming_reward_or
 	var offer: SkillOffer = _offer(run, &"instant_color_clear")
 	var instance: AbilityInstance = run.state.explosion.instances[fuse.piece_id]
 	instance.definition = instance.definition.duplicate(true) as AbilityDefinition
-	instance.definition.trigger.trigger_chance = 0.5
+	# Removal abilities cannot use acquire event timing; makes validation_error reject clears that would touch this fuse.
+	instance.definition.event_type = &"skill_acquired"
 	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
 	assert_false(SkillRules.apply(run, offer.offer_id, &"instant_color_clear", 0).success)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)

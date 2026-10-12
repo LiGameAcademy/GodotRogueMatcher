@@ -50,17 +50,13 @@ func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 		offer.offer_id = 1
 		offer.reward_id = 6
 		offer.choices = [skill]
-		var target: SkillTarget = SkillTarget.new()
-		var effect: SkillEffect = skill.acquisition_effect()
-		if effect is ChoiceEffect: target = (effect as ChoiceEffect).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		elif effect is CompositeEffect: target = (effect as CompositeEffect).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		offer.targets[skill.skill_id] = target
+		offer.targets[skill.skill_id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 		run.state.rewards.active_offer = offer
 		run.state.pending_rewards = 1
 		run.enter_rewards()
 		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.requires_color_choice() else -1)
 		assert_true(result.success, "%s: %s" % [skill.skill_id, result.error])
-		if skill.choice_effect is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
+		if skill.acquisition_effect() is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
 	assert_eq(ids.size(), 42)
 	assert_eq(grades, [11, 13, 12, 5, 1])
 

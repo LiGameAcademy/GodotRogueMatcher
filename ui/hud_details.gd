@@ -5,14 +5,14 @@ extends RefCounted
 static func active_skills(state: RunState) -> Array[SkillDefinition]:
 	var result: Array[SkillDefinition] = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
-		var acquired: bool = SkillRules.level(state, skill) > 0 if not skill.levels.is_empty() else state.rewards.acquired.get(skill.skill_id, 0) > 0
-		if not acquired: continue
+		if SkillRules.level(state, skill) <= 0: continue
 		if skill.is_persistent or remaining_refills(skill, state) > 0: result.append(skill)
 	return result
 
 static func remaining_refills(skill: SkillDefinition, state: RunState) -> int:
-	if not skill.choice_effect is RefillCountEffect: return 0
-	return state.spawning.refill_batches[(skill.choice_effect as RefillCountEffect).delta]
+	var effect: RefillCountEffect = skill.refill_effect()
+	if effect == null: return 0
+	return state.spawning.refill_batches[effect.delta]
 
 ## 纯文本摘要供离线查看和验证；HUD使用独立横卡。
 static func skills(state: RunState) -> String:
@@ -27,8 +27,8 @@ static func skills(state: RunState) -> String:
 static func tools(state: RunState) -> String:
 	var lines: PackedStringArray = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
-		if not skill.choice_effect is RefillCountEffect: continue
-		var effect: RefillCountEffect = skill.choice_effect as RefillCountEffect
+		var effect: RefillCountEffect = skill.refill_effect()
+		if effect == null: continue
 		var remaining: int = state.spawning.refill_batches[effect.delta]
 		if remaining > 0: lines.append(TranslationServer.translate("%s：剩余 %d 次补棋") % [TranslationServer.translate(skill.title), remaining])
 	return "\n".join(lines) if not lines.is_empty() else TranslationServer.translate("暂无生效的临时技能")
@@ -38,7 +38,7 @@ static func history(state: RunState) -> String:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		if skill.is_persistent: continue
 		var count: int = state.rewards.acquired.get(skill.skill_id, 0)
-		if count > 0: lines.append(TranslationServer.translate("%s · %s %d 次") % [TranslationServer.translate(skill.title), TranslationServer.translate("取得") if skill.choice_effect is RefillCountEffect else TranslationServer.translate("已使用"), count])
+		if count > 0: lines.append(TranslationServer.translate("%s · %s %d 次") % [TranslationServer.translate(skill.title), TranslationServer.translate("取得") if skill.refill_effect() != null else TranslationServer.translate("已使用"), count])
 	return "\n".join(lines) if not lines.is_empty() else TranslationServer.translate("尚无使用记录")
 
 static func score_details(entries: Array[ScoreEntry], show_formula: bool = false) -> String:

@@ -21,7 +21,7 @@
 | score_multiplier | SCORE_MULTIPLIER | `DemolitionStatEffect(MULTIPLIER)` | 可重复；`choice_effect`（max=0） |
 | match_extra | MATCH_EXTRA | `DemolitionStatEffect(MATCH_EXTRA)` | 可重复；`choice_effect`（max=0） |
 
-`SkillDefinition.Action` 枚举仅保留以便旧 `.tres` 字段导入，运行时不再分支。
+`SkillDefinition.Action` 已在 #64 删除；运行时仅经 Effect / Runner。
 
 ## 已走 Effect 路径（先前片或本片对照）
 
@@ -49,6 +49,6 @@
 - `tests/rules/test_demolition_build.gd`：整目录取得冒烟。
 - `tests/rules/test_ability_composite_effects.gd` / `test_skill_instances.gd`：组合与实例回归。
 
-## 未在本片强制 levels 化
+## 未强制 levels 化（#64 仍成立）
 
-仍用 `choice_effect` 的持久 `InstallUpgrade` / 染色升级 / 目标奖励：已在 Runner 路径上，数值与满级仍由 `maximum_level` + 状态表拥有。完整 SkillInstance 等级表可在 #64 清理前按需逐张搬迁，不另开 Action 双入口。
+仍用 `choice_effect` 的持久 `InstallUpgrade` / 染色升级 / 目标奖励：已在 Runner 路径上，数值与满级仍由 `maximum_level` + 状态表拥有。不另开 apply 双入口。管线总览见 `SKILL_PIPELINE.md`。

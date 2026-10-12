@@ -22,6 +22,19 @@ static func unmarked_material(state: RunState) -> Array[int]:
 			ids.append(piece.piece_id)
 	return ids
 
+## Shared offer/UI freeze path: acquisition_effect → ChoiceEffect/CompositeEffect.freeze.
+static func freeze_target(state: RunState, skill: SkillDefinition, random: RandomNumberGenerator = null) -> SkillTarget:
+	var rng: RandomNumberGenerator = random if random != null else state.rewards.target_random
+	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
+	var target: SkillTarget = SkillTarget.new()
+	if effect is ChoiceEffect:
+		target = (effect as ChoiceEffect).freeze(effect_context(state), rng)
+	elif effect is CompositeEffect:
+		target = (effect as CompositeEffect).freeze(effect_context(state), rng)
+	target.level_before = level(state, skill)
+	target.level_after = target.level_before + 1
+	return target
+
 static func effect_context(state: RunState) -> ChoiceEffectContext:
 	var context: ChoiceEffectContext = ChoiceEffectContext.new()
 	context.spawn_config = RunController.SPAWN_CONFIG

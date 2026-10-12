@@ -16,14 +16,14 @@ Unifies acquire effect application through `AbilityEffectRunner` and adds `Compo
 
 In this slice: acquire composites of existing choice leaves (e.g. Refill+ColorWeight, Clear+Dye). Removal stays single `ExplodeEffect` (`on_eliminated_explosion.tres`). Full catalog migration is #62.
 
-## Playtest cards (in runtime catalog)
+## Catalog composite cards
 
 | Resource | Skill id | Order |
 | --- | --- | --- |
 | `gameplay/progression/content/composite_refill_color.tres` | `composite_refill_color` | Refill −1 (3 batches) → color weight +2 |
 | `gameplay/progression/content/composite_clear_dye.tres` | `composite_clear_dye` | Color clear (includes fuses) → dye survivors; blasts flush after dye |
 
-Both are starter, high weight, `minimum_reward = 1`. For fuse deferral: take `assign_fuse` first, mark a piece of the color you will clear, then pick **清色后染（试玩）**.
+Kept in the runtime catalog with normal offer weights (#64). For fuse deferral: take `assign_fuse` first, then **清色后染**.
 
 ## Reading order
 

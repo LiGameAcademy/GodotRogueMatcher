@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 
 ## 固定候选与棋盘；只截图，不写试玩记录或偏好。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
@@ -100,7 +100,7 @@ func _offer(run: RunController, ids: Array[StringName]) -> SkillOffer:
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id != id: continue
 			offer.choices.append(skill)
-			var target: SkillTarget = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random) if skill.choice_effect != null else SkillTarget.new()
+			var target: SkillTarget = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 			target.level_after = 1
 			offer.targets[id] = target
 	return offer
