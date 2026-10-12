@@ -1,10 +1,11 @@
 class_name SkillLevelDefinition
 extends Resource
 
-## 每级只读配置。首个迁移切片支持一个取得能力；多效果执行在#61扩展。
+## 每级只读配置。首个迁移切片支持一个取得能力；多效果执行在 #61 扩展。
 @export var level: int = 1
 @export var abilities: Array[AbilityDefinition] = []
 
+## 校验本级配置；非法时返回中文诊断，合法返回空串。
 func validation_error() -> String:
 	if level < 1 or abilities.size() != 1: return "本片等级配置需要一个取得能力"
 	var ability: AbilityDefinition = abilities[0]

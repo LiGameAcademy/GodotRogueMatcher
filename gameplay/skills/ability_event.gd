@@ -1,7 +1,7 @@
 class_name AbilityEvent
 extends RefCounted
 
-## 局内规则事件；来源为离场快照，插件只获得值字段。
+## 局内规则事件；来源为离场快照，插件条件只读取值字段。
 const PIECE_ELIMINATED: StringName = &"piece_eliminated"
 
 var event_type: StringName = PIECE_ELIMINATED
@@ -16,6 +16,7 @@ var source: PieceState
 var root_action_id: int = 0
 var generation: int = 0
 
+## 导出只读上下文字典，供条件查询使用。
 func to_context() -> Dictionary:
 	return {"event_id": event_id, "run_id": run_id, "parent_event_id": parent_event_id,
 		"source_ability_id": source_ability_id, "event_type": event_type, "cause": cause, "source_id": source.piece_id,

@@ -55,7 +55,7 @@ func test_failed_application_does_not_consume_and_empty_policy_is_explicit() -> 
 	assert_eq(instance.trigger_count, 0)
 	instance.definition.consume_on_empty = true
 	accepted = bus.dispatch([bus.removal(_source(), &"consume", 3, 1)], [instance])
-	assert_true(accepted.is_empty(), "普通引信不允许consume")
+	assert_true(accepted.is_empty(), "普通引信不允许主动引爆")
 	accepted = bus.dispatch([bus.removal(_source(1, true), &"consume", 3, 1)], [instance])
 	assert_true(bus.complete(accepted[0], true, 0))
 	assert_eq(instance.trigger_count, 1)

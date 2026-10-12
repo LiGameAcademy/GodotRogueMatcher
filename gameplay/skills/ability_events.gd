@@ -8,6 +8,7 @@ var _next_id: int = 1
 var _dispatched: Dictionary[int, bool] = {}
 var _active: bool = true
 
+## 从离场棋子冻结来源快照，分配本局唯一事件编号。
 func removal(source: PieceState, cause: StringName, root: int, generation: int, run_id: String = "", parent_id: int = 0, source_ability: StringName = &"") -> AbilityEvent:
 	var event: AbilityEvent = AbilityEvent.new()
 	event.event_id = _next_id
@@ -22,7 +23,7 @@ func removal(source: PieceState, cause: StringName, root: int, generation: int, 
 	event.source_ability_id = source_ability
 	return event
 
-## 批次预检后，按世代/来源ID/事件ID、拥有者/安装序/能力ID稳定分发。
+## 批次预检后，按世代、来源编号、事件编号以及拥有者、安装序、能力标识稳定分发。
 func dispatch(events: Array[AbilityEvent], listeners: Array[AbilityInstance]) -> Array[AbilityActivation]:
 	last_error = ""
 	if not _active: return []
@@ -85,10 +86,12 @@ func complete(activation: AbilityActivation, applied: bool, affected_count: int)
 		instance.trigger_count += 1
 	return applied
 
+## 关闭本局分发器；旧事件与未完成票据随后失效。
 func close() -> void:
 	_active = false
 	_dispatched.clear()
 
+## 导出去重与编号状态，供规则快照记录。
 func data() -> Dictionary:
 	var ids: Array[int] = []
 	ids.assign(_dispatched.keys())

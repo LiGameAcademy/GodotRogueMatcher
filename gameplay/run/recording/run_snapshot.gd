@@ -44,7 +44,7 @@ static func config(run: RunController) -> Dictionary:
 		skills.append(fields)
 	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
-## 登记显式局内触发参数，排除插件管理器、时间和共享运行计数。
+## 登记显式局内触发参数，排除插件管理器、时间字段和共享运行计数。
 static func trigger_config(ability: AbilityDefinition) -> Dictionary:
 	var error: String = AbilityTriggerAdapter.validation_error(ability)
 	if not error.is_empty(): return {"adapter": "local-events-v1", "invalid": error}

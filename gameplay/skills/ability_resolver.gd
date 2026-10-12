@@ -12,6 +12,7 @@ func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) 
 	state = run_state
 	config = rules_config
 
+## 放置核心并挂上离场爆破实例；棋盘已有核心时拒绝。
 func add_core(coordinate: Vector2i, match_color: int = -1) -> PieceState:
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id == &"special_demolition":
@@ -23,6 +24,7 @@ func add_core(coordinate: Vector2i, match_color: int = -1) -> PieceState:
 		_attach(core.piece_id)
 	return core
 
+## 给普通棋子安装引信；已有内容或已挂实例时拒绝。
 func assign_fuse(piece_id: int) -> bool:
 	var piece: PieceState = state.rules.state.get_piece(piece_id)
 	if piece == null or not piece.content_id.is_empty() or state.explosion.instances.has(piece_id):
@@ -42,7 +44,7 @@ func upgrade_reward() -> bool:
 	state.explosion.reward_level += 1
 	return true
 
-## 同代按来源ID排序；后代只在当前代完成后执行。没有UI或动画依赖。
+## 同代按来源编号排序；后代只在当前代完成后执行。没有界面或动画依赖。
 func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	var results: Array[MatchResult] = []
 	last_error = ""
@@ -91,6 +93,7 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[Matc
 	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
+## 结算前预检配置与事件预算；失败时返回中文诊断。
 func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0) -> String:
 	if new_sources > 0:
 		var configuration_error: String = AbilityTriggerAdapter.validation_error(EXPLOSION)

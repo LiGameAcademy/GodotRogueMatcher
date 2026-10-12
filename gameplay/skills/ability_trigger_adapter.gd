@@ -6,7 +6,7 @@ const MAX_CONDITION_DEPTH: int = 8
 const EVENTS: Array[StringName] = [&"piece_eliminated", &"skill_acquired", &"skill_upgraded"]
 const CAUSES: Array[StringName] = [&"match", &"explosion", &"skill_clear", &"consume"]
 
-## 仅复用插件的只读Condition；不激活GameplayTrigger或订阅全局总线。
+## 仅复用插件的只读条件；不激活共享触发器或订阅全局总线。
 static func validation_error(definition: AbilityDefinition) -> String:
 	if definition == null or definition.ability_id.is_empty(): return "能力ID缺失"
 	if not EVENTS.has(definition.event_type): return "能力事件未接入"
@@ -19,7 +19,7 @@ static func validation_error(definition: AbilityDefinition) -> String:
 		if not error.is_empty(): return error
 	return ""
 
-## 纯查询，次数仅由应用完成后的AbilityEvents.complete提交。
+## 纯查询，次数仅由应用完成后的事件分发器提交。
 static func matches(instance: AbilityInstance, event: AbilityEvent) -> bool:
 	if not validation_error(instance.definition).is_empty(): return false
 	if event.source == null or instance.owner_id != event.source.piece_id: return false
@@ -54,7 +54,7 @@ static func _condition_error(condition: TriggerCondition, ancestors: Array[Trigg
 	elif not condition is AlwaysAbilityCondition: return "未支持的触发条件；概率尚未接入局内随机协议"
 	return ""
 
-## 固定配置顺序短路求值；拒绝未支持的插件条件，避免时间或全局RNG。
+## 固定配置顺序短路求值；拒绝未支持的插件条件，避免时间或全局随机数。
 static func _evaluate(condition: TriggerCondition, context: Dictionary) -> bool:
 	if condition is CompositeTriggerCondition:
 		var composite: CompositeTriggerCondition = condition as CompositeTriggerCondition
