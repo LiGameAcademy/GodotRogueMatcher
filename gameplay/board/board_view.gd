@@ -158,6 +158,8 @@ func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionStat
 		var marker: String = ""
 		if explosion.instances.has(piece_state.piece_id):
 			marker = "爆" if piece_state.content_id == &"special_demolition" else "引"
+		elif LineClearState.is_line_piece(piece_state.content_id):
+			marker = "行" if piece_state.content_id == LineClearState.CONTENT_ROW else "列"
 		piece.set_ability_marker(marker)
 		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data))
 

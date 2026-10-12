@@ -18,6 +18,7 @@ var skill_instances: Dictionary[StringName, SkillInstance] = {}
 var ability_events: AbilityEvents = AbilityEvents.new()
 var spawn_history: Array[SpawnResult] = []
 var explosion: ExplosionState = ExplosionState.new()
+var line_clear: LineClearState = LineClearState.new()
 var stage: StageState = StageState.new()
 var end_reason: StringName = &""
 var dye: DyeState = DyeState.new()
@@ -56,6 +57,7 @@ func reset_counters() -> void:
 	spawning = SpawnState.new(RunController.SPAWN_CONFIG, _initial_seed)
 	spawn_history.clear()
 	explosion = ExplosionState.new()
+	line_clear = LineClearState.new()
 	dye = DyeState.new()
 	goal_bonus_score = 0
 	rule_error = ""
