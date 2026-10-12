@@ -1,6 +1,7 @@
 class_name SkillDefinition
 extends Resource
 
+## Legacy Action enum kept only so old .tres `action = N` still import; runtime no longer branches on it.
 enum Action { CORE_DROP, ASSIGN_FUSE, BLAST_RADIUS, BLAST_REWARD, SCORE_MULTIPLIER, MATCH_EXTRA, BLAST_EXTRA, THIN }
 
 @export var skill_id: StringName
@@ -42,6 +43,23 @@ func requires_color_choice(current_level: int = 0) -> bool:
 	if effect is ChoiceEffect: return (effect as ChoiceEffect).requires_color_choice()
 	if effect is CompositeEffect: return (effect as CompositeEffect).requires_color_choice()
 	return false
+
+## Fuse assign stays available after another instant utility filled a reward slot.
+func counts_as_utility_pick() -> bool:
+	return not is_persistent and not (acquisition_effect() is AssignFuseEffect)
+
+## Soft fallback pool membership for offer generation.
+func is_fallback_skill() -> bool:
+	if fallback_only or skill_id == &"precision_reward": return true
+	var effect: SkillEffect = acquisition_effect()
+	if effect is DemolitionStatEffect:
+		return (effect as DemolitionStatEffect).stat in [DemolitionStatEffect.Stat.MULTIPLIER, DemolitionStatEffect.Stat.MATCH_EXTRA]
+	return false
+
+## Instant tools skip affinity; fuse assign still feeds exp affinity when owned.
+func contributes_affinity() -> bool:
+	if acquisition_effect() is ThinMaterialEffect: return false
+	return is_persistent or acquisition_effect() is AssignFuseEffect
 
 func validation_error() -> String:
 	if levels.is_empty(): return ""

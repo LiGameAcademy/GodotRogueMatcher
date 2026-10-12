@@ -1,6 +1,11 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/demolition_stat_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+stat = 2
 
 [resource]
 script = ExtResource("1")
@@ -8,7 +13,7 @@ skill_id = &"score_multiplier"
 title = "计分倍率"
 description = "五连基础分的全局倍率增加0.2，额外分不受倍率影响。"
 short_description = "五连分数倍率+0.2/级；额外得分不变。"
-action = 4
+choice_effect = SubResource("effect")
 base_weight = 8.0
 tags = Array[StringName]([&"mult"])
 is_starter = false

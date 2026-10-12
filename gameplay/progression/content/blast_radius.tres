@@ -1,6 +1,24 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/demolition_stat_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+stat = 0
+
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("3")
+ability_id = &"blast_radius"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("ability")])
 
 [resource]
 script = ExtResource("1")
@@ -8,7 +26,7 @@ skill_id = &"blast_radius"
 title = "扩大爆破"
 description = "本局所有当前及未来爆壳手和引信的爆炸半径由1扩大到2。限1级。"
 short_description = "核心与引信爆炸半径：1 → 2；余震不变。"
-action = 2
+levels = Array[ExtResource("2")]([SubResource("level_1")])
 base_weight = 8.0
 tags = Array[StringName]([&"exp"])
 is_starter = false
