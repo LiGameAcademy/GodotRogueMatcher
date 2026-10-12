@@ -23,7 +23,7 @@ func _ready() -> void:
 	back_button.pressed.connect(back_requested.emit)
 
 func configure(target: SkillTarget) -> void:
-	_target = target
+	_target = target.color_picker_source() if target != null else null
 	_error = ""
 	selected_color = -1
 	_render_colors()

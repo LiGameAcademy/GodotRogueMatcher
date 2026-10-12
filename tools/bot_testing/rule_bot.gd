@@ -27,7 +27,7 @@ func skill_command(run: RunController, id: StringName) -> ChooseSkillCommand:
 	command.offer_id = run.state.rewards.active_offer.offer_id
 	command.reward_id = run.state.rewards.active_offer.reward_id
 	command.skill_id = id
-	var target: SkillTarget = run.state.rewards.active_offer.targets[id]
+	var target: SkillTarget = run.state.rewards.active_offer.targets[id].color_picker_source()
 	var colors: Array[int] = []
 	for color: int in range(target.color_groups.size()):
 		if not target.color_groups[color].is_empty(): colors.append(color)

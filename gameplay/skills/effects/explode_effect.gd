@@ -1,7 +1,7 @@
 class_name ExplodeEffect
-extends Resource
+extends SkillEffect
 
-## 只查询当前目标，不改占格、不计分；离场来源使用快照。
+## Query current targets only; no occupancy or score writes. Removal sources use snapshots.
 func build_request(state: BoardState, source: PieceState, radius: int) -> BlastRequest:
 	var result: BlastRequest = BlastRequest.new()
 	result.source = source.copy()

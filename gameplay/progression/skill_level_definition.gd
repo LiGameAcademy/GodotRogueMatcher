@@ -1,7 +1,7 @@
 class_name SkillLevelDefinition
 extends Resource
 
-## Per-level read-only config. The first migration slice allows one acquire ability; multi-effect execution expands in #61.
+## Per-level read-only config. One acquire ability root; the root may be a leaf or CompositeEffect.
 @export var level: int = 1
 @export var abilities: Array[AbilityDefinition] = []
 
@@ -16,5 +16,5 @@ func validation_error() -> String:
 		return "acquire conditions and limits remain owned by choice preflight"
 	var expected: StringName = &"skill_acquired" if level == 1 else &"skill_upgraded"
 	if ability.event_type != expected: return "acquire/upgrade event timing does not match level"
-	if not ability.effect is ChoiceEffect: return "acquire ability requires choice effect"
-	return ""
+	if ability.effect is ChoiceEffect or ability.effect is CompositeEffect: return ""
+	return "acquire ability requires choice or composite effect"

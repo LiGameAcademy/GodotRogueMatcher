@@ -1,13 +1,16 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v18-ability-events"
+const RULES_VERSION: String = "run-commands-v19-effect-composite"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
-	if value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
+	if value is SkillEffect or value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
 		if value is AbilityDefinition and not AbilityTriggerAdapter.validation_error(value as AbilityDefinition).is_empty():
 			return {"invalid": AbilityTriggerAdapter.validation_error(value as AbilityDefinition)}
+		if value is CompositeEffect:
+			var composite_error: String = (value as CompositeEffect).validation_error()
+			if not composite_error.is_empty(): return {"invalid": composite_error}
 		var script: Script = value.get_script() as Script
 		return {"script": script.resource_path, "parameters": resource_fields(value)}
 	if value is TriggerCondition: return _condition_config(value as TriggerCondition)
@@ -80,7 +83,8 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 	for skill: SkillDefinition in offer.choices:
 		choices.append(String(skill.skill_id))
 		var target: SkillTarget = offer.targets[skill.skill_id]
-		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": target.color_groups, "fuse_counts": target.fuse_counts}
+		var picker: SkillTarget = target.color_picker_source()
+		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": picker.color_groups, "fuse_counts": picker.fuse_counts}
 	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "choices": choices, "targets": targets, "pressure_snapshot": offer.pressure_snapshot, "rescue_multiplier": offer.rescue_multiplier, "offer_rules_version": offer.rules_version, "baseline_weights": offer.baseline_weights, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
 
 static func random_data(random: RandomNumberGenerator) -> Dictionary:

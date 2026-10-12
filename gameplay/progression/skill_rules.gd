@@ -61,13 +61,17 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 	if level(state, skill) >= 1000000: return "等级已达安全上限"
 	var early_rescue: bool = RescueOfferRules.early_allowed(state, skill, frozen_pressure)
 	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
-	var effect: ChoiceEffect = skill.acquisition_effect(level(state, skill))
+	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
 	if effect != null:
 		if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
 		if not skill.levels.is_empty() and effect is InstallUpgradeEffect:
 			var upgrade: StringName = (effect as InstallUpgradeEffect).upgrade
 			if state.explosion.level(upgrade) != level(state, skill): return "技能等级与生成修正不一致"
-		return effect.rejection(effect_context(state))
+		if effect is ChoiceEffect:
+			return (effect as ChoiceEffect).rejection(effect_context(state))
+		if effect is CompositeEffect:
+			return (effect as CompositeEffect).rejection(effect_context(state))
+		return "unsupported skill effect"
 	if skill.action == SkillDefinition.Action.CORE_DROP: return "技能缺少执行配置"
 	match skill.action:
 		SkillDefinition.Action.ASSIGN_FUSE:
@@ -105,34 +109,8 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	if targets == null:
 		result.error = "Missing frozen target"
 		return result
-	var effect: ChoiceEffect = skill.acquisition_effect(level(state, skill))
-	if effect != null and effect.requires_color_choice():
-		targets = (effect as ClearMaterialEffect).choose_color(targets, selected_color)
-		if targets == null:
-			result.error = "请先选择有效颜色"
-			return result
-	elif selected_color != -1:
-		result.error = "该技能无需选色"
-		return result
-	var request: ChoiceEffectRequest = null
-	# 冻结目标在提交前再次校验，失败不修改棋盘、不消费奖励。
-	if effect != null:
-		request = effect.build(effect_context(state), targets)
-		result.error = request.error
-		if result.error.is_empty() and request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE]:
-			result.error = run.abilities.validation_error(1)
-		if not result.error.is_empty(): return result
-	if request != null and request.kind == ChoiceEffectRequest.Kind.UNLOCK_CORE:
-		# 先在独立棋盘预检事件预算，避免落子后才发现无法完整结算。
-		var preview: BoardRules = BoardRules.new(BoardState.new(state.rules.state.columns, state.rules.state.rows), state.rules.minimum_match_count)
-		for piece: PieceState in state.rules.state.get_snapshot():
-			preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
-		preview.place_piece(request.coordinate, request.color, &"special_demolition")
-		var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
-		result.error = run.abilities.validation_error(groups.size(), 1, 1)
-		if not result.error.is_empty():
-			return result
-	elif request == null and skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
+	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
+	if effect == null and skill.action in [SkillDefinition.Action.ASSIGN_FUSE, SkillDefinition.Action.THIN]:
 		var legal: Array[int] = unmarked_material(state)
 		var maximum: int = 2 + state.explosion.level(&"fuse_capacity") if skill.action == SkillDefinition.Action.ASSIGN_FUSE else skill.target_count
 		if targets.piece_ids.is_empty() or targets.piece_ids.size() > maximum:
@@ -144,28 +122,18 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 				result.error = "原定材料目标已经失效"
 				return result
 			unique.append(target)
+	if effect != null:
+		result.error = AbilityEffectRunner.preflight(run, effect, targets, selected_color)
+		if not result.error.is_empty(): return result
 	state.action_id += 1
 	state.rule_action_id = state.action_id
-	if request != null:
-		match request.kind:
-			ChoiceEffectRequest.Kind.UNLOCK_CORE:
-				state.explosion.core_pool_unlocked = true
-				var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
-				result.created.append(core)
-				result.matches = run.resolve_matches_at(core.coordinate)
-			ChoiceEffectRequest.Kind.GOAL_BONUS: state.goal_bonus_score = request.score_bonus
-			ChoiceEffectRequest.Kind.REFILL: state.spawning.extend_refill(request.delta, request.batches)
-			ChoiceEffectRequest.Kind.COLOR_WEIGHT: state.spawning.color_weights[request.color] += request.delta
-			ChoiceEffectRequest.Kind.UPGRADE:
-				state.explosion.upgrades[request.upgrade] = state.explosion.level(request.upgrade) + 1
-				if request.upgrade in [&"core_fuse_payload", &"fuse_match_plant"]: state.explosion.fuse_unlocked = true
-			ChoiceEffectRequest.Kind.DYE_UPGRADE:
-				state.dye.upgrades[request.upgrade] = state.dye.level(request.upgrade) + 1
-			ChoiceEffectRequest.Kind.DYE:
-				result.matches = DyeRules.recolor(run.abilities, request.piece_ids, request.color)
-			ChoiceEffectRequest.Kind.CLEAR:
-				for id: int in request.piece_ids: result.removed.append(state.rules.state.get_piece(id).copy())
-				result.matches = run.abilities.resolve_removal(result.removed, &"skill_clear")
+	if effect != null:
+		result.error = AbilityEffectRunner.apply_skill_effect(run, effect, targets, result, selected_color)
+		if not result.error.is_empty():
+			run.abilities.abandon_held_blasts()
+			state.rule_error = result.error
+			state.phase = RunState.Phase.ERROR
+			return result
 	else:
 		_apply_legacy(run, skill, targets, result)
 	result.matches.append_array(DemolitionRules.settle(state, state.rule_action_id))

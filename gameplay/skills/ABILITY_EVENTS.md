@@ -42,7 +42,7 @@ Definitions stay read-only, counts stay exclusive to `AbilityInstance`, and the 
 Rules version is `run-commands-v18-ability-events`, recording condition config, consume policy, event ids / dedupe state, and pending ids.
 v17 and earlier commands are not recomputed across versions; historical telemetry files are kept. Current records still exact-replay; old play sessions need not be re-run.
 Acquire/upgrade still uses the #59 directed ChoiceEffect path; this slice does not broadcast acquire facts or add new skills / full timing coverage.
-Generic leaf requests and ordered Effect composition belong to #61; full skill migration to #62; detailed trigger tooling to #63.
+Generic leaf requests and ordered Effect composition: see `EFFECT_COMPOSITE.md` (#61). Full skill migration to #62; detailed trigger tooling to #63.
 
 Primary acceptance scripts: `tests/rules/test_ability_events.gd`, `test_ability_triggers.gd`, `test_explosion_rules.gd`.
 Godot 4.7.2: 13 related scripts, 112 tests / 2283 asserts, log `.godot/issue60-regression.log`.

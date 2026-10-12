@@ -28,6 +28,24 @@ static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> Stri
 		return TranslationServer.translate("本次清理：%d枚普通棋") % target.piece_ids.size()
 	if skill.acquisition_effect() is UnlockCoreSupplyEffect:
 		return TranslationServer.translate("立即投放：%s") % _color_name(target.color)
+	if skill.acquisition_effect() is CompositeEffect:
+		var composite_target: CompositeSkillTarget = target as CompositeSkillTarget
+		if composite_target == null or composite_target.leaf_targets.is_empty():
+			return TranslationServer.translate("有序组合效果")
+		var lines: PackedStringArray = []
+		var composite: CompositeEffect = skill.acquisition_effect() as CompositeEffect
+		for index: int in range(mini(composite.children.size(), composite_target.leaf_targets.size())):
+			var leaf: SkillEffect = composite.children[index]
+			var leaf_target: SkillTarget = composite_target.leaf_targets[index]
+			if leaf is RefillCountEffect:
+				lines.append(TranslationServer.translate("补棋：%d → %d") % [leaf_target.value_before, leaf_target.value_after])
+			elif leaf is ColorWeightEffect:
+				lines.append(TranslationServer.translate("%s权重：%d → %d") % [_color_name(leaf_target.color), leaf_target.value_before, leaf_target.value_after])
+			elif leaf is ClearMaterialEffect:
+				lines.append(TranslationServer.translate("自选颜色清理") if (leaf as ClearMaterialEffect).requires_color_choice() else TranslationServer.translate("清理%d枚") % leaf_target.piece_ids.size())
+			elif leaf is DyeMaterialEffect:
+				lines.append(TranslationServer.translate("染色预览：%s · %d枚") % [_color_name(leaf_target.color), leaf_target.piece_ids.size()])
+		return " → ".join(lines) if not lines.is_empty() else TranslationServer.translate("有序组合效果")
 	if skill.choice_effect is RefillCountEffect:
 		return TranslationServer.translate("本次补棋：%d → %d 枚 · 余%d次") % [target.value_before, target.value_after, target.remaining_after]
 	if skill.choice_effect is ClearMaterialEffect:

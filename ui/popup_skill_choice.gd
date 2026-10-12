@@ -138,10 +138,11 @@ func show_error(reason: String) -> void:
 func _select(index: int) -> void:
 	if _submitted or offer == null or viewing_board or selection_paused or index < 0 or index >= offer.choices.size(): return
 	var skill: SkillDefinition = offer.choices[index]
-	if skill.choice_effect != null and skill.choice_effect.requires_color_choice():
+	var target: SkillTarget = offer.targets[skill.skill_id]
+	if skill.requires_color_choice(target.level_before):
 		_error = ""
 		_target_index = index
-		picker.configure(offer.targets[skill.skill_id])
+		picker.configure(target)
 		options.hide()
 		picker.show()
 		heading.text = tr("%s · 选择颜色") % tr(skill.title)

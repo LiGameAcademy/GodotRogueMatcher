@@ -15,7 +15,8 @@ func _offer(run: RunController, skill: SkillDefinition) -> SkillOffer:
 	offer.reward_id = run.state.rewards.consumed_count + 1
 	offer.choices = [skill]
 	var current: int = SkillRules.level(run.state, skill)
-	var target: SkillTarget = skill.acquisition_effect(current).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	var effect: SkillEffect = skill.acquisition_effect(current)
+	var target: SkillTarget = (effect as ChoiceEffect).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 	target.level_before = current
 	target.level_after = current + 1
 	offer.targets[skill.skill_id] = target

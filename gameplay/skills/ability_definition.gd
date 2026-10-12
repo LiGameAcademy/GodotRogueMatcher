@@ -11,5 +11,5 @@ extends Resource
 @export var max_triggers: int = 0
 ## Whether a legal empty result consumes a charge; removal blasts keep the existing policy.
 @export var consume_on_empty: bool = true
-## Effect resource; load-time type checks apply. Acquire/removal request unification lands in #61.
+## Effect root (ChoiceEffect, ExplodeEffect, or CompositeEffect). Load-time type checks apply.
 @export var effect: Resource
