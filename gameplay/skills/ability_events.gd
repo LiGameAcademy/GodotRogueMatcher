@@ -7,6 +7,8 @@ var _scope: RefCounted = RefCounted.new()
 var _next_id: int = 1
 var _dispatched: Dictionary[int, bool] = {}
 var _active: bool = true
+## Per-command debug traces drained by RunRecorder into RuleResult.activations.
+var _traces: Array[Dictionary] = []
 
 ## Freeze a removal source snapshot and assign a unique in-run event id.
 func removal(source: PieceState, cause: StringName, root: int, generation: int, run_id: String = "", parent_id: int = 0, source_ability: StringName = &"") -> AbilityEvent:
@@ -54,7 +56,9 @@ func dispatch(events: Array[AbilityEvent], listeners: Array[AbilityInstance]) ->
 		if _dispatched.has(event.event_id): continue
 		_dispatched[event.event_id] = true
 		for instance: AbilityInstance in ordered_listeners:
-			if instance.pending_event_id != 0 or not AbilityTriggerAdapter.matches(instance, event): continue
+			if instance.pending_event_id != 0: continue
+			var explanation: Dictionary = AbilityTriggerAdapter.explain(instance, event)
+			if not bool(explanation.get("matched", false)): continue
 			var activation: AbilityActivation = AbilityActivation.new()
 			activation.instance = instance
 			activation.event = AbilityEvent.new()
@@ -68,6 +72,7 @@ func dispatch(events: Array[AbilityEvent], listeners: Array[AbilityInstance]) ->
 			activation.event.run_id = event.run_id
 			activation.event.parent_event_id = event.parent_event_id
 			activation.event.source_ability_id = event.source_ability_id
+			activation.debug = explanation
 			instance.pending_event_id = event.event_id
 			result.append(activation)
 	return result
@@ -82,14 +87,40 @@ func complete(activation: AbilityActivation, applied: bool, affected_count: int)
 	if instance.pending_event_id != activation.event.event_id: return false
 	instance.pending_event_id = 0
 	activation.completed = true
-	if applied and (affected_count > 0 or instance.definition.consume_on_empty):
+	var consumed: bool = applied and (affected_count > 0 or instance.definition.consume_on_empty)
+	if consumed:
 		instance.trigger_count += 1
+	_traces.append({
+		"event_id": activation.event.event_id,
+		"parent_event_id": activation.event.parent_event_id,
+		"owner_id": instance.owner_id,
+		"skill_instance_id": instance.skill_instance_id,
+		"ability_id": instance.definition.ability_id,
+		"source_ability_id": activation.event.source_ability_id,
+		"cause": activation.event.cause,
+		"generation": activation.event.generation,
+		"matched": true,
+		"reason": String(activation.debug.get("reason", "")),
+		"conditions": activation.debug.get("conditions", []),
+		"applied": applied,
+		"affected_count": affected_count,
+		"consumed": consumed,
+		"consume_on_empty": instance.definition.consume_on_empty,
+		"trigger_count_after": instance.trigger_count,
+	})
 	return applied
+
+## Drain and clear per-command activation traces for RuleResult.activations.
+func take_traces() -> Array[Dictionary]:
+	var traces: Array[Dictionary] = _traces.duplicate(true)
+	_traces.clear()
+	return traces
 
 ## Close this run's dispatcher; old events and pending tickets become invalid.
 func close() -> void:
 	_active = false
 	_dispatched.clear()
+	_traces.clear()
 
 ## Export dedupe and id state for rule snapshots.
 func data() -> Dictionary:

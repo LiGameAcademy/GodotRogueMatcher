@@ -20,6 +20,8 @@ func _ready() -> void:
 	$Controls/Path/Load.pressed.connect(_load_path)
 	$Controls/Actions/Step.pressed.connect(step)
 	$Controls/Actions/Speed.item_selected.connect(_speed_selected)
+	if has_node("Controls/Actions/Validate"):
+		$Controls/Actions/Validate.pressed.connect(validate_rules)
 	clock.timeout.connect(_tick)
 	var args: PackedStringArray = OS.get_cmdline_user_args()
 	if not args.is_empty(): record_path = args[0]
@@ -47,8 +49,23 @@ func load_record(path: String) -> bool:
 	view.configure(dimensions.x, dimensions.y, Vector2(64, 64), Vector2.ONE)
 	cursor = 1
 	if not _show_state(header.initial): return false
-	status.text = "结果观看 · 不验证规则一致性\n%s%s" % [path, "\n记录不完整：" + error if not error.is_empty() else ""]
+	var read_note: String = ""
+	if not error.is_empty():
+		read_note = "\n读取警告：" + RuleReplay.describe_error(error)
+	status.text = "结果观看 · 不验证规则一致性（可用“验证回放”）\n%s%s" % [path, read_note]
 	return true
+
+## Exact RuleReplay against current build; presentation speed does not affect the check.
+func validate_rules() -> void:
+	if path_input.text.is_empty() and record_path.is_empty():
+		status.text = "验证失败：未指定记录路径"
+		return
+	var path: String = path_input.text if not path_input.text.is_empty() else record_path
+	var replay: RuleReplay = RuleReplay.new()
+	if replay.replay_file(path):
+		status.text = "验证通过：完整状态重算一致（规则版 %s · 已检 %d 条）" % [RunSnapshot.RULES_VERSION, replay.checked_records]
+	else:
+		status.text = "验证失败：%s\n机器码：%s" % [RuleReplay.describe_error(replay.error), replay.error]
 
 func step() -> void:
 	if busy or records.is_empty(): return
@@ -114,6 +131,12 @@ func _present(row: Dictionary) -> void:
 	_events(row.get("events", []))
 	if not await view.wait_for_presentation() or generation != _generation: return
 	_show_state(row.after)
+	var activations: Array = row.get("activations", [])
+	if not activations.is_empty():
+		var lines: PackedStringArray = []
+		for activation: Dictionary in activations:
+			lines.append("%s · 来源棋%d · 消费=%s · 影响%d" % [String(activation.get("ability_id", "?")), int(str(activation.get("owner_id", "0"))), str(activation.get("consumed", false)), int(str(activation.get("affected_count", "0")))])
+		status.text += "\n触发：" + " | ".join(lines)
 
 func _events(events: Array) -> void:
 	for event: Dictionary in events:

@@ -25,14 +25,28 @@ static func validation_error(definition: AbilityDefinition) -> String:
 
 ## Pure query; trigger counts are committed only by AbilityEvents.complete after application.
 static func matches(instance: AbilityInstance, event: AbilityEvent) -> bool:
-	if not validation_error(instance.definition).is_empty(): return false
-	if event.source == null or instance.owner_id != event.source.piece_id: return false
+	return bool(explain(instance, event).get("matched", false))
+
+## Deterministic condition walk for records/debug; short-circuits like matches().
+static func explain(instance: AbilityInstance, event: AbilityEvent) -> Dictionary:
+	var conditions: Array[Dictionary] = []
+	var definition_error: String = validation_error(instance.definition)
+	if not definition_error.is_empty():
+		return {"matched": false, "reason": definition_error, "conditions": conditions}
+	if event.source == null or instance.owner_id != event.source.piece_id:
+		return {"matched": false, "reason": "owner_mismatch", "conditions": conditions}
 	var definition: AbilityDefinition = instance.definition
-	if definition.event_type != event.event_type: return false
-	if definition.max_triggers > 0 and instance.trigger_count >= definition.max_triggers: return false
-	for condition: TriggerCondition in definition.conditions:
-		if not _evaluate(condition, event.to_context()): return false
-	return true
+	if definition.event_type != event.event_type:
+		return {"matched": false, "reason": "event_type_mismatch", "conditions": conditions}
+	if definition.max_triggers > 0 and instance.trigger_count >= definition.max_triggers:
+		return {"matched": false, "reason": "trigger_limit_reached", "conditions": conditions}
+	var context: Dictionary = event.to_context()
+	for index: int in range(definition.conditions.size()):
+		var accepted: bool = _evaluate(definition.conditions[index], context)
+		conditions.append({"index": index, "result": accepted})
+		if not accepted:
+			return {"matched": false, "reason": "condition_rejected", "conditions": conditions}
+	return {"matched": true, "reason": "", "conditions": conditions}
 
 static func _condition_error(condition: TriggerCondition, ancestors: Array[TriggerCondition]) -> String:
 	if condition == null: return "ability trigger condition missing"
