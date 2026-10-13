@@ -148,7 +148,7 @@ func test_goal_reward_score_stays_outside_completed_action_and_has_own_identity(
 	assert_eq(goal.payload.implemented_goal_effects, ["goal_score_bonus"])
 	assert_eq(goal.payload.P_before, goal.payload.P_after)
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
-	var target: SkillTarget = SkillTarget.new()
+	var target: SkillTarget = SkillRules.freeze_target(run.state, skill)
 	target.coordinate = Vector2i(4, 0)
 	target.color = 1
 	var offer: SkillOffer = SkillOffer.new()

@@ -23,7 +23,7 @@ func _install(run: RunController, key: StringName, value: int = 1) -> void:
 		for index: int in range(value): instance.commit_next_level()
 		run.state.skill_instances[key] = instance
 
-func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
+func test_catalog_has_42_real_distinct_effects_and_five_grades() -> void:
 	var ids: Array[StringName] = []
 	var grades: Array[int] = [0, 0, 0, 0, 0]
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
@@ -31,7 +31,7 @@ func test_catalog_has_40_real_distinct_effects_and_five_grades() -> void:
 		ids.append(skill.skill_id)
 		grades[skill.rarity] += 1
 		var run: RunController = _run()
-		if skill.choice_effect is InstallGoalBonusEffect:
+		if skill.acquisition_effect() is InstallGoalBonusEffect:
 			var config: StageConfig = StageConfig.new()
 			config.targets = [100]
 			config.pressure_intervals = [4]

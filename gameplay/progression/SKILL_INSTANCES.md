@@ -1,5 +1,7 @@
 # O4 / #59：技能定义与运行实例首片
 
+> 本页保留首片历史证据。当前42卡均经 Effect/Runner；其中35卡直接配置叶子、7卡配置分级能力，不再存在 Action 执行分支。当前入口与回归说明见 [SKILL_PIPELINE.md](SKILL_PIPELINE.md)。
+
 集成分支 `feature/skill-refactor`；本片独立分支 `feat/issue-59-skill-instances`。
 仅迁移两张现有卡，保留40项运行目录和当前数值，不扩染色或增加玩法。
 
@@ -43,4 +45,3 @@ Godot 4.7.2，13个相关脚本107测试/3311断言通过，日志 `.godot/issue
 #62 Action-branch migration: see `SKILL_MIGRATION.md` (rules v20).
 #63 recording/debug: see `../skills/SKILL_RECORDING.md` (rules v21).
 #64 cleanup / pipeline index: see `SKILL_PIPELINE.md`.
-

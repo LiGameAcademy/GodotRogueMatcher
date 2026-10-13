@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const MAIN: PackedScene = preload("res://main.tscn")
 const POPUP: PackedScene = preload("res://ui/popup_skill_choice.tscn")
@@ -67,9 +67,7 @@ func test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds() -> 
 		offer.offer_id = 9
 		offer.reward_id = 3
 		offer.choices = [skill]
-		var target: SkillTarget = SkillTarget.new()
-		target = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
-		offer.targets[skill.skill_id] = target
+		var target: SkillTarget = SkillRules.freeze_target(run.state, skill)
 		offer.targets[skill.skill_id] = target
 		run.state.rewards.active_offer = offer
 		var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, skill.skill_id, 0)
@@ -99,9 +97,7 @@ func test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup(
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id == id:
 				offer.choices.append(skill)
-				offer.targets[id] = SkillTarget.new()
-	var target: SkillTarget = offer.targets[&"instant_color_clear"]
-	offer.targets[&"instant_color_clear"] = SkillRules.freeze_target(run.state, offer.choices[0], run.state.rewards.target_random)
+				offer.targets[id] = SkillRules.freeze_target(run.state, skill)
 	run.state.rewards.active_offer = offer
 	LevelUpSystem.resolve_pending_rewards(board)
 	await board.finish_presentation()

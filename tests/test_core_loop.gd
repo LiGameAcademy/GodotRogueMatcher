@@ -424,7 +424,7 @@ func _use_core_candidate(popup: PopupSkillChoice) -> void:
 	for existing: SkillDefinition in popup.offer.choices:
 		if existing.skill_id == &"core_drop": return
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
-	var target: SkillTarget = SkillTarget.new()
+	var target: SkillTarget = SkillRules.freeze_target(board.run.state, skill)
 	target.coordinate = board.rules.state.get_empty_coordinates()[0]
 	popup.offer.choices[0] = skill
 	popup.offer.targets[skill.skill_id] = target
@@ -435,6 +435,6 @@ func _use_score_candidate(popup: PopupSkillChoice) -> void:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		if skill.skill_id != &"score_multiplier": continue
 		popup.offer.choices[0] = skill
-		popup.offer.targets[skill.skill_id] = SkillTarget.new()
+		popup.offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill)
 		popup.show_offer(popup.offer)
 		return

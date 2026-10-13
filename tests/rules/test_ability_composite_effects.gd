@@ -121,6 +121,7 @@ func test_composite_validation_rejects_cycle_depth_and_empty() -> void:
 	var cyclic: CompositeEffect = CompositeEffect.new()
 	cyclic.children = [cyclic]
 	assert_string_contains(cyclic.validation_error(), "cycle")
+	cyclic.children.clear()
 	var cursor: CompositeEffect = CompositeEffect.new()
 	cursor.children = [RefillCountEffect.new()]
 	for _i: int in range(9):
@@ -155,10 +156,7 @@ func test_single_leaf_core_drop_still_applies_through_runner() -> void:
 	run.state.rewards.next_offer_id += 1
 	offer.reward_id = 1
 	offer.choices = [core]
-	var effect: ChoiceEffect = core.acquisition_effect(0) as ChoiceEffect
-	offer.targets[core.skill_id] = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-	offer.targets[core.skill_id].level_before = 0
-	offer.targets[core.skill_id].level_after = 1
+	offer.targets[core.skill_id] = SkillRules.freeze_target(run.state, core)
 	run.state.rewards.active_offer = offer
 	assert_true(SkillRules.apply(run, offer.offer_id, core.skill_id).success)
 	assert_true(run.state.explosion.core_pool_unlocked)
