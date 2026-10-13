@@ -15,3 +15,7 @@ func build(_context: ChoiceEffectContext, _target: SkillTarget) -> ChoiceEffectR
 	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
 	request.error = "choice effect is not implemented"
 	return request
+
+## Later composite leaves refresh after prior commits; effects may preserve previewed choices.
+func refresh_after_previous(context: ChoiceEffectContext, _frozen: SkillTarget, random: RandomNumberGenerator) -> SkillTarget:
+	return freeze(context, random)
