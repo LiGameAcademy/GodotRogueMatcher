@@ -11,3 +11,9 @@
 后续 ChoiceEffect 通过 refresh_after_previous 刷新目标，默认沿用当前棋盘重选。ColorWeightEffect 保留预告颜色，只刷新该颜色的权重前后值，不再次消耗目标随机流；DyeMaterialEffect 仍在清色提交后重新选存活材料。原始冻结预览不被修改。
 
 规则版本：run-commands-v23-composite-preview。
+
+## 保留组合全部得分事件（#79）
+
+染色与核心投放的 MatchResult 均追加到共享结果中，保留此前叶子的事件顺序；清色及延后爆炸继续沿用追加方式。计分仍由 ScoreLedger 提交，不重复记分。表现和 RunRecorder 消费同一份完整结果。
+
+规则版本：run-commands-v24-composite-score-events；旧记录中的缺失事件不回填，不与新规则混用精确回放。
