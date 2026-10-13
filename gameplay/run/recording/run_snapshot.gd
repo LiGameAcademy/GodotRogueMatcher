@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v21-skill-recording"
+const RULES_VERSION: String = "run-commands-v22-composite-empty-dye"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:

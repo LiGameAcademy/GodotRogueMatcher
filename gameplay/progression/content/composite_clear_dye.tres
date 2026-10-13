@@ -14,6 +14,7 @@ selector = 0
 
 [sub_resource type="Resource" id="dye"]
 script = ExtResource("6")
+allow_empty_targets = true
 
 [sub_resource type="Resource" id="composite"]
 script = ExtResource("4")
