@@ -20,7 +20,7 @@ func add(records: Array[Dictionary], replay_error: String = "") -> void:
 	for record: Dictionary in records:
 		match record.kind:
 			"CommandAttempt":
-				if record.accepted and record.command.type in ["move", "detonate"]: last_move_command = record.command
+				if record.accepted and record.command.type in ["move", "detonate", "activate_line"]: last_move_command = record.command
 			"Offer":
 				for id: String in record.offer.choices:
 					var row: Dictionary = base.duplicate()

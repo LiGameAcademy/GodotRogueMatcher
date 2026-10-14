@@ -148,7 +148,7 @@ func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	return true
 
 func refresh_ability_markers() -> void:
-	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config)
+	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config, run.state.line_clear)
 
 ## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
 func open_skill_demo() -> bool:
@@ -284,7 +284,7 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 		PresentationStep.Kind.MATCHES:
 			var cue: StringName = &"match"
 			for result: MatchResult in step.matches:
-				if result.cause == &"explosion": cue = &"blast"
+				if result.cause in [&"explosion", &"line_clear"]: cue = &"blast"
 			if not step.matches.is_empty(): feedback_requested.emit(cue)
 			view.animate_matches(step.matches)
 		PresentationStep.Kind.ALIGN:
@@ -358,12 +358,21 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 
 func _on_piece_activated(coordinate: Vector2i) -> void:
 	if not can_selected or get_tree().paused or GameManager.is_game_over: return
-	var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
-	command.piece_id = rules.state.get_piece_id(coordinate)
+	var piece: PieceState = rules.state.get_piece(rules.state.get_piece_id(coordinate))
+	if piece == null: return
+	var command: RunCommand
+	if LineClearState.is_line_piece(piece.content_id):
+		var activate: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+		activate.piece_id = piece.piece_id
+		command = activate
+	else:
+		var detonate: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+		detonate.piece_id = piece.piece_id
+		command = detonate
 	await _execute_action(command, director.config.spawn_duration)
 
 func _execute_action(command: RunCommand, duration: float, input_id: String = "") -> bool:
-	if input_id.is_empty(): input_id = observation.input("detonate" if command is DetonateCoreCommand else "move", command.buffered)
+	if input_id.is_empty(): input_id = observation.input(String(CommandCodec.encode(command).type), command.buffered)
 	observation.busy(true)
 	var outcome: CommandResult = run.execute_command(command)
 	observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id), command.buffered_wait_ms)

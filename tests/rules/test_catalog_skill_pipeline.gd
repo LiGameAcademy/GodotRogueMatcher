@@ -8,6 +8,7 @@ func _run(skill: SkillDefinition) -> RunController:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 83, config)
 	run.state.explosion.core_pool_unlocked = skill.skill_id != &"core_drop"
 	run.state.explosion.fuse_unlocked = true
+	run.state.line_clear.row_unlocked = skill.skill_id != &"line_row_drop"
 	run.state.explosion.unlocked = true
 	for prerequisite: StringName in [&"core_manual_detonation", &"fuse_relay", &"match_dye_echo"]:
 		run.state.rewards.acquired[prerequisite] = 1
@@ -70,7 +71,7 @@ func test_every_catalog_card_uses_command_pipeline_and_records_all_score_events(
 		assert_same(run.execute_command(command), result)
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), after)
 		assert_eq(run.recorder.records.size(), records_before)
-	assert_eq(seen.size(), 44)
+	assert_eq(seen.size(), 45)
 
 func test_all_declared_level_upgrades_use_frozen_targets_and_preserve_instance() -> void:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:

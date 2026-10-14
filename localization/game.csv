@@ -779,3 +779,11 @@ Action score %d · Starting surplus %d · Actions used %d
 %s","%s · Target %d · Needed %d
 Action score %d + Carry %d · Next refill %d
 %s"
+主动扫线,主动扫线,Manual sweep
+本局可双击行或列清除手，消耗本枚并扫线。花1次行动，正常补棋；仅清除普通棋子，引信继续引爆。,本局可双击行或列清除手，消耗本枚并扫线。花1次行动，正常补棋；仅清除普通棋子，引信继续引爆。,Double-click a row or column sweeper to consume it and sweep. Costs 1 action with normal refill. Clears ordinary pieces; fuses still detonate.
+"双击扫线手 → 消耗并扫线。
+花1次行动，正常补棋。","双击扫线手 → 消耗并扫线。
+花1次行动，正常补棋。","Double-click a sweeper to consume it and sweep.
+Costs 1 action with normal refill."
+双击主动扫线：消耗本枚和一次行动，正常补棋。,双击主动扫线：消耗本枚和一次行动，正常补棋。,"Double-click to sweep: consumes this piece and 1 action, with normal refill."
+扫线试玩：双击行或列清除手；每条线清2枚，得14基础分,扫线试玩：双击行或列清除手；每条线清2枚，得14基础分,Sweep demo: double-click a row or column sweeper; each clears 2 pieces for 14 base points.

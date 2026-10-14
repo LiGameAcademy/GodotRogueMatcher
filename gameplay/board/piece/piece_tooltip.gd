@@ -4,7 +4,7 @@ extends RefCounted
 ## 从只读规则数据生成提示；不保存能力状态，也不消费随机数。
 const COLOR_NAMES: Array[String] = ["红色", "绿色", "蓝色", "黄色", "紫色"]
 
-static func describe(piece: PieceState, explosion: ExplosionState, config: ExplosionConfig, item: ItemData = null) -> String:
+static func describe(piece: PieceState, explosion: ExplosionState, config: ExplosionConfig, item: ItemData = null, line_clear: LineClearState = null) -> String:
 	var lines: Array[String] = []
 	if explosion.instances.has(piece.piece_id):
 		lines.append(TranslationServer.translate("爆壳手") if piece.content_id == &"special_demolition" else TranslationServer.translate("引信棋子"))
@@ -29,6 +29,8 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 		lines.append(axis_name)
 		lines.append(TranslationServer.translate("匹配色：%s；可移动、参与同色五连。") % TranslationServer.translate(COLOR_NAMES[posmod(piece.match_color, COLOR_NAMES.size())]))
 		lines.append(TranslationServer.translate("被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。"))
+		if line_clear != null and line_clear.level(&"line_manual_clear") > 0:
+			lines.append(TranslationServer.translate("双击主动扫线：消耗本枚和一次行动，正常补棋。"))
 	elif item != null:
 		lines.append(item.get_localized_name())
 		lines.append(item.get_effect_description())

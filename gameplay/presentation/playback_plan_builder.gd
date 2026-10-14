@@ -32,7 +32,7 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 		frozen.score_entry = result.score_entry.copy()
 		for piece: PieceState in result.removed: frozen.removed.append(piece.copy())
 		steps.back().matches.append(frozen)
-		if result.cause != &"explosion":
+		if result.cause not in [&"explosion", &"line_clear"]:
 			steps.back().policy = PresentationStep.Policy.COMPLETE_REQUIRED
 	return steps
 

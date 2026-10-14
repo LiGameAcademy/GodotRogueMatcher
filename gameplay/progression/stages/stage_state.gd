@@ -2,7 +2,7 @@ class_name StageState
 extends RefCounted
 
 ## 唯一阶段状态；不依赖界面、时间或随机数。
-const SCORE_REASONS: Array[StringName] = [&"match", &"explosion", &"chain_reward", &"marked_reward"]
+const SCORE_REASONS: Array[StringName] = [&"match", &"explosion", &"chain_reward", &"marked_reward", &"line_clear"]
 var _ledger: ScoreLedger
 var config: StageConfig
 var index: int = 0

@@ -5,6 +5,7 @@ extends Node2D
 const CELL_SCENE: PackedScene = preload("res://gameplay/board/cell/cell.tscn")
 const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
 const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explosion_visual/explosion_visual.tscn")
+const LINE_CLEAR_SCENE: PackedScene = preload("res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn")
 
 signal cell_pressed(coordinate: Vector2i)
 signal piece_activated(coordinate: Vector2i)
@@ -79,6 +80,7 @@ func set_low_effects(enabled: bool) -> void:
 	for piece: ChessPiece in _pieces.values(): piece.set_low_effects(enabled)
 	for child: Node in get_children():
 		if child is ExplosionVisual: (child as ExplosionVisual).set_low_effects(enabled)
+		elif child is LineClearVisual: (child as LineClearVisual).set_low_effects(enabled)
 
 func get_piece(piece_id: int) -> ChessPiece:
 	return _pieces.get(piece_id)
@@ -97,7 +99,7 @@ func clear_display() -> void:
 		if animation.is_valid(): animation.kill()
 	_presentation_tweens.clear()
 	for child: Node in get_children():
-		if child is ExplosionVisual:
+		if child is ExplosionVisual or child is LineClearVisual:
 			remove_child(child)
 			child.queue_free()
 	for piece: ChessPiece in _pieces.values():
@@ -151,7 +153,7 @@ func show_ability_marker(piece_id: int, text: String) -> void:
 		piece.set_ability_marker(text)
 
 ## 调用者传入当前规则快照，能力升级后同步标记和提示。
-func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig) -> void:
+func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig, line_clear: LineClearState = null) -> void:
 	for piece_state: PieceState in snapshot:
 		var piece: ChessPiece = get_piece(piece_state.piece_id)
 		if not is_instance_valid(piece): continue
@@ -161,7 +163,7 @@ func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionStat
 		elif LineClearState.is_line_piece(piece_state.content_id):
 			marker = "行" if piece_state.content_id == LineClearState.CONTENT_ROW else "列"
 		piece.set_ability_marker(marker)
-		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data))
+		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data, line_clear))
 
 func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 	if radius < 0 or not _cells.has(center):
@@ -178,6 +180,20 @@ func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 #endregion
 
 #region 结果演出
+func show_line_clear(center: Vector2i, axis: int) -> void:
+	if not _cells.has(center) or axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN]: return
+	var area: Rect2 = get_display_rect().grow(-2.0)
+	if axis == LineClearState.AXIS_ROW:
+		area.position.y = center.y * _spacing.y - _cell_size.y * 0.5
+		area.size.y = _cell_size.y
+	else:
+		area.position.x = center.x * _spacing.x - _cell_size.x * 0.5
+		area.size.x = _cell_size.x
+	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
+	visual.low_effects = low_effects
+	add_child(visual)
+	track_presentation(visual.setup(area, axis))
+
 func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	var generation: int = _generation
 	var piece: ChessPiece = get_piece(result.piece_id)
@@ -241,6 +257,7 @@ func animate_matches(results: Array[MatchResult]) -> void:
 			cells.append(get_cell(snapshot.coordinate))
 			remove_piece(snapshot, true)
 		if result.cause == &"explosion": show_blast(result.center, result.radius, result.generation)
+		elif result.cause == &"line_clear": show_line_clear(result.center, result.line_axis)
 		match_visualized.emit(result, cells)
 
 func set_step_policy(policy: PresentationStep.Policy) -> void:
@@ -258,7 +275,7 @@ func cancel_animations() -> void:
 	for piece: ChessPiece in _pieces.values():
 		if is_instance_valid(piece): piece.cancel_movement()
 	for child: Node in get_children():
-		if child is ExplosionVisual or (child is ChessPiece and (child as ChessPiece).is_eliminating):
+		if child is ExplosionVisual or child is LineClearVisual or (child is ChessPiece and (child as ChessPiece).is_eliminating):
 			remove_child(child)
 			child.queue_free()
 	presentation_changed.emit()
