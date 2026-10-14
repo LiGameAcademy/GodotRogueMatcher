@@ -67,8 +67,8 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			for id: int in request.piece_ids:
 				var piece: PieceState = state.rules.state.get_piece(id).copy()
 				batch.append(piece)
-				result.removed.append(piece)
-			result.matches.append_array(run.abilities.resolve_removal(batch, &"skill_clear", hold_blasts))
+				if not request.score_cleared: result.removed.append(piece)
+			result.matches.append_array(run.abilities.resolve_removal(batch, &"skill_clear", hold_blasts, request.score_cleared))
 		ChoiceEffectRequest.Kind.THIN:
 			for id: int in request.piece_ids:
 				result.removed.append(state.rules.remove_piece(id))
@@ -183,6 +183,7 @@ static func _skip_invalid_fixed_targets(effect: ChoiceEffect, context: ChoiceEff
 		if alive.has(id) and not kept.has(id): kept.append(id)
 	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
 	request.kind = failed.kind
+	request.score_cleared = failed.score_cleared
 	request.color = target.color
 	request.piece_ids = kept
 	request.error = ""

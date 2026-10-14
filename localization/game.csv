@@ -750,3 +750,9 @@ Clears its row when removed."
 Clears its column when removed."
 被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。,被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。,On removal clears ordinary pieces on its axis; fuses detonate and other special pieces survive.
 扫线,扫线,Line sweep
+
+"消除一条行或列中的普通棋子并得分，触发引信等离场效果；特殊伙伴保留。","消除一条行或列中的普通棋子并得分，触发引信等离场效果；特殊伙伴保留。","Clear ordinary pieces in one row or column and score. Triggers fuses and other removal effects; special pieces survive."
+"消除一条行或列的普通棋。
+得分并触发效果。","消除一条行或列的普通棋。
+得分并触发效果。","Clear ordinary pieces in one row or column.
+Score and trigger effects."
