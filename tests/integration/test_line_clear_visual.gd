@@ -79,6 +79,28 @@ func test_low_effects_and_retry_cleanup_cover_both_sweep_instances() -> void:
 	assert_eq(_visuals().size(), 0)
 	assert_false(view.is_presenting())
 
+func test_wide_visual_uses_frozen_radius_and_clips_to_the_board() -> void:
+	for axis: int in [0, 1]:
+		var run: RunController = RunController.new(rules, 75)
+		run.state.line_clear.upgrades[LineClearRules.upgrade_for_axis(axis)] = 1
+		var source: PieceState = run.abilities.add_line_piece(axis, Vector2i(2, 1), 0)
+		view.rebuild(rules.state.get_snapshot())
+		var result: MatchResult = run.abilities.resolve_removal([source], &"consume")[0]
+		var steps: Array[PresentationStep] = PlaybackPlanBuilder.matches([result])
+		result.radius = 0
+		run.state.line_clear.upgrades.clear()
+		view.remove_piece(source)
+		var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+		view.animate_matches(steps[0].matches)
+		var area: Rect2 = _visuals()[0].get("_area")
+		assert_eq(area, Rect2(-32, -32, 389, 194) if axis == 0 else Rect2(33, -32, 194, 194))
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+		view.cancel_animations()
+		view.show_line_clear(Vector2i.ZERO, axis, 1)
+		area = _visuals()[0].get("_area")
+		assert_eq(area, Rect2(-32, -32, 389, 129) if axis == 0 else Rect2(-32, -32, 129, 194))
+		view.cancel_animations()
+
 func test_skip_sweep_removes_only_frozen_targets_without_resolving_again() -> void:
 	var run: RunController = RunController.new(rules, 74)
 	var source: PieceState = run.abilities.add_line_piece(0, Vector2i.ZERO, 0)

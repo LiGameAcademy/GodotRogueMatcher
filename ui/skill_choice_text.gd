@@ -27,6 +27,10 @@ static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> Stri
 		return TranslationServer.translate("每次达标：+%d分") % target.value_after
 	if effect is PercentClearEffect:
 		return TranslationServer.translate("本次清理：%d枚普通棋") % target.piece_ids.size()
+	if effect is InstallLineUpgradeEffect and (effect as InstallLineUpgradeEffect).required_axis >= 0:
+		var axis: int = (effect as InstallLineUpgradeEffect).required_axis
+		var format: String = TranslationServer.translate("扫线范围：%d → %d 行") if axis == LineClearState.AXIS_ROW else TranslationServer.translate("扫线范围：%d → %d 列")
+		return format % [LineClearRules.line_count(target.value_before), LineClearRules.line_count(target.value_after)]
 	if effect is UnlockCoreSupplyEffect:
 		return TranslationServer.translate("立即投放：%s") % _color_name(target.color)
 	if effect is CompositeEffect:

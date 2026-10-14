@@ -181,6 +181,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
 	elif mode == "fixture_dye": DyeDemo.populate(self)
 	elif mode == "fixture_line": LineClearDemo.populate(self)
+	elif mode == "fixture_line_span": LineClearDemo.populate(self, true)
 	else:
 		state.rule_error = "unsupported_initialization"
 		state.phase = RunState.Phase.ERROR
