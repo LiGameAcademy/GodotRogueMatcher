@@ -29,6 +29,11 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 		lines.append(axis_name)
 		lines.append(TranslationServer.translate("匹配色：%s；可移动、参与同色五连。") % TranslationServer.translate(COLOR_NAMES[posmod(piece.match_color, COLOR_NAMES.size())]))
 		lines.append(TranslationServer.translate("被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。"))
+		if line_clear != null:
+			var axis: int = LineClearState.axis_of(piece.content_id)
+			var count: int = LineClearRules.line_count(line_clear.level(LineClearRules.upgrade_for_axis(axis)))
+			var shape: String = TranslationServer.translate("连续%d行（边缘截断）") if axis == LineClearState.AXIS_ROW else TranslationServer.translate("连续%d列（边缘截断）")
+			lines.append(shape % count)
 		if line_clear != null and line_clear.level(&"line_manual_clear") > 0:
 			lines.append(TranslationServer.translate("双击主动扫线：消耗本枚和一次行动，正常补棋。"))
 	elif item != null:

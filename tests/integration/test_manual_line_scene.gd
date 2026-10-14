@@ -57,3 +57,28 @@ func test_double_click_fast_and_normal_scene_match_headless_rules_and_replay() -
 		run.recorder.finish(run, "abandoned", "manual_line_scene")
 		var replay: RuleReplay = RuleReplay.new()
 		assert_true(replay.replay_file(run.recorder.path), replay.error)
+
+func test_shift_f11_wide_command_matches_headless_and_freezes_card_preview() -> void:
+	var game: Node = board.get_parent()
+	var key: InputEventKey = InputEventKey.new()
+	key.physical_keycode = KEY_F11
+	key.pressed = true
+	key.shift_pressed = true
+	await game._unhandled_key_input(key)
+	var run: RunController = board.run
+	assert_eq(run.initialization, "fixture_line_span")
+	var shadow: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
+	shadow.state.run_id = run.state.run_id
+	shadow.initialize("fixture_line_span")
+	var command: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, 1, run.state.action_id)
+	command.piece_id = shadow.state.rules.state.get_piece_id(Vector2i(0, 3))
+	assert_true(shadow.execute_command(command).accepted)
+	while shadow.state.phase != RunState.Phase.INPUT and not shadow.state.is_game_over: shadow.advance()
+	await board._on_piece_activated(Vector2i(0, 3))
+	assert_eq(run.state.ledger.total, 24)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), RunSnapshot.digest(RunSnapshot.capture(shadow)))
+	var target: SkillTarget = SkillTarget.new()
+	target.value_before = 0
+	target.value_after = 1
+	var skill: SkillDefinition = preload("res://gameplay/progression/content/line_row_span.tres")
+	assert_eq(SkillChoiceText.compact_preview(skill, target), String(TranslationServer.translate("扫线范围：%d → %d 行")) % [1, 3])

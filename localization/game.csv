@@ -787,3 +787,20 @@ Action score %d + Carry %d · Next refill %d
 Costs 1 action with normal refill."
 双击主动扫线：消耗本枚和一次行动，正常补棋。,双击主动扫线：消耗本枚和一次行动，正常补棋。,"Double-click to sweep: consumes this piece and 1 action, with normal refill."
 扫线试玩：双击行或列清除手；每条线清2枚，得14基础分,扫线试玩：双击行或列清除手；每条线清2枚，得14基础分,Sweep demo: double-click a row or column sweeper; each clears 2 pieces for 14 base points.
+拓宽行扫,拓宽行扫,Wider row sweep
+行清除手扫线时，以所在行为中心清理连续3行。边缘截断；主动与离场均生效，保留其他特殊棋子。,行清除手扫线时，以所在行为中心清理连续3行。边缘截断；主动与离场均生效，保留其他特殊棋子。,Row sweepers clear 3 adjacent rows centered on their location. Clipped at edges; applies to manual and removal sweeps. Other special pieces survive.
+"行扫范围：1 → 3行。
+主动与离场均生效。","行扫范围：1 → 3行。
+主动与离场均生效。","Row sweep: 1 → 3 rows.
+Applies to manual and removal sweeps."
+拓宽列扫,拓宽列扫,Wider column sweep
+列清除手扫线时，以所在列为中心清理连续3列。边缘截断；主动与离场均生效，保留其他特殊棋子。,列清除手扫线时，以所在列为中心清理连续3列。边缘截断；主动与离场均生效，保留其他特殊棋子。,Column sweepers clear 3 adjacent columns centered on their location. Clipped at edges; applies to manual and removal sweeps. Other special pieces survive.
+"列扫范围：1 → 3列。
+主动与离场均生效。","列扫范围：1 → 3列。
+主动与离场均生效。","Column sweep: 1 → 3 columns.
+Applies to manual and removal sweeps."
+连续%d行（边缘截断）,连续%d行（边缘截断）,%d adjacent rows (clipped at edges)
+连续%d列（边缘截断）,连续%d列（边缘截断）,%d adjacent columns (clipped at edges)
+扫线范围：%d → %d 行,扫线范围：%d → %d 行,Sweep width: %d → %d rows
+扫线范围：%d → %d 列,扫线范围：%d → %d 列,Sweep width: %d → %d columns
+跨度试玩：双击扫线手，清连续3行或3列；边缘截断,跨度试玩：双击扫线手，清连续3行或3列；边缘截断,Wide sweep demo: double-click to clear 3 adjacent rows or columns; clipped at edges.

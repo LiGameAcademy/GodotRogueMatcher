@@ -6,3 +6,4 @@ extends Resource
 @export var line_type_weight: int = 1
 @export var line_supply_per_level: int = 1
 @export var default_color: int = 2
+@export var span_radius_per_level: int = 1

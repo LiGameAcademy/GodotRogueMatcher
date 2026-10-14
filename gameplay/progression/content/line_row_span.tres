@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_line_upgrade_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+upgrade = &"line_row_span"
+required_axis = 0
+
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("3")
+ability_id = &"upgrade_line_row_span"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("ability")])
+
+[resource]
+script = ExtResource("1")
+skill_id = &"line_row_span"
+title = "拓宽行扫"
+description = "行清除手扫线时，以所在行为中心清理连续3行。边缘截断；主动与离场均生效，保留其他特殊棋子。"
+short_description = "行扫范围：1 → 3行。\n主动与离场均生效。"
+levels = Array[ExtResource("2")]([SubResource("level_1")])
+base_weight = 10.0
+tags = Array[StringName]([&"space"])
+rarity = 2
+maximum_level = 1
