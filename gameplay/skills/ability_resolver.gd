@@ -92,14 +92,30 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 
 ## Clears and five-matches share removal triggers and the blast queue. Callers preflight before committing the root action.
 ## When hold_blasts is true, removal tickets enqueue but descendants wait for flush_held_blasts().
-func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: bool = false) -> Array[MatchResult]:
+func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: bool = false, score_cleared: bool = false) -> Array[MatchResult]:
 	last_error = validation_error(1)
 	if not last_error.is_empty(): return []
+	if score_cleared:
+		var live: Array[PieceState] = []
+		var seen: Array[int] = []
+		for piece: PieceState in pieces:
+			var current: PieceState = state.rules.state.get_piece(piece.piece_id)
+			if current == null or seen.has(piece.piece_id): continue
+			seen.append(piece.piece_id)
+			live.append(current.copy())
+		pieces = live
 	var queue: Array[BlastRequest] = []
-	var extra: int = DemolitionRules.marked_score(state, pieces)
+	var results: Array[MatchResult] = []
+	if score_cleared and not pieces.is_empty():
+		var direct: MatchResult = MatchResult.new()
+		direct.cause = cause
+		direct.removed = pieces.duplicate()
+		direct.center = pieces[pieces.size() / 2].coordinate
+		direct.score_entry = _commit_clear_score(direct, true)
+		results.append(direct)
+	var extra: int = 0 if score_cleared else DemolitionRules.marked_score(state, pieces)
 	_remove_and_enqueue(pieces, cause, 1, queue)
 	if not last_error.is_empty(): return []
-	var results: Array[MatchResult] = []
 	if extra > 0:
 		var reward: MatchResult = MatchResult.new()
 		reward.cause = &"bonus"
@@ -219,18 +235,24 @@ func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> Mat
 	result.center = event.source.coordinate
 	result.generation = event.generation
 	for id: int in request.target_ids: result.removed.append(state.rules.state.get_piece(id))
-	var group: BoardMatchGroup = BoardMatchGroup.new()
-	group.piece_ids = request.target_ids
-	var multiplier: float = LegacyScoreModifiers.calculate(state.rules.state, group) + state.explosion.multiplier_level * config.multiplier_per_level
-	var extra: int = 0
-	if not result.removed.is_empty():
-		extra = state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, request.target_ids)
 	var ability_id: StringName = event.ability.definition.ability_id
-	result.score_entry = state.ledger.commit(result.removed.size(), multiplier, extra, result.cause, DemolitionRules.root_id(state), request.target_ids, result.source_id, ability_id)
+	result.score_entry = _commit_clear_score(result, false, ability_id)
 	_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, event.activation.event.event_id, ability_id)
 	if not state.ability_events.complete(event.activation, true, result.removed.size()):
 		_event_error("ability activation ticket invalid")
 	return result
+
+## Common clear scoring; the caller distinguishes a scored skill clear from a five-match.
+func _commit_clear_score(result: MatchResult, score_short_clear: bool = false, ability_id: StringName = &"") -> ScoreEntry:
+	var ids: Array[int] = []
+	for piece: PieceState in result.removed: ids.append(piece.piece_id)
+	var group: BoardMatchGroup = BoardMatchGroup.new()
+	group.piece_ids = ids
+	var multiplier: float = LegacyScoreModifiers.calculate(state.rules.state, group) + state.explosion.multiplier_level * config.multiplier_per_level
+	var extra: int = 0
+	if not result.removed.is_empty():
+		extra = state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, ids)
+	return state.ledger.commit(result.removed.size(), multiplier, extra, result.cause, DemolitionRules.root_id(state), ids, result.source_id, ability_id, score_short_clear)
 
 func _attach(piece_id: int) -> void:
 	var instance: AbilityInstance = AbilityInstance.new()

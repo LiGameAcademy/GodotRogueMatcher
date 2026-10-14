@@ -66,7 +66,7 @@ func test_leaf2_reads_state_after_leaf1_commit() -> void:
 			changed = true
 			assert_eq(run.state.spawning.color_weights[color], before_weights[color] + 2)
 	assert_true(changed)
-	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v26-line-removal-sweep")
+	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v27-forest-clear-score")
 
 func test_clear_then_dye_defers_descendant_blasts_until_composite_done() -> void:
 	var run: RunController = _run()

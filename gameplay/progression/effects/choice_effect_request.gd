@@ -4,6 +4,7 @@ extends RefCounted
 enum Kind { REFILL, COLOR_WEIGHT, CLEAR, UPGRADE, DYE_UPGRADE, DYE, GOAL_BONUS, UNLOCK_CORE, UNLOCK_LINE, ASSIGN_FUSE, DEMOLITION_STAT, THIN }
 var coordinate: Vector2i = Vector2i(-1, -1)
 var score_bonus: int = 0
+var score_cleared: bool = false
 var upgrade: StringName
 var kind: Kind = Kind.REFILL
 var error: String = ""
