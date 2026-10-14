@@ -40,7 +40,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			state.explosion.core_pool_unlocked = true
 			var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
 			result.created.append(core)
-			result.matches = run.resolve_matches_at(core.coordinate)
+			result.matches.append_array(run.resolve_matches_at(core.coordinate))
 		ChoiceEffectRequest.Kind.GOAL_BONUS:
 			state.goal_bonus_score = request.score_bonus
 		ChoiceEffectRequest.Kind.REFILL:
@@ -53,7 +53,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 		ChoiceEffectRequest.Kind.DYE_UPGRADE:
 			state.dye.upgrades[request.upgrade] = state.dye.level(request.upgrade) + 1
 		ChoiceEffectRequest.Kind.DYE:
-			result.matches = DyeRules.recolor(run.abilities, request.piece_ids, request.color)
+			result.matches.append_array(DyeRules.recolor(run.abilities, request.piece_ids, request.color))
 		ChoiceEffectRequest.Kind.CLEAR:
 			var batch: Array[PieceState] = []
 			for id: int in request.piece_ids:

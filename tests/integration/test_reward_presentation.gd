@@ -73,8 +73,9 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	offer.reward_id = board.run.state.rewards.consumed_count + 1
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
 	offer.choices = [skill]
-	var target: SkillTarget = SkillTarget.new()
+	var target: SkillTarget = SkillRules.freeze_target(board.run.state, skill)
 	target.coordinate = Vector2i(4, 0)
+	target.color = 1
 	offer.targets[skill.skill_id] = target
 	board.run.state.rewards.active_offer = offer
 	LevelUpSystem.resolve_pending_rewards(board)

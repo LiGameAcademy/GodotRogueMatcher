@@ -66,7 +66,7 @@ func test_leaf2_reads_state_after_leaf1_commit() -> void:
 			changed = true
 			assert_eq(run.state.spawning.color_weights[color], before_weights[color] + 2)
 	assert_true(changed)
-	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v23-composite-preview")
+	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v24-composite-score-events")
 
 func test_clear_then_dye_defers_descendant_blasts_until_composite_done() -> void:
 	var run: RunController = _run()
@@ -121,6 +121,7 @@ func test_composite_validation_rejects_cycle_depth_and_empty() -> void:
 	var cyclic: CompositeEffect = CompositeEffect.new()
 	cyclic.children = [cyclic]
 	assert_string_contains(cyclic.validation_error(), "cycle")
+	cyclic.children.clear()
 	var cursor: CompositeEffect = CompositeEffect.new()
 	cursor.children = [RefillCountEffect.new()]
 	for _i: int in range(9):
@@ -155,10 +156,7 @@ func test_single_leaf_core_drop_still_applies_through_runner() -> void:
 	run.state.rewards.next_offer_id += 1
 	offer.reward_id = 1
 	offer.choices = [core]
-	var effect: ChoiceEffect = core.acquisition_effect(0) as ChoiceEffect
-	offer.targets[core.skill_id] = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-	offer.targets[core.skill_id].level_before = 0
-	offer.targets[core.skill_id].level_after = 1
+	offer.targets[core.skill_id] = SkillRules.freeze_target(run.state, core)
 	run.state.rewards.active_offer = offer
 	assert_true(SkillRules.apply(run, offer.offer_id, core.skill_id).success)
 	assert_true(run.state.explosion.core_pool_unlocked)

@@ -115,7 +115,7 @@ func test_carry_cannot_auto_pass_next_stage_and_rewards_do_not_use_actions() -> 
 func _draining_choice(run: RunController) -> void:
 	_draining_offer(run)
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/match_extra.tres")
-	assert_true(_choose(run, skill, SkillTarget.new()).accepted)
+	assert_true(_choose(run, skill, SkillRules.freeze_target(run.state, skill)).accepted)
 	assert_eq(_drain(run).kind, &"input")
 
 func _draining_offer(run: RunController) -> void:

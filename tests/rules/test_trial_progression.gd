@@ -39,9 +39,7 @@ func test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores()
 	var definition: SkillDefinition = preload("res://gameplay/progression/content/instant_thin.tres")
 	var offer: SkillOffer = SkillOfferGenerator.new().generate(run)
 	offer.choices[0] = definition
-	var targets: SkillTarget = SkillTarget.new()
-	var ids: Array[int] = SkillRules.unmarked_material(run.state)
-	for index: int in range(3): targets.piece_ids.append(ids[index])
+	var targets: SkillTarget = SkillRules.freeze_target(run.state, definition)
 	offer.targets[definition.skill_id] = targets
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, definition.skill_id)
 	assert_true(result.success)
