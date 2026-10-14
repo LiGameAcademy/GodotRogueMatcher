@@ -13,7 +13,7 @@ event_type = &"piece_eliminated"
 
 [sub_resource type="Resource" id="cause_condition"]
 script = ExtResource("6")
-allowed_causes = Array[StringName]([&"match", &"explosion", &"skill_clear", &"consume"])
+allowed_causes = Array[StringName]([&"match", &"explosion", &"skill_clear", &"consume", &"line_clear"])
 
 [sub_resource type="Resource" id="conditions"]
 script = ExtResource("5")

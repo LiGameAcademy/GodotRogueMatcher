@@ -738,3 +738,15 @@ Multiples allowed; further pieces use supply weight."
 已点选 · 等待确认,已点选 · 等待确认,Selected · awaiting confirmation
 
 已选择%s。点击下方确认按钮后应用技能。,已选择%s。点击下方确认按钮后应用技能。,Selected %s. Confirm below to apply.
+
+"解锁行清除补给，立即放入一枚。
+消除时扫清所在行。","解锁行清除补给，立即放入一枚。
+消除时扫清所在行。","Unlock row sweeper supply and place one.
+Clears its row when removed."
+
+"解锁列清除补给，立即放入一枚。
+消除时扫清所在列。","解锁列清除补给，立即放入一枚。
+消除时扫清所在列。","Unlock column sweeper supply and place one.
+Clears its column when removed."
+被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。,被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。,On removal clears ordinary pieces on its axis; fuses detonate and other special pieces survive.
+扫线,扫线,Line sweep

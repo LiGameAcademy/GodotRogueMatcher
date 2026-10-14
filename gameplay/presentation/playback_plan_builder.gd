@@ -26,6 +26,7 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 		frozen.previous_colors = result.previous_colors.duplicate()
 		for piece: PieceState in result.recolored: frozen.recolored.append(piece.copy())
 		frozen.center = result.center
+		frozen.line_axis = result.line_axis
 		frozen.radius = result.radius
 		frozen.generation = result.generation
 		frozen.score_entry = result.score_entry.copy()

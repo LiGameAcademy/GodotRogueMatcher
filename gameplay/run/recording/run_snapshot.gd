@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v25-line-supply-restore"
+const RULES_VERSION: String = "run-commands-v26-line-removal-sweep"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -45,7 +45,7 @@ static func config(run: RunController) -> Dictionary:
 		# Display-only summary does not change rules; keep the full description field for existing config hashes.
 		fields.erase("short_description")
 		skills.append(fields)
-	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
+	return normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "line_clear": resource_fields(LineClearRules.CONFIG), "line_trigger": normalize(AbilityResolver.LINE_SWEEP), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
 ## Record explicit in-run trigger parameters; exclude plugin managers, time fields, and shared run counters.
 static func trigger_config(ability: AbilityDefinition) -> Dictionary:
@@ -98,10 +98,10 @@ static func capture(run: RunController) -> Dictionary:
 	for entry: ScoreEntry in state.ledger.get_entries(): entries.append(score(entry))
 	var instances: Array[Dictionary] = []
 	var ids: Array[int] = []
-	ids.assign(state.explosion.instances.keys())
+	ids.assign(state.explosion.instances.keys() + state.line_clear.instances.keys())
 	ids.sort()
 	for id: int in ids:
-		var ability: AbilityInstance = state.explosion.instances[id]
+		var ability: AbilityInstance = state.explosion.instances.get(id, state.line_clear.instances.get(id))
 		instances.append({
 			"id": str(id),
 			"owner_id": str(ability.owner_id),

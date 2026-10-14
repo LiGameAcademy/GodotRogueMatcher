@@ -4,7 +4,7 @@ extends RefCounted
 const MAX_CONDITION_DEPTH: int = 8
 
 const EVENTS: Array[StringName] = [&"piece_eliminated", &"skill_acquired", &"skill_upgraded"]
-const CAUSES: Array[StringName] = [&"match", &"explosion", &"skill_clear", &"consume"]
+const CAUSES: Array[StringName] = [&"match", &"explosion", &"skill_clear", &"consume", &"line_clear"]
 
 ## Reuse plugin read-only conditions only; do not activate shared triggers or subscribe to a global bus.
 static func validation_error(definition: AbilityDefinition) -> String:
@@ -12,7 +12,7 @@ static func validation_error(definition: AbilityDefinition) -> String:
 	if not EVENTS.has(definition.event_type): return "ability event not supported"
 	if definition.max_triggers < 0: return "ability trigger limit cannot be negative"
 	if definition.event_type == AbilityEvent.PIECE_ELIMINATED:
-		if not definition.effect is ExplodeEffect: return "removal ability requires explode effect"
+		if not definition.effect is ExplodeEffect and not definition.effect is LineSweepEffect: return "removal ability requires explode or line sweep effect"
 	elif definition.effect is CompositeEffect:
 		var composite_error: String = (definition.effect as CompositeEffect).validation_error()
 		if not composite_error.is_empty(): return composite_error

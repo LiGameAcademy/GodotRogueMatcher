@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AbilityDefinition" format=3]
+
+[ext_resource type="Script" uid="uid://w81nioogc2pc" path="res://gameplay/skills/ability_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/skills/effects/line_sweep_effect.gd" id="2"]
+[ext_resource type="Script" path="res://addons/godot_core_system/source/trigger_system/conditions/event_type_trigger_condition.gd" id="4"]
+[ext_resource type="Script" path="res://addons/godot_core_system/source/trigger_system/conditions/composite_trigger_condition.gd" id="5"]
+[ext_resource type="Script" path="res://gameplay/skills/conditions/removal_cause_condition.gd" id="6"]
+[ext_resource type="Script" path="res://addons/godot_core_system/source/trigger_system/trigger_confition.gd" id="7"]
+
+[sub_resource type="Resource" id="event_condition"]
+script = ExtResource("4")
+event_type = &"piece_eliminated"
+
+[sub_resource type="Resource" id="cause_condition"]
+script = ExtResource("6")
+allowed_causes = Array[StringName]([&"match", &"explosion", &"skill_clear", &"consume", &"line_clear"])
+
+[sub_resource type="Resource" id="conditions"]
+script = ExtResource("5")
+conditions = Array[ExtResource("7")]([SubResource("event_condition"), SubResource("cause_condition")])
+operator = "AND"
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+
+[resource]
+script = ExtResource("1")
+ability_id = &"on_eliminated_line_sweep"
+event_type = &"piece_eliminated"
+conditions = Array[ExtResource("7")]([SubResource("conditions")])
+max_triggers = 1
+consume_on_empty = true
+effect = SubResource("effect")
