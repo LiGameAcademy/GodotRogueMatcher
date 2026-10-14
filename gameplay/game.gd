@@ -100,7 +100,7 @@ func _set_language(preference: String) -> void:
 func _on_locale_changed(_old: String, _new: String) -> void:
 	if board.run == null: return
 	_refresh_hud()
-	board.view.refresh_piece_details(board.run.state.rules.state.get_snapshot(), board.run.state.explosion, board.run.abilities.config)
+	board.view.refresh_piece_details(board.run.state.rules.state.get_snapshot(), board.run.state.explosion, board.run.abilities.config, board.run.state.line_clear)
 	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -115,6 +115,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F10:
 			if await board.load_explosion_demo("fixture_dye"):
 				hud.show_status("染色试玩：将第5列第7行红棋移到第5列第5行")
+		elif key.pressed and not key.echo and key.physical_keycode == KEY_F11:
+			if await board.load_explosion_demo("fixture_line"):
+				hud.show_status("扫线试玩：双击行或列清除手；每条线清2枚，得14基础分")
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F7:
 			board.open_skill_demo()
 

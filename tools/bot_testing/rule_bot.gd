@@ -18,6 +18,7 @@ func choose(run: RunController) -> RunCommand:
 	var actions: Array[RunCommand] = []
 	actions.append_array(legal_moves(run))
 	actions.append_array(legal_detonations(run))
+	actions.append_array(legal_line_activations(run))
 	last_legal_count = actions.size()
 	if actions.is_empty(): return null
 	return actions[random.randi_range(0, actions.size() - 1)]
@@ -72,6 +73,18 @@ func legal_detonations(run: RunController) -> Array[DetonateCoreCommand]:
 	for piece: PieceState in run.state.rules.state.get_snapshot():
 		if piece.content_id != &"special_demolition": continue
 		var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+		command.piece_id = piece.piece_id
+		command.source = "bot"
+		result.append(command)
+	return result
+
+func legal_line_activations(run: RunController) -> Array[ActivateLineCommand]:
+	var result: Array[ActivateLineCommand] = []
+	if run.state.phase != RunState.Phase.INPUT or run.state.is_game_over or run.state.line_clear.level(&"line_manual_clear") == 0: return result
+	if not run.abilities.validation_error(1).is_empty(): return result
+	for piece: PieceState in run.state.rules.state.get_snapshot():
+		if not LineClearState.is_line_piece(piece.content_id) or not run.state.line_clear.instances.has(piece.piece_id): continue
+		var command: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
 		command.piece_id = piece.piece_id
 		command.source = "bot"
 		result.append(command)

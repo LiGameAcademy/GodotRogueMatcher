@@ -29,8 +29,17 @@ func choose(run: RunController) -> RunCommand:
 			hits += 1
 		if hits >= run.state.rules.minimum_match_count: return detonations[0]
 	var moves: Array[MovePieceCommand] = legal_moves(run)
-	last_legal_count = moves.size()
-	if moves.is_empty(): return detonations[0] if not detonations.is_empty() else null
+	var sweeps: Array[ActivateLineCommand] = legal_line_activations(run)
+	var sweep_effect: LineSweepEffect = AbilityResolver.LINE_SWEEP.effect as LineSweepEffect
+	for sweep: ActivateLineCommand in sweeps:
+		var source: PieceState = run.state.rules.state.get_piece(sweep.piece_id)
+		var targets: BlastRequest = sweep_effect.build_request(run.state.rules.state, source)
+		# Source consumption also frees a cell; use only the current board, not future RNG.
+		if targets.target_ids.size() + 1 > run.state.next_refill_count(): return sweep
+	last_legal_count = moves.size() + detonations.size() + sweeps.size()
+	if moves.is_empty():
+		if not detonations.is_empty(): return detonations[0]
+		return sweeps[0] if not sweeps.is_empty() else null
 	var colors: Dictionary[Vector2i, int] = {}
 	var pieces: Dictionary[int, PieceState] = {}
 	for piece: PieceState in run.state.rules.state.get_snapshot():

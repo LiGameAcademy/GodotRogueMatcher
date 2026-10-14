@@ -236,7 +236,7 @@ func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> Mat
 	result.generation = event.generation
 	for id: int in request.target_ids: result.removed.append(state.rules.state.get_piece(id))
 	var ability_id: StringName = event.ability.definition.ability_id
-	result.score_entry = _commit_clear_score(result, false, ability_id)
+	result.score_entry = _commit_clear_score(result, true, ability_id)
 	_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, event.activation.event.event_id, ability_id)
 	if not state.ability_events.complete(event.activation, true, result.removed.size()):
 		_event_error("ability activation ticket invalid")

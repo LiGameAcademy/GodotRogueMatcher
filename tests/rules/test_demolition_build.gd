@@ -38,6 +38,7 @@ func test_catalog_has_42_real_distinct_effects_and_five_grades() -> void:
 			run.state.stage = StageState.new(config, run.state.ledger)
 		run.state.explosion.core_pool_unlocked = skill.skill_id != &"core_drop"
 		run.state.explosion.fuse_unlocked = true
+		run.state.line_clear.row_unlocked = skill.skill_id != &"line_row_drop"
 		run.state.rewards.acquired[&"core_manual_detonation"] = 1
 		run.state.rewards.acquired[&"fuse_relay"] = 1
 		run.state.rewards.acquired[&"match_dye_echo"] = 1
@@ -57,8 +58,8 @@ func test_catalog_has_42_real_distinct_effects_and_five_grades() -> void:
 		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.requires_color_choice() else -1)
 		assert_true(result.success, "%s: %s" % [skill.skill_id, result.error])
 		if skill.acquisition_effect() is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
-	assert_eq(ids.size(), 44)
-	assert_eq(grades, [13, 13, 12, 5, 1])
+	assert_eq(ids.size(), 45)
+	assert_eq(grades, [13, 13, 13, 5, 1])
 
 func test_prerequisites_and_rarity_multiply_after_clamp_once() -> void:
 	var run: RunController = _run()

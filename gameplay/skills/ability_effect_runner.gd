@@ -60,6 +60,8 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			if request.upgrade in [&"core_fuse_payload", &"fuse_match_plant"]: state.explosion.fuse_unlocked = true
 		ChoiceEffectRequest.Kind.DYE_UPGRADE:
 			state.dye.upgrades[request.upgrade] = state.dye.level(request.upgrade) + 1
+		ChoiceEffectRequest.Kind.LINE_UPGRADE:
+			state.line_clear.upgrades[request.upgrade] = state.line_clear.level(request.upgrade) + 1
 		ChoiceEffectRequest.Kind.DYE:
 			result.matches.append_array(DyeRules.recolor(run.abilities, request.piece_ids, request.color))
 		ChoiceEffectRequest.Kind.CLEAR:

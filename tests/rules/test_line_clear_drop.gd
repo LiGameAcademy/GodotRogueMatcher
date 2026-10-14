@@ -53,7 +53,7 @@ func test_column_drop_is_independent_and_repeat_rejected() -> void:
 	assert_true(run.state.line_clear.column_unlocked)
 
 func test_catalog_includes_line_drops() -> void:
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 44)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 45)
 	var ids: Array[StringName] = []
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		ids.append(skill.skill_id)

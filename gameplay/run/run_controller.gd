@@ -180,6 +180,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	elif mode == "fixture_f6": ExplosionDemo.populate(self)
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
 	elif mode == "fixture_dye": DyeDemo.populate(self)
+	elif mode == "fixture_line": LineClearDemo.populate(self)
 	else:
 		state.rule_error = "unsupported_initialization"
 		state.phase = RunState.Phase.ERROR
@@ -233,12 +234,15 @@ func execute_command(command: RunCommand) -> CommandResult:
 				_direct_match = result.turn.direct_match
 				continuation = &"before_end"
 			else: result.reason = str(BoardMoveResult.Failure.keys()[result.turn.move.failure])
-	elif command is DetonateCoreCommand:
-		var detonate: DetonateCoreCommand = command as DetonateCoreCommand
-		var piece: PieceState = state.rules.state.get_piece(detonate.piece_id)
+	elif command is DetonateCoreCommand or command is ActivateLineCommand:
+		var line: bool = command is ActivateLineCommand
+		var piece_id: int = (command as ActivateLineCommand).piece_id if line else (command as DetonateCoreCommand).piece_id
+		var piece: PieceState = state.rules.state.get_piece(piece_id)
 		if state.phase != RunState.Phase.INPUT or state.is_game_over or (state.stage.enabled() and not state.stage.can_act()): result.reason = "busy"
-		elif state.explosion.level(&"core_manual_detonation") == 0: result.reason = "manual_not_installed"
-		elif piece == null or piece.content_id != &"special_demolition": result.reason = "invalid_core"
+		elif (state.line_clear.level(&"line_manual_clear") if line else state.explosion.level(&"core_manual_detonation")) == 0: result.reason = "manual_not_installed"
+		elif piece == null or (not LineClearState.is_line_piece(piece.content_id) if line else piece.content_id != &"special_demolition"):
+			result.reason = "invalid_line_piece" if line else "invalid_core"
+		elif line and not state.line_clear.instances.has(piece_id): result.reason = "missing_line_ability"
 		else:
 			result.reason = abilities.validation_error(1)
 			if result.reason.is_empty():

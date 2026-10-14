@@ -43,6 +43,7 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.refill_batches = state.spawning.refill_batches.duplicate()
 	context.upgrades = state.explosion.upgrades.duplicate()
 	context.dye_upgrades = state.dye.upgrades.duplicate()
+	context.line_upgrades = state.line_clear.upgrades.duplicate()
 	context.stage_enabled = state.stage.enabled()
 	context.goal_bonus_score = state.goal_bonus_score
 	context.core_pool_unlocked = state.explosion.core_pool_unlocked
@@ -86,6 +87,9 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 		if state.explosion.level(upgrade) != level(state, skill): return "技能等级与生成修正不一致"
 	if not skill.levels.is_empty() and effect is DemolitionStatEffect:
 		if _demolition_stat_level(state, (effect as DemolitionStatEffect).stat) != level(state, skill):
+			return "技能等级与生成修正不一致"
+	if not skill.levels.is_empty() and effect is InstallLineUpgradeEffect:
+		if state.line_clear.level((effect as InstallLineUpgradeEffect).upgrade) != level(state, skill):
 			return "技能等级与生成修正不一致"
 	if effect is DemolitionStatEffect:
 		var capped: String = _demolition_stat_cap(state, config, effect as DemolitionStatEffect)
