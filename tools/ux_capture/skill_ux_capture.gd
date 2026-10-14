@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 ## 固定验收盘面，只用于渲染真实场景截图；tools不进入Web发布包。
 const MAIN: PackedScene = preload("res://main.tscn")
@@ -56,14 +56,14 @@ func _ready() -> void:
 		return
 	popup._select(0)
 	await _capture("02_color_unselected")
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	await _capture("03_color_required")
 	popup.picker.select_color(0)
 	popup.toggle_board_view()
 	await _capture("04_board_inspection")
 	popup.toggle_board_view()
 	await _capture("05_color_selected")
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	await board.finish_presentation()
 	await _frames(5)
 	for batch: int in range(3):

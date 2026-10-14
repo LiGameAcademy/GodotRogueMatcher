@@ -122,6 +122,7 @@ func test_skip_before_reward_does_not_choose_or_leak_into_next_batch() -> void:
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), digest)
 	assert_false(board.director.skip_score_requested)
 	popup._select(0)
+	popup.confirm_selection()
 
 func test_failed_blast_recovers_committed_snapshot_without_recomputing() -> void:
 	assert_true(board.load_explosion_demo())

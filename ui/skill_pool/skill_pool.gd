@@ -103,7 +103,7 @@ func _reset_filters() -> void:
 	_refresh()
 
 func _resize_grid() -> void:
-	entries.columns = maxi(1, int((scroll.size.x - 16.0) / 308.0))
+	entries.columns = maxi(1, int((scroll.size.x - 16.0) / 272.0))
 
 func _refresh() -> void:
 	for child: Node in entries.get_children():

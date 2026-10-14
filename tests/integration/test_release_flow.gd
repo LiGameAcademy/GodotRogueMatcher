@@ -124,6 +124,7 @@ func test_tutorial_choice_occurs_after_animation_while_tree_paused() -> void:
 	assert_false(tutorial.view.is_presenting())
 	assert_eq(tutorial.score.text, "练习得分 100 · 空位 24 / 25")
 	tutorial.choices._select(0)
+	tutorial.choices.confirm_selection()
 	for frame: int in range(180):
 		if tutorial._completed: break
 		await wait_process_frames(1)

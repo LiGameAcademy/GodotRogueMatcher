@@ -106,7 +106,7 @@ func test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup(
 	assert_not_null(popup)
 	popup._select(0)
 	popup.picker.select_color(0)
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	assert_eq(GameManager.score, 1000)
 	assert_true(board.view.is_presenting())
 	assert_false(get_tree().paused)

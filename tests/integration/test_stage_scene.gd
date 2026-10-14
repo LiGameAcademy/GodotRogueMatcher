@@ -68,6 +68,7 @@ func test_goal_bonus_keeps_score_label_and_progress_in_sync() -> void:
 		var skill: SkillDefinition = popup.offer.choices[index]
 		if not skill.requires_color_choice():
 			popup._select(index)
+			popup.confirm_selection()
 			break
 	for frame: int in range(360):
 		if board.can_selected: break
@@ -89,6 +90,7 @@ func test_real_stage_pass_waits_for_presentation_then_enters_next_stage() -> voi
 		var skill: SkillDefinition = popup.offer.choices[index]
 		if not skill.requires_color_choice():
 			popup._select(index)
+			popup.confirm_selection()
 			break
 	for frame: int in range(360):
 		if board.can_selected: break

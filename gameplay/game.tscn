@@ -11,6 +11,8 @@
 
 [ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="9_pool"]
 
+[ext_resource type="PackedScene" path="res://ui/card_transfer/card_transfer.tscn" id="10_transfer"]
+
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
 ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
@@ -62,3 +64,5 @@ layer = 130
 [node name="ReleaseMenu" parent="MenuLayer" instance=ExtResource("7_menu")]
 
 [node name="SkillPool" parent="." instance=ExtResource("9_pool")]
+
+[node name="CardTransfer" parent="." instance=ExtResource("10_transfer")]

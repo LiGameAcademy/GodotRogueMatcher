@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const MAIN: PackedScene = preload("res://main.tscn")
 var main: Node2D
@@ -64,7 +64,7 @@ func test_color_has_no_default_invalid_confirm_only_highlights_without_consumpti
 	assert_eq(popup.picker.selected_color, -1)
 	assert_string_contains((popup.picker.colors.get_child(0) as Button).text, "其中引信 1 枚")
 	assert_true((popup.picker.colors.get_child(3) as Button).disabled)
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	assert_string_contains(popup.picker.hint.text, "请先选择颜色")
 	assert_eq(popup.picker.frame.get_theme_stylebox("panel"), popup.picker.error_frame)
 	assert_eq(popup.picker.selected_color, -1)
@@ -102,7 +102,7 @@ func test_fold_view_pause_and_return_preserve_target_and_lock_board_without_rero
 func test_color_confirm_applies_once_and_proceeds_through_real_reward_coordinator() -> void:
 	popup._select(0)
 	popup.picker.select_color(0)
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	assert_eq(board.run.state.rewards.consumed_count, 3)
 	assert_eq(board.run.state.pending_rewards, 0)
 	assert_eq(board.run.state.rules.state.get_piece_count(), 1)
@@ -147,6 +147,7 @@ func test_non_color_budget_refusal_keeps_offer_random_and_reward() -> void:
 	var random_before: int = run.state.rewards.candidate_random.state
 	var action_before: int = run.state.action_id
 	popup._select(0)
+	popup.confirm_selection()
 	assert_same(run.state.rewards.active_offer, offer)
 	assert_eq(run.state.rewards.candidate_random.state, random_before)
 	assert_eq(run.state.pending_rewards, 1)

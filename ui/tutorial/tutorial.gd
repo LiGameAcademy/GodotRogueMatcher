@@ -30,6 +30,7 @@ func _ready() -> void:
 func start(low_effects: bool = false) -> void:
 	cancel()
 	session.reset()
+	choices.set_low_effects(low_effects)
 	view.configure(5, 5, Vector2(64, 64), Vector2(1, 1))
 	view.set_low_effects(low_effects)
 	show()
