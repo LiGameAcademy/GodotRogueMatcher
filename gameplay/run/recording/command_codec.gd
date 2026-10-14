@@ -6,6 +6,8 @@ static func encode(command: RunCommand) -> Dictionary:
 	if command is MovePieceCommand:
 		var move: MovePieceCommand = command as MovePieceCommand
 		result.merge({"type": "move", "piece_id": str(move.piece_id), "target": [str(move.target.x), str(move.target.y)]})
+	elif command is ContinueChallengeCommand:
+		result["type"] = "continue_challenge"
 	elif command is DetonateCoreCommand:
 		result.merge({"type": "detonate", "piece_id": str((command as DetonateCoreCommand).piece_id)})
 	elif command is ChooseSkillCommand:
@@ -23,6 +25,8 @@ static func decode(data: Dictionary) -> RunCommand:
 	if not data.get("run_id") is String or not data.get("source") is String or not data.get("buffered") is bool: return null
 	var command: RunCommand
 	match data.get("type"):
+		"continue_challenge":
+			command = ContinueChallengeCommand.new()
 		"detonate":
 			if not valid_integer(data.get("piece_id")): return null
 			var detonate: DetonateCoreCommand = DetonateCoreCommand.new()

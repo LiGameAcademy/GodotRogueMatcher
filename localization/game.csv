@@ -756,3 +756,26 @@ Clears its column when removed."
 得分并触发效果。","消除一条行或列的普通棋。
 得分并触发效果。","Clear ordinary pieces in one row or column.
 Score and trigger effects."
+
+继续挑战,继续挑战,Continue challenge
+已完成全部 %d 个阶段。,已完成全部 %d 个阶段。,All %d stages completed.
+保留棋盘、总分与构筑，领取本阶段技能奖励后继续挑战。,保留棋盘、总分与构筑，领取本阶段技能奖励后继续挑战。,Keep your board score and build; claim this stage's skill reward and continue.
+追加挑战 · 阶段 %d,追加挑战 · 阶段 %d,Extended challenge · Stage %d
+"%s · 目标总分 %d · 总分 %d
+行动得分 %d · 起始超额 %d · 已用行动 %d
+
+","%s · 目标总分 %d · 总分 %d
+行动得分 %d · 起始超额 %d · 已用行动 %d
+
+","%s · Target total %d · Total %d
+Action score %d · Starting surplus %d · Actions used %d
+
+"
+
+"%s · 目标 %d · 还差 %d
+行动得分 %d + 抵扣 %d · 下次应补 %d 枚
+%s","%s · 目标 %d · 还差 %d
+行动得分 %d + 抵扣 %d · 下次应补 %d 枚
+%s","%s · Target %d · Needed %d
+Action score %d + Carry %d · Next refill %d
+%s"

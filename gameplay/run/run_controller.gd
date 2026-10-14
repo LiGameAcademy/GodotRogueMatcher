@@ -16,6 +16,9 @@ var _last_payload: Dictionary = {}
 var _last_result: CommandResult
 var action_refill_count: int = 0
 
+func can_continue_challenge() -> bool:
+	return state.is_game_over and state.end_reason == &"challenge_completed" and state.rule_error.is_empty() and state.stage.can_continue() and not state.rules.state.get_empty_coordinates().is_empty() and (recorder == null or not recorder.ended)
+
 func direct_match() -> bool:
 	return _direct_match
 
@@ -210,6 +213,16 @@ func execute_command(command: RunCommand) -> CommandResult:
 	elif command.command_id <= last_command_id or command.command_id <= 0: result.reason = "stale_command"
 	elif command.expected_action_id != state.action_id: result.reason = "stale_action"
 	elif not state.rule_error.is_empty(): result.reason = "rule_error"
+	elif command is ContinueChallengeCommand:
+		if not can_continue_challenge(): result.reason = "cannot_continue_challenge"
+		else:
+			state.stage.continue_challenge()
+			state.is_game_over = false
+			state.end_reason = &""
+			state.pending_rewards += 1
+			state.phase = RunState.Phase.REWARDS
+			prepare_spawn_plan()
+			result.accepted = true
 	elif command is MovePieceCommand:
 		var move: MovePieceCommand = command as MovePieceCommand
 		result.reason = abilities.validation_error(1)

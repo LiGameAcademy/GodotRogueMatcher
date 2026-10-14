@@ -47,9 +47,20 @@ layout_mode = 2
 text = "棋盘已满，本局结束"
 horizontal_alignment = 1
 
+[node name="CompletionLabel" type="Label" parent="Panel/Content"]
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+
 [node name="ScoreLabel" type="Label" parent="Panel/Content"]
 layout_mode = 2
 horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Panel/Content"]
+visible = false
+layout_mode = 2
+text = "继续挑战"
+tooltip_text = "保留棋盘、总分与构筑，领取本阶段技能奖励后继续挑战。"
 
 [node name="RetryButton" type="Button" parent="Panel/Content"]
 layout_mode = 2

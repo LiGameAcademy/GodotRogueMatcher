@@ -56,6 +56,10 @@ func finish_game() -> void:
 	_game_over_notified = true
 	game_overed.emit()
 
+## Continue command already restored authoritative state; only release the notification latch.
+func resume_game() -> void:
+	if not run.state.is_game_over: _game_over_notified = false
+
 func start_turn() -> void:
 	if is_game_over or not run.state.rule_error.is_empty():
 		return
