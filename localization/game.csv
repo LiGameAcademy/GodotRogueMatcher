@@ -711,3 +711,23 @@ Starts from the next goal."
 Fuse blasts wait until the combo ends."
 event budget exceeded; resolve rejected,事件预算超限，已拒绝结算,event budget exceeded; resolve rejected
 爆破手预告颜色无效,爆破手预告颜色无效,Invalid demolition preview color
+行清除手登场,行清除手登场,Row Sweeper Arrival
+"本局解锁行清除手随机补给，并立即在随机空格放入首枚。颜色按当前棋子池权重抽取，候选时锁定。场上可多枚；主动扫线与升级见后续技能。","本局解锁行清除手随机补给，并立即在随机空格放入首枚。颜色按当前棋子池权重抽取，候选时锁定。场上可多枚；主动扫线与升级见后续技能。","Unlock row-sweeper supply and place the first piece in a random empty cell. Color is drawn from current weights and locked when offered. Multiple sweepers allowed; manual clear and upgrades come from later skills."
+"解锁行清除补给，立即放入一枚。
+可多枚；按权重再补给。","解锁行清除补给，立即放入一枚。
+可多枚；按权重再补给。","Unlock row-sweeper supply and place one now.
+Multiples allowed; further pieces use supply weight."
+列清除手登场,列清除手登场,Column Sweeper Arrival
+"本局解锁列清除手随机补给，并立即在随机空格放入首枚。颜色按当前棋子池权重抽取，候选时锁定。场上可多枚；主动扫线与升级见后续技能。","本局解锁列清除手随机补给，并立即在随机空格放入首枚。颜色按当前棋子池权重抽取，候选时锁定。场上可多枚；主动扫线与升级见后续技能。","Unlock column-sweeper supply and place the first piece in a random empty cell. Color is drawn from current weights and locked when offered. Multiple sweepers allowed; manual clear and upgrades come from later skills."
+"解锁列清除补给，立即放入一枚。
+可多枚；按权重再补给。","解锁列清除补给，立即放入一枚。
+可多枚；按权重再补给。","Unlock column-sweeper supply and place one now.
+Multiples allowed; further pieces use supply weight."
+行清除手,行清除手,Row Sweeper
+列清除手,列清除手,Column Sweeper
+双击可扫清所在行或列（需已安装主动规则）；场上可同时存在多枚。,双击可扫清所在行或列（需已安装主动规则）；场上可同时存在多枚。,Double-click to clear its row or column once manual clear is installed. Multiple sweepers may exist.
+已解锁行清除补给,已解锁行清除补给,Row sweeper supply already unlocked
+已解锁列清除补给,已解锁列清除补给,Column sweeper supply already unlocked
+扫线手预告颜色无效,扫线手预告颜色无效,Invalid sweeper preview color
+扫线轴向无效,扫线轴向无效,Invalid sweeper axis
+无法放置扫线手,无法放置扫线手,Could not place sweeper

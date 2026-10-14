@@ -24,6 +24,11 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 		var bonus: int = explosion.blast_extra_level * config.bonus_per_blast
 		if bonus > 0:
 			lines.append(TranslationServer.translate("至少清除一枚目标时，本次爆炸另加 %d 分。") % bonus)
+	elif LineClearState.is_line_piece(piece.content_id):
+		var axis_name: String = TranslationServer.translate("行清除手") if piece.content_id == LineClearState.CONTENT_ROW else TranslationServer.translate("列清除手")
+		lines.append(axis_name)
+		lines.append(TranslationServer.translate("匹配色：%s；可移动、参与同色五连。") % TranslationServer.translate(COLOR_NAMES[posmod(piece.match_color, COLOR_NAMES.size())]))
+		lines.append(TranslationServer.translate("双击可扫清所在行或列（需已安装主动规则）；场上可同时存在多枚。"))
 	elif item != null:
 		lines.append(item.get_localized_name())
 		lines.append(item.get_effect_description())

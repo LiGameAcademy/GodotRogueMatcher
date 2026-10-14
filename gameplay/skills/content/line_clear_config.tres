@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LineClearConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/skills/line_clear_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+ordinary_type_weight = 20
+line_type_weight = 1
+line_supply_per_level = 1
+default_color = 2

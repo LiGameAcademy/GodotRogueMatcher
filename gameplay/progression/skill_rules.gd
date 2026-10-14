@@ -46,6 +46,8 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.stage_enabled = state.stage.enabled()
 	context.goal_bonus_score = state.goal_bonus_score
 	context.core_pool_unlocked = state.explosion.core_pool_unlocked
+	context.line_row_unlocked = state.line_clear.row_unlocked
+	context.line_column_unlocked = state.line_clear.column_unlocked
 	context.empty_coordinates = state.rules.state.get_empty_coordinates()
 	context.explosion_unlocked = state.explosion.unlocked
 	context.radius_level = state.explosion.radius_level

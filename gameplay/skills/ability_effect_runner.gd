@@ -99,6 +99,9 @@ static func _apply_choice(run: RunController, effect: ChoiceEffect, frozen: Skil
 	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_CORE:
 		error = _preflight_unlock_core(run, request)
 		if not error.is_empty(): return error
+	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_LINE:
+		error = _preflight_unlock_line(run, request)
+		if not error.is_empty(): return error
 	return apply_choice_request(run, request, result, hold_blasts)
 
 static func _apply_composite(run: RunController, effect: CompositeEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, flush_blasts: bool) -> String:
@@ -156,6 +159,9 @@ static func _apply_choice_with_policy(run: RunController, effect: ChoiceEffect, 
 	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_CORE:
 		var unlock_error: String = _preflight_unlock_core(run, request)
 		if not unlock_error.is_empty(): return unlock_error
+	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_LINE:
+		var line_error: String = _preflight_unlock_line(run, request)
+		if not line_error.is_empty(): return line_error
 	return apply_choice_request(run, request, result, hold_blasts)
 
 static func _skip_invalid_fixed_targets(effect: ChoiceEffect, context: ChoiceEffectContext, target: SkillTarget, failed: ChoiceEffectRequest) -> ChoiceEffectRequest:
@@ -192,6 +198,8 @@ static func _preflight_choice(run: RunController, effect: ChoiceEffect, frozen: 
 		return run.abilities.validation_error(1)
 	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_CORE:
 		return _preflight_unlock_core(run, request)
+	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_LINE:
+		return _preflight_unlock_line(run, request)
 	return ""
 
 static func _preflight_unlock_core(run: RunController, request: ChoiceEffectRequest) -> String:
@@ -202,3 +210,14 @@ static func _preflight_unlock_core(run: RunController, request: ChoiceEffectRequ
 	preview.place_piece(request.coordinate, request.color, &"special_demolition")
 	var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
 	return run.abilities.validation_error(groups.size(), 1, 1)
+
+static func _preflight_unlock_line(run: RunController, request: ChoiceEffectRequest) -> String:
+	var state: RunState = run.state
+	var content: StringName = state.line_clear.content_id(request.stat)
+	if content.is_empty(): return "扫线轴向无效"
+	var preview: BoardRules = BoardRules.new(BoardState.new(state.rules.state.columns, state.rules.state.rows), state.rules.minimum_match_count)
+	for piece: PieceState in state.rules.state.get_snapshot():
+		preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
+	preview.place_piece(request.coordinate, request.color, content)
+	var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
+	return run.abilities.validation_error(groups.size(), 0, 1)

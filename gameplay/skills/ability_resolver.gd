@@ -25,6 +25,12 @@ func add_core(coordinate: Vector2i, match_color: int = -1) -> PieceState:
 		_attach(core.piece_id)
 	return core
 
+## Place a row/column sweeper; multiple allowed. No blast instance until leave-clear is wired (#74).
+func add_line_piece(axis: int, coordinate: Vector2i, match_color: int = -1) -> PieceState:
+	if axis != LineClearState.AXIS_ROW and axis != LineClearState.AXIS_COLUMN: return null
+	var color: int = LineClearRules.CONFIG.default_color if match_color == -1 else match_color
+	return state.rules.place_piece(coordinate, color, state.line_clear.content_id(axis))
+
 ## Install a fuse on a normal piece; reject if it already has content or an instance.
 func assign_fuse(piece_id: int) -> bool:
 	var piece: PieceState = state.rules.state.get_piece(piece_id)

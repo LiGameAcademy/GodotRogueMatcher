@@ -12,14 +12,33 @@ func _init(config: SpawnConfig, run_seed: int = 0) -> void:
 	content_random.seed = run_seed ^ 0x535041574E
 
 ## 只在规则入口补足计划；已显示的前缀不因权重或数量变化重抽。
-func ensure_plan(count: int, explosion: ExplosionState) -> void:
+func ensure_plan(count: int, explosion: ExplosionState, line_clear: LineClearState = null) -> void:
 	while _plan.size() < count:
-		var core: bool = false
-		if explosion.core_pool_unlocked:
-			var weight: int = DemolitionRules.CONFIG.core_type_weight + explosion.level(&"core_supply_up") * DemolitionRules.CONFIG.core_supply_per_level
-			core = content_random.randi_range(1, DemolitionRules.CONFIG.ordinary_type_weight + weight) <= weight
-		var color: int = draw_color(content_random)
-		_plan.append(SpawnToken.new(color, core, color))
+		_plan.append(_draw_token(explosion, line_clear if line_clear != null else LineClearState.new()))
+
+func _draw_token(explosion: ExplosionState, line_clear: LineClearState) -> SpawnToken:
+	var color: int = draw_color(content_random)
+	var ordinary: int = DemolitionRules.CONFIG.ordinary_type_weight
+	var core_weight: int = 0
+	if explosion.core_pool_unlocked:
+		core_weight = DemolitionRules.CONFIG.core_type_weight + explosion.level(&"core_supply_up") * DemolitionRules.CONFIG.core_supply_per_level
+	var row_weight: int = 0
+	var column_weight: int = 0
+	if line_clear.row_unlocked:
+		row_weight = LineClearRules.CONFIG.line_type_weight + line_clear.level(&"line_row_supply") * LineClearRules.CONFIG.line_supply_per_level
+	if line_clear.column_unlocked:
+		column_weight = LineClearRules.CONFIG.line_type_weight + line_clear.level(&"line_column_supply") * LineClearRules.CONFIG.line_supply_per_level
+	var total: int = ordinary + core_weight + row_weight + column_weight
+	var sample: int = content_random.randi_range(1, total)
+	if sample <= core_weight:
+		return SpawnToken.new(color, true, color, -1)
+	sample -= core_weight
+	if sample <= row_weight:
+		return SpawnToken.new(color, false, color, LineClearState.AXIS_ROW)
+	sample -= row_weight
+	if sample <= column_weight:
+		return SpawnToken.new(color, false, color, LineClearState.AXIS_COLUMN)
+	return SpawnToken.new(color, false, color, -1)
 
 func consume_token() -> SpawnToken:
 	return _plan.pop_front()
