@@ -179,7 +179,7 @@ func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, ac
 		popup.show_error(result.error)
 		return
 	board.present_skill_result(result)
-	popup.accept_selection()
+	popup.accept_selection(true)
 
 ## 生成三选一选项
 ## [return: Array[ItemData]] 三个道具选项

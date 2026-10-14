@@ -45,6 +45,7 @@ func test_match_finishes_before_score_notification_and_reward_popup() -> void:
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_false(board.view.is_presenting())
 	(UIManager.current_popup as PopupSkillChoice)._select(0)
+	(UIManager.current_popup as PopupSkillChoice).confirm_selection()
 	await wait_process_frames(3)
 
 func test_blast_waits_for_longer_visual_before_reward_pauses_game() -> void:
@@ -62,6 +63,7 @@ func test_blast_waits_for_longer_visual_before_reward_pauses_game() -> void:
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_false(board.view.is_presenting())
 	(UIManager.current_popup as PopupSkillChoice)._select(0)
+	(UIManager.current_popup as PopupSkillChoice).confirm_selection()
 	await wait_process_frames(3)
 
 func test_core_selection_match_completes_before_next_queued_reward() -> void:
@@ -85,6 +87,7 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	for index: int in range(popup.offer.choices.size()):
 		if popup.offer.choices[index].skill_id == &"core_drop":
 			popup._select(index)
+			popup.confirm_selection()
 			break
 	assert_true(board.view.is_presenting())
 	assert_false(get_tree().paused)
@@ -98,6 +101,7 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	assert_eq(GameManager.score, 310)
 	assert_false(board.view.is_presenting())
 	next._select(0)
+	next.confirm_selection()
 	await wait_process_frames(3)
 
 func _place(coordinate: Vector2i, color: int) -> void:

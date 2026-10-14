@@ -10,6 +10,7 @@ const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 @onready var collection: RunCollection = $RunCollection
 @export var collection_context: String = "unknown"
 @export var intercept_window_close: bool = false
+@onready var card_transfer: CardTransfer = $CardTransfer
 @onready var skill_pool: SkillPool = $SkillPool
 var _pool_previous_location: String = ""
 var _restart_reason: String = "restart"
@@ -60,6 +61,7 @@ func _ready() -> void:
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
 	board.run_reset.connect(hud.reset_score_effects)
+	board.run_reset.connect(card_transfer.cancel)
 	board.view.score_floats.score_visualized.connect(_on_score_visualized)
 	board.goal_bonus_ready.connect(_on_goal_bonus_ready)
 	hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
@@ -184,6 +186,9 @@ func _set_low_effects(enabled: bool, save: bool = true) -> void:
 	board.view.set_low_effects(enabled)
 	world_environment.environment.glow_enabled = not enabled
 	hud.set_low_effects(enabled)
+	if enabled: card_transfer.cancel()
+	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
+		(UIManager.current_popup as PopupSkillChoice).set_low_effects(enabled)
 	if save: _save_preferences()
 
 func _set_volume(volume: float, save: bool = true) -> void:
@@ -214,6 +219,12 @@ func _open_skill_pool() -> void:
 func _on_popup_opened(popup: Control) -> void:
 	if popup is PopupSkillChoice:
 		(popup as PopupSkillChoice).skill_pool_requested.connect(_open_skill_pool)
+		(popup as PopupSkillChoice).card_acquired.connect(_on_skill_card_acquired)
+		(popup as PopupSkillChoice).set_low_effects(preferences.low_effects)
+
+func _on_skill_card_acquired(skill: SkillDefinition, target: SkillTarget, source: Rect2) -> void:
+	var destination: Rect2 = hud.build_list.get_global_rect() if skill.is_persistent or skill.refill_effect() != null else hud.history_button.get_global_rect()
+	card_transfer.play(skill, target, source, destination, preferences.low_effects)
 
 func _on_skill_pool_view_changed(open: bool) -> void:
 	if open:
@@ -251,7 +262,7 @@ func _request_skip() -> void:
 
 func _toggle_pause() -> void:
 	if release_menu.visible: return
-	if UIManager.current_popup is PopupSkillChoice:
+	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).toggle_selection_pause()
 		return
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return

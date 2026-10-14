@@ -2,6 +2,7 @@ class_name ColorTargetPicker
 extends VBoxContainer
 
 signal confirmed(color: int)
+signal color_chosen(color: int)
 signal back_requested
 
 @export var normal_frame: StyleBoxFlat
@@ -58,10 +59,11 @@ func select_color(color: int) -> void:
 	_render_colors()
 	frame.add_theme_stylebox_override("panel", normal_frame)
 	_show_selected_hint()
+	color_chosen.emit(color)
 	hint.remove_theme_color_override("font_color")
 
 func _show_selected_hint() -> void:
-	hint.text = tr("已选择%s。点击“确认清理”后才会应用技能。") % tr(PieceTooltip.COLOR_NAMES[selected_color])
+	hint.text = tr("已选择%s。点击下方确认按钮后应用技能。") % tr(PieceTooltip.COLOR_NAMES[selected_color])
 
 func confirm_selection() -> void:
 	if selected_color == -1:

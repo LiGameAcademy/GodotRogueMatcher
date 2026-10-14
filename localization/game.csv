@@ -731,3 +731,10 @@ Multiples allowed; further pieces use supply weight."
 扫线手预告颜色无效,扫线手预告颜色无效,Invalid sweeper preview color
 扫线轴向无效,扫线轴向无效,Invalid sweeper axis
 无法放置扫线手,无法放置扫线手,Could not place sweeper
+
+请先点选一张卡片,请先点选一张卡片,Select a card first
+确认选择：%s,确认选择：%s,Confirm: %s
+点选后，在下方确认,点选后，在下方确认,Select then confirm below
+已点选 · 等待确认,已点选 · 等待确认,Selected · awaiting confirmation
+
+已选择%s。点击下方确认按钮后应用技能。,已选择%s。点击下方确认按钮后应用技能。,Selected %s. Confirm below to apply.

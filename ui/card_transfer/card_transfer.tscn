@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/card_transfer/card_transfer.gd" id="1"]
+[ext_resource type="PackedScene" path="res://ui/skill_card.tscn" id="2"]
+
+[node name="CardTransfer" type="CanvasLayer"]
+process_mode = 3
+layer = 130
+script = ExtResource("1")
+
+[node name="SkillCard" parent="." instance=ExtResource("2")]
+visible = false
+mouse_filter = 2
+focus_mode = 0

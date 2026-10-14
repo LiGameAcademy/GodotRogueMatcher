@@ -65,6 +65,7 @@ func test_real_popup_produces_visible_exposure_then_acquisition_once() -> void:
 	assert_eq(_events(telemetry, "offer_presented").size(), 1)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	popup._select(0)
+	popup.confirm_selection()
 	await wait_process_frames(4)
 	assert_eq(_events(telemetry, "skill_acquired").size(), 1)
 	assert_eq(_events(telemetry, "input_resolved").back().payload.type, "choose_skill")

@@ -147,7 +147,7 @@ func test_empty_filter_and_grid_column_count() -> void:
 	assert_eq(pool.entries.get_child_count(), 0)
 	pool.scroll.size.x = 600
 	pool._resize_grid()
-	assert_eq(pool.entries.columns, 1)
+	assert_eq(pool.entries.columns, 2)
 	pool.scroll.size.x = 950
 	pool._resize_grid()
 	assert_eq(pool.entries.columns, 3)
