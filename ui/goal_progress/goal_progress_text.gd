@@ -10,7 +10,7 @@ static func current_tooltip(_state: RunState) -> String:
 
 static func target_tooltip(state: RunState) -> String:
 	var tip: String = TranslationServer.translate("目标分数")
-	if state.stage.enabled(): tip += "\n" + TranslationServer.translate("阶段 %d / %d") % [state.stage.index + 1, state.stage.config.targets.size()]
+	if state.stage.enabled(): tip += "\n" + StageText.stage_label(state.stage)
 	return tip
 
 static func rule_tooltip(state: RunState) -> String:
@@ -18,5 +18,5 @@ static func rule_tooltip(state: RunState) -> String:
 	var tip: String = TranslationServer.translate("未达标持续增加补棋数量，达标恢复并触发技能三选一。")
 	if state.stage.awaiting_reward: tip += "\n" + TranslationServer.translate("阶段通过 · 选择一项技能后进入下一阶段")
 	elif state.stage.missing_score() == 0 and state.stage.used_actions == 0: tip += "\n" + TranslationServer.translate("抵扣已足，完成一次有效行动后检验")
-	if state.stage.index == state.stage.config.targets.size() - 1: tip += "\n" + TranslationServer.translate("末阶段达标即完成挑战")
+	if not state.stage.continuing and state.stage.index == state.stage.config.targets.size() - 1: tip += "\n" + TranslationServer.translate("末阶段达标即完成挑战")
 	return tip

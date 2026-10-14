@@ -125,9 +125,10 @@ func _on_game_over() -> void:
 	_refresh_hud()
 	hud.show_status(StageText.end_title(active_run.state))
 	feedback.play(&"finish")
-	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state})
+	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state, "can_continue": active_run.can_continue_challenge()})
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
+		popup.continue_requested.connect(_continue_challenge)
 		popup.menu_requested.connect(_end_to_menu)
 		if popup is GAME_OVER_POPUP: _connect_collection_controls((popup as GAME_OVER_POPUP).collection_controls)
 	_set_collection_location("result")
@@ -160,8 +161,18 @@ func _tutorial_completed() -> void:
 	_save_preferences()
 
 func _end_to_menu() -> void:
+	BoardRunFlow.finalize(board.run, "result_to_menu")
 	UIManager.close_popup()
 	_show_menu()
+
+func _continue_challenge() -> void:
+	if not board.run.can_continue_challenge(): return
+	UIManager.close_popup()
+	_set_collection_location("")
+	var active: RunController = board.run
+	await board.continue_challenge()
+	if not is_instance_valid(board) or board.run != active: return
+	_refresh_hud()
 
 func _on_retry_requested() -> void:
 	skill_pool.close()

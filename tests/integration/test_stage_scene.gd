@@ -133,3 +133,57 @@ func test_real_final_stage_completes_without_skill_popup() -> void:
 	assert_eq((UIManager.current_popup.get_node("Panel/Content/Title") as Label).text, "挑战完成")
 	assert_eq(hud.displayed_score, 105)
 	assert_false(board.view.is_presenting())
+
+func test_victory_continue_button_keeps_run_and_opens_deferred_reward() -> void:
+	var run: RunController = _bind([105])
+	_move()
+	await _wait_popup()
+	var popup: PopupGameOver = UIManager.current_popup as PopupGameOver
+	assert_not_null(popup)
+	if popup == null: return
+	assert_true(popup.continue_button.visible)
+	assert_string_contains(popup.completion_label.text, "全部 1 个阶段")
+	assert_false(run.recorder.ended)
+	var pieces: String = RunSnapshot.canonical(RunRecorder.pieces(run.state.rules.state.get_snapshot()))
+	var score: int = run.state.ledger.total
+	popup.continue_button.pressed.emit()
+	for frame: int in range(360):
+		if UIManager.current_popup is PopupSkillChoice and (UIManager.current_popup as PopupSkillChoice).offer != null: break
+		await wait_process_frames(1)
+	assert_same(board.run, run)
+	assert_eq(run.state.ledger.total, score)
+	assert_eq(RunSnapshot.canonical(RunRecorder.pieces(run.state.rules.state.get_snapshot())), pieces)
+	assert_false(run.recorder.ended)
+	assert_false(run.state.is_game_over)
+	assert_eq(run.state.pending_rewards, 1)
+	var choice: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(choice)
+	if choice == null: return
+	for index: int in range(choice.offer.choices.size()):
+		if not choice.offer.choices[index].requires_color_choice():
+			choice._select(index)
+			choice.confirm_selection()
+			break
+	for frame: int in range(360):
+		if board.can_selected: break
+		await wait_process_frames(1)
+	assert_true(board.can_selected)
+	assert_eq(run.state.stage.index, 1)
+	assert_eq(run.state.stage.target_total(), 210)
+	assert_eq(hud.goal_progress.target_label.text, "210")
+	assert_string_contains(hud.goal_progress.target_label.tooltip_text, "追加挑战")
+	assert_false(GameManager.is_game_over)
+	run.recorder.finish(run, "abandoned", "scene_continue")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay(run.recorder.records), replay.error)
+
+func test_victory_menu_finalizes_once_as_completed() -> void:
+	var run: RunController = _bind([105])
+	_move()
+	await _wait_popup()
+	game.call("_end_to_menu")
+	assert_true(run.recorder.ended)
+	assert_eq(run.recorder.records.back().status, "completed")
+	assert_eq(run.recorder.records.back().reason, "challenge_completed")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay(run.recorder.records), replay.error)

@@ -6,6 +6,7 @@ const SCORE_REASONS: Array[StringName] = [&"match", &"explosion", &"chain_reward
 var _ledger: ScoreLedger
 var config: StageConfig
 var index: int = 0
+var continuing: bool = false
 var carry_in: int = 0
 var action_score: int = 0
 var used_actions: int = 0
@@ -24,21 +25,21 @@ func enabled() -> bool:
 	return config != null
 
 func target() -> int:
-	return config.targets[index]
+	return config.targets[mini(index, config.targets.size() - 1)]
 
 func base_refill_count() -> int:
 	# 错误局仍会刷新HUD，返回0表示没有合法的下一补棋批次。
-	if not enabled() or not config.validation_error().is_empty() or index < 0 or index >= config.targets.size(): return 0
+	if not enabled() or not config.validation_error().is_empty() or index < 0 or (index >= config.targets.size() and not continuing): return 0
 	if awaiting_reward: return config.base_refill
 	@warning_ignore("integer_division")
-	var increase: int = used_actions / config.pressure_intervals[index]
+	var increase: int = used_actions / pressure_interval()
 	return mini(config.maximum_refill, config.base_refill + increase)
 
 ## 配置保存各阶段新增目标，累计目标是其前缀和；总分只读同一账本。
 func target_total() -> int:
 	var total: int = 0
-	for stage_index: int in range(index + 1): total += config.targets[stage_index]
-	return total
+	for stage_index: int in range(mini(index + 1, config.targets.size())): total += config.targets[stage_index]
+	return total + maxi(0, index + 1 - config.targets.size()) * config.targets.back()
 
 func previous_target_total() -> int:
 	return target_total() - target()
@@ -64,14 +65,14 @@ func settle(entries: Array[ScoreEntry], board_full: bool, next_reward_id: int) -
 		if entry.root_action_id == root_action_id and entry.reason in SCORE_REASONS: action_score += entry.final_score
 	var reason: StringName = &""
 	if board_full: reason = &"board_full"
-	elif missing_score() == 0: reason = &"challenge_completed" if index == config.targets.size() - 1 else &"stage_passed"
+	elif missing_score() == 0: reason = &"challenge_completed" if (not continuing and index == config.targets.size() - 1) or not _can_extend() else &"stage_passed"
 	if reason.is_empty(): return null
 	var result: StageResult = StageResult.new()
 	result.stage_id = index + 1
 	result.target = target()
 	result.target_total = target_total()
 	result.score_total = _ledger.total
-	result.pressure_interval = config.pressure_intervals[index]
+	result.pressure_interval = pressure_interval()
 	result.base_refill_before_relief = base_refill_count()
 	result.carry_in = carry_in
 	result.action_score = action_score
@@ -88,6 +89,20 @@ func settle(entries: Array[ScoreEntry], board_full: bool, next_reward_id: int) -
 	history.append(result)
 	return result
 
+func pressure_interval() -> int:
+	return config.pressure_intervals[mini(index, config.pressure_intervals.size() - 1)]
+
+func can_continue() -> bool:
+	return enabled() and not awaiting_reward and not history.is_empty() and history.back().reason == &"challenge_completed" and _can_extend()
+
+## Preserve the completed milestone; continuation itself grants its deferred choice once.
+func continue_challenge() -> void:
+	continuing = true
+	awaiting_reward = true
+
+func _can_extend() -> bool:
+	return target_total() <= 9223372036854775807 - config.targets.back()
+
 func start_next() -> void:
 	if not awaiting_reward: return
 	carry_in = maxi(0, _ledger.total - target_total())
@@ -99,4 +114,4 @@ func start_next() -> void:
 func data() -> Dictionary:
 	var results: Array[Dictionary] = []
 	for result: StageResult in history: results.append(result.data())
-	return {"enabled": enabled(), "target_total": target_total() if enabled() and config.validation_error().is_empty() else 0, "index": index, "carry_in": carry_in, "action_score": action_score, "used_actions": used_actions, "awaiting_reward": awaiting_reward, "root_action_id": root_action_id, "settled_root_id": settled_root_id, "entry_offset": entry_offset, "history": results}
+	return {"enabled": enabled(), "continuing": continuing, "target_total": target_total() if enabled() and config.validation_error().is_empty() else 0, "index": index, "carry_in": carry_in, "action_score": action_score, "used_actions": used_actions, "awaiting_reward": awaiting_reward, "root_action_id": root_action_id, "settled_root_id": settled_root_id, "entry_offset": entry_offset, "history": results}
