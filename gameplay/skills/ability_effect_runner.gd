@@ -41,6 +41,14 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
 			result.created.append(core)
 			result.matches.append_array(run.resolve_matches_at(core.coordinate))
+		ChoiceEffectRequest.Kind.UNLOCK_LINE:
+			if request.stat == LineClearState.AXIS_ROW: state.line_clear.row_unlocked = true
+			elif request.stat == LineClearState.AXIS_COLUMN: state.line_clear.column_unlocked = true
+			else: return "扫线轴向无效"
+			var sweeper: PieceState = run.abilities.add_line_piece(request.stat, request.coordinate, request.color)
+			if sweeper == null: return "无法放置扫线手"
+			result.created.append(sweeper)
+			result.matches.append_array(run.resolve_matches_at(sweeper.coordinate))
 		ChoiceEffectRequest.Kind.GOAL_BONUS:
 			state.goal_bonus_score = request.score_bonus
 		ChoiceEffectRequest.Kind.REFILL:

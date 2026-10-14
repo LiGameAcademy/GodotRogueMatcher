@@ -49,6 +49,10 @@ func test_every_catalog_card_uses_command_pipeline_and_records_all_score_events(
 		var result: CommandResult = run.execute_command(command)
 		assert_true(result.accepted, "%s: %s" % [skill.skill_id, result.reason])
 		if not result.accepted: continue
+		if skill.acquisition_effect() is UnlockLineSupplyEffect:
+			assert_eq(result.skill.created.size(), 1, "%s must place its first sweeper" % skill.skill_id)
+			var axis: int = (skill.acquisition_effect() as UnlockLineSupplyEffect).axis
+			assert_true(run.state.line_clear.unlocked(axis), String(skill.skill_id))
 		assert_eq(run.state.rule_error, "", String(skill.skill_id))
 		assert_eq(run.state.pending_rewards, 0)
 		assert_eq(run.state.rewards.acquired.get(skill.skill_id, 0), 1 if skill.skill_id not in [&"core_manual_detonation", &"fuse_relay", &"match_dye_echo"] else 2)
@@ -66,7 +70,7 @@ func test_every_catalog_card_uses_command_pipeline_and_records_all_score_events(
 		assert_same(run.execute_command(command), result)
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), after)
 		assert_eq(run.recorder.records.size(), records_before)
-	assert_eq(seen.size(), 42)
+	assert_eq(seen.size(), 44)
 
 func test_all_declared_level_upgrades_use_frozen_targets_and_preserve_instance() -> void:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
