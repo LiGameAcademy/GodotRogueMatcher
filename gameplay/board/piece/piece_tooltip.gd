@@ -28,7 +28,7 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 		var axis_name: String = TranslationServer.translate("行清除手") if piece.content_id == LineClearState.CONTENT_ROW else TranslationServer.translate("列清除手")
 		lines.append(axis_name)
 		lines.append(TranslationServer.translate("匹配色：%s；可移动、参与同色五连。") % TranslationServer.translate(COLOR_NAMES[posmod(piece.match_color, COLOR_NAMES.size())]))
-		lines.append(TranslationServer.translate("双击可扫清所在行或列（需已安装主动规则）；场上可同时存在多枚。"))
+		lines.append(TranslationServer.translate("被消除时扫清所在行或列的普通棋子；引信会继续引爆，其他特殊棋子保留。"))
 	elif item != null:
 		lines.append(item.get_localized_name())
 		lines.append(item.get_effect_description())

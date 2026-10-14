@@ -8,6 +8,7 @@ const CONTENT_COLUMN: StringName = &"special_line_column"
 
 var row_unlocked: bool = false
 var column_unlocked: bool = false
+var instances: Dictionary[int, AbilityInstance] = {}
 var upgrades: Dictionary[StringName, int] = {}
 
 func level(upgrade: StringName) -> int:

@@ -51,6 +51,7 @@ static func score_details(entries: Array[ScoreEntry], show_formula: bool = false
 		if entries.back().reason == &"goal_score_bonus" and entry.event_id != entries.back().event_id: continue
 		total += entry.final_score
 		var reason: String = TranslationServer.translate("爆炸") if entry.reason == &"explosion" else (TranslationServer.translate("连携回响") if entry.reason == &"chain_reward" else (TranslationServer.translate("印记收获") if entry.reason == &"marked_reward" else TranslationServer.translate("消除")))
+		if entry.reason == &"line_clear": reason = TranslationServer.translate("扫线")
 		if entry.reason == &"goal_score_bonus": reason = TranslationServer.translate("过关嘉奖")
 		if show_formula:
 			lines.append(TranslationServer.translate("%s：%d × %.2f + %d = %d") % [reason, entry.base_score, entry.multiplier, entry.extra_score, entry.final_score])

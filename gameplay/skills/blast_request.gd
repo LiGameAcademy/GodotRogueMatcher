@@ -1,7 +1,7 @@
 class_name BlastRequest
 extends RefCounted
 
-## Blast queue item. May carry a dispatch ticket or represent a synthetic aftershock.
+## Removal queue item for blasts and line sweeps; may represent a synthetic aftershock.
 var synthetic: bool = false
 var source: PieceState
 var ability: AbilityInstance

@@ -228,4 +228,4 @@ static func _preflight_unlock_line(run: RunController, request: ChoiceEffectRequ
 		preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
 	preview.place_piece(request.coordinate, request.color, content)
 	var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
-	return run.abilities.validation_error(groups.size(), 0, 1)
+	return run.abilities.validation_error(groups.size(), 0, 1, 1)
