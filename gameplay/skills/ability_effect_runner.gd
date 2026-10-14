@@ -115,9 +115,9 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 		if index > 0:
 			var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
 			if child is ChoiceEffect:
-				leaf_frozen = (child as ChoiceEffect).freeze(context, run.state.rewards.target_random)
+				leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.rewards.target_random)
 			elif child is CompositeEffect:
-				leaf_frozen = (child as CompositeEffect).freeze(context, run.state.rewards.target_random)
+				leaf_frozen = (child as CompositeEffect).refresh_after_previous(context, leaf_frozen as CompositeSkillTarget, run.state.rewards.target_random)
 		var leaf_color: int = -1
 		if child is ChoiceEffect and (child as ChoiceEffect).requires_color_choice():
 			if color_consumed or selected_color == -1: return "choose a valid color first"

@@ -15,6 +15,15 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 	target.value_after = target.value_before + delta
 	return target
 
+## Keep the offered color; update only values affected by earlier weight adjustments.
+func refresh_after_previous(context: ChoiceEffectContext, frozen: SkillTarget, _random: RandomNumberGenerator) -> SkillTarget:
+	var target: SkillTarget = SkillTarget.new()
+	target.color = frozen.color
+	if target.color >= 0 and target.color < context.color_weights.size():
+		target.value_before = context.color_weights[target.color]
+		target.value_after = target.value_before + delta
+	return target
+
 func build(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectRequest:
 	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
 	request.kind = ChoiceEffectRequest.Kind.COLOR_WEIGHT
