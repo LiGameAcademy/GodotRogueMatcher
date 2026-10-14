@@ -82,3 +82,27 @@ func test_shift_f11_wide_command_matches_headless_and_freezes_card_preview() -> 
 	target.value_after = 1
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/line_row_span.tres")
 	assert_eq(SkillChoiceText.compact_preview(skill, target), String(TranslationServer.translate("扫线范围：%d → %d 行")) % [1, 3])
+
+func test_ctrl_f11_cross_chain_matches_headless_and_replays_after_presentation() -> void:
+	var game: Node = board.get_parent()
+	var key: InputEventKey = InputEventKey.new()
+	key.physical_keycode = KEY_F11
+	key.pressed = true
+	key.ctrl_pressed = true
+	await game._unhandled_key_input(key)
+	var run: RunController = board.run
+	assert_eq(run.initialization, "fixture_line_cross")
+	var shadow: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
+	shadow.state.run_id = run.state.run_id
+	shadow.initialize("fixture_line_cross")
+	var command: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, 1, run.state.action_id)
+	command.piece_id = shadow.state.rules.state.get_piece_id(Vector2i(2, 4))
+	assert_true(shadow.execute_command(command).accepted)
+	while shadow.state.phase != RunState.Phase.INPUT and not shadow.state.is_game_over: shadow.advance()
+	await board._on_piece_activated(Vector2i(2, 4))
+	assert_eq(run.state.ledger.total, 35)
+	assert_eq(run.state.activations, 1)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), RunSnapshot.digest(RunSnapshot.capture(shadow)))
+	run.recorder.finish(run, "abandoned", "cross_scene")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay_file(run.recorder.path), replay.error)

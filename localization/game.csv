@@ -804,3 +804,15 @@ Applies to manual and removal sweeps."
 扫线范围：%d → %d 行,扫线范围：%d → %d 行,Sweep width: %d → %d rows
 扫线范围：%d → %d 列,扫线范围：%d → %d 列,Sweep width: %d → %d columns
 跨度试玩：双击扫线手，清连续3行或3列；边缘截断,跨度试玩：双击扫线手，清连续3行或3列；边缘截断,Wide sweep demo: double-click to clear 3 adjacent rows or columns; clipped at edges.
+十字扫线,十字扫线,Cross sweep
+本局行、列扫线手同时清除所在行与列。两轴跨度独立生效，交叉目标只清一次；命中特殊棋子继续触发。,本局行、列扫线手同时清除所在行与列。两轴跨度独立生效，交叉目标只清一次；命中特殊棋子继续触发。,Row and column sweepers clear both axes. Each axis keeps its own span upgrade; intersections clear once. Hit special pieces trigger further effects.
+"行、列扫线手 → 十字清除。
+两轴跨度均生效。","行、列扫线手 → 十字清除。
+两轴跨度均生效。","Row and column sweepers → cross clear.
+Both span upgrades apply."
+被消除时扫清所在行或列；命中特殊棋子会继续触发。,被消除时扫清所在行或列；命中特殊棋子会继续触发。,"On removal, sweep its row or column. Hit special pieces trigger further effects."
+十字扫线：同时清连续%d行与%d列（边缘截断）。,十字扫线：同时清连续%d行与%d列（边缘截断）。,Cross sweep: %d adjacent rows and %d adjacent columns (clipped at edges).
+本局可双击行或列清除手，消耗本枚并扫线。花1次行动，正常补棋；命中特殊棋子继续触发。,本局可双击行或列清除手，消耗本枚并扫线。花1次行动，正常补棋；命中特殊棋子继续触发。,Double-click a sweeper to consume it and sweep. Costs 1 action with normal refill; hit special pieces trigger further effects.
+行清除手扫线时，以所在行为中心清理连续3行。边缘截断；主动与离场均生效，命中特殊棋子继续触发。,行清除手扫线时，以所在行为中心清理连续3行。边缘截断；主动与离场均生效，命中特殊棋子继续触发。,"Row sweepers clear 3 adjacent rows, clipped at edges. Applies to manual and removal sweeps; hit special pieces trigger further effects."
+列清除手扫线时，以所在列为中心清理连续3列。边缘截断；主动与离场均生效，命中特殊棋子继续触发。,列清除手扫线时，以所在列为中心清理连续3列。边缘截断；主动与离场均生效，命中特殊棋子继续触发。,"Column sweepers clear 3 adjacent columns, clipped at edges. Applies to manual and removal sweeps; hit special pieces trigger further effects."
+十字连携试玩：双击左侧行扫手，观察行→列→爆破手,十字连携试玩：双击左侧行扫手，观察行→列→爆破手,Cross chain demo: double-click the left row sweeper; watch row → column → demolition core.

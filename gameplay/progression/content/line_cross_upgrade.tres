@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_line_upgrade_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+upgrade = &"line_cross_upgrade"
+
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("3")
+ability_id = &"unlock_line_cross"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("ability")])
+
+[resource]
+script = ExtResource("1")
+skill_id = &"line_cross_upgrade"
+title = "十字扫线"
+description = "本局行、列扫线手同时清除所在行与列。两轴跨度独立生效，交叉目标只清一次；命中特殊棋子继续触发。"
+short_description = "行、列扫线手 → 十字清除。\n两轴跨度均生效。"
+levels = Array[ExtResource("2")]([SubResource("level_1")])
+base_weight = 10.0
+tags = Array[StringName]([&"space"])
+rarity = 2
+maximum_level = 1

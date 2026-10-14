@@ -32,7 +32,7 @@ func _apply(run: RunController, id: StringName) -> SkillApplyResult:
 	return SkillRules.apply(run, offer.offer_id, id)
 
 func test_40_resources_and_support_skills_can_be_drawn_at_third_reward() -> void:
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 47)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 48)
 	var seen: Array[StringName] = []
 	for seed_value: int in range(150):
 		var run: RunController = _run(seed_value)

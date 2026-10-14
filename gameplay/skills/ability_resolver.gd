@@ -227,11 +227,13 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> MatchResult:
 	var effect: LineSweepEffect = event.ability.definition.effect as LineSweepEffect
 	var radius: int = LineClearRules.radius(state.line_clear, LineClearState.axis_of(event.source.content_id))
-	var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius)
+	var cross_radius: int = LineClearRules.cross_radius(state.line_clear, LineClearState.axis_of(event.source.content_id))
+	var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius, cross_radius)
 	var result: MatchResult = MatchResult.new()
 	result.cause = &"line_clear"
 	result.line_axis = LineClearState.axis_of(event.source.content_id)
 	result.radius = request.radius
+	result.cross_radius = request.cross_radius
 	result.source_id = event.source.piece_id
 	result.source_color = event.source.match_color
 	result.center = event.source.coordinate
