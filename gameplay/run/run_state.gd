@@ -11,6 +11,7 @@ var turn_count: int = 0
 var action_id: int = 0
 var rule_action_id: int = -1
 var activations: int = 0
+var manual_uses_used: Dictionary[StringName, int] = {}
 var is_game_over: bool = false
 var pending_rewards: int = 0
 var rewards: RewardState
@@ -44,6 +45,7 @@ func reset_counters() -> void:
 	action_id = 0
 	rule_action_id = -1
 	activations = 0
+	manual_uses_used.clear()
 	is_game_over = false
 	end_reason = &""
 	stage = StageState.new(stage.config, ledger)

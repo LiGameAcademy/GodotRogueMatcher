@@ -1,6 +1,6 @@
 # 主动扫线、少量计分与整轴演出（#74）
 
-本页保存首片验收规则。作者后续允许扫线清除特殊棋并继续触发，当前契约见[line_cross_chain.md](line_cross_chain.md)。
+本页保存首片验收规则。特殊棋连携见[line_cross_chain.md](line_cross_chain.md)；当前主动卡每局三次规则见[manual_use_limit.md](manual_use_limit.md)。
 
 2026-10-14，待作者试玩。目标分支：feature/stage-challenge。
 

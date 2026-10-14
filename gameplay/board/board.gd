@@ -148,7 +148,7 @@ func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	return true
 
 func refresh_ability_markers() -> void:
-	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config, run.state.line_clear)
+	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config, run.state.line_clear, run.state.manual_uses_used)
 
 ## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
 func open_skill_demo() -> bool:

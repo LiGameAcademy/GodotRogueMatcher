@@ -20,7 +20,7 @@ func test_snapshot_ability_instances_expose_debug_links() -> void:
 	assert_eq(String(row.event_type), "piece_eliminated")
 	assert_true(row.has("consume_on_empty"))
 	assert_true(row.has("max_triggers"))
-	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v31-line-cross-chain")
+	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v32-manual-use-limit")
 
 func test_explain_matches_adapter_and_records_condition_rejection() -> void:
 	var run: RunController = _run()

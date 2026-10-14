@@ -183,6 +183,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	elif mode == "fixture_line": LineClearDemo.populate(self)
 	elif mode == "fixture_line_span": LineClearDemo.populate(self, true)
 	elif mode == "fixture_line_cross": LineClearDemo.populate_cross(self)
+	elif mode == "fixture_manual_limit": LineClearDemo.populate_manual_limit(self)
 	else:
 		state.rule_error = "unsupported_initialization"
 		state.phase = RunState.Phase.ERROR
@@ -245,9 +246,11 @@ func execute_command(command: RunCommand) -> CommandResult:
 		elif piece == null or (not LineClearState.is_line_piece(piece.content_id) if line else piece.content_id != &"special_demolition"):
 			result.reason = "invalid_line_piece" if line else "invalid_core"
 		elif line and not state.line_clear.instances.has(piece_id): result.reason = "missing_line_ability"
+		elif ManualActivationRules.remaining(state, line) == 0: result.reason = "manual_uses_exhausted"
 		else:
 			result.reason = abilities.validation_error(1)
 			if result.reason.is_empty():
+				ManualActivationRules.consume(state, line)
 				state.action_id += 1
 				state.rule_action_id = state.action_id
 				turn_action_id = state.action_id

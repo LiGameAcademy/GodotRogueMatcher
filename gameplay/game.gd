@@ -100,7 +100,7 @@ func _set_language(preference: String) -> void:
 func _on_locale_changed(_old: String, _new: String) -> void:
 	if board.run == null: return
 	_refresh_hud()
-	board.view.refresh_piece_details(board.run.state.rules.state.get_snapshot(), board.run.state.explosion, board.run.abilities.config, board.run.state.line_clear)
+	board.view.refresh_piece_details(board.run.state.rules.state.get_snapshot(), board.run.state.explosion, board.run.abilities.config, board.run.state.line_clear, board.run.state.manual_uses_used)
 	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -116,6 +116,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			if await board.load_explosion_demo("fixture_dye"):
 				hud.show_status("染色试玩：将第5列第7行红棋移到第5列第5行")
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F11:
+			if key.alt_pressed:
+				if await board.load_explosion_demo("fixture_manual_limit"):
+					hud.show_status("限次试玩：依次双击四枚扫线手；前三次生效，第四次保留")
+				return
 			var wide: bool = key.shift_pressed
 			var cross: bool = key.ctrl_pressed
 			var mode: String = "fixture_line_cross" if cross else ("fixture_line_span" if wide else "fixture_line")

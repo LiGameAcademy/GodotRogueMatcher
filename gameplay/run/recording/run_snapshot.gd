@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v31-line-cross-chain"
+const RULES_VERSION: String = "run-commands-v32-manual-use-limit"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -118,6 +118,7 @@ static func capture(run: RunController) -> Dictionary:
 	snapshot["spawning"] = normalize({"refill_batches": state.spawning.refill_batches, "color_weights": state.spawning.color_weights, "plan": state.spawning.plan_data(), "content_random": random_data(state.spawning.content_random), "plan_policy": "locked-prefix-conditional-core-v1"})
 	snapshot["demolition"] = normalize({"upgrades": state.explosion.upgrades, "core_pool": state.explosion.core_pool_unlocked, "fuse_unlocked": state.explosion.fuse_unlocked, "rule_action_id": state.rule_action_id, "turn_action_id": run.turn_action_id, "activations": state.activations, "roots": _roots(state)})
 	snapshot["line_clear"] = normalize({"row": state.line_clear.row_unlocked, "column": state.line_clear.column_unlocked, "upgrades": state.line_clear.upgrades})
+	snapshot["manual_uses_used"] = normalize(state.manual_uses_used)
 	snapshot["dye"] = normalize({"upgrades": state.dye.upgrades, "marks": state.dye.marks, "root": state.dye.root_id, "waves": state.dye.waves_used, "match": state.dye.considered_match, "blast": state.dye.considered_blast, "chain": state.dye.allow_chain, "ids": state.dye.dyed_ids})
 	snapshot["goal_bonus_score"] = str(state.goal_bonus_score)
 	var skills: Array[Dictionary] = []

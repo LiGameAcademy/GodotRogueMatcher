@@ -104,12 +104,15 @@ func _resolved(row: Dictionary) -> void:
 	if row.has("command_id") and not _command.is_empty():
 		var request: Dictionary = _command.command
 		var context: Dictionary = {"command_id": request.command_id}
-		if _command.accepted and request.type in ["move", "detonate"]:
+		if _command.accepted and request.type in ["move", "detonate", "activate_line"]:
 			_turn = TelemetryTurn.new(row.before, request.command_id, row.after.action)
 			_action_type = request.type
 			_root_incomplete = true
 		if _command.accepted: _last_submitted = request.duplicate(true)
-		_emit("command_resolved", {"type": request.type, "accepted": _command.accepted, "reason": _command.reason, "buffered": request.buffered, "buffer_wait_ms": request.buffered_wait_ms, "action_before": row.before.action, "action_after": row.after.action}, context)
+		var payload: Dictionary = {"type": request.type, "accepted": _command.accepted, "reason": _command.reason, "buffered": request.buffered, "buffer_wait_ms": request.buffered_wait_ms, "action_before": row.before.action, "action_after": row.after.action}
+		if request.type in ["detonate", "activate_line"]:
+			payload.merge({"manual_uses_before": row.before.get("manual_uses_used", {}), "manual_uses_after": row.after.get("manual_uses_used", {})})
+		_emit("command_resolved", payload, context)
 		if not _skill.is_empty():
 			_last_skill = _skill.duplicate(true)
 			context.merge({"offer_id": _skill.offer_id, "reward_id": _skill.reward_id, "root_action_id": null, "batch_id": "reward:" + _skill.reward_id}, true)
@@ -223,6 +226,7 @@ func observation(include_board: bool = true) -> Dictionary:
 		"since_input_ms": clock.elapsed() - _last_input_ms, "has_accepted_action": int(_state.get("action", "0")) > 0
 	}
 	result["play_started"] = _play_started
+	result["manual_uses_used"] = _state.get("manual_uses_used", {}).duplicate(true)
 	if include_board: result["board"] = _state.get("pieces", []).duplicate(true)
 	return result
 
