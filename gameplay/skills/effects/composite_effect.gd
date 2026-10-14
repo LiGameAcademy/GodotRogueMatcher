@@ -46,6 +46,19 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Comp
 			target.leaf_targets.append((child as CompositeEffect).freeze(context, random))
 	return target
 
+## Refresh nested previews without discarding child-specific frozen choices.
+func refresh_after_previous(context: ChoiceEffectContext, frozen: CompositeSkillTarget, random: RandomNumberGenerator) -> CompositeSkillTarget:
+	var target: CompositeSkillTarget = CompositeSkillTarget.new()
+	if frozen == null or frozen.leaf_targets.size() != children.size(): return target
+	for index: int in range(children.size()):
+		var child: SkillEffect = children[index]
+		var previous: SkillTarget = frozen.leaf_targets[index]
+		if child is ChoiceEffect:
+			target.leaf_targets.append((child as ChoiceEffect).refresh_after_previous(context, previous, random))
+		elif child is CompositeEffect:
+			target.leaf_targets.append((child as CompositeEffect).refresh_after_previous(context, previous as CompositeSkillTarget, random))
+	return target
+
 func requires_color_choice() -> bool:
 	for child: SkillEffect in children:
 		if child is ChoiceEffect and (child as ChoiceEffect).requires_color_choice():

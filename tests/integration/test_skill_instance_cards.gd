@@ -8,17 +8,12 @@ const SUPPLY: SkillDefinition = preload("res://gameplay/progression/content/core
 func _apply(run: RunController, skill: SkillDefinition) -> void:
 	run.state.pending_rewards = 1
 	run.enter_rewards()
-	var current: int = SkillRules.level(run.state, skill)
 	var offer: SkillOffer = SkillOffer.new()
 	offer.offer_id = run.state.rewards.next_offer_id
 	run.state.rewards.next_offer_id += 1
 	offer.reward_id = run.state.rewards.consumed_count + 1
 	offer.choices = [skill]
-	var effect: SkillEffect = skill.acquisition_effect(current)
-	var target: SkillTarget = (effect as ChoiceEffect).freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-	target.level_before = current
-	target.level_after = current + 1
-	offer.targets[skill.skill_id] = target
+	offer.targets[skill.skill_id] = SkillRules.freeze_target(run.state, skill)
 	run.state.rewards.active_offer = offer
 	assert_true(SkillRules.apply(run, offer.offer_id, skill.skill_id).success)
 

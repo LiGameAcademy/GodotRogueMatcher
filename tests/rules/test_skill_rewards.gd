@@ -99,7 +99,7 @@ func test_current_and_future_fuses_share_upgraded_radius_only_in_same_run() -> v
 	var offer: SkillOffer = generator.generate(run)
 	# 受控候选用于验证具体应用，不依赖随机恰好展示某项。
 	offer.choices[0] = _definition(&"blast_radius")
-	offer.targets[&"blast_radius"] = SkillTarget.new()
+	offer.targets[&"blast_radius"] = SkillRules.freeze_target(run.state, _definition(&"blast_radius"))
 	assert_true(SkillRules.apply(run, offer.offer_id, &"blast_radius").success)
 	assert_eq(run.state.explosion.radius_level, 1)
 	var other: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)

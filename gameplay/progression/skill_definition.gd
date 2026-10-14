@@ -25,7 +25,7 @@ enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
 @export var maximum_level: int = 0
 @export var levels: Array[SkillLevelDefinition] = []
 
-## Next acquire/upgrade effect root. Unmigrated cards still use choice_effect.
+## Acquire/upgrade root: direct ChoiceEffect and per-level abilities share the same runner.
 func acquisition_effect(current_level: int = 0) -> SkillEffect:
 	if levels.is_empty(): return choice_effect
 	if current_level < 0 or current_level >= levels.size(): return null

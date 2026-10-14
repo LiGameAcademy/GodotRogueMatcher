@@ -40,15 +40,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			state.explosion.core_pool_unlocked = true
 			var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
 			result.created.append(core)
-			result.matches = run.resolve_matches_at(core.coordinate)
-		ChoiceEffectRequest.Kind.UNLOCK_LINE:
-			if request.stat == LineClearState.AXIS_ROW: state.line_clear.row_unlocked = true
-			elif request.stat == LineClearState.AXIS_COLUMN: state.line_clear.column_unlocked = true
-			else: return "扫线轴向无效"
-			var sweeper: PieceState = run.abilities.add_line_piece(request.stat, request.coordinate, request.color)
-			if sweeper == null: return "无法放置扫线手"
-			result.created.append(sweeper)
-			result.matches = run.resolve_matches_at(sweeper.coordinate)
+			result.matches.append_array(run.resolve_matches_at(core.coordinate))
 		ChoiceEffectRequest.Kind.GOAL_BONUS:
 			state.goal_bonus_score = request.score_bonus
 		ChoiceEffectRequest.Kind.REFILL:
@@ -61,7 +53,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 		ChoiceEffectRequest.Kind.DYE_UPGRADE:
 			state.dye.upgrades[request.upgrade] = state.dye.level(request.upgrade) + 1
 		ChoiceEffectRequest.Kind.DYE:
-			result.matches = DyeRules.recolor(run.abilities, request.piece_ids, request.color)
+			result.matches.append_array(DyeRules.recolor(run.abilities, request.piece_ids, request.color))
 		ChoiceEffectRequest.Kind.CLEAR:
 			var batch: Array[PieceState] = []
 			for id: int in request.piece_ids:
@@ -126,9 +118,9 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 		if index > 0:
 			var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
 			if child is ChoiceEffect:
-				leaf_frozen = (child as ChoiceEffect).freeze(context, run.state.rewards.target_random)
+				leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.rewards.target_random)
 			elif child is CompositeEffect:
-				leaf_frozen = (child as CompositeEffect).freeze(context, run.state.rewards.target_random)
+				leaf_frozen = (child as CompositeEffect).refresh_after_previous(context, leaf_frozen as CompositeSkillTarget, run.state.rewards.target_random)
 		var leaf_color: int = -1
 		if child is ChoiceEffect and (child as ChoiceEffect).requires_color_choice():
 			if color_consumed or selected_color == -1: return "choose a valid color first"

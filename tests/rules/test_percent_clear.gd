@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const SKILL: SkillDefinition = preload("res://gameplay/progression/content/instant_percent_clear.tres")
 
@@ -27,16 +27,16 @@ func test_floor_zero_and_invalid_ratio() -> void:
 	for count: int in range(13):
 		var run: RunController = _run(count)
 		var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
-		assert_eq(SKILL.choice_effect.rejection(context).is_empty(), count >= 4)
+		assert_eq((SKILL.acquisition_effect() as ChoiceEffect).rejection(context).is_empty(), count >= 4)
 		var before: int = run.state.rewards.target_random.state
 		var target: SkillTarget = SkillRules.freeze_target(run.state, SKILL, run.state.rewards.target_random)
 		assert_eq(target.piece_ids.size(), count / 4)
 		if count < 4: assert_eq(run.state.rewards.target_random.state, before)
-	var config: PercentClearEffect = SKILL.choice_effect.duplicate() as PercentClearEffect
+	var config: PercentClearEffect = SKILL.acquisition_effect().duplicate() as PercentClearEffect
 	for ratio: float in [0.0, -0.1, 1.1, NAN]:
 		config.ratio = ratio
 		assert_false(config.rejection(SkillRules.effect_context(_run().state)).is_empty())
-	assert_eq((SKILL.choice_effect as PercentClearEffect).ratio, 0.25)
+	assert_eq((SKILL.acquisition_effect() as PercentClearEffect).ratio, 0.25)
 
 func test_freeze_is_unique_reproducible_and_preserves_board_random() -> void:
 	for seed_value: int in range(64):

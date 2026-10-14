@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const NEW_IDS: Array[StringName] = [&"refill_less", &"refill_more", &"color_weight_up", &"color_weight_down", &"instant_color_clear", &"instant_line_clear", &"instant_percent_clear"]
 
@@ -125,7 +125,7 @@ func test_color_lowering_stays_positive_and_excludes_capped_targets() -> void:
 	assert_eq(run.state.spawning.color_weights.count(4), 2)
 	assert_string_contains(SkillRules.rejection(run.state, _skill(&"color_weight_down"), run.abilities.config), "满级")
 	run.state.spawning.color_weights = [2, 2, 2, 2, 2]
-	assert_string_contains(_skill(&"color_weight_down").choice_effect.rejection(SkillRules.effect_context(run.state)), "没有")
+	assert_string_contains((_skill(&"color_weight_down").acquisition_effect() as ChoiceEffect).rejection(SkillRules.effect_context(run.state)), "没有")
 	run.state.spawning.color_weights = [20, 20, 20, 20, 18]
 	run.state.pending_rewards = 1
 	var offer: SkillOffer = _offer(run, &"color_weight_up")

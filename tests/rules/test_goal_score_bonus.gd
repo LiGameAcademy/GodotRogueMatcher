@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const SKILL: SkillDefinition = preload("res://gameplay/progression/content/goal_score_bonus.tres")
 
@@ -104,16 +104,16 @@ func test_shortfall_and_full_board_never_trigger_bonus() -> void:
 
 func test_configuration_eligibility_stale_target_and_reset() -> void:
 	var classic: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
-	assert_false(SKILL.choice_effect.rejection(SkillRules.effect_context(classic.state)).is_empty())
+	assert_false((SKILL.acquisition_effect() as ChoiceEffect).rejection(SkillRules.effect_context(classic.state)).is_empty())
 	var run: RunController = _run()
 	var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
 	var target: SkillTarget = SkillRules.freeze_target(run.state, SKILL, run.state.rewards.target_random)
 	context.goal_bonus_score = 25
-	assert_false(SKILL.choice_effect.build(context, target).error.is_empty())
-	var effect: InstallGoalBonusEffect = SKILL.choice_effect.duplicate() as InstallGoalBonusEffect
+	assert_false((SKILL.acquisition_effect() as ChoiceEffect).build(context, target).error.is_empty())
+	var effect: InstallGoalBonusEffect = SKILL.acquisition_effect().duplicate() as InstallGoalBonusEffect
 	effect.bonus_score = 0
 	assert_false(effect.rejection(SkillRules.effect_context(run.state)).is_empty())
-	assert_eq((SKILL.choice_effect as InstallGoalBonusEffect).bonus_score, 25)
+	assert_eq((SKILL.acquisition_effect() as InstallGoalBonusEffect).bonus_score, 25)
 	run.state.goal_bonus_score = 25
 	run.state.reset_counters()
 	assert_eq(run.state.goal_bonus_score, 0)
