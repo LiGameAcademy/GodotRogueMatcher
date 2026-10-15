@@ -25,12 +25,15 @@ func before_each() -> void:
 	board = game.get_node("Board") as Board
 	hud = game.get_node("UILayer/HUD") as Hud
 	await board.initialized
+	(game.get_node("GameFeedback") as GameFeedback).set_volume(0.0)
 	board.director.step_requested.connect(_observe_step)
 	board.director.step_skip_requested.connect(_observe_skip)
 
 func after_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
+	# Stop score/VFX tails before draining deferred deletion, rather than after teardown returns.
+	if is_instance_valid(game): game.queue_free()
 	await wait_process_frames(2)
 
 func _observe_step(step: PresentationStep, epoch: int, token: int) -> void:

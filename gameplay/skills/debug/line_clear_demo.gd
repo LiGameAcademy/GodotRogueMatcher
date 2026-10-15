@@ -2,7 +2,7 @@ class_name LineClearDemo
 extends RefCounted
 
 ## Deterministic teaching/test fixture, never a balance sample. Acquisition uses the shipped runner.
-static func populate(run: RunController, wide: bool = false) -> void:
+static func populate(run: RunController, wide: bool = false, scored: bool = false) -> void:
 	run.state.line_clear.row_unlocked = true
 	run.state.line_clear.column_unlocked = true
 	if wide:
@@ -16,6 +16,7 @@ static func populate(run: RunController, wide: bool = false) -> void:
 		for x: int in [1, 2]: run.state.rules.place_piece(Vector2i(x, 0), x)
 		for y: int in [1, 2]: run.state.rules.place_piece(Vector2i(4, y), y)
 	_install(run, preload("res://gameplay/progression/content/line_manual_clear.tres"))
+	if scored: _install(run, preload("res://gameplay/progression/content/line_clear_score.tres"))
 	if wide:
 		_install(run, preload("res://gameplay/progression/content/line_row_span.tres"))
 		_install(run, preload("res://gameplay/progression/content/line_column_span.tres"))

@@ -256,6 +256,7 @@ func _commit_clear_score(result: MatchResult, score_short_clear: bool = false, a
 	var extra: int = 0
 	if not result.removed.is_empty():
 		extra = state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, ids)
+		if result.cause == &"line_clear": extra += LineClearRules.score_bonus(state.line_clear, result.removed.size())
 	return state.ledger.commit(result.removed.size(), multiplier, extra, result.cause, DemolitionRules.root_id(state), ids, result.source_id, ability_id, score_short_clear)
 
 func _attach(piece_id: int) -> void:
