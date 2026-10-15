@@ -22,25 +22,30 @@ An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy
 
 ![中文界面](docs/preview/language-zh.jpg)
 
-## Current development slice (unreleased 0.0.2)
+## 0.0.2 release candidate
 
-The source now offers **Stage challenge** (default) and **Classic endless** in the F1 menu. Switching modes starts a new run; retry keeps the selected mode. The published 0.0.1 Web release remains the baseline described above.
+Source version: **0.0.2**, pending Web release validation and publication. The public links above still serve the 0.0.1 preview. The screenshots above also show that earlier version; see [current visual evidence](docs/o3_acceptance.md).
 
-In Stage challenge, each accepted move or manual detonation advances pressure. Refills grow from 3 to at most 6 pieces while the target remains unmet. Passing restores the base refill to 3 and earns one skill choice, keeping the board and build. There is no action deadline. Excess eligible action points carry over; each next stage still needs one new action. A full board takes priority over passing. The last stage completes the challenge without another card. Instant skill rewards affect total score, not stage progress.
+- Choose **Stage challenge** (default) or **Classic endless** on the start menu. Changing mode starts a new run; retry retains the mode.
+- Stage targets use cumulative total score, including instant skill rewards. Unmet targets increase refills from 3 to **at most 5**, including skill modifiers. Passing resets pressure and offers three skills; board, score, and build carry over. Each stage requires one new valid action. A full board takes priority; there is no hard action deadline.
+- Complete eight stages to win, then optionally continue with the same board and build. Further stages add 1,000 to the target total each time. Initial targets and four-action pressure intervals are experimental: [StageConfig](gameplay/progression/stages/stage_config.tres).
+- Build Blast Cores or row/column sweepers, upgrade their span and cross patterns, and trigger special-piece chains. Manual abilities have three uses per card per run; chain reactions do not spend extra uses.
+- Select a skill card, then confirm below the cards. Browse the piece pool and skill pool, including tag/rarity/level filters and sorting.
+- Light toy and dark instrument themes; settings contain playback, sound, background, board signal, and low-effects controls.
 
-The eight-stage targets and pressure intervals (4/4/4/3/3/3/2/2 actions) are experimental and editable in [StageConfig](gameplay/progression/stages/stage_config.tres). Each action pays its previously previewed refill; passing does not waive that cost. Direct matches still skip refills unless the board is fully cleared. Test this slice directly in the Godot editor; Web exports are reserved for release or Web-specific checks. Headless bot batches use stage rules by default; add `--legacy` after `--` to compare classic rules.
+The 0.0.1 section describes the earlier public build, not the current skill count. Daily testing stays in the Godot editor; Web builds are reserved for release or Web-specific checks.
 
 ## How to play
 
-Click a piece, then a reachable empty cell. Pieces can only travel through empty cells. Five or more matching colors in a horizontal, vertical, or diagonal line clear and score. A move without a direct line usually adds three pieces; a full-board clear also refills. A full board ends the run.
+Click a piece, then a reachable empty cell. Pieces can only travel through empty cells. Five or more matching colors in a horizontal, vertical, or diagonal line clear and score. A move without a direct line adds the previewed pieces; a full-board clear also refills. A full board ends the run.
 
-Score thresholds offer three skill cards. After acquiring the manual detonation upgrade, double-click a Blast Core to detonate it; this spends an action. Hover over special pieces to read their abilities.
+Score thresholds offer three skill cards. After acquiring the manual detonation upgrade, double-click a Blast Core to detonate it; this spends an action and one manual use. Hover over special pieces to read their abilities.
 
 | Control | Action |
 | --- | --- |
 | Mouse | Select and move; choose skills and colors |
 | Esc | Pause / resume |
-| F1 | Help / menu |
+| F1 | Settings |
 | F8 | Fast playback |
 | F9 | Skip a skippable presentation |
 
@@ -57,7 +62,7 @@ Import `project.godot` and run the main scene. The `godot_core_system` submodule
 Run the headless GUT suite:
 
 ```sh
-godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
+godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests/rules,res://tests/integration -ginclude_subdirs -gexit
 ```
 
 Export a Web release with PowerShell:
@@ -70,9 +75,9 @@ Serve `production/web_preview/` over HTTP, or upload the generated ZIP to an HTM
 
 ## Preview scope
 
-Designed for desktop browsers with mouse and keyboard; 1280×720 or larger is recommended. Mobile touch controls and cross-refresh run continuation are not included. Balance is experimental. Missions and additional rescue pieces are planned, not shipped.
+Designed for desktop browsers with mouse and keyboard; 1280×720 or larger is recommended. Mobile touch controls and cross-refresh run continuation are not included. Balance is experimental. The background remains at its accepted prototype quality; further visual tuning and waiting-time analysis are deferred.
 
-Settings, tutorial progress, and run records stay in local browser storage; this build has no telemetry upload endpoint. Clearing site storage removes those records.
+Settings and tutorial progress use local browser storage. Web disables the desktop telemetry collector and hides record-folder/export controls; it does not provide a supported playtest-data download. Internal command records are not a browser export guarantee. Clearing site storage removes saved preferences. Nothing is uploaded to a telemetry endpoint.
 
 ## Learning, support, and credits
 

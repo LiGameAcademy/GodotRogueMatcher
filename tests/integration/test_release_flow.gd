@@ -135,7 +135,7 @@ func test_tutorial_choice_occurs_after_animation_while_tree_paused() -> void:
 func test_build_label_uses_application_version_and_explicit_override() -> void:
 	var recorder: RunRecorder = RunRecorder.new()
 	recorder.begin(board.run, "test", false)
-	assert_eq(recorder.records[0].build, "0.0.1")
+	assert_eq(recorder.records[0].build, str(ProjectSettings.get_setting("application/config/version")))
 	var explicit: RunRecorder = RunRecorder.new()
 	explicit.begin(board.run, "test", false, "fixture-build")
 	assert_eq(explicit.records[0].build, "fixture-build")
