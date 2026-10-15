@@ -93,16 +93,16 @@ func test_materials_and_shared_presets_are_not_mutated_by_other_instances() -> v
 	assert_eq(background.response, GameThemes.ALL[0].background_flow.score_response)
 	assert_eq(other.response, 0.0)
 	assert_eq(b.get_shader_parameter("response"), 0.0)
-	assert_eq(GameThemes.ALL[0].background_flow.contrast, 0.045)
+	assert_eq(GameThemes.ALL[0].background_flow.contrast, 0.12)
 	var fresh: GameBackground = BACKGROUND.instantiate() as GameBackground
 	var original_strength: Variant = (fresh.material as ShaderMaterial).get_shader_parameter("strength")
 	a.set_shader_parameter("strength", 0.8)
 	assert_eq((fresh.material as ShaderMaterial).get_shader_parameter("strength"), original_strength)
-	assert_eq(b.get_shader_parameter("strength"), 0.045)
+	assert_eq(b.get_shader_parameter("strength"), 0.12)
 	# A fresh scene still starts from the resource's original shader values.
 	add_child_autofree(fresh)
 	fresh.apply_game_theme(GameThemes.ALL[0])
-	assert_eq((fresh.material as ShaderMaterial).get_shader_parameter("strength"), 0.045)
+	assert_eq((fresh.material as ShaderMaterial).get_shader_parameter("strength"), 0.12)
 
 func test_real_score_and_retry_are_visual_only_and_replay_stays_exact() -> void:
 	assert_true(board.load_explosion_demo())
@@ -133,3 +133,22 @@ func test_settings_toggle_preserves_pause_and_rules() -> void:
 	settings.close()
 	assert_false(get_tree().paused)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
+
+func test_saved_theme_is_applied_before_initial_spawn_yields() -> void:
+	# _ready reaches start_game's first await synchronously; do not await initialized here.
+	for preset: GameTheme in GameThemes.ALL:
+		var opening: Node2D = GAME.instantiate() as Node2D
+		opening.set("persist_preferences", false)
+		opening.set("record_runs", false)
+		opening.set("collect_telemetry", false)
+		opening.set("show_start_menu", false)
+		(opening.get("preferences") as PlayerPreferences).theme_id = preset.theme_id
+		add_child_autofree(opening)
+		var opening_board: Board = opening.get_node("Board") as Board
+		var opening_background: GameBackground = opening.get_node("ColorRect") as GameBackground
+		assert_same(opening.get("game_theme"), preset)
+		assert_eq(opening_background.color, preset.background)
+		assert_eq(opening_background.size, opening.get_viewport_rect().size)
+		assert_eq((opening.get_node("UILayer/HUD") as Control).theme, preset.ui_theme)
+		assert_eq(opening_board.get_cell(Vector2i.ZERO).default_bg_color, preset.board.cell_color)
+		await opening_board.initialized

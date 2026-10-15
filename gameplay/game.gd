@@ -83,6 +83,8 @@ func _ready() -> void:
 	_set_fast(preferences.fast, false)
 	_set_low_effects(preferences.low_effects, false)
 	_set_volume(preferences.volume, false)
+	# Apply the saved skin before start_game yields for initial spawn presentation.
+	_set_theme(preferences.theme_id, false)
 	if collect_telemetry and not OS.has_feature("web"):
 		collection.configure(collection_context)
 		board.telemetry_factory = collection.factory
@@ -91,7 +93,6 @@ func _ready() -> void:
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.start_game(board_rules, record_runs)
-	_set_theme(preferences.theme_id, false)
 	if show_start_menu: _show_menu()
 	else:
 		_has_played = true
@@ -301,6 +302,7 @@ func _set_theme(theme_id: StringName, save: bool = true) -> void:
 
 func _apply_game_theme() -> void:
 	if game_theme == null: return
+	background.size = get_viewport_rect().size
 	background.apply_game_theme(game_theme)
 	hud.apply_game_theme(game_theme)
 	board.view.apply_game_theme(game_theme)

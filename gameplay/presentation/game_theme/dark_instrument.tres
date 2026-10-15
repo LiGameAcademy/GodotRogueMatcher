@@ -44,7 +44,8 @@ mote_color = Color(0.384314, 0.847059, 0.756863, 1)
 
 [sub_resource type="Resource" id="flow"]
 script = ExtResource("7")
-contrast = 0.1
+contrast = 0.18
+speed = 0.25
 
 [resource]
 script = ExtResource("1")
