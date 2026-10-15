@@ -14,3 +14,5 @@ Skill Lines is a five-in-a-row roguelite preview. Start with the [English README
 - [Preview artwork and real gameplay screenshots](preview/)
 
 The former Matrix Link design index referred to files absent from this repository and has been retired. Current behavior is defined by the shipped gameplay resources and tests; planned missions and mobile support are not preview features.
+
+- [0.0.2 Web发布候选验收](release_0_0_2.md)：构建身份、浏览器实测与剩余发布验收。
