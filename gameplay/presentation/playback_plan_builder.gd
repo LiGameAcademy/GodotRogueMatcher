@@ -64,6 +64,13 @@ static func skill(result: SkillApplyResult, duration: float) -> Array[Presentati
 		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		for piece: PieceState in result.removed: step.pieces.append(piece.copy())
 		steps.append(step)
+	if not result.transformed.is_empty():
+		var step: PresentationStep = PresentationStep.new()
+		step.kind = PresentationStep.Kind.TRANSFORM
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
+		step.duration = maxf(0.0, duration)
+		for piece: PieceState in result.transformed: step.pieces.append(piece.copy())
+		steps.append(step)
 	steps.append_array(matches(result.matches))
 	return steps
 

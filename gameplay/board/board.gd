@@ -281,6 +281,8 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 			for piece: PieceState in step.pieces: view.animate_spawn(piece, step.duration)
 		PresentationStep.Kind.REMOVE:
 			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
+		PresentationStep.Kind.TRANSFORM:
+			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration)
 		PresentationStep.Kind.MATCHES:
 			var cue: StringName = &"match"
 			for result: MatchResult in step.matches:

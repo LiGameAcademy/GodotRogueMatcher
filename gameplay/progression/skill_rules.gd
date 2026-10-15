@@ -58,6 +58,8 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.blast_extra_level = state.explosion.blast_extra_level
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id == &"special_demolition": context.core_present = true
+		if state.explosion.instances.has(piece.piece_id) or state.line_clear.instances.has(piece.piece_id):
+			context.ability_piece_ids.append(piece.piece_id)
 		if piece.content_id.is_empty(): context.material.append(piece.copy())
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
 	return context

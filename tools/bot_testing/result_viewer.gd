@@ -124,6 +124,7 @@ func _present(row: Dictionary) -> void:
 		if not await view.wait_for_presentation() or generation != _generation: return
 	if not _skill.is_empty():
 		for data: Dictionary in _skill.created: _show_piece(data)
+		for data: Dictionary in _skill.get("transformed", []): view.animate_transform(RecordViewData.piece(data), 0.12)
 		for data: Dictionary in _skill.removed:
 			_remove_piece(data)
 		_skill = {}
@@ -165,7 +166,9 @@ func _show_state(state: Dictionary) -> bool:
 	var marked: Dictionary[int, bool] = {}
 	for instance: Dictionary in state.get("instances", []): marked[String(instance.id).to_int()] = true
 	for piece: PieceState in pieces:
-		if marked.has(piece.piece_id): view.show_ability_marker(piece.piece_id, "爆" if piece.content_id == &"special_demolition" else "引")
+		if marked.has(piece.piece_id):
+			var marker: String = "行" if piece.content_id == LineClearState.CONTENT_ROW else ("列" if piece.content_id == LineClearState.CONTENT_COLUMN else ("爆" if piece.content_id == &"special_demolition" else "引"))
+			view.show_ability_marker(piece.piece_id, marker)
 	status.text = "结果观看 · seq=%d · 得分 %s · 移动 %s · 已选技能 %s" % [cursor, state.get("total", "?"), state.get("moves", "?"), state.get("consumed", "?")]
 	return true
 

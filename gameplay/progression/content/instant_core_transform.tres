@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/transform_material_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+content_id = &"special_demolition"
+count = 3
+
+[resource]
+script = ExtResource("1")
+skill_id = &"instant_core_transform"
+title = "爆壳改装"
+description = "随机至多3枚未带能力的普通棋转为爆破手，保留颜色和位置。不解锁自然补给。"
+short_description = "随机3枚普通棋 → 爆破手。\n保留原色，不足3枚则全部转化。"
+choice_effect = SubResource("effect")
+base_weight = 5.0
+tags = Array[StringName]([&"exp", &"generation"])
+rarity = 2
+is_starter = false
+is_persistent = false
+maximum_level = 0
+minimum_reward = 3

@@ -131,6 +131,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				hud.show_status("十字连携试玩：双击左侧行扫手，观察行→列→爆破手" if cross else ("跨度试玩：双击扫线手，清连续3行或3列；边缘截断" if wide else "扫线试玩：双击行或列清除手；每条线清2枚，得14基础分"))
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F7:
 			board.open_skill_demo()
+		elif key.pressed and not key.echo and key.physical_keycode == KEY_F12:
+			if await board.load_explosion_demo("fixture_transform"):
+				hud.show_status("转化试玩：三选一将普通棋改装，保留原色与位置；已有引信和爆破手不受影响")
+				var active_run: RunController = board.run
+				board.can_selected = false
+				await BoardRunFlow.continue_run(board, active_run)
+				if board.run == active_run: board.can_selected = not active_run.state.is_game_over and active_run.state.rule_error.is_empty()
 
 func _on_game_over() -> void:
 	board.can_selected = false

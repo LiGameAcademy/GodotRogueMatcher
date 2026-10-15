@@ -337,6 +337,14 @@ func animate_spawn(snapshot: PieceState, duration: float) -> void:
 	show_piece(snapshot, piece)
 	track_presentation(piece.spawn_animation(duration))
 
+## Reuse the same node, color and cell; only the special marker changes.
+func animate_transform(snapshot: PieceState, duration: float) -> void:
+	var piece: ChessPiece = get_piece(snapshot.piece_id)
+	if not is_instance_valid(piece): return
+	var marker: String = "爆" if snapshot.content_id == &"special_demolition" else ("行" if snapshot.content_id == LineClearState.CONTENT_ROW else "列")
+	piece.set_ability_marker(marker)
+	if not low_effects and duration > 0.0: track_presentation(piece.land())
+
 ## 导演每步只等待实际动画；队列状态由父级另行映射给公开查询。
 func wait_for_animations() -> bool:
 	var generation: int = _generation
