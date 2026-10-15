@@ -32,6 +32,7 @@ var presentation_speed: float = 1.0:
 		for animation: Tween in _presentation_tweens:
 			if animation.is_valid(): animation.set_speed_scale(1.0 if _fixed_required else presentation_speed)
 var _playback_pending: bool = false
+@onready var signal_effect: BoardSignalEffect = %BoardSignalEffect
 @onready var move_path: MovePathVisual = %MovePathVisual
 @onready var score_floats: ScoreFloatLayer = %ScoreFloatLayer
 
@@ -54,6 +55,7 @@ func _draw() -> void:
 
 func apply_game_theme(preset: GameTheme) -> void:
 	_game_theme = preset
+	signal_effect.apply_game_theme(preset)
 	queue_redraw()
 	for cell: Cell in _cells.values(): cell.apply_game_theme(preset.board)
 	for piece: ChessPiece in _pieces.values(): piece.apply_game_theme(preset.board)
@@ -66,6 +68,8 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 	_spacing = cell_size + gap
 	_cell_size = cell_size
 	_dimensions = Vector2i(columns, rows)
+	signal_effect.set_bounds(get_display_rect().grow(-2.0))
+	signal_effect.reset_visual()
 	queue_redraw()
 	for cell: Cell in _cells.values():
 		remove_child(cell)
@@ -91,8 +95,12 @@ func get_display_rect() -> Rect2:
 	if _dimensions.x <= 0 or _dimensions.y <= 0: return Rect2()
 	return Rect2(-_cell_size * 0.5, Vector2(_dimensions - Vector2i.ONE) * _spacing + _cell_size).grow(2.0)
 
+func set_signal_enabled(enabled: bool) -> void:
+	signal_effect.set_enabled(enabled)
+
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	signal_effect.set_low_effects(enabled)
 	score_floats.set_low_effects(enabled)
 	for cell: Cell in _cells.values(): cell.set_low_effects(enabled)
 	for piece: ChessPiece in _pieces.values(): piece.set_low_effects(enabled)
@@ -109,6 +117,7 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	signal_effect.reset_visual()
 	move_path.clear()
 	score_floats.clear(true)
 	_generation += 1
@@ -187,6 +196,7 @@ func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionStat
 func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 	if radius < 0 or not _cells.has(center):
 		return
+	signal_effect.respond()
 	var visual: ExplosionVisual = EXPLOSION_SCENE.instantiate() as ExplosionVisual
 	visual.low_effects = low_effects
 	if _game_theme != null: visual.config = _game_theme.feedback
@@ -204,6 +214,7 @@ func show_line_clear(center: Vector2i, axis: int, radius: int = 0, cross_radius:
 	if not _cells.has(center) or axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN]: return
 	var area: Rect2 = _line_area(center, axis, radius)
 	var second: Rect2 = _line_area(center, 1 - axis, cross_radius) if cross_radius >= 0 else Rect2()
+	signal_effect.respond()
 	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
 	visual.low_effects = low_effects
 	if _game_theme != null: visual.config = _game_theme.feedback

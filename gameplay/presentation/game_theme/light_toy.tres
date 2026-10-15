@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameTheme" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="GameTheme" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://gameplay/presentation/game_theme/game_theme.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/presentation/game_theme/board_appearance.gd" id="2"]
@@ -8,6 +8,8 @@
 [ext_resource type="Theme" path="res://gameplay/presentation/game_theme/light_toy_ui.tres" id="6"]
 
 [ext_resource type="Script" path="res://gameplay/presentation/game_background/background_flow_config.gd" id="7"]
+
+[ext_resource type="Script" path="res://gameplay/presentation/board_signal_effect/board_signal_config.gd" id="8"]
 
 [sub_resource type="Resource" id="board"]
 script = ExtResource("2")
@@ -47,6 +49,12 @@ script = ExtResource("7")
 contrast = 0.12
 speed = 0.25
 
+[sub_resource type="Resource" id="signal"]
+script = ExtResource("8")
+scan_strength = 0.018
+rim_strength = 0.16
+sweep_strength = 0.06
+
 [resource]
 script = ExtResource("1")
 theme_id = &"light_toy"
@@ -57,4 +65,5 @@ feedback = SubResource("feedback")
 score_floats = SubResource("floats")
 progress = SubResource("progress")
 background_flow = SubResource("flow")
+board_signal = SubResource("signal")
 background = Color(0.945098, 0.964706, 0.988235, 1)

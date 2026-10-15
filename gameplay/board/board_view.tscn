@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://gameplay/board/board_view.gd" id="1"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/move_path_visual.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/score_float/score_float_layer.tscn" id="3"]
+
+[ext_resource type="PackedScene" path="res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn" id="4"]
 
 [node name="BoardView" type="Node2D"]
 process_mode = 1
@@ -12,4 +14,7 @@ script = ExtResource("1")
 unique_name_in_owner = true
 
 [node name="ScoreFloatLayer" parent="." instance=ExtResource("3")]
+unique_name_in_owner = true
+
+[node name="BoardSignalEffect" parent="." instance=ExtResource("4")]
 unique_name_in_owner = true
