@@ -7,3 +7,4 @@ extends Resource
 @export var line_supply_per_level: int = 1
 @export var default_color: int = 2
 @export var span_radius_per_level: int = 1
+@export var score_per_target_per_level: int = 2

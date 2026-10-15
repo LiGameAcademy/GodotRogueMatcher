@@ -181,6 +181,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
 	elif mode == "fixture_dye": DyeDemo.populate(self)
 	elif mode == "fixture_line": LineClearDemo.populate(self)
+	elif mode == "fixture_line_score": LineClearDemo.populate(self, false, true)
 	elif mode == "fixture_line_span": LineClearDemo.populate(self, true)
 	elif mode == "fixture_line_cross": LineClearDemo.populate_cross(self)
 	elif mode == "fixture_manual_limit": LineClearDemo.populate_manual_limit(self)

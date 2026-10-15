@@ -3,6 +3,26 @@ extends GutTest
 const MAIN: PackedScene = preload("res://main.tscn")
 var board: Board
 
+func test_ctrl_shift_f11_scores_bonus_and_shows_owned_card_and_tooltip() -> void:
+	var game: Node = board.get_parent()
+	var key: InputEventKey = InputEventKey.new()
+	key.physical_keycode = KEY_F11
+	key.pressed = true
+	key.ctrl_pressed = true
+	key.shift_pressed = true
+	await game._unhandled_key_input(key)
+	assert_eq(board.run.initialization, "fixture_line_score")
+	assert_eq(board.run.state.skill_instances[&"line_clear_score"].level, 1)
+	var id: int = board.rules.state.get_piece_id(Vector2i.ZERO)
+	assert_string_contains(board.view.get_piece(id).tooltip_region.tooltip_text, String(TranslationServer.translate("扫线每直接清除1枚，额外+%d分。")) % 2)
+	board.set_playback_fast(true)
+	await board._on_piece_activated(Vector2i.ZERO)
+	assert_eq(board.run.state.ledger.total, 18)
+	assert_eq(ManualActivationRules.remaining(board.run.state, true), 2)
+	board.run.recorder.finish(board.run, "abandoned", "line_score_scene")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay_file(board.run.recorder.path), replay.error)
+
 func test_alt_f11_quota_rejection_pause_rebuild_and_tooltip_match_recorded_rules() -> void:
 	var game: Node = board.get_parent()
 	var key: InputEventKey = InputEventKey.new()

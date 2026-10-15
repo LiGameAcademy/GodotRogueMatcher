@@ -122,6 +122,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				return
 			var wide: bool = key.shift_pressed
 			var cross: bool = key.ctrl_pressed
+			if wide and cross:
+				if await board.load_explosion_demo("fixture_line_score"):
+					hud.show_status("得分试玩：双击扫线手；清2枚，基础14分+额外4分")
+				return
 			var mode: String = "fixture_line_cross" if cross else ("fixture_line_span" if wide else "fixture_line")
 			if await board.load_explosion_demo(mode):
 				hud.show_status("十字连携试玩：双击左侧行扫手，观察行→列→爆破手" if cross else ("跨度试玩：双击扫线手，清连续3行或3列；边缘截断" if wide else "扫线试玩：双击行或列清除手；每条线清2枚，得14基础分"))

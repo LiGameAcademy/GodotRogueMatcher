@@ -72,7 +72,7 @@ func test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run(
 		assert_eq(card.tooltip_text, "")
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), snapshot)
 	assert_string_contains(card.effect_label.get_parsed_text(), "花1次行动")
-	assert_string_contains(card.effect_label.get_parsed_text(), "空爆也消耗")
+	assert_string_contains(card.effect_label.get_parsed_text(), "每局3次")
 
 func test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle() -> void:
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/refill_less.tres")

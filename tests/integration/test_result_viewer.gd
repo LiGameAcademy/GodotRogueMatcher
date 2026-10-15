@@ -2,6 +2,10 @@ extends GutTest
 
 const VIEWER: PackedScene = preload("res://tools/bot_testing/result_viewer.tscn")
 
+func after_each() -> void:
+	# Rebuild detaches nodes and queues deletion; drain the deferred frees before GUT counts orphans.
+	await wait_process_frames(2)
+
 func test_cross_records_validate_both_bands_and_view_without_rescoring() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
 	run.initialize("fixture_line_cross")

@@ -13,6 +13,7 @@ const CATALOG: Array[SkillDefinition] = [
 	preload("res://gameplay/progression/content/line_row_span.tres"),
 	preload("res://gameplay/progression/content/line_column_span.tres"),
 	preload("res://gameplay/progression/content/line_cross_upgrade.tres"),
+	preload("res://gameplay/progression/content/line_clear_score.tres"),
 	preload("res://gameplay/progression/content/core_drop.tres"),
 	preload("res://gameplay/progression/content/assign_fuse.tres"),
 	preload("res://gameplay/progression/content/blast_extra.tres"),
@@ -175,7 +176,7 @@ func _remaining(pool: Array[SkillDefinition], used: Array[StringName]) -> Array[
 	return result
 
 func _ever_started(state: RunState) -> bool:
-	return state.explosion.core_pool_unlocked or state.dye.level(&"match_dye_echo") > 0
+	return state.explosion.core_pool_unlocked or state.line_clear.row_unlocked or state.line_clear.column_unlocked
 
 func _related(skill: SkillDefinition, profile: Dictionary[StringName, float]) -> bool:
 	for tag: StringName in skill.tags:
@@ -183,7 +184,7 @@ func _related(skill: SkillDefinition, profile: Dictionary[StringName, float]) ->
 	return false
 
 func _explores(skill: SkillDefinition, profile: Dictionary[StringName, float]) -> bool:
-	return (skill.tags.has(&"dye") and profile.get(&"dye", 0.0) < 1.0) or (skill.tags.has(&"exp") and profile.get(&"exp", 0.0) < 1.0) or not _related(skill, profile)
+	return (skill.tags.has(&"exp") and profile.get(&"exp", 0.0) < 1.0) or not _related(skill, profile)
 
 func _by_id(a: SkillDefinition, b: SkillDefinition) -> bool:
 	return String(a.skill_id) < String(b.skill_id)

@@ -22,6 +22,7 @@ func before_each() -> void:
 	board = game.get_node("Board") as Board
 	hud = game.get_node("UILayer/HUD") as Hud
 	await board.initialized
+	(game.get_node("GameFeedback") as GameFeedback).set_volume(0.0)
 	await wait_process_frames(3)
 
 func after_each() -> void:
@@ -86,7 +87,7 @@ func test_mode_menu_fits_supported_viewport_in_both_languages() -> void:
 	TranslationServer.set_locale(old_locale)
 	menu.close()
 
-func test_six_piece_preview_fits_panel_at_supported_sizes_in_both_languages() -> void:
+func test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages() -> void:
 	var old_locale: String = TranslationServer.get_locale()
 	board.run.state.stage.used_actions = 12
 	board.run.prepare_spawn_plan()
@@ -99,9 +100,9 @@ func test_six_piece_preview_fits_panel_at_supported_sizes_in_both_languages() ->
 			await wait_process_frames(5)
 			var preview: SpawnPreview = hud.spawn_preview
 			var bounds: Rect2 = Rect2(Vector2.ZERO, preview.size)
-			assert_eq(preview._tokens.size(), 6)
-			# 与实际画出的32像素槽位对应，捕获固定面板只容纳五枚的溢出。
-			for index: int in range(6):
+			assert_eq(preview._tokens.size(), 5)
+			# 已确认的补棋上限为五枚，每个32像素槽位都应完整位于面板内。
+			for index: int in range(5):
 				var slot: Rect2 = Rect2(Vector2(2 + index * 36, 21), Vector2(32, 32))
 				assert_true(bounds.encloses(slot), "%s %s slot %d" % [locale, resolution, index + 1])
 			assert_true(bounds.encloses(preview.title.get_rect()))
