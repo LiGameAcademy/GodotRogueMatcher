@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" path="res://ui/card_transfer/card_transfer.tscn" id="10_transfer"]
 [ext_resource type="PackedScene" path="res://ui/playback_settings/playback_settings.tscn" id="11_settings"]
 
+[ext_resource type="PackedScene" path="res://gameplay/presentation/game_background/game_background.tscn" id="12_background"]
+
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
 ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
@@ -40,12 +42,7 @@ environment = SubResource("Environment_8cj0n")
 
 [node name="RunCollection" parent="." instance=ExtResource("8_collection")]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ColorRect" parent="." instance=ExtResource("12_background")]
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 

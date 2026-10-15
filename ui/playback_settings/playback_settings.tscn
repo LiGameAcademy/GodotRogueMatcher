@@ -62,6 +62,12 @@ unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(320, 36)
 
+[node name="BackgroundButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "动态背景"
+tooltip_text = "缓慢流动并响应得分；低特效时静态显示。"
+
 [node name="FastButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -92,7 +98,7 @@ tooltip_text = "只略过可跳细节；移动、出生和主消除仍需完成�
 
 [node name="Help" type="RichTextLabel" parent="Panel/Center/Frame/Margin/Column"]
 layout_mode = 2
-custom_minimum_size = Vector2(620, 128)
+custom_minimum_size = Vector2(620, 88)
 theme_override_font_sizes/normal_font_size = 16
 autowrap_mode = 2
 text = "点击棋子，再点可到达的空格移动；横、竖、斜同色五连消除。\n未直接消除时补棋，全清后也会补棋；棋盘填满结束。\n安装主动技能后，双击对应特殊棋；剩余次数见棋子提示。\nESC 暂停 / 继续 · F1 设置 · F8 快放 · F9 略过\n操作练习、语言和模式选择可从开始菜单进入。"

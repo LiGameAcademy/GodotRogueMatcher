@@ -2,6 +2,7 @@ extends Node2D
 
 const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 
+@onready var background: GameBackground = $ColorRect
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var board: Board = $Board
 @onready var hud: Hud = $UILayer/HUD
@@ -65,6 +66,8 @@ func _ready() -> void:
 	settings.volume_requested.connect(_preview_volume)
 	settings.volume_committed.connect(_set_volume)
 	settings.theme_requested.connect(_set_theme)
+	settings.background_motion_requested.connect(_set_background_motion)
+	board.run_reset.connect(background.reset_visual)
 	board.feedback_requested.connect(feedback.play)
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
@@ -76,9 +79,12 @@ func _ready() -> void:
 	board.selection_changed.connect(_on_selection_feedback)
 	board.selection_changed.connect(hud.show_selection)
 	board.operation_feedback.connect(hud.show_status)
+	_set_background_motion(preferences.background_motion, false)
 	_set_fast(preferences.fast, false)
 	_set_low_effects(preferences.low_effects, false)
 	_set_volume(preferences.volume, false)
+	# Apply the saved skin before start_game yields for initial spawn presentation.
+	_set_theme(preferences.theme_id, false)
 	if collect_telemetry and not OS.has_feature("web"):
 		collection.configure(collection_context)
 		board.telemetry_factory = collection.factory
@@ -87,7 +93,6 @@ func _ready() -> void:
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.start_game(board_rules, record_runs)
-	_set_theme(preferences.theme_id, false)
 	if show_start_menu: _show_menu()
 	else:
 		_has_played = true
@@ -227,6 +232,7 @@ func _set_fast(fast: bool, save: bool = true) -> void:
 
 func _set_low_effects(enabled: bool, save: bool = true) -> void:
 	preferences.low_effects = enabled
+	background.set_low_effects(enabled)
 	board.view.set_low_effects(enabled)
 	world_environment.environment.glow_enabled = not enabled
 	hud.set_low_effects(enabled)
@@ -234,6 +240,12 @@ func _set_low_effects(enabled: bool, save: bool = true) -> void:
 	if enabled: card_transfer.cancel()
 	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).set_low_effects(enabled)
+	if save: _save_preferences()
+
+func _set_background_motion(enabled: bool, save: bool = true) -> void:
+	preferences.background_motion = enabled
+	background.set_motion_enabled(enabled)
+	settings.set_background_motion(enabled)
 	if save: _save_preferences()
 
 func _set_volume(volume: float, save: bool = true) -> void:
@@ -253,9 +265,11 @@ func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
 	if piece != null: feedback.play(&"select")
 
 func _on_score_visualized(entry: ScoreEntry, origin: Vector2) -> void:
+	background.respond_to_score(entry.final_score)
 	hud.show_score_burst(entry, board.view.score_floats.get_global_transform_with_canvas() * origin)
 
 func _on_goal_bonus_ready(entry: ScoreEntry) -> void:
+	background.respond_to_score(entry.final_score)
 	hud.show_score_burst(entry, hud.score_label.get_global_rect().get_center())
 
 func _open_skill_pool() -> void:
@@ -288,7 +302,8 @@ func _set_theme(theme_id: StringName, save: bool = true) -> void:
 
 func _apply_game_theme() -> void:
 	if game_theme == null: return
-	($ColorRect as ColorRect).color = game_theme.background
+	background.size = get_viewport_rect().size
+	background.apply_game_theme(game_theme)
 	hud.apply_game_theme(game_theme)
 	board.view.apply_game_theme(game_theme)
 	GameThemeUi.apply(release_menu, game_theme)
