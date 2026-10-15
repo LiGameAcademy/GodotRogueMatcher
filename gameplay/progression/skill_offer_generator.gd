@@ -12,6 +12,7 @@ const CATALOG: Array[SkillDefinition] = [
 	preload("res://gameplay/progression/content/line_manual_clear.tres"),
 	preload("res://gameplay/progression/content/line_row_span.tres"),
 	preload("res://gameplay/progression/content/line_column_span.tres"),
+	preload("res://gameplay/progression/content/line_cross_upgrade.tres"),
 	preload("res://gameplay/progression/content/core_drop.tres"),
 	preload("res://gameplay/progression/content/assign_fuse.tres"),
 	preload("res://gameplay/progression/content/blast_extra.tres"),

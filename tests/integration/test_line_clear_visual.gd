@@ -118,6 +118,26 @@ func test_skip_sweep_removes_only_frozen_targets_without_resolving_again() -> vo
 	assert_not_null(view.get_piece(survivor.piece_id))
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
 
+func test_cross_visual_freezes_both_independent_bands_and_cancels_together() -> void:
+	var run: RunController = RunController.new(rules, 75)
+	run.state.line_clear.upgrades = {&"line_cross_upgrade": 1, &"line_row_span": 1}
+	var source: PieceState = run.abilities.add_line_piece(1, Vector2i(2, 1), 0)
+	view.rebuild(rules.state.get_snapshot())
+	var result: MatchResult = run.abilities.resolve_removal([source], &"consume")[0]
+	var steps: Array[PresentationStep] = PlaybackPlanBuilder.matches([result])
+	result.cross_radius = -1
+	run.state.line_clear.upgrades.clear()
+	view.remove_piece(source)
+	view.animate_matches(steps[0].matches)
+	assert_eq(_visuals().size(), 1)
+	var visual: LineClearVisual = _visuals()[0]
+	assert_eq(visual.get("_area"), Rect2(98, -32, 64, 194))
+	assert_eq(visual.get("_second_area"), Rect2(-32, -32, 389, 194))
+	view.set_low_effects(true)
+	assert_true(visual.low_effects)
+	assert_true(view.skip_step(steps[0]))
+	assert_eq(_visuals().size(), 0)
+
 func test_unlocked_sweeper_tooltip_is_localized_and_does_not_mutate_state() -> void:
 	var run: RunController = RunController.new(rules, 74)
 	var source: PieceState = run.abilities.add_line_piece(0, Vector2i.ZERO, 2)

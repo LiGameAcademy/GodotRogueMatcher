@@ -180,8 +180,16 @@ func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 #endregion
 
 #region 结果演出
-func show_line_clear(center: Vector2i, axis: int, radius: int = 0) -> void:
+func show_line_clear(center: Vector2i, axis: int, radius: int = 0, cross_radius: int = -1) -> void:
 	if not _cells.has(center) or axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN]: return
+	var area: Rect2 = _line_area(center, axis, radius)
+	var second: Rect2 = _line_area(center, 1 - axis, cross_radius) if cross_radius >= 0 else Rect2()
+	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
+	visual.low_effects = low_effects
+	add_child(visual)
+	track_presentation(visual.setup(area, axis, second))
+
+func _line_area(center: Vector2i, axis: int, radius: int) -> Rect2:
 	var area: Rect2 = get_display_rect().grow(-2.0)
 	if axis == LineClearState.AXIS_ROW:
 		var minimum: int = maxi(0, center.y - maxi(0, radius))
@@ -193,10 +201,7 @@ func show_line_clear(center: Vector2i, axis: int, radius: int = 0) -> void:
 		var maximum: int = mini(_dimensions.x - 1, center.x + maxi(0, radius))
 		area.position.x = minimum * _spacing.x - _cell_size.x * 0.5
 		area.size.x = (maximum - minimum) * _spacing.x + _cell_size.x
-	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
-	visual.low_effects = low_effects
-	add_child(visual)
-	track_presentation(visual.setup(area, axis))
+	return area
 
 func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	var generation: int = _generation
@@ -261,7 +266,7 @@ func animate_matches(results: Array[MatchResult]) -> void:
 			cells.append(get_cell(snapshot.coordinate))
 			remove_piece(snapshot, true)
 		if result.cause == &"explosion": show_blast(result.center, result.radius, result.generation)
-		elif result.cause == &"line_clear": show_line_clear(result.center, result.line_axis, result.radius)
+		elif result.cause == &"line_clear": show_line_clear(result.center, result.line_axis, result.radius, result.cross_radius)
 		match_visualized.emit(result, cells)
 
 func set_step_policy(policy: PresentationStep.Policy) -> void:

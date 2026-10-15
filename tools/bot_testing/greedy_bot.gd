@@ -35,7 +35,8 @@ func choose(run: RunController) -> RunCommand:
 	for sweep: ActivateLineCommand in sweeps:
 		var source: PieceState = run.state.rules.state.get_piece(sweep.piece_id)
 		var radius: int = LineClearRules.radius(run.state.line_clear, LineClearState.axis_of(source.content_id))
-		var targets: BlastRequest = sweep_effect.build_request(run.state.rules.state, source, radius)
+		var cross_radius: int = LineClearRules.cross_radius(run.state.line_clear, LineClearState.axis_of(source.content_id))
+		var targets: BlastRequest = sweep_effect.build_request(run.state.rules.state, source, radius, cross_radius)
 		# Source consumption also frees a cell; use only the current board, not future RNG.
 		if targets.target_ids.size() + 1 > run.state.next_refill_count(): return sweep
 	if moves.is_empty():

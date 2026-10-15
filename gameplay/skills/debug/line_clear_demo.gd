@@ -32,3 +32,17 @@ static func _install(run: RunController, skill: SkillDefinition) -> void:
 	run.state.rewards.active_offer = offer
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, skill.skill_id)
 	if not result.success: run.report_error(result.error)
+
+static func populate_cross(run: RunController) -> void:
+	run.state.line_clear.row_unlocked = true
+	run.state.line_clear.column_unlocked = true
+	run.abilities.add_line_piece(0, Vector2i(2, 4), 0)
+	run.abilities.add_line_piece(1, Vector2i(6, 4), 1)
+	run.abilities.add_core(Vector2i(6, 1), 2)
+	var fuse: PieceState = run.state.rules.place_piece(Vector2i(2, 7), 3)
+	run.abilities.assign_fuse(fuse.piece_id)
+	run.state.rules.place_piece(Vector2i(0, 4), 4)
+	run.state.rules.place_piece(Vector2i(5, 0), 4)
+	run.abilities.upgrade_reward()
+	for skill: SkillDefinition in [preload("res://gameplay/progression/content/line_manual_clear.tres"), preload("res://gameplay/progression/content/line_row_span.tres"), preload("res://gameplay/progression/content/line_cross_upgrade.tres")]:
+		_install(run, skill)

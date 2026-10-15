@@ -51,13 +51,14 @@ func test_three_rows_and_columns_score_the_actual_union_once() -> void:
 		var survivor: PieceState = run.state.rules.place_piece(Vector2i(0, 2) if axis == 0 else Vector2i(2, 0), 2)
 		var special: PieceState = run.abilities.add_line_piece(1 - axis, Vector2i(3, 3), 1)
 		var results: Array[MatchResult] = run.abilities.resolve_removal([source], &"consume")
-		assert_eq(results.size(), 1)
-		assert_eq(results[0].removed.size(), 6)
+		assert_eq(results.size(), 2)
+		assert_eq(results[0].removed.size(), 7)
 		assert_eq(results[0].radius, 1)
-		assert_eq(results[0].score_entry.final_score, 66)
-		assert_eq(run.state.ledger.total, 66)
+		assert_eq(results[0].score_entry.final_score, 84)
+		assert_eq(run.state.ledger.total, 84)
 		assert_not_null(run.state.rules.state.get_piece(survivor.piece_id))
-		assert_not_null(run.state.rules.state.get_piece(special.piece_id))
+		assert_null(run.state.rules.state.get_piece(special.piece_id))
+		assert_eq(results[1].source_id, special.piece_id)
 
 func test_edges_clip_symmetrically_without_shifting_to_a_third_line() -> void:
 	for axis: int in [0, 1]:

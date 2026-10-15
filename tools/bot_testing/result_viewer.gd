@@ -141,6 +141,8 @@ func _present(row: Dictionary) -> void:
 func _events(events: Array) -> void:
 	for event: Dictionary in events:
 		if event.cause == "explosion": view.show_blast(RecordViewData.coordinate(event.center), String(event.radius).to_int())
+		elif event.cause == "line_clear":
+			view.show_line_clear(RecordViewData.coordinate(event.center), int(str(event.get("line_axis", "-1"))), int(str(event.radius)), int(str(event.get("cross_radius", "-1"))))
 		for data: Dictionary in event.removed:
 			_remove_piece(data)
 

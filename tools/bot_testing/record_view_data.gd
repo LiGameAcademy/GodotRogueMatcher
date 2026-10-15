@@ -57,10 +57,14 @@ static func valid_events(value: Variant, dimensions: Vector2i) -> bool:
 	if not value is Array: return false
 	for event: Variant in value:
 		if not event is Dictionary or not event.get("cause") is String or not valid_pieces(event.get("removed"), dimensions): return false
-		if event.cause == "explosion":
+		if event.cause in ["explosion", "line_clear"]:
 			var center: Vector2i = coordinate(event.get("center"))
-			if center.x < 0 or center.x >= dimensions.x or center.y >= dimensions.y: return false
+			if center.x < 0 or center.y < 0 or center.x >= dimensions.x or center.y >= dimensions.y: return false
 			if not CommandCodec.valid_integer(event.get("radius")) or event.radius.to_int() < 0 or event.radius.to_int() > 64: return false
+			if event.cause == "line_clear":
+				if not CommandCodec.valid_integer(event.get("line_axis")) or event.line_axis.to_int() not in [0, 1]: return false
+				var cross: Variant = event.get("cross_radius", "-1")
+				if not CommandCodec.valid_integer(cross) or cross.to_int() < -1 or cross.to_int() > 64: return false
 	return true
 
 static func valid_record(row: Dictionary, dimensions: Vector2i) -> bool:

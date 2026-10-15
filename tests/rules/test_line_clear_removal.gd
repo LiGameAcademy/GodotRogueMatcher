@@ -3,7 +3,7 @@ extends GutTest
 func _run() -> RunController:
 	return RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 11)
 
-func test_column_removed_in_horizontal_match_sweeps_column_only() -> void:
+func test_column_removed_in_horizontal_match_sweeps_column_and_chains_row() -> void:
 	var run: RunController = _run()
 	var source: PieceState = run.abilities.add_line_piece(LineClearState.AXIS_COLUMN, Vector2i(4, 4), 0)
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 4), 0)
@@ -12,30 +12,35 @@ func test_column_removed_in_horizontal_match_sweeps_column_only() -> void:
 	var survivor: PieceState = run.state.rules.place_piece(Vector2i(5, 5), 2)
 	var special: PieceState = run.abilities.add_line_piece(LineClearState.AXIS_ROW, Vector2i(4, 6), 2)
 	var results: Array[MatchResult] = run.abilities.resolve(run.state.rules.find_matches())
-	assert_eq(results.size(), 2)
-	if results.size() != 2: return
-	assert_eq(results.back().cause, &"line_clear")
-	assert_eq(results.back().source_id, source.piece_id)
-	assert_eq(results.back().removed.size(), 5)
-	assert_eq(results.back().score_entry.final_score, 50)
+	assert_eq(results.size(), 3)
+	if results.size() != 3: return
+	assert_eq(results[1].cause, &"line_clear")
+	assert_eq(results[1].source_id, source.piece_id)
+	assert_eq(results[1].removed.size(), 6)
+	assert_eq(results[1].score_entry.final_score, 66)
+	assert_eq(results[2].source_id, special.piece_id)
+	assert_eq(results[2].generation, 2)
 	for target: PieceState in targets: assert_null(run.state.rules.state.get_piece(target.piece_id))
 	assert_not_null(run.state.rules.state.get_piece(survivor.piece_id))
-	assert_not_null(run.state.rules.state.get_piece(special.piece_id))
-	assert_eq(run.state.ledger.total, 100)
+	assert_null(run.state.rules.state.get_piece(special.piece_id))
+	assert_eq(run.state.ledger.total, 116)
 
-func test_row_removed_by_clear_sweeps_row_and_preserves_specials() -> void:
+func test_row_removed_by_clear_sweeps_specials_and_triggers_core() -> void:
 	var run: RunController = _run()
 	var source: PieceState = run.abilities.add_line_piece(LineClearState.AXIS_ROW, Vector2i(2, 3), 2)
 	var target: PieceState = run.state.rules.place_piece(Vector2i(8, 3), 1)
 	var off_axis: PieceState = run.state.rules.place_piece(Vector2i(2, 8), 1)
 	var core: PieceState = run.abilities.add_core(Vector2i(4, 3), 3)
 	var results: Array[MatchResult] = run.abilities.resolve_removal([source], &"skill_clear")
-	assert_eq(results.size(), 1)
-	if results.size() != 1: return
+	assert_eq(results.size(), 2)
+	if results.size() != 2: return
 	assert_eq(results[0].cause, &"line_clear")
 	assert_null(run.state.rules.state.get_piece(target.piece_id))
 	assert_not_null(run.state.rules.state.get_piece(off_axis.piece_id))
-	assert_not_null(run.state.rules.state.get_piece(core.piece_id))
+	assert_null(run.state.rules.state.get_piece(core.piece_id))
+	assert_eq(results[0].score_entry.final_score, 14)
+	assert_eq(results[1].cause, &"explosion")
+	assert_eq(results[1].source_id, core.piece_id)
 
 func test_sweep_fuse_explosion_chain_keeps_generation_and_parent_ids() -> void:
 	var run: RunController = _run()

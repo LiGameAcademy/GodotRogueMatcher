@@ -13,3 +13,6 @@ static func radius(state: LineClearState, axis: int) -> int:
 
 static func line_count(level: int) -> int:
 	return 1 + 2 * maxi(0, level) * CONFIG.span_radius_per_level
+
+static func cross_radius(state: LineClearState, axis: int) -> int:
+	return radius(state, 1 - axis) if state.level(&"line_cross_upgrade") > 0 else -1

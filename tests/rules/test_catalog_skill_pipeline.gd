@@ -72,7 +72,7 @@ func test_every_catalog_card_uses_command_pipeline_and_records_all_score_events(
 		assert_same(run.execute_command(command), result)
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), after)
 		assert_eq(run.recorder.records.size(), records_before)
-	assert_eq(seen.size(), 47)
+	assert_eq(seen.size(), 48)
 
 func test_all_declared_level_upgrades_use_frozen_targets_and_preserve_instance() -> void:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:

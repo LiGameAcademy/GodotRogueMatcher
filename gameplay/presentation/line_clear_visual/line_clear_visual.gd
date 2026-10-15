@@ -5,6 +5,7 @@ extends Node2D
 const CONFIG: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
 var low_effects: bool = false
 var _area: Rect2
+var _second_area: Rect2
 var _axis: int = 0
 var _progress: float = 0.0
 
@@ -12,8 +13,9 @@ func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
 	queue_redraw()
 
-func setup(area: Rect2, axis: int) -> Tween:
+func setup(area: Rect2, axis: int, second_area: Rect2 = Rect2()) -> Tween:
 	_area = area
+	_second_area = second_area
 	_axis = axis
 	queue_redraw()
 	var animation: Tween = create_tween().set_parallel()
@@ -27,17 +29,21 @@ func _set_progress(value: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	_draw_area(_area, _axis)
+	if _second_area.has_area(): _draw_area(_second_area, 1 - _axis)
+
+func _draw_area(area: Rect2, axis: int) -> void:
 	var color: Color = CONFIG.line_clear_color
-	draw_rect(_area, Color(color, 0.45), false, 1.0)
+	draw_rect(area, Color(color, 0.45), false, 1.0)
 	if low_effects: return
-	draw_rect(_area, Color(color, 0.08 * (1.0 - _progress)), true)
-	var from: Vector2 = _area.position
-	var to: Vector2 = _area.end
-	if _axis == LineClearState.AXIS_ROW:
-		from.x = lerpf(_area.position.x, _area.end.x, _progress)
+	draw_rect(area, Color(color, 0.08 * (1.0 - _progress)), true)
+	var from: Vector2 = area.position
+	var to: Vector2 = area.end
+	if axis == LineClearState.AXIS_ROW:
+		from.x = lerpf(area.position.x, area.end.x, _progress)
 		to.x = from.x
 	else:
-		from.y = lerpf(_area.position.y, _area.end.y, _progress)
+		from.y = lerpf(area.position.y, area.end.y, _progress)
 		to.y = from.y
 	draw_line(from, to, Color(color, 0.15), 10.0, true)
 	draw_line(from, to, color, 2.0, true)

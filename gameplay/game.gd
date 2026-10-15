@@ -117,8 +117,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				hud.show_status("染色试玩：将第5列第7行红棋移到第5列第5行")
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F11:
 			var wide: bool = key.shift_pressed
-			if await board.load_explosion_demo("fixture_line_span" if wide else "fixture_line"):
-				hud.show_status("跨度试玩：双击扫线手，清连续3行或3列；边缘截断" if wide else "扫线试玩：双击行或列清除手；每条线清2枚，得14基础分")
+			var cross: bool = key.ctrl_pressed
+			var mode: String = "fixture_line_cross" if cross else ("fixture_line_span" if wide else "fixture_line")
+			if await board.load_explosion_demo(mode):
+				hud.show_status("十字连携试玩：双击左侧行扫手，观察行→列→爆破手" if cross else ("跨度试玩：双击扫线手，清连续3行或3列；边缘截断" if wide else "扫线试玩：双击行或列清除手；每条线清2枚，得14基础分"))
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F7:
 			board.open_skill_demo()
 

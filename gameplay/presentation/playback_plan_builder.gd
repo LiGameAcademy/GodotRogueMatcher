@@ -28,6 +28,7 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 		frozen.center = result.center
 		frozen.line_axis = result.line_axis
 		frozen.radius = result.radius
+		frozen.cross_radius = result.cross_radius
 		frozen.generation = result.generation
 		frozen.score_entry = result.score_entry.copy()
 		for piece: PieceState in result.removed: frozen.removed.append(piece.copy())
