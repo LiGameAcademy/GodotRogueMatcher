@@ -87,10 +87,26 @@ func test_switching_retains_offer_selected_card_and_confirmation() -> void:
 		game.call("_set_theme", preset.theme_id, false)
 		assert_same(popup.offer, offer)
 		assert_true(card.get("_selected"))
+		var unselected: SkillCard = popup.options.get_child(0) as SkillCard
+		assert_gt((unselected.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
+		assert_gt((popup.confirm_button.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
 		assert_eq(popup.confirm_button.text, text)
 		assert_eq(card.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("surface", "Game"))
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
 		assert_true(get_tree().paused)
+
+func test_both_themes_keep_panel_and_button_boundaries_without_focus() -> void:
+	var hud: Hud = game.get_node("UILayer/HUD") as Hud
+	for preset: GameTheme in GameThemes.ALL:
+		game.call("_set_theme", preset.theme_id, false)
+		for path: String in ["%Left", "Margin/Rows/Header/Top/ScoreFrame", "Margin/Rows/Header/Top/PreviewFrame"]:
+			var frame: PanelContainer = hud.get_node(path) as PanelContainer
+			var panel: StyleBoxFlat = frame.get_theme_stylebox("panel") as StyleBoxFlat
+			assert_not_null(panel, path)
+			if panel != null:
+				assert_gt(panel.border_width_left, 0, path)
+				assert_ne(panel.bg_color, preset.background, path)
+		assert_gt((hud.settings_button.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
 
 func test_shader_instances_and_templates_stay_isolated_across_views() -> void:
 	var a: BoardView = VIEW.instantiate() as BoardView

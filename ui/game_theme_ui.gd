@@ -12,8 +12,6 @@ static func apply(root: Node, preset: GameTheme) -> void:
 		for name_text: StringName in [&"font_color", &"default_color"]:
 			control.remove_theme_color_override(name_text)
 		if control is PanelContainer: control.remove_theme_stylebox_override("panel")
-		if control is PanelContainer and control.name in [&"Left", &"Right", &"ScoreFrame", &"PreviewFrame"]:
-			control.add_theme_stylebox_override("panel", preset.ui_theme.get_stylebox("panel", "HudPanel"))
 		if control is Button and not control is SkillCard:
 			for state: StringName in [&"normal", &"hover", &"pressed", &"focus", &"disabled"]: control.remove_theme_stylebox_override(state)
 		if control is Label or control is RichTextLabel:

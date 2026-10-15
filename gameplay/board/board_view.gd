@@ -47,8 +47,14 @@ func _exit_tree() -> void:
 		if is_instance_valid(piece): piece.cancel_movement()
 	presentation_changed.emit()
 
+## Board backing is drawn on the board canvas, below cells and above the game background.
+func _draw() -> void:
+	if _game_theme != null and get_display_rect().has_area():
+		draw_style_box(_game_theme.ui_theme.get_stylebox("panel", "PanelContainer"), get_display_rect().grow(6.0))
+
 func apply_game_theme(preset: GameTheme) -> void:
 	_game_theme = preset
+	queue_redraw()
 	for cell: Cell in _cells.values(): cell.apply_game_theme(preset.board)
 	for piece: ChessPiece in _pieces.values(): piece.apply_game_theme(preset.board)
 	move_path.config = preset.feedback
@@ -60,6 +66,7 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 	_spacing = cell_size + gap
 	_cell_size = cell_size
 	_dimensions = Vector2i(columns, rows)
+	queue_redraw()
 	for cell: Cell in _cells.values():
 		remove_child(cell)
 		cell.queue_free()

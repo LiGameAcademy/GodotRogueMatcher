@@ -91,7 +91,7 @@ func set_selected(selected: bool) -> void:
 	box.border_color = _accent if selected else Color(_accent, 0.65)
 	box.set_border_width_all(3 if selected else 2)
 	if _game_theme != null:
-		box.set_border_width_all(2 if selected else 0)
+		box.set_border_width_all(2 if selected else 1)
 		box.border_width_top = 3
 	add_theme_stylebox_override("normal", box)
 	if _catalog_run == null: action_label.text = tr("已点选 · 等待确认") if selected else tr("点选后，在下方确认")

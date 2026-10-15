@@ -27,7 +27,7 @@ static func style(button: Button, rarity: SkillDefinition.Rarity, preset: GameTh
 			box.bg_color = preset.ui_theme.get_color("surface" if state in ["normal", "disabled"] else "hover", "Game")
 			box.border_color = color_for(rarity, preset)
 			box.set_corner_radius_all(preset.ui_theme.get_constant("rounding", "Game"))
-			box.set_border_width_all(0)
+			box.set_border_width_all(1)
 			box.border_width_top = 3
 			if state in ["hover", "focus", "pressed"]: box.set_border_width_all(2)
 			box.shadow_size = 0
