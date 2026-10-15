@@ -3,6 +3,37 @@ extends GutTest
 const MAIN: PackedScene = preload("res://main.tscn")
 var board: Board
 
+func test_alt_f11_quota_rejection_pause_rebuild_and_tooltip_match_recorded_rules() -> void:
+	var game: Node = board.get_parent()
+	var key: InputEventKey = InputEventKey.new()
+	key.physical_keycode = KEY_F11
+	key.pressed = true
+	key.alt_pressed = true
+	await game._unhandled_key_input(key)
+	assert_eq(board.run.initialization, "fixture_manual_limit")
+	board.set_playback_fast(true)
+	for position: Vector2i in [Vector2i(0, 0), Vector2i(0, 2), Vector2i(4, 4)]:
+		await board._on_piece_activated(position)
+	assert_eq(ManualActivationRules.remaining(board.run.state, true), 0)
+	get_tree().paused = true
+	await board._on_piece_activated(Vector2i(0, 6))
+	get_tree().paused = false
+	assert_true(board.rebuild_view())
+	var id: int = board.rules.state.get_piece_id(Vector2i(0, 6))
+	assert_not_null(board.rules.state.get_piece(id))
+	var before: Dictionary = RunSnapshot.capture(board.run)
+	before.erase("last_command")
+	await board._on_piece_activated(Vector2i(0, 6))
+	var after: Dictionary = RunSnapshot.capture(board.run)
+	after.erase("last_command")
+	assert_eq(RunSnapshot.digest(after), RunSnapshot.digest(before))
+	assert_true(board.can_selected)
+	game._on_locale_changed("zh_CN", "en_US")
+	assert_string_contains(board.view.get_piece(id).tooltip_region.tooltip_text, String(TranslationServer.translate("主动次数已用完；被消除时仍正常触发。")))
+	board.run.recorder.finish(board.run, "abandoned", "manual_limit_scene")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay_file(board.run.recorder.path), replay.error)
+
 func before_each() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = false

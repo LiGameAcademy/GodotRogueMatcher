@@ -103,3 +103,21 @@ func test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated() -> v
 	first_style.border_color = Color.RED
 	assert_ne(first_style, second_style)
 	assert_ne(second_style.border_color, Color.RED)
+
+func test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation() -> void:
+	run = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
+	run.initialize("fixture_manual_limit")
+	hud.show_run(run)
+	var card: CARD_SCRIPT = hud.build_list._cards[ManualActivationRules.LINE.skill_id] as CARD_SCRIPT
+	assert_eq(card.remaining_label.text, "主动剩余 3 / 3 次")
+	run.state.manual_uses_used[ManualActivationRules.LINE.skill_id] = 3
+	var snapshot: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	hud.show_run(run)
+	assert_same(card, hud.build_list._cards[ManualActivationRules.LINE.skill_id])
+	assert_true(card.remaining_label.visible)
+	assert_eq(card.remaining_label.text, "主动剩余 0 / 3 次")
+	TranslationServer.set_locale("en_US")
+	hud.show_run(run)
+	assert_eq(card.remaining_label.text, "Manual uses left: 0 / 3")
+	assert_false(card.effect_label.get_parsed_text().contains("每局"))
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), snapshot)

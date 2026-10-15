@@ -18,7 +18,8 @@ func show_state(state: RunState) -> void:
 			cards.add_child(created)
 			_cards[skill.skill_id] = created
 		var card: CARD_SCRIPT = _cards[skill.skill_id] as CARD_SCRIPT
-		card.configure(skill, SkillRules.level(state, skill), HudDetails.remaining_refills(skill, state))
+		var manual_remaining: int = ManualActivationRules.remaining_count(state.manual_uses_used, skill) if skill.manual_use_limit > 0 else -1
+		card.configure(skill, SkillRules.level(state, skill), HudDetails.remaining_refills(skill, state), manual_remaining)
 		cards.move_child(card, index)
 	for id: StringName in _cards.keys():
 		if ids.has(id): continue

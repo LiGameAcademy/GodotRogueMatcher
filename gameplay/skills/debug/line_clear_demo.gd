@@ -46,3 +46,13 @@ static func populate_cross(run: RunController) -> void:
 	run.abilities.upgrade_reward()
 	for skill: SkillDefinition in [preload("res://gameplay/progression/content/line_manual_clear.tres"), preload("res://gameplay/progression/content/line_row_span.tres"), preload("res://gameplay/progression/content/line_cross_upgrade.tres")]:
 		_install(run, skill)
+
+## Four separate sources let the author test 3 accepted actions and a rejected fourth.
+static func populate_manual_limit(run: RunController) -> void:
+	run.state.line_clear.row_unlocked = true
+	run.state.line_clear.column_unlocked = true
+	for coordinate: Vector2i in [Vector2i(0, 0), Vector2i(0, 2), Vector2i(4, 4), Vector2i(0, 6)]:
+		var axis: int = LineClearState.AXIS_COLUMN if coordinate.x == 4 else LineClearState.AXIS_ROW
+		run.abilities.add_line_piece(axis, coordinate, 0)
+		run.state.rules.place_piece(coordinate + (Vector2i.UP if axis == LineClearState.AXIS_COLUMN else Vector2i.RIGHT), 1)
+	_install(run, preload("res://gameplay/progression/content/line_manual_clear.tres"))

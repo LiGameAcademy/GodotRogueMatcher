@@ -23,6 +23,8 @@ enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
 @export var requires_fuse: bool = false
 @export var prerequisite: StringName
 @export var maximum_level: int = 0
+## Per-card manual activations per run; zero means this card grants no manual action.
+@export var manual_use_limit: int = 0
 @export var levels: Array[SkillLevelDefinition] = []
 
 ## Acquire/upgrade root: direct ChoiceEffect and per-level abilities share the same runner.

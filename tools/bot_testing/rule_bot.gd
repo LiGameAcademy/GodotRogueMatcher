@@ -70,6 +70,7 @@ func legal_detonations(run: RunController) -> Array[DetonateCoreCommand]:
 	var result: Array[DetonateCoreCommand] = []
 	if run.state.phase != RunState.Phase.INPUT or run.state.is_game_over or run.state.explosion.level(&"core_manual_detonation") == 0: return result
 	if not run.abilities.validation_error(1).is_empty(): return result
+	if ManualActivationRules.remaining(run.state, false) == 0: return result
 	for piece: PieceState in run.state.rules.state.get_snapshot():
 		if piece.content_id != &"special_demolition": continue
 		var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
@@ -82,6 +83,7 @@ func legal_line_activations(run: RunController) -> Array[ActivateLineCommand]:
 	var result: Array[ActivateLineCommand] = []
 	if run.state.phase != RunState.Phase.INPUT or run.state.is_game_over or run.state.line_clear.level(&"line_manual_clear") == 0: return result
 	if not run.abilities.validation_error(1).is_empty(): return result
+	if ManualActivationRules.remaining(run.state, true) == 0: return result
 	for piece: PieceState in run.state.rules.state.get_snapshot():
 		if not LineClearState.is_line_piece(piece.content_id) or not run.state.line_clear.instances.has(piece.piece_id): continue
 		var command: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)

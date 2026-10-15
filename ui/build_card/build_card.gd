@@ -7,7 +7,7 @@
 @onready var effect_label: RichTextLabel = %Effect
 @onready var remaining_label: Label = %Remaining
 
-func configure(skill: SkillDefinition, level: int, remaining: int) -> void:
+func configure(skill: SkillDefinition, level: int, remaining: int, manual_remaining: int = -1) -> void:
 	title_label.text = tr(skill.title)
 	var tags: String = SkillChoiceText.tags(skill)
 	metadata_label.text = tr(SkillRarity.NAMES[skill.rarity])
@@ -16,8 +16,13 @@ func configure(skill: SkillDefinition, level: int, remaining: int) -> void:
 	level_label.text = "Lv.%d" % level
 	level_label.visible = skill.is_persistent
 	effect_label.text = SkillChoiceText.summary_rich(skill)
-	remaining_label.visible = skill.refill_effect() != null
+	remaining_label.visible = skill.refill_effect() != null or skill.manual_use_limit > 0
 	remaining_label.text = tr("剩余 %d 次实际补棋") % remaining
+	if skill.manual_use_limit > 0:
+		if manual_remaining >= 0:
+			remaining_label.text = tr("主动剩余 %d / %d 次") % [manual_remaining, skill.manual_use_limit]
+		else:
+			remaining_label.text = tr("本局可主动 %d 次") % skill.manual_use_limit
 	var style: StyleBoxFlat = get_theme_stylebox("panel").duplicate() as StyleBoxFlat
 	style.border_color = SkillRarity.COLORS[skill.rarity]
 	add_theme_stylebox_override("panel", style)

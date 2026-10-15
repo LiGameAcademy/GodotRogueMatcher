@@ -25,6 +25,7 @@ func test_continue_keeps_board_score_and_build_and_grants_terminal_reward() -> v
 	var board: String = RunSnapshot.canonical(run.state.rules.state.get_snapshot().map(func(p: PieceState) -> Dictionary: return RunSnapshot.piece(p)))
 	run.state.explosion.upgrades[&"precision_reward"] = 2
 	run.state.rewards.acquired[&"precision_reward"] = 2
+	run.state.manual_uses_used = {&"core_manual_detonation": 2, &"line_manual_clear": 3}
 	var score: int = run.state.ledger.total
 	var moves: int = run.state.valid_moves
 	var random: int = run.state.random.state
@@ -35,6 +36,7 @@ func test_continue_keeps_board_score_and_build_and_grants_terminal_reward() -> v
 	assert_eq(run.state.pending_rewards, 1)
 	assert_eq(run.state.explosion.level(&"precision_reward"), 2)
 	assert_eq(run.state.rewards.acquired[&"precision_reward"], 2)
+	assert_eq(run.state.manual_uses_used, {&"core_manual_detonation": 2, &"line_manual_clear": 3})
 	assert_eq(run.state.ledger.total, score)
 	assert_eq(run.state.valid_moves, moves)
 	assert_eq(run.state.random.state, random)

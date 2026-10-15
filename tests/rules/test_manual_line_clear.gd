@@ -136,6 +136,9 @@ func test_goal_passes_only_after_normal_refill_and_full_action_settlement() -> v
 	assert_not_null(step.challenge)
 	assert_eq(step.challenge.reason, &"stage_passed")
 	assert_eq(run.state.pending_rewards, 1)
+	assert_eq(ManualActivationRules.remaining(run.state, true), 2)
+	run.state.stage.start_next()
+	assert_eq(ManualActivationRules.remaining(run.state, true), 2)
 
 func test_empty_sweep_still_consumes_action_and_refills_without_award() -> void:
 	var run: RunController = _run()

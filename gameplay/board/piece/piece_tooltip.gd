@@ -4,7 +4,7 @@ extends RefCounted
 ## 从只读规则数据生成提示；不保存能力状态，也不消费随机数。
 const COLOR_NAMES: Array[String] = ["红色", "绿色", "蓝色", "黄色", "紫色"]
 
-static func describe(piece: PieceState, explosion: ExplosionState, config: ExplosionConfig, item: ItemData = null, line_clear: LineClearState = null) -> String:
+static func describe(piece: PieceState, explosion: ExplosionState, config: ExplosionConfig, item: ItemData = null, line_clear: LineClearState = null, manual_uses_used: Dictionary[StringName, int] = {}) -> String:
 	var lines: Array[String] = []
 	if explosion.instances.has(piece.piece_id):
 		lines.append(TranslationServer.translate("爆壳手") if piece.content_id == &"special_demolition" else TranslationServer.translate("引信棋子"))
@@ -17,6 +17,7 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 		lines.append(TranslationServer.translate("命中其他引信 / 爆壳手会继续连锁。"))
 		if piece.content_id == &"special_demolition" and explosion.level(&"core_manual_detonation") > 0:
 			lines.append(TranslationServer.translate("双击主动爆破：消耗本枚和一次行动，正常补棋。"))
+			lines.append(_manual_remaining(manual_uses_used, false))
 		if explosion.level(&"selective_blast") > 0: lines.append(TranslationServer.translate("异色爆破：跳过与来源同色的目标。"))
 		if piece.content_id.is_empty() and explosion.level(&"blast_chain_radius") > 0: lines.append(TranslationServer.translate("第2代起引信半径额外+1，最终上限3。"))
 		var per_target: int = explosion.reward_level * config.reward_per_target
@@ -38,6 +39,7 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 				lines.append(TranslationServer.translate("十字扫线：同时清连续%d行与%d列（边缘截断）。") % [LineClearRules.line_count(line_clear.level(&"line_row_span")), LineClearRules.line_count(line_clear.level(&"line_column_span"))])
 		if line_clear != null and line_clear.level(&"line_manual_clear") > 0:
 			lines.append(TranslationServer.translate("双击主动扫线：消耗本枚和一次行动，正常补棋。"))
+			lines.append(_manual_remaining(manual_uses_used, true))
 	elif item != null:
 		lines.append(item.get_localized_name())
 		lines.append(item.get_effect_description())
@@ -45,3 +47,8 @@ static func describe(piece: PieceState, explosion: ExplosionState, config: Explo
 		if lines.is_empty(): lines.append(TranslationServer.translate("幽灵棋子"))
 		lines.append(TranslationServer.translate("半透明显示；仍占一格，按当前颜色参与五连。"))
 	return "\n".join(lines)
+
+static func _manual_remaining(used: Dictionary[StringName, int], line: bool) -> String:
+	var count: int = ManualActivationRules.remaining_count(used, ManualActivationRules.skill(line))
+	if count == 0: return TranslationServer.translate("主动次数已用完；被消除时仍正常触发。")
+	return TranslationServer.translate("主动剩余 %d / %d 次；空放也扣次数，连锁不额外扣。") % [count, ManualActivationRules.skill(line).manual_use_limit]

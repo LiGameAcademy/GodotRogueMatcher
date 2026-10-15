@@ -153,7 +153,7 @@ func show_ability_marker(piece_id: int, text: String) -> void:
 		piece.set_ability_marker(text)
 
 ## 调用者传入当前规则快照，能力升级后同步标记和提示。
-func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig, line_clear: LineClearState = null) -> void:
+func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig, line_clear: LineClearState = null, manual_uses_used: Dictionary[StringName, int] = {}) -> void:
 	for piece_state: PieceState in snapshot:
 		var piece: ChessPiece = get_piece(piece_state.piece_id)
 		if not is_instance_valid(piece): continue
@@ -163,7 +163,7 @@ func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionStat
 		elif LineClearState.is_line_piece(piece_state.content_id):
 			marker = "行" if piece_state.content_id == LineClearState.CONTENT_ROW else "列"
 		piece.set_ability_marker(marker)
-		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data, line_clear))
+		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data, line_clear, manual_uses_used))
 
 func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 	if radius < 0 or not _cells.has(center):
