@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="GameTheme" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://gameplay/presentation/game_theme/game_theme.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/presentation/game_theme/board_appearance.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/presentation/board_juice_config.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/presentation/score_float/score_float_config.gd" id="4"]
+[ext_resource type="Script" path="res://ui/goal_progress/goal_progress_config.gd" id="5"]
+[ext_resource type="Theme" path="res://gameplay/presentation/game_theme/dark_instrument_ui.tres" id="6"]
+
+[sub_resource type="Resource" id="board"]
+script = ExtResource("2")
+piece_colors = Array[Color]([Color(1.000000, 0.392157, 0.454902, 1), Color(0.450980, 0.890196, 0.682353, 1), Color(0.458824, 0.678431, 1.000000, 1), Color(1.000000, 0.847059, 0.431373, 1), Color(0.839216, 0.603922, 1.000000, 1)])
+cell_color = Color(0.098039, 0.129412, 0.156863, 1)
+cell_edge = Color(0.160784, 0.231373, 0.282353, 1)
+hover_color = Color(0.141176, 0.203922, 0.247059, 1)
+selected_color = Color(0.141176, 0.203922, 0.247059, 1)
+selection_edge = Color(0.384314, 0.847059, 0.756863, 1)
+path_color = Color(0.384314, 0.847059, 0.756863, 1)
+marker_color = Color(0.894118, 0.921569, 0.945098, 1)
+marker_background = Color(0.086275, 0.117647, 0.145098, 1)
+cell_rounding = 0.008
+surface_strength = 0.15
+shadow_offset = Vector2(0, 1)
+piece_shadow = Color(0.1, 0.2, 0.3, 0.3)
+
+[sub_resource type="Resource" id="feedback"]
+script = ExtResource("3")
+path_color = Color(0.384314, 0.847059, 0.756863, 1)
+line_clear_color = Color(0.384314, 0.847059, 0.756863, 1)
+blast_color = Color(1.000000, 0.749020, 0.458824, 1)
+
+[sub_resource type="Resource" id="floats"]
+script = ExtResource("4")
+normal_color = Color(0.894118, 0.921569, 0.945098, 1)
+extra_color = Color(0.384314, 0.847059, 0.756863, 1)
+high_color = Color(1.000000, 0.847059, 0.431373, 1)
+huge_color = Color(1.000000, 0.607843, 0.447059, 1)
+
+[sub_resource type="Resource" id="progress"]
+script = ExtResource("5")
+mote_color = Color(0.384314, 0.847059, 0.756863, 1)
+
+[resource]
+script = ExtResource("1")
+theme_id = &"dark_instrument"
+title = "深色仪表"
+ui_theme = ExtResource("6")
+board = SubResource("board")
+feedback = SubResource("feedback")
+score_floats = SubResource("floats")
+progress = SubResource("progress")
+background = Color(0.043137, 0.058824, 0.074510, 1)

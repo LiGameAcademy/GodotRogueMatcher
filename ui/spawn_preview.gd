@@ -4,6 +4,11 @@ extends Control
 @onready var title: Label = $Title
 @onready var hint: Label = $Hint
 var _tokens: Array[SpawnToken] = []
+var _game_theme: GameTheme
+
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	queue_redraw()
 
 func show_plan(tokens: Array[SpawnToken], finished: bool = false) -> void:
 	_tokens.clear()
@@ -25,6 +30,7 @@ func _draw() -> void:
 		var center: Vector2 = Vector2(18 + index * 36, 37)
 		draw_style_box(get_theme_stylebox("normal", "Button"), Rect2(center - Vector2(16, 16), Vector2(32, 32)))
 		var color: Color = ChessPiece.color_for(token.color)
+		if _game_theme != null: color = _game_theme.board.piece_colors[token.color]
 		if token.color == ChessPiece.ShapeType.CIRCLE:
 			draw_circle(center, 9.0, color)
 		else:
@@ -37,4 +43,5 @@ func _draw() -> void:
 				points.append(center + Vector2(cos(angle), sin(angle)) * radius)
 			draw_colored_polygon(points, color)
 		if token.core_candidate:
-			draw_string(get_theme_default_font(), center + Vector2(-11, 4), tr("爆?"), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
+			var marker: Color = _game_theme.board.marker_color if _game_theme != null else Color.WHITE
+			draw_string(get_theme_default_font(), center + Vector2(-11, 4), tr("爆?"), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, marker)

@@ -21,6 +21,8 @@ var _spacing: Vector2
 var _dimensions: Vector2i
 var _cell_size: Vector2
 var low_effects: bool = false
+var _game_theme: GameTheme
+
 var _presentation_tweens: Array[Tween] = []
 var _fixed_required: bool = false
 var presentation_speed: float = 1.0:
@@ -45,6 +47,14 @@ func _exit_tree() -> void:
 		if is_instance_valid(piece): piece.cancel_movement()
 	presentation_changed.emit()
 
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	for cell: Cell in _cells.values(): cell.apply_game_theme(preset.board)
+	for piece: ChessPiece in _pieces.values(): piece.apply_game_theme(preset.board)
+	move_path.config = preset.feedback
+	move_path.queue_redraw()
+	score_floats.config = preset.score_floats
+
 func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> void:
 	clear_display()
 	_spacing = cell_size + gap
@@ -64,6 +74,7 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 			cell.activated.connect(func(clicked: Cell) -> void: piece_activated.emit(clicked.coordinate))
 			add_child(cell)
 			_cells[cell.coordinate] = cell
+			if _game_theme != null: cell.apply_game_theme(_game_theme.board)
 
 func get_cell(coordinate: Vector2i) -> Cell:
 	return _cells.get(coordinate)
@@ -134,6 +145,7 @@ func show_piece(piece_state: PieceState, piece: ChessPiece) -> void:
 	piece.piece_id = piece_state.piece_id
 	piece.low_effects = low_effects
 	cell.show_piece(piece)
+	if _game_theme != null: piece.apply_game_theme(_game_theme.board)
 	piece.position = Vector2.ZERO
 	piece.piece_type = piece_state.match_color
 	piece.is_ghost = piece_state.is_ghost
@@ -170,6 +182,7 @@ func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 		return
 	var visual: ExplosionVisual = EXPLOSION_SCENE.instantiate() as ExplosionVisual
 	visual.low_effects = low_effects
+	if _game_theme != null: visual.config = _game_theme.feedback
 	add_child(visual)
 	visual.position = Vector2(center) * _spacing
 	var minimum: Vector2i = Vector2i(maxi(0, center.x - radius), maxi(0, center.y - radius))
@@ -186,6 +199,7 @@ func show_line_clear(center: Vector2i, axis: int, radius: int = 0, cross_radius:
 	var second: Rect2 = _line_area(center, 1 - axis, cross_radius) if cross_radius >= 0 else Rect2()
 	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
 	visual.low_effects = low_effects
+	if _game_theme != null: visual.config = _game_theme.feedback
 	add_child(visual)
 	track_presentation(visual.setup(area, axis, second))
 

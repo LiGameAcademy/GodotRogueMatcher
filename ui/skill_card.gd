@@ -20,6 +20,15 @@ var _accent: Color = Color.WHITE
 var _skill: SkillDefinition
 var _catalog_run: RunController
 var _target: SkillTarget
+var _game_theme: GameTheme
+
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	if _skill == null: return
+	_accent = SkillRarity.color_for(_skill.rarity, preset)
+	SkillRarity.style(self, _skill.rarity, preset)
+	rarity_label.add_theme_color_override("font_color", _accent)
+	set_selected(_selected)
 
 func _ready() -> void:
 	_ignore_child_mouse(content)
@@ -43,8 +52,8 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	focus_mode = Control.FOCUS_ALL
 	_skill = skill
 	_target = target
-	_accent = SkillRarity.COLORS[skill.rarity]
-	SkillRarity.style(self, skill.rarity)
+	_accent = SkillRarity.color_for(skill.rarity, _game_theme)
+	SkillRarity.style(self, skill.rarity, _game_theme)
 	rarity_label.text = tr(SkillRarity.NAMES[skill.rarity])
 	rarity_label.add_theme_color_override("font_color", _accent)
 	kind_label.text = SkillChoiceText.tags(skill)
@@ -81,6 +90,9 @@ func set_selected(selected: bool) -> void:
 	var box: StyleBoxFlat = get_theme_stylebox("normal").duplicate() as StyleBoxFlat
 	box.border_color = _accent if selected else Color(_accent, 0.65)
 	box.set_border_width_all(3 if selected else 2)
+	if _game_theme != null:
+		box.set_border_width_all(2 if selected else 0)
+		box.border_width_top = 3
 	add_theme_stylebox_override("normal", box)
 	if _catalog_run == null: action_label.text = tr("已点选 · 等待确认") if selected else tr("点选后，在下方确认")
 	_update_feedback()

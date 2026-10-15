@@ -17,6 +17,7 @@ var is_hovered: bool = false
 var _selected: bool = false
 var _surface: ShaderMaterial
 var _flash: Tween
+
 var piece: ChessPiece:
 	get:
 		return get_node_or_null("Piece") as ChessPiece
@@ -30,6 +31,17 @@ func _ready() -> void:
 	area_2d.input_event.connect(_on_area_2d_input_event)
 	area_2d.mouse_entered.connect(_on_mouse_entered)
 	area_2d.mouse_exited.connect(_on_mouse_exited)
+	_refresh_style()
+
+func apply_game_theme(appearance: BoardAppearance) -> void:
+	default_bg_color = appearance.cell_color
+	default_border_color = appearance.cell_edge
+	hover_color = appearance.hover_color
+	highlight_bg_color = appearance.selected_color
+	highlight_glow_color = appearance.selection_edge
+	path_highlight_color = appearance.path_color
+	_surface.set_shader_parameter("rounding", appearance.cell_rounding)
+	_surface.set_shader_parameter("surface_strength", appearance.surface_strength)
 	_refresh_style()
 
 func show_piece(display_piece: ChessPiece) -> void:

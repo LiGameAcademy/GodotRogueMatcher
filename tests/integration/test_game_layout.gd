@@ -35,13 +35,14 @@ func test_real_board_edges_fit_ui_area_at_multiple_window_sizes() -> void:
 	for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(1024, 640), Vector2i(1600, 720)]:
 		viewport.size = resolution
 		await wait_process_frames(5)
+		assert_eq((game.get_node("ColorRect") as ColorRect).size, Vector2(resolution))
 		var displayed: Rect2 = board.get_global_transform_with_canvas() * board.view.get_display_rect()
 		var area: Rect2 = hud.get_board_area()
 		assert_true(area.grow(0.1).encloses(displayed), str(resolution))
 		assert_almost_eq(displayed.get_center().x, area.get_center().x, 0.1)
 		assert_almost_eq(displayed.get_center().y, area.get_center().y, 0.1)
 		assert_false(displayed.intersects((hud.get_node("%Left") as Control).get_global_rect()))
-		assert_false(displayed.intersects((hud.get_node("%Right") as Control).get_global_rect()))
+		assert_true((hud.get_node("%Left") as Control).get_global_rect().encloses(hud.breakdown_label.get_global_rect()))
 		assert_false(displayed.intersects((hud.get_node("Margin/Rows/Header") as Control).get_global_rect()))
 		assert_false(displayed.intersects((hud.get_node("Margin/Rows/Footer") as Control).get_global_rect()))
 		# 直接验证场景中的首尾碰撞格，避免只检查理想化的原点。

@@ -69,8 +69,12 @@ static func summary(state: RunState) -> String:
 		best = maxi(best, totals[entry.root_action_id])
 	return StageText.end_summary(state) + TranslationServer.translate("有效行动 %d 次 · 技能选择 %d 次\n最高单次行动得分 %d") % [state.valid_moves + state.activations, state.rewards.consumed_count, best]
 
-static func score_details_rich(entries: Array[ScoreEntry]) -> String:
+static func score_details_rich(entries: Array[ScoreEntry], palette: Theme = null) -> String:
 	var lines: PackedStringArray = score_details(entries).split("\n")
+	if palette != null:
+		if not lines.is_empty() and not entries.is_empty():
+			lines[0] = "[font_size=20][color=#%s]%s[/color][/font_size]" % [palette.get_color("accent", "Game").to_html(false), lines[0]]
+		return "\n".join(lines)
 	for index: int in range(lines.size()):
 		var line: String = lines[index]
 		if index == 0 and not entries.is_empty():

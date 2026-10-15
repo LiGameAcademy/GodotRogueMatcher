@@ -3,7 +3,7 @@ extends Node2D
 
 var _area: Rect2
 var low_effects: bool = false
-const CONFIG: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
+@export var config: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
 var _progress: float = 0.0
 var _generation: int = 0
 
@@ -17,8 +17,8 @@ func setup(area: Rect2, generation: int = 0) -> Tween:
 	queue_redraw()
 	var tween: Tween = create_tween()
 	tween.set_parallel()
-	tween.tween_method(_set_progress, 0.0, 1.0, CONFIG.blast_seconds).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "modulate:a", 0.0, CONFIG.blast_seconds)
+	tween.tween_method(_set_progress, 0.0, 1.0, config.blast_seconds).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "modulate:a", 0.0, config.blast_seconds)
 	tween.finished.connect(queue_free)
 	return tween
 
@@ -27,7 +27,7 @@ func _set_progress(value: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	var color: Color = CONFIG.blast_color
+	var color: Color = config.blast_color
 	if not low_effects:
 		draw_rect(_area, Color(color, 0.10 * (1.0 - _progress)), true)
 		var radius: float = lerpf(18.0, _area.size.length() * 0.5, _progress)

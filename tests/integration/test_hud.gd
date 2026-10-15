@@ -78,7 +78,7 @@ func test_hud_uses_real_reward_occupancy_skill_and_score_data() -> void:
 func test_prototype_layout_leaves_board_click_area_clear() -> void:
 	await wait_process_frames(3)
 	assert_lte((hud.get_node("%Left") as Control).get_global_rect().end.x, hud.board_area.get_global_rect().position.x)
-	assert_gte((hud.get_node("%Right") as Control).get_global_rect().position.x, hud.board_area.get_global_rect().end.x)
+	assert_true((hud.get_node("%Left") as Control).get_global_rect().encloses(hud.breakdown_label.get_global_rect()))
 	assert_eq(hud.mouse_filter, Control.MOUSE_FILTER_IGNORE)
 	assert_eq(hud.build_list.horizontal_scroll_mode, ScrollContainer.SCROLL_MODE_DISABLED)
 	assert_true(hud.breakdown_label.scroll_active)

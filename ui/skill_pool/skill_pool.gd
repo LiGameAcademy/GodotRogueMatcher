@@ -18,6 +18,11 @@ var _run: RunController
 var _previous_pause: bool = false
 var _previous_focus: Control
 var _open: bool = false
+var _game_theme: GameTheme
+
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	GameThemeUi.apply(self, preset)
 
 func _ready() -> void:
 	close_button.pressed.connect(close)
@@ -114,6 +119,7 @@ func _refresh() -> void:
 		var card: SkillCard = CARD.instantiate() as SkillCard
 		entries.add_child(card)
 		card.configure_catalog(skill, _run)
+		if _game_theme != null: GameThemeUi.apply(card, _game_theme)
 	count_label.text = tr("显示 %d / %d 项技能") % [skills.size(), SkillOfferGenerator.CATALOG.size()]
 	empty_label.visible = skills.is_empty()
 	scroll.scroll_vertical = 0

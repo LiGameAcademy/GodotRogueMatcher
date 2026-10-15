@@ -43,6 +43,7 @@ var _run: RunController
 var _selection: PieceState
 var _selection_fuse: bool = false
 var _status_source: String = "准备棋盘…"
+var _game_theme: GameTheme
 
 func _ready() -> void:
 	pause_button.pressed.connect(pause_requested.emit)
@@ -52,6 +53,27 @@ func _ready() -> void:
 	board_area.item_rect_changed.connect(_notify_board_area)
 	piece_pool.pool_view_changed.connect(piece_pool_visibility_changed.emit)
 	goal_progress.value_changed.connect(_on_goal_value_changed)
+	resized.connect(_layout_content)
+	($Margin/Rows/Body as Control).resized.connect(_layout_content)
+	($Margin/Rows/Body as Control).item_rect_changed.connect(_notify_board_area)
+	_layout_content.call_deferred()
+
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	GameThemeUi.apply(self, preset)
+	build_list.apply_game_theme(preset)
+	goal_progress.apply_game_theme(preset)
+	if _run != null: _show_breakdown(_run.state)
+
+func _show_breakdown(state: RunState) -> void:
+	var entries: Array[ScoreEntry] = state.ledger.get_entries()
+	breakdown_label.text = tr("尚未得分") if entries.is_empty() else HudDetails.score_details_rich(entries, _game_theme.ui_theme if _game_theme != null else null)
+	breakdown_label.custom_minimum_size.y = 32.0 if entries.is_empty() else 82.0
+
+func _layout_content() -> void:
+	var body: HBoxContainer = $Margin/Rows/Body
+	var available: float = maxf(240.0, size.x - 340.0)
+	board_area.custom_minimum_size.x = minf(available, maxf(240.0, body.size.y - 8.0))
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
@@ -67,7 +89,7 @@ func get_board_area() -> Rect2:
 	return board_area.get_global_rect().grow(-8.0)
 
 func _notify_board_area() -> void:
-	board_area_changed.emit()
+	board_area_changed.emit.call_deferred()
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -153,7 +175,7 @@ func show_run(run: RunController) -> void:
 	turn_label.text = tr("回合 %d · 行动 %d") % [state.turn_count, state.valid_moves + state.activations]
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
 	build_list.show_state(state)
-	breakdown_label.text = HudDetails.score_details_rich(state.ledger.get_entries())
+	_show_breakdown(state)
 	history_label.text = HudDetails.history(state)
 
 func show_occupancy(count: int, capacity: int = 81) -> void:

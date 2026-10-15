@@ -6,6 +6,7 @@ var fast: bool = false
 var low_effects: bool = false
 var volume: float = 0.7
 var tutorial_seen: bool = false
+var theme_id: StringName = &"light_toy"
 const SECTION: String = "rogue_matcher_presentation"
 
 func load_values(config: CoreSystem.ConfigManager) -> void:
@@ -13,6 +14,8 @@ func load_values(config: CoreSystem.ConfigManager) -> void:
 	var saved_low: Variant = config.get_value(SECTION, "low_effects", false)
 	var saved_volume: Variant = config.get_value(SECTION, "volume", 0.7)
 	var saved_tutorial: Variant = config.get_value(SECTION, "tutorial_seen", false)
+	var saved_theme: Variant = config.get_value(SECTION, "theme_id", "light_toy")
+	if saved_theme is String: theme_id = GameThemes.find(StringName(saved_theme)).theme_id
 	if saved_tutorial is bool: tutorial_seen = bool(saved_tutorial)
 	if saved_fast is bool: fast = bool(saved_fast)
 	if saved_low is bool: low_effects = bool(saved_low)
@@ -24,4 +27,5 @@ func save_values(config: CoreSystem.ConfigManager, path: String = "") -> bool:
 	config.set_value(SECTION, "low_effects", low_effects)
 	config.set_value(SECTION, "volume", volume)
 	config.set_value(SECTION, "tutorial_seen", tutorial_seen)
+	config.set_value(SECTION, "theme_id", String(theme_id))
 	return config.save_config(path)

@@ -117,7 +117,7 @@ func _assert_visible_core(piece: ChessPiece, color: int) -> void:
 	assert_eq(piece.piece_type, color)
 	assert_true(piece.polygon.visible, "验证实际可见图形，不能只核对规则数据")
 	assert_false(piece.sprite.visible)
-	assert_eq(piece.polygon.color, ChessPiece.color_for(color))
+	assert_eq(piece.polygon.color, GameThemes.ALL[0].board.piece_colors[color])
 	assert_true(piece.ability_marker.visible)
 	assert_string_contains(piece.tooltip_region.tooltip_text, PieceTooltip.COLOR_NAMES[color])
 

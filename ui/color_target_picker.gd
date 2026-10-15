@@ -23,6 +23,16 @@ func _ready() -> void:
 	confirm_button.pressed.connect(confirm_selection)
 	back_button.pressed.connect(back_requested.emit)
 
+func apply_game_theme(preset: GameTheme) -> void:
+	normal_frame = preset.ui_theme.get_stylebox("panel", "PanelContainer").duplicate() as StyleBoxFlat
+	error_frame = normal_frame.duplicate() as StyleBoxFlat
+	error_frame.border_color = preset.board.piece_colors[0]
+	error_frame.set_border_width_all(2)
+	frame.add_theme_stylebox_override("panel", normal_frame if _error.is_empty() else error_frame)
+	for index: int in range(colors.get_child_count()):
+		var button: Button = colors.get_child(index) as Button
+		button.add_theme_color_override("font_color", preset.board.piece_colors[index].lerp(preset.ui_theme.get_color("text", "Game"), 0.45))
+
 func configure(target: SkillTarget) -> void:
 	_target = target.color_picker_source() if target != null else null
 	_error = ""

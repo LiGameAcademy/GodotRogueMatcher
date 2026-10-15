@@ -1,0 +1,207 @@
+[gd_resource type="Theme" load_steps=10 format=3]
+
+[sub_resource type="StyleBoxFlat" id="Normal"]
+bg_color = Color(0.086275, 0.117647, 0.145098, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Hover"]
+bg_color = Color(0.141176, 0.203922, 0.247059, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Pressed"]
+bg_color = Color(0.141176, 0.203922, 0.247059, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Disabled"]
+bg_color = Color(0.043137, 0.058824, 0.074510, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.086275, 0.117647, 0.145098, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Track"]
+bg_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Fill"]
+bg_color = Color(0.384314, 0.847059, 0.756863, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Focus"]
+draw_center = false
+bg_color = Color(0.086275, 0.117647, 0.145098, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+
+[resource]
+default_font_size = 15
+Label/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
+Label/colors/font_hover_color = Color(0.894118, 0.921569, 0.945098, 1)
+Label/colors/font_pressed_color = Color(0.894118, 0.921569, 0.945098, 1)
+Label/colors/font_focus_color = Color(0.894118, 0.921569, 0.945098, 1)
+Label/colors/font_disabled_color = Color(0.615686, 0.682353, 0.741176, 1)
+Button/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
+Button/colors/font_hover_color = Color(0.894118, 0.921569, 0.945098, 1)
+Button/colors/font_pressed_color = Color(0.894118, 0.921569, 0.945098, 1)
+Button/colors/font_focus_color = Color(0.894118, 0.921569, 0.945098, 1)
+Button/colors/font_disabled_color = Color(0.615686, 0.682353, 0.741176, 1)
+CheckButton/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
+CheckButton/colors/font_hover_color = Color(0.894118, 0.921569, 0.945098, 1)
+CheckButton/colors/font_pressed_color = Color(0.894118, 0.921569, 0.945098, 1)
+CheckButton/colors/font_focus_color = Color(0.894118, 0.921569, 0.945098, 1)
+CheckButton/colors/font_disabled_color = Color(0.615686, 0.682353, 0.741176, 1)
+OptionButton/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
+OptionButton/colors/font_hover_color = Color(0.894118, 0.921569, 0.945098, 1)
+OptionButton/colors/font_pressed_color = Color(0.894118, 0.921569, 0.945098, 1)
+OptionButton/colors/font_focus_color = Color(0.894118, 0.921569, 0.945098, 1)
+OptionButton/colors/font_disabled_color = Color(0.615686, 0.682353, 0.741176, 1)
+PopupMenu/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
+PopupMenu/colors/font_hover_color = Color(0.894118, 0.921569, 0.945098, 1)
+PopupMenu/colors/font_pressed_color = Color(0.894118, 0.921569, 0.945098, 1)
+PopupMenu/colors/font_focus_color = Color(0.894118, 0.921569, 0.945098, 1)
+PopupMenu/colors/font_disabled_color = Color(0.615686, 0.682353, 0.741176, 1)
+TooltipLabel/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
+TooltipLabel/colors/font_hover_color = Color(0.894118, 0.921569, 0.945098, 1)
+TooltipLabel/colors/font_pressed_color = Color(0.894118, 0.921569, 0.945098, 1)
+TooltipLabel/colors/font_focus_color = Color(0.894118, 0.921569, 0.945098, 1)
+TooltipLabel/colors/font_disabled_color = Color(0.615686, 0.682353, 0.741176, 1)
+Button/styles/normal = SubResource("Normal")
+Button/styles/hover = SubResource("Hover")
+Button/styles/pressed = SubResource("Pressed")
+Button/styles/hover_pressed = SubResource("Pressed")
+Button/styles/disabled = SubResource("Disabled")
+Button/styles/focus = SubResource("Focus")
+CheckButton/styles/normal = SubResource("Normal")
+CheckButton/styles/hover = SubResource("Hover")
+CheckButton/styles/pressed = SubResource("Pressed")
+CheckButton/styles/hover_pressed = SubResource("Pressed")
+CheckButton/styles/disabled = SubResource("Disabled")
+CheckButton/styles/focus = SubResource("Focus")
+OptionButton/styles/normal = SubResource("Normal")
+OptionButton/styles/hover = SubResource("Hover")
+OptionButton/styles/pressed = SubResource("Pressed")
+OptionButton/styles/hover_pressed = SubResource("Pressed")
+OptionButton/styles/disabled = SubResource("Disabled")
+OptionButton/styles/focus = SubResource("Focus")
+PanelContainer/styles/panel = SubResource("Panel")
+PopupMenu/styles/panel = SubResource("Panel")
+TooltipPanel/styles/panel = SubResource("Panel")
+HudPanel/styles/panel = SubResource("Empty")
+RichTextLabel/font_sizes/normal_font_size = 15
+RichTextLabel/constants/line_separation = 4
+RichTextLabel/colors/default_color = Color(0.894118, 0.921569, 0.945098, 1)
+ProgressBar/styles/background = SubResource("Track")
+ProgressBar/styles/fill = SubResource("Fill")
+HSlider/styles/slider = SubResource("Track")
+HSlider/styles/grabber_area = SubResource("Fill")
+HSlider/styles/grabber_area_highlight = SubResource("Fill")
+Game/colors/text = Color(0.894118, 0.921569, 0.945098, 1)
+Game/colors/muted = Color(0.615686, 0.682353, 0.741176, 1)
+Game/colors/accent = Color(0.384314, 0.847059, 0.756863, 1)
+Game/colors/surface = Color(0.086275, 0.117647, 0.145098, 1)
+Game/colors/hover = Color(0.141176, 0.203922, 0.247059, 1)
+Game/colors/edge = Color(0.160784, 0.231373, 0.282353, 1)
+Game/colors/rarity_0 = Color(0.796078, 0.835294, 0.882353, 1)
+Game/colors/rarity_1 = Color(0.403922, 0.850980, 0.545098, 1)
+Game/colors/rarity_2 = Color(0.384314, 0.666667, 1.000000, 1)
+Game/colors/rarity_3 = Color(0.733333, 0.513725, 0.929412, 1)
+Game/colors/rarity_4 = Color(1.000000, 0.682353, 0.341176, 1)
+Game/constants/rounding = 2
