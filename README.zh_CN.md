@@ -1,6 +1,6 @@
 # 技能连珠 · Skill Lines
 
-[浏览器试玩](https://godot-li.itch.io/roguematcher) · [English](README.md) · [0.0.1 预览版本](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.1)
+[浏览器试玩](https://godot-li.itch.io/roguematcher) · [English](README.md) · [0.0.2 预览版本](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.2)
 
 ![技能连珠宣传封面](docs/preview/cover.png)
 
@@ -22,9 +22,9 @@
 
 ![中文界面](docs/preview/language-zh.jpg)
 
-## 0.0.2 发布候选版
+## 0.0.2 Web预览版
 
-源码版本已更新为 **0.0.2**，尚待 Web 验收与正式发布。上方公开入口和旧截图仍对应 0.0.1；新版画面参见 [O3 验收](docs/o3_acceptance.md)。
+**0.0.2** 新增以下功能。上方旧截图保留为0.0.1历史画面；新版画面参见 [O3 验收](docs/o3_acceptance.md)。
 
 - 开始菜单选择默认的**阶段挑战**或**经典无尽**；切换模式开始新局，重试保留模式。
 - 底部显示累计总分／目标总分，选卡即时得分也推进目标。未达标持续升压，补棋从3枚升至**最多5枚，含技能修正**；达标恢复压力并三选一，保留棋盘、总分和构筑。每阶段至少一次新有效行动，满盘优先，没有硬行动死亡线。

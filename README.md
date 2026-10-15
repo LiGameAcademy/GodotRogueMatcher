@@ -1,6 +1,6 @@
 # Skill Lines
 
-[Play in your browser](https://godot-li.itch.io/roguematcher) · [中文说明](README.zh_CN.md) · [0.0.1 release](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.1)
+[Play in your browser](https://godot-li.itch.io/roguematcher) · [中文说明](README.zh_CN.md) · [0.0.2 release](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.2)
 
 ![Skill Lines promotional cover](docs/preview/cover.png)
 
@@ -22,9 +22,9 @@ An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy
 
 ![中文界面](docs/preview/language-zh.jpg)
 
-## 0.0.2 release candidate
+## 0.0.2 Web preview
 
-Source version: **0.0.2**, pending Web release validation and publication. The public links above still serve the 0.0.1 preview. The screenshots above also show that earlier version; see [current visual evidence](docs/o3_acceptance.md).
+Version **0.0.2** adds the features below. Screenshots above show the earlier 0.0.1 preview; see [current visual evidence](docs/o3_acceptance.md).
 
 - Choose **Stage challenge** (default) or **Classic endless** on the start menu. Changing mode starts a new run; retry retains the mode.
 - Stage targets use cumulative total score, including instant skill rewards. Unmet targets increase refills from 3 to **at most 5**, including skill modifiers. Passing resets pressure and offers three skills; board, score, and build carry over. Each stage requires one new valid action. A full board takes priority; there is no hard action deadline.

@@ -1,8 +1,8 @@
-# Skill Lines 0.0.2 — Release candidate
+# Skill Lines 0.0.2 — Web Preview
 
 [Project / source](https://github.com/LiGameAcademy/GodotRogueMatcher) · [itch.io](https://godot-li.itch.io/roguematcher) · [中文说明](https://github.com/LiGameAcademy/GodotRogueMatcher/blob/feature/stage-challenge/README.zh_CN.md)
 
-This is the 0.0.2 candidate package. Exporting it does not update the public itch.io page or create a GitHub release. See the adjacent build manifest for source identity and SHA256.
+This is the 0.0.2 Web preview package. See the release build manifest for source identity and SHA256.
 
 ## Play
 
@@ -16,7 +16,7 @@ Esc pauses/resumes; F1 opens settings; F8 changes playback speed; F9 skips skipp
 
 ## 中文
 
-0.0.2候选包：阶段挑战与经典无尽双模式；累计总分达标降压并三选一，未达标升压，补棋最多5枚。八阶段通关后可保留棋盘、总分与构筑继续挑战，后续每阶段目标增加1000分。
+0.0.2 Web预览版：阶段挑战与经典无尽双模式；累计总分达标降压并三选一，未达标升压，补棋最多5枚。八阶段通关后可保留棋盘、总分与构筑继续挑战，后续每阶段目标增加1000分。
 
 爆破手与行／列清除手支持升级和互相连锁；每张主动技能每局3次。技能先点选，再点击面板下方按钮确认。棋子池和技能池可查看，后者支持筛选与排序。Esc暂停／继续，F1设置，F8快放，F9略过允许跳过的演出。
 
