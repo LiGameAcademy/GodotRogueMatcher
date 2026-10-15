@@ -185,11 +185,13 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	elif mode == "fixture_line_span": LineClearDemo.populate(self, true)
 	elif mode == "fixture_line_cross": LineClearDemo.populate_cross(self)
 	elif mode == "fixture_manual_limit": LineClearDemo.populate_manual_limit(self)
+	elif mode == "fixture_transform": TransformationDemo.populate(self)
 	else:
 		state.rule_error = "unsupported_initialization"
 		state.phase = RunState.Phase.ERROR
 	DemolitionRules.settle(state, DemolitionRules.root_id(state))
 	start_turn()
+	if state.pending_rewards > 0: enter_rewards()
 	return result
 
 func check_rewards(score_override: int = -1) -> int:

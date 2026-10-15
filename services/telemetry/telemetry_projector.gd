@@ -116,7 +116,7 @@ func _resolved(row: Dictionary) -> void:
 		if not _skill.is_empty():
 			_last_skill = _skill.duplicate(true)
 			context.merge({"offer_id": _skill.offer_id, "reward_id": _skill.reward_id, "root_action_id": null, "batch_id": "reward:" + _skill.reward_id}, true)
-			_emit("skill_acquired", {"offer_id": _skill.offer_id, "reward_id": _skill.reward_id, "skill_id": _skill.skill_id, "count_before": _skill.count_before, "count_after": _skill.count_after, "levels_before": _skill.levels_before, "levels_after": _skill.levels_after, "tool_role": tool_roles.get(_skill.skill_id), "score_delta": row.after.total.to_int() - row.before.total.to_int(), "net_empty": row.before.pieces.size() - row.after.pieces.size(), "game_over": row.after.game_over, "created": _skill.created, "removed": _skill.removed, "P_before": _pressure(row.before), "P_after": _pressure(row.after), "batch_kind": "skill_choice"}, context)
+			_emit("skill_acquired", {"offer_id": _skill.offer_id, "reward_id": _skill.reward_id, "skill_id": _skill.skill_id, "count_before": _skill.count_before, "count_after": _skill.count_after, "levels_before": _skill.levels_before, "levels_after": _skill.levels_after, "tool_role": tool_roles.get(_skill.skill_id), "score_delta": row.after.total.to_int() - row.before.total.to_int(), "net_empty": row.before.pieces.size() - row.after.pieces.size(), "game_over": row.after.game_over, "created": _skill.created, "transformed": _skill.get("transformed", []), "removed": _skill.removed, "P_before": _pressure(row.before), "P_after": _pressure(row.after), "batch_kind": "skill_choice"}, context)
 			needs_flush = true
 			if _turn != null: _turn.exclude_choice(row)
 		_command = {}
@@ -263,6 +263,8 @@ func _pressure(state: Dictionary) -> Dictionary:
 
 func _facts(row: Dictionary) -> void:
 	var context: Dictionary = {"root_action_id": null if not _skill.is_empty() else _state.action, "batch_id": "reward:" + _skill.reward_id if not _skill.is_empty() else "action:" + _state.action}
+	for piece: Dictionary in _skill.get("transformed", []):
+		_emit("rule_fact", {"fact": "transformation", "piece": piece}, context)
 	var entries: Array = row.get("events", []).duplicate()
 	for birth: Dictionary in row.get("births", []):
 		_emit("rule_fact", {"fact": "spawn", "piece": birth.piece}, context)

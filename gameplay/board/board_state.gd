@@ -74,6 +74,9 @@ func _move(piece_id: int, coordinate: Vector2i) -> void:
 func _set_color(piece_id: int, match_color: int) -> void:
 	_pieces[piece_id].match_color = match_color
 
+func _set_content(piece_id: int, content_id: StringName) -> void:
+	_pieces[piece_id].content_id = content_id
+
 func _remove(piece_id: int) -> PieceState:
 	var piece: PieceState = _pieces[piece_id]
 	_occupancy.erase(piece.coordinate)

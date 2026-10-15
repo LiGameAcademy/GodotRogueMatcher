@@ -36,6 +36,10 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 	if not request.error.is_empty(): return request.error
 	var state: RunState = run.state
 	match request.kind:
+		ChoiceEffectRequest.Kind.TRANSFORM:
+			var transformed: Array[PieceState] = run.abilities.transform_material(request.piece_ids, request.content_id)
+			if not run.abilities.last_error.is_empty(): return run.abilities.last_error
+			result.transformed.append_array(transformed)
 		ChoiceEffectRequest.Kind.UNLOCK_CORE:
 			state.explosion.core_pool_unlocked = true
 			var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
@@ -211,6 +215,8 @@ static func _preflight_choice(run: RunController, effect: ChoiceEffect, frozen: 
 		return _preflight_unlock_core(run, request)
 	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_LINE:
 		return _preflight_unlock_line(run, request)
+	if request.kind == ChoiceEffectRequest.Kind.TRANSFORM:
+		return run.abilities.transformation_error(request.piece_ids, request.content_id)
 	return ""
 
 static func _preflight_unlock_core(run: RunController, request: ChoiceEffectRequest) -> String:

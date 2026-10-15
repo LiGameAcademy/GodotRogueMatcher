@@ -74,6 +74,7 @@ static func valid_record(row: Dictionary, dimensions: Vector2i) -> bool:
 			for id: Variant in row.offer.choices:
 				if not id is String: return false
 		"SkillAcquired":
+			if not valid_pieces(row.get("transformed", []), dimensions): return false
 			if not valid_pieces(row.get("created"), dimensions) or not valid_pieces(row.get("removed"), dimensions): return false
 		"RuleResult":
 			if not valid_state(row.get("after"), dimensions): return false

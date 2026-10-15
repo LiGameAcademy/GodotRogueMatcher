@@ -25,6 +25,12 @@ func set_piece_color(piece_id: int, match_color: int) -> bool:
 	state._set_color(piece_id, match_color)
 	return true
 
+func set_piece_content(piece_id: int, content_id: StringName) -> bool:
+	if state.get_piece(piece_id) == null:
+		return false
+	state._set_content(piece_id, content_id)
+	return true
+
 func remove_piece(piece_id: int) -> PieceState:
 	if state.get_piece(piece_id) == null:
 		return null

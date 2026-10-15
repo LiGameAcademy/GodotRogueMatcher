@@ -23,6 +23,10 @@ static func tags(skill: SkillDefinition) -> String:
 ## 卡面只显示此次选择的具体变化，不重复展示共同生命周期。
 static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> String:
 	var effect: SkillEffect = skill.acquisition_effect(target.level_before)
+	if effect is TransformMaterialEffect:
+		var content: StringName = (effect as TransformMaterialEffect).content_id
+		var name_text: String = "爆破手" if content == &"special_demolition" else ("横扫手" if content == LineClearState.CONTENT_ROW else "列扫手")
+		return TranslationServer.translate("本次转化：%d枚 → %s") % [target.piece_ids.size(), TranslationServer.translate(name_text)]
 	if effect is InstallGoalBonusEffect:
 		return TranslationServer.translate("每次达标：+%d分") % target.value_after
 	if effect is PercentClearEffect:

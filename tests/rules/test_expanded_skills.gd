@@ -1,6 +1,6 @@
 extends GutTest
 
-const NEW_IDS: Array[StringName] = [&"refill_less", &"refill_more", &"color_weight_up", &"color_weight_down", &"instant_color_clear", &"instant_line_clear", &"instant_percent_clear"]
+const NEW_IDS: Array[StringName] = [&"refill_less", &"refill_more", &"color_weight_up", &"color_weight_down", &"instant_color_clear", &"instant_line_clear", &"instant_percent_clear", &"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
 
 func _run(seed_value: int = 7) -> RunController:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value)
@@ -32,7 +32,7 @@ func _apply(run: RunController, id: StringName) -> SkillApplyResult:
 	return SkillRules.apply(run, offer.offer_id, id)
 
 func test_40_resources_and_support_skills_can_be_drawn_at_third_reward() -> void:
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 49)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 52)
 	var seen: Array[StringName] = []
 	for seed_value: int in range(150):
 		var run: RunController = _run(seed_value)

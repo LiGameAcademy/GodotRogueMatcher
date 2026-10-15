@@ -8,6 +8,7 @@ var color_weights: Array[int] = []
 var spawn_config: SpawnConfig
 var refill_batches: Dictionary[int, int] = {}
 var fuse_ids: Array[int] = []
+var ability_piece_ids: Array[int] = []
 var upgrades: Dictionary[StringName, int] = {}
 var dye_upgrades: Dictionary[StringName, int] = {}
 var line_upgrades: Dictionary[StringName, int] = {}

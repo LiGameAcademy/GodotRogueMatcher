@@ -33,11 +33,33 @@ func add_line_piece(axis: int, coordinate: Vector2i, match_color: int = -1) -> P
 	var color: int = LineClearRules.CONFIG.default_color if match_color == -1 else match_color
 	var piece: PieceState = state.rules.place_piece(coordinate, color, state.line_clear.content_id(axis))
 	if piece != null:
-		var instance: AbilityInstance = AbilityInstance.new()
-		instance.owner_id = piece.piece_id
-		instance.definition = LINE_SWEEP
-		state.line_clear.instances[piece.piece_id] = instance
+		_attach_line(piece.piece_id)
 	return piece
+
+## Validate the entire frozen batch before mutating any piece or installing an ability.
+func transformation_error(ids: Array[int], content_id: StringName) -> String:
+	if content_id not in [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN]:
+		return "特殊棋转化类型无效"
+	if ids.is_empty() or ids.size() > 3: return "转化目标数量无效"
+	var seen: Array[int] = []
+	for id: int in ids:
+		var piece: PieceState = state.rules.state.get_piece(id)
+		if piece == null or not piece.content_id.is_empty() or piece.is_ghost or seen.has(id) or state.explosion.instances.has(id) or state.line_clear.instances.has(id):
+			return "原定转化目标已经失效"
+		seen.append(id)
+	return validation_error(1, ids.size() if content_id == &"special_demolition" else 0, 0, ids.size() if content_id != &"special_demolition" else 0)
+
+## Conversion may install multiple cores; natural supply still uses add_core's singleton rule.
+func transform_material(ids: Array[int], content_id: StringName) -> Array[PieceState]:
+	last_error = transformation_error(ids, content_id)
+	if not last_error.is_empty(): return []
+	var transformed: Array[PieceState] = []
+	for id: int in ids:
+		state.rules.set_piece_content(id, content_id)
+		if content_id == &"special_demolition": _attach(id)
+		else: _attach_line(id)
+		transformed.append(state.rules.state.get_piece(id))
+	return transformed
 
 ## Install a fuse on a normal piece; reject if it already has content or an instance.
 func assign_fuse(piece_id: int) -> bool:
@@ -258,6 +280,12 @@ func _commit_clear_score(result: MatchResult, score_short_clear: bool = false, a
 		extra = state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, ids)
 		if result.cause == &"line_clear": extra += LineClearRules.score_bonus(state.line_clear, result.removed.size())
 	return state.ledger.commit(result.removed.size(), multiplier, extra, result.cause, DemolitionRules.root_id(state), ids, result.source_id, ability_id, score_short_clear)
+
+func _attach_line(piece_id: int) -> void:
+	var instance: AbilityInstance = AbilityInstance.new()
+	instance.owner_id = piece_id
+	instance.definition = LINE_SWEEP
+	state.line_clear.instances[piece_id] = instance
 
 func _attach(piece_id: int) -> void:
 	var instance: AbilityInstance = AbilityInstance.new()

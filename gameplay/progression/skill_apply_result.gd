@@ -7,6 +7,7 @@ var offer_id: int
 var skill_id: StringName
 var error: String = ""
 var created: Array[PieceState] = []
+var transformed: Array[PieceState] = []
 var marked_ids: Array[int] = []
 var matches: Array[MatchResult] = []
 var removed: Array[PieceState] = []
