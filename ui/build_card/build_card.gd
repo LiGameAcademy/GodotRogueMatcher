@@ -6,8 +6,19 @@
 @onready var level_label: Label = %Level
 @onready var effect_label: RichTextLabel = %Effect
 @onready var remaining_label: Label = %Remaining
+var _game_theme: GameTheme
+var _rarity: SkillDefinition.Rarity = SkillDefinition.Rarity.COMMON
+
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	var style: StyleBoxFlat = preset.ui_theme.get_stylebox("panel", "PanelContainer").duplicate() as StyleBoxFlat
+	style.border_color = SkillRarity.color_for(_rarity, preset)
+	style.border_width_left = 3
+	add_theme_stylebox_override("panel", style)
+	metadata_label.add_theme_color_override("font_color", style.border_color)
 
 func configure(skill: SkillDefinition, level: int, remaining: int, manual_remaining: int = -1) -> void:
+	_rarity = skill.rarity
 	title_label.text = tr(skill.title)
 	var tags: String = SkillChoiceText.tags(skill)
 	metadata_label.text = tr(SkillRarity.NAMES[skill.rarity])
@@ -26,4 +37,5 @@ func configure(skill: SkillDefinition, level: int, remaining: int, manual_remain
 	var style: StyleBoxFlat = get_theme_stylebox("panel").duplicate() as StyleBoxFlat
 	style.border_color = SkillRarity.COLORS[skill.rarity]
 	add_theme_stylebox_override("panel", style)
+	if _game_theme != null: apply_game_theme(_game_theme)
 

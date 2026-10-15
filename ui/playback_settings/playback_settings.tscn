@@ -49,6 +49,19 @@ layout_mode = 2
 text = "设置与操作"
 theme_override_font_sizes/font_size = 26
 
+[node name="ThemeRow" type="HBoxContainer" parent="Panel/Center/Frame/Margin/Column"]
+layout_mode = 2
+
+[node name="ThemeLabel" type="Label" parent="Panel/Center/Frame/Margin/Column/ThemeRow"]
+layout_mode = 2
+text = "画面主题"
+size_flags_horizontal = 3
+
+[node name="ThemeChoice" type="OptionButton" parent="Panel/Center/Frame/Margin/Column/ThemeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(320, 36)
+
 [node name="FastButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -77,10 +90,10 @@ layout_mode = 2
 text = "略过本次演出并返回（F9）"
 tooltip_text = "只略过可跳细节；移动、出生和主消除仍需完成。已暂停或正在选卡时不可用。"
 
-[node name="Help" type="Label" parent="Panel/Center/Frame/Margin/Column"]
+[node name="Help" type="RichTextLabel" parent="Panel/Center/Frame/Margin/Column"]
 layout_mode = 2
-custom_minimum_size = Vector2(620, 0)
-theme_override_font_sizes/font_size = 16
+custom_minimum_size = Vector2(620, 128)
+theme_override_font_sizes/normal_font_size = 16
 autowrap_mode = 2
 text = "点击棋子，再点可到达的空格移动；横、竖、斜同色五连消除。\n未直接消除时补棋，全清后也会补棋；棋盘填满结束。\n安装主动技能后，双击对应特殊棋；剩余次数见棋子提示。\nESC 暂停 / 继续 · F1 设置 · F8 快放 · F9 略过\n操作练习、语言和模式选择可从开始菜单进入。"
 

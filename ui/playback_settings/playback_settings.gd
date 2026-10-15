@@ -9,6 +9,7 @@ signal volume_requested(volume: float)
 signal volume_committed(volume: float)
 signal skip_requested
 signal menu_requested
+signal theme_requested(theme_id: StringName)
 
 @onready var panel: Control = $Panel
 @onready var fast_button: CheckButton = %FastButton
@@ -17,6 +18,7 @@ signal menu_requested
 @onready var skip_button: Button = %SkipButton
 @onready var close_button: Button = %Close
 @onready var menu_button: Button = %Menu
+@onready var theme_choice: OptionButton = %ThemeChoice
 var _open: bool = false
 var _previous_pause: bool = false
 var _previous_focus: Control
@@ -33,12 +35,26 @@ func _ready() -> void:
 	volume_slider.value_changed.connect(_volume_changed)
 	volume_slider.drag_started.connect(func() -> void: _volume_dragging = true)
 	volume_slider.drag_ended.connect(_volume_drag_ended)
+	theme_choice.item_selected.connect(func(index: int) -> void: theme_requested.emit(GameThemes.ALL[index].theme_id))
+	_refresh_theme_labels()
 
 func _exit_tree() -> void:
 	if _open: get_tree().paused = _previous_pause
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready(): set_volume(volume_slider.value)
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		set_volume(volume_slider.value)
+		_refresh_theme_labels()
+
+func _refresh_theme_labels() -> void:
+	var selected: int = maxi(0, theme_choice.selected)
+	theme_choice.clear()
+	for preset: GameTheme in GameThemes.ALL: theme_choice.add_item(tr(preset.title))
+	theme_choice.select(selected)
+
+func set_theme_id(theme_id: StringName) -> void:
+	for index: int in range(GameThemes.ALL.size()):
+		if GameThemes.ALL[index].theme_id == theme_id: theme_choice.select(index)
 
 func _input(event: InputEvent) -> void:
 	if not _open or not event is InputEventKey: return

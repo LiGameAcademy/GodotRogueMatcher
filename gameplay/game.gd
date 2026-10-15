@@ -27,6 +27,7 @@ var _fast_playback: bool = false
 var _has_played: bool = false
 var _menu_previous_pause: bool = false
 var _menu_owns_pause: bool = false
+var game_theme: GameTheme
 
 func _ready() -> void:
 	world_environment.environment = world_environment.environment.duplicate() as Environment
@@ -63,6 +64,7 @@ func _ready() -> void:
 	settings.low_effects_requested.connect(_set_low_effects)
 	settings.volume_requested.connect(_preview_volume)
 	settings.volume_committed.connect(_set_volume)
+	settings.theme_requested.connect(_set_theme)
 	board.feedback_requested.connect(feedback.play)
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
@@ -85,6 +87,7 @@ func _ready() -> void:
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.start_game(board_rules, record_runs)
+	_set_theme(preferences.theme_id, false)
 	if show_start_menu: _show_menu()
 	else:
 		_has_played = true
@@ -210,6 +213,7 @@ func _on_retry_requested() -> void:
 	UIManager.close_popup()
 	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await board.retry_game(board_rules)
+	_apply_game_theme()
 	_set_collection_location("")
 	if board.observation.telemetry != null: board.observation.telemetry.play_started()
 
@@ -258,6 +262,7 @@ func _open_skill_pool() -> void:
 	skill_pool.open(board.run)
 
 func _on_popup_opened(popup: Control) -> void:
+	if game_theme != null: GameThemeUi.apply(popup, game_theme)
 	if popup is PopupSkillChoice:
 		(popup as PopupSkillChoice).settings_requested.connect(_open_settings)
 		(popup as PopupSkillChoice).skill_pool_requested.connect(_open_skill_pool)
@@ -269,6 +274,28 @@ func _open_settings() -> void:
 	hud.piece_pool.close()
 	_settings_previous_location = collection.ui if collection.ui in ["help", "start_menu", "result", "pause"] else ""
 	settings.open(not get_tree().paused and not is_instance_valid(UIManager.current_popup), not is_instance_valid(UIManager.current_popup))
+
+func _set_theme(theme_id: StringName, save: bool = true) -> void:
+	var preset: GameTheme = GameThemes.find(theme_id)
+	if not preset.validation_error().is_empty():
+		hud.show_status("画面主题配置无效")
+		return
+	game_theme = preset
+	preferences.theme_id = preset.theme_id
+	_apply_game_theme()
+	settings.set_theme_id(preset.theme_id)
+	if save: _save_preferences()
+
+func _apply_game_theme() -> void:
+	if game_theme == null: return
+	($ColorRect as ColorRect).color = game_theme.background
+	hud.apply_game_theme(game_theme)
+	board.view.apply_game_theme(game_theme)
+	GameThemeUi.apply(release_menu, game_theme)
+	GameThemeUi.apply(settings, game_theme)
+	skill_pool.apply_game_theme(game_theme)
+	GameThemeUi.apply(card_transfer, game_theme)
+	if is_instance_valid(UIManager.current_popup): GameThemeUi.apply(UIManager.current_popup, game_theme)
 
 func _on_settings_view_changed(open: bool) -> void:
 	board.observation.paused(get_tree().paused and (open or not UIManager.current_popup is PopupSkillChoice))
@@ -325,6 +352,8 @@ func _toggle_pause() -> void:
 	collection.location("pause" if get_tree().paused else "board_input" if board.can_selected else "presentation")
 
 func _update_board_layout() -> void:
+	# A Control under Node2D has no parent Control to stretch against.
+	($ColorRect as ColorRect).size = get_viewport_rect().size
 	var bounds: Rect2 = board.view.transform * board.view.get_display_rect()
 	if not bounds.has_area(): return
 	var area: Rect2 = get_global_transform_with_canvas().affine_inverse() * hud.get_board_area()

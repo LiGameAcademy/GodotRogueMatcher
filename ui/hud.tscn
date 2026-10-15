@@ -69,6 +69,7 @@ theme_override_font_sizes/font_size = 20
 
 [node name="ScoreFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
+theme_type_variation = &"HudPanel"
 
 [node name="ScoreRow" type="HBoxContainer" parent="Margin/Rows/Header/Top/ScoreFrame"]
 layout_mode = 2
@@ -91,6 +92,7 @@ theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
 
 [node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
+theme_type_variation = &"HudPanel"
 
 [node name="SpawnPreview" parent="Margin/Rows/Header/Top/PreviewFrame" instance=ExtResource("3")]
 unique_name_in_owner = true
@@ -118,13 +120,15 @@ text = "暂停 / ESC"
 
 [node name="Body" type="HBoxContainer" parent="Margin/Rows"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 48
 
 [node name="Left" type="PanelContainer" parent="Margin/Rows/Body"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"HudPanel"
 custom_minimum_size = Vector2(260, 0)
 
 
@@ -135,19 +139,9 @@ theme_override_constants/separation = 12
 [node name="BoardArea" type="Control" parent="Margin/Rows/Body"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 custom_minimum_size = Vector2(240, 0)
 mouse_filter = 2
-
-[node name="Right" type="PanelContainer" parent="Margin/Rows/Body"]
-unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(230, 0)
-
-
-[node name="Content" type="VBoxContainer" parent="Margin/Rows/Body/Right"]
-layout_mode = 2
-theme_override_constants/separation = 12
 
 [node name="SkillsTitle" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
@@ -173,16 +167,16 @@ custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 text = "尚无使用记录"
 
-[node name="ScoreTitle" type="Label" parent="Margin/Rows/Body/Right/Content"]
+[node name="ScoreTitle" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "本次连携"
 
-[node name="BreakdownLabel" type="RichTextLabel" parent="Margin/Rows/Body/Right/Content"]
+[node name="BreakdownLabel" type="RichTextLabel" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
+custom_minimum_size = Vector2(0, 82)
 bbcode_enabled = true
 text = "尚未得分"
 

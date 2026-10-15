@@ -2,7 +2,7 @@ class_name LineClearVisual
 extends Node2D
 
 ## The view supplies a frozen board-space area; this scene never queries rule state.
-const CONFIG: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
+@export var config: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
 var low_effects: bool = false
 var _area: Rect2
 var _second_area: Rect2
@@ -19,8 +19,8 @@ func setup(area: Rect2, axis: int, second_area: Rect2 = Rect2()) -> Tween:
 	_axis = axis
 	queue_redraw()
 	var animation: Tween = create_tween().set_parallel()
-	animation.tween_method(_set_progress, 0.0, 1.0, CONFIG.line_clear_seconds).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	animation.tween_property(self, "modulate:a", 0.0, CONFIG.line_clear_seconds)
+	animation.tween_method(_set_progress, 0.0, 1.0, config.line_clear_seconds).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	animation.tween_property(self, "modulate:a", 0.0, config.line_clear_seconds)
 	animation.finished.connect(queue_free)
 	return animation
 
@@ -33,7 +33,7 @@ func _draw() -> void:
 	if _second_area.has_area(): _draw_area(_second_area, 1 - _axis)
 
 func _draw_area(area: Rect2, axis: int) -> void:
-	var color: Color = CONFIG.line_clear_color
+	var color: Color = config.line_clear_color
 	draw_rect(area, Color(color, 0.45), false, 1.0)
 	if low_effects: return
 	draw_rect(area, Color(color, 0.08 * (1.0 - _progress)), true)

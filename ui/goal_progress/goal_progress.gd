@@ -22,6 +22,10 @@ var _glow_tween: Tween
 var _epoch: int = 0
 var _material: ShaderMaterial
 
+func apply_game_theme(preset: GameTheme) -> void:
+	config = preset.progress
+	_material.set_shader_parameter("glow_color", config.mote_color)
+
 func _ready() -> void:
 	_material = glow.material.duplicate() as ShaderMaterial
 	glow.material = _material
