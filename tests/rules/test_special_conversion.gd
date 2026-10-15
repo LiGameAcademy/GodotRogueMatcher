@@ -185,3 +185,15 @@ func test_telemetry_records_transformation_without_counting_births_removals_or_s
 	assert_eq(facts, 3)
 	assert_eq(choices, 1)
 	assert_eq(projector.error, "")
+
+func test_composite_keeps_both_batches_of_transformation_results() -> void:
+	var run: RunController = _run(6)
+	var effect: CompositeEffect = CompositeEffect.new()
+	effect.children = [CARDS[0].choice_effect, CARDS[1].choice_effect]
+	var frozen: CompositeSkillTarget = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	var result: SkillApplyResult = SkillApplyResult.new()
+	assert_eq(AbilityEffectRunner.preflight(run, effect, frozen), "")
+	assert_eq(AbilityEffectRunner.apply_skill_effect(run, effect, frozen, result), "")
+	assert_eq(result.transformed.size(), 6)
+	assert_eq(run.state.explosion.instances.size(), 3)
+	assert_eq(run.state.line_clear.instances.size(), 3)

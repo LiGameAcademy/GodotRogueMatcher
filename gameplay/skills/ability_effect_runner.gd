@@ -37,8 +37,9 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 	var state: RunState = run.state
 	match request.kind:
 		ChoiceEffectRequest.Kind.TRANSFORM:
-			result.transformed = run.abilities.transform_material(request.piece_ids, request.content_id)
+			var transformed: Array[PieceState] = run.abilities.transform_material(request.piece_ids, request.content_id)
 			if not run.abilities.last_error.is_empty(): return run.abilities.last_error
+			result.transformed.append_array(transformed)
 		ChoiceEffectRequest.Kind.UNLOCK_CORE:
 			state.explosion.core_pool_unlocked = true
 			var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
