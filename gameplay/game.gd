@@ -12,6 +12,8 @@ const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 @export var intercept_window_close: bool = false
 @onready var card_transfer: CardTransfer = $CardTransfer
 @onready var skill_pool: SkillPool = $SkillPool
+@onready var settings: PlaybackSettings = $PlaybackSettings
+var _settings_previous_location: String = ""
 var _pool_previous_location: String = ""
 var _restart_reason: String = "restart"
 @export var show_start_menu: bool = not OS.is_debug_build()
@@ -40,9 +42,12 @@ func _ready() -> void:
 	board.presentation_updated.connect(_refresh_hud)
 	board.director.busy_changed.connect(_on_playback_busy)
 	board.score_presenter = _wait_for_score
-	hud.fast_requested.connect(_set_fast)
+	settings.fast_requested.connect(_set_fast)
 	hud.pause_requested.connect(_toggle_pause)
-	hud.help_requested.connect(_show_menu)
+	hud.settings_requested.connect(_open_settings)
+	settings.view_changed.connect(_on_settings_view_changed)
+	settings.menu_requested.connect(_show_menu)
+	release_menu.settings_requested.connect(_open_settings)
 	release_menu.skill_pool_requested.connect(_open_skill_pool)
 	skill_pool.view_changed.connect(_on_skill_pool_view_changed)
 	UIManager.popup_opened.connect(_on_popup_opened)
@@ -54,9 +59,10 @@ func _ready() -> void:
 	CoreSystem.localization_manager.locale_changed.connect(_on_locale_changed)
 	get_window().focus_exited.connect(_pause_on_focus_loss)
 	hud.skip_requested.connect(_request_skip)
-	hud.low_effects_requested.connect(_set_low_effects)
-	hud.volume_requested.connect(_preview_volume)
-	hud.volume_committed.connect(_set_volume)
+	settings.skip_requested.connect(_request_skip)
+	settings.low_effects_requested.connect(_set_low_effects)
+	settings.volume_requested.connect(_preview_volume)
+	settings.volume_committed.connect(_set_volume)
 	board.feedback_requested.connect(feedback.play)
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
@@ -196,6 +202,7 @@ func _continue_challenge() -> void:
 	_refresh_hud()
 
 func _on_retry_requested() -> void:
+	settings.close()
 	skill_pool.close()
 	collection.finish(_restart_reason)
 	_restart_reason = "restart"
@@ -210,6 +217,7 @@ func _set_fast(fast: bool, save: bool = true) -> void:
 	_fast_playback = fast
 	board.set_playback_fast(fast)
 	hud.set_fast(fast)
+	settings.set_fast(fast)
 	preferences.fast = fast
 	if save: _save_preferences()
 
@@ -218,6 +226,7 @@ func _set_low_effects(enabled: bool, save: bool = true) -> void:
 	board.view.set_low_effects(enabled)
 	world_environment.environment.glow_enabled = not enabled
 	hud.set_low_effects(enabled)
+	settings.set_low_effects(enabled)
 	if enabled: card_transfer.cancel()
 	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).set_low_effects(enabled)
@@ -226,7 +235,7 @@ func _set_low_effects(enabled: bool, save: bool = true) -> void:
 func _set_volume(volume: float, save: bool = true) -> void:
 	preferences.volume = clampf(volume, 0.0, 1.0)
 	feedback.set_volume(preferences.volume)
-	hud.set_volume(preferences.volume)
+	settings.set_volume(preferences.volume)
 	if save: _save_preferences()
 
 func _save_preferences() -> void:
@@ -250,9 +259,21 @@ func _open_skill_pool() -> void:
 
 func _on_popup_opened(popup: Control) -> void:
 	if popup is PopupSkillChoice:
+		(popup as PopupSkillChoice).settings_requested.connect(_open_settings)
 		(popup as PopupSkillChoice).skill_pool_requested.connect(_open_skill_pool)
 		(popup as PopupSkillChoice).card_acquired.connect(_on_skill_card_acquired)
 		(popup as PopupSkillChoice).set_low_effects(preferences.low_effects)
+
+func _open_settings() -> void:
+	if settings.panel.visible or skill_pool.panel.visible: return
+	hud.piece_pool.close()
+	_settings_previous_location = collection.ui if collection.ui in ["help", "start_menu", "result", "pause"] else ""
+	settings.open(not get_tree().paused and not is_instance_valid(UIManager.current_popup), not is_instance_valid(UIManager.current_popup))
+
+func _on_settings_view_changed(open: bool) -> void:
+	board.observation.paused(get_tree().paused and (open or not UIManager.current_popup is PopupSkillChoice))
+	_set_collection_location("settings" if open else _settings_previous_location)
+	collection.flush()
 
 func _on_skill_card_acquired(skill: SkillDefinition, target: SkillTarget, source: Rect2) -> void:
 	var destination: Rect2 = hud.build_list.get_global_rect() if skill.is_persistent or skill.refill_effect() != null else hud.history_button.get_global_rect()

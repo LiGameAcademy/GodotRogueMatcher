@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="9_pool"]
 
 [ext_resource type="PackedScene" path="res://ui/card_transfer/card_transfer.tscn" id="10_transfer"]
+[ext_resource type="PackedScene" path="res://ui/playback_settings/playback_settings.tscn" id="11_settings"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -34,6 +35,8 @@ script = ExtResource("1_yqjtg")
 environment = SubResource("Environment_8cj0n")
 
 [node name="GameFeedback" parent="." instance=ExtResource("6_feedback")]
+
+[node name="PlaybackSettings" parent="." instance=ExtResource("11_settings")]
 
 [node name="RunCollection" parent="." instance=ExtResource("8_collection")]
 

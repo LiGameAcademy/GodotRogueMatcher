@@ -4,6 +4,7 @@ extends Control
 signal skill_selected(offer_id: int, skill_id: StringName)
 signal color_skill_selected(offer_id: int, skill_id: StringName, color: int)
 signal skill_pool_requested
+signal settings_requested
 signal card_acquired(skill: SkillDefinition, target: SkillTarget, source: Rect2)
 signal closed
 
@@ -39,6 +40,7 @@ func _ready() -> void:
 	picker.confirm_button.hide()
 	picker.back_requested.connect(return_to_choices)
 	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
+	%SettingsButton.pressed.connect(settings_requested.emit)
 	view_button.pressed.connect(toggle_board_view)
 	return_button.pressed.connect(toggle_board_view)
 	resume_button.pressed.connect(toggle_selection_pause)

@@ -129,20 +129,17 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "查看技能池"
 
-[node name="Help" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="SettingsButton" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(616, 0)
-autowrap_mode = 2
-theme_override_colors/font_color = Color(0.77, 0.84, 0.92, 1)
-text = "点击棋子，再点击可到达的空格；横 / 竖 / 斜同色五连消除。\n没有直接五连时通常补 3 枚；全清后也会补棋。棋盘填满结束。\n按模式规则获得技能；悬停特殊棋子可查看能力。\n安装「主动爆破」后可双击爆破棋子，消耗一次行动。\nESC 暂停 / 继续 · F1 帮助 · F8 快速播放 · F9 略过演出"
-theme_override_font_sizes/font_size = 16
+text = "设置与操作"
 
 [node name="Notice" type="Label" parent="Home/Panel/Margin/Shell/Scroll/Column"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.53, 0.63, 0.73, 1)
-text = "桌面浏览器试玩 · 音量 / 低特效在右侧面板调整\n设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。\n反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。"
+text = "桌面浏览器试玩 · 音量 / 低特效在设置中调整\n设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。\n反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。"
 autowrap_mode = 2
 
 [node name="Tutorial" parent="." instance=ExtResource("3")]
