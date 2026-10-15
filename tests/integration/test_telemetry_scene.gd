@@ -130,6 +130,29 @@ func test_help_export_controls_preserve_rules_and_normalize_ui_exit_location() -
 	assert_eq(summary.exit_observation.ui, "help")
 	assert_eq(summary.reason, "window_close_requested")
 
+func test_settings_location_and_pause_are_recorded_without_ending_run() -> void:
+	var game: Node2D = main.get_node("Game") as Node2D
+	var settings: PlaybackSettings = game.get_node("PlaybackSettings") as PlaybackSettings
+	var collection: RunCollection = game.get_node("RunCollection") as RunCollection
+	var telemetry: TelemetryProjector = board.observation.telemetry
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	game.call("_open_settings")
+	assert_eq(telemetry.observation().ui, "settings")
+	assert_eq(telemetry.observation().category, "pause")
+	assert_false(board.run.recorder.ended)
+	var session_file: FileAccess = FileAccess.open(collection.session.path, FileAccess.READ)
+	var last: Dictionary = {}
+	while session_file.get_position() < session_file.get_length():
+		var parsed: Variant = JSON.parse_string(session_file.get_line())
+		if parsed is Dictionary: last = parsed
+	session_file.close()
+	assert_eq(last.payload.ui, "settings")
+	settings.close()
+	assert_eq(telemetry.observation().ui, "board_input")
+	assert_false(get_tree().paused)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
+	assert_false(board.run.recorder.ended)
+
 func test_piece_pool_location_is_observed_and_viewing_preserves_rules() -> void:
 	var game: Node2D = main.get_node("Game") as Node2D
 	var hud: Hud = game.get_node("UILayer/HUD") as Hud

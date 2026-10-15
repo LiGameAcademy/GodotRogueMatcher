@@ -7,13 +7,9 @@ const BUILD_LIST: Script = preload("res://ui/build_list/build_list.gd")
 
 ## 只显示已提交数据；数字缓存和Tween不参与规则计算。
 signal score_animation_changed
-signal fast_requested(fast: bool)
 signal pause_requested
-signal help_requested
+signal settings_requested
 signal skip_requested
-signal low_effects_requested(enabled: bool)
-signal volume_requested(volume: float)
-signal volume_committed(volume: float)
 signal board_area_changed
 signal piece_pool_visibility_changed(open: bool)
 
@@ -30,15 +26,10 @@ signal piece_pool_visibility_changed(open: bool)
 @onready var build_list: BUILD_LIST = %BuildList
 @onready var breakdown_label: RichTextLabel = %BreakdownLabel
 @onready var status_label: Label = %StatusLabel
-@onready var fast_button: CheckButton = %FastButton
 @onready var selection_label: Label = %SelectionLabel
-@onready var tools_label: Label = %ToolsLabel
 @onready var pause_button: Button = %PauseButton
-@onready var help_button: Button = %HelpButton
+@onready var settings_button: Button = %SettingsButton
 @onready var board_area: Control = %BoardArea
-@onready var low_effects_button: CheckButton = %LowEffectsButton
-@onready var volume_slider: HSlider = %VolumeSlider
-@onready var skip_button: Button = %SkipButton
 @onready var history_button: Button = %HistoryButton
 @onready var history_label: RichTextLabel = %HistoryLabel
 @onready var spawn_preview: SpawnPreview = %SpawnPreview
@@ -47,7 +38,6 @@ var _target_score: int = 0
 var _score_tween: Tween
 var _epoch: int = 0
 var _fast: bool = false
-var _volume_dragging: bool = false
 var _gain_tween: Tween
 var _run: RunController
 var _selection: PieceState
@@ -55,16 +45,10 @@ var _selection_fuse: bool = false
 var _status_source: String = "准备棋盘…"
 
 func _ready() -> void:
-	fast_button.toggled.connect(fast_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
-	help_button.pressed.connect(help_requested.emit)
+	settings_button.pressed.connect(settings_requested.emit)
 	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
 	history_button.toggled.connect(_show_history)
-	skip_button.pressed.connect(skip_requested.emit)
-	low_effects_button.toggled.connect(low_effects_requested.emit)
-	volume_slider.value_changed.connect(_on_volume_changed)
-	volume_slider.drag_started.connect(_on_volume_drag_started)
-	volume_slider.drag_ended.connect(_on_volume_drag_ended)
 	board_area.item_rect_changed.connect(_notify_board_area)
 	piece_pool.pool_view_changed.connect(piece_pool_visibility_changed.emit)
 	goal_progress.value_changed.connect(_on_goal_value_changed)
@@ -77,7 +61,6 @@ func _notification(what: int) -> void:
 	show_selection(_selection, _selection_fuse)
 	show_status(_status_source)
 	_show_history(history_button.button_pressed)
-	set_volume(volume_slider.value)
 
 ## Game负责将这一屏幕区域转换到棋盘的坐标系。
 func get_board_area() -> Rect2:
@@ -96,7 +79,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			skip_requested.emit()
 			get_viewport().set_input_as_handled()
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F1:
-			help_requested.emit()
+			settings_requested.emit()
 			get_viewport().set_input_as_handled()
 
 func _exit_tree() -> void:
@@ -171,7 +154,6 @@ func show_run(run: RunController) -> void:
 	show_occupancy(state.rules.state.get_snapshot().size(), state.rules.state.columns * state.rules.state.rows)
 	build_list.show_state(state)
 	breakdown_label.text = HudDetails.score_details_rich(state.ledger.get_entries())
-	tools_label.text = HudDetails.tools(state)
 	history_label.text = HudDetails.history(state)
 
 func show_occupancy(count: int, capacity: int = 81) -> void:
@@ -203,28 +185,11 @@ func _show_history(expanded: bool) -> void:
 
 func set_fast(fast: bool) -> void:
 	_fast = fast
-	fast_button.set_pressed_no_signal(fast)
 	if _score_tween != null and _score_tween.is_valid(): _score_tween.set_speed_scale(2.0 if fast else 1.0)
 	goal_progress.set_speed(2.0 if fast else 1.0)
 
 func set_low_effects(enabled: bool) -> void:
-	low_effects_button.set_pressed_no_signal(enabled)
 	goal_progress.set_low_effects(enabled)
-
-func set_volume(volume: float) -> void:
-	volume_slider.set_value_no_signal(volume)
-	volume_slider.tooltip_text = tr("音量 %d%%（0 为静音）") % roundi(volume * 100.0)
-
-func _on_volume_drag_started() -> void:
-	_volume_dragging = true
-
-func _on_volume_drag_ended(changed: bool) -> void:
-	_volume_dragging = false
-	if changed: volume_committed.emit(volume_slider.value)
-
-func _on_volume_changed(volume: float) -> void:
-	volume_requested.emit(volume)
-	if not _volume_dragging: volume_committed.emit(volume)
 
 func _on_goal_value_changed(value: int) -> void:
 	_set_score(float(value))

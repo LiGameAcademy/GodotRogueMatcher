@@ -860,3 +860,31 @@ Keep colors; convert all if fewer than 3."
 横扫手,横扫手,Row sweeper
 列扫手,列扫手,Column sweeper
 转化试玩：三选一将普通棋改装，保留原色与位置；已有引信和爆破手不受影响,转化试玩：三选一将普通棋改装，保留原色与位置；已有引信和爆破手不受影响,Conversion demo: choose a retrofit. Keep colors and positions; existing fuses and cores remain unchanged.
+设置,设置,Settings
+设置与操作,设置与操作,Settings & controls
+设置、播放与操作说明（F1）,设置、播放与操作说明（F1）,"Settings, playback and controls (F1)"
+略过本次演出并返回（F9）,略过本次演出并返回（F9）,Skip this presentation and return (F9)
+只略过可跳细节；移动、出生和主消除仍需完成。已暂停或正在选卡时不可用。,只略过可跳细节；移动、出生和主消除仍需完成。已暂停或正在选卡时不可用。,"Skip optional details only; movement, spawning and main clears still complete. Unavailable while already paused or choosing a skill."
+返回原界面（ESC）,返回原界面（ESC）,Return to previous screen (ESC)
+开始菜单 · 练习、语言与模式,开始菜单 · 练习、语言与模式,"Main menu · practice, language & mode"
+选卡期间请先完成或返回原选择。,选卡期间请先完成或返回原选择。,Finish or return to your current skill choice first.
+"点击棋子，再点可到达的空格移动；横、竖、斜同色五连消除。
+未直接消除时补棋，全清后也会补棋；棋盘填满结束。
+安装主动技能后，双击对应特殊棋；剩余次数见棋子提示。
+ESC 暂停 / 继续 · F1 设置 · F8 快放 · F9 略过
+操作练习、语言和模式选择可从开始菜单进入。","点击棋子，再点可到达的空格移动；横、竖、斜同色五连消除。
+未直接消除时补棋，全清后也会补棋；棋盘填满结束。
+安装主动技能后，双击对应特殊棋；剩余次数见棋子提示。
+ESC 暂停 / 继续 · F1 设置 · F8 快放 · F9 略过
+操作练习、语言和模式选择可从开始菜单进入。","Select a piece, then a reachable empty cell. Match five of one color horizontally, vertically or diagonally.
+Refill after moves without a direct match, and after clearing the board. A full board ends the run.
+With a manual skill installed, double-click its special piece. Hover to see remaining uses.
+ESC Pause / resume · F1 Settings · F8 Fast playback · F9 Skip
+Open the main menu for practice, language and game mode."
+"桌面浏览器试玩 · 音量 / 低特效在设置中调整
+设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。
+反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。","桌面浏览器试玩 · 音量 / 低特效在设置中调整
+设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。
+反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。","Desktop browser playtest · adjust volume and reduced effects in Settings.
+Settings and run records stay in this browser and are not uploaded. Refresh starts a new run.
+Leave feedback on itch.io with the version, browser and a screenshot."

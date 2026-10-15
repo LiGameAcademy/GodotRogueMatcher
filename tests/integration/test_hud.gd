@@ -83,30 +83,6 @@ func test_prototype_layout_leaves_board_click_area_clear() -> void:
 	assert_eq(hud.build_list.horizontal_scroll_mode, ScrollContainer.SCROLL_MODE_DISABLED)
 	assert_true(hud.breakdown_label.scroll_active)
 
-func test_volume_drag_previews_changes_and_commits_once_on_release() -> void:
-	watch_signals(hud)
-	hud.volume_slider.drag_started.emit()
-	hud.volume_slider.value = 0.25
-	hud.volume_slider.value = 0.35
-	assert_signal_emit_count(hud, "volume_requested", 2)
-	assert_signal_not_emitted(hud, "volume_committed")
-	hud.volume_slider.drag_ended.emit(true)
-	assert_signal_emit_count(hud, "volume_committed", 1)
-	assert_signal_emitted_with_parameters(hud, "volume_committed", [0.35])
-	hud.volume_slider.value = 0.55
-	assert_signal_emit_count(hud, "volume_committed", 2)
-	assert_signal_emitted_with_parameters(hud, "volume_committed", [0.55])
-
-func test_volume_loading_and_unchanged_drag_do_not_request_save() -> void:
-	watch_signals(hud)
-	hud.set_volume(0.4)
-	assert_signal_not_emitted(hud, "volume_requested")
-	hud.volume_slider.drag_started.emit()
-	hud.volume_slider.drag_ended.emit(false)
-	assert_signal_not_emitted(hud, "volume_committed")
-	hud.volume_slider.value = 0.6
-	assert_signal_emitted_with_parameters(hud, "volume_committed", [0.6])
-
 func test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 91)
 	run.initialize()
