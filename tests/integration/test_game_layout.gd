@@ -64,7 +64,7 @@ func test_settings_fit_both_languages_at_supported_sizes_without_changing_run() 
 			await wait_process_frames(4)
 			var frame: Rect2 = (settings.get_node("Panel/Center/Frame") as Control).get_global_rect()
 			assert_true(Rect2(Vector2.ZERO, Vector2(size)).encloses(frame), "%s %s %s" % [locale, size, frame])
-			for control: Control in [settings.fast_button, settings.volume_slider, settings.menu_button, settings.close_button]:
+			for control: Control in [settings.background_button, settings.signal_button, settings.fast_button, settings.volume_slider, settings.menu_button, settings.close_button]:
 				assert_true(frame.encloses(control.get_global_rect()), control.name)
 			assert_string_contains(settings.volume_slider.tooltip_text, "Volume" if locale == "en_US" else "音量")
 			settings.close()

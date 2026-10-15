@@ -895,3 +895,6 @@ Leave feedback on itch.io with the version, browser and a screenshot."
 
 动态背景,动态背景,Animated background
 缓慢流动并响应得分；低特效时静态显示。,缓慢流动并响应得分；低特效时静态显示。,Slow movement with subtle score response. Static with Reduced Effects.
+
+棋盘信号效果,棋盘信号效果,Board signal effect
+棋盘局部扫描与边缘描光；低特效时关闭。,棋盘局部扫描与边缘描光；低特效时关闭。,Local scans and edge highlights. Disabled with Reduced Effects.

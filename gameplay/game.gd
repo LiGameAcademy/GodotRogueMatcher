@@ -67,6 +67,7 @@ func _ready() -> void:
 	settings.volume_committed.connect(_set_volume)
 	settings.theme_requested.connect(_set_theme)
 	settings.background_motion_requested.connect(_set_background_motion)
+	settings.board_signal_requested.connect(_set_board_signal)
 	board.run_reset.connect(background.reset_visual)
 	board.feedback_requested.connect(feedback.play)
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
@@ -80,6 +81,7 @@ func _ready() -> void:
 	board.selection_changed.connect(hud.show_selection)
 	board.operation_feedback.connect(hud.show_status)
 	_set_background_motion(preferences.background_motion, false)
+	_set_board_signal(preferences.board_signal, false)
 	_set_fast(preferences.fast, false)
 	_set_low_effects(preferences.low_effects, false)
 	_set_volume(preferences.volume, false)
@@ -240,6 +242,12 @@ func _set_low_effects(enabled: bool, save: bool = true) -> void:
 	if enabled: card_transfer.cancel()
 	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).set_low_effects(enabled)
+	if save: _save_preferences()
+
+func _set_board_signal(enabled: bool, save: bool = true) -> void:
+	preferences.board_signal = enabled
+	board.view.set_signal_enabled(enabled)
+	settings.set_board_signal(enabled)
 	if save: _save_preferences()
 
 func _set_background_motion(enabled: bool, save: bool = true) -> void:

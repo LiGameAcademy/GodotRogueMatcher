@@ -62,11 +62,22 @@ unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(320, 36)
 
-[node name="BackgroundButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column"]
+[node name="EffectsRow" type="HBoxContainer" parent="Panel/Center/Frame/Margin/Column"]
+layout_mode = 2
+
+[node name="BackgroundButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column/EffectsRow"]
+size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 text = "动态背景"
 tooltip_text = "缓慢流动并响应得分；低特效时静态显示。"
+
+[node name="SignalButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column/EffectsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "棋盘信号效果"
+tooltip_text = "棋盘局部扫描与边缘描光；低特效时关闭。"
 
 [node name="FastButton" type="CheckButton" parent="Panel/Center/Frame/Margin/Column"]
 unique_name_in_owner = true
