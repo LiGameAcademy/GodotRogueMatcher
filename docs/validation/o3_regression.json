@@ -1,0 +1,28 @@
+{
+  "tested_commit": "381061cd869719ff9a34c9077d33b1fdc2a9b96e",
+  "engine": "Godot 4.7.2 stable",
+  "runner": "GUT",
+  "platform": "Windows",
+  "exit_code": 0,
+  "command": "godot --headless --text-driver Dummy --fixed-fps 60 --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests/rules,res://tests/integration -ginclude_subdirs -gexit",
+  "scope": [
+    "tests/rules",
+    "tests/integration"
+  ],
+  "excluded": [
+    "third-party addons tests",
+    "legacy standalone demo scripts",
+    "human playtest",
+    "Web export/browser checks"
+  ],
+  "summary": {
+    "scripts": 75,
+    "tests": 529,
+    "passing_tests": 529,
+    "assertions": 19508,
+    "elapsed_seconds": 392.651
+  },
+  "script_error_lines": 0,
+  "local_log": ".godot/issue9-full-tests.log",
+  "interpretation": "Fixed rule/integration cases only; not human satisfaction, renderer timing, input latency or exhaustive random-state verification."
+}
