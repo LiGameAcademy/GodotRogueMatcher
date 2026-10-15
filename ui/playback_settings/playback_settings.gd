@@ -9,6 +9,7 @@ signal volume_requested(volume: float)
 signal volume_committed(volume: float)
 signal skip_requested
 signal menu_requested
+signal background_motion_requested(enabled: bool)
 signal theme_requested(theme_id: StringName)
 
 @onready var panel: Control = $Panel
@@ -18,6 +19,7 @@ signal theme_requested(theme_id: StringName)
 @onready var skip_button: Button = %SkipButton
 @onready var close_button: Button = %Close
 @onready var menu_button: Button = %Menu
+@onready var background_button: CheckButton = %BackgroundButton
 @onready var theme_choice: OptionButton = %ThemeChoice
 var _open: bool = false
 var _previous_pause: bool = false
@@ -25,6 +27,7 @@ var _previous_focus: Control
 var _volume_dragging: bool = false
 
 func _ready() -> void:
+	background_button.toggled.connect(background_motion_requested.emit)
 	close_button.pressed.connect(close)
 	fast_button.toggled.connect(fast_requested.emit)
 	low_effects_button.toggled.connect(low_effects_requested.emit)
@@ -92,6 +95,9 @@ func close() -> void:
 
 func set_fast(fast: bool) -> void:
 	fast_button.set_pressed_no_signal(fast)
+
+func set_background_motion(enabled: bool) -> void:
+	background_button.set_pressed_no_signal(enabled)
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects_button.set_pressed_no_signal(enabled)

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameTheme" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="GameTheme" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://gameplay/presentation/game_theme/game_theme.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/presentation/game_theme/board_appearance.gd" id="2"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://gameplay/presentation/score_float/score_float_config.gd" id="4"]
 [ext_resource type="Script" path="res://ui/goal_progress/goal_progress_config.gd" id="5"]
 [ext_resource type="Theme" path="res://gameplay/presentation/game_theme/dark_instrument_ui.tres" id="6"]
+
+[ext_resource type="Script" path="res://gameplay/presentation/game_background/background_flow_config.gd" id="7"]
 
 [sub_resource type="Resource" id="board"]
 script = ExtResource("2")
@@ -40,6 +42,10 @@ huge_color = Color(1.000000, 0.607843, 0.447059, 1)
 script = ExtResource("5")
 mote_color = Color(0.384314, 0.847059, 0.756863, 1)
 
+[sub_resource type="Resource" id="flow"]
+script = ExtResource("7")
+contrast = 0.1
+
 [resource]
 script = ExtResource("1")
 theme_id = &"dark_instrument"
@@ -49,4 +55,5 @@ board = SubResource("board")
 feedback = SubResource("feedback")
 score_floats = SubResource("floats")
 progress = SubResource("progress")
+background_flow = SubResource("flow")
 background = Color(0.043137, 0.058824, 0.074510, 1)
