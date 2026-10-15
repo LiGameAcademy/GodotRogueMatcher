@@ -41,7 +41,6 @@ func apply_game_theme(appearance: BoardAppearance) -> void:
 	highlight_glow_color = appearance.selection_edge
 	path_highlight_color = appearance.path_color
 	_surface.set_shader_parameter("rounding", appearance.cell_rounding)
-	_surface.set_shader_parameter("surface_strength", appearance.surface_strength)
 	_refresh_style()
 
 func show_piece(display_piece: ChessPiece) -> void:
