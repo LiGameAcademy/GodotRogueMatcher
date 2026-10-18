@@ -23,6 +23,7 @@ var telemetry_factory: TelemetryFactory
 var observation: BoardObservation = BoardObservation.new()
 var can_selected: bool = false
 var _generation: int = 0
+var _seed_source: RunSeedSource = RunSeedSource.new()
 var _presented_events: Dictionary[int, bool] = {}
 var _score_presentation_pending: bool = false
 var _compatibility_changed: bool = false
@@ -87,7 +88,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
 	BoardRunFlow.finalize(run, "restart")
-	run = RunController.new(rules, randi(), game_mode.stage_config)
+	run = RunController.new(rules, _seed_source.next_seed(), game_mode.stage_config)
 	GameManager.reset_game(run)
 	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。
 	UIManager.close_popup()

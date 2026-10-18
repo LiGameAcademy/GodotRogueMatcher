@@ -28,7 +28,11 @@ func test_continue_keeps_board_score_and_build_and_grants_terminal_reward() -> v
 	run.state.manual_uses_used = {&"core_manual_detonation": 2, &"line_manual_clear": 3}
 	var score: int = run.state.ledger.total
 	var moves: int = run.state.valid_moves
-	var random: int = run.state.random.state
+	var streams: Array[RandomNumberGenerator] = [run.state.random, run.state.rewards.candidate_random, run.state.rewards.target_random, run.state.rewards.display_random, run.state.spawning.content_random]
+	var random_before: Array[Dictionary] = []
+	for stream: RandomNumberGenerator in streams:
+		random_before.append(RunSnapshot.random_data(stream))
+	var plan: Array[Dictionary] = run.state.spawning.plan_data()
 	var outcome: CommandResult = _continue(run)
 	assert_true(outcome.accepted, outcome.reason)
 	if not outcome.accepted: return
@@ -39,7 +43,10 @@ func test_continue_keeps_board_score_and_build_and_grants_terminal_reward() -> v
 	assert_eq(run.state.manual_uses_used, {&"core_manual_detonation": 2, &"line_manual_clear": 3})
 	assert_eq(run.state.ledger.total, score)
 	assert_eq(run.state.valid_moves, moves)
-	assert_eq(run.state.random.state, random)
+	var streams_after: Array[RandomNumberGenerator] = [run.state.random, run.state.rewards.candidate_random, run.state.rewards.target_random, run.state.rewards.display_random, run.state.spawning.content_random]
+	for index: int in range(streams_after.size()):
+		assert_eq(RunSnapshot.random_data(streams_after[index]), random_before[index])
+	assert_eq(run.state.spawning.plan_data(), plan)
 	assert_eq(RunSnapshot.canonical(run.state.rules.state.get_snapshot().map(func(p: PieceState) -> Dictionary: return RunSnapshot.piece(p))), board)
 
 func _choose(run: RunController) -> void:
