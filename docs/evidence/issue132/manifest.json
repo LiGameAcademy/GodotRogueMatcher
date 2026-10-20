@@ -1,0 +1,57 @@
+[
+  {
+    "file": "baseline-output-run2.log",
+    "bytes": 169184,
+    "sha256": "eb4d959c27fdbd6657f83a86a06b88bcf6e875f28742a4ebaca92cffc6da0a11"
+  },
+  {
+    "file": "baseline-output.log",
+    "bytes": 810,
+    "sha256": "9935e14592c4abc8ddca4f6fa2d00a8b3a407dd3f68bdb98d9a1f6a0ae88486d"
+  },
+  {
+    "file": "bot-output.log",
+    "bytes": 921,
+    "sha256": "1745ad53a7ab315db2377cd640213587c363c4d094fec30b338d6b3fb239adcb"
+  },
+  {
+    "file": "bot-record.jsonl",
+    "bytes": 491045,
+    "sha256": "05d691d4cf5e30bd23ab96778906a0cfc17d3d4706a3585682afb302dfdb365a"
+  },
+  {
+    "file": "bot-runs.csv",
+    "bytes": 674,
+    "sha256": "7ddd026e69ec027f331d117513ec411af8ffdfaa15c014420e92ba6ac9987060"
+  },
+  {
+    "file": "bot-summary.json",
+    "bytes": 759,
+    "sha256": "ce432a977442dd7faeb52e61d6d1f9c73e5505740991b9daf335f071f9387cd5"
+  },
+  {
+    "file": "cards-isolated-output.log",
+    "bytes": 76688,
+    "sha256": "da51be2a5d767b369a7f72281aadd741c1f8ccbe724802b3ca4e7a3e9b8250c0"
+  },
+  {
+    "file": "compatibility-consumers.txt",
+    "bytes": 25024,
+    "sha256": "93ad54530681045e8ae8996e0a36903c463398e357daff89a61e030368a60ee9"
+  },
+  {
+    "file": "line-counts.json",
+    "bytes": 1612,
+    "sha256": "65175a064553f580564953faebcf6da0fc543e274636d1a8909fb5f8ec0c9572"
+  },
+  {
+    "file": "script-results.json",
+    "bytes": 8210,
+    "sha256": "31b507ae61aadd5abd61c2b72df4844d42097ac57afb73f53971bca8454c6caa"
+  },
+  {
+    "file": "signals-and-waits.txt",
+    "bytes": 13668,
+    "sha256": "b58e743c46c218ff794fb13f8ebae4b4d91d7704e2b193c36f4d9d559b746003"
+  }
+]

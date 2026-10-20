@@ -1,0 +1,1712 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue132/isolated-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_skill_cards.gd
+[0m* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+[1m4/5 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/integration/test_skill_cards.gd
+[0m- test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+
+Totals
+------
+Scripts               1
+Tests                 5
+Passing Tests         4
+Failing Tests         1
+Asserts           780/1196
+Time              0.965s
+
+
+[31m---- 1 failing tests ----
+[0m
