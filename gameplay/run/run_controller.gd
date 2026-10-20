@@ -62,8 +62,8 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	result.direct_match = not result.matches.is_empty() and result.matches[0].cause == &"match"
 	return result
 
-func resolve_matches_at(coordinate: Vector2i) -> Array[MatchResult]:
-	return _resolve_groups(state.rules.find_matches_at(coordinate))
+func resolve_matches_at(coordinate: Vector2i, hold_descendants: bool = false) -> Array[MatchResult]:
+	return _resolve_groups(state.rules.find_matches_at(coordinate), hold_descendants)
 
 func resolve_all_matches() -> Array[MatchResult]:
 	return _resolve_groups(state.rules.find_matches())
@@ -160,8 +160,8 @@ func check_space_after_spawning() -> void:
 	if state.rules.state.get_empty_coordinates().is_empty():
 		finish_game()
 
-func _resolve_groups(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
-	var result: Array[MatchResult] = abilities.resolve(groups)
+func _resolve_groups(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> Array[MatchResult]:
+	var result: Array[MatchResult] = abilities.resolve(groups, hold_descendants)
 	if not abilities.last_error.is_empty():
 		state.rule_error = abilities.last_error
 		state.phase = RunState.Phase.ERROR

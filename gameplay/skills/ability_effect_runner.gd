@@ -44,7 +44,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			state.explosion.core_pool_unlocked = true
 			var core: PieceState = run.abilities.add_core(request.coordinate, request.color)
 			result.created.append(core)
-			result.matches.append_array(run.resolve_matches_at(core.coordinate))
+			result.matches.append_array(run.resolve_matches_at(core.coordinate, hold_blasts))
 		ChoiceEffectRequest.Kind.UNLOCK_LINE:
 			if request.stat == LineClearState.AXIS_ROW: state.line_clear.row_unlocked = true
 			elif request.stat == LineClearState.AXIS_COLUMN: state.line_clear.column_unlocked = true
@@ -52,7 +52,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 			var sweeper: PieceState = run.abilities.add_line_piece(request.stat, request.coordinate, request.color)
 			if sweeper == null: return "无法放置扫线手"
 			result.created.append(sweeper)
-			result.matches.append_array(run.resolve_matches_at(sweeper.coordinate))
+			result.matches.append_array(run.resolve_matches_at(sweeper.coordinate, hold_blasts))
 		ChoiceEffectRequest.Kind.GOAL_BONUS:
 			state.goal_bonus_score = request.score_bonus
 		ChoiceEffectRequest.Kind.REFILL:
@@ -67,7 +67,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 		ChoiceEffectRequest.Kind.LINE_UPGRADE:
 			state.line_clear.upgrades[request.upgrade] = state.line_clear.level(request.upgrade) + 1
 		ChoiceEffectRequest.Kind.DYE:
-			result.matches.append_array(DyeRules.recolor(run.abilities, request.piece_ids, request.color))
+			result.matches.append_array(DyeRules.recolor(run.abilities, request.piece_ids, request.color, hold_blasts))
 		ChoiceEffectRequest.Kind.CLEAR:
 			var batch: Array[PieceState] = []
 			for id: int in request.piece_ids:
@@ -95,7 +95,7 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 					state.explosion.match_extra_level += 1
 				DemolitionStatEffect.Stat.BLAST_EXTRA:
 					state.explosion.blast_extra_level += 1
-	return ""
+	return state.rule_error
 
 static func _apply_choice(run: RunController, effect: ChoiceEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, hold_blasts: bool) -> String:
 	var target: SkillTarget = frozen
@@ -118,7 +118,7 @@ static func _apply_choice(run: RunController, effect: ChoiceEffect, frozen: Skil
 		if not error.is_empty(): return error
 	return apply_choice_request(run, request, result, hold_blasts)
 
-static func _apply_composite(run: RunController, effect: CompositeEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, flush_blasts: bool) -> String:
+static func _apply_composite(run: RunController, effect: CompositeEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, flush_blasts: bool, refresh_first: bool = false) -> String:
 	var error: String = effect.validation_error()
 	if not error.is_empty(): return error
 	var composite_target: CompositeSkillTarget = frozen as CompositeSkillTarget
@@ -128,13 +128,10 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 	for index: int in range(effect.children.size()):
 		var child: SkillEffect = effect.children[index]
 		var leaf_frozen: SkillTarget = composite_target.leaf_targets[index]
-		# After leaf0 commits, later leaves reselect against the updated authoritative state.
-		if index > 0:
+		# 只刷新真正到达的叶；不能提前刷新整棵子树，再由内层重复抽样。
+		if (index > 0 or refresh_first) and child is ChoiceEffect:
 			var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
-			if child is ChoiceEffect:
-				leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.rewards.target_random)
-			elif child is CompositeEffect:
-				leaf_frozen = (child as CompositeEffect).refresh_after_previous(context, leaf_frozen as CompositeSkillTarget, run.state.rewards.target_random)
+			leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.rewards.target_random)
 		var leaf_color: int = -1
 		if child is ChoiceEffect and (child as ChoiceEffect).requires_color_choice():
 			if color_consumed or selected_color == -1: return "choose a valid color first"
@@ -145,13 +142,13 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 		if child is ChoiceEffect:
 			error = _apply_choice_with_policy(run, child as ChoiceEffect, leaf_frozen, result, leaf_color, true, effect.fixed_target_policy)
 		elif child is CompositeEffect:
-			error = _apply_composite(run, child as CompositeEffect, leaf_frozen, result, leaf_color, false)
+			error = _apply_composite(run, child as CompositeEffect, leaf_frozen, result, leaf_color, false, index > 0 or refresh_first)
 		else:
 			error = "unsupported composite child effect"
 		if not error.is_empty(): return error
 	if flush_blasts:
 		result.matches.append_array(run.abilities.flush_held_blasts())
-	return ""
+	return run.state.rule_error
 
 static func _apply_choice_with_policy(run: RunController, effect: ChoiceEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, hold_blasts: bool, policy: CompositeEffect.FixedTargetPolicy) -> String:
 	var target: SkillTarget = frozen

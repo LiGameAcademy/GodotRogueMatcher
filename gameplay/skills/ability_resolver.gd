@@ -10,6 +10,8 @@ var state: RunState
 var config: ExplosionConfig
 var last_error: String = ""
 var _held_blasts: Array[BlastRequest] = []
+var _held_matches: Array[MatchResult] = []
+var _held_plant_centers: Array[Vector2i] = []
 
 func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) -> void:
 	state = run_state
@@ -82,7 +84,7 @@ func upgrade_reward() -> bool:
 	return true
 
 ## Same-generation order is by source id; descendants run only after the current generation finishes. No UI or animation dependency.
-func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
+func resolve(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> Array[MatchResult]:
 	var results: Array[MatchResult] = []
 	last_error = ""
 	if groups.is_empty():
@@ -101,16 +103,25 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	for result: MatchResult in results:
 		_remove_and_enqueue(result.removed, result.cause, 1, queue)
 		if not last_error.is_empty(): return results
+	if hold_descendants:
+		_held_blasts.append_array(queue)
+		_held_matches.append_array(results)
+		_plant_after_matches(results, true)
+		return results
+	_plant_after_matches(results)
+	results.append_array(_resolve_blasts(queue))
+	results.append_array(DyeRules.after_matches(self, results))
+	return results
+
+func _plant_after_matches(results: Array[MatchResult], hold: bool = false) -> void:
 	var stats: DemolitionActionState = DemolitionRules.action(state)
 	if state.explosion.level(&"fuse_match_plant") > 0 and not stats.plant_used:
 		stats.plant_used = true
 		var centers: Array[Vector2i] = []
 		for result: MatchResult in results:
 			for piece: PieceState in result.removed: centers.append(piece.coordinate)
-		DemolitionRules.mark_near(self, centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
-	results.append_array(_resolve_blasts(queue))
-	results.append_array(DyeRules.after_matches(self, results))
-	return results
+		if hold: _held_plant_centers.append_array(centers)
+		else: DemolitionRules.mark_near(self, centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
 
 ## Clears and five-matches share removal triggers and the blast queue. Callers preflight before committing the root action.
 ## When hold_blasts is true, removal tickets enqueue but descendants wait for flush_held_blasts().
@@ -152,11 +163,18 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: 
 
 ## Drain blast tickets held during an ordered CompositeEffect.
 func flush_held_blasts() -> Array[MatchResult]:
-	if _held_blasts.is_empty(): return []
+	if _held_blasts.is_empty() and _held_matches.is_empty(): return []
 	var queue: Array[BlastRequest] = _held_blasts.duplicate()
+	var matches: Array[MatchResult] = _held_matches.duplicate()
 	_held_blasts.clear()
+	_held_matches.clear()
+	# 资格在匹配触发时已判定；后叶新取得能力不能追授给旧匹配。
+	if not _held_plant_centers.is_empty():
+		DemolitionRules.mark_near(self, _held_plant_centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
+	_held_plant_centers.clear()
 	var results: Array[MatchResult] = _resolve_blasts(queue)
-	results.append_array(DyeRules.after_matches(self, results))
+	matches.append_array(results)
+	results.append_array(DyeRules.after_matches(self, matches))
 	return results
 
 ## Drop held tickets without resolving blasts (composite aborted after removals).
@@ -165,6 +183,8 @@ func abandon_held_blasts() -> void:
 		if event.activation != null:
 			state.ability_events.complete(event.activation, false, 0)
 	_held_blasts.clear()
+	_held_matches.clear()
+	_held_plant_centers.clear()
 
 ## Preflight configuration and event budget before resolve; return an English diagnostic on failure.
 func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0, new_line_sources: int = 0) -> String:

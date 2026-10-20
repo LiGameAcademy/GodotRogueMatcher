@@ -84,7 +84,7 @@ static func _wave(resolver: AbilityResolver, ids: Array[int], color: int) -> Arr
 	return results
 
 ## 同波全部改色后统一查线；零分条目只提供唯一事件身份，避免表现重播。
-static func recolor(resolver: AbilityResolver, ids: Array[int], color: int) -> Array[MatchResult]:
+static func recolor(resolver: AbilityResolver, ids: Array[int], color: int, hold_descendants: bool = false) -> Array[MatchResult]:
 	var state: RunState = resolver.state
 	var change: MatchResult = MatchResult.new()
 	change.cause = &"dye"
@@ -99,6 +99,6 @@ static func recolor(resolver: AbilityResolver, ids: Array[int], color: int) -> A
 	change.center = change.recolored[0].coordinate
 	change.score_entry = state.ledger.commit(0, 1.0, 0, &"dye", DemolitionRules.root_id(state), ids)
 	var results: Array[MatchResult] = [change]
-	results.append_array(resolver.resolve(state.rules.find_matches()))
+	results.append_array(resolver.resolve(state.rules.find_matches(), hold_descendants))
 	return results
 

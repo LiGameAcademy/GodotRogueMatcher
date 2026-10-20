@@ -10,6 +10,10 @@ func rejection(context: ChoiceEffectContext) -> String:
 		if not colors.has(piece.match_color): colors.append(piece.match_color)
 	return "" if colors.size() >= 2 else "需要至少两种普通棋子颜色"
 
+## 染色后叶明确从到达时的新盘面选一次，预览冻结不代替这次选择。
+func refresh_after_previous(context: ChoiceEffectContext, _frozen: SkillTarget, random: RandomNumberGenerator) -> SkillTarget:
+	return freeze(context, random)
+
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	var target: SkillTarget = SkillTarget.new()
 	var colors: Array[int] = []

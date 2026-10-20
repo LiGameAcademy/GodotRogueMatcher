@@ -20,6 +20,14 @@ class DynamicProbe extends ChoiceEffect:
 		request.delta = -1
 		return request
 
+class FailingLeaf extends ChoiceEffect:
+	func rejection(_context: ChoiceEffectContext) -> String:
+		return ""
+	func build(_context: ChoiceEffectContext, _target: SkillTarget) -> ChoiceEffectRequest:
+		var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
+		request.error = "injected_post_leaf_failure"
+		return request
+
 func _boundary(nested: bool) -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 135)
 	run.state.phase = RunState.Phase.REWARDS
@@ -70,9 +78,10 @@ func _boundary(nested: bool) -> void:
 	assert_eq(run.state.rules.state.get_piece_count(), 0)
 	assert_eq(run.abilities._held_blasts.size(), 0)
 	assert_eq(result.matches.size(), 4, "染色、五连、F爆破、Q爆破")
-	assert_eq(result.matches[1].cause, &"match")
-	assert_eq(result.matches[2].source_id, source.piece_id)
-	assert_eq(result.matches[3].source_id, q.piece_id)
+	if result.matches.size() == 4:
+		assert_eq(result.matches[1].cause, &"match")
+		assert_eq(result.matches[2].source_id, source.piece_id)
+		assert_eq(result.matches[3].source_id, q.piece_id)
 	assert_eq(run.state.ledger.total, 50)
 	fuse.observe = Callable()
 
@@ -102,3 +111,62 @@ func test_nested_dynamic_leaves_sample_once_when_each_is_reached() -> void:
 	assert_eq(first.samples, 1)
 	assert_eq(second.samples, 1)
 	assert_eq(run.state.rewards.target_random.state, random.state)
+
+func test_later_leaf_error_keeps_match_commit_but_cancels_waiting_descendants() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 135)
+	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 2), 0)
+	var source: PieceState = run.state.rules.state.get_piece_at(Vector2i(2, 2))
+	assert_true(run.abilities.assign_fuse(source.piece_id))
+	var a: PieceState = run.state.rules.place_piece(Vector2i(4, 2), 1)
+	var survivor: PieceState = run.state.rules.place_piece(Vector2i(2, 3), 2)
+	var effect: CompositeEffect = CompositeEffect.new()
+	effect.children = [DyeMaterialEffect.new(), FailingLeaf.new()]
+	var skill: SkillDefinition = SkillDefinition.new()
+	skill.skill_id = &"boundary_failure_fixture"
+	var ability: AbilityDefinition = AbilityDefinition.new()
+	ability.ability_id = &"boundary_acquire"
+	ability.event_type = &"skill_acquired"
+	ability.effect = effect
+	var level: SkillLevelDefinition = SkillLevelDefinition.new()
+	level.level = 1
+	level.abilities = [ability]
+	skill.levels = [level]
+	skill.maximum_level = 1
+	var target: SkillTarget = SkillTarget.new()
+	target.color = 0
+	target.piece_ids = [a.piece_id]
+	var frozen: CompositeSkillTarget = CompositeSkillTarget.new()
+	frozen.leaf_targets = [target, SkillTarget.new()]
+	var offer: SkillOffer = SkillOffer.new()
+	offer.offer_id = 1
+	offer.reward_id = 1
+	offer.choices = [skill]
+	offer.targets[skill.skill_id] = frozen
+	run.state.rewards.active_offer = offer
+	run.state.pending_rewards = 1
+	run.enter_rewards()
+	var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id)
+	assert_false(result.success)
+	assert_eq(result.error, "injected_post_leaf_failure")
+	assert_eq(run.state.phase, RunState.Phase.ERROR)
+	assert_eq(run.state.ledger.total, 50)
+	assert_not_null(run.state.rules.state.get_piece(survivor.piece_id))
+	assert_eq(run.abilities._held_blasts.size(), 0)
+	assert_eq(run.abilities._held_matches.size(), 0)
+	assert_eq(run.state.rewards.consumed_count, 0)
+	assert_eq(run.state.pending_rewards, 1)
+	assert_false(SkillRules.apply(run, 1, skill.skill_id).success)
+	assert_true(run.abilities.flush_held_blasts().is_empty())
+
+func test_deferred_match_plant_keeps_trigger_time_eligibility() -> void:
+	for owned: bool in [false, true]:
+		var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 135)
+		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, 2), 0)
+		var q: PieceState = run.state.rules.place_piece(Vector2i(2, 3), 1)
+		if owned: run.state.explosion.upgrades[&"fuse_match_plant"] = 1
+		var matches: Array[MatchResult] = run.abilities.resolve(run.state.rules.find_matches(), true)
+		assert_eq(matches.size(), 1)
+		assert_false(run.state.explosion.instances.has(q.piece_id), "附引信后代也须等根组合结束")
+		run.state.explosion.upgrades[&"fuse_match_plant"] = 0 if owned else 1
+		run.abilities.flush_held_blasts()
+		assert_eq(run.state.explosion.instances.has(q.piece_id), owned)
