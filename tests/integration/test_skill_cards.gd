@@ -23,11 +23,13 @@ func test_all_skill_descriptions_fit_card_and_popup_at_base_viewport() -> void:
 		for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1024, 640)]:
 			get_window().size = resolution
 			await wait_process_frames(3)
-			await _assert_all_cards_fit()
+			for low_effects: bool in [false, true]:
+				await _assert_all_cards_fit(low_effects)
 
-func _assert_all_cards_fit() -> void:
+func _assert_all_cards_fit(low_effects: bool) -> void:
 	var popup: PopupSkillChoice = POPUP.instantiate() as PopupSkillChoice
 	add_child_autofree(popup)
+	popup.set_low_effects(low_effects)
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), MatchSystem.MIN_MATCH_COUNT), 864)
 	for x: int in range(9):
 		for y: int in range(7): run.state.rules.place_piece(Vector2i(x, y), posmod(x + y, 5))
@@ -41,11 +43,18 @@ func _assert_all_cards_fit() -> void:
 			target.level_after = target.level_before + 1
 			offer.targets[skill.skill_id] = target
 		popup.show_offer(offer)
-		await wait_process_frames(3)
+		# 翻牌隐藏Content时容器不排版；检查实际展示后的矩形，不读取隐藏布局。
+		for index: int in range(offer.choices.size()):
+			var card: SkillCard = popup.options.get_child(index) as SkillCard
+			if card._reveal != null and card._reveal.is_running():
+				await wait_for_signal(card._reveal.finished, 2.0)
+		await wait_process_frames(2)
 		var panel: Control = popup.get_node("Center/Panel") as Control
 		assert_true(get_viewport().get_visible_rect().grow(1.0).encloses(panel.get_global_rect()), "三选一弹窗不得超出窗口")
 		for index: int in range(offer.choices.size()):
 			var card: SkillCard = popup.options.get_child(index) as SkillCard
+			assert_true(card.content.is_visible_in_tree(), "检查时卡面内容已展示")
+			assert_eq(card.scale, Vector2.ONE, "检查时翻牌已结束")
 			assert_true(card.get_global_rect().encloses(card.action_label.get_global_rect()), "%s操作提示不得溢出卡片" % offer.choices[index].skill_id)
 			assert_true(card.get_global_rect().encloses(card.rarity_label.get_global_rect()), "%s稀有度不得溢出卡片" % offer.choices[index].skill_id)
 			assert_gte(card.effect_label.size.y, float(card.effect_label.get_minimum_size().y), "%s摘要可见" % offer.choices[index].skill_id)
