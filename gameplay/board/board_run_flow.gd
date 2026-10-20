@@ -10,7 +10,13 @@ static func continue_run(board: Board, active: RunController) -> void:
 			board.mark_score_pending()
 			board.goal_bonus_ready.emit(step.challenge.goal_score_entry)
 		match step.kind:
-			&"offer": await LevelUpSystem.resolve_pending_rewards(board)
+			&"offer":
+				board.can_selected = false
+				if step.offer == null:
+					board.operation_feedback.emit(active.state.rule_error)
+					return
+				board.reward_requested.emit(active, step.offer)
+				return
 			&"end_turn":
 				board.refresh_ability_markers()
 				GameManager.turn_ended.emit(active.state.turn_count)

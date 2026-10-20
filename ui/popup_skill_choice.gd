@@ -69,10 +69,9 @@ func initialize(data: Dictionary = {}) -> void:
 		push_error("技能弹窗需要有效候选")
 		return
 	show_offer(value)
-	get_tree().paused = true
 
 func show_offer(next_offer: SkillOffer, reason: String = "") -> void:
-	offer = next_offer
+	offer = next_offer.snapshot()
 	_reason = reason
 	_error = ""
 	_submitted = false
@@ -85,10 +84,13 @@ func show_offer(next_offer: SkillOffer, reason: String = "") -> void:
 	message.text = tr(reason) if not reason.is_empty() else tr("选择一项技能，继续你的构筑")
 	for index: int in range(options.get_child_count()):
 		var button: SkillCard = options.get_child(index) as SkillCard
-		button.disabled = index >= offer.choices.size()
-		if button.disabled: continue
+		button.visible = index < offer.choices.size()
+		button.disabled = not button.visible
+		if not button.visible: continue
 		var skill: SkillDefinition = offer.choices[index]
 		button.configure(skill, offer.targets[skill.skill_id])
+		button.disabled = offer.unavailable.has(skill.skill_id)
+		if button.disabled: button.tooltip_text = offer.unavailable[skill.skill_id]
 	_update_visibility()
 	_update_confirmation()
 	_animate_cards()
@@ -130,7 +132,15 @@ func accept_selection(animate_acquired: bool = false) -> void:
 		var skill: SkillDefinition = offer.choices[_target_index]
 		var card: SkillCard = options.get_child(_target_index) as SkillCard
 		card_acquired.emit(skill, offer.targets[skill.skill_id], card.get_global_rect())
-	get_tree().paused = false
+	_finish_close()
+
+## 普通关闭不确认选择；暂停与恢复入口由Game协调。
+func close_view() -> void:
+	if _closed: return
+	_closed = true
+	_finish_close()
+
+func _finish_close() -> void:
 	hide()
 	closed.emit()
 	queue_free()
@@ -141,15 +151,19 @@ func show_error(reason: String) -> void:
 	_submitted = false
 	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice(): picker.show_error(reason)
 	for index: int in range(options.get_child_count()):
-		(options.get_child(index) as Button).disabled = index >= offer.choices.size()
+		(options.get_child(index) as Button).disabled = index >= offer.choices.size() or offer.unavailable.has(offer.choices[index].skill_id)
 	picker.confirm_button.disabled = false
 	picker.back_button.disabled = false
 	view_button.disabled = false
 	_update_confirmation()
 
+func set_unavailable(reasons: Dictionary[StringName, String]) -> void:
+	offer.unavailable.assign(reasons)
+
 ## A card click only changes the pending UI selection, never applies a skill.
 func _select(index: int) -> void:
 	if _submitted or offer == null or viewing_board or selection_paused or index < 0 or index >= offer.choices.size(): return
+	if offer.unavailable.has(offer.choices[index].skill_id): return
 	_target_index = index
 	_error = ""
 	var skill: SkillDefinition = offer.choices[index]
@@ -167,6 +181,7 @@ func _select(index: int) -> void:
 func confirm_selection() -> void:
 	if _submitted or offer == null or _target_index < 0 or viewing_board or selection_paused: return
 	var skill: SkillDefinition = offer.choices[_target_index]
+	if offer.unavailable.has(skill.skill_id): return
 	if skill.requires_color_choice(offer.targets[skill.skill_id].level_before):
 		if picker.selected_color == -1:
 			picker.show_error("请先选择颜色", false)
@@ -177,6 +192,7 @@ func confirm_selection() -> void:
 
 func _update_confirmation(_color: int = -1) -> void:
 	confirm_button.disabled = _submitted or _target_index < 0
+	if _target_index >= 0 and offer.unavailable.has(offer.choices[_target_index].skill_id): confirm_button.disabled = true
 	confirm_button.text = tr("请先点选一张卡片") if _target_index < 0 else tr("确认选择：%s") % tr(offer.choices[_target_index].title)
 	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice():
 		confirm_button.disabled = confirm_button.disabled or picker.selected_color == -1

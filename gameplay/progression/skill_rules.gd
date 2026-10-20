@@ -148,6 +148,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	for choice: SkillDefinition in offer.choices:
 		if choice.skill_id != skill_id: rewards.previous_unselected.append(choice.skill_id)
 	rewards.consumed_count += 1
+	rewards.repair_used = false
 	state.pending_rewards -= 1
 	rewards.active_offer = null
 	result.success = true

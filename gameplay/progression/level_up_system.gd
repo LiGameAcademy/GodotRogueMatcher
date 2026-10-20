@@ -1,30 +1,24 @@
 extends Node
 
 ## 升级系统（单例）
-## 职责：管理升级触发、三选一选项生成
+## 旧道具池与进度只读兼容查询；正式奖励由本局和Game处理。
 
 signal level_up_triggered(items: Array[ItemData])
 
 ## 当前等级
 var current_level: int:
 	get: return GameManager.run.state.progression.level
-	set(value): GameManager.run.state.progression.level = value
 var pending_rewards: int:
 	get:
 		return GameManager.run.state.pending_rewards
-	set(value):
-		GameManager.run.state.pending_rewards = value
-var is_resolving: bool = false
 
 ## 下一个里程碑分数
 var next_milestone: int:
 	get: return GameManager.run.state.progression.next_milestone
-	set(value): GameManager.run.state.progression.next_milestone = value
 
 const CONFIG: ProgressionConfig = preload("res://gameplay/progression/content/progression_config.tres")
 var previous_milestone: int:
 	get: return GameManager.run.state.progression.previous_milestone
-	set(value): GameManager.run.state.progression.previous_milestone = value
 
 ## 物品池（待实现）
 var item_pools: Dictionary = {}
@@ -34,11 +28,6 @@ func _ready() -> void:
 
 ## 重置系统
 func reset_system() -> void:
-	current_level = 0
-	pending_rewards = 0
-	is_resolving = false
-	previous_milestone = 0
-	next_milestone = CONFIG.threshold(0)
 	initialize_item_pools()
 
 ## 初始化物品池（待实现具体物品数据）
@@ -106,80 +95,6 @@ func load_items_from_directory(directory_path: String) -> void:
 		file_name = dir.get_next()
 	
 	print("从目录加载道具完成，共加载 ", loaded_count, " 个道具")
-
-## 检查是否触发升级
-## [param score: int] 当前分数
-## [return: bool] 是否触发升级
-func check_level_up(score: int) -> bool:
-	return GameManager.run.check_rewards(score) > 0
-
-## 在安全点逐项应用首片技能；旧道具池仅保留兼容查询，不进入正常奖励。
-func resolve_pending_rewards(board: Board) -> void:
-	if is_resolving or GameManager.is_game_over or not board.run.state.rule_error.is_empty():
-		return
-	var active_run: RunController = board.run
-	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
-	is_resolving = true
-	while not GameManager.is_game_over:
-		if not await board.finish_presentation() or board.run != active_run: return
-		if pending_rewards <= 0: break
-		active_run.enter_rewards()
-		var offer: SkillOffer = active_run.prepare_offer()
-		if offer == null:
-			push_error(generator.last_error)
-			break
-		board.cancel_buffered_input("reward_popup")
-		if active_run.recorder != null: active_run.recorder.set_interval("choice")
-		var popup: PopupSkillChoice = await UIManager.open_popup("popup_skill_choice", {"offer": offer}) as PopupSkillChoice
-		if not is_instance_valid(board) or board.run != active_run:
-			if is_instance_valid(popup): popup.accept_selection()
-			return
-		if not is_instance_valid(popup): break
-		popup.skill_selected.connect(_apply_selected_skill.bind(board, active_run, popup, generator))
-		popup.color_skill_selected.connect(_apply_selected_color.bind(board, active_run, popup, generator))
-		if popup.visible:
-			board.observation.present_offer(offer)
-			board.feedback_requested.emit(&"reward")
-		await popup.closed
-		if not is_instance_valid(board) or board.run != active_run: return
-		if board.get_empty_cells().is_empty(): GameManager.finish_game()
-	is_resolving = false
-
-func _apply_selected_color(offer_id: int, skill_id: StringName, color: int, board: Board, active_run: RunController, popup: PopupSkillChoice, generator: SkillOfferGenerator) -> void:
-	_apply_selected_skill(offer_id, skill_id, board, active_run, popup, generator, color)
-
-func _apply_selected_skill(offer_id: int, skill_id: StringName, board: Board, active_run: RunController, popup: PopupSkillChoice, _generator: SkillOfferGenerator, selected_color: int = -1) -> void:
-	if not is_instance_valid(board) or board.run != active_run: return
-	board.observation.selecting_skill()
-	var input_id: String = board.observation.input("choose_skill")
-	var command: ChooseSkillCommand = ChooseSkillCommand.new(active_run.state.run_id, active_run.last_command_id + 1, active_run.state.action_id)
-	command.offer_id = offer_id
-	command.reward_id = active_run.state.rewards.consumed_count + 1
-	command.skill_id = skill_id
-	command.selected_color = selected_color
-	var outcome: CommandResult = active_run.execute_command(command)
-	board.observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id))
-	var result: SkillApplyResult = outcome.skill
-	if result == null: return
-	if not result.success:
-		var active: SkillOffer = active_run.state.rewards.active_offer
-		var player_target: bool = false
-		if active != null and active.offer_id == offer_id:
-			for skill: SkillDefinition in active.choices:
-				if skill.skill_id == skill_id:
-					player_target = skill.requires_color_choice()
-			# 玩家选色失败保留原候选；旧随机目标真正失效时保留原恢复策略。
-			if not player_target and result.error in ["原定空格已经被占用", "原定材料目标已经失效"]:
-				active_run.state.rewards.active_offer = null
-				var refreshed: SkillOffer = active_run.prepare_offer()
-				if refreshed != null:
-					popup.show_offer(refreshed, result.error)
-					board.observation.present_offer(refreshed)
-					return
-		popup.show_error(result.error)
-		return
-	board.present_skill_result(result)
-	popup.accept_selection(true)
 
 ## 生成三选一选项
 ## [return: Array[ItemData]] 三个道具选项

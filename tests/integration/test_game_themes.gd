@@ -73,7 +73,7 @@ func test_switching_in_settings_preserves_pause_focus_rules_and_random_streams()
 
 func test_switching_retains_offer_selected_card_and_confirmation() -> void:
 	assert_true(board.load_explosion_demo("fixture_transform"))
-	LevelUpSystem.resolve_pending_rewards(board)
+	game.call("request_rewards")
 	await wait_process_frames(5)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)

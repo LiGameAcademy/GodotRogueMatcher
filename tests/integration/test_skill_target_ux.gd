@@ -35,7 +35,7 @@ func before_each() -> void:
 			offer.choices.append(skill)
 			offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await wait_process_frames(4)
 	popup = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)

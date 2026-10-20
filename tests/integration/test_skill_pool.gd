@@ -72,7 +72,11 @@ func test_choice_menu_roundtrip_preserves_popup_and_observation_location() -> vo
 	board.run.state.pending_rewards = 1
 	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
 	var offer: SkillOffer = generator.generate(board.run)
-	var popup: PopupSkillChoice = await UIManager.open_popup("popup_skill_choice", {"offer": offer}) as PopupSkillChoice
+	game.call("request_rewards")
+	await wait_process_frames(6)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(popup)
+	if popup == null: return
 	var collection: RunCollection = game.get_node("RunCollection") as RunCollection
 	collection.location("skill_choice")
 	popup.skill_pool_requested.emit()
@@ -83,7 +87,8 @@ func test_choice_menu_roundtrip_preserves_popup_and_observation_location() -> vo
 	assert_eq(collection.ui, "skill_choice")
 	assert_true(get_tree().paused)
 	assert_same(UIManager.current_popup, popup)
-	assert_same(popup.offer, offer)
+	assert_ne(popup.offer, offer)
+	assert_eq(RunSnapshot.offer_data(popup.offer), RunSnapshot.offer_data(offer))
 
 func test_terminal_and_presentation_views_restore_their_previous_state() -> void:
 	for phase: RunState.Phase in [RunState.Phase.INPUT, RunState.Phase.REWARDS, RunState.Phase.ERROR]:

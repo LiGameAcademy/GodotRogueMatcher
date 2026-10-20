@@ -58,17 +58,28 @@ const CATALOG: Array[SkillDefinition] = [
 	preload("res://gameplay/progression/content/instant_color_dye.tres")]
 
 var last_error: String = ""
+var _catalog: Array[SkillDefinition] = []
+
+func _init() -> void:
+	_catalog.assign(CATALOG)
+
+## 批测或固定资格案例可显式提供只读候选定义；不修改共享目录。
+func set_catalog(catalog: Array[SkillDefinition]) -> void:
+	_catalog.assign(catalog)
 
 ## 相同待处理奖励返回已冻结候选；重建UI不消耗随机数。
-func generate(run: RunController) -> SkillOffer:
+func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 	last_error = ""
 	var state: RunState = run.state
 	if state.pending_rewards <= 0 or state.is_game_over or not state.rule_error.is_empty(): return null
-	if state.rewards.active_offer != null: return state.rewards.active_offer
+	if state.rewards.active_offer != null and not replacing: return state.rewards.active_offer
 	if state.stage.enabled():
 		last_error = RescueOfferRules.CONFIG.validation_error()
 		if not last_error.is_empty(): return null
 	var rewards: RewardState = state.rewards
+	var candidate_random: RandomNumberGenerator = _copy_random(rewards.candidate_random)
+	var target_random: RandomNumberGenerator = _copy_random(rewards.target_random)
+	var display_random: RandomNumberGenerator = _copy_random(rewards.display_random)
 	var offer: SkillOffer = SkillOffer.new()
 	offer.offer_id = rewards.next_offer_id
 	offer.reward_id = rewards.consumed_count + 1
@@ -83,7 +94,7 @@ func generate(run: RunController) -> SkillOffer:
 	var profile: Dictionary[StringName, float] = build_profile(state)
 	var normal: Array[SkillDefinition] = []
 	var fallback: Array[SkillDefinition] = []
-	for skill: SkillDefinition in CATALOG:
+	for skill: SkillDefinition in _catalog:
 		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, pressure_value)
 		if not reason.is_empty():
 			offer.pool_log.append("%s: %s" % [skill.skill_id, reason])
@@ -104,8 +115,9 @@ func generate(run: RunController) -> SkillOffer:
 			for skill: SkillDefinition in remaining:
 				if skill.is_starter: pool.append(skill)
 			if not pool.is_empty(): pool_name = "starter"
-		if pool.is_empty() and not remaining.is_empty():
-			var split: float = unit_random(rewards.candidate_random)
+		if pool.is_empty() and remaining.size() == 1: pool = remaining
+		if pool.is_empty() and remaining.size() > 1:
+			var split: float = unit_random(candidate_random)
 			offer.pool_log.append("slot=%d split=%.8f" % [slot, split])
 			var restricted: bool = split < (CONFIG.explore_probability if slot == 2 else CONFIG.related_probability)
 			if restricted:
@@ -120,28 +132,42 @@ func generate(run: RunController) -> SkillOffer:
 			pool = _remaining(fallback, used)
 			pool_name = "fallback"
 		if pool.is_empty():
-			last_error = "不足三个合法技能，保留奖励"
-			return null
+			break
 		pool.sort_custom(_by_id)
-		var sample: float = unit_random(rewards.candidate_random)
+		var sample: float = unit_random(candidate_random) if pool.size() > 1 else 0.0
 		var picked: SkillDefinition = _draw(pool, offer.weights, sample)
 		used.append(picked.skill_id)
 		if picked.counts_as_utility_pick(): utility_used = true
 		offer.choices.append(picked)
 		offer.generation_order.append(picked.skill_id)
 		offer.pool_log.append("slot=%d pool=%s sample=%.8f selected=%s" % [slot, pool_name, sample, picked.skill_id])
-	# 即时目标与显示次序分别使用独立流，避免影响候选和普通生成。
+	if offer.choices.is_empty():
+		last_error = "no_legal_candidates"
+		return null
+	# 临时三流完成全部冻结后才提交；失败不推进正式流或身份。
 	for skill: SkillDefinition in offer.choices:
-		offer.targets[skill.skill_id] = SkillRules.freeze_target(state, skill, rewards.target_random)
+		var target: SkillTarget = SkillRules.freeze_target(state, skill, target_random)
+		last_error = RewardOfferRules.target_rejection(state, skill, target)
+		if not last_error.is_empty(): return null
+		offer.targets[skill.skill_id] = target
 	for index: int in range(offer.choices.size() - 1, 0, -1):
-		var chosen: int = rewards.display_random.randi_range(0, index)
+		var chosen: int = display_random.randi_range(0, index)
 		var temp: SkillDefinition = offer.choices[index]
 		offer.choices[index] = offer.choices[chosen]
 		offer.choices[chosen] = temp
-	offer.candidate_state_after = rewards.candidate_random.state
+	offer.candidate_state_after = candidate_random.state
+	rewards.candidate_random.state = candidate_random.state
+	rewards.target_random.state = target_random.state
+	rewards.display_random.state = display_random.state
 	rewards.next_offer_id += 1
 	rewards.active_offer = offer
 	return offer
+
+func _copy_random(source: RandomNumberGenerator) -> RandomNumberGenerator:
+	var result: RandomNumberGenerator = RandomNumberGenerator.new()
+	result.seed = source.seed
+	result.state = source.state
+	return result
 
 static func build_profile(state: RunState) -> Dictionary[StringName, float]:
 	var profile: Dictionary[StringName, float] = {}

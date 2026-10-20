@@ -9,6 +9,7 @@ signal selection_changed(piece: PieceState, has_fuse: bool)
 signal operation_feedback(message: String)
 signal feedback_requested(cue: StringName)
 signal run_reset
+signal reward_requested(active: RunController, offer: SkillOffer)
 ## Game显式提供兄弟HUD的等待入口，不从棋盘查找UI节点。
 var score_presenter: Callable
 
@@ -161,13 +162,10 @@ func open_skill_demo() -> bool:
 	can_selected = false
 	selected_piece = null
 	if run.recorder != null: run.recorder.finish(run, "abandoned", "debug_f7_not_balance_sample")
-	GameManager.add_score(maxi(0, LevelUpSystem.next_milestone - GameManager.score))
+	GameManager.add_score(maxi(0, run.state.progression.next_milestone - GameManager.score))
 	run.enter_rewards()
-	await LevelUpSystem.resolve_pending_rewards(self)
+	await resume_run(run)
 	if generation != _generation: return false
-	if not GameManager.is_game_over and run.state.rule_error.is_empty():
-		run.state.phase = RunState.Phase.INPUT
-		can_selected = true
 	return true
 #endregion
 
@@ -404,13 +402,20 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 	if generation != _generation:
 		return false
 	selected_piece = null
-	await BoardRunFlow.continue_run(self, run)
+	await resume_run(run)
 	if generation != _generation: return false
 	if not director.error.is_empty(): return false
-	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
-	_turn_in_progress = false
-	_resume_buffered_input()
 	return true
+
+## Game在成功选卡后请求继续；本局决定仍等待、补棋或恢复输入。
+func resume_run(active: RunController) -> void:
+	if run != active: return
+	can_selected = false
+	await BoardRunFlow.continue_run(self, active)
+	if run != active: return
+	can_selected = active.state.phase == RunState.Phase.INPUT and not active.state.is_game_over and active.state.rule_error.is_empty()
+	_turn_in_progress = false
+	if can_selected: _resume_buffered_input()
 
 func mark_score_pending() -> void:
 	_score_presentation_pending = true
@@ -423,9 +428,8 @@ func continue_challenge() -> bool:
 	GameManager.resume_game()
 	can_selected = false
 	observation.busy(true)
-	await BoardRunFlow.continue_run(self, active)
+	await resume_run(active)
 	if not is_instance_valid(self) or run != active: return false
-	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
 	return can_selected
 
 func present_spawns(spawns: Array[SpawnResult]) -> void:

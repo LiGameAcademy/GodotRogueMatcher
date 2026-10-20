@@ -12,6 +12,7 @@ signal settings_requested
 signal skip_requested
 signal board_area_changed
 signal piece_pool_visibility_changed(open: bool)
+signal reward_resume_requested
 
 @export var score_duration: float = 0.45
 @onready var score_label: Label = %ScoreLabel
@@ -46,6 +47,7 @@ var _status_source: String = "准备棋盘…"
 var _game_theme: GameTheme
 
 func _ready() -> void:
+	%ResumeReward.pressed.connect(reward_resume_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
 	settings_button.pressed.connect(settings_requested.emit)
 	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
@@ -64,6 +66,9 @@ func apply_game_theme(preset: GameTheme) -> void:
 	build_list.apply_game_theme(preset)
 	goal_progress.apply_game_theme(preset)
 	if _run != null: _show_breakdown(_run.state)
+
+func set_reward_waiting(waiting: bool) -> void:
+	%ResumeReward.visible = waiting
 
 func _show_breakdown(state: RunState) -> void:
 	var entries: Array[ScoreEntry] = state.ledger.get_entries()

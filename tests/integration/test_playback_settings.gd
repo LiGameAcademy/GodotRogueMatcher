@@ -52,7 +52,7 @@ func test_settings_restore_running_paused_and_menu_states_without_rule_changes()
 
 func test_settings_keep_selected_card_and_offer_and_block_skip_without_consuming_reward() -> void:
 	assert_true(board.load_explosion_demo("fixture_transform"))
-	LevelUpSystem.resolve_pending_rewards(board)
+	game.call("request_rewards")
 	await wait_process_frames(5)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)

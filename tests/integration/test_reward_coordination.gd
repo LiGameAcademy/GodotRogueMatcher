@@ -8,7 +8,6 @@ var board: Board
 func before_each() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = false
-	LevelUpSystem.is_resolving = false
 	UIManager.close_popup()
 	main = MAIN.instantiate() as Node2D
 	game = main.get_node("Game") as Node2D
@@ -102,3 +101,74 @@ func test_rule_waiting_blocks_move_without_global_pause() -> void:
 	assert_false(run.execute_command(command).accepted)
 	assert_same(run.advance().offer, offer)
 	assert_eq(run.state.pending_rewards, 2)
+
+func test_leaving_game_closes_owned_popup_and_releases_pause() -> void:
+	var popup: PopupSkillChoice = await _open()
+	if popup == null: return
+	assert_true(get_tree().paused)
+	main.queue_free()
+	await wait_process_frames(4)
+	assert_false(get_tree().paused, "退出Game须释放自己持有的暂停")
+	assert_false(is_instance_valid(UIManager.current_popup))
+
+func test_explicit_resume_button_returns_to_same_offer_without_reroll() -> void:
+	var popup: PopupSkillChoice = await _open()
+	if popup == null: return
+	var offer_id: int = popup.offer.offer_id
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	UIManager.close_popup()
+	await wait_process_frames(4)
+	var resume: Button = game.get_node("UILayer/HUD/%ResumeReward") as Button
+	assert_true(resume.visible)
+	resume.pressed.emit()
+	await wait_process_frames(6)
+	var reopened: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(reopened)
+	if reopened == null: return
+	assert_eq(reopened.offer.offer_id, offer_id)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
+	assert_false(resume.visible)
+
+func _choose_two(fast: bool, low_effects: bool) -> void:
+	game.call("_set_fast", fast, false)
+	game.call("_set_low_effects", low_effects, false)
+	var popup: PopupSkillChoice = await _open()
+	if popup == null: return
+	popup._select(0)
+	popup.confirm_selection()
+	await board.finish_presentation()
+	await wait_process_frames(7)
+	var second: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(second)
+	if second == null: return
+	assert_eq(second.offer.reward_id, 2)
+	var offer: SkillOffer = board.run.state.rewards.active_offer
+	var score: SkillDefinition = preload("res://gameplay/progression/content/score_multiplier.tres")
+	offer.choices = [score]
+	offer.targets[score.skill_id] = SkillRules.freeze_target(board.run.state, score)
+	second.show_offer(offer)
+	assert_true((second.options.get_child(0) as Control).visible)
+	assert_false((second.options.get_child(1) as Control).visible)
+	assert_eq(board.run.state.rewards.consumed_count, 1, "单张仍须确认")
+	second._select(0)
+	second.confirm_selection()
+	await board.finish_presentation()
+	await wait_process_frames(7)
+	assert_eq(board.run.state.rewards.consumed_count, 2)
+	assert_eq(board.run.state.pending_rewards, 0)
+	assert_eq(SkillRules.level(board.run.state, score), 2)
+	assert_true(board.can_selected)
+	assert_false(get_tree().paused)
+	assert_eq(board.run.state.valid_moves, 0)
+
+func test_two_rewards_in_normal_mode() -> void:
+	await _choose_two(false, false)
+
+func test_two_rewards_in_fast_mode() -> void:
+	await _choose_two(true, false)
+
+func test_two_rewards_in_low_effects_mode() -> void:
+	await _choose_two(false, true)
+
+func test_two_rewards_in_combined_mode() -> void:
+	await _choose_two(true, true)

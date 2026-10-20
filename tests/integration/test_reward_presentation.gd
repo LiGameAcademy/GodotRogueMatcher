@@ -27,7 +27,7 @@ func test_match_finishes_before_score_notification_and_reward_popup() -> void:
 	for x: int in range(5): _place(Vector2i(x, 0), 0)
 	watch_signals(GameManager)
 	board.present_matches(board.run.resolve_all_matches())
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	assert_true(board.view.is_presenting())
 	assert_eq(GameManager.score, 100)
 	# 奖励权利在规则结算时已排队，只有面板展示等待演出。
@@ -80,7 +80,7 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	target.color = 1
 	offer.targets[skill.skill_id] = target
 	board.run.state.rewards.active_offer = offer
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
@@ -113,12 +113,12 @@ func test_retry_cancels_wait_without_publishing_old_score_or_opening_reward() ->
 	GameManager.add_score(50)
 	for x: int in range(5): _place(Vector2i(x, 0), 0)
 	board.present_matches(board.run.resolve_all_matches())
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	assert_true(board.view.is_presenting())
 	await board.retry_game(BoardRules.new(BoardState.new(9, 9), 5))
 	assert_eq(GameManager.score, 0)
 	assert_eq(LevelUpSystem.pending_rewards, 0)
-	assert_false(LevelUpSystem.is_resolving)
+	assert_false(is_instance_valid(UIManager.current_popup))
 	assert_false(board.view.is_presenting())
 	assert_false(is_instance_valid(UIManager.current_popup))
 	assert_true(board.can_selected)

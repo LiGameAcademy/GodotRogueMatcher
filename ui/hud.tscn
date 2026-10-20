@@ -185,6 +185,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 28)
 theme_override_constants/separation = 12
 
+[node name="ResumeReward" type="Button" parent="Margin/Rows/Footer"]
+unique_name_in_owner = true
+visible = false
+process_mode = 3
+layout_mode = 2
+text = "继续选卡"
+
 [node name="SelectionLabel" type="Label" parent="Margin/Rows/Footer"]
 unique_name_in_owner = true
 layout_mode = 2

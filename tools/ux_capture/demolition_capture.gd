@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 ## 固定验收盘面；只走真实技能与棋盘入口，不进入发布包或采集样本。
 const MAIN: PackedScene = preload("res://main.tscn")
@@ -46,7 +46,7 @@ func _ready() -> void:
 	board.run.state.pending_rewards = 1
 	board.run.enter_rewards()
 	_offer([&"blast_chain_bonus", &"blast_chain_radius", &"blast_aftershock"])
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await _frames(8)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	if popup == null:
