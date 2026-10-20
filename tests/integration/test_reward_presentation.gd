@@ -15,7 +15,6 @@ func before_each() -> void:
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
 	for piece: PieceState in board.rules.state.get_snapshot(): board.remove_piece(piece.coordinate)
-	LevelUpSystem.reset_system()
 
 func after_each() -> void:
 	get_tree().paused = false

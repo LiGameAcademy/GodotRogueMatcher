@@ -52,7 +52,6 @@ func _ready() -> void:
 	director.step_skip_requested.connect(_on_step_skip_requested)
 	director.playback_failed.connect(_on_playback_failed)
 	view.piece_removing.connect(_on_piece_removing)
-	view.match_visualized.connect(_on_match_visualized)
 	director.busy_changed.connect(view.set_playback_pending)
 
 func _notification(what: int) -> void:
@@ -109,9 +108,6 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 func retry_game(board_rules: BoardRules) -> void:
 	BoardRunFlow.finalize(run, "restart")
 	get_tree().paused = false
-	ItemEffectSystem.placed_items.clear()
-	LevelUpSystem.reset_system()
-	ItemRegistry.register_all_items()
 	await start_game(board_rules, true)
 
 ## 调试入口只在稳定输入点加载固定爆炸盘面。
@@ -126,9 +122,6 @@ func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	director.cancel()
 	can_selected = false
 	selected_piece = null
-	ItemEffectSystem.placed_items.clear()
-	LevelUpSystem.reset_system()
-	ItemRegistry.register_all_items()
 	rules = BoardRules.new(BoardState.new(cols, rows), MatchSystem.MIN_MATCH_COUNT)
 	run = RunController.new(rules, 7)
 	GameManager.reset_game(run)
@@ -190,8 +183,6 @@ func remove_piece(coordinate: Vector2i, animated: bool = false) -> bool:
 	var piece: ChessPiece = view.get_piece(piece_id)
 	if selected_piece == piece:
 		selected_piece = null
-	if is_instance_valid(piece) and piece.item_data != null:
-		ItemEffectSystem.unregister_item(piece)
 	view.remove_piece(snapshot, animated)
 	if director.is_busy(): _compatibility_changed = true
 	_update_count_display()
@@ -218,15 +209,8 @@ func rebuild_view() -> bool:
 func _restore_view(snapshot: Array[PieceState]) -> void:
 	view.rebuild(snapshot)
 	refresh_ability_markers()
-	_sync_items()
 
-func _sync_items() -> void:
-	ItemEffectSystem.placed_items.clear()
-	for cell: Cell in view.get_cells():
-		var piece: ChessPiece = cell.piece
-		if is_instance_valid(piece) and piece.item_data != null: ItemEffectSystem.placed_items.append(piece)
-
-## 消费已经提交的离场快照；旧道具信号暂保留为M3兼容边界。
+## 消费已经提交的离场快照；表现不再通知旧道具执行规则。
 func present_matches(results: Array[MatchResult]) -> void:
 	_submit_plan(PlaybackPlanBuilder.matches(results))
 
@@ -243,10 +227,6 @@ func _submit_plan(steps: Array[PresentationStep]) -> void:
 
 func _on_piece_removing(piece: ChessPiece) -> void:
 	if selected_piece == piece: selected_piece = null
-	if piece.item_data != null: ItemEffectSystem.unregister_item(piece)
-
-func _on_match_visualized(result: MatchResult, cells: Array[Cell]) -> void:
-	if result.cause == &"match": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
 
 ## 演出完成后再广播已提交分数和检查门槛；重试取消旧批次。
 func finish_presentation() -> bool:
@@ -291,7 +271,6 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 			# 旧公开写入口的额外提交只在全部步骤结束后纳入对齐。
 			var ending: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else step.pieces
 			completed = (_compatibility_changed and director.has_queued_steps()) or view.align_snapshot(ending)
-			if completed: _sync_items()
 	if completed: completed = await view.wait_for_animations()
 	if not director.is_current(epoch, token): return
 	if completed:

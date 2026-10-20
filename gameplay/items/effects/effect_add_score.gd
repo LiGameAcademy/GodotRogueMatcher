@@ -15,11 +15,14 @@ func _init(multiplier: float = 1.0, bonus: int = 0) -> void:
 	fixed_bonus = bonus
 
 func apply(context: Dictionary = {}) -> bool:
+	var ledger_value: Variant = context.get("ledger")
+	if not ledger_value is ScoreLedger: return false
+	var ledger: ScoreLedger = ledger_value as ScoreLedger
 	var base_score: int = context.get("score", 0)
 	var bonus_score: int = int(base_score * score_multiplier) + fixed_bonus
 	
 	if bonus_score > 0:
-		GameManager.add_score(bonus_score)
+		ledger.commit(0, 1.0, bonus_score, &"legacy_local")
 		print("效果 [", effect_id, "] 应用：增加 ", bonus_score, " 分")
 		return true
 	
@@ -34,4 +37,3 @@ func get_description() -> String:
 			desc += " + "
 		desc += str(fixed_bonus) + " 分"
 	return desc
-

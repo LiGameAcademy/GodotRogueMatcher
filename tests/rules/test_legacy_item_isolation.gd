@@ -52,3 +52,22 @@ func test_legacy_dispatchers_are_not_installed_or_subscribed() -> void:
 	GameManager.turn_started.emit(1)
 	GameManager.turn_ended.emit(1)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(protected_run)), before)
+
+func test_local_catalog_instances_do_not_share_mutable_effect_config() -> void:
+	var catalog: ItemRegistry = ItemRegistry.new()
+	var first: ItemData = catalog.create_dye_station()
+	var second: ItemData = catalog.create_dye_station()
+	(first.effect_config.effects[0] as EffectDyePiece).target_color = 4
+	assert_ne(first.effect_config, second.effect_config)
+	assert_eq((second.effect_config.effects[0] as EffectDyePiece).target_color, -1)
+
+func test_retained_timing_values_only_control_explicit_local_invocation() -> void:
+	var config: ItemEffectConfig = ItemEffectConfig.new()
+	config.conditions = [ConditionTiming.new(ItemEffectConfig.TriggerTiming.ON_MATCH)]
+	config.effects = [EffectAddScore.new(1.0)]
+	var ledger: ScoreLedger = ScoreLedger.new()
+	assert_eq(ItemEffectConfig.TriggerTiming.ON_MATCH, 3)
+	assert_false(config.apply_effects({"ledger": ledger, "score": 50, "timing": ItemEffectConfig.TriggerTiming.ON_TURN_START}))
+	assert_eq(ledger.total, 0)
+	assert_true(config.apply_effects({"ledger": ledger, "score": 50, "timing": ItemEffectConfig.TriggerTiming.ON_MATCH}))
+	assert_eq(ledger.total, 50)

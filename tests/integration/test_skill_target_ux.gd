@@ -16,7 +16,6 @@ func before_each() -> void:
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
-	LevelUpSystem.reset_system()
 	for piece: PieceState in board.rules.state.get_snapshot(): board.remove_piece(piece.coordinate)
 	var red: PieceState = board.rules.place_piece(Vector2i(2, 2), 0)
 	board.run.abilities.assign_fuse(red.piece_id)

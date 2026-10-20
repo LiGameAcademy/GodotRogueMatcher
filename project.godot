@@ -24,12 +24,8 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
 GameManager="*res://gameplay/run/game_manager.gd"
 MatchSystem="*res://gameplay/board/match_system.gd"
-SpawnManager="*res://gameplay/board/spawn_manager.gd"
 LevelUpSystem="*res://gameplay/progression/level_up_system.gd"
-ItemPlacer="*res://gameplay/items/item_placer.gd"
-ItemEffectSystem="*res://gameplay/items/item_effect_system.gd"
 UIManager="*res://ui/ui_manager.gd"
-ItemRegistry="*res://gameplay/items/item_registry.gd"
 
 [display]
 
