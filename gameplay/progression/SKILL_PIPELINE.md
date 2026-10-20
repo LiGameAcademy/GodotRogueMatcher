@@ -1,6 +1,10 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v36-composite-boundaries`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+规则版本：`run-commands-v37-trigger-strength`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+
+## 离场后代强度（#135第二片）
+
+爆破/扫线在产生离场事件时捕获RemovalStrength，执行时仅查询实际存活目标与目标标记；后叶升级不追溯旧事件，新后代独立采样。余震在实际创建时采样。记录分别保留冻结强度、实际命中和得分，pending_removals仅是只读投影，不是存档恢复。完整染色/附引信等强度窗口仍待后续切片，见docs/quality/issue135_trigger_strength.md。
 
 ## Composite接入首片（#135）
 
@@ -10,7 +14,7 @@
 
 固定目标默认沿用冻结身份；动态染色叶通过refresh_after_previous明确重选，补棋叶只更新数值，颜色权重叶保留颜色并更新数值。执行器只在真正到达叶子时刷新，不预先刷新整棵嵌套树。旧Composite刷新方法保留给已有显式快照测试，执行器已不调用它进行子树预抽。
 
-这是B01/B02与嵌套抽样边界的局部交付，不等于完整B/S/T或#135收口：爆破/扫线强度触发冻结、完整目标失效分类和异形/存档/自动描述接入仍另片处理。具体证据及EX范围见docs/quality/issue135_composite_boundaries.md。
+这是B01/B02与嵌套抽样边界的局部交付，不等于完整B/S/T或#135收口：爆破/扫线强度由第二片接管，完整目标失效分类和异形/存档/自动描述接入仍另片处理。具体证据及EX范围见docs/quality/issue135_composite_boundaries.md。
 
 ## 奖励等待与场景协调（#133）
 

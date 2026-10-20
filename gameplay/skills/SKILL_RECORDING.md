@@ -1,3 +1,7 @@
+# 当前记录增量 · #135第二片
+
+规则版本为 `run-commands-v37-trigger-strength`，旧v36明确拒绝跨版本精确回放。离场爆破/扫线的事件结果增加 `trigger_strength`：范围、过滤、计分系数和装填参数与实际 `removed`/`score` 分列。快照增加 `pending_removals` 的独立只读数据，用于定位等待事件，不代表已支持磁盘恢复。新事件在各自触发时采样，不从根事件继承旧强度。证据见 `docs/evidence/issue135-strength/`；下文保留#63历史记录。
+
 # O4 / #63：技能记录、回放与调试
 
 集成分支 `feature/skill-refactor`；本片独立分支 `feat/issue-63-skill-recording`。
