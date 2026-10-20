@@ -148,3 +148,21 @@ func test_successful_choose_duplicate_keeps_result_and_consumes_once() -> void:
 	assert_eq(run.state.rewards.consumed_count, 1)
 	assert_eq(run.state.pending_rewards, 0)
 	assert_eq(SkillRules.level(run.state, SCORE), 1)
+
+func test_command_cannot_acquire_candidate_with_outdated_frozen_level() -> void:
+	var run: RunController = _run()
+	var offer: SkillOffer = _offer(run, [SCORE, CORE])
+	run.state.explosion.multiplier_level = 1
+	var before: Dictionary = RunSnapshot.capture(run)
+	# 拒绝的命令仍登记身份；游戏状态、随机和奖励必须保持。
+	before.last_command = "1"
+	var command: ChooseSkillCommand = ChooseSkillCommand.new(run.state.run_id, 1, run.state.action_id)
+	command.offer_id = offer.offer_id
+	command.reward_id = offer.reward_id
+	command.skill_id = SCORE.skill_id
+	var result: CommandResult = run.execute_command(command)
+	assert_false(result.accepted)
+	assert_eq(result.reason, "frozen_skill_level_changed")
+	assert_eq(RunSnapshot.capture(run), before)
+	assert_same(run.state.rewards.active_offer, offer)
+	assert_eq(run.state.pending_rewards, 1)
