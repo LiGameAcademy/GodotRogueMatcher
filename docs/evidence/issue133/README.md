@@ -1,5 +1,7 @@
 # #133回归证据 · 2026-10-20
 
+技能卡布局已知失败的后续定位及修正证据另存于[layout-fix](layout-fix/README.md)。以下是修正前的历史运行，不覆盖原始日志或manifest；最新结果以layout-fix为准。
+
 对应[实现、审查与复现说明](../../quality/issue133_reward_coordination.md)。基线`89e05d3`，实现`b92aeae`，仅测试稳定性补充`550aacb`，审查后前置校验`d86775a`；Godot4.7.2 / Compatibility / GUT9.6.0。
 
 | 运行 | 实际结果 |
