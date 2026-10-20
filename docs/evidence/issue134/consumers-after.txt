@@ -1,0 +1,4 @@
+tests\test_core_loop.gd:294:	var item: ItemData = ItemRegistry.new().create_prism_tower()
+tests\rules\test_legacy_item_isolation.gd:49:	for name_text: String in ["SpawnManager", "ItemEffectSystem", "ItemPlacer", "ItemRegistry"]:
+tests\rules\test_legacy_item_isolation.gd:57:	var catalog: ItemRegistry = ItemRegistry.new()
+gameplay\items\item_registry.gd:1:class_name ItemRegistry

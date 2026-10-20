@@ -1,0 +1,100 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue134/red-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_legacy_item_isolation.gd
+[0m* test_local_score_config_does_not_write_current_game
+效果 [add_score] 应用：增加 60 分
+[31m    [Failed]:  [0m[0] expected to equal [60]:  
+      at line 24
+[31m    [Failed]:  [0m["2cda1926fccdb77bf54aeb44ee1ba7538e450e3159e936d06661b1ad45ba7835"] expected to equal ["e7b68a74d3551fdf84c38c81f32a62dbae10ebf38990cd9cd402e1d84539b92c"]:  
+      at line 26
+* test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+[31m    [Failed] [0m
+      at line 35
+[31m    [Failed]:  [0m[1] expected to equal [4]:  
+      at line 36
+[31m    [Failed] [0m
+      at line 38
+[31m    [Failed]:  [0mExpected [<RefCounted#-9223371853697906104>(piece_state.gd)] to be NULL:  
+      at line 39
+* test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+效果 [add_score] 应用：增加 110 分
+[31m    [Failed] [0m
+      at line 45
+[31m    [Failed]:  [0m["80e6b2c3e6ad64f9b43d1e3568e120dbf7c798aeeed179735e19598f07c6a0c1"] expected to equal ["e7b68a74d3551fdf84c38c81f32a62dbae10ebf38990cd9cd402e1d84539b92c"]:  
+      at line 46
+* test_legacy_dispatchers_are_not_installed_or_subscribed
+[31m    [Failed]:  [0mExpected [SpawnManager:<Node#166933300972>(spawn_manager.gd)] to be NULL:  
+      at line 50
+[31m    [Failed]:  [0mExpected [ItemEffectSystem:<Node#167537280753>(item_effect_system.gd)] to be NULL:  
+      at line 50
+[31m    [Failed]:  [0mExpected [ItemPlacer:<Node#167470172227>(item_placer.gd)] to be NULL:  
+      at line 50
+[31m    [Failed]:  [0mExpected [ItemRegistry:<Node#167671498538>(item_registry.gd)] to be NULL:  
+      at line 50
+[1m0/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_legacy_item_isolation.gd
+[0m- test_local_score_config_does_not_write_current_game
+[31m    [Failed]:  [0m[0] expected to equal [60]:  
+          at line 24
+[31m    [Failed]:  [0m["2cda1926fccdb77bf54aeb44ee1ba7538e450e3159e936d06661b1ad45ba7835"] expected to equal ["e7b68a74d3551fdf84c38c81f32a62dbae10ebf38990cd9cd402e1d84539b92c"]:  
+          at line 26
+- test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+[31m    [Failed]:  [0m
+          at line 35
+[31m    [Failed]:  [0m[1] expected to equal [4]:  
+          at line 36
+[31m    [Failed]:  [0m
+          at line 38
+[31m    [Failed]:  [0mExpected [<RefCounted#-9223371853697906104>(piece_state.gd)] to be NULL:  
+          at line 39
+- test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+[31m    [Failed]:  [0m
+          at line 45
+[31m    [Failed]:  [0m["80e6b2c3e6ad64f9b43d1e3568e120dbf7c798aeeed179735e19598f07c6a0c1"] expected to equal ["e7b68a74d3551fdf84c38c81f32a62dbae10ebf38990cd9cd402e1d84539b92c"]:  
+          at line 46
+- test_legacy_dispatchers_are_not_installed_or_subscribed
+[31m    [Failed]:  [0mExpected [SpawnManager:<Node#166933300972>(spawn_manager.gd)] to be NULL:  
+          at line 50
+[31m    [Failed]:  [0mExpected [ItemEffectSystem:<Node#167537280753>(item_effect_system.gd)] to be NULL:  
+          at line 50
+[31m    [Failed]:  [0mExpected [ItemPlacer:<Node#167470172227>(item_placer.gd)] to be NULL:  
+          at line 50
+[31m    [Failed]:  [0mExpected [ItemRegistry:<Node#167671498538>(item_registry.gd)] to be NULL:  
+          at line 50
+
+Totals
+------
+Scripts               1
+Tests                 4
+Passing Tests      none
+Failing Tests         4
+Asserts            6/18
+Time              0.039s
+
+
+[31m---- 4 failing tests ----
+[0m
