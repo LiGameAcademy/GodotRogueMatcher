@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/skill_details.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.035, 0.055, 0.08, 0.98)
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+
+[node name="SkillDetails" type="PanelContainer" node_paths=PackedStringArray("rules_label")]
+mouse_filter = 2
+script = ExtResource("1")
+theme_override_styles/panel = SubResource("Panel")
+rules_label = NodePath("Rules")
+
+[node name="Rules" type="Label" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.85, 0.9, 0.97, 1)
+theme_override_constants/line_spacing = 3
+autowrap_mode = 2

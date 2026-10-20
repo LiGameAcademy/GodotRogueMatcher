@@ -10,6 +10,7 @@ func before_each() -> void:
 	UIManager.close_popup()
 	main = MAIN.instantiate() as Node2D
 	main.get_node("Game").set("persist_preferences", false)
+	(main.get_node("Game/Board") as Board).game_mode = GameModes.CLASSIC
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
@@ -44,6 +45,7 @@ func test_match_finishes_before_score_notification_and_reward_popup() -> void:
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_false(board.view.is_presenting())
 	(UIManager.current_popup as PopupSkillChoice)._select(0)
+	(UIManager.current_popup as PopupSkillChoice).confirm_selection()
 	await wait_process_frames(3)
 
 func test_blast_waits_for_longer_visual_before_reward_pauses_game() -> void:
@@ -61,19 +63,31 @@ func test_blast_waits_for_longer_visual_before_reward_pauses_game() -> void:
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_false(board.view.is_presenting())
 	(UIManager.current_popup as PopupSkillChoice)._select(0)
+	(UIManager.current_popup as PopupSkillChoice).confirm_selection()
 	await wait_process_frames(3)
 
 func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	for x: int in range(4): _place(Vector2i(x, 0), 1)
 	GameManager.add_score(260)
+	# 本例检验出生五连的演出顺序，明确提供所需卡，不依赖随机候选。
+	var offer: SkillOffer = SkillOffer.new()
+	offer.offer_id = board.run.state.rewards.next_offer_id
+	offer.reward_id = board.run.state.rewards.consumed_count + 1
+	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
+	offer.choices = [skill]
+	var target: SkillTarget = SkillRules.freeze_target(board.run.state, skill)
+	target.coordinate = Vector2i(4, 0)
+	target.color = 1
+	offer.targets[skill.skill_id] = target
+	board.run.state.rewards.active_offer = offer
 	LevelUpSystem.resolve_pending_rewards(board)
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
-	popup.offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
 	for index: int in range(popup.offer.choices.size()):
 		if popup.offer.choices[index].skill_id == &"core_drop":
 			popup._select(index)
+			popup.confirm_selection()
 			break
 	assert_true(board.view.is_presenting())
 	assert_false(get_tree().paused)
@@ -87,6 +101,7 @@ func test_core_selection_match_completes_before_next_queued_reward() -> void:
 	assert_eq(GameManager.score, 310)
 	assert_false(board.view.is_presenting())
 	next._select(0)
+	next.confirm_selection()
 	await wait_process_frames(3)
 
 func _place(coordinate: Vector2i, color: int) -> void:

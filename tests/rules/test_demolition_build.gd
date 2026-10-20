@@ -17,8 +17,13 @@ func _detonate(run: RunController, id: int) -> CommandResult:
 
 func _install(run: RunController, key: StringName, value: int = 1) -> void:
 	run.state.explosion.upgrades[key] = value
+	var skill: SkillDefinition = _skill(key)
+	if skill != null and not skill.levels.is_empty():
+		var instance: SkillInstance = SkillInstance.new(skill, 1)
+		for index: int in range(value): instance.commit_next_level()
+		run.state.skill_instances[key] = instance
 
-func test_catalog_has_32_real_distinct_effects_and_five_grades() -> void:
+func test_catalog_has_42_real_distinct_effects_and_five_grades() -> void:
 	var ids: Array[StringName] = []
 	var grades: Array[int] = [0, 0, 0, 0, 0]
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
@@ -26,31 +31,36 @@ func test_catalog_has_32_real_distinct_effects_and_five_grades() -> void:
 		ids.append(skill.skill_id)
 		grades[skill.rarity] += 1
 		var run: RunController = _run()
+		if skill.acquisition_effect() is InstallGoalBonusEffect:
+			var config: StageConfig = StageConfig.new()
+			config.targets = [100]
+			config.pressure_intervals = [4]
+			run.state.stage = StageState.new(config, run.state.ledger)
 		run.state.explosion.core_pool_unlocked = skill.skill_id != &"core_drop"
 		run.state.explosion.fuse_unlocked = true
+		run.state.line_clear.row_unlocked = skill.skill_id != &"line_row_drop"
+		run.state.line_clear.column_unlocked = skill.skill_id != &"line_column_drop"
 		run.state.rewards.acquired[&"core_manual_detonation"] = 1
 		run.state.rewards.acquired[&"fuse_relay"] = 1
+		run.state.rewards.acquired[&"match_dye_echo"] = 1
 		run.state.rewards.consumed_count = 5
 		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, 1), x)
 		run.abilities.assign_fuse(run.state.rules.state.get_piece_id(Vector2i.ZERO + Vector2i.DOWN))
+		run.state.explosion.unlocked = true
 		assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "", String(skill.skill_id))
 		var offer: SkillOffer = SkillOffer.new()
 		offer.offer_id = 1
 		offer.reward_id = 6
 		offer.choices = [skill]
-		var target: SkillTarget = SkillTarget.new()
-		if skill.choice_effect != null: target = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		elif skill.action == SkillDefinition.Action.CORE_DROP: target.coordinate = Vector2i(4, 4)
-		elif skill.action in [SkillDefinition.Action.THIN, SkillDefinition.Action.ASSIGN_FUSE]: target.piece_ids = [run.state.rules.state.get_piece_id(Vector2i(1, 1))]
-		offer.targets[skill.skill_id] = target
+		offer.targets[skill.skill_id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 		run.state.rewards.active_offer = offer
 		run.state.pending_rewards = 1
 		run.enter_rewards()
-		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.choice_effect != null and skill.choice_effect.requires_color_choice() else -1)
+		var result: SkillApplyResult = SkillRules.apply(run, 1, skill.skill_id, 1 if skill.requires_color_choice() else -1)
 		assert_true(result.success, "%s: %s" % [skill.skill_id, result.error])
-		if skill.choice_effect is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
-	assert_eq(ids.size(), 32)
-	assert_eq(grades, [10, 9, 8, 4, 1])
+		if skill.acquisition_effect() is InstallUpgradeEffect: assert_eq(SkillRules.level(run.state, skill), 1)
+	assert_eq(ids.size(), 52)
+	assert_eq(grades, [13, 14, 19, 5, 1])
 
 func test_prerequisites_and_rarity_multiply_after_clamp_once() -> void:
 	var run: RunController = _run()
@@ -211,6 +221,7 @@ func test_core_drop_new_budget_preflight_preserves_entire_choice() -> void:
 	offer.choices = [_skill(&"core_drop")]
 	var target: SkillTarget = SkillTarget.new()
 	target.coordinate = Vector2i(4, 0)
+	target.color = 1
 	offer.targets[&"core_drop"] = target
 	run.state.rewards.active_offer = offer
 	run.state.pending_rewards = 1

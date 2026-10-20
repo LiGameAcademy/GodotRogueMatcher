@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameModeDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://gameplay/run/modes/game_mode_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://gameplay/progression/stages/stage_config.tres" id="2"]
+[resource]
+script = ExtResource("1")
+mode_id = &"stage_challenge"
+title = "阶段挑战"
+description = "未达目标持续补棋升压，达标降压并三选一；满盘结束，超额分、棋盘与构筑延续。"
+stage_config = ExtResource("2")

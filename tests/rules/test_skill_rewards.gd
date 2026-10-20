@@ -13,7 +13,7 @@ func test_first_offer_has_starter_and_distinct_legal_ids() -> void:
 	run.state.rules.place_piece(Vector2i.ZERO, 0)
 	var offer: SkillOffer = generator.generate(run)
 	assert_eq(offer.choices.size(), 3)
-	assert_true(offer.generation_order[0] in [&"core_drop", &"assign_fuse"])
+	assert_true(offer.generation_order[0] in [&"core_drop", &"line_row_drop", &"line_column_drop"])
 	assert_true(_contains(offer, &"core_drop"))
 	for skill: SkillDefinition in offer.choices: assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "")
 	assert_eq(run.state.pending_rewards, 3)
@@ -68,6 +68,9 @@ func test_fuse_marks_actual_one_target_and_preserves_color() -> void:
 func test_weight_example_and_live_driver_compensation() -> void:
 	run.abilities.add_core(Vector2i.ZERO)
 	run.state.rewards.acquired[&"core_drop"] = 1
+	var instance: SkillInstance = SkillInstance.new(_definition(&"core_drop"), 1)
+	instance.commit_next_level()
+	run.state.skill_instances[&"core_drop"] = instance
 	run.state.rewards.acquired[&"assign_fuse"] = 1
 	var profile: Dictionary[StringName, float] = SkillOfferGenerator.build_profile(run.state)
 	assert_eq(profile[&"exp"], 2.0)
@@ -96,7 +99,7 @@ func test_current_and_future_fuses_share_upgraded_radius_only_in_same_run() -> v
 	var offer: SkillOffer = generator.generate(run)
 	# 受控候选用于验证具体应用，不依赖随机恰好展示某项。
 	offer.choices[0] = _definition(&"blast_radius")
-	offer.targets[&"blast_radius"] = SkillTarget.new()
+	offer.targets[&"blast_radius"] = SkillRules.freeze_target(run.state, _definition(&"blast_radius"))
 	assert_true(SkillRules.apply(run, offer.offer_id, &"blast_radius").success)
 	assert_eq(run.state.explosion.radius_level, 1)
 	var other: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
@@ -107,6 +110,7 @@ func test_core_landing_resolves_match_without_movement_and_records_once() -> voi
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 1)
 	var offer: SkillOffer = generator.generate(run)
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
+	offer.targets[&"core_drop"].color = 1
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, &"core_drop")
 	assert_true(result.success)
 	assert_eq(result.matches.size(), 2)
@@ -124,6 +128,7 @@ func test_core_budget_rejection_does_not_insert_or_consume() -> void:
 	run.abilities = AbilityResolver.new(run.state, config)
 	var offer: SkillOffer = generator.generate(run)
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
+	offer.targets[&"core_drop"].color = 1
 	assert_false(SkillRules.apply(run, offer.offer_id, &"core_drop").success)
 	assert_eq(run.state.rules.state.get_piece_count(), 4)
 	assert_eq(run.state.pending_rewards, 3)
@@ -149,7 +154,7 @@ func test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades() -> voi
 		sample.state.rules.place_piece(Vector2i.ZERO, 0)
 		var offer: SkillOffer = generator.generate(sample)
 		var unique: Array[StringName] = []
-		if offer.choices.size() != 3 or offer.generation_order[0] != &"core_drop": invalid += 1
+		if offer.choices.size() != 3 or offer.generation_order[0] not in [&"core_drop", &"line_row_drop", &"line_column_drop"]: invalid += 1
 		for skill: SkillDefinition in offer.choices:
 			if unique.has(skill.skill_id) or not SkillRules.rejection(sample.state, skill, sample.abilities.config).is_empty(): invalid += 1
 			unique.append(skill.skill_id)

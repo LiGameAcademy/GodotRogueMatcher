@@ -17,18 +17,23 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 	var steps: Array[PresentationStep] = []
 	for result: MatchResult in results:
 		# 同代同时显示；下一代只在本代必需动画完成后派发。
-		if steps.is_empty() or steps.back().matches.back().generation != result.generation:
+		if steps.is_empty() or steps.back().matches.back().generation != result.generation or steps.back().matches.back().cause != result.cause:
 			steps.append(PresentationStep.new())
 		var frozen: MatchResult = MatchResult.new()
 		frozen.cause = result.cause
 		frozen.source_id = result.source_id
+		frozen.source_color = result.source_color
+		frozen.previous_colors = result.previous_colors.duplicate()
+		for piece: PieceState in result.recolored: frozen.recolored.append(piece.copy())
 		frozen.center = result.center
+		frozen.line_axis = result.line_axis
 		frozen.radius = result.radius
+		frozen.cross_radius = result.cross_radius
 		frozen.generation = result.generation
 		frozen.score_entry = result.score_entry.copy()
 		for piece: PieceState in result.removed: frozen.removed.append(piece.copy())
 		steps.back().matches.append(frozen)
-		if result.cause != &"explosion":
+		if result.cause not in [&"explosion", &"line_clear"]:
 			steps.back().policy = PresentationStep.Policy.COMPLETE_REQUIRED
 	return steps
 
@@ -58,6 +63,13 @@ static func skill(result: SkillApplyResult, duration: float) -> Array[Presentati
 		step.kind = PresentationStep.Kind.REMOVE
 		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		for piece: PieceState in result.removed: step.pieces.append(piece.copy())
+		steps.append(step)
+	if not result.transformed.is_empty():
+		var step: PresentationStep = PresentationStep.new()
+		step.kind = PresentationStep.Kind.TRANSFORM
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
+		step.duration = maxf(0.0, duration)
+		for piece: PieceState in result.transformed: step.pieces.append(piece.copy())
 		steps.append(step)
 	steps.append_array(matches(result.matches))
 	return steps

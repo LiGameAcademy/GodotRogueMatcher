@@ -3,6 +3,7 @@ extends ChoiceEffect
 
 enum Selector { COLOR, LINE }
 @export var selector: Selector = Selector.COLOR
+@export var score_cleared: bool = false
 
 func requires_color_choice() -> bool:
 	return selector == Selector.COLOR
@@ -48,6 +49,7 @@ func choose_color(frozen: SkillTarget, color: int) -> SkillTarget:
 func build(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectRequest:
 	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
 	request.kind = ChoiceEffectRequest.Kind.CLEAR
+	request.score_cleared = score_cleared
 	if (selector == Selector.COLOR and (target.color < 0 or target.color >= context.color_weights.size())) or (selector == Selector.LINE and target.line_axis not in [0, 1]):
 		request.error = "清理目标配置无效"
 		return request

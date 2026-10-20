@@ -41,6 +41,13 @@ func replay_file(path: String) -> bool:
 	return result
 
 func replay(records: Array[Dictionary]) -> bool:
+	return _replay(records, false)
+
+## 从完整命令前缀重建全部状态和随机流；未结束记录仍不能冒充完整回放。
+func restore_prefix(records: Array[Dictionary]) -> bool:
+	return _replay(records, true)
+
+func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	error = ""
 	complete = false
 	checked_records = 0
@@ -51,7 +58,7 @@ func replay(records: Array[Dictionary]) -> bool:
 	if not CommandCodec.valid_integer(header.get("seed")) or not header.get("config") is Dictionary or not header.get("run_id") is String:
 		return _fail("invalid_header")
 	var config: Dictionary = header.config
-	if header.get("rules_version") != RunSnapshot.RULES_VERSION or header.get("offer_version") != SkillOfferGenerator.CONFIG.rules_version or header.get("content_version") != RunSnapshot.digest(config.get("skills")):
+	if header.get("rules_version") != RunSnapshot.RULES_VERSION or header.get("offer_version") != SkillOfferGenerator.version_for_mode(StringName(str(config.get("mode_id", "classic_endless")))) or header.get("content_version") != RunSnapshot.digest(config.get("skills")):
 		return _fail("record_version_mismatch")
 	for key: String in ["columns", "rows", "match_count"]:
 		if not CommandCodec.valid_integer(config.get(key)): return _fail("invalid_board_config")
@@ -59,11 +66,16 @@ func replay(records: Array[Dictionary]) -> bool:
 	var rows: int = config.rows.to_int()
 	var match_count: int = config.match_count.to_int()
 	if columns <= 0 or columns > 64 or rows <= 0 or rows > 64 or match_count < 2 or match_count > 128: return _fail("invalid_board_dimensions")
-	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count), header.seed.to_int())
+	var stage_config: StageConfig = null
+	if not config.get("challenge") is Dictionary: return _fail("invalid_stage_config")
+	if not config.challenge.is_empty():
+		stage_config = StageConfig.from_record(config.challenge)
+		if stage_config == null: return _fail("invalid_stage_config")
+	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count), header.seed.to_int(), stage_config)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
-	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition"]: return _fail("unsupported_initialization")
+	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"]: return _fail("unsupported_initialization")
 	run.initialize(header.initialization)
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()
@@ -89,7 +101,9 @@ func replay(records: Array[Dictionary]) -> bool:
 					else: return _fail("seq=%d missing_command_result" % (index + 1))
 				"Footer":
 					if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
-					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != "board_full" or not run.state.rules.state.get_empty_coordinates().is_empty()):
+					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"challenge_completed"]):
+						return _fail("invalid_completed_footer")
+					if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
 						return _fail("invalid_completed_footer")
 					if expected.status == "rule_error" and run.state.rule_error.is_empty(): return _fail("invalid_rule_error_footer")
 					if expected.status == "rule_error" and expected.get("reason") != run.state.rule_error: return _fail("invalid_rule_error_reason")
@@ -109,6 +123,13 @@ func replay(records: Array[Dictionary]) -> bool:
 			if index != records.size() - 1: return _fail("records_after_footer")
 			if not expected.get("record_complete", false): return _fail("record_write_incomplete")
 			complete = true
+	if prefix:
+		if complete or records.back().get("kind") != "Checkpoint" or generated.records.size() != records.size(): return _fail("unsafe_prefix_boundary")
+		if run.state.is_game_over or run.state.phase not in [RunState.Phase.INPUT, RunState.Phase.REWARDS]: return _fail("unsafe_prefix_phase")
+		# Header元数据不参与规则比较，但后续工具记录必须保留来源。
+		generated.records[0] = header.duplicate(true)
+		generated.metadata = header.get("metadata", {}).duplicate(true)
+		return true
 	if not complete: return _fail("incomplete_record_no_footer")
 	return true
 
@@ -130,3 +151,30 @@ func _difference(expected: Variant, actual: Variant, path: String) -> String:
 func _fail(reason: String) -> bool:
 	error = reason
 	return false
+
+## Human-readable Chinese summary for tools / ResultViewer; keeps machine `error` code intact.
+static func describe_error(code: String) -> String:
+	if code.is_empty(): return ""
+	if code.begins_with("seq=") and code.contains(" expected="):
+		return "第%s条记录状态不一致：%s" % [code.get_slice(" ", 0).trim_prefix("seq="), code]
+	match code:
+		"cannot_read_record": return "无法读取记录文件"
+		"incomplete_last_line": return "记录截断：最后一行不完整"
+		"invalid_json_line_1", "invalid_record_sequence": return "记录格式或序号无效"
+		"missing_header": return "缺少 Header"
+		"unsupported_schema": return "不支持的记录 schema"
+		"godot_version_mismatch": return "Godot 版本与录制时不一致"
+		"invalid_header": return "Header 字段无效"
+		"record_version_mismatch": return "规则/内容/候选版本与当前构建不匹配（旧局不能跨版本精确回放）"
+		"configuration_mismatch": return "配置指纹与当前规则不一致"
+		"initial_state_mismatch": return "初始盘面与记录不一致"
+		"incomplete_record_no_footer": return "记录截断：缺少 Footer"
+		"record_write_incomplete": return "记录写入不完整（Footer.record_complete=false）"
+		"records_after_footer": return "Footer 之后仍有多余记录"
+		"unsupported_initialization": return "不支持的初始化方式"
+		"invalid_completed_footer", "invalid_rule_error_footer", "invalid_rule_error_reason", "invalid_unfinished_footer":
+			return "Footer 终局语义与规则状态不符"
+		_: pass
+	if code.begins_with("invalid_json_line_"): return "第%s行 JSON 无效" % code.trim_prefix("invalid_json_line_")
+	if code.begins_with("seq="): return "回放在序号 %s 失败：%s" % [code.get_slice(" ", 0).trim_prefix("seq="), code]
+	return code

@@ -11,6 +11,7 @@ func before_each() -> void:
 	UIManager.close_popup()
 	main = MAIN.instantiate() as Node2D
 	main.get_node("Game").set("persist_preferences", false)
+	(main.get_node("Game/Board") as Board).game_mode = GameModes.CLASSIC
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
@@ -29,7 +30,7 @@ func test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id != id: continue
 			offer.choices.append(skill)
-			offer.targets[id] = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+			offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	var popup: PopupSkillChoice = POPUP.instantiate() as PopupSkillChoice
 	add_child_autofree(popup)
 	var random_before: int = run.state.rewards.target_random.state
@@ -38,13 +39,16 @@ func test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
 	for card: SkillCard in popup.options.get_children(): texts.append(card.preview_label.text)
 	assert_string_contains(texts[0], "3 → 2 枚")
 	assert_string_contains(texts[1], "4 → 6")
-	assert_string_contains(texts[2], "直接清理 1 枚")
+	assert_string_contains(texts[2], "清理1枚普通棋")
 	popup.show_offer(offer)
 	assert_eq(run.state.rewards.target_random.state, random_before)
 	run.state.spawning.extend_refill(-1, 3)
 	run.state.spawning.color_weights[0] = 6
-	assert_string_contains(HudDetails.skills(run.state), "下次普通补棋 2 枚")
-	assert_string_contains(HudDetails.skills(run.state), "红色 6／22（27.3%）")
+	var hud: Hud = main.get_node("Game/UILayer/HUD") as Hud
+	hud.show_run(run)
+	assert_string_contains(hud.spawn_preview.title.text, "2 枚")
+	assert_string_contains(hud.piece_pool.details.text, "6/22（27.3%）")
+	assert_false(HudDetails.skills(run.state).contains("27.3%"))
 
 func test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds() -> void:
 	for fast: bool in [false, true]:
@@ -63,9 +67,7 @@ func test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds() -> 
 		offer.offer_id = 9
 		offer.reward_id = 3
 		offer.choices = [skill]
-		var target: SkillTarget = SkillTarget.new()
-		target = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
-		offer.targets[skill.skill_id] = target
+		var target: SkillTarget = SkillRules.freeze_target(run.state, skill)
 		offer.targets[skill.skill_id] = target
 		run.state.rewards.active_offer = offer
 		var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, skill.skill_id, 0)
@@ -95,9 +97,7 @@ func test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup(
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id == id:
 				offer.choices.append(skill)
-				offer.targets[id] = SkillTarget.new()
-	var target: SkillTarget = offer.targets[&"instant_color_clear"]
-	offer.targets[&"instant_color_clear"] = offer.choices[0].choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+				offer.targets[id] = SkillRules.freeze_target(run.state, skill)
 	run.state.rewards.active_offer = offer
 	LevelUpSystem.resolve_pending_rewards(board)
 	await board.finish_presentation()
@@ -106,7 +106,7 @@ func test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup(
 	assert_not_null(popup)
 	popup._select(0)
 	popup.picker.select_color(0)
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	assert_eq(GameManager.score, 1000)
 	assert_true(board.view.is_presenting())
 	assert_false(get_tree().paused)

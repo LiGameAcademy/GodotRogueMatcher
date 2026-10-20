@@ -11,6 +11,7 @@ func before_each() -> void:
 	UIManager.close_popup()
 	main = MAIN_SCENE.instantiate() as Node2D
 	main.get_node("Game").set("persist_preferences", false)
+	(main.get_node("Game/Board") as Board).game_mode = GameModes.CLASSIC
 	main.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
@@ -156,7 +157,9 @@ func test_reward_filling_last_space_ends_before_next_reward() -> void:
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	_use_core_candidate(popup)
 	popup._select(_skill_index(popup, &"core_drop"))
+	popup.confirm_selection()
 	await get_tree().create_timer(0.85).timeout
 	assert_true(GameManager.is_game_over)
 	assert_eq(board.get_empty_cells().size(), 0)
@@ -195,9 +198,12 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)
+	_use_core_candidate(popup)
 	var index: int = _skill_index(popup, &"core_drop")
 	popup._select(index)
+	popup.confirm_selection()
 	popup._select(index)
+	popup.confirm_selection()
 	assert_true(await board.director.wait_until_idle())
 	await wait_process_frames(3)
 	assert_eq(board.rules.state.get_piece_count(), 1)
@@ -206,6 +212,7 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	assert_eq(second.offer.reward_id, 2)
 	_use_score_candidate(second)
 	second._select(_skill_index(second, &"score_multiplier"))
+	second.confirm_selection()
 	await wait_process_frames(3)
 	assert_eq(board.run.state.explosion.multiplier_level, 1)
 	assert_eq(board.run.state.rewards.consumed_count, 2)
@@ -232,7 +239,9 @@ func test_f7_uses_real_reward_popup_and_returns_to_same_turn() -> void:
 	assert_true(get_tree().paused)
 	assert_false(board.can_selected)
 	assert_eq(LevelUpSystem.pending_rewards, 1)
+	_use_core_candidate(popup)
 	popup._select(_skill_index(popup, &"core_drop"))
+	popup.confirm_selection()
 	assert_true(await board.director.wait_until_idle())
 	await wait_process_frames(3)
 	assert_false(get_tree().paused)
@@ -248,15 +257,18 @@ func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	_use_core_candidate(popup)
 	var previous: int = popup.offer.offer_id
 	_place(popup.offer.targets[&"core_drop"].coordinate, 0)
 	popup._select(_skill_index(popup, &"core_drop"))
+	popup.confirm_selection()
 	assert_eq(LevelUpSystem.pending_rewards, 1)
 	assert_eq(board.run.state.rewards.consumed_count, 0)
 	assert_ne(popup.offer.offer_id, previous)
 	assert_eq(board.run.state.rules.state.get_piece_count(), 1)
 	_use_score_candidate(popup)
 	popup._select(_skill_index(popup, &"score_multiplier"))
+	popup.confirm_selection()
 	await wait_process_frames(3)
 	assert_eq(LevelUpSystem.pending_rewards, 0)
 	assert_eq(board.run.state.explosion.multiplier_level, 1)
@@ -415,10 +427,21 @@ func _fill_without_lines() -> void:
 			_place(Vector2i(x, y), (x + 2 * y) % 5)
 
 ## 交互验收使用受控候选；候选概率在规则测试中独立验证。
+func _use_core_candidate(popup: PopupSkillChoice) -> void:
+	for existing: SkillDefinition in popup.offer.choices:
+		if existing.skill_id == &"core_drop": return
+	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
+	var target: SkillTarget = SkillRules.freeze_target(board.run.state, skill)
+	target.coordinate = board.rules.state.get_empty_coordinates()[0]
+	popup.offer.choices[0] = skill
+	popup.offer.targets[skill.skill_id] = target
+	popup.show_offer(popup.offer)
+
+## 交互验收使用受控候选；候选概率在规则测试中独立验证。
 func _use_score_candidate(popup: PopupSkillChoice) -> void:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		if skill.skill_id != &"score_multiplier": continue
 		popup.offer.choices[0] = skill
-		popup.offer.targets[skill.skill_id] = SkillTarget.new()
+		popup.offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill)
 		popup.show_offer(popup.offer)
 		return

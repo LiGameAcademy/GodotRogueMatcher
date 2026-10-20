@@ -9,6 +9,7 @@ func before_each() -> void:
 	UIManager.close_popup()
 	var main: Node2D = MAIN.instantiate() as Node2D
 	main.get_node("Game").set("persist_preferences", false)
+	(main.get_node("Game/Board") as Board).game_mode = GameModes.CLASSIC
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
@@ -80,6 +81,7 @@ func test_reward_popup_discards_previous_board_intent() -> void:
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_eq(board.input_buffer.piece_id, 0)
 	(UIManager.current_popup as PopupSkillChoice)._select(0)
+	(UIManager.current_popup as PopupSkillChoice).confirm_selection()
 	if not board.can_selected: await GameManager.turn_started
 	await wait_process_frames(3)
 	assert_eq(GameManager.turn_count, 2)

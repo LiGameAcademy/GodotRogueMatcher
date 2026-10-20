@@ -47,9 +47,13 @@ popup/item_0/text = "1 倍"
 popup/item_1/text = "4 倍"
 popup/item_2/text = "16 倍"
 
+[node name="Validate" type="Button" parent="Controls/Actions"]
+layout_mode = 2
+text = "验证回放"
+
 [node name="Status" type="Label" parent="Controls"]
 layout_mode = 2
-text = "结果观看 · 不验证规则一致性"
+text = "结果观看 · 不验证规则一致性（可用“验证回放”）"
 
 [node name="Clock" type="Timer" parent="."]
 wait_time = 0.3

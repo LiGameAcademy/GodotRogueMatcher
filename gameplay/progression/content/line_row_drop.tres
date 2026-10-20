@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/unlock_line_supply_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+axis = 0
+
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("3")
+ability_id = &"unlock_line_row_supply"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("ability")])
+
+[resource]
+script = ExtResource("1")
+skill_id = &"line_row_drop"
+title = "行清除手登场"
+description = "本局解锁行清除手随机补给，并立即在随机空格放入首枚。颜色按当前棋子池权重抽取，候选时锁定。场上可多枚；主动扫线与升级见后续技能。"
+short_description = "解锁行清除补给，立即放入一枚。\n消除时扫清所在行。"
+levels = Array[ExtResource("2")]([SubResource("level_1")])
+base_weight = 10.0
+tags = Array[StringName]([&"space"])
+is_starter = true
+is_persistent = true
+fallback_only = false
+rarity = 0
+maximum_level = 1
+minimum_reward = 1
+requires_core = false
+requires_fuse_unlock = false
+requires_fuse = false
+prerequisite = &""

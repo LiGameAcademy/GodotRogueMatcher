@@ -1,17 +1,21 @@
 class_name ChoiceEffect
-extends Resource
+extends SkillEffect
 
-## 单叶子选择效果契约：查询快照、冻结目标、生成请求；提交由SkillRules负责。
+## Single-leaf acquire effect: query snapshot, freeze targets, build request; SkillRules/AbilityEffectRunner commit.
 func requires_color_choice() -> bool:
 	return false
 
 func rejection(_context: ChoiceEffectContext) -> String:
-	return "选择效果缺少实现"
+	return "choice effect is not implemented"
 
 func freeze(_context: ChoiceEffectContext, _random: RandomNumberGenerator) -> SkillTarget:
 	return SkillTarget.new()
 
 func build(_context: ChoiceEffectContext, _target: SkillTarget) -> ChoiceEffectRequest:
 	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
-	request.error = "选择效果缺少实现"
+	request.error = "choice effect is not implemented"
 	return request
+
+## Later composite leaves refresh after prior commits; effects may preserve previewed choices.
+func refresh_after_previous(context: ChoiceEffectContext, _frozen: SkillTarget, random: RandomNumberGenerator) -> SkillTarget:
+	return freeze(context, random)

@@ -10,6 +10,7 @@ func add(records: Array[Dictionary], replay_error: String = "") -> void:
 	if records.is_empty(): return
 	var header: Dictionary = records[0]
 	var base: Dictionary = {"run_id": header.run_id, "source": header.source, "rules_version": header.rules_version, "strategy": header.get("metadata", {}).get("strategy", "human"), "config_hash": header.config_hash}
+	base["mode_id"] = header.get("config", {}).get("mode_id", "unknown")
 	base.merge({"seed": header.seed, "content_version": header.content_version, "offer_version": header.offer_version, "build": header.build, "bot_config_hash": RunSnapshot.digest(header.get("metadata", {}).get("bot_config", {}))})
 	var reward_rows: Dictionary = {}
 	var choices: Dictionary = {}
@@ -19,7 +20,7 @@ func add(records: Array[Dictionary], replay_error: String = "") -> void:
 	for record: Dictionary in records:
 		match record.kind:
 			"CommandAttempt":
-				if record.accepted and record.command.type in ["move", "detonate"]: last_move_command = record.command
+				if record.accepted and record.command.type in ["move", "detonate", "activate_line"]: last_move_command = record.command
 			"Offer":
 				for id: String in record.offer.choices:
 					var row: Dictionary = base.duplicate()

@@ -11,3 +11,5 @@ extends Resource
 @export var anticipation_ratio: float = 0.25
 @export var blast_seconds: float = 0.38
 @export var blast_color: Color = Color("ffbf75")
+@export var line_clear_seconds: float = 0.38
+@export var line_clear_color: Color = Color("74ddcf")

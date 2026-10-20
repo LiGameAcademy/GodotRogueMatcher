@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"core_radius"
 title = "重装爆壳"
 description = "本局当前及未来爆壳手的爆炸半径+1；仅核心来源，最终半径上限3。"
+short_description = "核心爆炸半径+1，上限3；引信与余震不变。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

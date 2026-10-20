@@ -54,10 +54,11 @@ var item_data: ItemData = null :
 var tween: Tween = null
 var is_selected: bool = false
 var low_effects: bool = false
+var _appearance: BoardAppearance
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
-	if is_instance_valid(aura): aura.show_selection(color_for(piece_type), is_selected and not is_eliminating, low_effects)
+	if is_instance_valid(aura): aura.show_selection(_piece_color(), is_selected and not is_eliminating, low_effects)
 	if glow_particles:
 		glow_particles.emitting = false
 		glow_particles.visible = not enabled
@@ -77,6 +78,18 @@ func _ready() -> void:
 	polygon.material = _surface
 	setup_glow_particles()
 	update_visual()
+
+func apply_game_theme(appearance: BoardAppearance) -> void:
+	_appearance = appearance
+	_surface.set_shader_parameter("surface_strength", appearance.surface_strength)
+	shadow_polygon.color = appearance.piece_shadow
+	shadow_polygon.position = appearance.shadow_offset
+	ability_marker.add_theme_color_override("font_color", appearance.marker_color)
+	ability_marker.add_theme_color_override("font_shadow_color", appearance.marker_background)
+	update_visual()
+
+func _piece_color() -> Color:
+	return _appearance.piece_colors[posmod(piece_type, 5)] if _appearance != null else color_for(piece_type)
 
 ## 是否正在移动
 func is_moving() -> bool:
@@ -122,7 +135,7 @@ func _update_shape_visual() -> void:
 		
 		# 确保 piece_type 在有效范围内
 		var type_index: int = posmod(piece_type, JUICE.piece_colors.size())
-		var color: Color = color_for(type_index)
+		var color: Color = _piece_color()
 		var shape_type: ShapeType = type_index as ShapeType  # 颜色和形状一一对应
 		
 		# 设置颜色
@@ -232,12 +245,12 @@ func selected() -> void:
 	if tween != null: tween.kill()
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE * (1.04 if low_effects else JUICE.selected_scale), 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	aura.show_selection(color_for(piece_type), true, low_effects)
+	aura.show_selection(_piece_color(), true, low_effects)
 ## 取消选择动画效果
 func deselected() -> void:
 	if not is_selected: return
 	is_selected = false
-	aura.show_selection(color_for(piece_type), false, low_effects)
+	aura.show_selection(_piece_color(), false, low_effects)
 	if _is_moving or is_eliminating: return
 	if tween != null: tween.kill()
 	tween = create_tween()
@@ -259,7 +272,7 @@ func eliminate() -> void:
 	if is_eliminating: return
 	is_eliminating = true
 	is_selected = false
-	aura.show_selection(color_for(piece_type), false, low_effects)
+	aura.show_selection(_piece_color(), false, low_effects)
 	if tween != null: tween.kill()
 	tween = create_tween()
 	var anticipation: float = 0.0 if low_effects else JUICE.elimination_seconds * JUICE.anticipation_ratio
@@ -278,7 +291,7 @@ func reset() -> void:
 	rotation = 0.0
 	modulate.a = 0.5 if is_ghost else 1.0
 	_set_flash(0.0)
-	aura.show_selection(color_for(piece_type), false, low_effects)
+	aura.show_selection(_piece_color(), false, low_effects)
 	if polygon:
 		polygon.modulate.a = 1.0
 	if sprite:

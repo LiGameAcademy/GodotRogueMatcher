@@ -12,13 +12,33 @@ func _init(config: SpawnConfig, run_seed: int = 0) -> void:
 	content_random.seed = run_seed ^ 0x535041574E
 
 ## 只在规则入口补足计划；已显示的前缀不因权重或数量变化重抽。
-func ensure_plan(count: int, explosion: ExplosionState, core_color: int) -> void:
+func ensure_plan(count: int, explosion: ExplosionState, line_clear: LineClearState = null) -> void:
 	while _plan.size() < count:
-		var core: bool = false
-		if explosion.core_pool_unlocked:
-			var weight: int = DemolitionRules.CONFIG.core_type_weight + explosion.level(&"core_supply_up") * DemolitionRules.CONFIG.core_supply_per_level
-			core = content_random.randi_range(1, DemolitionRules.CONFIG.ordinary_type_weight + weight) <= weight
-		_plan.append(SpawnToken.new(draw_color(content_random), core, core_color))
+		_plan.append(_draw_token(explosion, line_clear if line_clear != null else LineClearState.new()))
+
+func _draw_token(explosion: ExplosionState, line_clear: LineClearState) -> SpawnToken:
+	var color: int = draw_color(content_random)
+	var ordinary: int = DemolitionRules.CONFIG.ordinary_type_weight
+	var core_weight: int = 0
+	if explosion.core_pool_unlocked:
+		core_weight = DemolitionRules.CONFIG.core_type_weight + explosion.level(&"core_supply_up") * DemolitionRules.CONFIG.core_supply_per_level
+	var row_weight: int = 0
+	var column_weight: int = 0
+	if line_clear.row_unlocked:
+		row_weight = LineClearRules.CONFIG.line_type_weight + line_clear.level(&"line_row_supply") * LineClearRules.CONFIG.line_supply_per_level
+	if line_clear.column_unlocked:
+		column_weight = LineClearRules.CONFIG.line_type_weight + line_clear.level(&"line_column_supply") * LineClearRules.CONFIG.line_supply_per_level
+	var total: int = ordinary + core_weight + row_weight + column_weight
+	var sample: int = content_random.randi_range(1, total)
+	if sample <= core_weight:
+		return SpawnToken.new(color, true, color, -1)
+	sample -= core_weight
+	if sample <= row_weight:
+		return SpawnToken.new(color, false, color, LineClearState.AXIS_ROW)
+	sample -= row_weight
+	if sample <= column_weight:
+		return SpawnToken.new(color, false, color, LineClearState.AXIS_COLUMN)
+	return SpawnToken.new(color, false, color, -1)
 
 func consume_token() -> SpawnToken:
 	return _plan.pop_front()
@@ -35,26 +55,33 @@ func plan_data() -> Array[Dictionary]:
 	for token: SpawnToken in _plan: result.append(token.data())
 	return result
 
-func next_refill_count(config: SpawnConfig) -> int:
-	return config.refill_count + (1 if refill_batches[1] > 0 else 0) - (1 if refill_batches[-1] > 0 else 0)
+func next_refill_count(config: SpawnConfig, base_count: int = -1) -> int:
+	var base: int = config.refill_count if base_count < 0 else base_count
+	return clampi(base + (1 if refill_batches[1] > 0 else 0) - (1 if refill_batches[-1] > 0 else 0), config.minimum_refill, config.maximum_refill)
 
 func extend_refill(delta: int, batches: int) -> void:
 	refill_batches[delta] += batches
 
-func consume_refill_count(config: SpawnConfig) -> int:
-	var count: int = next_refill_count(config)
-	for delta: int in refill_batches:
-		refill_batches[delta] = maxi(0, refill_batches[delta] - 1)
+func consume_refill_count(config: SpawnConfig, base_count: int = -1) -> int:
+	var count: int = next_refill_count(config, base_count)
+	consume_refill_modifiers()
 	return count
 
+func consume_refill_modifiers() -> void:
+	for delta: int in refill_batches:
+		refill_batches[delta] = maxi(0, refill_batches[delta] - 1)
+
 func draw_color(random: RandomNumberGenerator) -> int:
+	return sample_color(color_weights, random)
+
+static func sample_color(weights: Array[int], random: RandomNumberGenerator) -> int:
 	# 均匀权重直接抽颜色；内容随机流与落点流相互独立。
-	if color_weights.all(func(weight: int) -> bool: return weight == color_weights[0]):
-		return random.randi_range(0, color_weights.size() - 1)
+	if weights.all(func(weight: int) -> bool: return weight == weights[0]):
+		return random.randi_range(0, weights.size() - 1)
 	var total: int = 0
-	for weight: int in color_weights: total += weight
+	for weight: int in weights: total += weight
 	var sample: int = random.randi_range(1, total)
-	for color: int in range(color_weights.size()):
-		sample -= color_weights[color]
+	for color: int in range(weights.size()):
+		sample -= weights[color]
 		if sample <= 0: return color
-	return color_weights.size() - 1
+	return weights.size() - 1

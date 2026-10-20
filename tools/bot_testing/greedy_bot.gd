@@ -11,7 +11,7 @@ func choose(run: RunController) -> RunCommand:
 		for skill: SkillDefinition in run.state.rewards.active_offer.choices:
 			var value: float = config.skill_weights.get(skill.skill_id, 0.0)
 			if not run.state.explosion.unlocked and skill.is_starter: value += config.starter_weight
-			if skill.action == SkillDefinition.Action.THIN and density >= config.dense_threshold: value += config.dense_thin_weight
+			if skill.acquisition_effect() is ThinMaterialEffect and density >= config.dense_threshold: value += config.dense_thin_weight
 			if value > best_score or (value == best_score and String(skill.skill_id) < String(best)):
 				best = skill.skill_id
 				best_score = value
@@ -29,8 +29,19 @@ func choose(run: RunController) -> RunCommand:
 			hits += 1
 		if hits >= run.state.rules.minimum_match_count: return detonations[0]
 	var moves: Array[MovePieceCommand] = legal_moves(run)
-	last_legal_count = moves.size()
-	if moves.is_empty(): return detonations[0] if not detonations.is_empty() else null
+	var sweeps: Array[ActivateLineCommand] = legal_line_activations(run)
+	last_legal_count = moves.size() + detonations.size() + sweeps.size()
+	var sweep_effect: LineSweepEffect = AbilityResolver.LINE_SWEEP.effect as LineSweepEffect
+	for sweep: ActivateLineCommand in sweeps:
+		var source: PieceState = run.state.rules.state.get_piece(sweep.piece_id)
+		var radius: int = LineClearRules.radius(run.state.line_clear, LineClearState.axis_of(source.content_id))
+		var cross_radius: int = LineClearRules.cross_radius(run.state.line_clear, LineClearState.axis_of(source.content_id))
+		var targets: BlastRequest = sweep_effect.build_request(run.state.rules.state, source, radius, cross_radius)
+		# Source consumption also frees a cell; use only the current board, not future RNG.
+		if targets.target_ids.size() + 1 > run.state.next_refill_count(): return sweep
+	if moves.is_empty():
+		if not detonations.is_empty(): return detonations[0]
+		return sweeps[0] if not sweeps.is_empty() else null
 	var colors: Dictionary[Vector2i, int] = {}
 	var pieces: Dictionary[int, PieceState] = {}
 	for piece: PieceState in run.state.rules.state.get_snapshot():

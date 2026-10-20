@@ -1,4 +1,4 @@
-# 当前工程目录 · 2026-10-07
+# 当前工程目录 · 2026-10-09
 
 按功能组织代码和场景，同一功能的规则、配置类型与表现放在所属模块；不再使用scripts/作为第二套分类入口。
 
@@ -10,10 +10,10 @@ res://
 │  ├─ board/               状态、规则、匹配、生成、协调与BoardView
 │  │  ├─ cell/             Cell场景及同名脚本
 │  │  └─ piece/            ChessPiece场景及同名脚本
-│  ├─ run/                 RunController/RunState、补棋配置/每局权重、记录与回放
+│  ├─ run/                 RunController/RunState、modes只读模式、补棋、记录与回放
 │  ├─ scoring/             ScoreLedger、ScoreEntry
 │  ├─ items/               道具类型、索引、放置、效果、conditions/、effects/
-│  ├─ progression/         升级/稀有度/候选流程、选择效果叶子及32项技能Resource
+│  ├─ progression/         经典门槛、stages挑战配置/状态/结果、候选与38项技能Resource
 │  ├─ skills/              Ability触发适配、爆炸/引信/根行动组合与只读配置
 │  └─ presentation/        现有辉光辅助
 ├─ ui/                     HUD、弹窗、UIManager
@@ -43,3 +43,5 @@ M4：gameplay/progression/拥有首片技能定义、content配置、候选及�
 GDC33：run/commands/定义移动与技能选择意图；run/recording/规范化快照并写本地JSONL；run/replay/重算共享规则并定位首处差异。progression/progression_state.gd拥有本局累计门槛，LevelUpSystem仅转发及协调界面。tools/bot_testing/只在显式运行时测试或观看，不自动代玩发行游戏，详见工具README。
 
 M5-A：presentation/presentation_director同名场景/脚本管理本局播放队列；playback_plan_builder复制结果，presentation_step承载步骤，presentation_config管理1×/2×与出生时长。导演和BoardView由Board共同协调；正常局及旧补棋显示入口统一。F8切换速度，完整政策和存档仍待后续。
+
+0.0.2 O1：`run/modes/`维护经典无尽/阶段挑战的只读定义；`progression/stages/`维护阶段表、每局状态和结算快照。正常局默认挑战，菜单切换创建新RunController；规则推进仍只有一个入口。`ui/stage_text.gd`格式化阶段/终局文本，HUD与菜单只消费规则状态。`batch_cli.gd`在Autoload就绪后加载`batch_job.gd`，规则/回放异常返回失败状态；`--legacy`选择经典对照。

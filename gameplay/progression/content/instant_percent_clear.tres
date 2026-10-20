@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/percent_clear_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+ratio = 0.25
+
+[resource]
+script = ExtResource("1")
+skill_id = &"instant_percent_clear"
+title = "随机疏林"
+description = "随机清理25%的普通棋，数量向下取整，保留特殊伙伴。直接清理无分；引信爆炸照常计分。"
+short_description = "随机清理25%普通棋（向下取整）。\n直接清理无分；引信爆炸照常计分。"
+base_weight = 5.0
+tags = Array[StringName]([&"space", &"exp"])
+is_persistent = false
+rescue_offer = true
+minimum_reward = 3
+choice_effect = SubResource("effect")
+rarity = 2
+maximum_level = 0
+is_starter = false
+requires_core = false
+requires_fuse_unlock = false
+requires_fuse = false

@@ -1,27 +1,37 @@
-# Skill Lines 0.0.1 — Web Preview
+# Skill Lines 0.0.2 — Web Preview
 
-[Play online](https://godot-li.itch.io/roguematcher) · [Source](https://github.com/LiGameAcademy/GodotRogueMatcher) · [Patreon](https://www.patreon.com/cw/LiGameAcademy)
+[Project / source](https://github.com/LiGameAcademy/GodotRogueMatcher) · [itch.io](https://godot-li.itch.io/roguematcher) · [中文说明](https://github.com/LiGameAcademy/GodotRogueMatcher/blob/feature/stage-challenge/README.zh_CN.md)
 
-Five-in-a-row with 32 roguelite skills, Blast Core upgrades, score feedback, next-turn preview, and four independent tutorial exercises. An open-source AI-assisted vibe-coding tutorial by Li Game Academy, developed with Cursor and OpenAI Codex / ChatGPT.
+This is the 0.0.2 Web preview package. See the release build manifest for source identity and SHA256.
 
-Choose English, 简体中文, or System on the start / pause menu. Language and presentation settings are stored locally.
+## Play
 
-Click a piece, then a reachable empty cell. Align at least five matching colors horizontally, vertically, or diagonally. Non-clearing moves usually refill three pieces; a full board ends the run. After acquiring manual detonation, double-click a Blast Core to spend an action and detonate it.
+Move a piece to a reachable empty cell. Five or more matching colors in a horizontal, vertical, or diagonal line clear and score. A move without a direct match adds the previewed pieces; clearing the entire board also refills. A full board ends the run.
 
-Esc pauses / resumes; F1 opens help; F8 changes playback speed; F9 skips skippable presentation. Hover over special pieces for details. Color-clearing skills require an explicit color choice.
+Choose Stage challenge (default) or Classic endless on the start menu. In Stage challenge, unmet targets increase refills from 3 to at most 5, including skill modifiers. Reach the cumulative target total to reset pressure and choose a skill. Instant skill scores also count. Each stage needs a new valid action; a full board takes priority. Complete eight stages to win, or continue with the same board, score, and build and further targets increasing by 1,000 per stage.
 
-Desktop browsers with mouse and keyboard, recommended 1280×720 or larger. Mobile touch and cross-refresh run continuation are not included. Balance is experimental; missions and additional rescue pieces are planned. Settings and records stay in local browser storage, with no telemetry upload endpoint.
+Build explosive and row/column-clearing chains. Manual abilities spend an action and have three uses per card per run; chains do not spend extra uses. Select a skill card, then confirm below the cards. Hover over special pieces for details. Browse the piece pool and filter/sort skill cards in the skill pool.
+
+Esc pauses/resumes; F1 opens settings; F8 changes playback speed; F9 skips skippable presentation. Settings include language, sound, two themes, animated background, board signal, and low effects. Four independent tutorial exercises are available from the menu.
 
 ## 中文
 
-技能连珠将五子连珠与肉鸽技能构筑结合，提供32项技能、五档稀有度、爆破升级链和四步独立练习。开始／暂停菜单可以切换中英文。
+0.0.2 Web预览版：阶段挑战与经典无尽双模式；累计总分达标降压并三选一，未达标升压，补棋最多5枚。八阶段通关后可保留棋盘、总分与构筑继续挑战，后续每阶段目标增加1000分。
 
-点击棋子再点击空格；横竖斜同色五连消除。未直接消除通常补3枚，棋盘满时结束。取得主动爆破升级后，双击爆破棋子占用一次行动。Esc暂停，F1帮助，F8快速播放，F9略过演出。
+爆破手与行／列清除手支持升级和互相连锁；每张主动技能每局3次。技能先点选，再点击面板下方按钮确认。棋子池和技能池可查看，后者支持筛选与排序。Esc暂停／继续，F1设置，F8快放，F9略过允许跳过的演出。
 
-这是老李游戏学院的 AI 辅助 Vibe Coding 教程项目。[知识星球](https://wx.zsxq.com/group/28885154818841) · [中文说明](https://github.com/LiGameAcademy/GodotRogueMatcher/blob/master/README.zh_CN.md)。
+明亮玩具／深色仪表主题可切换，动态背景和棋盘信号可分别关闭，低特效覆盖两者。背景按作者阶段性接受的现状保留；等待时间的真人统计留待后续。
 
-## Hosting and licenses
+## Platform and data
 
-Serve index.html through HTTP(S); opening a local file directly is unsupported. Godot 4.7.2 Compatibility, single-threaded Web export. No SharedArrayBuffer headers are required.
+Desktop browsers with mouse and keyboard; 1280×720 or larger recommended. Mobile touch and cross-refresh run continuation are not included. Balance remains experimental.
 
-Game: GPL-3.0. Dependency and font licenses are included in licenses/ and font_credits.md. Godot: [MIT](https://godotengine.org/license/).
+Preferences and tutorial progress use local browser storage. Web disables the desktop telemetry collector and hides record-folder/export controls. Internal command recording does not provide a supported browser data download; use the desktop/editor build for playtest collection and export. There is no telemetry upload endpoint. Closing the browser is not a guaranteed final write.
+
+Serve index.html through HTTP(S); opening a local file directly is unsupported. Godot 4.7.2 Compatibility, single-threaded, non-PWA. SharedArrayBuffer headers are not required.
+
+## Credits and licenses
+
+An open-source AI-assisted vibe-coding tutorial by Li Game Academy, developed with Cursor and OpenAI Codex / ChatGPT. [知识星球](https://wx.zsxq.com/group/28885154818841) · [Patreon](https://www.patreon.com/cw/LiGameAcademy)
+
+Game: GPL-3.0. CoreSystem and font licenses are included in licenses/; font credits are in font_credits.md. Godot: [MIT license and third-party notices](https://godotengine.org/license/). Source and dependency revisions are recorded in the build manifest.

@@ -12,6 +12,7 @@ script = ExtResource("1")
 skill_id = &"color_weight_up"
 title = "色彩聚焦"
 description = "本局持续提高一种颜色的普通生成权重2点；可再次获得。仅影响未来生成，不改盘面颜色。"
+short_description = "一种颜色的生成权重+2；只影响未来补棋。"
 base_weight = 10.0
 tags = Array[StringName]([&"generation", &"palette"])
 is_persistent = true

@@ -2,6 +2,38 @@ extends GutTest
 
 const VIEWER: PackedScene = preload("res://tools/bot_testing/result_viewer.tscn")
 
+func after_each() -> void:
+	# Rebuild detaches nodes and queues deletion; drain the deferred frees before GUT counts orphans.
+	await wait_process_frames(2)
+
+func test_cross_records_validate_both_bands_and_view_without_rescoring() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
+	run.initialize("fixture_line_cross")
+	run.recorder = RunRecorder.new()
+	run.recorder.begin(run, "fixture", true)
+	var command: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, 1, run.state.action_id)
+	command.piece_id = run.state.rules.state.get_piece_id(Vector2i(2, 4))
+	var result: CommandResult = run.execute_command(command)
+	var events: Array[Dictionary] = RunRecorder.matches(result.turn.matches)
+	assert_true(RecordViewData.valid_events(events, Vector2i(9, 9)))
+	var old: Dictionary = events[0].duplicate(true)
+	old.erase("cross_radius")
+	assert_true(RecordViewData.valid_events([old], Vector2i(9, 9)))
+	var bad: Dictionary = events[0].duplicate(true)
+	bad.cross_radius = "65"
+	assert_false(RecordViewData.valid_events([bad], Vector2i(9, 9)))
+	while run.state.phase != RunState.Phase.INPUT and not run.state.is_game_over: run.advance()
+	run.recorder.finish(run, "abandoned", "cross_viewer")
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var viewer: ResultViewer = VIEWER.instantiate() as ResultViewer
+	add_child_autofree(viewer)
+	assert_true(viewer.load_record(run.recorder.path), viewer.error)
+	viewer.view.presentation_speed = 16.0
+	while viewer.cursor < viewer.records.size(): await viewer.step()
+	assert_eq(viewer.error, "")
+	assert_eq(RunSnapshot.digest(viewer.current_state), before)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+
 func test_result_viewing_speeds_preserve_snapshot_without_counting_score() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
 	run.initialize("fixture_f6")

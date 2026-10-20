@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"selective_blast"
 title = "异色爆破"
 description = "本局核心、引信与余震爆炸跳过与来源同色棋子；余震继承首个有效核心的颜色。清除数量与收益可能降低。"
+short_description = "所有爆炸保留同色棋，只清异色棋。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

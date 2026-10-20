@@ -7,6 +7,14 @@
 [ext_resource type="PackedScene" path="res://gameplay/presentation/presentation_director.tscn" id="5_director"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_feedback.tscn" id="6_feedback"]
 [ext_resource type="PackedScene" path="res://ui/release_menu/release_menu.tscn" id="7_menu"]
+[ext_resource type="PackedScene" path="res://services/telemetry/run_collection.tscn" id="8_collection"]
+
+[ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="9_pool"]
+
+[ext_resource type="PackedScene" path="res://ui/card_transfer/card_transfer.tscn" id="10_transfer"]
+[ext_resource type="PackedScene" path="res://ui/playback_settings/playback_settings.tscn" id="11_settings"]
+
+[ext_resource type="PackedScene" path="res://gameplay/presentation/game_background/game_background.tscn" id="12_background"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -30,13 +38,12 @@ environment = SubResource("Environment_8cj0n")
 
 [node name="GameFeedback" parent="." instance=ExtResource("6_feedback")]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
+[node name="PlaybackSettings" parent="." instance=ExtResource("11_settings")]
+
+[node name="RunCollection" parent="." instance=ExtResource("8_collection")]
+
+[node name="ColorRect" parent="." instance=ExtResource("12_background")]
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
@@ -55,3 +62,7 @@ script = ExtResource("1_uwrxv")
 layer = 130
 
 [node name="ReleaseMenu" parent="MenuLayer" instance=ExtResource("7_menu")]
+
+[node name="SkillPool" parent="." instance=ExtResource("9_pool")]
+
+[node name="CardTransfer" parent="." instance=ExtResource("10_transfer")]

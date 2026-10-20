@@ -138,7 +138,7 @@ func test_f8_fast_mode_keeps_f6_rule_snapshot_and_telemetry_counts_identical() -
 		else: assert_eq(digest, baseline)
 		var turns: int = 0
 		for event: Dictionary in board.observation.telemetry.events:
-			if event.event_name == "turn_resolved": turns += 1
+			if event.event_name == "action_resolved": turns += 1
 		assert_eq(turns, 1)
 		assert_eq(GameManager.score, 70)
 		assert_eq(board.director.error, "")

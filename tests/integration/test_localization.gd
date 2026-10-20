@@ -1,4 +1,4 @@
-extends GutTest
+﻿extends GutTest
 
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
 var game: Node2D
@@ -34,11 +34,14 @@ func test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run() 
 	var snapshot: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
 	assert_eq(CoreSystem.localization_manager.set_preferred_locale("en_US"), OK)
 	await wait_process_frames(1)
-	assert_true(menu.version_label.text.contains("Web Preview"))
+	assert_true(menu.version_label.text.contains("Desktop playtest"))
 	assert_eq(menu.play_button.text, "Play")
 	var hud: Hud = game.get_node("UILayer/HUD") as Hud
 	assert_eq(hud.score_label.text, "Score  0")
-	assert_true(hud.reward_label.text.contains("Next skill"))
+	assert_true(hud.goal_progress.target_label.tooltip_text.contains("Stage"))
+	assert_eq(menu.mode_button.get_item_text(1), "Stage challenge")
+	assert_string_contains(menu.mode_hint.text, "Refills grow")
+	assert_string_contains(hud.spawn_preview.tooltip_text, "Next refill 3 pieces")
 	assert_eq(snapshot, RunSnapshot.digest(RunSnapshot.capture(board.run)))
 	assert_null(menu.tutorial.session.run)
 	assert_eq(CoreSystem.localization_manager.set_preferred_locale("zh_CN"), OK)
@@ -47,16 +50,21 @@ func test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run() 
 
 func test_every_skill_has_english_text_without_mutating_resources() -> void:
 	TranslationServer.set_locale("en_US")
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 32)
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 52)
 	var chinese: RegEx = RegEx.new()
 	chinese.compile("[\\x{4e00}-\\x{9fff}]")
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		var title: String = skill.title
 		var description: String = skill.description
+		var short_description: String = skill.short_description
+		assert_false(short_description.is_empty(), skill.skill_id)
 		assert_null(chinese.search(String(TranslationServer.translate(title))), skill.skill_id)
 		assert_null(chinese.search(String(TranslationServer.translate(description))), skill.skill_id)
+		assert_null(chinese.search(SkillChoiceText.summary(skill)), skill.skill_id)
+		assert_null(chinese.search(SkillChoiceText.tags(skill)), skill.skill_id)
 		assert_eq(skill.title, title)
 		assert_eq(skill.description, description)
+		assert_eq(skill.short_description, short_description)
 
 func test_color_picker_switch_preserves_selected_target_and_board_view() -> void:
 	var popup: PopupSkillChoice = preload("res://ui/popup_skill_choice.tscn").instantiate() as PopupSkillChoice
@@ -67,7 +75,7 @@ func test_color_picker_switch_preserves_selected_target_and_board_view() -> void
 	offer.offer_id = 12
 	offer.reward_id = 4
 	offer.choices = [skill]
-	offer.targets[skill.skill_id] = skill.choice_effect.freeze(SkillRules.effect_context(board.run.state), board.run.state.rewards.target_random)
+	offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill, board.run.state.rewards.target_random)
 	popup.show_offer(offer)
 	popup._select(0)
 	var chosen: int = -1

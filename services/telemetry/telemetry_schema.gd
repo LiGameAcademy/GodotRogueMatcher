@@ -1,7 +1,15 @@
 class_name TelemetrySchema
 extends RefCounted
 
-const VERSION: String = "1"
+const VERSION: String = "2"
+const REQUIRED_V2: Dictionary[String, Array] = {
+	"paired_window_resolved": ["protocol", "pair_id", "parent_run_id", "skill_id", "control_skill_id", "level", "H", "known", "delta_score", "delta_space", "missing_reason", "branches"],
+	"action_resolved": ["complete", "action_score_delta", "q_frozen", "P_before", "P_after", "stage_before", "stage_after", "created_ids", "removed_ids"],
+	"stage_goal_completed": ["result", "P_before", "P_after", "installed_build", "goal_effects_implemented"],
+	"rule_fact": ["fact"],
+	"ui_observed": ["ui", "category", "phase", "root_complete"],
+	"observation_checkpoint": ["ui", "category", "phase", "root_complete"]
+}
 const REQUIRED: Dictionary[String, Array] = {
 	"run_started": ["columns", "rows", "ordinary", "companions", "score"],
 	"command_resolved": ["type", "accepted", "reason", "buffered", "buffer_wait_ms", "action_before", "action_after"],
@@ -17,6 +25,10 @@ const REQUIRED: Dictionary[String, Array] = {
 static func safe_id(value: String) -> bool:
 	return not value.is_empty() and RegEx.create_from_string("^[A-Za-z0-9_-]+$").search(value) != null
 
+## 与命令协议相同的规范十进制校验；离线Reader不加载整套RunCommand类型。
+static func valid_integer(value: Variant) -> bool:
+	return value is String and value.is_valid_int() and str(value.to_int()) == value
+
 static func plain(value: Variant) -> bool:
 	if value == null or value is String or value is bool: return true
 	if value is float: return is_finite(value)
@@ -31,18 +43,25 @@ static func plain(value: Variant) -> bool:
 	return false
 
 static func validate(event: Dictionary) -> String:
-	if event.get("schema_version") != VERSION: return "unsupported_telemetry_schema"
-	if not event.get("event_name") is String or not REQUIRED.has(event.event_name): return "unknown_telemetry_event"
+	if event.get("schema_version") not in ["1", VERSION]: return "unsupported_telemetry_schema"
+	if not event.get("event_name") is String or (not REQUIRED.has(event.event_name) and (event.schema_version == "1" or not REQUIRED_V2.has(event.event_name))): return "unknown_telemetry_event"
 	for key: String in ["event_id", "run_id", "session_id", "rule_version", "content_version", "offer_version", "build_id", "config_hash", "source", "initialization"]:
 		if not event.get(key) is String: return "invalid_envelope_" + key
-	if not safe_id(event.run_id) or not CommandCodec.valid_integer(event.get("telemetry_seq")) or event.telemetry_seq.to_int() <= 0: return "invalid_telemetry_id"
+	if not safe_id(event.run_id) or not TelemetrySchema.valid_integer(event.get("telemetry_seq")) or event.telemetry_seq.to_int() <= 0: return "invalid_telemetry_id"
 	if event.event_id != event.run_id + ":" + event.telemetry_seq: return "invalid_event_id"
-	if not CommandCodec.valid_integer(event.get("elapsed_ms")) or event.elapsed_ms.to_int() < 0: return "invalid_elapsed"
+	if not TelemetrySchema.valid_integer(event.get("elapsed_ms")) or event.elapsed_ms.to_int() < 0: return "invalid_elapsed"
 	for key: String in ["action_id", "turn_index", "command_id", "experiment_id", "variant_id", "strategy_version"]:
 		if not event.has(key) or (event[key] != null and not event[key] is String): return "invalid_envelope_" + key
 	if not event.get("payload") is Dictionary or not plain(event): return "non_serializable_telemetry"
 	if event.get("bot_config_hash") != null and not event.bot_config_hash is String: return "invalid_envelope_bot_config_hash"
-	for key: String in REQUIRED[event.event_name]:
+	if event.get("parent_run_id") != null and (not event.parent_run_id is String or not safe_id(event.parent_run_id)): return "invalid_envelope_parent_run_id"
+	if event.schema_version == VERSION:
+		for key: String in ["mode_id", "collection_context", "commit_id", "seed", "pressure_version", "collection_config_hash"]:
+			if not event.get(key) is String: return "invalid_envelope_" + key
+		for key: String in ["rule_event_id", "parent_event_id", "root_action_id", "batch_id", "stage_id", "reward_id", "offer_id"]:
+			if not event.has(key) or (event[key] != null and not event[key] is String): return "invalid_envelope_" + key
+	var required: Array = REQUIRED.get(event.event_name, REQUIRED_V2.get(event.event_name, []))
+	for key: String in required:
 		if not event.payload.has(key): return "missing_payload_" + key
 	return _payload(event.event_name, event.payload)
 
@@ -51,6 +70,39 @@ static func _payload(name: String, data: Dictionary) -> String:
 	var booleans: PackedStringArray = []
 	var strings: PackedStringArray = []
 	match name:
+		"paired_window_resolved":
+			if data.protocol != "legal-choice-window-v1" or data.H not in ["20", "50"] or not data.known is bool: return "invalid_pair_protocol"
+			if not data.branches is Array or data.branches.size() != 2: return "invalid_pair_branches"
+			if data.skill_id == data.control_skill_id: return "invalid_pair_comparator"
+			for branch: Variant in data.branches:
+				if not branch is Dictionary or not branch.get("known") is bool: return "invalid_pair_branch"
+				for key: String in ["actual_actions", "score_delta", "space_delta", "final_score", "final_occupied"]:
+					if not valid_integer(branch.get(key)): return "invalid_pair_branch_integer"
+				if int(branch.actual_actions) < 0 or int(branch.actual_actions) > int(data.H): return "invalid_pair_action_count"
+				if branch.known and not (branch.get("status") == "completed" and branch.get("reason") in ["board_full", "challenge_completed"] or branch.get("reason") == "horizon_reached" and int(branch.actual_actions) == int(data.H)): return "invalid_pair_known_endpoint"
+			if data.known != (data.branches[0].known and data.branches[1].known): return "invalid_pair_known"
+			for key: String in ["delta_score", "delta_space"]:
+				if data.known and not valid_integer(data[key]): return "invalid_pair_delta"
+				if not data.known and data[key] != null: return "censored_pair_delta"
+			if data.known and (int(data.delta_score) != int(data.branches[0].score_delta) - int(data.branches[1].score_delta) or int(data.delta_space) != int(data.branches[0].space_delta) - int(data.branches[1].space_delta)): return "inconsistent_pair_delta"
+			integers = ["level", "H"]
+			strings = ["protocol", "pair_id", "parent_run_id", "skill_id", "control_skill_id", "missing_reason"]
+		"action_resolved":
+			if not data.complete is bool or not data.P_before is Dictionary or not data.P_after is Dictionary: return "invalid_action_summary"
+			if not _pressure(data.P_before) or not _pressure(data.P_after) or not _stage(data.stage_before) or not _stage(data.stage_after): return "invalid_action_observation"
+			if not _ids(data.created_ids) or not _ids(data.removed_ids) or not data.get("ledger_entries") is Array: return "invalid_action_entities"
+			for entry: Variant in data.ledger_entries:
+				if not _ledger(entry): return "invalid_action_ledger"
+			integers = ["action_score_delta", "q_frozen", "created", "removed", "event_count", "max_generation", "score_before", "score_after", "occupied_before", "occupied_after"]
+			booleans = ["complete", "space_consistent", "spawn_skipped"]
+		"stage_goal_completed":
+			if not data.result is Dictionary or not data.installed_build is Dictionary or not data.goal_effects_implemented is bool: return "invalid_goal_summary"
+			if not _pressure(data.P_before) or (data.P_after != null and not _pressure(data.P_after)): return "invalid_goal_pressure"
+		"rule_fact": strings = ["fact"]
+		"ui_observed", "observation_checkpoint":
+			strings = ["ui", "category"]
+			booleans = ["root_complete"]
+			if not _pressure(data.get("pressure")) or not _stage(data.get("stage")): return "invalid_ui_observation"
 		"run_started": integers = ["columns", "rows", "ordinary", "companions", "score"]
 		"command_resolved":
 			integers = ["buffer_wait_ms", "action_before", "action_after"]
@@ -87,9 +139,36 @@ static func _payload(name: String, data: Dictionary) -> String:
 			strings = ["status", "reason"]
 			if data.status not in ["completed", "abandoned", "rule_error", "censored"] or not data.times is Dictionary: return "invalid_ending"
 	for key: String in integers:
-		if not CommandCodec.valid_integer(data.get(key)): return "invalid_integer_" + key
+		if not TelemetrySchema.valid_integer(data.get(key)): return "invalid_integer_" + key
 	for key: String in booleans:
 		if not data.get(key) is bool: return "invalid_boolean_" + key
 	for key: String in strings:
 		if not data.get(key) is String: return "invalid_string_" + key
 	return ""
+
+static func _pressure(value: Variant) -> bool:
+	if not value is Dictionary: return false
+	for key: String in ["n", "empty", "L"]:
+		if not TelemetrySchema.valid_integer(value.get(key)) or int(value[key]) < 0: return false
+	return value.get("P") is float and float(value.P) >= 0.0 and float(value.P) <= 100.0 and int(value.L) <= int(value.empty)
+
+static func _stage(value: Variant) -> bool:
+	if not value is Dictionary or not value.get("enabled") is bool: return false
+	if value.get("invalid", false): return value.invalid is bool
+	if not TelemetrySchema.valid_integer(value.get("q")) or int(value.q) < 1 or int(value.q) > 6: return false
+	if not value.enabled: return value.get("u") == null and value.get("T") == null
+	for key: String in ["stage_id", "u", "T", "action_score", "carry", "missing"]:
+		if not TelemetrySchema.valid_integer(value.get(key)): return false
+	return true
+
+static func _ids(value: Variant) -> bool:
+	if not value is Array: return false
+	for id: Variant in value:
+		if not TelemetrySchema.valid_integer(id) or int(id) <= 0: return false
+	return true
+
+static func _ledger(value: Variant) -> bool:
+	if not value is Dictionary or not value.get("reason") is String or not _ids(value.get("targets")): return false
+	for key: String in ["event_id", "action_id", "source_id", "N", "B", "E", "final_score"]:
+		if not TelemetrySchema.valid_integer(value.get(key)): return false
+	return value.get("G") is float

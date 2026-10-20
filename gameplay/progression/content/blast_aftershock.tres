@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"blast_aftershock"
 title = "终幕余震"
 description = "本局一次根行动首个有实际命中的核心爆炸队列结束后，在原位置追加一次半径1余震，可续引信连锁。余震不再触发余震，不享有范围升级。"
+short_description = "核心命中爆炸后 → 原位追加半径1余震。\n每行动1次；可连锁，不吃范围升级。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

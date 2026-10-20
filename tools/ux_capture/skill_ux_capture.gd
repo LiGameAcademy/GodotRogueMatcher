@@ -56,14 +56,14 @@ func _ready() -> void:
 		return
 	popup._select(0)
 	await _capture("02_color_unselected")
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	await _capture("03_color_required")
 	popup.picker.select_color(0)
 	popup.toggle_board_view()
 	await _capture("04_board_inspection")
 	popup.toggle_board_view()
 	await _capture("05_color_selected")
-	popup.picker.confirm_selection()
+	popup.confirm_selection()
 	await board.finish_presentation()
 	await _frames(5)
 	for batch: int in range(3):
@@ -104,7 +104,7 @@ func _offer(ids: Array[StringName]) -> SkillOffer:
 		for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if skill.skill_id != id: continue
 			offer.choices.append(skill)
-			offer.targets[id] = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random) if skill.choice_effect != null else SkillTarget.new()
+			offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	return offer
 

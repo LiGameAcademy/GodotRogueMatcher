@@ -7,6 +7,11 @@ var _busy: bool = true
 var _choice: bool = false
 var _paused: bool = false
 var _focused: bool = true
+var _ui: String = ""
+
+func ui_location(value: String) -> void:
+	_ui = value
+	_refresh()
 
 func attach(projector: TelemetryProjector) -> void:
 	telemetry = projector
@@ -14,6 +19,7 @@ func attach(projector: TelemetryProjector) -> void:
 	_busy = true
 	_choice = false
 	_paused = false
+	_ui = ""
 
 func busy(value: bool) -> void:
 	_busy = value
@@ -53,3 +59,4 @@ func _refresh() -> void:
 	if telemetry == null: return
 	var category: String = "inactive" if not _focused else "pause" if _paused else "choice" if _choice else "busy" if _busy else "input"
 	telemetry.set_interval(category)
+	telemetry.ui_location(_ui if not _ui.is_empty() else "skill_choice" if _choice else "pause" if _paused else "presentation" if _busy else "board_input")

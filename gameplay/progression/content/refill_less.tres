@@ -12,6 +12,7 @@ script = ExtResource("1")
 skill_id = &"refill_less"
 title = "留白一手"
 description = "接下来3次实际普通补棋各减少1枚。重复获得延长3次，不叠加幅度；免补棋不消耗次数。增减同时生效时相抵。"
+short_description = "补棋数量−1；\n3次补棋后消耗。"
 base_weight = 8.0
 tags = Array[StringName]([&"generation", &"space"])
 is_persistent = false

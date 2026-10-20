@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"blast_chain_radius"
 title = "连锁扩域"
 description = "本局第2代及以后引信爆炸半径+1，最终上限3；第一代与合成余震不享有。"
+short_description = "第2代起的引信爆炸 → 半径+1，上限3。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

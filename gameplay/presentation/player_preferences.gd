@@ -3,16 +3,25 @@ extends RefCounted
 
 ## 只保存已提供的表现选项；不保存局内规则状态。
 var fast: bool = false
+var board_signal: bool = true
+var background_motion: bool = true
 var low_effects: bool = false
 var volume: float = 0.7
 var tutorial_seen: bool = false
+var theme_id: StringName = &"light_toy"
 const SECTION: String = "rogue_matcher_presentation"
 
 func load_values(config: CoreSystem.ConfigManager) -> void:
+	var saved_signal: Variant = config.get_value(SECTION, "board_signal", true)
+	if saved_signal is bool: board_signal = bool(saved_signal)
+	var saved_background: Variant = config.get_value(SECTION, "background_motion", true)
+	if saved_background is bool: background_motion = bool(saved_background)
 	var saved_fast: Variant = config.get_value(SECTION, "fast", false)
 	var saved_low: Variant = config.get_value(SECTION, "low_effects", false)
 	var saved_volume: Variant = config.get_value(SECTION, "volume", 0.7)
 	var saved_tutorial: Variant = config.get_value(SECTION, "tutorial_seen", false)
+	var saved_theme: Variant = config.get_value(SECTION, "theme_id", "light_toy")
+	if saved_theme is String: theme_id = GameThemes.find(StringName(saved_theme)).theme_id
 	if saved_tutorial is bool: tutorial_seen = bool(saved_tutorial)
 	if saved_fast is bool: fast = bool(saved_fast)
 	if saved_low is bool: low_effects = bool(saved_low)
@@ -20,8 +29,11 @@ func load_values(config: CoreSystem.ConfigManager) -> void:
 		volume = clampf(float(saved_volume), 0.0, 1.0)
 
 func save_values(config: CoreSystem.ConfigManager, path: String = "") -> bool:
+	config.set_value(SECTION, "board_signal", board_signal)
+	config.set_value(SECTION, "background_motion", background_motion)
 	config.set_value(SECTION, "fast", fast)
 	config.set_value(SECTION, "low_effects", low_effects)
 	config.set_value(SECTION, "volume", volume)
 	config.set_value(SECTION, "tutorial_seen", tutorial_seen)
+	config.set_value(SECTION, "theme_id", String(theme_id))
 	return config.save_config(path)

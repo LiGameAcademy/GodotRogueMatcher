@@ -9,6 +9,7 @@ script = ExtResource("1")
 skill_id = &"chain_reward"
 title = "连携回响"
 description = "本局同根行动至少2次有实际命中的爆炸，含正常补棋，收束时一次E+10/级；最多3级。"
+short_description = "一次行动至少2次命中爆炸 → 额外+10分/级。"
 base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 choice_effect = SubResource("effect")

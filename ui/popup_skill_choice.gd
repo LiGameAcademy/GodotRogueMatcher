@@ -3,8 +3,12 @@ extends Control
 
 signal skill_selected(offer_id: int, skill_id: StringName)
 signal color_skill_selected(offer_id: int, skill_id: StringName, color: int)
+signal skill_pool_requested
+signal settings_requested
+signal card_acquired(skill: SkillDefinition, target: SkillTarget, source: Rect2)
 signal closed
 
+@onready var confirm_button: Button = %ConfirmSelection
 @onready var heading: Label = $Center/Panel/Column/Heading
 @onready var message: Label = $Center/Panel/Column/Message
 @onready var options: HBoxContainer = $Center/Panel/Column/Options
@@ -23,7 +27,7 @@ var selection_paused: bool = false
 var _target_index: int = -1
 var _submitted: bool = false
 var _closed: bool = false
-var _entrance: Tween
+var _low_effects: bool = false
 var _reason: String = ""
 var _error: String = ""
 
@@ -31,14 +35,15 @@ func _ready() -> void:
 	for index: int in range(options.get_child_count()):
 		var button: SkillCard = options.get_child(index) as SkillCard
 		button.pressed.connect(_select.bind(index))
-	picker.confirmed.connect(_confirm_color)
+	confirm_button.pressed.connect(confirm_selection)
+	picker.color_chosen.connect(_update_confirmation)
+	picker.confirm_button.hide()
 	picker.back_requested.connect(return_to_choices)
+	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
+	%SettingsButton.pressed.connect(settings_requested.emit)
 	view_button.pressed.connect(toggle_board_view)
 	return_button.pressed.connect(toggle_board_view)
 	resume_button.pressed.connect(toggle_selection_pause)
-
-func _exit_tree() -> void:
-	if _entrance != null: _entrance.kill()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and offer != null:
@@ -47,15 +52,16 @@ func _notification(what: int) -> void:
 func _refresh_text() -> void:
 	heading.text = tr("目标达成 · 第%d次选择") % offer.reward_id
 	message.text = tr(_reason) if not _reason.is_empty() else tr("选择一项技能，继续你的构筑")
-	if _target_index >= 0:
+	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice():
 		var skill: SkillDefinition = offer.choices[_target_index]
 		heading.text = tr("%s · 选择颜色") % tr(skill.title)
-		message.text = tr(skill.description)
+		message.text = SkillChoiceText.summary(skill)
 	if not _error.is_empty(): message.text = tr(_error)
 	var target: String = ""
-	if _target_index >= 0:
+	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice():
 		target = tr(" · 尚未选色") if picker.selected_color == -1 else tr(" · 已选") + tr(PieceTooltip.COLOR_NAMES[picker.selected_color])
 	return_label.text = tr("正在选择技能%s · 棋盘仅供查看") % target
+	_update_confirmation()
 
 func initialize(data: Dictionary = {}) -> void:
 	var value: Variant = data.get("offer")
@@ -84,6 +90,7 @@ func show_offer(next_offer: SkillOffer, reason: String = "") -> void:
 		var skill: SkillDefinition = offer.choices[index]
 		button.configure(skill, offer.targets[skill.skill_id])
 	_update_visibility()
+	_update_confirmation()
 	_animate_cards()
 
 func return_to_choices() -> void:
@@ -95,15 +102,17 @@ func return_to_choices() -> void:
 	options.show()
 	heading.text = tr("目标达成 · 第%d次选择") % offer.reward_id
 	message.text = tr("选择一项技能，继续你的构筑")
+	_update_confirmation()
 
 ## 仅收起表现；SceneTree仍暂停，规则仍处于REWARDS。
 func toggle_board_view() -> void:
 	if _submitted or selection_paused: return
 	viewing_board = not viewing_board
 	var target: String = ""
-	if _target_index >= 0:
+	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice():
 		target = tr(" · 尚未选色") if picker.selected_color == -1 else tr(" · 已选") + tr(PieceTooltip.COLOR_NAMES[picker.selected_color])
 	return_label.text = tr("正在选择技能%s · 棋盘仅供查看") % target
+	_update_confirmation()
 	_update_visibility()
 	if viewing_board: return_button.grab_focus()
 	else: view_button.grab_focus()
@@ -114,9 +123,13 @@ func toggle_selection_pause() -> void:
 	_update_visibility()
 	if selection_paused: resume_button.grab_focus()
 
-func accept_selection() -> void:
+func accept_selection(animate_acquired: bool = false) -> void:
 	if _closed: return
 	_closed = true
+	if animate_acquired and _submitted and _target_index >= 0:
+		var skill: SkillDefinition = offer.choices[_target_index]
+		var card: SkillCard = options.get_child(_target_index) as SkillCard
+		card_acquired.emit(skill, offer.targets[skill.skill_id], card.get_global_rect())
 	get_tree().paused = false
 	hide()
 	closed.emit()
@@ -126,33 +139,59 @@ func show_error(reason: String) -> void:
 	_error = reason
 	message.text = tr(reason)
 	_submitted = false
-	if _target_index >= 0: picker.show_error(reason)
+	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice(): picker.show_error(reason)
 	for index: int in range(options.get_child_count()):
 		(options.get_child(index) as Button).disabled = index >= offer.choices.size()
 	picker.confirm_button.disabled = false
 	picker.back_button.disabled = false
 	view_button.disabled = false
+	_update_confirmation()
 
+## A card click only changes the pending UI selection, never applies a skill.
 func _select(index: int) -> void:
 	if _submitted or offer == null or viewing_board or selection_paused or index < 0 or index >= offer.choices.size(): return
+	_target_index = index
+	_error = ""
 	var skill: SkillDefinition = offer.choices[index]
-	if skill.choice_effect != null and skill.choice_effect.requires_color_choice():
-		_error = ""
-		_target_index = index
-		picker.configure(offer.targets[skill.skill_id])
+	var target: SkillTarget = offer.targets[skill.skill_id]
+	if skill.requires_color_choice(target.level_before):
+		picker.configure(target)
 		options.hide()
 		picker.show()
-		heading.text = tr("%s · 选择颜色") % tr(skill.title)
-		message.text = tr(skill.description)
-		return
-	_submit(index)
+	else:
+		picker.hide()
+	_refresh_text()
+	_update_confirmation()
 
-func _confirm_color(color: int) -> void:
-	if _target_index >= 0: _submit(_target_index, color)
+## One shared button at the bottom commits both ordinary and color-target choices.
+func confirm_selection() -> void:
+	if _submitted or offer == null or _target_index < 0 or viewing_board or selection_paused: return
+	var skill: SkillDefinition = offer.choices[_target_index]
+	if skill.requires_color_choice(offer.targets[skill.skill_id].level_before):
+		if picker.selected_color == -1:
+			picker.show_error("请先选择颜色", false)
+			return
+		_submit(_target_index, picker.selected_color)
+	else:
+		_submit(_target_index)
+
+func _update_confirmation(_color: int = -1) -> void:
+	confirm_button.disabled = _submitted or _target_index < 0
+	confirm_button.text = tr("请先点选一张卡片") if _target_index < 0 else tr("确认选择：%s") % tr(offer.choices[_target_index].title)
+	if _target_index >= 0 and offer.choices[_target_index].requires_color_choice():
+		confirm_button.disabled = confirm_button.disabled or picker.selected_color == -1
+	for index: int in range(options.get_child_count()):
+		(options.get_child(index) as SkillCard).set_selected(index == _target_index)
+
+func set_low_effects(enabled: bool) -> void:
+	_low_effects = enabled
+	if enabled:
+		for card: SkillCard in options.get_children(): card.finish_reveal()
 
 func _submit(index: int, color: int = -1) -> void:
 	if _submitted or viewing_board or selection_paused: return
 	_submitted = true
+	confirm_button.disabled = true
 	for button: Button in options.get_children(): button.disabled = true
 	picker.confirm_button.disabled = true
 	picker.back_button.disabled = true
@@ -168,9 +207,6 @@ func _update_visibility() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE if viewing_board and not selection_paused else Control.MOUSE_FILTER_STOP
 
 func _animate_cards() -> void:
-	if _entrance != null: _entrance.kill()
-	_entrance = create_tween().set_parallel(true)
 	for index: int in range(options.get_child_count()):
 		var card: SkillCard = options.get_child(index) as SkillCard
-		card.modulate.a = 0.0
-		_entrance.tween_property(card, "modulate:a", 1.0, 0.18).set_delay(float(index) * 0.045)
+		card.reveal(float(index) * 0.045, _low_effects)

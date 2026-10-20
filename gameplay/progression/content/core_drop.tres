@@ -1,13 +1,31 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/unlock_core_supply_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("3")
+ability_id = &"unlock_core_supply"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("ability")])
 
 [resource]
 script = ExtResource("1")
 skill_id = &"core_drop"
 title = "爆壳手登场"
-description = "本局解锁爆壳手随机补给，并立即在随机空格放入首枚绿色核心。场上最多一枚；被消除时爆炸。"
-action = 0
+description = "本局解锁爆壳手随机补给，并立即在随机空格放入首枚核心。颜色按当前棋子池权重抽取，候选时锁定。场上最多一枚；被消除时爆炸。"
+short_description = "解锁核心补给，立即放入核心。\n场上限1枚；离场时爆炸。"
+levels = Array[ExtResource("2")]([SubResource("level_1")])
 base_weight = 10.0
 tags = Array[StringName]([&"exp"])
 is_starter = true

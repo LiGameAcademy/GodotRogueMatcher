@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/install_line_upgrade_effect.gd" id="4"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("4")
+upgrade = &"line_clear_score"
+
+[sub_resource type="Resource" id="acquired"]
+script = ExtResource("3")
+ability_id = &"line_clear_score"
+event_type = &"skill_acquired"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="upgraded"]
+script = ExtResource("3")
+ability_id = &"line_clear_score"
+event_type = &"skill_upgraded"
+effect = SubResource("effect")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("acquired")])
+
+[sub_resource type="Resource" id="level_2"]
+script = ExtResource("2")
+level = 2
+abilities = Array[ExtResource("3")]([SubResource("upgraded")])
+
+[sub_resource type="Resource" id="level_3"]
+script = ExtResource("2")
+level = 3
+abilities = Array[ExtResource("3")]([SubResource("upgraded")])
+
+[resource]
+script = ExtResource("1")
+skill_id = &"line_clear_score"
+title = "扫线收获"
+description = "扫线每直接清除一枚棋子，额外得分+2/级，最多3级。行、列与十字均生效，交叉只计一次；来源与爆炸后代不重复加分。"
+short_description = "扫线每清除1枚 → 额外+2分/级。"
+levels = Array[ExtResource("2")]([SubResource("level_1"), SubResource("level_2"), SubResource("level_3")])
+base_weight = 20.0
+tags = Array[StringName]([&"space", &"extra"])
+rarity = 1
+maximum_level = 3

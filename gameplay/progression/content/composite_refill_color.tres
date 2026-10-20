@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/skills/effects/composite_effect.gd" id="4"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/refill_count_effect.gd" id="5"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/color_weight_effect.gd" id="6"]
+[ext_resource type="Script" path="res://gameplay/skills/effects/skill_effect.gd" id="7"]
+
+[sub_resource type="Resource" id="refill"]
+script = ExtResource("5")
+delta = -1
+batches = 3
+
+[sub_resource type="Resource" id="weight"]
+script = ExtResource("6")
+delta = 2
+
+[sub_resource type="Resource" id="composite"]
+script = ExtResource("4")
+children = Array[ExtResource("7")]([SubResource("refill"), SubResource("weight")])
+fixed_target_policy = 0
+
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("3")
+ability_id = &"composite_refill_color"
+event_type = &"skill_acquired"
+effect = SubResource("composite")
+
+[sub_resource type="Resource" id="level_1"]
+script = ExtResource("2")
+level = 1
+abilities = Array[ExtResource("3")]([SubResource("ability")])
+
+[resource]
+script = ExtResource("1")
+skill_id = &"composite_refill_color"
+title = "留白调色"
+description = "有序组合：先降低接下来3次实际普通补棋各1枚，再提高一种颜色的普通生成权重+2。先提交补棋修正，再读取更新后的权重状态。"
+short_description = "有序：补棋−1（3次）→ 单色权重+2。"
+levels = Array[ExtResource("2")]([SubResource("level_1")])
+base_weight = 8.0
+tags = Array[StringName]([&"generation", &"extra"])
+is_starter = false
+is_persistent = true
+fallback_only = false
+rarity = 1
+maximum_level = 1
+minimum_reward = 1
+requires_core = false
+requires_fuse_unlock = false
+requires_fuse = false
+prerequisite = &""

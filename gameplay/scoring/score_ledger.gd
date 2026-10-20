@@ -12,7 +12,7 @@ static func calculate_base(match_count: int) -> int:
 	return match_count * (match_count + 5) if match_count >= 5 else 0
 
 ## 每次提交分配事件ID；表现只读取副本，不重新提交。
-func commit(match_count: int, multiplier: float = 1.0, extra_score: int = 0, reason: StringName = &"match", root_action_id: int = 0, target_ids: Array[int] = [], source_id: int = 0, ability_id: StringName = &"") -> ScoreEntry:
+func commit(match_count: int, multiplier: float = 1.0, extra_score: int = 0, reason: StringName = &"match", root_action_id: int = 0, target_ids: Array[int] = [], source_id: int = 0, ability_id: StringName = &"", score_short_clear: bool = false) -> ScoreEntry:
 	if match_count < 0 or multiplier < 0.0 or not is_finite(multiplier) or extra_score < 0:
 		return null
 	var entry: ScoreEntry = ScoreEntry.new()
@@ -23,7 +23,8 @@ func commit(match_count: int, multiplier: float = 1.0, extra_score: int = 0, rea
 	entry.ability_id = ability_id
 	entry.reason = reason
 	entry.match_count = match_count
-	entry.base_score = calculate_base(match_count)
+	# Explicit scoring clear may have fewer than five targets; normal matches retain their threshold.
+	entry.base_score = match_count * (match_count + 5) if score_short_clear else calculate_base(match_count)
 	entry.multiplier = multiplier
 	entry.extra_score = extra_score
 	entry.final_score = floori(entry.base_score * multiplier + extra_score)

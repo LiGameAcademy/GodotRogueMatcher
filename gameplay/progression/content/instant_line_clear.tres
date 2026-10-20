@@ -6,15 +6,18 @@
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 selector = 1
+score_cleared = true
 
 [resource]
 script = ExtResource("1")
 skill_id = &"instant_line_clear"
 title = "林道开辟"
-description = "立即清理一条行或列中的普通棋子，包含引信并触发连锁；特殊伙伴保留。直接清理不计分，爆炸按正常规则计分。"
-base_weight = 8.0
+description = "消除一条行或列中的普通棋子并得分，触发引信等离场效果；特殊伙伴保留。"
+short_description = "消除一条行或列的普通棋。\n得分并触发效果。"
+base_weight = 3.0
 tags = Array[StringName]([&"space", &"exp"])
 is_persistent = false
+rescue_offer = true
 minimum_reward = 3
 choice_effect = SubResource("effect")
 rarity = 2

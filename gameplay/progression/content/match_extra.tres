@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/demolition_stat_effect.gd" id="2"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+stat = 3
 
 [resource]
 script = ExtResource("1")
 skill_id = &"match_extra"
 title = "连珠补分"
 description = "每次五连事件的额外分增加10。"
-action = 5
+short_description = "每次五连 → 额外+10分/级。"
+choice_effect = SubResource("effect")
 base_weight = 6.0
 tags = Array[StringName]([&"extra"])
 is_starter = false

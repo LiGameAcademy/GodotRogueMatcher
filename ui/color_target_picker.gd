@@ -2,6 +2,7 @@ class_name ColorTargetPicker
 extends VBoxContainer
 
 signal confirmed(color: int)
+signal color_chosen(color: int)
 signal back_requested
 
 @export var normal_frame: StyleBoxFlat
@@ -22,8 +23,18 @@ func _ready() -> void:
 	confirm_button.pressed.connect(confirm_selection)
 	back_button.pressed.connect(back_requested.emit)
 
+func apply_game_theme(preset: GameTheme) -> void:
+	normal_frame = preset.ui_theme.get_stylebox("panel", "PanelContainer").duplicate() as StyleBoxFlat
+	error_frame = normal_frame.duplicate() as StyleBoxFlat
+	error_frame.border_color = preset.board.piece_colors[0]
+	error_frame.set_border_width_all(2)
+	frame.add_theme_stylebox_override("panel", normal_frame if _error.is_empty() else error_frame)
+	for index: int in range(colors.get_child_count()):
+		var button: Button = colors.get_child(index) as Button
+		button.add_theme_color_override("font_color", preset.board.piece_colors[index].lerp(preset.ui_theme.get_color("text", "Game"), 0.45))
+
 func configure(target: SkillTarget) -> void:
-	_target = target
+	_target = target.color_picker_source() if target != null else null
 	_error = ""
 	selected_color = -1
 	_render_colors()
@@ -58,10 +69,11 @@ func select_color(color: int) -> void:
 	_render_colors()
 	frame.add_theme_stylebox_override("panel", normal_frame)
 	_show_selected_hint()
+	color_chosen.emit(color)
 	hint.remove_theme_color_override("font_color")
 
 func _show_selected_hint() -> void:
-	hint.text = tr("已选择%s。点击“确认清理”后才会应用技能。") % tr(PieceTooltip.COLOR_NAMES[selected_color])
+	hint.text = tr("已选择%s。点击下方确认按钮后应用技能。") % tr(PieceTooltip.COLOR_NAMES[selected_color])
 
 func confirm_selection() -> void:
 	if selected_color == -1:

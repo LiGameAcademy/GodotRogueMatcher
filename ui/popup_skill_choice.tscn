@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://ui/popup_skill_choice.gd" id="1"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="Theme"]
@@ -27,6 +27,18 @@ content_margin_left = 12.0
 content_margin_right = 12.0
 content_margin_top = 6.0
 content_margin_bottom = 6.0
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="Confirm"]
+bg_color = Color(0.06, 0.16, 0.17, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.38, 0.81, 0.77, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_left = 8
@@ -62,7 +74,7 @@ theme_override_styles/panel = SubResource("Panel")
 
 [node name="Column" type="VBoxContainer" parent="Center/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 10
 
 [node name="Heading" type="Label" parent="Center/Panel/Column"]
 layout_mode = 2
@@ -72,7 +84,7 @@ horizontal_alignment = 1
 
 [node name="Message" type="Label" parent="Center/Panel/Column"]
 layout_mode = 2
-custom_minimum_size = Vector2(908, 0)
+custom_minimum_size = Vector2(792, 0)
 theme_override_colors/font_color = Color(0.64, 0.73, 0.84, 1)
 theme_override_font_sizes/font_size = 16
 autowrap_mode = 2
@@ -80,7 +92,9 @@ horizontal_alignment = 1
 
 [node name="Options" type="HBoxContainer" parent="Center/Panel/Column"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 10
+
+alignment = 1
 
 [node name="ChoiceOne" parent="Center/Panel/Column/Options" instance=ExtResource("3")]
 layout_mode = 2
@@ -100,6 +114,31 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 38)
 text = "查看棋盘 · 暂时收起面板，保留本次选择"
 theme_override_font_sizes/font_size = 16
+
+[node name="Tools" type="HBoxContainer" parent="Center/Panel/Column"]
+layout_mode = 2
+
+[node name="SkillPoolButton" type="Button" parent="Center/Panel/Column/Tools"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "查看技能池"
+
+[node name="SettingsButton" type="Button" parent="Center/Panel/Column/Tools"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "设置与操作"
+
+[node name="ConfirmSelection" type="Button" parent="Center/Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("Confirm")
+theme_override_styles/hover = SubResource("Confirm")
+theme_override_styles/pressed = SubResource("Confirm")
+disabled = true
+text = "请先点选一张卡片"
 
 [node name="ReturnBar" type="PanelContainer" parent="."]
 visible = false

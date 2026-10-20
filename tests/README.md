@@ -1,4 +1,6 @@
-# 当前回归 · 2026-10-08
+# 当前回归 · 2026-10-09
+
+0.0.2首片 #12：补棋升压与达标降压替代行动耗尽失败；完整36脚本、291测试/6879断言通过（`.godot/pressure_final_output.log`，313.972秒，退出0）。新增`test_pressure_loop.gd`覆盖升压边界、行动冻结应补量、达标行动完整补棋、锁定尾部/RNG、免补与全清、修正消费和配置隔离；旧累计奖励测试显式使用经典局及固定候选，避免默认模式或随机候选影响用例。独立用户沙箱使用`.godot/pressure_sandbox`。CLI两局机器人保存后读回精确回放均OK；真人压力节奏及数值仍待review，本轮未导出Web。详见外层`GDC/acceptance/0.0.2-补棋压力循环切片.md`。
 
 0.0.1收口：完整31脚本、248测试/6398断言通过（`.godot/release_001_verified_output.log`）。新增`test_release_flow.gd`覆盖独立四步练习、正式局隔离、暂停恢复、动画中跳过/重看、先消除后选卡、版本与初始化中弹窗关闭。旧补棋测试读取真实预告；偏好测试覆盖教学完成标记。实际Release Web教学、26次行动满盘、返回开始页/新局、两种桌面视口与设置保留通过。
 
@@ -12,9 +14,9 @@ Game Juice M3：集成16脚本、91项测试/1047断言通过（`.godot/juice_m3
 
 Game Juice M2：完整28脚本、229项测试/6170断言通过（.godot/hud_m2_final_tests_output.log）。真实补棋预告使用独立内容随机流与锁定前缀，v5快照/回放包含内容计划；覆盖UI读操作、免补棋、数量/权重变化、核心条件回退、满盘与重试。提示音借用插件池的原process_mode只保存一次，复借/结束/取消均有验证。
 
-Game Juice M1技能卡：最新集成目录15脚本、83项测试/991断言通过（`.godot/skill_cards_release_tests_output.log`），增加32项真实冻结目标布局、卡面样式隔离与暂停时真实正文鼠标点击。以下217项为此前完整规则基线，不把本轮集成子集当成完整回归。
+Game Juice M1技能卡：集成目录历史基线保留；当前运行目录为42项技能（含组合卡）。O4 技能重构后规则版本见 `gameplay/progression/SKILL_PIPELINE.md`（`run-commands-v21-skill-recording`）。
 
-Godot 4.7.2 / Compatibility，GUT 9.6.0。32项运行技能、五档稀有度、核心供给/主动爆破、引信与连锁组合、HUD/精确回放/机器人/采集接通后，完整26个脚本、217项测试、5991断言通过。日志`.godot/skill_depth_verified_output.log`。新增`tests/rules/test_demolition_build.gd`覆盖32项取得、合法前置、稀有度、顺序/去重/终止与状态隔离；主动行动埋点见`test_telemetry.gd`。
+Godot 4.7.2 / Compatibility，GUT 9.6.0。42项运行技能、五档稀有度、核心供给/主动爆破、引信与连锁组合、HUD/精确回放/机器人/采集接通。`tests/rules/test_demolition_build.gd` 覆盖目录取得与稀有度；主动行动埋点见`test_telemetry.gd`。历史完整回归数字见旧日志，不把单片子集当成全库声明。
 
 ```powershell
 & 'D:/GameMaker/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe' --headless --path . --fixed-fps 60 --log-file .godot/tests.log -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
@@ -104,3 +106,5 @@ test_telemetry.gd验证采集不污染规则、曝光与选择去重、计时及
 
 test_presentation_director.gd验证队列身份、空队列、重复完成、取消、暂停、结果复制、并行动画屏障和F8快慢规则/采集一致。测试核心奖励与F7改为等待实际导演完成，避免用固定帧数猜测新出生动画已结束。F8切换1×/2×，使用说明见[表现模块](../gameplay/presentation/README.md)，细节见外层GDC/acceptance/m5a-最小表现导演验收.md。
 最终完整回归138项测试、2103断言通过，日志.godot/m5a-delivery-tests.log。
+
+2026-10-09染色试玩：完整32脚本/230项回归229通过，新增英文翻译随后补齐；最终染色/视图/本地化3脚本22项266断言全部通过，日志`.godot/dye_verified_final_tests.log`。新增9项规则与1项冻结变色视图用例；开发Catalog38项。详见外层GDC/acceptance/0.0.2-染色试玩切片.md；不将子集结果当作完整全绿回归。

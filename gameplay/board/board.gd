@@ -4,6 +4,7 @@ class_name Board
 ## M1兼容协调器：旧回合流程调用规则入口，表现由独立BoardView消费。
 signal initialized
 signal presentation_updated
+signal goal_bonus_ready(entry: ScoreEntry)
 signal selection_changed(piece: PieceState, has_fuse: bool)
 signal operation_feedback(message: String)
 signal feedback_requested(cue: StringName)
@@ -11,6 +12,7 @@ signal run_reset
 ## Game显式提供兄弟HUD的等待入口，不从棋盘查找UI节点。
 var score_presenter: Callable
 
+@export var game_mode: GameModeDefinition = preload("res://gameplay/run/modes/stage_challenge.tres")
 @export var rows: int = 9
 @export var cols: int = 9
 @export var grid_gap: Vector2 = Vector2(1, 1)
@@ -66,10 +68,7 @@ func _notification(what: int) -> void:
 
 func _exit_tree() -> void:
 	director.cancel()
-	if run == null or run.recorder == null: return
-	if not run.state.rule_error.is_empty(): run.recorder.finish(run, "rule_error", run.state.rule_error)
-	elif run.state.is_game_over: run.recorder.finish(run, "completed", "board_full")
-	else: run.recorder.finish(run, "abandoned", "scene_closed")
+	BoardRunFlow.finalize(run, "scene_closed")
 
 #region 初始化与重试
 ## 规则对象由Game显式注入，重试传入全新的状态。
@@ -87,8 +86,8 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	_score_presentation_pending = false
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
-	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "restart")
-	run = RunController.new(rules, randi())
+	BoardRunFlow.finalize(run, "restart")
+	run = RunController.new(rules, randi(), game_mode.stage_config)
 	GameManager.reset_game(run)
 	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。
 	UIManager.close_popup()
@@ -107,7 +106,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	initialized.emit()
 
 func retry_game(board_rules: BoardRules) -> void:
-	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "restart")
+	BoardRunFlow.finalize(run, "restart")
 	get_tree().paused = false
 	ItemEffectSystem.placed_items.clear()
 	LevelUpSystem.reset_system()
@@ -115,11 +114,11 @@ func retry_game(board_rules: BoardRules) -> void:
 	await start_game(board_rules, true)
 
 ## 调试入口只在稳定输入点加载固定爆炸盘面。
-func load_explosion_demo() -> bool:
+func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()):
 		return false
 	run_reset.emit()
-	if run != null and run.recorder != null: run.recorder.finish(run, "abandoned", "fixture_restart")
+	BoardRunFlow.finalize(run, "fixture_restart")
 	cancel_buffered_input()
 	_turn_in_progress = false
 	_generation += 1
@@ -136,7 +135,7 @@ func load_explosion_demo() -> bool:
 	_score_presentation_pending = false
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
-	run.initialize("fixture_f6")
+	run.initialize(mode)
 	run.recorder = RunRecorder.new()
 	observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
 	run.recorder.begin(run, "fixture")
@@ -149,10 +148,13 @@ func load_explosion_demo() -> bool:
 	return true
 
 func refresh_ability_markers() -> void:
-	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config)
+	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config, run.state.line_clear, run.state.manual_uses_used)
 
 ## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
 func open_skill_demo() -> bool:
+	if run.state.stage.enabled():
+		operation_feedback.emit("技能调试请先切换经典无尽，或按 F6 / F10 加载独立示例")
+		return false
 	if not can_selected or get_tree().paused or GameManager.is_game_over:
 		return false
 	var generation: int = _generation
@@ -279,10 +281,12 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 			for piece: PieceState in step.pieces: view.animate_spawn(piece, step.duration)
 		PresentationStep.Kind.REMOVE:
 			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
+		PresentationStep.Kind.TRANSFORM:
+			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration)
 		PresentationStep.Kind.MATCHES:
 			var cue: StringName = &"match"
 			for result: MatchResult in step.matches:
-				if result.cause == &"explosion": cue = &"blast"
+				if result.cause in [&"explosion", &"line_clear"]: cue = &"blast"
 			if not step.matches.is_empty(): feedback_requested.emit(cue)
 			view.animate_matches(step.matches)
 		PresentationStep.Kind.ALIGN:
@@ -356,12 +360,21 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 
 func _on_piece_activated(coordinate: Vector2i) -> void:
 	if not can_selected or get_tree().paused or GameManager.is_game_over: return
-	var command: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
-	command.piece_id = rules.state.get_piece_id(coordinate)
+	var piece: PieceState = rules.state.get_piece(rules.state.get_piece_id(coordinate))
+	if piece == null: return
+	var command: RunCommand
+	if LineClearState.is_line_piece(piece.content_id):
+		var activate: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+		activate.piece_id = piece.piece_id
+		command = activate
+	else:
+		var detonate: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+		detonate.piece_id = piece.piece_id
+		command = detonate
 	await _execute_action(command, director.config.spawn_duration)
 
 func _execute_action(command: RunCommand, duration: float, input_id: String = "") -> bool:
-	if input_id.is_empty(): input_id = observation.input("detonate" if command is DetonateCoreCommand else "move", command.buffered)
+	if input_id.is_empty(): input_id = observation.input(String(CommandCodec.encode(command).type), command.buffered)
 	observation.busy(true)
 	var outcome: CommandResult = run.execute_command(command)
 	observation.resolve(input_id, "submitted" if outcome.accepted else "rejected", outcome.reason, str(command.command_id), command.buffered_wait_ms)
@@ -391,7 +404,7 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 	if generation != _generation:
 		return false
 	selected_piece = null
-	await _continue_run(generation)
+	await BoardRunFlow.continue_run(self, run)
 	if generation != _generation: return false
 	if not director.error.is_empty(): return false
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
@@ -399,31 +412,21 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 	_resume_buffered_input()
 	return true
 
-## 真人和无界面驱动共用advance；这里仅等待和消费阶段结果。
-func _continue_run(generation: int) -> void:
-	while generation == _generation:
-		if not await finish_presentation(): return
-		var step: RunStepResult = run.advance()
-		match step.kind:
-			&"offer": await LevelUpSystem.resolve_pending_rewards(self)
-			&"end_turn":
-				refresh_ability_markers()
-				GameManager.turn_ended.emit(run.state.turn_count)
-			&"spawn":
-				await present_spawns(step.spawns)
-				present_matches(step.matches)
-			&"input":
-				GameManager.turn_started.emit(run.state.turn_count)
-				if run.recorder != null: run.recorder.set_interval("input")
-				observation.busy(false)
-				return
-			&"finished":
-				GameManager.finish_game()
-				if run.recorder != null: run.recorder.finish(run, "completed", "board_full")
-				return
-			&"error":
-				if run.recorder != null: run.recorder.finish(run, "rule_error", run.state.rule_error)
-				return
+func mark_score_pending() -> void:
+	_score_presentation_pending = true
+
+## Resume the same run; no reset, regeneration or ledger replacement.
+func continue_challenge() -> bool:
+	var active: RunController = run
+	var result: CommandResult = run.execute_command(ContinueChallengeCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id))
+	if not result.accepted: return false
+	GameManager.resume_game()
+	can_selected = false
+	observation.busy(true)
+	await BoardRunFlow.continue_run(self, active)
+	if not is_instance_valid(self) or run != active: return false
+	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
+	return can_selected
 
 func present_spawns(spawns: Array[SpawnResult]) -> void:
 	var active_run: RunController = run

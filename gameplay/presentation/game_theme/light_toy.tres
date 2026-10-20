@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="GameTheme" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://gameplay/presentation/game_theme/game_theme.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/presentation/game_theme/board_appearance.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/presentation/board_juice_config.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/presentation/score_float/score_float_config.gd" id="4"]
+[ext_resource type="Script" path="res://ui/goal_progress/goal_progress_config.gd" id="5"]
+[ext_resource type="Theme" path="res://gameplay/presentation/game_theme/light_toy_ui.tres" id="6"]
+
+[ext_resource type="Script" path="res://gameplay/presentation/game_background/background_flow_config.gd" id="7"]
+
+[ext_resource type="Script" path="res://gameplay/presentation/board_signal_effect/board_signal_config.gd" id="8"]
+
+[sub_resource type="Resource" id="board"]
+script = ExtResource("2")
+piece_colors = Array[Color]([Color(0.937255, 0.380392, 0.439216, 1), Color(0.141176, 0.725490, 0.549020, 1), Color(0.223529, 0.545098, 0.913725, 1), Color(0.835294, 0.643137, 0.176471, 1), Color(0.650980, 0.450980, 0.850980, 1)])
+cell_color = Color(0.862745, 0.905882, 0.945098, 1)
+cell_edge = Color(0.768627, 0.827451, 0.886275, 1)
+hover_color = Color(0.890196, 0.941176, 0.968627, 1)
+selected_color = Color(0.890196, 0.941176, 0.968627, 1)
+selection_edge = Color(0.082353, 0.541176, 0.568627, 1)
+path_color = Color(0.082353, 0.541176, 0.568627, 1)
+marker_color = Color(0.129412, 0.231373, 0.349020, 1)
+marker_background = Color(1.000000, 1.000000, 1.000000, 1)
+cell_rounding = 0.085
+surface_strength = 0.95
+shadow_offset = Vector2(0, 3)
+piece_shadow = Color(0.1, 0.2, 0.3, 0.20)
+
+[sub_resource type="Resource" id="feedback"]
+script = ExtResource("3")
+path_color = Color(0.082353, 0.541176, 0.568627, 1)
+line_clear_color = Color(0.082353, 0.541176, 0.568627, 1)
+blast_color = Color(0.784314, 0.407843, 0.125490, 1)
+
+[sub_resource type="Resource" id="floats"]
+script = ExtResource("4")
+normal_color = Color(0.129412, 0.231373, 0.349020, 1)
+extra_color = Color(0.082353, 0.541176, 0.568627, 1)
+high_color = Color(0.686275, 0.392157, 0.000000, 1)
+huge_color = Color(0.737255, 0.235294, 0.207843, 1)
+
+[sub_resource type="Resource" id="progress"]
+script = ExtResource("5")
+mote_color = Color(0.082353, 0.541176, 0.568627, 1)
+
+[sub_resource type="Resource" id="flow"]
+script = ExtResource("7")
+contrast = 0.12
+speed = 0.25
+
+[sub_resource type="Resource" id="signal"]
+script = ExtResource("8")
+scan_strength = 0.018
+rim_strength = 0.16
+sweep_strength = 0.06
+
+[resource]
+script = ExtResource("1")
+theme_id = &"light_toy"
+title = "明亮玩具"
+ui_theme = ExtResource("6")
+board = SubResource("board")
+feedback = SubResource("feedback")
+score_floats = SubResource("floats")
+progress = SubResource("progress")
+background_flow = SubResource("flow")
+board_signal = SubResource("signal")
+background = Color(0.945098, 0.964706, 0.988235, 1)

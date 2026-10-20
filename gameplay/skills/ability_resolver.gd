@@ -4,23 +4,64 @@ extends RefCounted
 const DEFAULT_CONFIG: ExplosionConfig = preload("res://gameplay/skills/content/explosion_config.tres")
 const EXPLOSION: AbilityDefinition = preload("res://gameplay/skills/content/on_eliminated_explosion.tres")
 
+const LINE_SWEEP: AbilityDefinition = preload("res://gameplay/skills/content/on_eliminated_line_sweep.tres")
+
 var state: RunState
 var config: ExplosionConfig
 var last_error: String = ""
+var _held_blasts: Array[BlastRequest] = []
 
 func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) -> void:
 	state = run_state
 	config = rules_config
 
-func add_core(coordinate: Vector2i) -> PieceState:
+## Place a core and attach its removal-blast instance; reject if a core already exists.
+func add_core(coordinate: Vector2i, match_color: int = -1) -> PieceState:
 	for piece: PieceState in state.rules.state.get_snapshot():
 		if piece.content_id == &"special_demolition":
 			return null
-	var core: PieceState = state.rules.place_piece(coordinate, config.core_color, &"special_demolition")
+	# Natural refill passes the previewed color; skill summons and teaching samples keep config defaults.
+	var color: int = config.core_color if match_color == -1 else match_color
+	var core: PieceState = state.rules.place_piece(coordinate, color, &"special_demolition")
 	if core != null:
 		_attach(core.piece_id)
 	return core
 
+## Multiple sweepers may coexist; each owns one innate removal activation.
+func add_line_piece(axis: int, coordinate: Vector2i, match_color: int = -1) -> PieceState:
+	if axis != LineClearState.AXIS_ROW and axis != LineClearState.AXIS_COLUMN: return null
+	var color: int = LineClearRules.CONFIG.default_color if match_color == -1 else match_color
+	var piece: PieceState = state.rules.place_piece(coordinate, color, state.line_clear.content_id(axis))
+	if piece != null:
+		_attach_line(piece.piece_id)
+	return piece
+
+## Validate the entire frozen batch before mutating any piece or installing an ability.
+func transformation_error(ids: Array[int], content_id: StringName) -> String:
+	if content_id not in [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN]:
+		return "特殊棋转化类型无效"
+	if ids.is_empty() or ids.size() > 3: return "转化目标数量无效"
+	var seen: Array[int] = []
+	for id: int in ids:
+		var piece: PieceState = state.rules.state.get_piece(id)
+		if piece == null or not piece.content_id.is_empty() or piece.is_ghost or seen.has(id) or state.explosion.instances.has(id) or state.line_clear.instances.has(id):
+			return "原定转化目标已经失效"
+		seen.append(id)
+	return validation_error(1, ids.size() if content_id == &"special_demolition" else 0, 0, ids.size() if content_id != &"special_demolition" else 0)
+
+## Conversion may install multiple cores; natural supply still uses add_core's singleton rule.
+func transform_material(ids: Array[int], content_id: StringName) -> Array[PieceState]:
+	last_error = transformation_error(ids, content_id)
+	if not last_error.is_empty(): return []
+	var transformed: Array[PieceState] = []
+	for id: int in ids:
+		state.rules.set_piece_content(id, content_id)
+		if content_id == &"special_demolition": _attach(id)
+		else: _attach_line(id)
+		transformed.append(state.rules.state.get_piece(id))
+	return transformed
+
+## Install a fuse on a normal piece; reject if it already has content or an instance.
 func assign_fuse(piece_id: int) -> bool:
 	var piece: PieceState = state.rules.state.get_piece(piece_id)
 	if piece == null or not piece.content_id.is_empty() or state.explosion.instances.has(piece_id):
@@ -40,7 +81,7 @@ func upgrade_reward() -> bool:
 	state.explosion.reward_level += 1
 	return true
 
-## 同代按来源ID排序；后代只在当前代完成后执行。没有UI或动画依赖。
+## Same-generation order is by source id; descendants run only after the current generation finishes. No UI or animation dependency.
 func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 	var results: Array[MatchResult] = []
 	last_error = ""
@@ -55,10 +96,11 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 		for piece_id: int in group.piece_ids:
 			result.removed.append(state.rules.state.get_piece(piece_id))
 		result.center = result.removed[result.removed.size() / 2].coordinate
-		result.score_entry = state.ledger.commit(group.piece_ids.size(), LegacyScoreModifiers.calculate(state.rules.state, group) + global_multiplier, state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.match_score(state, group.piece_ids.size()) + DemolitionRules.marked_score(state, result.removed), &"match", DemolitionRules.root_id(state), group.piece_ids)
+		result.score_entry = state.ledger.commit(group.piece_ids.size(), LegacyScoreModifiers.calculate(state.rules.state, group) + global_multiplier, state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.match_score(state, group.piece_ids.size()) + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, group.piece_ids), &"match", DemolitionRules.root_id(state), group.piece_ids)
 		results.append(result)
 	for result: MatchResult in results:
 		_remove_and_enqueue(result.removed, result.cause, 1, queue)
+		if not last_error.is_empty(): return results
 	var stats: DemolitionActionState = DemolitionRules.action(state)
 	if state.explosion.level(&"fuse_match_plant") > 0 and not stats.plant_used:
 		stats.plant_used = true
@@ -67,38 +109,81 @@ func resolve(groups: Array[BoardMatchGroup]) -> Array[MatchResult]:
 			for piece: PieceState in result.removed: centers.append(piece.coordinate)
 		DemolitionRules.mark_near(self, centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
 	results.append_array(_resolve_blasts(queue))
+	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
-## 清理与五连共用离场触发和爆炸队列。调用者在提交根行动前预检。
-func resolve_removal(pieces: Array[PieceState], cause: StringName) -> Array[MatchResult]:
+## Clears and five-matches share removal triggers and the blast queue. Callers preflight before committing the root action.
+## When hold_blasts is true, removal tickets enqueue but descendants wait for flush_held_blasts().
+func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: bool = false, score_cleared: bool = false) -> Array[MatchResult]:
 	last_error = validation_error(1)
 	if not last_error.is_empty(): return []
+	if score_cleared:
+		var live: Array[PieceState] = []
+		var seen: Array[int] = []
+		for piece: PieceState in pieces:
+			var current: PieceState = state.rules.state.get_piece(piece.piece_id)
+			if current == null or seen.has(piece.piece_id): continue
+			seen.append(piece.piece_id)
+			live.append(current.copy())
+		pieces = live
 	var queue: Array[BlastRequest] = []
-	var extra: int = DemolitionRules.marked_score(state, pieces)
-	_remove_and_enqueue(pieces, cause, 1, queue)
 	var results: Array[MatchResult] = []
+	if score_cleared and not pieces.is_empty():
+		var direct: MatchResult = MatchResult.new()
+		direct.cause = cause
+		direct.removed = pieces.duplicate()
+		direct.center = pieces[pieces.size() / 2].coordinate
+		direct.score_entry = _commit_clear_score(direct, true)
+		results.append(direct)
+	var extra: int = 0 if score_cleared else DemolitionRules.marked_score(state, pieces)
+	_remove_and_enqueue(pieces, cause, 1, queue)
+	if not last_error.is_empty(): return []
 	if extra > 0:
 		var reward: MatchResult = MatchResult.new()
 		reward.cause = &"bonus"
 		reward.score_entry = state.ledger.commit(0, 1.0, extra, &"marked_reward", DemolitionRules.root_id(state), [])
 		results.append(reward)
+	if hold_blasts:
+		_held_blasts.append_array(queue)
+		return results
 	results.append_array(_resolve_blasts(queue))
+	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
-func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0) -> String:
+## Drain blast tickets held during an ordered CompositeEffect.
+func flush_held_blasts() -> Array[MatchResult]:
+	if _held_blasts.is_empty(): return []
+	var queue: Array[BlastRequest] = _held_blasts.duplicate()
+	_held_blasts.clear()
+	var results: Array[MatchResult] = _resolve_blasts(queue)
+	results.append_array(DyeRules.after_matches(self, results))
+	return results
+
+## Drop held tickets without resolving blasts (composite aborted after removals).
+func abandon_held_blasts() -> void:
+	for event: BlastRequest in _held_blasts:
+		if event.activation != null:
+			state.ability_events.complete(event.activation, false, 0)
+	_held_blasts.clear()
+
+## Preflight configuration and event budget before resolve; return an English diagnostic on failure.
+func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0, new_line_sources: int = 0) -> String:
 	if new_sources > 0:
 		var configuration_error: String = AbilityTriggerAdapter.validation_error(EXPLOSION)
 		if not configuration_error.is_empty(): return configuration_error
-	# 配置错误、预算不足必须在任何占格/计分提交前拒绝。
-	for instance: AbilityInstance in state.explosion.instances.values():
+	if new_line_sources > 0:
+		var configuration_error: String = AbilityTriggerAdapter.validation_error(LINE_SWEEP)
+		if not configuration_error.is_empty(): return configuration_error
+	# Config errors and budget shortfalls must reject before any occupancy or score commit.
+	for instance: AbilityInstance in state.explosion.instances.values() + state.line_clear.instances.values():
 		var error: String = AbilityTriggerAdapter.validation_error(instance.definition)
 		if not error.is_empty(): return error
-	var possible: int = state.explosion.instances.size() + new_sources
+	var possible: int = state.explosion.instances.size() + state.line_clear.instances.size() + new_sources + new_line_sources
 	if state.explosion.level(&"core_fuse_payload") > 0 or state.explosion.level(&"fuse_match_plant") > 0:
 		possible = state.rules.state.get_piece_count() + new_pieces
 	if state.explosion.level(&"blast_aftershock") > 0: possible += 1
 	if root_events + possible > config.event_budget:
-		return "事件预算不足，拒绝结算"
+		return "event budget exceeded; resolve rejected"
 	return ""
 
 func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
@@ -107,39 +192,49 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 	while not queue.is_empty():
 		queue.sort_custom(_comes_before)
 		var event: BlastRequest = queue.pop_front()
-		if not event.synthetic and event.source.content_id == &"special_demolition" and state.explosion.level(&"core_fuse_payload") > 0:
-			DemolitionRules.mark_near(self, [event.source.coordinate], DemolitionRules.CONFIG.payload_radius, DemolitionRules.CONFIG.payload_count)
-		var radius: int = DemolitionRules.CONFIG.aftershock_radius if event.synthetic else DemolitionRules.radius(state, event.source, event.generation, config.base_radius)
-		var effect: ExplodeEffect = EXPLOSION.effect if event.synthetic else event.ability.definition.effect
-		var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius)
-		var result: MatchResult = MatchResult.new()
-		result.cause = &"explosion"
-		result.source_id = event.source.piece_id
-		result.center = event.source.coordinate
-		result.radius = request.radius
-		result.generation = event.generation
-		var actual_ids: Array[int] = []
-		for piece_id: int in request.target_ids:
-			var target: PieceState = state.rules.state.get_piece(piece_id)
-			if target == null: continue
-			if state.explosion.level(&"selective_blast") > 0 and target.match_color == event.source.match_color: continue
-			result.removed.append(target)
-			actual_ids.append(piece_id)
-		var extra_score: int = 0
-		if not result.removed.is_empty():
-			stats.effective_blasts += 1
-			stats.blast_removed += result.removed.size()
-			if not event.synthetic and event.source.content_id == &"special_demolition" and stats.first_core == null:
-				stats.first_core = event.source.copy()
-			extra_score = result.removed.size() * state.explosion.reward_level * config.reward_per_target + state.explosion.blast_extra_level * config.bonus_per_blast
-			extra_score += DemolitionRules.marked_score(state, result.removed)
-			if event.generation >= 2:
-				extra_score += DemolitionRules.CONFIG.chain_bonus * state.explosion.level(&"blast_chain_bonus") * mini(event.generation - 1, DemolitionRules.CONFIG.chain_depth_cap)
-		var ability_id: StringName = &"blast_aftershock" if event.synthetic else event.ability.definition.ability_id
-		result.score_entry = state.ledger.commit(0, 1.0, extra_score, &"explosion", DemolitionRules.root_id(state), actual_ids, result.source_id, ability_id)
-		_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue)
-		results.append(result)
-		# 普通队列收束后只追加一次，后代不能再次制造余震。
+		if not event.synthetic and event.ability.definition.effect is LineSweepEffect:
+			results.append(_resolve_line_sweep(event, queue))
+			if not last_error.is_empty(): return results
+		else:
+			if not event.synthetic and event.source.content_id == &"special_demolition" and state.explosion.level(&"core_fuse_payload") > 0:
+				DemolitionRules.mark_near(self, [event.source.coordinate], DemolitionRules.CONFIG.payload_radius, DemolitionRules.CONFIG.payload_count)
+			var radius: int = DemolitionRules.CONFIG.aftershock_radius if event.synthetic else DemolitionRules.radius(state, event.source, event.generation, config.base_radius)
+			var effect: ExplodeEffect = (EXPLOSION.effect if event.synthetic else event.ability.definition.effect) as ExplodeEffect
+			var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius)
+			var result: MatchResult = MatchResult.new()
+			result.cause = &"explosion"
+			result.source_id = event.source.piece_id
+			result.source_color = event.source.match_color
+			result.center = event.source.coordinate
+			result.radius = request.radius
+			result.generation = event.generation
+			var actual_ids: Array[int] = []
+			for piece_id: int in request.target_ids:
+				var target: PieceState = state.rules.state.get_piece(piece_id)
+				if target == null: continue
+				if state.explosion.level(&"selective_blast") > 0 and target.match_color == event.source.match_color: continue
+				result.removed.append(target)
+				actual_ids.append(piece_id)
+			var extra_score: int = 0
+			if not result.removed.is_empty():
+				stats.effective_blasts += 1
+				stats.blast_removed += result.removed.size()
+				if not event.synthetic and event.source.content_id == &"special_demolition" and stats.first_core == null:
+					stats.first_core = event.source.copy()
+				extra_score = result.removed.size() * state.explosion.reward_level * config.reward_per_target + state.explosion.blast_extra_level * config.bonus_per_blast
+				extra_score += DemolitionRules.marked_score(state, result.removed)
+				if event.generation >= 2:
+					extra_score += DemolitionRules.CONFIG.chain_bonus * state.explosion.level(&"blast_chain_bonus") * mini(event.generation - 1, DemolitionRules.CONFIG.chain_depth_cap)
+			var ability_id: StringName = &"blast_aftershock" if event.synthetic else event.ability.definition.ability_id
+			result.score_entry = state.ledger.commit(0, 1.0, extra_score, &"explosion", DemolitionRules.root_id(state), actual_ids, result.source_id, ability_id)
+			var parent_id: int = 0 if event.synthetic else event.activation.event.event_id
+			_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, parent_id, ability_id)
+			if not event.synthetic:
+				if not state.ability_events.complete(event.activation, true, result.removed.size()):
+					_event_error("ability activation ticket invalid")
+			if not last_error.is_empty(): return results
+			results.append(result)
+		# Append aftershock once after the normal queue drains; descendants cannot spawn another.
 		if queue.is_empty() and stats.first_core != null and not stats.aftershock_used and state.explosion.level(&"blast_aftershock") > 0:
 			stats.aftershock_used = true
 			var aftershock: BlastRequest = BlastRequest.new()
@@ -147,7 +242,50 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 			aftershock.synthetic = true
 			aftershock.generation = event.generation + 1
 			queue.append(aftershock)
+	results.append_array(DyeRules.after_blasts(self, results))
 	return results
+
+## Sweeps use the ordinary score ledger, but are not five-match or blast skill triggers.
+func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> MatchResult:
+	var effect: LineSweepEffect = event.ability.definition.effect as LineSweepEffect
+	var radius: int = LineClearRules.radius(state.line_clear, LineClearState.axis_of(event.source.content_id))
+	var cross_radius: int = LineClearRules.cross_radius(state.line_clear, LineClearState.axis_of(event.source.content_id))
+	var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius, cross_radius)
+	var result: MatchResult = MatchResult.new()
+	result.cause = &"line_clear"
+	result.line_axis = LineClearState.axis_of(event.source.content_id)
+	result.radius = request.radius
+	result.cross_radius = request.cross_radius
+	result.source_id = event.source.piece_id
+	result.source_color = event.source.match_color
+	result.center = event.source.coordinate
+	result.generation = event.generation
+	for id: int in request.target_ids: result.removed.append(state.rules.state.get_piece(id))
+	var ability_id: StringName = event.ability.definition.ability_id
+	result.score_entry = _commit_clear_score(result, true, ability_id)
+	_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, event.activation.event.event_id, ability_id)
+	if not state.ability_events.complete(event.activation, true, result.removed.size()):
+		_event_error("ability activation ticket invalid")
+	return result
+
+## Common clear scoring; the caller distinguishes a scored skill clear from a five-match.
+func _commit_clear_score(result: MatchResult, score_short_clear: bool = false, ability_id: StringName = &"") -> ScoreEntry:
+	var ids: Array[int] = []
+	for piece: PieceState in result.removed: ids.append(piece.piece_id)
+	var group: BoardMatchGroup = BoardMatchGroup.new()
+	group.piece_ids = ids
+	var multiplier: float = LegacyScoreModifiers.calculate(state.rules.state, group) + state.explosion.multiplier_level * config.multiplier_per_level
+	var extra: int = 0
+	if not result.removed.is_empty():
+		extra = state.explosion.match_extra_level * config.bonus_per_match + DemolitionRules.marked_score(state, result.removed) + DyeRules.match_score(state, ids)
+		if result.cause == &"line_clear": extra += LineClearRules.score_bonus(state.line_clear, result.removed.size())
+	return state.ledger.commit(result.removed.size(), multiplier, extra, result.cause, DemolitionRules.root_id(state), ids, result.source_id, ability_id, score_short_clear)
+
+func _attach_line(piece_id: int) -> void:
+	var instance: AbilityInstance = AbilityInstance.new()
+	instance.owner_id = piece_id
+	instance.definition = LINE_SWEEP
+	state.line_clear.instances[piece_id] = instance
 
 func _attach(piece_id: int) -> void:
 	var instance: AbilityInstance = AbilityInstance.new()
@@ -156,25 +294,36 @@ func _attach(piece_id: int) -> void:
 	state.explosion.instances[piece_id] = instance
 	state.explosion.unlocked = true
 
-func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generation: int, queue: Array[BlastRequest]) -> void:
+func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generation: int, queue: Array[BlastRequest], parent_id: int = 0, source_ability: StringName = &"") -> void:
+	var events: Array[AbilityEvent] = []
+	var listeners: Array[AbilityInstance] = []
 	for piece: PieceState in pieces:
 		if state.rules.remove_piece(piece.piece_id) == null:
 			continue
+		state.dye.marks.erase(piece.piece_id)
 		var instance: AbilityInstance = state.explosion.instances.get(piece.piece_id)
 		state.explosion.instances.erase(piece.piece_id)
+		if instance == null: instance = state.line_clear.instances.get(piece.piece_id)
+		state.line_clear.instances.erase(piece.piece_id)
 		if instance == null:
 			continue
-		var trigger_event: AbilityEvent = AbilityEvent.new()
-		trigger_event.cause = cause
-		trigger_event.source = piece.copy()
-		trigger_event.root_action_id = DemolitionRules.root_id(state)
-		trigger_event.generation = generation
-		if not AbilityTriggerAdapter.try_accept(instance, trigger_event): continue
+		listeners.append(instance)
+		events.append(state.ability_events.removal(piece, cause, DemolitionRules.root_id(state), generation, state.run_id, parent_id, source_ability))
+	# Dispatch after the whole removal batch; removed instances subscribe only for this batch and use frozen sources.
+	for activation: AbilityActivation in state.ability_events.dispatch(events, listeners):
 		var event: BlastRequest = BlastRequest.new()
-		event.source = piece.copy()
-		event.ability = instance
+		event.source = activation.event.source.copy()
+		event.ability = activation.instance
+		event.activation = activation
 		event.generation = generation
 		queue.append(event)
+	if not state.ability_events.last_error.is_empty(): _event_error(state.ability_events.last_error)
+
+## Internal errors after preflight terminate explicitly; already committed results are not pretended to roll back.
+func _event_error(reason: String) -> void:
+	last_error = reason
+	state.rule_error = reason
+	state.phase = RunState.Phase.ERROR
 
 func _comes_before(a: BlastRequest, b: BlastRequest) -> bool:
 	return a.generation < b.generation if a.generation != b.generation else a.source.piece_id < b.source.piece_id

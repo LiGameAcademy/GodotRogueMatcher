@@ -1,6 +1,6 @@
 extends GutTest
 
-const NEW_IDS: Array[StringName] = [&"refill_less", &"refill_more", &"color_weight_up", &"color_weight_down", &"instant_color_clear", &"instant_line_clear"]
+const NEW_IDS: Array[StringName] = [&"refill_less", &"refill_more", &"color_weight_up", &"color_weight_down", &"instant_color_clear", &"instant_line_clear", &"instant_percent_clear", &"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
 
 func _run(seed_value: int = 7) -> RunController:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value)
@@ -21,7 +21,7 @@ func _offer(run: RunController, id: StringName) -> SkillOffer:
 	offer.reward_id = run.state.rewards.consumed_count + 1
 	var skill: SkillDefinition = _skill(id)
 	offer.choices = [skill]
-	offer.targets[id] = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+	offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
 	run.enter_rewards()
 	return offer
@@ -31,8 +31,8 @@ func _apply(run: RunController, id: StringName) -> SkillApplyResult:
 	var offer: SkillOffer = _offer(run, id)
 	return SkillRules.apply(run, offer.offer_id, id)
 
-func test_32_resources_and_support_skills_can_be_drawn_at_third_reward() -> void:
-	assert_eq(SkillOfferGenerator.CATALOG.size(), 32)
+func test_40_resources_and_support_skills_can_be_drawn_at_third_reward() -> void:
+	assert_eq(SkillOfferGenerator.CATALOG.size(), 52)
 	var seen: Array[StringName] = []
 	for seed_value: int in range(150):
 		var run: RunController = _run(seed_value)
@@ -125,7 +125,7 @@ func test_color_lowering_stays_positive_and_excludes_capped_targets() -> void:
 	assert_eq(run.state.spawning.color_weights.count(4), 2)
 	assert_string_contains(SkillRules.rejection(run.state, _skill(&"color_weight_down"), run.abilities.config), "满级")
 	run.state.spawning.color_weights = [2, 2, 2, 2, 2]
-	assert_string_contains(_skill(&"color_weight_down").choice_effect.rejection(SkillRules.effect_context(run.state)), "没有")
+	assert_string_contains((_skill(&"color_weight_down").acquisition_effect() as ChoiceEffect).rejection(SkillRules.effect_context(run.state)), "没有")
 	run.state.spawning.color_weights = [20, 20, 20, 20, 18]
 	run.state.pending_rewards = 1
 	var offer: SkillOffer = _offer(run, &"color_weight_up")
@@ -164,14 +164,14 @@ func test_color_clear_triggers_fuse_chain_scores_only_explosions_and_preserves_u
 		assert_eq(entry.base_score, 0)
 		assert_eq(entry.root_action_id, run.state.action_id)
 
-func test_line_clear_freezes_both_axes_removes_all_ordinary_targets_without_direct_score() -> void:
+func test_line_clear_freezes_both_axes_removes_all_ordinary_targets_with_direct_score() -> void:
 	var run: RunController = _run()
 	var core: PieceState = run.abilities.add_core(Vector2i(8, 0))
 	for x: int in range(5): run.state.rules.place_piece(Vector2i(x, 0), x)
 	var skill: SkillDefinition = _skill(&"instant_line_clear")
 	var axes: Array[int] = []
 	for index: int in range(30):
-		var target: SkillTarget = skill.choice_effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+		var target: SkillTarget = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 		if not axes.has(target.line_axis): axes.append(target.line_axis)
 	assert_eq(axes.size(), 2)
 	var offer: SkillOffer = _offer(run, &"instant_line_clear")
@@ -181,8 +181,8 @@ func test_line_clear_freezes_both_axes_removes_all_ordinary_targets_without_dire
 	target.piece_ids = SkillRules.unmarked_material(run.state)
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, skill.skill_id)
 	assert_true(result.success)
-	assert_eq(result.removed.size(), 5)
-	assert_eq(run.state.ledger.total, 0)
+	assert_eq(result.matches[0].removed.size(), 5)
+	assert_eq(run.state.ledger.total, 50)
 	assert_eq(run.state.rules.state.get_piece_count(), 1)
 	assert_not_null(run.state.rules.state.get_piece(core.piece_id))
 
@@ -193,7 +193,8 @@ func test_changed_targets_and_invalid_trigger_refuse_without_consuming_reward_or
 	var offer: SkillOffer = _offer(run, &"instant_color_clear")
 	var instance: AbilityInstance = run.state.explosion.instances[fuse.piece_id]
 	instance.definition = instance.definition.duplicate(true) as AbilityDefinition
-	instance.definition.trigger.trigger_chance = 0.5
+	# Removal abilities cannot use acquire event timing; makes validation_error reject clears that would touch this fuse.
+	instance.definition.event_type = &"skill_acquired"
 	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
 	assert_false(SkillRules.apply(run, offer.offer_id, &"instant_color_clear", 0).success)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)

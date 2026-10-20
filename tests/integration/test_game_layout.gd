@@ -22,6 +22,7 @@ func before_each() -> void:
 	board = game.get_node("Board") as Board
 	hud = game.get_node("UILayer/HUD") as Hud
 	await board.initialized
+	(game.get_node("GameFeedback") as GameFeedback).set_volume(0.0)
 	await wait_process_frames(3)
 
 func after_each() -> void:
@@ -34,13 +35,14 @@ func test_real_board_edges_fit_ui_area_at_multiple_window_sizes() -> void:
 	for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(1024, 640), Vector2i(1600, 720)]:
 		viewport.size = resolution
 		await wait_process_frames(5)
+		assert_eq((game.get_node("ColorRect") as ColorRect).size, Vector2(resolution))
 		var displayed: Rect2 = board.get_global_transform_with_canvas() * board.view.get_display_rect()
 		var area: Rect2 = hud.get_board_area()
 		assert_true(area.grow(0.1).encloses(displayed), str(resolution))
 		assert_almost_eq(displayed.get_center().x, area.get_center().x, 0.1)
 		assert_almost_eq(displayed.get_center().y, area.get_center().y, 0.1)
 		assert_false(displayed.intersects((hud.get_node("%Left") as Control).get_global_rect()))
-		assert_false(displayed.intersects((hud.get_node("%Right") as Control).get_global_rect()))
+		assert_true((hud.get_node("%Left") as Control).get_global_rect().encloses(hud.breakdown_label.get_global_rect()))
 		assert_false(displayed.intersects((hud.get_node("Margin/Rows/Header") as Control).get_global_rect()))
 		assert_false(displayed.intersects((hud.get_node("Margin/Rows/Footer") as Control).get_global_rect()))
 		# 直接验证场景中的首尾碰撞格，避免只检查理想化的原点。
@@ -49,6 +51,25 @@ func test_real_board_edges_fit_ui_area_at_multiple_window_sizes() -> void:
 			var physical: Rect2 = cell.get_global_transform_with_canvas() * Rect2(Vector2(-32, -32), Vector2(64, 64))
 			assert_true(area.encloses(physical), str(coordinate))
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline)
+
+func test_settings_fit_both_languages_at_supported_sizes_without_changing_run() -> void:
+	var old_locale: String = TranslationServer.get_locale()
+	var settings: PlaybackSettings = game.get_node("PlaybackSettings") as PlaybackSettings
+	var baseline: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		for size: Vector2i in [Vector2i(1024, 640), Vector2i(1280, 720)]:
+			viewport.size = size
+			game.call("_open_settings")
+			await wait_process_frames(4)
+			var frame: Rect2 = (settings.get_node("Panel/Center/Frame") as Control).get_global_rect()
+			assert_true(Rect2(Vector2.ZERO, Vector2(size)).encloses(frame), "%s %s %s" % [locale, size, frame])
+			for control: Control in [settings.background_button, settings.signal_button, settings.fast_button, settings.volume_slider, settings.menu_button, settings.close_button]:
+				assert_true(frame.encloses(control.get_global_rect()), control.name)
+			assert_string_contains(settings.volume_slider.tooltip_text, "Volume" if locale == "en_US" else "音量")
+			settings.close()
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline)
+	TranslationServer.set_locale(old_locale)
 
 func test_scaled_corner_picking_and_move_use_same_grid_coordinates() -> void:
 	viewport.size = Vector2i(1024, 640)
@@ -69,3 +90,55 @@ func test_scaled_corner_picking_and_move_use_same_grid_coordinates() -> void:
 	assert_true(await board.move_selected_piece(board.get_cell(command.target), 0.01))
 	assert_eq(board.rules.state.get_piece(command.piece_id).coordinate, command.target)
 	assert_eq(board.view.get_piece(command.piece_id).global_position, board.get_cell(command.target).global_position)
+
+func test_mode_menu_fits_supported_viewport_in_both_languages() -> void:
+	var old_locale: String = TranslationServer.get_locale()
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		menu.open(true, true, false)
+		menu.collection_controls.show_status("记录已保存到本机 · 不上传", true, true)
+		menu.mode_button.select(0)
+		menu.mode_button.item_selected.emit(0)
+		await wait_process_frames(3)
+		var panel_rect: Rect2 = (menu.get_node("Home/Panel") as Control).get_global_rect()
+		assert_true(Rect2(Vector2.ZERO, Vector2(viewport.size)).encloses(panel_rect), "%s %s" % [locale, panel_rect])
+		assert_true(panel_rect.encloses(menu.collection_controls.get_global_rect()), locale)
+	TranslationServer.set_locale(old_locale)
+	menu.close()
+
+func test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages() -> void:
+	var old_locale: String = TranslationServer.get_locale()
+	board.run.state.stage.used_actions = 12
+	board.run.prepare_spawn_plan()
+	var baseline: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		for resolution: Vector2i in [Vector2i(1024, 640), Vector2i(1280, 720), Vector2i(1920, 1080)]:
+			viewport.size = resolution
+			hud.show_run(board.run)
+			await wait_process_frames(5)
+			var preview: SpawnPreview = hud.spawn_preview
+			var bounds: Rect2 = Rect2(Vector2.ZERO, preview.size)
+			assert_eq(preview._tokens.size(), 5)
+			# 已确认的补棋上限为五枚，每个32像素槽位都应完整位于面板内。
+			for index: int in range(5):
+				var slot: Rect2 = Rect2(Vector2(2 + index * 36, 21), Vector2(32, 32))
+				assert_true(bounds.encloses(slot), "%s %s slot %d" % [locale, resolution, index + 1])
+			assert_true(bounds.encloses(preview.title.get_rect()))
+			assert_lte(preview.title.get_minimum_size().x, preview.title.size.x)
+			assert_false(preview.hint.visible)
+			var frame: Control = hud.get_node("Margin/Rows/Header/Top/PreviewFrame") as Control
+			var score: Control = hud.get_node("Margin/Rows/Header/Top/ScoreFrame") as Control
+			var pool: PiecePool = hud.piece_pool
+			assert_lte(score.get_global_rect().end.x, frame.get_global_rect().position.x)
+			assert_lte(frame.get_global_rect().end.x, pool.get_global_rect().position.x)
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(frame.get_global_rect()), "%s %s preview %s" % [locale, resolution, frame.get_global_rect()])
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(hud.goal_progress.get_global_rect()))
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(hud.pause_button.get_global_rect()), "%s %s pause %s" % [locale, resolution, hud.pause_button.get_global_rect()])
+			pool.open()
+			await wait_process_frames(3)
+			assert_true(Rect2(Vector2.ZERO, Vector2(resolution)).encloses(pool.panel.get_global_rect()))
+			pool.close()
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline)
+	TranslationServer.set_locale(old_locale)

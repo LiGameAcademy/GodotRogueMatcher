@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://services/telemetry/run_collection.gd" id="1"]
+
+[node name="RunCollection" type="Node"]
+process_mode = 3
+script = ExtResource("1")

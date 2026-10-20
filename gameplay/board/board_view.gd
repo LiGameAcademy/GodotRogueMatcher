@@ -5,6 +5,7 @@ extends Node2D
 const CELL_SCENE: PackedScene = preload("res://gameplay/board/cell/cell.tscn")
 const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
 const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explosion_visual/explosion_visual.tscn")
+const LINE_CLEAR_SCENE: PackedScene = preload("res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn")
 
 signal cell_pressed(coordinate: Vector2i)
 signal piece_activated(coordinate: Vector2i)
@@ -20,6 +21,8 @@ var _spacing: Vector2
 var _dimensions: Vector2i
 var _cell_size: Vector2
 var low_effects: bool = false
+var _game_theme: GameTheme
+
 var _presentation_tweens: Array[Tween] = []
 var _fixed_required: bool = false
 var presentation_speed: float = 1.0:
@@ -29,6 +32,7 @@ var presentation_speed: float = 1.0:
 		for animation: Tween in _presentation_tweens:
 			if animation.is_valid(): animation.set_speed_scale(1.0 if _fixed_required else presentation_speed)
 var _playback_pending: bool = false
+@onready var signal_effect: BoardSignalEffect = %BoardSignalEffect
 @onready var move_path: MovePathVisual = %MovePathVisual
 @onready var score_floats: ScoreFloatLayer = %ScoreFloatLayer
 
@@ -44,11 +48,29 @@ func _exit_tree() -> void:
 		if is_instance_valid(piece): piece.cancel_movement()
 	presentation_changed.emit()
 
+## Board backing is drawn on the board canvas, below cells and above the game background.
+func _draw() -> void:
+	if _game_theme != null and get_display_rect().has_area():
+		draw_style_box(_game_theme.ui_theme.get_stylebox("panel", "PanelContainer"), get_display_rect().grow(6.0))
+
+func apply_game_theme(preset: GameTheme) -> void:
+	_game_theme = preset
+	signal_effect.apply_game_theme(preset)
+	queue_redraw()
+	for cell: Cell in _cells.values(): cell.apply_game_theme(preset.board)
+	for piece: ChessPiece in _pieces.values(): piece.apply_game_theme(preset.board)
+	move_path.config = preset.feedback
+	move_path.queue_redraw()
+	score_floats.config = preset.score_floats
+
 func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> void:
 	clear_display()
 	_spacing = cell_size + gap
 	_cell_size = cell_size
 	_dimensions = Vector2i(columns, rows)
+	signal_effect.set_bounds(get_display_rect().grow(-2.0))
+	signal_effect.reset_visual()
+	queue_redraw()
 	for cell: Cell in _cells.values():
 		remove_child(cell)
 		cell.queue_free()
@@ -63,6 +85,7 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 			cell.activated.connect(func(clicked: Cell) -> void: piece_activated.emit(clicked.coordinate))
 			add_child(cell)
 			_cells[cell.coordinate] = cell
+			if _game_theme != null: cell.apply_game_theme(_game_theme.board)
 
 func get_cell(coordinate: Vector2i) -> Cell:
 	return _cells.get(coordinate)
@@ -72,13 +95,18 @@ func get_display_rect() -> Rect2:
 	if _dimensions.x <= 0 or _dimensions.y <= 0: return Rect2()
 	return Rect2(-_cell_size * 0.5, Vector2(_dimensions - Vector2i.ONE) * _spacing + _cell_size).grow(2.0)
 
+func set_signal_enabled(enabled: bool) -> void:
+	signal_effect.set_enabled(enabled)
+
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	signal_effect.set_low_effects(enabled)
 	score_floats.set_low_effects(enabled)
 	for cell: Cell in _cells.values(): cell.set_low_effects(enabled)
 	for piece: ChessPiece in _pieces.values(): piece.set_low_effects(enabled)
 	for child: Node in get_children():
 		if child is ExplosionVisual: (child as ExplosionVisual).set_low_effects(enabled)
+		elif child is LineClearVisual: (child as LineClearVisual).set_low_effects(enabled)
 
 func get_piece(piece_id: int) -> ChessPiece:
 	return _pieces.get(piece_id)
@@ -89,6 +117,7 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	signal_effect.reset_visual()
 	move_path.clear()
 	score_floats.clear(true)
 	_generation += 1
@@ -97,7 +126,7 @@ func clear_display() -> void:
 		if animation.is_valid(): animation.kill()
 	_presentation_tweens.clear()
 	for child: Node in get_children():
-		if child is ExplosionVisual:
+		if child is ExplosionVisual or child is LineClearVisual:
 			remove_child(child)
 			child.queue_free()
 	for piece: ChessPiece in _pieces.values():
@@ -132,6 +161,7 @@ func show_piece(piece_state: PieceState, piece: ChessPiece) -> void:
 	piece.piece_id = piece_state.piece_id
 	piece.low_effects = low_effects
 	cell.show_piece(piece)
+	if _game_theme != null: piece.apply_game_theme(_game_theme.board)
 	piece.position = Vector2.ZERO
 	piece.piece_type = piece_state.match_color
 	piece.is_ghost = piece_state.is_ghost
@@ -151,21 +181,25 @@ func show_ability_marker(piece_id: int, text: String) -> void:
 		piece.set_ability_marker(text)
 
 ## 调用者传入当前规则快照，能力升级后同步标记和提示。
-func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig) -> void:
+func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig, line_clear: LineClearState = null, manual_uses_used: Dictionary[StringName, int] = {}) -> void:
 	for piece_state: PieceState in snapshot:
 		var piece: ChessPiece = get_piece(piece_state.piece_id)
 		if not is_instance_valid(piece): continue
 		var marker: String = ""
 		if explosion.instances.has(piece_state.piece_id):
 			marker = "爆" if piece_state.content_id == &"special_demolition" else "引"
+		elif LineClearState.is_line_piece(piece_state.content_id):
+			marker = "行" if piece_state.content_id == LineClearState.CONTENT_ROW else "列"
 		piece.set_ability_marker(marker)
-		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data))
+		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data, line_clear, manual_uses_used))
 
 func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 	if radius < 0 or not _cells.has(center):
 		return
+	signal_effect.respond()
 	var visual: ExplosionVisual = EXPLOSION_SCENE.instantiate() as ExplosionVisual
 	visual.low_effects = low_effects
+	if _game_theme != null: visual.config = _game_theme.feedback
 	add_child(visual)
 	visual.position = Vector2(center) * _spacing
 	var minimum: Vector2i = Vector2i(maxi(0, center.x - radius), maxi(0, center.y - radius))
@@ -176,6 +210,31 @@ func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 #endregion
 
 #region 结果演出
+func show_line_clear(center: Vector2i, axis: int, radius: int = 0, cross_radius: int = -1) -> void:
+	if not _cells.has(center) or axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN]: return
+	var area: Rect2 = _line_area(center, axis, radius)
+	var second: Rect2 = _line_area(center, 1 - axis, cross_radius) if cross_radius >= 0 else Rect2()
+	signal_effect.respond()
+	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
+	visual.low_effects = low_effects
+	if _game_theme != null: visual.config = _game_theme.feedback
+	add_child(visual)
+	track_presentation(visual.setup(area, axis, second))
+
+func _line_area(center: Vector2i, axis: int, radius: int) -> Rect2:
+	var area: Rect2 = get_display_rect().grow(-2.0)
+	if axis == LineClearState.AXIS_ROW:
+		var minimum: int = maxi(0, center.y - maxi(0, radius))
+		var maximum: int = mini(_dimensions.y - 1, center.y + maxi(0, radius))
+		area.position.y = minimum * _spacing.y - _cell_size.y * 0.5
+		area.size.y = (maximum - minimum) * _spacing.y + _cell_size.y
+	else:
+		var minimum: int = maxi(0, center.x - maxi(0, radius))
+		var maximum: int = mini(_dimensions.x - 1, center.x + maxi(0, radius))
+		area.position.x = minimum * _spacing.x - _cell_size.x * 0.5
+		area.size.x = (maximum - minimum) * _spacing.x + _cell_size.x
+	return area
+
 func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	var generation: int = _generation
 	var piece: ChessPiece = get_piece(result.piece_id)
@@ -230,11 +289,16 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 func animate_matches(results: Array[MatchResult]) -> void:
 	score_floats.show_results(results, _spacing, get_display_rect(), low_effects, presentation_speed)
 	for result: MatchResult in results:
+		for changed: PieceState in result.recolored:
+			show_color(changed.piece_id, changed.match_color)
+			var dyed: ChessPiece = get_piece(changed.piece_id)
+			if is_instance_valid(dyed) and not low_effects: track_presentation(dyed.land())
 		var cells: Array[Cell] = []
 		for snapshot: PieceState in result.removed:
 			cells.append(get_cell(snapshot.coordinate))
 			remove_piece(snapshot, true)
 		if result.cause == &"explosion": show_blast(result.center, result.radius, result.generation)
+		elif result.cause == &"line_clear": show_line_clear(result.center, result.line_axis, result.radius, result.cross_radius)
 		match_visualized.emit(result, cells)
 
 func set_step_policy(policy: PresentationStep.Policy) -> void:
@@ -252,7 +316,7 @@ func cancel_animations() -> void:
 	for piece: ChessPiece in _pieces.values():
 		if is_instance_valid(piece): piece.cancel_movement()
 	for child: Node in get_children():
-		if child is ExplosionVisual or (child is ChessPiece and (child as ChessPiece).is_eliminating):
+		if child is ExplosionVisual or child is LineClearVisual or (child is ChessPiece and (child as ChessPiece).is_eliminating):
 			remove_child(child)
 			child.queue_free()
 	presentation_changed.emit()
@@ -304,6 +368,14 @@ func animate_spawn(snapshot: PieceState, duration: float) -> void:
 	var piece: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
 	show_piece(snapshot, piece)
 	track_presentation(piece.spawn_animation(duration))
+
+## Reuse the same node, color and cell; only the special marker changes.
+func animate_transform(snapshot: PieceState, duration: float) -> void:
+	var piece: ChessPiece = get_piece(snapshot.piece_id)
+	if not is_instance_valid(piece): return
+	var marker: String = "爆" if snapshot.content_id == &"special_demolition" else ("行" if snapshot.content_id == LineClearState.CONTENT_ROW else "列")
+	piece.set_ability_marker(marker)
+	if not low_effects and duration > 0.0: track_presentation(piece.land())
 
 ## 导演每步只等待实际动画；队列状态由父级另行映射给公开查询。
 func wait_for_animations() -> bool:

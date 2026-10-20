@@ -1,6 +1,6 @@
 # 技能连珠 · Skill Lines
 
-[浏览器试玩](https://godot-li.itch.io/roguematcher) · [English](README.md) · [0.0.1 预览版本](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.1)
+[浏览器试玩](https://godot-li.itch.io/roguematcher) · [English](README.md) · [0.0.2 预览版本](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.2)
 
 ![技能连珠宣传封面](docs/preview/cover.png)
 
@@ -22,11 +22,24 @@
 
 ![中文界面](docs/preview/language-zh.jpg)
 
+## 0.0.2 Web预览版
+
+**0.0.2** 新增以下功能。上方旧截图保留为0.0.1历史画面；新版画面参见 [O3 验收](docs/o3_acceptance.md)。
+
+- 开始菜单选择默认的**阶段挑战**或**经典无尽**；切换模式开始新局，重试保留模式。
+- 底部显示累计总分／目标总分，选卡即时得分也推进目标。未达标持续升压，补棋从3枚升至**最多5枚，含技能修正**；达标恢复压力并三选一，保留棋盘、总分和构筑。每阶段至少一次新有效行动，满盘优先，没有硬行动死亡线。
+- 完成八阶段后可以继续挑战，保留现有棋盘与构筑，之后每阶段目标总分增加1000。目标与每4行动升压仍为试调参数，见 [StageConfig](gameplay/progression/stages/stage_config.tres)。
+- 爆破手与行／列清除手可升级跨度、十字并互相触发连锁。每张主动技能每局3次，连锁不额外扣次数。
+- 技能先点选，再用面板下方按钮确认；棋子池与卡片式技能池可查看，支持Tag／稀有度／等级筛选和排序。
+- 明亮玩具与深色仪表两套主题；播放、声音、背景、棋盘信号和低特效集中到设置。
+
+上面的0.0.1清单保留为公开版本说明，不代表当前技能数量。日常仍在编辑器试玩，仅在发布或Web专项验证时导出。
+
 ## 玩法与操作
 
-点击棋子，再点击可到达的空格；路径只能穿过空格。横、竖或斜向同色五连及以上即可消除。没有直接形成五连时通常补 3 枚；全清后也会补棋。棋盘填满，本局结束。
+点击棋子，再点击可到达的空格；路径只能穿过空格。横、竖或斜向同色五连及以上即可消除。没有直接形成五连时按顶部预告补棋；全清后也会补棋。棋盘填满，本局结束。
 
-得分达到门槛后选择技能；获取「主动爆破」升级后可以双击爆破棋子，占用一次行动。悬停特殊棋子查看效果。Esc 暂停／继续，F1 帮助菜单，F8 快速播放，F9 跳过允许略过的演出。
+得分达到门槛后选择技能；获取「主动爆破」升级后可以双击爆破棋子，占用一次行动。悬停特殊棋子查看效果。Esc 暂停／继续，F1 设置，F8 快速播放，F9 跳过允许略过的演出。
 
 ## 本地运行与验证
 
@@ -39,16 +52,16 @@ git clone --recurse-submodules https://github.com/LiGameAcademy/GodotRogueMatche
 导入 `project.godot`，运行主场景即可。`godot_core_system` 提供本地化、设置、触发器等通用能力，核心规则与表现分别维护。
 
 ```sh
-godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
+godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests/rules,res://tests/integration -ginclude_subdirs -gexit
 ```
 
 Web 导出参见 [English README](README.md#run-the-source)，目录参见 [DIRECTORY.md](DIRECTORY.md)。
 
 ## 预览版边界
 
-面向桌面浏览器、鼠标与键盘，建议不小于 1280×720。手机触控和跨刷新续局尚未实现。数值仍在调整，任务系统与新的主动救场棋子属于后续计划。
+面向桌面浏览器、鼠标与键盘，建议不小于 1280×720。手机触控和跨刷新续局尚未实现。数值仍在调整。背景按本次阶段性接受的效果保留，后续视觉打磨与等待时间分析另行安排。
 
-设置、练习完成标记和局内记录仅保存在本地浏览器，没有上传端点。清空网站存储会移除这些数据。
+设置与练习完成标记使用浏览器本地存储，没有遥测上传端点。Web关闭桌面采集器并隐藏记录目录／导出按钮；内部命令记录不代表提供了浏览器数据下载能力。正式采集与导出仍用桌面／编辑器版本。清空网站存储会移除偏好，本局不支持刷新续玩。
 
 ## 课程与支持
 

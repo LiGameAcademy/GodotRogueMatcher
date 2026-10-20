@@ -124,6 +124,7 @@ func test_tutorial_choice_occurs_after_animation_while_tree_paused() -> void:
 	assert_false(tutorial.view.is_presenting())
 	assert_eq(tutorial.score.text, "练习得分 100 · 空位 24 / 25")
 	tutorial.choices._select(0)
+	tutorial.choices.confirm_selection()
 	for frame: int in range(180):
 		if tutorial._completed: break
 		await wait_process_frames(1)
@@ -134,10 +135,56 @@ func test_tutorial_choice_occurs_after_animation_while_tree_paused() -> void:
 func test_build_label_uses_application_version_and_explicit_override() -> void:
 	var recorder: RunRecorder = RunRecorder.new()
 	recorder.begin(board.run, "test", false)
-	assert_eq(recorder.records[0].build, "0.0.1")
+	assert_eq(recorder.records[0].build, str(ProjectSettings.get_setting("application/config/version")))
 	var explicit: RunRecorder = RunRecorder.new()
 	explicit.begin(board.run, "test", false, "fixture-build")
 	assert_eq(explicit.records[0].build, "fixture-build")
+
+func test_switching_modes_starts_new_runs_and_preserves_mode_on_retry() -> void:
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	var original: RunController = board.run
+	assert_eq(original.state.mode_id(), &"stage_challenge")
+	game.call("_show_menu")
+	menu.mode_button.select(0)
+	menu.mode_button.item_selected.emit(0)
+	assert_string_contains(menu.mode_hint.text, "重置")
+	menu.play_button.pressed.emit()
+	await board.initialized
+	assert_ne(board.run.state.run_id, original.state.run_id)
+	assert_eq(board.run.state.mode_id(), &"classic_endless")
+	assert_eq(board.run.state.valid_moves, 0)
+	assert_eq(board.run.state.rewards.consumed_count, 0)
+	assert_false(get_tree().paused)
+	game.call("_show_menu")
+	assert_eq(menu.mode_button.selected, 0)
+	menu.mode_button.select(1)
+	menu.play_button.pressed.emit()
+	await board.initialized
+	assert_eq(board.run.state.mode_id(), &"stage_challenge")
+	assert_eq(board.run.state.stage.used_actions, 0)
+	assert_eq(board.run.state.stage.index, 0)
+	var previous_id: String = board.run.state.run_id
+	game.call("_show_menu")
+	menu.new_button.pressed.emit()
+	await board.initialized
+	assert_ne(board.run.state.run_id, previous_id)
+	assert_eq(board.run.state.mode_id(), &"stage_challenge")
+
+func test_challenge_hud_and_end_titles_use_stage_state() -> void:
+	var hud: Hud = game.get_node("UILayer/HUD") as Hud
+	assert_string_contains(hud.goal_progress.target_label.tooltip_text, "阶段 1 / 8")
+	assert_string_contains(hud.spawn_preview.tooltip_text, "下次应补 3 枚")
+	board.run.state.ledger.commit(0, 1.0, 100, &"match", -1)
+	hud.show_run(board.run)
+	assert_string_contains(hud.goal_progress.bar.tooltip_text, "完成一次有效行动")
+	board.run.state.stage.used_actions = 10
+	board.run.finish_game()
+	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": 0, "run_state": board.run.state})
+	assert_eq((popup.get_node("Panel/Content/Title") as Label).text, "棋盘已满，本局结束")
+	assert_string_contains(HudDetails.summary(board.run.state), "已用行动 10")
+	UIManager.close_popup()
+	board.run.state.end_reason = &"challenge_completed"
+	assert_eq(StageText.end_title(board.run.state), "挑战完成")
 
 func test_closing_popup_during_initialization_does_not_resume_stale_dialog() -> void:
 	_popup_finished = false
