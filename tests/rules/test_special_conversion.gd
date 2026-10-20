@@ -48,8 +48,15 @@ func test_all_types_freeze_zero_one_two_three_and_more_without_replacement() -> 
 			var rng_before: int = run.state.rewards.target_random.state
 			var result: CommandResult = run.execute_command(_command(run, card))
 			assert_eq(result.accepted, count > 0, result.reason)
+			if count == 0:
+				assert_eq(result.reason, "offer_replaced", "空冻结组已全失效，由本局重建")
+				assert_not_null(result.offer)
+				assert_eq(result.offer.reward_id, offer.reward_id)
+				assert_eq(result.offer.replaces_offer_id, offer.offer_id)
+				assert_eq(run.state.pending_rewards, 1)
+				assert_eq(run.state.rewards.consumed_count, 2)
+				continue
 			assert_eq(run.state.rewards.target_random.state, rng_before)
-			if count == 0: continue
 			assert_eq(result.skill.transformed.size(), mini(count, 3))
 			assert_true(result.skill.created.is_empty())
 			assert_true(result.skill.removed.is_empty())

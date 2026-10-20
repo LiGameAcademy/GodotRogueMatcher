@@ -116,6 +116,9 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	if skill == null:
 		result.error = "该技能不在当前候选中"
 		return result
+	# 命令入口刚重校验过的失效状态同样约束无UI调用，不能只禁用按钮。
+	result.error = offer.unavailable.get(skill_id, "")
+	if not result.error.is_empty(): return result
 	result.error = rejection(state, skill, run.abilities.config)
 	if not result.error.is_empty(): return result
 	var targets: SkillTarget = offer.targets.get(skill_id)
@@ -148,6 +151,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	for choice: SkillDefinition in offer.choices:
 		if choice.skill_id != skill_id: rewards.previous_unselected.append(choice.skill_id)
 	rewards.consumed_count += 1
+	rewards.repair_used = false
 	state.pending_rewards -= 1
 	rewards.active_offer = null
 	result.success = true

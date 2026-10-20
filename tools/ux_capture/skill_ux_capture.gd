@@ -47,7 +47,7 @@ func _ready() -> void:
 	board.run.state.pending_rewards = 1
 	board.run.enter_rewards()
 	_offer([&"instant_color_clear", &"instant_line_clear", &"score_multiplier"])
-	LevelUpSystem.resolve_pending_rewards(board)
+	game.call("request_rewards")
 	await _frames(5)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	if popup == null:

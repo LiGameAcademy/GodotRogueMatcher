@@ -18,3 +18,24 @@ var level_after: int = 0
 ## Color picker / bots read groups here; CompositeSkillTarget redirects to the clear leaf.
 func color_picker_source() -> SkillTarget:
 	return self
+
+## 界面只拿独立冻结快照，不能改写本局目标。
+func copy() -> SkillTarget:
+	var result: SkillTarget = SkillTarget.new()
+	_copy_into(result)
+	return result
+
+func _copy_into(result: SkillTarget) -> void:
+	result.coordinate = coordinate
+	result.piece_ids.assign(piece_ids)
+	result.color = color
+	result.line_axis = line_axis
+	result.line_index = line_index
+	result.value_before = value_before
+	result.value_after = value_after
+	result.remaining_before = remaining_before
+	result.remaining_after = remaining_after
+	for group: PackedInt64Array in color_groups: result.color_groups.append(group.duplicate())
+	result.fuse_counts.assign(fuse_counts)
+	result.level_before = level_before
+	result.level_after = level_after

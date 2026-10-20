@@ -1,0 +1,90 @@
+{
+	"groups": {
+		"bot/greedy-v1/ef5f6f468af67640ea64f2fe40b24435d51e875d5fc188395ba1db11335bfe8a/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/completed": {
+			"count": 1,
+			"highest": {
+				"moves": 44,
+				"run_id": "133000-38936-1792473706869000-2275535",
+				"score": 714
+			},
+			"lowest": {
+				"moves": 44,
+				"run_id": "133000-38936-1792473706869000-2275535",
+				"score": 714
+			},
+			"moves_p10_p50_p90": [
+				44,
+				44,
+				44
+			],
+			"reached_8_9_10": [
+				0,
+				0,
+				0
+			],
+			"reached_8_9_10_rates": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"reasons": {
+				"board_full": 1
+			},
+			"replay_failures": 0,
+			"score_p10_p50_p90": [
+				714,
+				714,
+				714
+			]
+		}
+	},
+	"runs": 1,
+	"schema": "bot-report-v1",
+	"skills": {
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/composite_refill_color": {
+			"conditional_selection_rate": 0.0,
+			"offered": 1,
+			"selected": 0
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/core_drop": {
+			"conditional_selection_rate": 1.0,
+			"offered": 1,
+			"selected": 1
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/line_clear_score": {
+			"conditional_selection_rate": 0.0,
+			"offered": 1,
+			"selected": 0
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/line_row_drop": {
+			"conditional_selection_rate": 1.0,
+			"offered": 1,
+			"selected": 1
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/line_row_span": {
+			"conditional_selection_rate": 0.0,
+			"offered": 1,
+			"selected": 0
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/match_dye_echo": {
+			"conditional_selection_rate": 0.0,
+			"offered": 1,
+			"selected": 0
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/match_extra": {
+			"conditional_selection_rate": 1.0,
+			"offered": 1,
+			"selected": 1
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/precision_reward": {
+			"conditional_selection_rate": 0.0,
+			"offered": 1,
+			"selected": 0
+		},
+		"bot/greedy-v1/b51cba80baf5b4810cb03ee89a8d92884a9ef4abfa2e3873843872aeb9e7b754/refill_less": {
+			"conditional_selection_rate": 0.0,
+			"offered": 1,
+			"selected": 0
+		}
+	}
+}

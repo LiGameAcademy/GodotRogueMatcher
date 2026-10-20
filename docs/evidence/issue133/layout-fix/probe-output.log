@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+PROBE 3 scale=(0.52, 1.0) card=[P: (307.44, 152.0), S: (133.12, 352.0)] action=[P: (316.8, -249.0), S: (56.16, 18.0)] rarity=[P: (316.8, -249.0), S: (14.56, 22.0)]
+PROBE 30 scale=(1.0, 1.0) card=[P: (246.0, 152.0), S: (256.0, 352.0)] action=[P: (264.0, 468.0), S: (220.0, 18.0)] rarity=[P: (264.0, 245.0), S: (79.0, 22.0)]

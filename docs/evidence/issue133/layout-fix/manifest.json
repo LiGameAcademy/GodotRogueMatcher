@@ -1,0 +1,27 @@
+[
+  {
+    "file": "cards-output.log",
+    "bytes": 1774,
+    "sha256": "89983a8dcc4a5d288538898f81b8c9702396c8c48cc9c6c0c03b5c5becb97d06"
+  },
+  {
+    "file": "full-engine.log",
+    "bytes": 91230,
+    "sha256": "d2f49a1ada15612ff689dd61dc3228e3958d86b8c1fb45a9b788ca2f4bce12c3"
+  },
+  {
+    "file": "full-output.log",
+    "bytes": 95540,
+    "sha256": "55e97d673024d5c3d9a921768e97ea432c961b354369df3b728b8eedfd715fea"
+  },
+  {
+    "file": "probe-output.log",
+    "bytes": 1058,
+    "sha256": "7cdebfc8206f0c4bbb5c5cfbea26c3a50962e11638e6083eea9cdd8e8a095ee1"
+  },
+  {
+    "file": "script-results.json",
+    "bytes": 7969,
+    "sha256": "e6b8a22630a78f82345dfac2f1ac152e558d3e81daccf70ba737a4a5764fac18"
+  }
+]

@@ -134,7 +134,7 @@ func test_failed_spawn_does_not_offer_pending_rescue_reward() -> void:
 	_fill_without_lines()
 	GameManager.add_score(100)
 	assert_eq(await SpawnManager.spawn_random_pieces(board), 0)
-	await LevelUpSystem.resolve_pending_rewards(board)
+	await main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	assert_true(GameManager.is_game_over)
@@ -153,7 +153,7 @@ func test_reward_filling_last_space_ends_before_next_reward() -> void:
 	_fill_without_lines()
 	_remove(Vector2i(8, 8))
 	GameManager.add_score(260)
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
@@ -171,7 +171,7 @@ func test_reward_filling_last_space_ends_before_next_reward() -> void:
 func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	_fill_without_lines()
 	GameManager.add_score(123)
-	LevelUpSystem.pending_rewards = 2
+	board.run.state.pending_rewards = 2
 	GameManager.finish_game()
 	await (main.get_node("Game/UILayer/HUD") as Hud).wait_for_score()
 	await wait_process_frames(3)
@@ -193,7 +193,7 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	GameManager.add_score(260)
 	assert_eq(LevelUpSystem.pending_rewards, 2)
 	assert_false(is_instance_valid(UIManager.current_popup))
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
@@ -218,7 +218,7 @@ func test_rewards_queue_and_selection_applies_once() -> void:
 	assert_eq(board.run.state.rewards.consumed_count, 2)
 	assert_eq(GameManager.piece_count, 1)
 	assert_eq(LevelUpSystem.pending_rewards, 0)
-	assert_false(LevelUpSystem.is_resolving)
+	assert_false(is_instance_valid(UIManager.current_popup))
 	assert_false(get_tree().paused)
 
 func _skill_index(popup: PopupSkillChoice, id: StringName) -> int:
@@ -251,9 +251,9 @@ func test_f7_uses_real_reward_popup_and_returns_to_same_turn() -> void:
 	assert_eq(board.run.state.rewards.applications.size(), 1)
 	assert_eq(board.run.state.rewards.applications[0].skill_id, &"core_drop")
 
-func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
+func test_partial_invalid_core_target_keeps_offer_without_consuming_reward() -> void:
 	GameManager.add_score(100)
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
@@ -264,7 +264,7 @@ func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
 	popup.confirm_selection()
 	assert_eq(LevelUpSystem.pending_rewards, 1)
 	assert_eq(board.run.state.rewards.consumed_count, 0)
-	assert_ne(popup.offer.offer_id, previous)
+	assert_eq(popup.offer.offer_id, previous)
 	assert_eq(board.run.state.rules.state.get_piece_count(), 1)
 	_use_score_candidate(popup)
 	popup._select(_skill_index(popup, &"score_multiplier"))
@@ -275,19 +275,18 @@ func test_invalid_core_target_refreshes_without_consuming_reward() -> void:
 
 func test_old_skill_callback_after_retry_cannot_modify_new_run() -> void:
 	GameManager.add_score(100)
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
-	var old_run: RunController = board.run
 	var old_id: int = popup.offer.offer_id
+	var old_callback: Callable = popup.skill_selected.get_connections()[0].callable
 	await board.retry_game(BoardRules.new(BoardState.new(9, 9), 5))
-	LevelUpSystem._apply_selected_skill(old_id, &"core_drop", board, old_run, null, SkillOfferGenerator.new())
+	old_callback.call(old_id, &"core_drop")
 	assert_eq(board.run.state.rules.state.get_piece_count(), 5)
 	assert_eq(board.run.state.rewards.consumed_count, 0)
 	assert_false(board.run.state.explosion.unlocked)
 	assert_false(is_instance_valid(UIManager.current_popup))
-	assert_false(LevelUpSystem.is_resolving)
 	await wait_process_frames(2)
 
 func test_legacy_dye_and_destroy_route_through_rule_state() -> void:
@@ -428,20 +427,23 @@ func _fill_without_lines() -> void:
 
 ## 交互验收使用受控候选；候选概率在规则测试中独立验证。
 func _use_core_candidate(popup: PopupSkillChoice) -> void:
-	for existing: SkillDefinition in popup.offer.choices:
+	var offer: SkillOffer = board.run.state.rewards.active_offer
+	for existing: SkillDefinition in offer.choices:
 		if existing.skill_id == &"core_drop": return
 	var skill: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
 	var target: SkillTarget = SkillRules.freeze_target(board.run.state, skill)
 	target.coordinate = board.rules.state.get_empty_coordinates()[0]
-	popup.offer.choices[0] = skill
-	popup.offer.targets[skill.skill_id] = target
-	popup.show_offer(popup.offer)
+	offer.choices[0] = skill
+	offer.targets[skill.skill_id] = target
+	popup.show_offer(offer)
 
 ## 交互验收使用受控候选；候选概率在规则测试中独立验证。
 func _use_score_candidate(popup: PopupSkillChoice) -> void:
+	var offer: SkillOffer = board.run.state.rewards.active_offer
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		if skill.skill_id != &"score_multiplier": continue
-		popup.offer.choices[0] = skill
-		popup.offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill)
-		popup.show_offer(popup.offer)
+		offer.choices[0] = skill
+		offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill)
+		offer.unavailable.erase(skill.skill_id)
+		popup.show_offer(offer)
 		return

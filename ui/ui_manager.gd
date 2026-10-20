@@ -55,7 +55,7 @@ func open_popup(popup_name: String, data: Dictionary = {}) -> Control:
 func close_popup() -> void:
 	if is_instance_valid(current_popup):
 		if current_popup is PopupSkillChoice:
-			(current_popup as PopupSkillChoice).accept_selection()
+			(current_popup as PopupSkillChoice).close_view()
 		else:
 			current_popup.queue_free()
 	current_popup = null

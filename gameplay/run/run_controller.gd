@@ -197,16 +197,13 @@ func initialize(mode: String = "normal") -> RunStepResult:
 func check_rewards(score_override: int = -1) -> int:
 	return 0 if state.stage.enabled() else state.progression.check_score(state, PROGRESSION, score_override)
 
-func prepare_offer() -> SkillOffer:
-	if state.pending_rewards <= 0 or state.is_game_over: return null
+func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = null) -> SkillOffer:
+	if state.pending_rewards <= 0 or state.is_game_over or not state.rule_error.is_empty(): return null
 	enter_rewards()
 	var existing: SkillOffer = state.rewards.active_offer
-	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
-	var offer: SkillOffer = generator.generate(self)
-	if offer == null:
-		state.rule_error = generator.last_error
-		state.phase = RunState.Phase.ERROR
-	elif existing == null and recorder != null:
+	var source: SkillOfferGenerator = generator if generator != null else SkillOfferGenerator.new()
+	var offer: SkillOffer = RewardOfferRules.prepare(self, source)
+	if offer != null and offer != existing and recorder != null and record_offer:
 		recorder.offer(self, offer)
 	return offer
 
@@ -270,11 +267,17 @@ func execute_command(command: RunCommand) -> CommandResult:
 	elif command is ChooseSkillCommand:
 		var choice: ChooseSkillCommand = command as ChooseSkillCommand
 		var offer: SkillOffer = state.rewards.active_offer
-		if offer == null or choice.reward_id != offer.reward_id: result.reason = "stale_reward"
+		if offer == null or choice.reward_id != offer.reward_id or choice.offer_id != offer.offer_id: result.reason = "stale_reward"
 		else:
-			result.skill = SkillRules.apply(self, choice.offer_id, choice.skill_id, choice.selected_color)
-			result.accepted = result.skill.success
-			result.reason = result.skill.error
+			var current: SkillOffer = prepare_offer(false)
+			if current == null: result.reason = state.rule_error
+			elif current != offer:
+				result.offer = current
+				result.reason = "offer_replaced"
+			else:
+				result.skill = SkillRules.apply(self, choice.offer_id, choice.skill_id, choice.selected_color)
+				result.accepted = result.skill.success
+				result.reason = result.skill.error
 			if result.accepted: prepare_spawn_plan()
 			check_rewards()
 			if result.accepted and state.rules.state.get_empty_coordinates().is_empty():
@@ -287,7 +290,9 @@ func execute_command(command: RunCommand) -> CommandResult:
 		last_command_id = command.command_id
 		_last_payload = payload.duplicate(true)
 		_last_result = result
-	if recorder != null: recorder.command(self, command, result, before)
+	if recorder != null:
+		recorder.command(self, command, result, before)
+		if result.offer != null: recorder.offer(self, result.offer, "all_candidates_unavailable")
 	return result
 
 ## 每次仅越过一个安全阶段；机器人直接确认，真人先等演出。

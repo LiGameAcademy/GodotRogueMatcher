@@ -3,6 +3,7 @@ extends RefCounted
 
 var consumed_count: int = 0
 var next_offer_id: int = 1
+var repair_used: bool = false
 var active_offer: SkillOffer
 var applications: Array[SkillApplyResult] = []
 var acquired: Dictionary[StringName, int] = {}

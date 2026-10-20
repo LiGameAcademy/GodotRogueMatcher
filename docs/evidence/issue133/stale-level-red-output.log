@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue133/stale-level-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_reward_waiting_rules.gd
+[0m* test_partial_invalid_offer_keeps_identity_targets_and_random_without_replacement
+* test_all_invalid_offer_rebuilds_same_reward_once_without_consuming_it
+* test_nested_popup_snapshot_isolates_every_target_collection
+* test_second_complete_invalidation_stops_without_new_offer_or_repair
+* test_failed_freeze_keeps_all_formal_streams_identity_and_reward
+* test_one_and_two_card_groups_are_complete_but_zero_pool_is_an_error
+* test_successful_choose_duplicate_keeps_result_and_consumes_once
+* test_command_cannot_acquire_candidate_with_outdated_frozen_level
+[31m    [Failed]:  [0m["升级目标已失效"] expected to equal ["frozen_skill_level_changed"]:  
+      at line 163
+[31m    [Failed]:  [0m["1c4880d29bbd767027b59a5f2c961ce6ca20f83cd5cf42866b9a7aeeba0d7d81"] expected to equal ["88a1857fca09343700387de63132c205df71e3a574d6230152e6a1009677f63c"]:  
+      at line 164
+[1m7/8 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_reward_waiting_rules.gd
+[0m- test_command_cannot_acquire_candidate_with_outdated_frozen_level
+[31m    [Failed]:  [0m["升级目标已失效"] expected to equal ["frozen_skill_level_changed"]:  
+          at line 163
+[31m    [Failed]:  [0m["1c4880d29bbd767027b59a5f2c961ce6ca20f83cd5cf42866b9a7aeeba0d7d81"] expected to equal ["88a1857fca09343700387de63132c205df71e3a574d6230152e6a1009677f63c"]:  
+          at line 164
+
+Totals
+------
+Scripts               1
+Tests                 8
+Passing Tests         7
+Failing Tests         1
+Asserts           52/54
+Time              0.052s
+
+
+[31m---- 1 failing tests ----
+[0m

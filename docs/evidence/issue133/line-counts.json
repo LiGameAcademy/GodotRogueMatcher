@@ -1,0 +1,142 @@
+[
+  {
+    "path": "gameplay/board/board.gd",
+    "lines": 493
+  },
+  {
+    "path": "gameplay/board/board_run_flow.gd",
+    "lines": 46
+  },
+  {
+    "path": "gameplay/game.gd",
+    "lines": 437
+  },
+  {
+    "path": "gameplay/game_reward_flow.gd",
+    "lines": 128
+  },
+  {
+    "path": "gameplay/progression/composite_skill_target.gd",
+    "lines": 17
+  },
+  {
+    "path": "gameplay/progression/level_up_system.gd",
+    "lines": 170
+  },
+  {
+    "path": "gameplay/progression/reward_offer_rules.gd",
+    "lines": 69
+  },
+  {
+    "path": "gameplay/progression/reward_state.gd",
+    "lines": 18
+  },
+  {
+    "path": "gameplay/progression/skill_offer.gd",
+    "lines": 39
+  },
+  {
+    "path": "gameplay/progression/skill_offer_generator.gd",
+    "lines": 229
+  },
+  {
+    "path": "gameplay/progression/skill_rules.gd",
+    "lines": 179
+  },
+  {
+    "path": "gameplay/progression/skill_target.gd",
+    "lines": 41
+  },
+  {
+    "path": "gameplay/run/command_result.gd",
+    "lines": 9
+  },
+  {
+    "path": "gameplay/run/recording/run_snapshot.gd",
+    "lines": 151
+  },
+  {
+    "path": "gameplay/run/run_controller.gd",
+    "lines": 354
+  },
+  {
+    "path": "tests/integration/test_expanded_skill_scene.gd",
+    "lines": 121
+  },
+  {
+    "path": "tests/integration/test_game_themes.gd",
+    "lines": 173
+  },
+  {
+    "path": "tests/integration/test_input_buffer.gd",
+    "lines": 116
+  },
+  {
+    "path": "tests/integration/test_playback_settings.gd",
+    "lines": 147
+  },
+  {
+    "path": "tests/integration/test_reward_coordination.gd",
+    "lines": 174
+  },
+  {
+    "path": "tests/integration/test_reward_presentation.gd",
+    "lines": 124
+  },
+  {
+    "path": "tests/integration/test_skill_pool.gd",
+    "lines": 158
+  },
+  {
+    "path": "tests/integration/test_skill_target_ux.gd",
+    "lines": 181
+  },
+  {
+    "path": "tests/integration/test_telemetry_scene.gd",
+    "lines": 164
+  },
+  {
+    "path": "tests/rules/test_ability_composite_effects.gd",
+    "lines": 177
+  },
+  {
+    "path": "tests/rules/test_reward_waiting_rules.gd",
+    "lines": 168
+  },
+  {
+    "path": "tests/rules/test_skill_recording.gd",
+    "lines": 67
+  },
+  {
+    "path": "tests/rules/test_special_conversion.gd",
+    "lines": 206
+  },
+  {
+    "path": "tests/rules/test_trial_progression.gd",
+    "lines": 91
+  },
+  {
+    "path": "tests/test_core_loop.gd",
+    "lines": 449
+  },
+  {
+    "path": "tools/ux_capture/demolition_capture.gd",
+    "lines": 107
+  },
+  {
+    "path": "tools/ux_capture/skill_ux_capture.gd",
+    "lines": 119
+  },
+  {
+    "path": "ui/hud.gd",
+    "lines": 239
+  },
+  {
+    "path": "ui/popup_skill_choice.gd",
+    "lines": 228
+  },
+  {
+    "path": "ui/ui_manager.gd",
+    "lines": 64
+  }
+]

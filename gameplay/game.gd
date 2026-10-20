@@ -29,6 +29,7 @@ var _has_played: bool = false
 var _menu_previous_pause: bool = false
 var _menu_owns_pause: bool = false
 var game_theme: GameTheme
+var reward_flow: GameRewardFlow = GameRewardFlow.new()
 
 func _ready() -> void:
 	world_environment.environment = world_environment.environment.duplicate() as Environment
@@ -44,6 +45,12 @@ func _ready() -> void:
 	board.presentation_updated.connect(_refresh_hud)
 	board.director.busy_changed.connect(_on_playback_busy)
 	board.score_presenter = _wait_for_score
+	board.reward_requested.connect(_on_reward_requested)
+	board.run_reset.connect(reward_flow.cancel)
+	reward_flow.resume_available.connect(hud.set_reward_waiting)
+	reward_flow.selection_committed.connect(_on_reward_committed)
+	reward_flow.error_reported.connect(hud.show_status)
+	hud.reward_resume_requested.connect(request_rewards)
 	settings.fast_requested.connect(_set_fast)
 	hud.pause_requested.connect(_toggle_pause)
 	hud.settings_requested.connect(_open_settings)
@@ -101,6 +108,7 @@ func _ready() -> void:
 		if board.observation.telemetry != null: board.observation.telemetry.play_started()
 
 func _exit_tree() -> void:
+	reward_flow.cancel()
 	if _menu_owns_pause: get_tree().paused = _menu_previous_pause
 	if intercept_window_close: get_tree().auto_accept_quit = true
 
@@ -290,6 +298,21 @@ func _on_popup_opened(popup: Control) -> void:
 		(popup as PopupSkillChoice).skill_pool_requested.connect(_open_skill_pool)
 		(popup as PopupSkillChoice).card_acquired.connect(_on_skill_card_acquired)
 		(popup as PopupSkillChoice).set_low_effects(preferences.low_effects)
+
+## 用户明确恢复选卡或调试工具请求；不因关闭自动重新打开。
+func request_rewards() -> void:
+	var active: RunController = board.run
+	if active.state.pending_rewards <= 0 or active.state.is_game_over or not active.state.rule_error.is_empty(): return
+	board.can_selected = false
+	var step: RunStepResult = active.advance()
+	if step.kind == &"offer": reward_flow.present(board, active, step.offer, true)
+
+func _on_reward_requested(active: RunController, offer: SkillOffer) -> void:
+	reward_flow.present(board, active, offer)
+
+func _on_reward_committed(active: RunController) -> void:
+	await board.resume_run(active)
+	if board.run == active: _refresh_hud()
 
 func _open_settings() -> void:
 	if settings.panel.visible or skill_pool.panel.visible: return

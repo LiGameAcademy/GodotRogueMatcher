@@ -1,6 +1,14 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v24-composite-score-events`（记录与调试见 `../skills/SKILL_RECORDING.md`）。
+规则版本：`run-commands-v35-reward-coordination`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+
+## 奖励等待与场景协调（#133）
+
+`RunController.prepare_offer/advance/execute_command`拥有奖励等待、冻结候选和继续位置；`RewardOfferRules`负责失效判定。部分失效保留原组并标记不可用，全组失效每次奖励最多成功重建一次，保留reward身份并记录替代offer。候选生成在临时随机流完成冻结，成功后才提交正式三流及offer身份；合法一张、两张仍是完整组，零张进入ERROR。
+
+`BoardRunFlow`通过Board的`reward_requested`向上通知Game；Game持有`GameRewardFlow`等待必要表现、打开快照弹窗并绑定原run/reward/offer/界面代次。普通关闭保留规则等待，HUD“继续选卡”恢复原组。只有成功选择才播放结果并请求Board继续；旧回调不能获取当前奖励身份再提交。Game退出和重试取消界面等待并释放本协调器取得的暂停。
+
+`PopupSkillChoice`仅展示隔离的目标快照及临时选择；不扣奖励、不重抽、不控制全局暂停。LevelUpSystem保留旧道具池和进度只读兼容查询，正式写入口及弹窗循环已退出。#134继续处理其余旧兼容入口；本片未实现#160磁盘存档恢复或#161六随机流生命周期。
 
 ## 配置 → 提交（取得）
 

@@ -1,0 +1,351 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue133/final-targeted-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_reward_coordination.gd
+[0m* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+* test_popup_cannot_mutate_authoritative_frozen_targets
+* test_same_run_old_popup_callback_does_not_submit_again
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+* test_two_rewards_in_normal_mode
+* test_two_rewards_in_fast_mode
+* test_two_rewards_in_low_effects_mode
+* test_two_rewards_in_combined_mode
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_reward_waiting_rules.gd
+[0m* test_partial_invalid_offer_keeps_identity_targets_and_random_without_replacement
+* test_all_invalid_offer_rebuilds_same_reward_once_without_consuming_it
+* test_nested_popup_snapshot_isolates_every_target_collection
+* test_second_complete_invalidation_stops_without_new_offer_or_repair
+* test_failed_freeze_keeps_all_formal_streams_identity_and_reward
+* test_one_and_two_card_groups_are_complete_but_zero_pool_is_an_error
+* test_successful_choose_duplicate_keeps_result_and_consumes_once
+[1m7/7 passed.
+[0m[4m
+
+res://tests/test_core_loop.gd
+[0m* test_occupied_start_can_move_and_restores_obstacle
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_compatibility_writes_refresh_special_tooltips_at_rest
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_click_move_advances_one_turn_and_spawns_three
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_blocked_move_preserves_turn_score_and_occupancy
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_five_match_scores_and_clears_without_stale_references
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_partial_spawn_fills_last_empty_cell_and_ends_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_spawn_checks_match_before_full_board_failure
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_crossed_lines_deduplicate
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_four_does_not_match_and_diagonal_five_does
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_full_clear_repopulates_and_returns_to_input
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_failed_spawn_does_not_offer_pending_rescue_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_candidate_ids_are_distinct
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_reward_filling_last_space_ends_before_next_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_clears_score_items_obstacles_and_upgrade_state
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_rewards_queue_and_selection_applies_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_f7_uses_real_reward_popup_and_returns_to_same_turn
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_partial_invalid_core_target_keeps_offer_without_consuming_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_old_skill_callback_after_retry_cannot_modify_new_run
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_legacy_dye_and_destroy_route_through_rule_state
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+效果 [dye_piece] 应用：将棋子染成颜色 4 (位置: (3, 2))
+效果 [destroy_pieces] 应用：摧毁 1 个棋子
+* test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+WARNING: 道具 prism_tower 没有配置效果！
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] register_item (res://gameplay/items/item_effect_system.gd:46)
+       [1] place_item_at (res://gameplay/items/item_placer.gd:80)
+       [2] test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids (res://tests/test_core_loop.gd:308)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] before_each (res://tests/test_core_loop.gd:21)
+       [5] start_game (res://gameplay/board/board.gd:107)
+       [6] present_spawns (res://gameplay/board/board.gd:439)
+       [7] finish_presentation (res://gameplay/board/board.gd:264)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+* test_coordinator_rejects_rebuild_during_move_and_finishes_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_cancels_old_move_without_advancing_new_turn
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_extra_score_does_not_exempt_ordinary_spawn
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_score_reset_notifies_display_and_replaces_ledger
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_move_rules_are_committed_while_animation_is_pending
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_presenting_committed_result_twice_does_not_repeat_effects
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[33m    1 Orphans[0m
+[33m        * [ScoreMote:<Node2D#2921601175028>(score_mote.gd)][0m
+* test_fast_and_slow_move_playback_have_identical_rule_results
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m27/27 passed.
+[0m[4m
+
+res://tests/integration/test_reward_presentation.gd
+[0m* test_match_finishes_before_score_notification_and_reward_popup
+* test_blast_waits_for_longer_visual_before_reward_pauses_game
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_core_selection_match_completes_before_next_queued_reward
+* test_retry_cancels_wait_without_publishing_old_score_or_opening_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_skill_target_ux.gd
+[0m* test_color_has_no_default_invalid_confirm_only_highlights_without_consumption
+* test_fold_view_pause_and_return_preserve_target_and_lock_board_without_reroll
+* test_color_confirm_applies_once_and_proceeds_through_real_reward_coordinator
+* test_hud_temporary_skill_disappears_when_consumed_history_can_be_expanded
+* test_non_color_budget_refusal_keeps_offer_random_and_reward
+* test_paused_card_body_mouse_click_opens_picker_once_without_reroll
+[1m6/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               5
+Tests                54
+Passing Tests        54
+Asserts             991
+Time              42.566s
+
+
+[32m---- All tests passed! ----
+[0m

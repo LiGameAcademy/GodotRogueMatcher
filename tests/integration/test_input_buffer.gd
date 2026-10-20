@@ -80,11 +80,20 @@ func test_reward_popup_discards_previous_board_intent() -> void:
 	await wait_process_frames(3)
 	assert_true(UIManager.current_popup is PopupSkillChoice)
 	assert_eq(board.input_buffer.piece_id, 0)
-	(UIManager.current_popup as PopupSkillChoice)._select(0)
-	(UIManager.current_popup as PopupSkillChoice).confirm_selection()
-	if not board.can_selected: await GameManager.turn_started
-	await wait_process_frames(3)
+	# 本例验证缓冲清理，使用固定非选色候选，避免随机卡需要额外输入。
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	var score: SkillDefinition = preload("res://gameplay/progression/content/score_multiplier.tres")
+	var offer: SkillOffer = board.run.state.rewards.active_offer
+	offer.choices = [score]
+	offer.targets[score.skill_id] = SkillRules.freeze_target(board.run.state, score)
+	popup.show_offer(offer)
+	popup._select(0)
+	popup.confirm_selection()
+	await board.finish_presentation()
+	await wait_process_frames(6)
 	assert_eq(GameManager.turn_count, 2)
+	assert_true(board.can_selected)
+	assert_eq(board.run.state.rewards.consumed_count, 1)
 	assert_null(board.selected_piece)
 
 func test_buffered_move_rechecks_target_occupancy() -> void:
