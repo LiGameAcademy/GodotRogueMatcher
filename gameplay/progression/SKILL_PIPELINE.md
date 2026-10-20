@@ -1,6 +1,6 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v36-composite-boundaries`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+规则版本：`run-commands-v38-target-lifecycle`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
 
 ## Composite接入首片（#135）
 
@@ -8,9 +8,9 @@
 
 转化叶默认固定来源；只有配置 `reselect_after_previous=true` 的组合后叶才重新选取剩余普通棋。正式Catalog资源仍使用默认值。
 
-固定目标默认沿用冻结身份；动态染色叶通过refresh_after_previous明确重选，补棋叶只更新数值，颜色权重叶保留颜色并更新数值。执行器只在真正到达叶子时刷新，不预先刷新整棵嵌套树。旧Composite刷新方法保留给已有显式快照测试，执行器已不调用它进行子树预抽。
+固定目标显式FIXED并沿用冻结身份；动态叶显式DYNAMIC，freeze_offer只保存延迟契约，到达后才freeze一次。比例清理、疏整、行清理、附引信和染色共用该路径。既有独立单卡资源保持FIXED；正式清色后染的染色叶为DYNAMIC。Composite整树刷新方法已删除，数值叶仅刷新数值；预检不抽样，已知无效在首叶前拒绝。
 
-这是B01/B02与嵌套抽样边界的局部交付，不等于完整B/S/T或#135收口：爆破/扫线强度触发冻结、完整目标失效分类和异形/存档/自动描述接入仍另片处理。具体证据及EX范围见docs/quality/issue135_composite_boundaries.md。
+固定合法失效由具体叶过滤/重校验并记录partial/empty；坏参数不转成成功。结果区分rejected/applied/error，异常取消后代记录interrupted。此片不是全B/S/T、异形或存档收口。触发强度由#168接管，详见docs/quality/issue135_composite_boundaries.md。
 
 ## 奖励等待与场景协调（#133）
 
