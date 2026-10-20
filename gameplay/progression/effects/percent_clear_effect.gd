@@ -1,6 +1,9 @@
 class_name PercentClearEffect
 extends ChoiceEffect
 
+func _init() -> void:
+	target_policy = TargetPolicy.DYNAMIC
+
 ## 只读比例配置；使用奖励目标随机流，不影响普通补棋。
 @export_range(0.0, 1.0) var ratio: float = 0.25
 

@@ -15,12 +15,20 @@ static func preflight(run: RunController, effect: SkillEffect, frozen: SkillTarg
 		var composite_target: CompositeSkillTarget = frozen as CompositeSkillTarget
 		if composite_target == null or composite_target.leaf_targets.size() != composite.children.size():
 			return "composite frozen targets missing"
-		var first: SkillEffect = composite.children[0]
-		if first is ChoiceEffect:
-			return _preflight_choice(run, first as ChoiceEffect, composite_target.leaf_targets[0], selected_color if (first as ChoiceEffect).requires_color_choice() else -1)
-		if first is CompositeEffect:
-			return preflight(run, first, composite_target.leaf_targets[0], selected_color)
-		return "unsupported composite child effect"
+		if selected_color != -1 and not composite.requires_color_choice(): return "this skill does not need a color choice"
+		for index: int in range(composite.children.size()):
+			var child: SkillEffect = composite.children[index]
+			var target: SkillTarget = composite_target.leaf_targets[index]
+			if target == null: return "composite frozen target missing"
+			var needs_color: bool = (child as ChoiceEffect).requires_color_choice() if child is ChoiceEffect else (child as CompositeEffect).requires_color_choice()
+			error = preflight(run, child, target, selected_color if needs_color else -1)
+			if not error.is_empty() and composite.fixed_target_policy == CompositeEffect.FixedTargetPolicy.SKIP_INVALID and child is ChoiceEffect and not needs_color and not target.deferred:
+				var choice: ChoiceEffect = child as ChoiceEffect
+				var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
+				if not choice.build(context, target).error.is_empty():
+					error = choice.build_surviving(context, target).error
+			if not error.is_empty(): return error
+		return ""
 	return "unsupported skill effect"
 
 static func apply_skill_effect(run: RunController, effect: SkillEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int = -1) -> String:
@@ -99,6 +107,11 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 
 static func _apply_choice(run: RunController, effect: ChoiceEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, hold_blasts: bool) -> String:
 	var target: SkillTarget = frozen
+	if frozen.deferred:
+		if not effect.dynamic_targets() or not frozen.valid_deferred_contract(): return "invalid deferred target"
+		var reason: String = effect.rejection(SkillRules.effect_context(run.state))
+		if not reason.is_empty() and not (effect is DyeMaterialEffect and (effect as DyeMaterialEffect).allow_empty_targets): return reason
+		target = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 	if effect.requires_color_choice():
 		target = (effect as ClearMaterialEffect).choose_color(frozen, selected_color)
 		if target == null: return "choose a valid color first"
@@ -129,7 +142,7 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 		var child: SkillEffect = effect.children[index]
 		var leaf_frozen: SkillTarget = composite_target.leaf_targets[index]
 		# 只刷新真正到达的叶；不能提前刷新整棵子树，再由内层重复抽样。
-		if (index > 0 or refresh_first) and child is ChoiceEffect:
+		if (index > 0 or refresh_first) and child is ChoiceEffect and not leaf_frozen.deferred:
 			var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
 			leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.rewards.target_random)
 		var leaf_color: int = -1
@@ -152,6 +165,11 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 
 static func _apply_choice_with_policy(run: RunController, effect: ChoiceEffect, frozen: SkillTarget, result: SkillApplyResult, selected_color: int, hold_blasts: bool, policy: CompositeEffect.FixedTargetPolicy) -> String:
 	var target: SkillTarget = frozen
+	if frozen.deferred:
+		if not effect.dynamic_targets() or not frozen.valid_deferred_contract(): return "invalid deferred target"
+		var reason: String = effect.rejection(SkillRules.effect_context(run.state))
+		if not reason.is_empty() and not (effect is DyeMaterialEffect and (effect as DyeMaterialEffect).allow_empty_targets): return reason
+		target = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 	if effect.requires_color_choice():
 		target = (effect as ClearMaterialEffect).choose_color(frozen, selected_color)
 		if target == null: return "choose a valid color first"
@@ -161,8 +179,10 @@ static func _apply_choice_with_policy(run: RunController, effect: ChoiceEffect, 
 	var request: ChoiceEffectRequest = effect.build(context, target)
 	if not request.error.is_empty() and policy == CompositeEffect.FixedTargetPolicy.SKIP_INVALID:
 		request = _skip_invalid_fixed_targets(effect, context, target, request)
+		if request.error.is_empty():
+			result.target_changes.append({"kind": request.kind, "outcome": "empty" if request.piece_ids.is_empty() else "partial", "reason": "fixed_targets_invalidated", "original": target.piece_ids.duplicate(), "remaining": request.piece_ids.duplicate()})
 	if not request.error.is_empty(): return request.error
-	if request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE] and request.piece_ids.is_empty():
+	if request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE, ChoiceEffectRequest.Kind.ASSIGN_FUSE] and request.piece_ids.is_empty():
 		return ""
 	if request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE]:
 		var budget: String = run.abilities.validation_error(1)
@@ -175,28 +195,16 @@ static func _apply_choice_with_policy(run: RunController, effect: ChoiceEffect, 
 		if not line_error.is_empty(): return line_error
 	return apply_choice_request(run, request, result, hold_blasts)
 
-static func _skip_invalid_fixed_targets(effect: ChoiceEffect, context: ChoiceEffectContext, target: SkillTarget, failed: ChoiceEffectRequest) -> ChoiceEffectRequest:
-	if failed.kind not in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE]:
-		return failed
-	var alive: Array[int] = []
-	for piece: PieceState in context.material:
-		alive.append(piece.piece_id)
-	var kept: Array[int] = []
-	for id: int in target.piece_ids:
-		if alive.has(id) and not kept.has(id): kept.append(id)
-	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
-	request.kind = failed.kind
-	request.score_cleared = failed.score_cleared
-	request.color = target.color
-	request.piece_ids = kept
-	request.error = ""
-	if effect is ClearMaterialEffect and kept.is_empty():
-		return request
-	if effect is DyeMaterialEffect and kept.is_empty():
-		return request
-	return request
+static func _skip_invalid_fixed_targets(effect: ChoiceEffect, context: ChoiceEffectContext, target: SkillTarget, _failed: ChoiceEffectRequest) -> ChoiceEffectRequest:
+	return effect.build_surviving(context, target)
 
 static func _preflight_choice(run: RunController, effect: ChoiceEffect, frozen: SkillTarget, selected_color: int) -> String:
+	if frozen == null: return "missing frozen target"
+	if frozen.deferred:
+		if not effect.dynamic_targets() or effect.requires_color_choice() or not frozen.valid_deferred_contract(): return "invalid deferred target"
+		if selected_color != -1: return "this skill does not need a color choice"
+		var reason: String = effect.rejection(SkillRules.effect_context(run.state))
+		return reason if not reason.is_empty() else run.abilities.validation_error(1)
 	var target: SkillTarget = frozen
 	if effect.requires_color_choice():
 		target = (effect as ClearMaterialEffect).choose_color(frozen, selected_color)

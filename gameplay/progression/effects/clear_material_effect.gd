@@ -1,6 +1,12 @@
 class_name ClearMaterialEffect
 extends ChoiceEffect
 
+func _init() -> void:
+	target_policy = TargetPolicy.DYNAMIC
+
+func dynamic_targets() -> bool:
+	return selector == Selector.LINE and super.dynamic_targets()
+
 enum Selector { COLOR, LINE }
 @export var selector: Selector = Selector.COLOR
 @export var score_cleared: bool = false
@@ -9,6 +15,7 @@ func requires_color_choice() -> bool:
 	return selector == Selector.COLOR
 
 func rejection(context: ChoiceEffectContext) -> String:
+	if selector not in [Selector.COLOR, Selector.LINE]: return "清理选择器配置无效"
 	return "没有可清理的普通棋子" if context.material.is_empty() else ""
 
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
@@ -50,6 +57,9 @@ func build(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectReq
 	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
 	request.kind = ChoiceEffectRequest.Kind.CLEAR
 	request.score_cleared = score_cleared
+	if selector not in [Selector.COLOR, Selector.LINE]:
+		request.error = "清理选择器配置无效"
+		return request
 	if (selector == Selector.COLOR and (target.color < 0 or target.color >= context.color_weights.size())) or (selector == Selector.LINE and target.line_axis not in [0, 1]):
 		request.error = "清理目标配置无效"
 		return request
@@ -65,3 +75,18 @@ func build(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectReq
 func _group(piece: PieceState, axis: int) -> int:
 	if selector == Selector.COLOR: return piece.match_color
 	return piece.coordinate.y if axis == 0 else piece.coordinate.x
+
+func build_surviving(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectRequest:
+	if selector not in [Selector.COLOR, Selector.LINE] or (selector == Selector.COLOR and (target.color < 0 or target.color >= context.color_weights.size())) or (selector == Selector.LINE and target.line_axis not in [0, 1]):
+		return build(context, target)
+	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
+	request.kind = ChoiceEffectRequest.Kind.CLEAR
+	request.score_cleared = score_cleared
+	var seen: Array[int] = []
+	var chosen: int = target.color if selector == Selector.COLOR else target.line_index
+	for id: int in target.piece_ids:
+		if seen.has(id): return build(context, target)
+		seen.append(id)
+		for piece: PieceState in context.material:
+			if piece.piece_id == id and _group(piece, target.line_axis) == chosen: request.piece_ids.append(id)
+	return request

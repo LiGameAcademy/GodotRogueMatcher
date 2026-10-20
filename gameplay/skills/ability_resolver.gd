@@ -181,7 +181,7 @@ func flush_held_blasts() -> Array[MatchResult]:
 func abandon_held_blasts() -> void:
 	for event: BlastRequest in _held_blasts:
 		if event.activation != null:
-			state.ability_events.complete(event.activation, false, 0)
+			state.ability_events.cancel(event.activation, &"composite_aborted")
 	_held_blasts.clear()
 	_held_matches.clear()
 	_held_plant_centers.clear()

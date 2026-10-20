@@ -1,6 +1,9 @@
 class_name DyeMaterialEffect
 extends ChoiceEffect
 
+func _init() -> void:
+	target_policy = TargetPolicy.DYNAMIC
+
 ## Only configured ordered composites may finish when earlier leaves leave no dye pair.
 @export var allow_empty_targets: bool = false
 
@@ -9,10 +12,6 @@ func rejection(context: ChoiceEffectContext) -> String:
 	for piece: PieceState in context.material:
 		if not colors.has(piece.match_color): colors.append(piece.match_color)
 	return "" if colors.size() >= 2 else "需要至少两种普通棋子颜色"
-
-## 染色后叶明确从到达时的新盘面选一次，预览冻结不代替这次选择。
-func refresh_after_previous(context: ChoiceEffectContext, _frozen: SkillTarget, random: RandomNumberGenerator) -> SkillTarget:
-	return freeze(context, random)
 
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	var target: SkillTarget = SkillTarget.new()
@@ -49,4 +48,21 @@ func build(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectReq
 	for id: int in target.piece_ids:
 		if not legal.has(id) or used.has(id): request.error = "原定染色目标已经失效"
 		used.append(id)
+	return request
+
+func build_surviving(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectRequest:
+	if target.color < 0 or target.color >= context.color_weights.size() or target.piece_ids.size() > DyeRules.CONFIG.instant_targets:
+		return build(context, target)
+	var kept: SkillTarget = target.copy()
+	kept.piece_ids.clear()
+	var seen: Array[int] = []
+	for id: int in target.piece_ids:
+		if seen.has(id): return build(context, target)
+		seen.append(id)
+		for piece: PieceState in context.material:
+			if piece.piece_id == id and piece.match_color != target.color: kept.piece_ids.append(id)
+	if not kept.piece_ids.is_empty(): return build(context, kept)
+	var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
+	request.kind = ChoiceEffectRequest.Kind.DYE
+	request.color = target.color
 	return request

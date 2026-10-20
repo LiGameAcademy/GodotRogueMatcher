@@ -7,8 +7,8 @@ extends ChoiceEffect
 ## Composite later leaves may explicitly select from the remaining ordinary material.
 @export var reselect_after_previous: bool = false
 
-func refresh_after_previous(context: ChoiceEffectContext, frozen: SkillTarget, random: RandomNumberGenerator) -> SkillTarget:
-	return freeze(context, random) if reselect_after_previous else frozen
+func dynamic_targets() -> bool:
+	return reselect_after_previous or super.dynamic_targets()
 
 func rejection(context: ChoiceEffectContext) -> String:
 	if content_id not in [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN] or count < 1 or count > 3:
