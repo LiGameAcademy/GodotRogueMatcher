@@ -186,6 +186,15 @@ func abandon_held_blasts() -> void:
 	_held_matches.clear()
 	_held_plant_centers.clear()
 
+## Read-only recording projection; no resource or pending ticket references escape.
+func pending_removals() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for event: BlastRequest in _held_blasts:
+		result.append({"source": {"id": event.source.piece_id, "coordinate": event.source.coordinate,
+			"color": event.source.match_color, "content_id": event.source.content_id}, "generation": event.generation,
+			"event_id": event.activation.event.event_id, "strength": event.strength.data()})
+	return result
+
 ## Preflight configuration and event budget before resolve; return an English diagnostic on failure.
 func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 0, new_line_sources: int = 0) -> String:
 	if new_sources > 0:
@@ -212,15 +221,13 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 	while not queue.is_empty():
 		queue.sort_custom(_comes_before)
 		var event: BlastRequest = queue.pop_front()
-		if not event.synthetic and event.ability.definition.effect is LineSweepEffect:
+		if event.strength.line_sweep:
 			results.append(_resolve_line_sweep(event, queue))
 			if not last_error.is_empty(): return results
 		else:
-			if not event.synthetic and event.source.content_id == &"special_demolition" and state.explosion.level(&"core_fuse_payload") > 0:
-				DemolitionRules.mark_near(self, [event.source.coordinate], DemolitionRules.CONFIG.payload_radius, DemolitionRules.CONFIG.payload_count)
-			var radius: int = DemolitionRules.CONFIG.aftershock_radius if event.synthetic else DemolitionRules.radius(state, event.source, event.generation, config.base_radius)
-			var effect: ExplodeEffect = (EXPLOSION.effect if event.synthetic else event.ability.definition.effect) as ExplodeEffect
-			var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius)
+			if event.strength.payload_count > 0:
+				DemolitionRules.mark_near(self, [event.source.coordinate], event.strength.payload_radius, event.strength.payload_count)
+			var request: BlastRequest = ExplodeEffect.new().build_request(state.rules.state, event.source, event.strength.radius)
 			var result: MatchResult = MatchResult.new()
 			result.cause = &"explosion"
 			result.source_id = event.source.piece_id
@@ -228,11 +235,12 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 			result.center = event.source.coordinate
 			result.radius = request.radius
 			result.generation = event.generation
+			result.trigger_strength = event.strength.data()
 			var actual_ids: Array[int] = []
 			for piece_id: int in request.target_ids:
 				var target: PieceState = state.rules.state.get_piece(piece_id)
 				if target == null: continue
-				if state.explosion.level(&"selective_blast") > 0 and target.match_color == event.source.match_color: continue
+				if event.strength.selective and target.match_color == event.source.match_color: continue
 				result.removed.append(target)
 				actual_ids.append(piece_id)
 			var extra_score: int = 0
@@ -241,11 +249,8 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 				stats.blast_removed += result.removed.size()
 				if not event.synthetic and event.source.content_id == &"special_demolition" and stats.first_core == null:
 					stats.first_core = event.source.copy()
-				extra_score = result.removed.size() * state.explosion.reward_level * config.reward_per_target + state.explosion.blast_extra_level * config.bonus_per_blast
-				extra_score += DemolitionRules.marked_score(state, result.removed)
-				if event.generation >= 2:
-					extra_score += DemolitionRules.CONFIG.chain_bonus * state.explosion.level(&"blast_chain_bonus") * mini(event.generation - 1, DemolitionRules.CONFIG.chain_depth_cap)
-			var ability_id: StringName = &"blast_aftershock" if event.synthetic else event.ability.definition.ability_id
+				extra_score = event.strength.extra_score(state, result.removed)
+			var ability_id: StringName = event.strength.ability_id
 			result.score_entry = state.ledger.commit(0, 1.0, extra_score, &"explosion", DemolitionRules.root_id(state), actual_ids, result.source_id, ability_id)
 			var parent_id: int = 0 if event.synthetic else event.activation.event.event_id
 			_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, parent_id, ability_id)
@@ -261,16 +266,14 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 			aftershock.source = stats.first_core.copy()
 			aftershock.synthetic = true
 			aftershock.generation = event.generation + 1
+			aftershock.strength = RemovalStrength.capture(state, config, aftershock.source, aftershock.generation, EXPLOSION, true)
 			queue.append(aftershock)
 	results.append_array(DyeRules.after_blasts(self, results))
 	return results
 
 ## Sweeps use the ordinary score ledger, but are not five-match or blast skill triggers.
 func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> MatchResult:
-	var effect: LineSweepEffect = event.ability.definition.effect as LineSweepEffect
-	var radius: int = LineClearRules.radius(state.line_clear, LineClearState.axis_of(event.source.content_id))
-	var cross_radius: int = LineClearRules.cross_radius(state.line_clear, LineClearState.axis_of(event.source.content_id))
-	var request: BlastRequest = effect.build_request(state.rules.state, event.source, radius, cross_radius)
+	var request: BlastRequest = LineSweepEffect.new().build_request(state.rules.state, event.source, event.strength.radius, event.strength.cross_radius)
 	var result: MatchResult = MatchResult.new()
 	result.cause = &"line_clear"
 	result.line_axis = LineClearState.axis_of(event.source.content_id)
@@ -280,9 +283,13 @@ func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> Mat
 	result.source_color = event.source.match_color
 	result.center = event.source.coordinate
 	result.generation = event.generation
+	result.trigger_strength = event.strength.data()
 	for id: int in request.target_ids: result.removed.append(state.rules.state.get_piece(id))
-	var ability_id: StringName = event.ability.definition.ability_id
-	result.score_entry = _commit_clear_score(result, true, ability_id)
+	var ability_id: StringName = event.strength.ability_id
+	var group: BoardMatchGroup = BoardMatchGroup.new()
+	for piece: PieceState in result.removed: group.piece_ids.append(piece.piece_id)
+	var multiplier: float = LegacyScoreModifiers.calculate(state.rules.state, group) + event.strength.multiplier_bonus
+	result.score_entry = state.ledger.commit(result.removed.size(), multiplier, event.strength.extra_score(state, result.removed), result.cause, DemolitionRules.root_id(state), group.piece_ids, result.source_id, ability_id, true)
 	_remove_and_enqueue(result.removed, result.cause, event.generation + 1, queue, event.activation.event.event_id, ability_id)
 	if not state.ability_events.complete(event.activation, true, result.removed.size()):
 		_event_error("ability activation ticket invalid")
@@ -336,6 +343,7 @@ func _remove_and_enqueue(pieces: Array[PieceState], cause: StringName, generatio
 		event.ability = activation.instance
 		event.activation = activation
 		event.generation = generation
+		event.strength = RemovalStrength.capture(state, config, event.source, generation, activation.instance.definition)
 		queue.append(event)
 	if not state.ability_events.last_error.is_empty(): _event_error(state.ability_events.last_error)
 
