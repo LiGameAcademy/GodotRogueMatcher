@@ -1,0 +1,56 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue133/buffer-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_input_buffer.gd
+[0m* test_selection_during_movement_survives_to_next_turn
+* test_only_latest_piece_and_one_move_are_buffered
+* test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant
+* test_retry_discards_buffered_command
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_reward_popup_discards_previous_board_intent
+* test_buffered_move_rechecks_target_occupancy
+[1m6/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 6
+Passing Tests         6
+Asserts              23
+Time              6.532s
+
+
+[32m---- All tests passed! ----
+[0m
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

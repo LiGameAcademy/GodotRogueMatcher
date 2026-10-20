@@ -1,0 +1,368 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue133/full-final-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_board_juice.gd
+[0m* test_piece_flash_isolated_from_other_instance_and_template
+* test_tile_highlight_isolated_from_other_instance_and_template
+* test_birth_keeps_ghost_alpha_and_never_modifies_rule_piece
+* test_cancel_move_clears_path_and_keeps_committed_rules
+* test_selection_pulse_pauses_and_low_effects_stops_motion
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_board_signal.gd
+[0m* test_toggle_does_not_change_snapshot_geometry_or_input_surface
+* test_pause_freezes_clock_fast_does_not_accelerate_and_low_effects_hide_it
+* test_instance_materials_and_template_are_isolated
+* test_settings_preference_round_trip_and_disabled_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:12] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:12] [INFO] Config file saved to 'user://test_board_signal.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:12] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_board_signal.cfg'.
+* test_real_sweep_and_retry_keep_exact_replay_and_reset_effect
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_board_view.gd
+[0m* test_standalone_view_renders_without_external_parent_state
+* test_click_only_emits_coordinate_without_moving_rules
+* test_rebuilding_display_preserves_rule_ids_and_colors
+* test_animation_consumes_already_committed_move_result
+* test_rebuild_cancels_old_animation_without_altering_rule_state
+* test_two_views_do_not_share_mutable_materials
+* test_special_tooltips_follow_current_ability_configuration
+* test_tooltip_moves_with_piece_and_is_disabled_before_departure
+* test_rebuild_does_not_reuse_old_run_tooltip_for_same_piece_id
+* test_dye_step_changes_visual_color_before_following_match_without_rule_mutation
+* test_sweep_removals_animate_without_mutating_rules_and_show_truthful_tooltip
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_build_cards.gd
+[0m* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_command_scene.gd
+[0m* test_human_fast_scene_and_headless_command_have_same_state
+* test_human_slow_scene_and_headless_command_have_same_state
+* test_retry_preserves_earned_reward_state_in_old_record
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_fixture_restart_preserves_old_record
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_conversion_scene.gd
+[0m* test_f12_offer_confirms_and_transforms_same_nodes_with_exact_file_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_transform_plan_copies_snapshots_and_low_effects_preserve_nodes
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m2/2 passed.
+[0m[4m
+
+res://tests/integration/test_core_preview_color.gd
+[0m* test_skill_core_freezes_weighted_color_and_displays_it_before_selection
+* test_real_board_spawn_animation_and_rebuild_preserve_all_preview_colors
+* test_invalid_frozen_core_color_rejects_without_consuming_choice
+* test_core_budget_preflight_uses_frozen_blue_color
+* test_normal_commands_replay_non_green_skill_core
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_expanded_skill_scene.gd
+[0m* test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
+* test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds
+* test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_explosion_loop.gd
+[0m* test_f6_demo_loads_markers_and_real_move_resolves_two_generations
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_two_playback_speeds_keep_chain_scores_and_targets_identical
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_while_explosion_move_is_playing_drops_old_abilities
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_birth_fault_stops_scene_input_without_full_board_game_over
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_feedback_settings.gd
+[0m* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:32] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:32] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_feedback_settings.cfg'.
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad[39m[0m
+* test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_effect_toggle_during_movement_does_not_cancel_required_tween
+* test_muting_cue_dedup_and_retry_stop_plugin_players
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_finished_player_reused_by_other_caller_survives_game_cancel
+* test_reborrow_before_finished_keeps_original_player_mode
+* test_environment_and_particle_resources_are_instance_local
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_game_background.gd
+[0m* test_settings_save_and_invalid_value_falls_back_to_default
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:36] [INFO] Config file saved to 'user://test_background.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:36] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_background.cfg'.
+[38;2;169;169;169m[2026-10-20T13:21:36] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid[39m[0m
+* test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it
+* test_disabled_and_reduced_effects_use_solid_background_and_keep_rule_state
+* test_materials_and_shared_presets_are_not_mutated_by_other_instances
+* test_real_score_and_retry_are_visual_only_and_replay_stays_exact
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_settings_toggle_preserves_pause_and_rules
+* test_saved_theme_is_applied_before_initial_spawn_yields
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_game_layout.gd
+[0m* test_real_board_edges_fit_ui_area_at_multiple_window_sizes
+* test_settings_fit_both_languages_at_supported_sizes_without_changing_run
+* test_scaled_corner_picking_and_move_use_same_grid_coordinates
+* test_mode_menu_fits_supported_viewport_in_both_languages
+* test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_game_themes.gd
+[0m* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:43] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:21:43] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[38;2;169;169;169m[2026-10-20T13:21:43] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
+* test_switching_retains_offer_selected_card_and_confirmation
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_both_themes_keep_panel_and_button_boundaries_without_focus
+* test_shader_instances_and_templates_stay_isolated_across_views
+* test_switch_during_real_move_keeps_barrier_and_exact_file_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_and_new_catalog_cards_inherit_theme_without_resetting_filters
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_goal_progress.gd
+[0m* test_light_starts_at_source_and_fill_waits_for_arrival
+* test_many_gains_merge_at_limit_and_skip_preserves_exact_total
+[33m    --- Awaiting 0.8 seconds  ---
+[0m* test_pause_freezes_flight_and_reset_cancels_old_wait
+[33m    --- Awaiting 0.8 seconds  ---
+[0m* test_low_effects_and_materials_are_isolated_between_instances
+* test_all_score_waiters_finish_when_first_waiter_advances_goal
+[33m    --- Awaiting 0.8 seconds  ---
+[0m[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_hud.gd
+[0m* test_score_counts_up_without_mutating_ledger
+* test_invalid_stage_table_displays_error_without_accessing_missing_target
+* test_reset_cancels_old_wait_and_score
+* test_pause_freezes_score_but_resume_control_remains_available
+* test_hud_uses_real_reward_occupancy_skill_and_score_data
+* test_prototype_layout_leaves_board_click_area_clear
+* test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan
+* test_piece_pool_shows_current_conditional_weights_without_mutating_run
+* test_stage_progress_uses_same_total_including_choice_without_settling
+* test_gain_fades_without_delaying_score_barrier_and_reset_cancels_fade
+[33m    --- Awaiting 1.6 seconds  ---
+[0m* test_second_stage_shows_cumulative_score_and_target
+* test_pool_escape_closes_it_without_requesting_pause
+* test_top_and_bottom_share_the_same_visible_score_during_flight_and_fill
+[1m13/13 passed.
+[0m[4m
+
+res://tests/integration/test_input_buffer.gd
+[0m* test_selection_during_movement_survives_to_next_turn
+* test_only_latest_piece_and_one_move_are_buffered
+* test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant
+* test_retry_discards_buffered_command
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_reward_popup_discards_previous_board_intent
