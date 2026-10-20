@@ -6,6 +6,8 @@ var reward_id: int
 var offer_id: int
 var skill_id: StringName
 var error: String = ""
+var outcome: StringName = &"rejected"
+var target_changes: Array[Dictionary] = []
 var created: Array[PieceState] = []
 var transformed: Array[PieceState] = []
 var marked_ids: Array[int] = []

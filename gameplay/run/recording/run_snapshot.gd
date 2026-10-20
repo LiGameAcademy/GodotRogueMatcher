@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v37-trigger-strength"
+const RULES_VERSION: String = "run-commands-v39-target-strength"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -82,10 +82,18 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 	var choices: Array[String] = []
 	for skill: SkillDefinition in offer.choices:
 		choices.append(String(skill.skill_id))
-		var target: SkillTarget = offer.targets[skill.skill_id]
-		var picker: SkillTarget = target.color_picker_source()
-		targets[String(skill.skill_id)] = {"coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": picker.color_groups, "fuse_counts": picker.fuse_counts}
+		targets[String(skill.skill_id)] = target_data(offer.targets[skill.skill_id])
 	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "replaces_offer_id": offer.replaces_offer_id, "choices": choices, "targets": targets, "pressure_snapshot": offer.pressure_snapshot, "rescue_multiplier": offer.rescue_multiplier, "offer_rules_version": offer.rules_version, "baseline_weights": offer.baseline_weights, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
+
+## Include deferred contracts and fixed identities throughout nested effect trees.
+static func target_data(target: SkillTarget) -> Dictionary:
+	var picker: SkillTarget = target.color_picker_source()
+	var data: Dictionary = {"deferred": target.deferred, "coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": picker.color_groups, "fuse_counts": picker.fuse_counts}
+	if target is CompositeSkillTarget:
+		var leaves: Array[Dictionary] = []
+		for leaf: SkillTarget in (target as CompositeSkillTarget).leaf_targets: leaves.append(target_data(leaf))
+		data["leaves"] = leaves
+	return data
 
 static func random_data(random: RandomNumberGenerator) -> Dictionary:
 	return {"seed": str(random.seed), "state": str(random.state)}

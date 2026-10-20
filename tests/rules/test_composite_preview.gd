@@ -52,15 +52,17 @@ func test_weight_refresh_keeps_color_and_uses_updated_values_without_rng() -> vo
 	assert_eq(run.state.rewards.target_random.state, rng_before)
 	assert_eq(effect.build(context, refreshed).error, "")
 
-func test_nested_refresh_preserves_displayed_weight_color() -> void:
+func test_nested_offer_and_apply_preserve_displayed_weight_color() -> void:
 	var run: RunController = _run()
 	var inner: CompositeEffect = CompositeEffect.new()
 	inner.children = [ColorWeightEffect.new()]
 	var outer: CompositeEffect = CompositeEffect.new()
 	outer.children = [inner]
-	var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
-	var frozen: CompositeSkillTarget = outer.freeze(context, run.state.rewards.target_random)
+	var frozen: CompositeSkillTarget = outer.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 	var nested: CompositeSkillTarget = frozen.leaf_targets[0] as CompositeSkillTarget
-	var refreshed: CompositeSkillTarget = outer.refresh_after_previous(context, frozen, run.state.rewards.target_random)
-	var refreshed_nested: CompositeSkillTarget = refreshed.leaf_targets[0] as CompositeSkillTarget
-	assert_eq(refreshed_nested.leaf_targets[0].color, nested.leaf_targets[0].color)
+	var color: int = nested.leaf_targets[0].color
+	var before: int = run.state.spawning.color_weights[color]
+	var cursor: int = run.state.rewards.target_random.state
+	assert_eq(AbilityEffectRunner.apply_skill_effect(run, outer, frozen, SkillApplyResult.new()), "")
+	assert_eq(run.state.spawning.color_weights[color], before + 2)
+	assert_eq(run.state.rewards.target_random.state, cursor)

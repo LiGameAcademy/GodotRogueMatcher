@@ -55,6 +55,8 @@ static func _effect_rejection(effect: SkillEffect, target: SkillTarget, context:
 		return _effect_rejection(composite.children[0], frozen.leaf_targets[0], context)
 	if not effect is ChoiceEffect or target == null: return "invalid_choice_target"
 	var choice: ChoiceEffect = effect as ChoiceEffect
+	if target.deferred:
+		return choice.rejection(context) if choice.dynamic_targets() and target.valid_deferred_contract() else "invalid_deferred_target"
 	if choice.requires_color_choice():
 		if not choice is ClearMaterialEffect: return "invalid_color_selector"
 		for color: int in range(target.color_groups.size()):

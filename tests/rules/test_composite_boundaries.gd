@@ -23,9 +23,9 @@ class DynamicProbe extends ChoiceEffect:
 class FailingLeaf extends ChoiceEffect:
 	func rejection(_context: ChoiceEffectContext) -> String:
 		return ""
-	func build(_context: ChoiceEffectContext, _target: SkillTarget) -> ChoiceEffectRequest:
+	func build(context: ChoiceEffectContext, _target: SkillTarget) -> ChoiceEffectRequest:
 		var request: ChoiceEffectRequest = ChoiceEffectRequest.new()
-		request.error = "injected_post_leaf_failure"
+		if context.material.size() < 2: request.error = "injected_post_leaf_failure"
 		return request
 
 func _boundary(nested: bool) -> void:
@@ -67,6 +67,7 @@ func _boundary(nested: bool) -> void:
 	var result: SkillApplyResult = SkillApplyResult.new()
 	var rng_before: int = run.state.rewards.target_random.state
 	assert_eq(AbilityEffectRunner.preflight(run, outer, frozen), "")
+	checkpoints.clear() # Pure preflight may inspect fixed leaves; below observes execution checkpoints only.
 	assert_eq(AbilityEffectRunner.apply_skill_effect(run, outer, frozen, result), "")
 	assert_eq(checkpoints.size(), 1)
 	if checkpoints.size() != 1: return

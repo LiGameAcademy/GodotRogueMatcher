@@ -1,5 +1,7 @@
 # 当前回归 · 2026-10-20
 
+#167 review修复：正式发牌延迟动态目标，固定失效重校验，前置拒绝与后代中断区分。82脚本、593/593测试、22574断言，211.194秒、退出0；v38独立回放415条通过。旧单卡显式固定、组合染色显式动态；实际范围与未完成项见[review说明](../docs/quality/issue135_composite_boundaries.md)和[证据](../docs/evidence/issue135-review/README.md)。
+
 0.0.3 #135第二片：离场爆破/扫线在触发时冻结强度，实际目标执行时重查。82脚本、599/599测试、22519断言，436.792秒、退出0；定向25/25，v37独立回放415条成功。范围、未完成窗口及复现见[强度接入记录](../docs/quality/issue135_trigger_strength.md)与[机器证据](../docs/evidence/issue135-strength/README.md)。本片依赖#167，#135保持开放。
 
 0.0.3第三片#135首片：Composite叶间屏障、固定/动态目标与嵌套单次刷新。81脚本、587/587测试、22477断言，518.065秒、退出0；定向31/31，独立v36回放415条通过。完整范围及未交付项见[接入记录](../docs/quality/issue135_composite_boundaries.md)及[机器证据](../docs/evidence/issue135/README.md)。#135保持开放。
