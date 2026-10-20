@@ -4,6 +4,11 @@ extends ChoiceEffect
 ## Freeze ordinary, unmarked sources without replacement; application changes content only.
 @export var content_id: StringName
 @export_range(1, 3) var count: int = 3
+## Composite later leaves may explicitly select from the remaining ordinary material.
+@export var reselect_after_previous: bool = false
+
+func refresh_after_previous(context: ChoiceEffectContext, frozen: SkillTarget, random: RandomNumberGenerator) -> SkillTarget:
+	return freeze(context, random) if reselect_after_previous else frozen
 
 func rejection(context: ChoiceEffectContext) -> String:
 	if content_id not in [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN] or count < 1 or count > 3:
