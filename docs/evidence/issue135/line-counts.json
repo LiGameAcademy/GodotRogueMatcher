@@ -1,0 +1,54 @@
+[
+  {
+    "file": "gameplay/progression/effects/choice_effect.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/progression/effects/dye_material_effect.gd",
+    "lines": 52
+  },
+  {
+    "file": "gameplay/progression/effects/refill_count_effect.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/progression/effects/transform_material_effect.gd",
+    "lines": 50
+  },
+  {
+    "file": "gameplay/run/recording/run_snapshot.gd",
+    "lines": 151
+  },
+  {
+    "file": "gameplay/run/run_controller.gd",
+    "lines": 354
+  },
+  {
+    "file": "gameplay/skills/ability_effect_runner.gd",
+    "lines": 237
+  },
+  {
+    "file": "gameplay/skills/ability_resolver.gd",
+    "lines": 349
+  },
+  {
+    "file": "gameplay/skills/dye/dye_rules.gd",
+    "lines": 104
+  },
+  {
+    "file": "tests/rules/test_ability_composite_effects.gd",
+    "lines": 177
+  },
+  {
+    "file": "tests/rules/test_composite_boundaries.gd",
+    "lines": 172
+  },
+  {
+    "file": "tests/rules/test_skill_recording.gd",
+    "lines": 67
+  },
+  {
+    "file": "tests/rules/test_special_conversion.gd",
+    "lines": 222
+  }
+]

@@ -1,6 +1,16 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v35-reward-coordination`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+规则版本：`run-commands-v36-composite-boundaries`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+
+## Composite接入首片（#135）
+
+叶内染色/出生引起的匹配即时提交账本和移除，后代等待最外层Composite结束；内层返回不flush。待执行匹配及附引信位置均归本局Resolver，异常清理不返还已提交收益，也不把原奖励变成可免费重试。
+
+转化叶默认固定来源；只有配置 `reselect_after_previous=true` 的组合后叶才重新选取剩余普通棋。正式Catalog资源仍使用默认值。
+
+固定目标默认沿用冻结身份；动态染色叶通过refresh_after_previous明确重选，补棋叶只更新数值，颜色权重叶保留颜色并更新数值。执行器只在真正到达叶子时刷新，不预先刷新整棵嵌套树。旧Composite刷新方法保留给已有显式快照测试，执行器已不调用它进行子树预抽。
+
+这是B01/B02与嵌套抽样边界的局部交付，不等于完整B/S/T或#135收口：爆破/扫线强度触发冻结、完整目标失效分类和异形/存档/自动描述接入仍另片处理。具体证据及EX范围见docs/quality/issue135_composite_boundaries.md。
 
 ## 奖励等待与场景协调（#133）
 

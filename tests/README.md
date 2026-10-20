@@ -1,5 +1,7 @@
 # 当前回归 · 2026-10-20
 
+0.0.3第三片#135首片：Composite叶间屏障、固定/动态目标与嵌套单次刷新。81脚本、587/587测试、22477断言，518.065秒、退出0；定向31/31，独立v36回放415条通过。完整范围及未交付项见[接入记录](../docs/quality/issue135_composite_boundaries.md)及[机器证据](../docs/evidence/issue135/README.md)。#135保持开放。
+
 0.0.3第二片#134：旧道具全局触发与重复补棋循环退役，测试/工具迁移到本局或局部显式上下文。80脚本、581/581测试、22418断言通过，285.006秒、退出0；保留项、替代覆盖和复现见[迁移说明](../docs/quality/issue134_legacy_retirement.md)及[机器证据](../docs/evidence/issue134/README.md)。
 
 0.0.3首片#133：奖励等待归本局，Game协调弹窗。当前实现、审查发现、完整/定向回归、已知失败与复现方式见[交付报告](../docs/quality/issue133_reward_coordination.md)及[机器证据](../docs/evidence/issue133/README.md)。下方保留历史版本结果，不把历史全绿当作当前结论。
