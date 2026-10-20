@@ -17,7 +17,6 @@ func before_each() -> void:
 func after_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
-	ItemEffectSystem.placed_items.clear()
 	await wait_process_frames(2)
 
 func test_f6_demo_loads_markers_and_real_move_resolves_two_generations() -> void:
@@ -85,7 +84,11 @@ func test_birth_fault_stops_scene_input_without_full_board_game_over() -> void:
 	var config: ExplosionConfig = board.run.abilities.config.duplicate() as ExplosionConfig
 	config.event_budget = 0
 	board.run.abilities.config = config
-	assert_eq(await SpawnManager.spawn_random_pieces(board), 1)
+	board.run.action_refill_count = board.run.state.next_refill_count()
+	board.run.continuation = &"after_end"
+	var previous_births: int = board.run.state.spawn_history.size()
+	await board.resume_run(board.run)
+	assert_eq(board.run.state.spawn_history.size() - previous_births, 1)
 	assert_eq(board.run.state.phase, RunState.Phase.ERROR)
 	assert_false(board.can_selected)
 	assert_false(GameManager.is_game_over)

@@ -17,13 +17,10 @@ func before_each() -> void:
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
 	_clear_board()
-	LevelUpSystem.reset_system()
-	ItemRegistry.register_all_items()
 
 func after_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
-	ItemEffectSystem.placed_items.clear()
 	await wait_process_frames(2)
 
 func test_occupied_start_can_move_and_restores_obstacle() -> void:
@@ -87,7 +84,9 @@ func test_partial_spawn_fills_last_empty_cell_and_ends_once() -> void:
 	_fill_without_lines()
 	_remove(Vector2i(8, 8))
 	assert_false(GameManager.is_game_over)
-	assert_eq(await SpawnManager.spawn_random_pieces(board), 1)
+	var previous_births: int = board.run.state.spawn_history.size()
+	await _resume_refill()
+	assert_eq(board.run.state.spawn_history.size() - previous_births, 1)
 	assert_true(GameManager.is_game_over)
 	assert_eq(board.get_empty_cells().size(), 0)
 	await wait_process_frames(3)
@@ -101,7 +100,9 @@ func test_spawn_checks_match_before_full_board_failure() -> void:
 	var next_color: int = board.run.state.spawning.preview(1)[0].color
 	for n: int in range(4):
 		board.set_piece_color(Vector2i(4 + n, 8), next_color)
-	assert_eq(await SpawnManager.spawn_random_pieces(board), 3)
+	var previous_births: int = board.run.state.spawn_history.size()
+	await _resume_refill()
+	assert_eq(board.run.state.spawn_history.size() - previous_births, 3)
 	assert_false(GameManager.is_game_over)
 	assert_gt(GameManager.score, 0)
 	assert_gt(board.get_empty_cells().size(), 0)
@@ -133,7 +134,8 @@ func test_full_clear_repopulates_and_returns_to_input() -> void:
 func test_failed_spawn_does_not_offer_pending_rescue_reward() -> void:
 	_fill_without_lines()
 	GameManager.add_score(100)
-	assert_eq(await SpawnManager.spawn_random_pieces(board), 0)
+	board.run.check_space_after_spawning()
+	await board.resume_run(board.run)
 	await main.get_node("Game").call("request_rewards")
 	await (main.get_node('Game/UILayer/HUD') as Hud).wait_for_score()
 	await wait_process_frames(3)
@@ -143,12 +145,13 @@ func test_failed_spawn_does_not_offer_pending_rescue_reward() -> void:
 
 func test_candidate_ids_are_distinct() -> void:
 	for attempt: int in range(20):
-		var options: Array[ItemData] = LevelUpSystem.generate_options()
-		assert_eq(options.size(), 3)
-		assert_ne(options[0].id, options[1].id)
-		assert_ne(options[0].id, options[2].id)
-		assert_ne(options[1].id, options[2].id)
-
+		var local: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), attempt)
+		local.state.pending_rewards = 1
+		var offer: SkillOffer = local.prepare_offer()
+		assert_eq(offer.choices.size(), 3)
+		assert_ne(offer.choices[0].skill_id, offer.choices[1].skill_id)
+		assert_ne(offer.choices[0].skill_id, offer.choices[2].skill_id)
+		assert_ne(offer.choices[1].skill_id, offer.choices[2].skill_id)
 func test_reward_filling_last_space_ends_before_next_reward() -> void:
 	_fill_without_lines()
 	_remove(Vector2i(8, 8))
@@ -168,7 +171,7 @@ func test_reward_filling_last_space_ends_before_next_reward() -> void:
 	assert_false(board.can_selected)
 	assert_false(UIManager.current_popup is PopupSkillChoice)
 
-func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
+func test_retry_clears_score_obstacles_and_upgrade_state() -> void:
 	_fill_without_lines()
 	GameManager.add_score(123)
 	board.run.state.pending_rewards = 2
@@ -184,8 +187,6 @@ func test_retry_clears_score_items_obstacles_and_upgrade_state() -> void:
 	assert_eq(LevelUpSystem.current_level, 0)
 	assert_false(GameManager.is_game_over)
 	assert_true(board.can_selected)
-	assert_eq(ItemEffectSystem.placed_items.size(), 0)
-	assert_eq(LevelUpSystem.item_pools["common"].size(), 3)
 	for cell: Cell in board.get_empty_cells():
 		assert_eq(board.rules.state.get_piece_id(cell.coordinate), 0)
 
@@ -289,30 +290,18 @@ func test_old_skill_callback_after_retry_cannot_modify_new_run() -> void:
 	assert_false(is_instance_valid(UIManager.current_popup))
 	await wait_process_frames(2)
 
-func test_legacy_dye_and_destroy_route_through_rule_state() -> void:
-	_place(Vector2i(2, 2), 0)
-	var target: ChessPiece = _place(Vector2i(3, 2), 1)
-	var dye: EffectDyePiece = EffectDyePiece.new(4, "adjacent", 1)
-	assert_true(dye.apply({"board": board, "item_cell": board.get_cell(Vector2i(2, 2))}))
-	assert_eq(board.rules.state.get_piece(target.piece_id).match_color, 4)
-	assert_eq(target.piece_type, 4)
-	var destroy: EffectDestroyPieces = EffectDestroyPieces.new("adjacent", false)
-	assert_true(destroy.apply({"board": board, "item_cell": board.get_cell(Vector2i(2, 2))}))
-	assert_null(board.rules.state.get_piece(target.piece_id))
-	assert_null(board.get_cell(Vector2i(3, 2)).piece)
-	assert_eq(GameManager.piece_count, board.rules.state.get_piece_count())
-	await get_tree().create_timer(0.3).timeout
-
 func test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids() -> void:
-	var item: ItemData = ItemRegistry.create_prism_tower()
-	assert_true(ItemPlacer.place_item_at(board, board.get_cell(Vector2i.ZERO), item))
+	var item: ItemData = ItemRegistry.new().create_prism_tower()
+	var display: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
+	display.initialize_item(item)
+	assert_true(board.place_piece(Vector2i.ZERO, display))
 	var before: PieceState = board.rules.state.get_piece_at(Vector2i.ZERO)
 	var previous_display: ChessPiece = board.get_cell(Vector2i.ZERO).piece
 	assert_true(board.rebuild_view())
 	assert_eq(board.rules.state.get_piece_at(Vector2i.ZERO).piece_id, before.piece_id)
 	assert_ne(board.get_cell(Vector2i.ZERO).piece, previous_display)
 	assert_eq(board.get_cell(Vector2i.ZERO).piece.item_data, item)
-	assert_eq(ItemEffectSystem.placed_items.size(), 1)
+	assert_eq(board.view.get_piece(before.piece_id).piece_id, before.piece_id)
 	assert_eq(GameManager.piece_count, 1)
 
 func test_coordinator_rejects_rebuild_during_move_and_finishes_once() -> void:
@@ -382,10 +371,13 @@ func test_presenting_committed_result_twice_does_not_repeat_effects() -> void:
 		_place(Vector2i(x, 0), 0)
 	var results: Array[MatchResult] = board.run.resolve_all_matches()
 	watch_signals(MatchSystem)
+	watch_signals(board.view)
 	board.present_matches(results)
 	board.present_matches(results)
 	assert_eq(GameManager.score, 50)
-	assert_signal_emit_count(MatchSystem, "match_made", 1)
+	assert_true(await board.finish_presentation())
+	assert_signal_emit_count(MatchSystem, "match_made", 0)
+	assert_signal_emit_count(board.view, "match_visualized", 1)
 	assert_eq(GameManager.ledger.get_entries().size(), 1)
 
 func test_fast_and_slow_move_playback_have_identical_rule_results() -> void:
@@ -447,3 +439,10 @@ func _use_score_candidate(popup: PopupSkillChoice) -> void:
 		offer.unavailable.erase(skill.skill_id)
 		popup.show_offer(offer)
 		return
+
+
+## 夹具停在正式补棋步骤；实际扣次、出生、演出与终局仍走同一推进器。
+func _resume_refill() -> void:
+	board.run.action_refill_count = board.run.state.next_refill_count()
+	board.run.continuation = &"after_end"
+	await board.resume_run(board.run)

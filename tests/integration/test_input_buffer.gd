@@ -14,7 +14,6 @@ func before_each() -> void:
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
 	for piece: PieceState in board.rules.state.get_snapshot(): board.remove_piece(piece.coordinate)
-	LevelUpSystem.reset_system()
 	for x: int in range(4): _place(Vector2i(x, 0), 0)
 	board.selected_piece = _place(Vector2i(4, 1), 0)
 	_place(Vector2i(8, 8), 1)

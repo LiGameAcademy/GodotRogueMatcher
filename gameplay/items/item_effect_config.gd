@@ -1,6 +1,9 @@
 extends Resource
 class_name ItemEffectConfig
 
+## 旧配置的序列化时机值保留；调用者显式传入上下文，不订阅正式对局。
+enum TriggerTiming { ON_PLACE, ON_TURN_START, ON_TURN_END, ON_MATCH, ON_MOVE }
+
 ## 道具效果配置
 ## 职责：定义道具的效果和触发条件组合
 
@@ -17,7 +20,7 @@ func check_conditions(context: Dictionary = {}) -> bool:
 	if conditions.is_empty():
 		return true  # 无条件，总是满足
 	
-	for condition in conditions:
+	for condition: GameplayCondition in conditions:
 		if not condition.check(context):
 			return false
 	
@@ -31,9 +34,8 @@ func apply_effects(context: Dictionary = {}) -> bool:
 		return false
 	
 	var any_success: bool = false
-	for effect in effects:
+	for effect: GameplayEffect in effects:
 		if effect.apply(context):
 			any_success = true
 	
 	return any_success
-
