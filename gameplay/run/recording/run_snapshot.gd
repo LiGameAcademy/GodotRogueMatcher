@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v38-target-lifecycle"
+const RULES_VERSION: String = "run-commands-v40-composite-outcomes"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -88,7 +88,7 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 ## Include deferred contracts and fixed identities throughout nested effect trees.
 static func target_data(target: SkillTarget) -> Dictionary:
 	var picker: SkillTarget = target.color_picker_source()
-	var data: Dictionary = {"deferred": target.deferred, "coordinate": target.coordinate, "ids": target.piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": picker.color_groups, "fuse_counts": picker.fuse_counts}
+	var data: Dictionary = {"deferred": target.deferred, "coordinate": target.coordinate, "ids": target.piece_ids, "cost_ids": target.cost_piece_ids, "color": target.color, "line_axis": target.line_axis, "line_index": target.line_index, "level_before": target.level_before, "level_after": target.level_after, "before": target.value_before, "after": target.value_after, "remaining_before": target.remaining_before, "remaining_after": target.remaining_after, "color_groups": picker.color_groups, "fuse_counts": picker.fuse_counts}
 	if target is CompositeSkillTarget:
 		var leaves: Array[Dictionary] = []
 		for leaf: SkillTarget in (target as CompositeSkillTarget).leaf_targets: leaves.append(target_data(leaf))

@@ -39,7 +39,7 @@ func add_line_piece(axis: int, coordinate: Vector2i, match_color: int = -1) -> P
 	return piece
 
 ## Validate the entire frozen batch before mutating any piece or installing an ability.
-func transformation_error(ids: Array[int], content_id: StringName) -> String:
+func transformation_error(ids: Array[int], content_id: StringName, costs: Array[int] = []) -> String:
 	if content_id not in [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN]:
 		return "特殊棋转化类型无效"
 	if ids.is_empty() or ids.size() > 3: return "转化目标数量无效"
@@ -49,12 +49,20 @@ func transformation_error(ids: Array[int], content_id: StringName) -> String:
 		if piece == null or not piece.content_id.is_empty() or piece.is_ghost or seen.has(id) or state.explosion.instances.has(id) or state.line_clear.instances.has(id):
 			return "原定转化目标已经失效"
 		seen.append(id)
+	for id: int in costs:
+		var piece: PieceState = state.rules.state.get_piece(id)
+		if piece == null or not piece.content_id.is_empty() or piece.is_ghost or seen.has(id) or state.explosion.instances.has(id) or state.line_clear.instances.has(id):
+			return "原子转化成本已经失效"
+		seen.append(id)
 	return validation_error(1, ids.size() if content_id == &"special_demolition" else 0, 0, ids.size() if content_id != &"special_demolition" else 0)
 
 ## Conversion may install multiple cores; natural supply still uses add_core's singleton rule.
-func transform_material(ids: Array[int], content_id: StringName) -> Array[PieceState]:
-	last_error = transformation_error(ids, content_id)
+func transform_material(ids: Array[int], content_id: StringName, costs: Array[int] = []) -> Array[PieceState]:
+	last_error = transformation_error(ids, content_id, costs)
 	if not last_error.is_empty(): return []
+	for id: int in costs:
+		state.rules.remove_piece(id)
+		state.dye.marks.erase(id)
 	var transformed: Array[PieceState] = []
 	for id: int in ids:
 		state.rules.set_piece_content(id, content_id)

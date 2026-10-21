@@ -104,6 +104,9 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 
 static func apply(run: RunController, offer_id: int, skill_id: StringName, selected_color: int = -1) -> SkillApplyResult:
 	var result: SkillApplyResult = SkillApplyResult.new()
+	if run.is_retired():
+		result.error = "本局已经关闭"
+		return result
 	var state: RunState = run.state
 	var rewards: RewardState = state.rewards
 	var offer: SkillOffer = rewards.active_offer
