@@ -226,6 +226,10 @@ static func _preflight_choice(run: RunController, effect: ChoiceEffect, frozen: 
 		if selected_color != -1: return "this skill does not need a color choice"
 		var reason: String = effect.rejection(SkillRules.effect_context(run.state))
 		if not reason.is_empty(): return reason
+		if effect is TransformMaterialEffect:
+			var transform: TransformMaterialEffect = effect as TransformMaterialEffect
+			var count: int = transform.available_target_count(SkillRules.effect_context(run.state))
+			return run.abilities.validation_error(1, count if transform.content_id == &"special_demolition" else 0, 0, count if transform.content_id != &"special_demolition" else 0)
 		return "" if effect.empty_targets_allowed(SkillRules.effect_context(run.state)) else run.abilities.validation_error(1)
 	var target: SkillTarget = frozen
 	if effect.requires_color_choice():
