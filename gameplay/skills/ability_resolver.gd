@@ -11,7 +11,8 @@ var config: ExplosionConfig
 var last_error: String = ""
 var _held_blasts: Array[BlastRequest] = []
 var _held_matches: Array[MatchResult] = []
-var _held_plant_centers: Array[Vector2i] = []
+var _held_plants: Array[FusePlantTrigger] = []
+var _held_dyes: Array[DyeTrigger] = []
 
 func _init(run_state: RunState, rules_config: ExplosionConfig = DEFAULT_CONFIG) -> void:
 	state = run_state
@@ -111,25 +112,27 @@ func resolve(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> 
 	for result: MatchResult in results:
 		_remove_and_enqueue(result.removed, result.cause, 1, queue)
 		if not last_error.is_empty(): return results
+	var dye: DyeTrigger = DyeRules.capture_matches(state, results)
 	if hold_descendants:
+		if dye != null: _held_dyes.append(dye)
 		_held_blasts.append_array(queue)
 		_held_matches.append_array(results)
 		_plant_after_matches(results, true)
 		return results
 	_plant_after_matches(results)
 	results.append_array(_resolve_blasts(queue))
-	results.append_array(DyeRules.after_matches(self, results))
+	if dye != null:
+		if not last_error.is_empty(): dye.cancel()
+		else: results.append_array(dye.execute(self))
 	return results
 
 func _plant_after_matches(results: Array[MatchResult], hold: bool = false) -> void:
 	var stats: DemolitionActionState = DemolitionRules.action(state)
 	if state.explosion.level(&"fuse_match_plant") > 0 and not stats.plant_used:
 		stats.plant_used = true
-		var centers: Array[Vector2i] = []
-		for result: MatchResult in results:
-			for piece: PieceState in result.removed: centers.append(piece.coordinate)
-		if hold: _held_plant_centers.append_array(centers)
-		else: DemolitionRules.mark_near(self, centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
+		var trigger: FusePlantTrigger = FusePlantTrigger.capture(results)
+		if hold: _held_plants.append(trigger)
+		else: trigger.execute(self)
 
 ## Clears and five-matches share removal triggers and the blast queue. Callers preflight before committing the root action.
 ## When hold_blasts is true, removal tickets enqueue but descendants wait for flush_held_blasts().
@@ -166,23 +169,23 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: 
 		_held_blasts.append_array(queue)
 		return results
 	results.append_array(_resolve_blasts(queue))
-	results.append_array(DyeRules.after_matches(self, results))
 	return results
 
 ## Drain blast tickets held during an ordered CompositeEffect.
 func flush_held_blasts() -> Array[MatchResult]:
 	if _held_blasts.is_empty() and _held_matches.is_empty(): return []
 	var queue: Array[BlastRequest] = _held_blasts.duplicate()
-	var matches: Array[MatchResult] = _held_matches.duplicate()
 	_held_blasts.clear()
 	_held_matches.clear()
-	# 资格在匹配触发时已判定；后叶新取得能力不能追授给旧匹配。
-	if not _held_plant_centers.is_empty():
-		DemolitionRules.mark_near(self, _held_plant_centers, DemolitionRules.CONFIG.plant_radius, DemolitionRules.CONFIG.plant_count)
-	_held_plant_centers.clear()
+	var plants: Array[FusePlantTrigger] = _held_plants.duplicate()
+	var dyes: Array[DyeTrigger] = _held_dyes.duplicate()
+	_held_plants.clear()
+	_held_dyes.clear()
+	for trigger: FusePlantTrigger in plants: trigger.execute(self)
 	var results: Array[MatchResult] = _resolve_blasts(queue)
-	matches.append_array(results)
-	results.append_array(DyeRules.after_matches(self, matches))
+	for trigger: DyeTrigger in dyes:
+		if not last_error.is_empty(): trigger.cancel()
+		else: results.append_array(trigger.execute(self))
 	return results
 
 ## Drop held tickets without resolving blasts (composite aborted after removals).
@@ -192,7 +195,10 @@ func abandon_held_blasts() -> void:
 			state.ability_events.cancel(event.activation, &"composite_aborted")
 	_held_blasts.clear()
 	_held_matches.clear()
-	_held_plant_centers.clear()
+	for trigger: FusePlantTrigger in _held_plants: trigger.cancel()
+	for trigger: DyeTrigger in _held_dyes: trigger.cancel()
+	_held_plants.clear()
+	_held_dyes.clear()
 
 ## Read-only recording projection; no resource or pending ticket references escape.
 func pending_removals() -> Array[Dictionary]:
@@ -201,6 +207,14 @@ func pending_removals() -> Array[Dictionary]:
 		result.append({"source": {"id": event.source.piece_id, "coordinate": event.source.coordinate,
 			"color": event.source.match_color, "content_id": event.source.content_id}, "generation": event.generation,
 			"event_id": event.activation.event.event_id, "strength": event.strength.data()})
+	return result
+
+func pending_followups() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for trigger: FusePlantTrigger in _held_plants: result.append(trigger.trace.duplicate(true))
+	for trigger: DyeTrigger in _held_dyes:
+		result.append(trigger.trace.duplicate(true))
+		for alternative: DyeTrigger in trigger.alternatives: result.append(alternative.trace.duplicate(true))
 	return result
 
 ## Preflight configuration and event budget before resolve; return an English diagnostic on failure.
@@ -225,13 +239,16 @@ func validation_error(root_events: int, new_sources: int = 0, new_pieces: int = 
 
 func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 	var results: Array[MatchResult] = []
+	var bridge: DyeTrigger = null
 	var stats: DemolitionActionState = DemolitionRules.action(state)
 	while not queue.is_empty():
 		queue.sort_custom(_comes_before)
 		var event: BlastRequest = queue.pop_front()
 		if event.strength.line_sweep:
 			results.append(_resolve_line_sweep(event, queue))
-			if not last_error.is_empty(): return results
+			if not last_error.is_empty():
+				_cancel_blast_queue(queue, bridge, event)
+				return results
 		else:
 			if event.strength.payload_count > 0:
 				DemolitionRules.mark_near(self, [event.source.coordinate], event.strength.payload_radius, event.strength.payload_count)
@@ -265,8 +282,11 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 			if not event.synthetic:
 				if not state.ability_events.complete(event.activation, true, result.removed.size()):
 					_event_error("ability activation ticket invalid")
-			if not last_error.is_empty(): return results
+			if not last_error.is_empty():
+				_cancel_blast_queue(queue, bridge, event)
+				return results
 			results.append(result)
+			if bridge == null: bridge = DyeRules.capture_blast(state, result)
 		# Append aftershock once after the normal queue drains; descendants cannot spawn another.
 		if queue.is_empty() and stats.first_core != null and not stats.aftershock_used and state.explosion.level(&"blast_aftershock") > 0:
 			stats.aftershock_used = true
@@ -276,8 +296,15 @@ func _resolve_blasts(queue: Array[BlastRequest]) -> Array[MatchResult]:
 			aftershock.generation = event.generation + 1
 			aftershock.strength = RemovalStrength.capture(state, config, aftershock.source, aftershock.generation, EXPLOSION, true)
 			queue.append(aftershock)
-	results.append_array(DyeRules.after_blasts(self, results))
+	if bridge != null: results.append_array(bridge.execute(self))
 	return results
+
+func _cancel_blast_queue(queue: Array[BlastRequest], bridge: DyeTrigger, failed: BlastRequest = null) -> void:
+	if failed != null and failed.activation != null: state.ability_events.cancel(failed.activation, &"composite_aborted")
+	for event: BlastRequest in queue:
+		if event.activation != null: state.ability_events.cancel(event.activation, &"composite_aborted")
+	queue.clear()
+	if bridge != null: bridge.cancel()
 
 ## Sweeps use the ordinary score ledger, but are not five-match or blast skill triggers.
 func _resolve_line_sweep(event: BlastRequest, queue: Array[BlastRequest]) -> MatchResult:

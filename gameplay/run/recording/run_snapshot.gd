@@ -137,6 +137,7 @@ static func capture(run: RunController) -> Dictionary:
 	snapshot["skills"] = normalize(skills)
 	snapshot["ability_events"] = normalize(state.ability_events.data())
 	snapshot["pending_removals"] = normalize(run.abilities.pending_removals())
+	snapshot["pending_followups"] = normalize(run.abilities.pending_followups())
 	snapshot["challenge"] = normalize(state.stage.data())
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)

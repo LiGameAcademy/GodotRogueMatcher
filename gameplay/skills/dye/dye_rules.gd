@@ -12,41 +12,43 @@ static func match_score(state: RunState, ids: Array[int]) -> int:
 static func active(state: RunState) -> bool:
 	return state.dye.level(&"match_dye_echo") > 0 and DemolitionRules.root_id(state) > 0 and state.phase in [RunState.Phase.MOVING, RunState.Phase.TURN_END, RunState.Phase.SPAWNING]
 
-## 来源批次已收束后重查存活目标；根行动共享预算，不按出生次数刷新。
-static func after_matches(resolver: AbilityResolver, matches: Array[MatchResult]) -> Array[MatchResult]:
-	var state: RunState = resolver.state
-	if not active(state): return []
-	var has_match: bool = false
-	for result: MatchResult in matches:
-		if result.cause == &"match" and not result.removed.is_empty(): has_match = true
-	if not has_match: return []
+## Capture eligibility and strength now; execution may only inspect surviving targets.
+static func capture_matches(state: RunState, matches: Array[MatchResult]) -> DyeTrigger:
+	if not active(state): return null
 	state.dye.begin_root(DemolitionRules.root_id(state))
-	if state.dye.considered_match and not state.dye.allow_chain: return []
-	state.dye.considered_match = true
+	if state.dye.considered_match and not state.dye.allow_chain: return null
+	var first: DyeTrigger = null
 	for result: MatchResult in matches:
 		if result.cause != &"match" or result.removed.is_empty(): continue
-		var centers: Array[Vector2i] = []
-		for piece: PieceState in result.removed: centers.append(piece.coordinate)
-		var color: int = result.removed[0].match_color
-		var ids: Array[int] = targets(state, centers, color, 1, true)
-		if ids.is_empty(): continue
-		ids.resize(mini(ids.size(), CONFIG.base_targets + state.dye.level(&"dye_target_up") * CONFIG.extra_targets))
-		return _wave(resolver, ids, color)
-	return []
+		var trigger: DyeTrigger = _strength(state, result)
+		for piece: PieceState in result.removed: trigger.centers.append(piece.coordinate)
+		trigger.color = result.removed[0].match_color
+		trigger.target_count = CONFIG.base_targets + state.dye.level(&"dye_target_up") * CONFIG.extra_targets
+		trigger.record()
+		if first == null: first = trigger
+		else: first.alternatives.append(trigger)
+	if first != null: state.dye.considered_match = true
+	return first
 
-static func after_blasts(resolver: AbilityResolver, results: Array[MatchResult]) -> Array[MatchResult]:
-	var state: RunState = resolver.state
-	if not active(state) or state.dye.level(&"blast_dye") == 0: return []
+static func capture_blast(state: RunState, result: MatchResult) -> DyeTrigger:
+	if not active(state) or state.dye.level(&"blast_dye") == 0: return null
 	state.dye.begin_root(DemolitionRules.root_id(state))
-	if state.dye.considered_blast: return []
-	for result: MatchResult in results:
-		if result.cause != &"explosion" or result.removed.is_empty(): continue
-		state.dye.considered_blast = true
-		var ids: Array[int] = targets(state, [result.center], result.source_color, result.radius + CONFIG.blast_edge_extension, false)
-		if ids.is_empty(): return []
-		ids.resize(1)
-		return _wave(resolver, ids, result.source_color)
-	return []
+	if state.dye.considered_blast or result.cause != &"explosion" or result.removed.is_empty(): return null
+	state.dye.considered_blast = true
+	var trigger: DyeTrigger = _strength(state, result)
+	trigger.kind = &"blast_dye"
+	trigger.centers = [result.center]
+	trigger.color = result.source_color
+	trigger.radius = result.radius + CONFIG.blast_edge_extension
+	trigger.orthogonal = false
+	trigger.record()
+	return trigger
+
+static func _strength(state: RunState, source: MatchResult) -> DyeTrigger:
+	var trigger: DyeTrigger = DyeTrigger.new()
+	trigger.source = source
+	trigger.maximum_waves = CONFIG.base_waves + state.dye.level(&"dye_chain_depth") * CONFIG.extra_waves
+	return trigger
 
 static func targets(state: RunState, centers: Array[Vector2i], color: int, radius: int, orthogonal: bool) -> Array[int]:
 	var candidates: Array[PieceState] = []
@@ -71,9 +73,8 @@ static func _distance(coordinate: Vector2i, centers: Array[Vector2i], orthogonal
 		nearest = mini(nearest, delta.x + delta.y if orthogonal else maxi(delta.x, delta.y))
 	return nearest
 
-static func _wave(resolver: AbilityResolver, ids: Array[int], color: int) -> Array[MatchResult]:
+static func wave(resolver: AbilityResolver, ids: Array[int], color: int, maximum: int) -> Array[MatchResult]:
 	var state: RunState = resolver.state
-	var maximum: int = CONFIG.base_waves + state.dye.level(&"dye_chain_depth") * CONFIG.extra_waves
 	if state.dye.waves_used >= maximum: return []
 	state.dye.waves_used += 1
 	for id: int in ids: state.dye.dyed_ids.append(id)

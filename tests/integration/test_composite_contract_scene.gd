@@ -30,7 +30,7 @@ func after_each() -> void:
 	if is_instance_valid(main): main.queue_free()
 	await wait_process_frames(3)
 
-func _open(fail: bool, fast: bool, low: bool) -> PopupSkillChoice:
+func _open(fail: bool, fast: bool, low: bool, stat: DemolitionStatEffect.Stat = DemolitionStatEffect.Stat.MULTIPLIER) -> PopupSkillChoice:
 	game.call("_set_fast", fast, false)
 	game.call("_set_low_effects", low, false)
 	var first: ChoiceEffect = Fixture.first(board.run)
@@ -40,7 +40,7 @@ func _open(fail: bool, fast: bool, low: bool) -> PopupSkillChoice:
 	second.ids = [a, q]
 	second.selected = 1
 	var multiplier: DemolitionStatEffect = DemolitionStatEffect.new()
-	multiplier.stat = DemolitionStatEffect.Stat.MULTIPLIER
+	multiplier.stat = stat
 	var effect: CompositeEffect = CompositeEffect.new()
 	effect.fixed_target_policy = CompositeEffect.FixedTargetPolicy.SKIP_INVALID
 	effect.children = [first, second, Fixture.FailAfterMatch.new() if fail else multiplier]
@@ -104,3 +104,27 @@ func test_t09_error_locks_input_retry_retires_run_and_old_callback() -> void:
 	old_callback.call(id, &"composite_clear_dye")
 	assert_eq(RunSnapshot.canonical(RunSnapshot.capture(board.run)), before)
 	assert_true(board.can_selected)
+
+func _strength_presentation(fast: bool, low: bool) -> void:
+	var r: int = board.rules.state.get_piece_id(Vector2i(8, 8))
+	board.rules.remove_piece(r)
+	var distant: PieceState = board.rules.place_piece(Vector2i(5, 3), 2)
+	board.view.rebuild(board.rules.state.get_snapshot())
+	var popup: PopupSkillChoice = await _open(false, fast, low, DemolitionStatEffect.Stat.RADIUS)
+	assert_not_null(popup)
+	if popup == null: return
+	popup._select(0)
+	popup.confirm_selection()
+	await board.finish_presentation()
+	await wait_process_frames(8)
+	assert_eq(board.run.state.explosion.radius_level, 1)
+	assert_eq(board.run.state.ledger.total, 50)
+	assert_eq(board.run.state.rewards.consumed_count, 1)
+	assert_not_null(board.rules.state.get_piece(distant.piece_id), "old radius-one blast must not gain radius two")
+	assert_true(board.can_selected)
+
+func test_s08_frozen_blast_strength_normal_presentation() -> void:
+	await _strength_presentation(false, false)
+
+func test_s08_frozen_blast_strength_fast_low_effects() -> void:
+	await _strength_presentation(true, true)

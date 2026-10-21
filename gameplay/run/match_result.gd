@@ -13,5 +13,6 @@ var line_axis: int = -1
 var radius: int = 0
 var cross_radius: int = -1
 var generation: int = 0
+var followups: Array[Dictionary] = []
 ## Detached scalar data for recording the trigger snapshot alongside actual hits.
 var trigger_strength: Dictionary = {}
