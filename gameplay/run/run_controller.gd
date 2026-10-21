@@ -18,6 +18,7 @@ var action_refill_count: int = 0
 var _retired: bool = false
 var prototype_profile: StringName = &""
 const PROTOTYPE_PROFILE: StringName = &"shape-unlock-fixture-v1"
+const SHAPE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain"]
 
 func is_retired() -> bool:
 	return _retired
@@ -193,7 +194,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	if state.stage.enabled() and not state.stage.config.validation_error().is_empty():
 		report_error(state.stage.config.validation_error())
 		return result
-	if mode.begins_with("fixture_shape_unlock") and prototype_profile == PROTOTYPE_PROFILE:
+	if mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE:
 		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
 		demo.populate(self, mode)
 	elif mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)

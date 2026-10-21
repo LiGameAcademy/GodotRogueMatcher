@@ -34,6 +34,11 @@ func test_unlock_recovery_disk_replay_and_safe_prefix_keep_budget_and_acquisitio
 	assert_true(found)
 
 func test_shape_state_and_profile_tampering_are_rejected_and_v41_is_explicitly_old() -> void:
+	var invalid: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 118, null, ShapeUnlockDemo.PROFILE)
+	invalid.initialize("fixture_shape_unlock_typo")
+	assert_eq(invalid.state.rule_error, "unsupported_initialization")
+	assert_eq(invalid.state.pending_rewards, 0)
+	assert_eq(invalid.state.rules.state.get_piece_count(), 0)
 	var run: RunController = FIXTURE.run()
 	FIXTURE.record(run)
 	assert_true(FIXTURE.choose(run).accepted)
