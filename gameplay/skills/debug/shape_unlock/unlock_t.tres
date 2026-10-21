@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SkillDefinition" load_steps=5 format=3]
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/unlock_shape_effect.gd" id="2"]
-[ext_resource type="Resource" path="res://gameplay/skills/debug/shape_unlock/t_template.tres" id="3"]
+[ext_resource type="Resource" path="res://gameplay/board/matching/t_template.tres" id="3"]
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 template = ExtResource("3")
