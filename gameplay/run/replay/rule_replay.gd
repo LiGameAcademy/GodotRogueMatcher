@@ -71,7 +71,15 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	if not config.challenge.is_empty():
 		stage_config = StageConfig.from_record(config.challenge)
 		if stage_config == null: return _fail("invalid_stage_config")
-	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count), header.seed.to_int(), stage_config)
+	var templates: Array[MatchShapeTemplate] = []
+	if config.has("prototype_match_templates"):
+		if not config.prototype_match_templates is Array or config.prototype_match_templates.is_empty() or config.prototype_match_templates.size() > BoardMatchDetector.MAXIMUM_TEMPLATES:
+			return _fail("invalid_match_templates")
+		for value: Variant in config.prototype_match_templates:
+			var template: MatchShapeTemplate = MatchShapeTemplate.from_record(value)
+			if template == null: return _fail("invalid_match_templates")
+			templates.append(template)
+	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")

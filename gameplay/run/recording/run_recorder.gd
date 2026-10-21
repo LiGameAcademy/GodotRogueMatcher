@@ -146,5 +146,13 @@ static func pieces(values: Array[PieceState]) -> Array[Dictionary]:
 static func matches(values: Array[MatchResult]) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for value: MatchResult in values:
-		result.append(RunSnapshot.normalize({"cause": value.cause, "removed": pieces(value.removed), "recolored": pieces(value.recolored), "previous_colors": value.previous_colors, "source_color": value.source_color, "center": value.center, "source_id": value.source_id, "line_axis": value.line_axis, "radius": value.radius, "cross_radius": value.cross_radius, "generation": value.generation, "followups": value.followups, "trigger_strength": value.trigger_strength, "score": RunSnapshot.score(value.score_entry)}))
+		var event: Dictionary = RunSnapshot.normalize({"cause": value.cause, "removed": pieces(value.removed), "recolored": pieces(value.recolored), "previous_colors": value.previous_colors, "source_color": value.source_color, "center": value.center, "source_id": value.source_id, "line_axis": value.line_axis, "radius": value.radius, "cross_radius": value.cross_radius, "generation": value.generation, "followups": value.followups, "trigger_strength": value.trigger_strength, "score": RunSnapshot.score(value.score_entry)})
+		var shapes: Array[Dictionary] = []
+		var has_template: bool = false
+		for hit: BoardMatchHit in value.hits:
+			shapes.append(hit.data())
+			has_template = has_template or hit.shape_id != &"line"
+		# Straight-only v41 records keep their existing exact representation.
+		if has_template: event["match_hits"] = RunSnapshot.normalize(shapes)
+		result.append(event)
 	return result

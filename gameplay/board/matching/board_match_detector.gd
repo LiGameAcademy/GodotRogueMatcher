@@ -2,9 +2,10 @@ class_name BoardMatchDetector
 extends RefCounted
 
 const LINE_DIRECTIONS: Array[Vector2i] = [Vector2i.RIGHT, Vector2i.DOWN, Vector2i(1, 1), Vector2i(1, -1)]
+const MAXIMUM_TEMPLATES: int = 8
 
 ## Collect every enabled hit before merging or filtering by the landing entity.
-## Formal BoardRules passes no templates; prototypes supply read-only resources explicitly.
+## Production defaults to lines; prototype BoardRules supplies detached construction-time templates.
 static func find_matches(state: BoardState, minimum_count: int, templates: Array[MatchShapeTemplate] = []) -> Array[BoardMatchGroup]:
 	var error: String = validation_error(templates)
 	if not error.is_empty():
@@ -28,6 +29,7 @@ static func find_matches(state: BoardState, minimum_count: int, templates: Array
 	return groups
 
 static func validation_error(templates: Array[MatchShapeTemplate]) -> String:
+	if templates.size() > MAXIMUM_TEMPLATES: return "too many match templates"
 	for template: MatchShapeTemplate in templates:
 		if template == null: return "template missing"
 		var error: String = template.validation_error()

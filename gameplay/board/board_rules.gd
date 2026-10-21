@@ -7,11 +7,35 @@ const MATCH_DIRECTIONS: Array[Vector2i] = BoardMatchDetector.LINE_DIRECTIONS
 
 var state: BoardState
 var minimum_match_count: int
+var _match_templates: Array[MatchShapeTemplate] = []
 
-func _init(board_state: BoardState, match_count: int) -> void:
+func _init(board_state: BoardState, match_count: int, templates: Array[MatchShapeTemplate] = []) -> void:
 	assert(board_state != null and match_count >= 2)
 	state = board_state
 	minimum_match_count = match_count
+	assert(BoardMatchDetector.validation_error(templates).is_empty())
+	for template: MatchShapeTemplate in templates:
+		_match_templates.append(template.duplicate(true) as MatchShapeTemplate)
+
+## Construction-only prototype configuration, detached from callers and shared Resources.
+func match_templates() -> Array[MatchShapeTemplate]:
+	var result: Array[MatchShapeTemplate] = []
+	for template: MatchShapeTemplate in _match_templates:
+		result.append(template.duplicate(true) as MatchShapeTemplate)
+	return result
+
+func template_data() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for template: MatchShapeTemplate in _match_templates:
+		result.append({"shape_id": String(template.shape_id), "offsets": template.offsets.duplicate()})
+	return result
+
+## Budget previews use the same enabled rules, without sharing occupancy or mutable templates.
+func placement_preview() -> BoardRules:
+	var result: BoardRules = BoardRules.new(BoardState.new(state.columns, state.rows), minimum_match_count, _match_templates)
+	for piece: PieceState in state.get_snapshot():
+		result.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
+	return result
 
 #region 棋盘变更
 func place_piece(coordinate: Vector2i, match_color: int, content_id: StringName = &"", is_ghost: bool = false) -> PieceState:
@@ -87,8 +111,8 @@ func _find_path(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 
 #region 统一命中查询
 func find_matches() -> Array[BoardMatchGroup]:
-	return BoardMatchDetector.find_matches(state, minimum_match_count)
+	return BoardMatchDetector.find_matches(state, minimum_match_count, _match_templates)
 
 func find_matches_at(coordinate: Vector2i) -> Array[BoardMatchGroup]:
-	return BoardMatchDetector.find_matches_at(state, minimum_match_count, coordinate)
+	return BoardMatchDetector.find_matches_at(state, minimum_match_count, coordinate, _match_templates)
 #endregion
