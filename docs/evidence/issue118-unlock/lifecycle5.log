@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-unlock/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_shape_unlock_lifecycle.gd
+[0m* test_real_acquisition_immediately_scans_all_enabled_rules_once
+* test_no_match_is_successful_unlock_and_precision_reward_applies_once
+* test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run
+* test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity
+[31m    [Failed]:  [0m[0.75] expected to equal [1.0]:  
+      at line 73
+* test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice
+* test_unlock_budget_failure_rejects_before_enable_score_or_random
+[1m5/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_shape_unlock_lifecycle.gd
+[0m- test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity
+[31m    [Failed]:  [0m[0.75] expected to equal [1.0]:  
+          at line 73
+
+Totals
+------
+Scripts               1
+Tests                 6
+Passing Tests         5
+Failing Tests         1
+Asserts           47/48
+Time              0.103s
+
+
+[31m---- 1 failing tests ----
+[0m

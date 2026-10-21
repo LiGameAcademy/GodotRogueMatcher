@@ -1,0 +1,76 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-unlock/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_shape_unlock_lifecycle.gd
+[0m* test_real_acquisition_immediately_scans_all_enabled_rules_once
+* test_no_match_is_successful_unlock_and_precision_reward_applies_once
+* test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run
+* test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity
+* test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice
+* test_unlock_budget_failure_rejects_before_enable_score_or_random
+* test_continue_challenge_keeps_shape_and_history_without_rescanning
+[31m    [Failed] [0m
+      at line 127
+[1m6/7 passed.
+[0m[4m
+
+res://tests/rules/test_empty_board_recovery.gd
+[0m* test_recovery_consumes_displayed_tokens_once_without_player_or_stage_action
+* test_recovery_honors_each_finite_modifier_without_consuming_its_batches
+* test_original_refill_obligation_finishes_before_any_recovery_check
+* test_all_pending_rewards_finish_before_recovery_and_share_one_budget
+* test_still_empty_after_one_recovery_is_error_not_recursive_or_board_full
+* test_ended_error_or_retired_run_cannot_start_recovery
+* test_unlock_and_recovery_score_do_not_settle_stage_or_increment_pressure
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_shape_unlock_composites.gd
+[0m* test_nested_unlock_commits_match_before_later_leaf_and_holds_all_descendants
+* test_later_leaf_can_supply_board_and_suppress_recovery
+* test_duplicate_unlock_inside_root_rejects_before_earlier_leaf_or_random
+* test_obsolete_unlock_precondition_rejects_before_root_first_leaf
+* test_removed_fixed_target_obeys_skip_or_stops_after_committed_unlock
+* test_dynamic_leaf_selects_only_survivors_after_unlock
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_shape_unlock_replay.gd
+[0m* test_unlock_recovery_disk_replay_and_safe_prefix_keep_budget_and_acquisition
+* test_shape_state_and_profile_tampering_are_rejected_and_v41_is_explicitly_old
+[1m2/2 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_shape_unlock_lifecycle.gd
+[0m- test_continue_challenge_keeps_shape_and_history_without_rescanning
+[31m    [Failed]:  [0m
+          at line 127
+
+Totals
+------
+Scripts               4
+Tests                22
+Passing Tests        21
+Failing Tests         1
+Asserts           224/225
+Time              0.513s
+
+
+[31m---- 1 failing tests ----
+[0m
+WARNING: 106 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 44 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
