@@ -1,0 +1,9 @@
+{
+  "commit": "ea111675dfb3f5dd7b8b4c9312179b7b5d926683",
+  "scripts": 87,
+  "passing": 635,
+  "tests": 635,
+  "asserts": 22913,
+  "seconds": 194.384,
+  "exit_code": 0
+}
