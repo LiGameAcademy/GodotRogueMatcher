@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/unlock_shape_effect.gd" id="2"]
+[ext_resource type="Resource" path="res://gameplay/board/matching/l_template.tres" id="3"]
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+template = ExtResource("3")
+[resource]
+script = ExtResource("1")
+skill_id = &"fixture_unlock_l"
+title = "测试：解锁L"
+description = "仅验收配置：本局永久解锁L，立即结算已有匹配。"
+short_description = "仅测试：解锁后立即全盘检查。"
+base_weight = 1.0
+tags = Array[StringName]([&"shape"])
+choice_effect = SubResource("effect")
+maximum_level = 1
+is_persistent = true

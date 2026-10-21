@@ -45,6 +45,7 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.dye_upgrades = state.dye.upgrades.duplicate()
 	context.line_upgrades = state.line_clear.upgrades.duplicate()
 	context.stage_enabled = state.stage.enabled()
+	context.unlocked_shapes = state.rules.shape_unlocks.ids()
 	context.goal_bonus_score = state.goal_bonus_score
 	context.core_pool_unlocked = state.explosion.core_pool_unlocked
 	context.line_row_unlocked = state.line_clear.row_unlocked

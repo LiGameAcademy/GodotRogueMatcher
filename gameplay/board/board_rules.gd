@@ -8,6 +8,7 @@ const MATCH_DIRECTIONS: Array[Vector2i] = BoardMatchDetector.LINE_DIRECTIONS
 var state: BoardState
 var minimum_match_count: int
 var _match_templates: Array[MatchShapeTemplate] = []
+var shape_unlocks: ShapeUnlockState = ShapeUnlockState.new()
 
 func _init(board_state: BoardState, match_count: int, templates: Array[MatchShapeTemplate] = []) -> void:
 	assert(board_state != null and match_count >= 2)
@@ -22,6 +23,7 @@ func match_templates() -> Array[MatchShapeTemplate]:
 	var result: Array[MatchShapeTemplate] = []
 	for template: MatchShapeTemplate in _match_templates:
 		result.append(template.duplicate(true) as MatchShapeTemplate)
+	result.append_array(shape_unlocks.templates())
 	return result
 
 func template_data() -> Array[Dictionary]:
@@ -32,7 +34,7 @@ func template_data() -> Array[Dictionary]:
 
 ## Budget previews use the same enabled rules, without sharing occupancy or mutable templates.
 func placement_preview() -> BoardRules:
-	var result: BoardRules = BoardRules.new(BoardState.new(state.columns, state.rows), minimum_match_count, _match_templates)
+	var result: BoardRules = BoardRules.new(BoardState.new(state.columns, state.rows), minimum_match_count, match_templates())
 	for piece: PieceState in state.get_snapshot():
 		result.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
 	return result
@@ -111,8 +113,8 @@ func _find_path(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 
 #region 统一命中查询
 func find_matches() -> Array[BoardMatchGroup]:
-	return BoardMatchDetector.find_matches(state, minimum_match_count, _match_templates)
+	return BoardMatchDetector.find_matches(state, minimum_match_count, match_templates())
 
 func find_matches_at(coordinate: Vector2i) -> Array[BoardMatchGroup]:
-	return BoardMatchDetector.find_matches_at(state, minimum_match_count, coordinate, _match_templates)
+	return BoardMatchDetector.find_matches_at(state, minimum_match_count, coordinate, match_templates())
 #endregion

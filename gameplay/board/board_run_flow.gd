@@ -20,7 +20,7 @@ static func continue_run(board: Board, active: RunController) -> void:
 			&"end_turn":
 				board.refresh_ability_markers()
 				GameManager.turn_ended.emit(active.state.turn_count)
-			&"spawn":
+			&"spawn", &"recovery":
 				await board.present_spawns(step.spawns)
 				board.present_matches(step.matches)
 			&"input":

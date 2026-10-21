@@ -79,11 +79,15 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 			var template: MatchShapeTemplate = MatchShapeTemplate.from_record(value)
 			if template == null: return _fail("invalid_match_templates")
 			templates.append(template)
-	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config)
+	var profile: StringName = &""
+	if config.has("prototype_profile"):
+		if config.prototype_profile != String(RunController.PROTOTYPE_PROFILE): return _fail("invalid_prototype_profile")
+		profile = RunController.PROTOTYPE_PROFILE
+	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config, profile)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
-	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"]: return _fail("unsupported_initialization")
+	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform", "fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain"]: return _fail("unsupported_initialization")
 	run.initialize(header.initialization)
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()
