@@ -1,0 +1,38 @@
+[
+  {
+    "file": "gameplay/run/match_result.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/run/recording/run_recorder.gd",
+    "lines": 150
+  },
+  {
+    "file": "gameplay/run/recording/run_snapshot.gd",
+    "lines": 152
+  },
+  {
+    "file": "gameplay/skills/ability_resolver.gd",
+    "lines": 357
+  },
+  {
+    "file": "gameplay/skills/blast_request.gd",
+    "lines": 14
+  },
+  {
+    "file": "gameplay/skills/removal_strength.gd",
+    "lines": 55
+  },
+  {
+    "file": "tests/rules/test_ability_composite_effects.gd",
+    "lines": 177
+  },
+  {
+    "file": "tests/rules/test_skill_recording.gd",
+    "lines": 67
+  },
+  {
+    "file": "tests/rules/test_trigger_strength.gd",
+    "lines": 165
+  }
+]

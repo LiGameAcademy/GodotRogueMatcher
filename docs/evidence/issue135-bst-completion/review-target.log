@@ -1,0 +1,56 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/s-review2-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_followup_strength.gd
+[0m* test_match_plant_freezes_configuration_at_trigger
+* test_match_dye_freezes_target_count_before_later_upgrade
+* test_match_dye_eligibility_is_not_granted_or_revoked_retroactively
+* test_match_dye_freezes_wave_limit_and_keeps_shared_usage
+* test_s08_pending_projection_is_detached_and_retirement_records_interruption
+* test_s08_dye_trace_keeps_frozen_count_and_actual_surviving_target
+* test_match_plant_eligibility_freezes_but_targets_remain_live
+* test_s08_recorded_dye_command_replays_disk_and_restores_prefix_repeatedly
+* test_fault_cancels_match_dye_bridge_and_remaining_local_tickets
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_composite_contracts.gd
+[0m* test_t06_all_empty_requires_root_permission_and_consumes_once
+* test_b06_t07_nested_partial_or_error_preserves_commit_and_cancels_only_on_error
+* test_t08_atomic_cost_and_exact_targets_reject_without_spending_then_commit_once
+* test_nested_color_input_is_forwarded_to_inner_leaf
+* test_t08_incomplete_targets_and_cost_overlap_never_spend
+* test_b08_nested_root_runs_once_and_finite_descendants_settle_once
+* test_b08_cycle_rejects_and_retired_queue_cannot_reach_new_run
+* test_t07_nested_failure_reports_exact_leaf_and_committed_prefix
+* test_t06_empty_ability_policy_is_independent_from_reward_consumption
+* test_nested_empty_permission_applies_only_to_root_acquisition
+* test_fixed_all_empty_after_invalidation_requires_root_permission
+* test_atomic_consumed_material_clears_only_its_dye_mark
+* test_fixed_dye_nonempty_frozen_color_survives_single_color_board
+[1m13/13 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               2
+Tests                22
+Passing Tests        22
+Asserts             178
+Time              0.322s
+
+
+[32m---- All tests passed! ----
+[0m

@@ -1,6 +1,10 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v40-composite-outcomes`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+规则版本：`run-commands-v41-followup-strength`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+
+## 离场后代强度（#135第二片）
+
+爆破/扫线在离场触发时捕获独占RemovalStrength，执行时查询当前目标及标记；后叶升级不追溯旧事件，新后代独立采样。余震在实际创建时采样。记录区分冻结强度、命中和得分，pending_removals只是只读投影，不是恢复。匹配染色资格、目标数量、波次上限及匹配附引信范围/数量同样在触发时捕获，执行只读取存活目标；运行版本v41，详见docs/quality/issue135_trigger_strength.md。
 
 ## Composite接入首片（#135）
 
@@ -10,7 +14,7 @@
 
 固定目标显式FIXED并沿用冻结身份；动态叶显式DYNAMIC，freeze_offer只保存延迟契约，到达后才freeze一次。比例清理、疏整、行清理、附引信和染色共用该路径。既有独立单卡资源保持FIXED；正式清色后染的染色叶为DYNAMIC。Composite整树刷新方法已删除，数值叶仅刷新数值；预检不抽样，已知无效在首叶前拒绝。
 
-固定合法失效由具体叶过滤/重校验并记录partial/empty；坏参数不转成成功。结果区分rejected/applied/error，异常取消后代记录interrupted。此片不是全B/S/T、异形或存档收口。触发强度由#168接管，详见docs/quality/issue135_composite_boundaries.md。
+固定合法失效由具体叶过滤/重校验并记录partial/empty；坏参数不转成成功。结果区分rejected/applied/error，异常取消后代记录interrupted。B/T补齐根全空门禁、嵌套完成/失败路径、专门原子成本及旧Run退役；异形与任意存档服务不在此片收口。触发强度由#168接管，详见docs/quality/issue135_composite_boundaries.md。
 
 ## 奖励等待与场景协调（#133）
 
@@ -70,8 +74,3 @@ AbilityDefinition (on piece AbilityInstance)
 取得/升级测试统一使用 `SkillRules.freeze_target`，再经 `SkillRules.apply` 或真实 `ChooseSkillCommand` 提交。叶子单元测试继续直接验证 freeze/build；故意失效和非法参数测试保留手工构造目标。演出测试需要指定落点/颜色时，先冻结合法目标再修改明确的场景参数。
 
 `tests/rules/test_catalog_skill_pipeline.gd` 穷举当前42卡的真实选择命令，检查资格、成功取得、配置不变、重复提交幂等、采集事件合计与账本一致；遍历所有声明的多级升级并检查实例身份和触发计数。完整命令回放由 `test_commands_replay`、`test_expanded_skills` 和阶段/目标奖励回放案例验证，不把手工候选记录称为可从初始局面独立重放。
-
-
-## B/T 补齐（2026-10-21）
-
-根组合全空取得需要显式许可；只读预检检查固定目标过滤后的全空，不抽样动态目标。内层合法空叶不自行决定根门禁。固定染色按冻结目标验证，不按当前盘面颜色对误判。专用AtomicTransformEffect完整校验目标及成本后一次提交，普通Composite仍不承诺回滚。RuleResult记录完成/失败叶路径，旧Run退役后清等待队列并拒绝旧命令。S触发强度与后续窗口由#168接入。

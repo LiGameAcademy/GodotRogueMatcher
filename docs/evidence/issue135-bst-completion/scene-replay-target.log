@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/s-target2-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_followup_strength.gd
+[0m* test_match_plant_freezes_configuration_at_trigger
+* test_match_dye_freezes_target_count_before_later_upgrade
+* test_match_dye_eligibility_is_not_granted_or_revoked_retroactively
+* test_match_dye_freezes_wave_limit_and_keeps_shared_usage
+* test_s08_pending_projection_is_detached_and_retirement_records_interruption
+* test_s08_dye_trace_keeps_frozen_count_and_actual_surviving_target
+* test_match_plant_eligibility_freezes_but_targets_remain_live
+* test_s08_recorded_dye_command_replays_disk_and_restores_prefix_repeatedly
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_dye_rules.gd
+[0m* test_echo_completes_second_line_and_scores_mark_once
+* test_new_line_allows_second_wave_but_shared_budget_stops_third
+* test_recolor_preserves_fuse_and_identity_without_direct_score
+* test_no_surviving_target_leaves_only_first_match
+* test_dye_state_is_owned_per_run_and_stale_instant_targets_reject
+* test_fixture_records_replay_rule_and_presentation_events
+* test_non_match_removal_does_not_consume_later_spawn_match_opportunity
+* test_dye_bonus_is_not_paid_on_explosion_removal
+* test_blast_bridge_dyes_surviving_edge_material_and_shares_wave_limit
+[1m9/9 passed.
+[0m[4m
+
+res://tests/integration/test_composite_contract_scene.gd
+[0m* test_t09_partial_result_normal_presentation_and_duplicate_confirmation
+* test_t09_partial_result_fast_and_low_effects_preserves_rules
+* test_t09_error_locks_input_retry_retires_run_and_old_callback
+* test_s08_frozen_blast_strength_normal_presentation
+* test_s08_frozen_blast_strength_fast_low_effects
+[1m5/5 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                22
+Passing Tests        22
+Asserts             134
+Time              4.094s
+
+
+[32m---- All tests passed! ----
+[0m

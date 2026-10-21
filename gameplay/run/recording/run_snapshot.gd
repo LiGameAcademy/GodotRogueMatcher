@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v40-composite-outcomes"
+const RULES_VERSION: String = "run-commands-v41-followup-strength"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -136,6 +136,8 @@ static func capture(run: RunController) -> Dictionary:
 	for instance: SkillInstance in owned: skills.append(instance.data())
 	snapshot["skills"] = normalize(skills)
 	snapshot["ability_events"] = normalize(state.ability_events.data())
+	snapshot["pending_removals"] = normalize(run.abilities.pending_removals())
+	snapshot["pending_followups"] = normalize(run.abilities.pending_followups())
 	snapshot["challenge"] = normalize(state.stage.data())
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)

@@ -1,0 +1,174 @@
+[
+  {
+    "file": "gameplay/board/board.gd",
+    "lines": 474
+  },
+  {
+    "file": "gameplay/progression/effects/assign_fuse_effect.gd",
+    "lines": 59
+  },
+  {
+    "file": "gameplay/progression/effects/atomic_transform_effect.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/progression/effects/choice_effect.gd",
+    "lines": 41
+  },
+  {
+    "file": "gameplay/progression/effects/choice_effect_request.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/progression/effects/clear_material_effect.gd",
+    "lines": 92
+  },
+  {
+    "file": "gameplay/progression/effects/dye_material_effect.gd",
+    "lines": 74
+  },
+  {
+    "file": "gameplay/progression/effects/percent_clear_effect.gd",
+    "lines": 43
+  },
+  {
+    "file": "gameplay/progression/effects/refill_count_effect.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/progression/effects/thin_material_effect.gd",
+    "lines": 45
+  },
+  {
+    "file": "gameplay/progression/effects/transform_material_effect.gd",
+    "lines": 54
+  },
+  {
+    "file": "gameplay/progression/reward_offer_rules.gd",
+    "lines": 71
+  },
+  {
+    "file": "gameplay/progression/skill_apply_result.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/progression/skill_rules.gd",
+    "lines": 184
+  },
+  {
+    "file": "gameplay/progression/skill_target.gd",
+    "lines": 49
+  },
+  {
+    "file": "gameplay/run/match_result.gd",
+    "lines": 18
+  },
+  {
+    "file": "gameplay/run/recording/run_recorder.gd",
+    "lines": 150
+  },
+  {
+    "file": "gameplay/run/recording/run_snapshot.gd",
+    "lines": 161
+  },
+  {
+    "file": "gameplay/run/run_controller.gd",
+    "lines": 372
+  },
+  {
+    "file": "gameplay/skills/ability_effect_runner.gd",
+    "lines": 271
+  },
+  {
+    "file": "gameplay/skills/ability_events.gd",
+    "lines": 149
+  },
+  {
+    "file": "gameplay/skills/ability_resolver.gd",
+    "lines": 392
+  },
+  {
+    "file": "gameplay/skills/blast_request.gd",
+    "lines": 14
+  },
+  {
+    "file": "gameplay/skills/dye/dye_rules.gd",
+    "lines": 105
+  },
+  {
+    "file": "gameplay/skills/dye/dye_trigger.gd",
+    "lines": 47
+  },
+  {
+    "file": "gameplay/skills/effects/composite_effect.gd",
+    "lines": 72
+  },
+  {
+    "file": "gameplay/skills/fuse_plant_trigger.gd",
+    "lines": 27
+  },
+  {
+    "file": "gameplay/skills/removal_strength.gd",
+    "lines": 55
+  },
+  {
+    "file": "tests/integration/test_composite_contract_scene.gd",
+    "lines": 130
+  },
+  {
+    "file": "tests/integration/test_refill_lifecycle.gd",
+    "lines": 81
+  },
+  {
+    "file": "tests/rules/test_ability_composite_effects.gd",
+    "lines": 178
+  },
+  {
+    "file": "tests/rules/test_composite_boundaries.gd",
+    "lines": 173
+  },
+  {
+    "file": "tests/rules/test_composite_contracts.gd",
+    "lines": 278
+  },
+  {
+    "file": "tests/rules/test_composite_offer_lifecycle.gd",
+    "lines": 232
+  },
+  {
+    "file": "tests/rules/test_composite_preview.gd",
+    "lines": 68
+  },
+  {
+    "file": "tests/rules/test_dynamic_transform_preflight.gd",
+    "lines": 58
+  },
+  {
+    "file": "tests/rules/test_followup_strength.gd",
+    "lines": 189
+  },
+  {
+    "file": "tests/rules/test_forest_clear_score.gd",
+    "lines": 186
+  },
+  {
+    "file": "tests/rules/test_skill_recording.gd",
+    "lines": 67
+  },
+  {
+    "file": "tests/rules/test_special_conversion.gd",
+    "lines": 222
+  },
+  {
+    "file": "tests/rules/test_trigger_strength.gd",
+    "lines": 165
+  },
+  {
+    "file": "tests/support/composite_contract_fixture.gd",
+    "lines": 64
+  },
+  {
+    "file": "ui/skill_choice_text.gd",
+    "lines": 82
+  }
+]
