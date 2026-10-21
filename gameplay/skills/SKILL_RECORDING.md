@@ -1,3 +1,7 @@
+# 当前记录增量 · #135 B/T
+
+规则版本 run-commands-v40-composite-outcomes。RuleResult增加completed_leaves/failed_leaf，保留skill_outcome/target_changes与activations.interrupted；SkillTarget记录不可分成本cost_ids。全根空许可、固定过滤、嵌套诊断和退役边界见docs/evidence/issue135-bt-completion/。旧版本明确拒绝精确回放；S强度字段由依赖本片的#168交付。下文为历史设计。
+
 # O4 / #63：技能记录、回放与调试
 
 集成分支 `feature/skill-refactor`；本片独立分支 `feat/issue-63-skill-recording`。

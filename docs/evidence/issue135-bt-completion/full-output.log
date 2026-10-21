@@ -374,7 +374,7 @@ Loading resource: res://addons/gut/gui/GutRunner.gd remapped: res://addons/gut/g
 Completed load for: 'res://addons/gut/gui/GutRunner.gd' remapped 'res://addons/gut/gui/GutRunner.gd' at thread -1
 Completed load for: 'res://addons/gut/gui/GutRunner.tscn' remapped 'res://addons/gut/gui/GutRunner.tscn' at thread -1
 ---  GUT  ---
-[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/final-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/parent-final-sandbox/Godot/app_userdata/技能连珠] for temporary output.
 Godot version:  4.7.2
 GUT version:  9.6.0
 Loading resource: res://tests/integration/test_board_juice.gd remapped: res://tests/integration/test_board_juice.gd
@@ -680,16 +680,16 @@ res://tests/integration/test_board_signal.gd
 * test_instance_materials_and_template_are_isolated
 * test_settings_preference_round_trip_and_disabled_fallback
 Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:30] [INFO] Config file saved to 'user://test_board_signal.cfg'.[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:30] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:34:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-21T12:34:31] [INFO] Config file saved to 'user://test_board_signal.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T12:34:31] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
 Config loaded successfully from 'user://test_board_signal.cfg'.
 * test_real_sweep_and_retry_keep_exact_replay_and_reset_effect
 [1m5/5 passed.
@@ -774,20 +774,20 @@ res://tests/integration/test_explosion_loop.gd
 res://tests/integration/test_feedback_settings.gd
 [0m* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
 Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:46] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:46] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-21T12:35:01] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T12:35:01] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
 Config loaded successfully from 'user://test_feedback_settings.cfg'.
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:46] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:01] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad[39m[0m
 * test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
 * test_effect_toggle_during_movement_does_not_cancel_required_tween
 * test_muting_cue_dedup_and_retry_stop_plugin_players
@@ -802,18 +802,18 @@ Completed load for: 'res://gameplay/presentation/audio/finish.tres' remapped 're
 res://tests/integration/test_game_background.gd
 [0m* test_settings_save_and_invalid_value_falls_back_to_default
 Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:49] [INFO] Config file saved to 'user://test_background.cfg'.[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:49] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-21T12:35:04] [INFO] Config file saved to 'user://test_background.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T12:35:04] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
 Config loaded successfully from 'user://test_background.cfg'.
-[38;2;169;169;169m[2026-10-21T12:10:49] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:04] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid[39m[0m
 * test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it
 * test_disabled_and_reduced_effects_use_solid_background_and_keep_rule_state
 * test_materials_and_shared_presets_are_not_mutated_by_other_instances
@@ -835,18 +835,18 @@ res://tests/integration/test_game_layout.gd
 res://tests/integration/test_game_themes.gd
 [0m* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
 Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:53] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
-[38;2;255;255;255m[2026-10-21T12:10:53] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
+[38;2;255;255;255m[2026-10-21T12:35:09] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T12:35:09] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
 Config loaded successfully from 'user://test_game_theme.cfg'.
-[38;2;169;169;169m[2026-10-21T12:10:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
+[38;2;169;169;169m[2026-10-21T12:35:09] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
 * test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
 * test_switching_retains_offer_selected_card_and_confirmation
 * test_both_themes_keep_panel_and_button_boundaries_without_focus
@@ -1241,7 +1241,11 @@ res://tests/rules/test_composite_contracts.gd
 * test_b08_cycle_rejects_and_retired_queue_cannot_reach_new_run
 * test_t07_nested_failure_reports_exact_leaf_and_committed_prefix
 * test_t06_empty_ability_policy_is_independent_from_reward_consumption
-[1m9/9 passed.
+* test_nested_empty_permission_applies_only_to_root_acquisition
+* test_fixed_all_empty_after_invalidation_requires_root_permission
+* test_atomic_consumed_material_clears_only_its_dye_mark
+* test_fixed_dye_nonempty_frozen_color_survives_single_color_board
+[1m13/13 passed.
 [0m[4m
 
 res://tests/rules/test_composite_empty_dye.gd
@@ -1746,10 +1750,10 @@ Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_gam
 Totals
 ------
 Scripts              84
-Tests               605
-Passing Tests       605
-Asserts           22701
-Time              287.569s
+Tests               609
+Passing Tests       609
+Asserts           22717
+Time              340.664s
 
 
 [32m---- All tests passed! ----

@@ -116,3 +116,8 @@ test_presentation_director.gd验证队列身份、空队列、重复完成、取
 最终完整回归138项测试、2103断言通过，日志.godot/m5a-delivery-tests.log。
 
 2026-10-09染色试玩：完整32脚本/230项回归229通过，新增英文翻译随后补齐；最终染色/视图/本地化3脚本22项266断言全部通过，日志`.godot/dye_verified_final_tests.log`。新增9项规则与1项冻结变色视图用例；开发Catalog38项。详见外层GDC/acceptance/0.0.2-染色试玩切片.md；不将子集结果当作完整全绿回归。
+
+
+# #135 B/T 补齐（2026-10-21）
+
+新增test_composite_contracts 13项、test_composite_contract_scene 3项：根全空许可/固定过滤、嵌套路径、原子成本、能力空次数、循环、旧Run退役、真实Game正常/快放低特效与异常重试隔离。配置与目标门禁在提交前验证，不新增正式Catalog卡。规则v40；完整触发强度S由#168接入。

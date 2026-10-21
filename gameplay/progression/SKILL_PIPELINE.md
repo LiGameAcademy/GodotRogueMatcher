@@ -1,6 +1,6 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v38-target-lifecycle`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+规则版本：`run-commands-v40-composite-outcomes`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
 
 ## Composite接入首片（#135）
 
@@ -70,3 +70,8 @@ AbilityDefinition (on piece AbilityInstance)
 取得/升级测试统一使用 `SkillRules.freeze_target`，再经 `SkillRules.apply` 或真实 `ChooseSkillCommand` 提交。叶子单元测试继续直接验证 freeze/build；故意失效和非法参数测试保留手工构造目标。演出测试需要指定落点/颜色时，先冻结合法目标再修改明确的场景参数。
 
 `tests/rules/test_catalog_skill_pipeline.gd` 穷举当前42卡的真实选择命令，检查资格、成功取得、配置不变、重复提交幂等、采集事件合计与账本一致；遍历所有声明的多级升级并检查实例身份和触发计数。完整命令回放由 `test_commands_replay`、`test_expanded_skills` 和阶段/目标奖励回放案例验证，不把手工候选记录称为可从初始局面独立重放。
+
+
+## B/T 补齐（2026-10-21）
+
+根组合全空取得需要显式许可；只读预检检查固定目标过滤后的全空，不抽样动态目标。内层合法空叶不自行决定根门禁。固定染色按冻结目标验证，不按当前盘面颜色对误判。专用AtomicTransformEffect完整校验目标及成本后一次提交，普通Composite仍不承诺回滚。RuleResult记录完成/失败叶路径，旧Run退役后清等待队列并拒绝旧命令。S触发强度与后续窗口由#168接入。
