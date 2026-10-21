@@ -8,10 +8,16 @@ func _init() -> void:
 @export var allow_empty_targets: bool = false
 
 func rejection(context: ChoiceEffectContext) -> String:
+	return "" if allow_empty_targets or _has_pair(context) else "需要至少两种普通棋子颜色"
+
+func empty_targets_allowed(context: ChoiceEffectContext) -> bool:
+	return allow_empty_targets and not _has_pair(context)
+
+func _has_pair(context: ChoiceEffectContext) -> bool:
 	var colors: Array[int] = []
 	for piece: PieceState in context.material:
 		if not colors.has(piece.match_color): colors.append(piece.match_color)
-	return "" if colors.size() >= 2 else "需要至少两种普通棋子颜色"
+	return colors.size() >= 2
 
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	var target: SkillTarget = SkillTarget.new()
@@ -36,7 +42,7 @@ func build(context: ChoiceEffectContext, target: SkillTarget) -> ChoiceEffectReq
 	request.kind = ChoiceEffectRequest.Kind.DYE
 	request.color = target.color
 	request.piece_ids = target.piece_ids.duplicate()
-	if allow_empty_targets and target.piece_ids.is_empty() and not rejection(context).is_empty():
+	if target.piece_ids.is_empty() and empty_targets_allowed(context):
 		return request
 	if target.color < 0 or target.color >= context.color_weights.size() or target.piece_ids.is_empty() or target.piece_ids.size() > DyeRules.CONFIG.instant_targets:
 		request.error = "染色目标配置无效"

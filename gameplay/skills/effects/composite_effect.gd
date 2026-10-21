@@ -7,6 +7,8 @@ enum FixedTargetPolicy { REJECT, SKIP_INVALID }
 @export var children: Array[SkillEffect] = []
 ## REJECT fails the whole acquire; SKIP_INVALID drops dead fixed ids and may yield a legal empty leaf.
 @export var fixed_target_policy: FixedTargetPolicy = FixedTargetPolicy.REJECT
+## An entirely empty acquire needs an explicit root declaration as well as legal empty leaves.
+@export var allow_empty_acquisition: bool = false
 
 func validation_error(ancestors: Array[SkillEffect] = []) -> String:
 	if children.is_empty(): return "composite effect missing children"
@@ -28,13 +30,25 @@ func validation_error(ancestors: Array[SkillEffect] = []) -> String:
 func rejection(context: ChoiceEffectContext) -> String:
 	var error: String = validation_error()
 	if not error.is_empty(): return error
+	if not allow_empty_acquisition and empty_targets_allowed(context): return "组合没有可生效目标"
+	return _child_rejection(context)
+
+func _child_rejection(context: ChoiceEffectContext) -> String:
+	var error: String = ""
 	for child: SkillEffect in children:
 		if child is ChoiceEffect:
 			error = (child as ChoiceEffect).rejection(context)
 		elif child is CompositeEffect:
-			error = (child as CompositeEffect).rejection(context)
+			error = (child as CompositeEffect)._child_rejection(context)
 		if not error.is_empty(): return error
 	return ""
+
+func empty_targets_allowed(context: ChoiceEffectContext) -> bool:
+	if children.is_empty(): return false
+	for child: SkillEffect in children:
+		if child is ChoiceEffect and not (child as ChoiceEffect).empty_targets_allowed(context): return false
+		if child is CompositeEffect and not (child as CompositeEffect).empty_targets_allowed(context): return false
+	return true
 
 ## Fixed leaves freeze identities; dynamic leaves store only their deferred contract.
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> CompositeSkillTarget:

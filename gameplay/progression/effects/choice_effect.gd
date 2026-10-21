@@ -7,6 +7,9 @@ enum TargetPolicy { FIXED, DYNAMIC }
 func dynamic_targets() -> bool:
 	return target_policy == TargetPolicy.DYNAMIC
 
+func empty_targets_allowed(_context: ChoiceEffectContext) -> bool:
+	return false
+
 ## Dynamic contracts have no sampled identities at offer time.
 func freeze_offer(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	if not dynamic_targets(): return freeze(context, random)

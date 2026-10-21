@@ -13,4 +13,5 @@ var delta: int = 0
 var batches: int = 0
 var color: int = -1
 var piece_ids: Array[int] = []
+var cost_piece_ids: Array[int] = []
 var stat: int = 0

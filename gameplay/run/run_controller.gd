@@ -15,6 +15,17 @@ var turn_action_id: int = 0
 var _last_payload: Dictionary = {}
 var _last_result: CommandResult
 var action_refill_count: int = 0
+var _retired: bool = false
+
+func is_retired() -> bool:
+	return _retired
+
+## Closing a scene/run invalidates its continuation and any queued descendants.
+func retire() -> void:
+	if _retired: return
+	_retired = true
+	abilities.abandon_held_blasts()
+	state.ability_events.close()
 
 func can_continue_challenge() -> bool:
 	return state.is_game_over and state.end_reason == &"challenge_completed" and state.rule_error.is_empty() and state.stage.can_continue() and not state.rules.state.get_empty_coordinates().is_empty() and (recorder == null or not recorder.ended)
@@ -39,7 +50,7 @@ func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null) -
 ## 合法操作一次提交移动、消除和基础计分；演出不重新计算。
 func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	var result: TurnResult = TurnResult.new()
-	if state.phase != RunState.Phase.INPUT or state.is_game_over or (state.stage.enabled() and not state.stage.can_act()):
+	if _retired or state.phase != RunState.Phase.INPUT or state.is_game_over or (state.stage.enabled() and not state.stage.can_act()):
 		result.move = BoardMoveResult.new()
 		result.move.failure = BoardMoveResult.Failure.BUSY
 		return result
@@ -208,6 +219,10 @@ func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = n
 	return offer
 
 func execute_command(command: RunCommand) -> CommandResult:
+	if _retired:
+		var closed: CommandResult = CommandResult.new()
+		closed.reason = "run_closed"
+		return closed
 	var payload: Dictionary = CommandCodec.encode(command)
 	if command.command_id == last_command_id and _last_result != null and payload == _last_payload:
 		return _last_result
@@ -298,6 +313,9 @@ func execute_command(command: RunCommand) -> CommandResult:
 ## 每次仅越过一个安全阶段；机器人直接确认，真人先等演出。
 func advance() -> RunStepResult:
 	var result: RunStepResult = RunStepResult.new()
+	if _retired:
+		result.kind = &"closed"
+		return result
 	if not state.rule_error.is_empty():
 		result.kind = &"error"
 		return result
