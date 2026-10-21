@@ -1,0 +1,77 @@
+[
+  {
+    "file": ".gitattributes",
+    "bytes": 52,
+    "sha256": "3d37b93352ab85e958455943f91f757df0d5b34c3894b8542ab4a849e2ac3cf2"
+  },
+  {
+    "file": "development-1.log",
+    "bytes": 76851,
+    "sha256": "538fa90b6027cefe9e30ba094d4535906f137ba4702199bdb26b31830b0d94b8"
+  },
+  {
+    "file": "development-2.log",
+    "bytes": 54345,
+    "sha256": "8a35ba56b705c368f5d6aebe4183cf7cf649ce76bc72db012e1406dd75dadd93"
+  },
+  {
+    "file": "development-3.log",
+    "bytes": 53052,
+    "sha256": "7daae75cfbfe6e0e76e979bf5d33143086aebdafe0173c68971842ab9af1ca44"
+  },
+  {
+    "file": "development-4.log",
+    "bytes": 54318,
+    "sha256": "54fb48f215fcfb253e4195b6fa0423763bc57215858c4916a755def32a83dfe1"
+  },
+  {
+    "file": "development-5.log",
+    "bytes": 53586,
+    "sha256": "8aa87484dc2c4daafac61bccc565249f5b64942d0b3fe94b1e0d9a62eb427781"
+  },
+  {
+    "file": "development-6.log",
+    "bytes": 53251,
+    "sha256": "c6126518a20f9935d2e98c6c0542f2cbbc2a5053b1a4ab672cc92f8cacd1383b"
+  },
+  {
+    "file": "full-output.log",
+    "bytes": 153965,
+    "sha256": "bab8a089ac685784d0698719cc34347ce327d41ff3bdfdc13d873adb089fa173"
+  },
+  {
+    "file": "golden-replay.log",
+    "bytes": 235,
+    "sha256": "548e1ba90298abb0789de887f6beba808ef7d28fc3133928b7afee6737d464f4"
+  },
+  {
+    "file": "import.log",
+    "bytes": 79175,
+    "sha256": "fd62b92400cb6ad8604ce7912ab3c036d5fef83ef0b7d14bf0f96266c9c55444"
+  },
+  {
+    "file": "line-counts.json",
+    "bytes": 26710,
+    "sha256": "fd1712284418acb597d23622e7f4fb52bf9d90ee3e6fe5d6185b9f68defdcae4"
+  },
+  {
+    "file": "prototype-probe.log",
+    "bytes": 335,
+    "sha256": "6bc00d6b8c342854e9d6563bcbfc5f04eda9c29ed8abf9d864c0793e445c4d44"
+  },
+  {
+    "file": "prototype-record.jsonl",
+    "bytes": 140462,
+    "sha256": "3639dabfc65c55358146ab7cc9acee59b167f7c4df6775e87a647365e85fccf4"
+  },
+  {
+    "file": "script-results.json",
+    "bytes": 9763,
+    "sha256": "da6fa9cb5a8cceda6f9f17307c5d14a5b60e84b9c4ce2bfbee4786b01a14d7e5"
+  },
+  {
+    "file": "summary.json",
+    "bytes": 320,
+    "sha256": "b4dd449c32b8ed4285bc9571426c136224a2ada8c297814026f6b6add33da49c"
+  }
+]
