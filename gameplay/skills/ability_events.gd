@@ -110,6 +110,15 @@ func complete(activation: AbilityActivation, applied: bool, affected_count: int)
 	})
 	return applied
 
+## Aborted descendants are recorded as interrupted, never as successful empty applications.
+func cancel(activation: AbilityActivation, reason: StringName) -> void:
+	if activation == null or activation.completed: return
+	complete(activation, false, 0)
+	if activation.completed:
+		var trace: Dictionary = _traces.back()
+		trace["interrupted"] = true
+		trace["interruption_reason"] = reason
+
 ## Drain and clear per-command activation traces for RuleResult.activations.
 func take_traces() -> Array[Dictionary]:
 	var traces: Array[Dictionary] = _traces.duplicate(true)

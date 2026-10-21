@@ -1,6 +1,9 @@
 class_name ThinMaterialEffect
 extends ChoiceEffect
 
+func _init() -> void:
+	target_policy = TargetPolicy.DYNAMIC
+
 ## Instantly remove up to `count` unmarked ordinary pieces without scoring.
 @export var count: int = 3
 

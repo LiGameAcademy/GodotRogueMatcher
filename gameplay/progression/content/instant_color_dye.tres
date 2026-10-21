@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://gameplay/progression/effects/dye_material_effect.gd" id="2"]
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
+target_policy = 0
 [resource]
 script = ExtResource("1")
 skill_id = &"instant_color_dye"

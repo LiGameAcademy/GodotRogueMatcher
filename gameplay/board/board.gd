@@ -69,6 +69,7 @@ func _notification(what: int) -> void:
 func _exit_tree() -> void:
 	director.cancel()
 	BoardRunFlow.finalize(run, "scene_closed")
+	if run != null: run.retire()
 
 #region 初始化与重试
 ## 规则对象由Game显式注入，重试传入全新的状态。
@@ -87,6 +88,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
 	BoardRunFlow.finalize(run, "restart")
+	if run != null: run.retire()
 	run = RunController.new(rules, randi(), game_mode.stage_config)
 	GameManager.reset_game(run)
 	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。

@@ -131,6 +131,7 @@ func test_scored_skip_invalid_composite_keeps_scoring_policy() -> void:
 	var dead: PieceState = run.state.rules.place_piece(Vector2i(0, 4), 0)
 	var survivor: PieceState = run.state.rules.place_piece(Vector2i(1, 4), 1)
 	var clear: ClearMaterialEffect = ClearMaterialEffect.new()
+	clear.target_policy = ChoiceEffect.TargetPolicy.FIXED
 	clear.selector = ClearMaterialEffect.Selector.LINE
 	clear.score_cleared = true
 	var refill: RefillCountEffect = RefillCountEffect.new()

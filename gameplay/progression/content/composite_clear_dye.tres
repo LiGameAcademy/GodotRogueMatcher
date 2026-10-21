@@ -10,10 +10,12 @@
 
 [sub_resource type="Resource" id="clear"]
 script = ExtResource("5")
+target_policy = 0
 selector = 0
 
 [sub_resource type="Resource" id="dye"]
 script = ExtResource("6")
+target_policy = 1
 allow_empty_targets = true
 
 [sub_resource type="Resource" id="composite"]

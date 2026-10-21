@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
+target_policy = 0
 ratio = 0.25
 
 [resource]

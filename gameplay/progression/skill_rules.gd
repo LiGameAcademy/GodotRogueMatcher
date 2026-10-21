@@ -28,7 +28,7 @@ static func freeze_target(state: RunState, skill: SkillDefinition, random: Rando
 	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
 	var target: SkillTarget = SkillTarget.new()
 	if effect is ChoiceEffect:
-		target = (effect as ChoiceEffect).freeze(effect_context(state), rng)
+		target = (effect as ChoiceEffect).freeze_offer(effect_context(state), rng)
 	elif effect is CompositeEffect:
 		target = (effect as CompositeEffect).freeze(effect_context(state), rng)
 	target.level_before = level(state, skill)
@@ -104,6 +104,9 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 
 static func apply(run: RunController, offer_id: int, skill_id: StringName, selected_color: int = -1) -> SkillApplyResult:
 	var result: SkillApplyResult = SkillApplyResult.new()
+	if run.is_retired():
+		result.error = "本局已经关闭"
+		return result
 	var state: RunState = run.state
 	var rewards: RewardState = state.rewards
 	var offer: SkillOffer = rewards.active_offer
@@ -135,6 +138,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	state.rule_action_id = state.action_id
 	result.error = AbilityEffectRunner.apply_skill_effect(run, effect, targets, result, selected_color)
 	if not result.error.is_empty():
+		result.outcome = &"error"
 		run.abilities.abandon_held_blasts()
 		state.rule_error = result.error
 		state.phase = RunState.Phase.ERROR
@@ -155,6 +159,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	state.pending_rewards -= 1
 	rewards.active_offer = null
 	result.success = true
+	result.outcome = &"applied"
 	result.reward_id = offer.reward_id
 	result.offer_id = offer_id
 	result.skill_id = skill_id

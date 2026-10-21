@@ -61,6 +61,11 @@ func test_retry_during_birth_cannot_continue_old_run_or_unlock_new_input() -> vo
 	assert_not_null(interrupted_run)
 	assert_ne(board.run, interrupted_run)
 	await wait_process_frames(30)
+	assert_true(interrupted_run.is_retired())
+	assert_false(interrupted_run.state.ability_events.data().active)
+	# Retirement closes only the old dispatcher; birth/rule state must remain unchanged.
+	interrupted_snapshot.ability_events.active = false
+	interrupted_snapshot.ability_events.dispatched = []
 	assert_eq(RunSnapshot.capture(interrupted_run), interrupted_snapshot)
 	assert_eq(board.run.state.turn_count, 1)
 	assert_eq(board.rules.state.get_piece_count(), RunController.CONFIG.initial_piece_count)

@@ -22,6 +22,7 @@ static func tags(skill: SkillDefinition) -> String:
 
 ## 卡面只显示此次选择的具体变化，不重复展示共同生命周期。
 static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> String:
+	if target.deferred: return TranslationServer.translate("目标在执行时选择")
 	var effect: SkillEffect = skill.acquisition_effect(target.level_before)
 	if effect is TransformMaterialEffect:
 		var content: StringName = (effect as TransformMaterialEffect).content_id
@@ -48,7 +49,9 @@ static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> Stri
 		for index: int in range(mini(composite.children.size(), composite_target.leaf_targets.size())):
 			var leaf: SkillEffect = composite.children[index]
 			var leaf_target: SkillTarget = composite_target.leaf_targets[index]
-			if leaf is RefillCountEffect:
+			if leaf_target.deferred:
+				lines.append(TranslationServer.translate("目标在执行时选择"))
+			elif leaf is RefillCountEffect:
 				lines.append(TranslationServer.translate("补棋：%d → %d") % [leaf_target.value_before, leaf_target.value_after])
 			elif leaf is ColorWeightEffect:
 				lines.append(TranslationServer.translate("%s权重：%d → %d") % [_color_name(leaf_target.color), leaf_target.value_before, leaf_target.value_after])

@@ -4,6 +4,10 @@ extends ChoiceEffect
 @export var delta: int = -1
 @export var batches: int = 3
 
+## 仅更新前叶影响的数量与剩余次数，不重新选择身份或消耗随机。
+func refresh_after_previous(context: ChoiceEffectContext, _frozen: SkillTarget, _random: RandomNumberGenerator) -> SkillTarget:
+	return freeze(context, null)
+
 func rejection(context: ChoiceEffectContext) -> String:
 	if delta not in [-1, 1] or batches <= 0: return "补棋效果参数无效"
 	var count: int = context.next_refill + (delta if context.refill_batches[delta] == 0 else 0)

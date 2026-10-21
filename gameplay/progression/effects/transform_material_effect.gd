@@ -4,17 +4,26 @@ extends ChoiceEffect
 ## Freeze ordinary, unmarked sources without replacement; application changes content only.
 @export var content_id: StringName
 @export_range(1, 3) var count: int = 3
+## Composite later leaves may explicitly select from the remaining ordinary material.
+@export var reselect_after_previous: bool = false
+
+func dynamic_targets() -> bool:
+	return reselect_after_previous or super.dynamic_targets()
 
 func rejection(context: ChoiceEffectContext) -> String:
 	if content_id not in [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN] or count < 1 or count > 3:
 		return "特殊棋转化配置无效"
 	return "没有可转化的普通棋子" if _candidates(context).is_empty() else ""
 
+## Shared by read-only capacity preflight and target sampling; ordinary conversions may be partial.
+func available_target_count(context: ChoiceEffectContext) -> int:
+	return mini(count, _candidates(context).size())
+
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	var target: SkillTarget = SkillTarget.new()
 	if not rejection(context).is_empty(): return target
 	var ids: Array[int] = _candidates(context)
-	for _index: int in range(mini(count, ids.size())):
+	for _index: int in range(available_target_count(context)):
 		var index: int = random.randi_range(0, ids.size() - 1)
 		target.piece_ids.append(ids[index])
 		ids.remove_at(index)

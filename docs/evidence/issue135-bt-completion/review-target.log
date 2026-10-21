@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/review2-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_composite_contracts.gd
+[0m* test_t06_all_empty_requires_root_permission_and_consumes_once
+* test_b06_t07_nested_partial_or_error_preserves_commit_and_cancels_only_on_error
+* test_t08_atomic_cost_and_exact_targets_reject_without_spending_then_commit_once
+* test_nested_color_input_is_forwarded_to_inner_leaf
+* test_t08_incomplete_targets_and_cost_overlap_never_spend
+* test_b08_nested_root_runs_once_and_finite_descendants_settle_once
+* test_b08_cycle_rejects_and_retired_queue_cannot_reach_new_run
+* test_t07_nested_failure_reports_exact_leaf_and_committed_prefix
+* test_t06_empty_ability_policy_is_independent_from_reward_consumption
+* test_nested_empty_permission_applies_only_to_root_acquisition
+* test_fixed_all_empty_after_invalidation_requires_root_permission
+* test_atomic_consumed_material_clears_only_its_dye_mark
+[1m12/12 passed.
+[0m[4m
+
+res://tests/integration/test_composite_contract_scene.gd
+[0m* test_t09_partial_result_normal_presentation_and_duplicate_confirmation
+* test_t09_partial_result_fast_and_low_effects_preserves_rules
+* test_t09_error_locks_input_retry_retires_run_and_old_callback
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_composite_offer_lifecycle.gd
+[0m* test_formal_offer_does_not_sample_dynamic_subtree_and_choice_samples_each_once
+* test_each_declared_dynamic_selector_samples_from_post_clear_board_once
+* test_preview_snapshot_and_missing_color_do_not_sample_dynamic_target
+* test_b03_b04_formal_offer_fixed_invalid_target_skip_and_strict_error
+* test_partial_fixed_targets_revalidate_and_bad_color_is_not_swallowed
+* test_skip_policy_does_not_erase_budget_rejection
+[1m6/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                21
+Passing Tests        21
+Asserts             233
+Time              3.286s
+
+
+[32m---- All tests passed! ----
+[0m

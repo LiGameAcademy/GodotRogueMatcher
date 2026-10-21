@@ -1,5 +1,9 @@
 # 当前回归 · 2026-10-20
 
+#167 review修复：正式发牌延迟动态目标，固定失效重校验，前置拒绝与后代中断区分。82脚本、593/593测试、22574断言，211.194秒、退出0；v38独立回放415条通过。旧单卡显式固定、组合染色显式动态；实际范围与未完成项见[review说明](../docs/quality/issue135_composite_boundaries.md)和[证据](../docs/evidence/issue135-review/README.md)。
+
+0.0.3第三片#135首片：Composite叶间屏障、固定/动态目标与嵌套单次刷新。81脚本、587/587测试、22477断言，518.065秒、退出0；定向31/31，独立v36回放415条通过。完整范围及未交付项见[接入记录](../docs/quality/issue135_composite_boundaries.md)及[机器证据](../docs/evidence/issue135/README.md)。#135保持开放。
+
 0.0.3第二片#134：旧道具全局触发与重复补棋循环退役，测试/工具迁移到本局或局部显式上下文。80脚本、581/581测试、22418断言通过，285.006秒、退出0；保留项、替代覆盖和复现见[迁移说明](../docs/quality/issue134_legacy_retirement.md)及[机器证据](../docs/evidence/issue134/README.md)。
 
 0.0.3首片#133：奖励等待归本局，Game协调弹窗。当前实现、审查发现、完整/定向回归、已知失败与复现方式见[交付报告](../docs/quality/issue133_reward_coordination.md)及[机器证据](../docs/evidence/issue133/README.md)。下方保留历史版本结果，不把历史全绿当作当前结论。
@@ -112,3 +116,8 @@ test_presentation_director.gd验证队列身份、空队列、重复完成、取
 最终完整回归138项测试、2103断言通过，日志.godot/m5a-delivery-tests.log。
 
 2026-10-09染色试玩：完整32脚本/230项回归229通过，新增英文翻译随后补齐；最终染色/视图/本地化3脚本22项266断言全部通过，日志`.godot/dye_verified_final_tests.log`。新增9项规则与1项冻结变色视图用例；开发Catalog38项。详见外层GDC/acceptance/0.0.2-染色试玩切片.md；不将子集结果当作完整全绿回归。
+
+
+# #135 B/T 补齐（2026-10-21）
+
+新增test_composite_contracts 13项、test_composite_contract_scene 3项：根全空许可/固定过滤、嵌套路径、原子成本、能力空次数、循环、旧Run退役、真实Game正常/快放低特效与异常重试隔离。配置与目标门禁在提交前验证，不新增正式Catalog卡。规则v40；完整触发强度S由#168接入。
