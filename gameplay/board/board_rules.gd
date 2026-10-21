@@ -3,7 +3,7 @@ extends RefCounted
 
 ## 棋盘唯一变更入口。路径与连线只依赖数据，不查找节点或使用随机数。
 const MOVE_DIRECTIONS: Array[Vector2i] = [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
-const MATCH_DIRECTIONS: Array[Vector2i] = [Vector2i.RIGHT, Vector2i.DOWN, Vector2i(1, 1), Vector2i(1, -1)]
+const MATCH_DIRECTIONS: Array[Vector2i] = BoardMatchDetector.LINE_DIRECTIONS
 
 var state: BoardState
 var minimum_match_count: int
@@ -85,51 +85,10 @@ func _find_path(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 	return []
 #endregion
 
-#region 四方向连线分组
+#region 统一命中查询
 func find_matches() -> Array[BoardMatchGroup]:
-	var groups: Array[BoardMatchGroup] = []
-	for piece: PieceState in state.get_snapshot():
-		for direction: Vector2i in MATCH_DIRECTIONS:
-			var previous: PieceState = state.get_piece_at(piece.coordinate - direction)
-			if previous != null and previous.match_color == piece.match_color:
-				continue
-			var line: Array[int] = []
-			var coordinate: Vector2i = piece.coordinate
-			var current: PieceState = state.get_piece_at(coordinate)
-			while current != null and current.match_color == piece.match_color:
-				line.append(current.piece_id)
-				coordinate += direction
-				current = state.get_piece_at(coordinate)
-			if line.size() >= minimum_match_count:
-				_merge_line(groups, line)
-	groups.sort_custom(func(a: BoardMatchGroup, b: BoardMatchGroup) -> bool: return a.piece_ids[0] < b.piece_ids[0])
-	return groups
+	return BoardMatchDetector.find_matches(state, minimum_match_count)
 
 func find_matches_at(coordinate: Vector2i) -> Array[BoardMatchGroup]:
-	var piece_id: int = state.get_piece_id(coordinate)
-	var groups: Array[BoardMatchGroup] = []
-	if piece_id == 0:
-		return groups
-	for group: BoardMatchGroup in find_matches():
-		if group.piece_ids.has(piece_id):
-			groups.append(group)
-	return groups
-
-func _merge_line(groups: Array[BoardMatchGroup], line: Array[int]) -> void:
-	var merged: BoardMatchGroup = BoardMatchGroup.new()
-	merged.piece_ids.assign(line)
-	# 已有组彼此不相交，新线可以一次连接多个已有组。
-	for index: int in range(groups.size() - 1, -1, -1):
-		var intersects: bool = false
-		for piece_id: int in groups[index].piece_ids:
-			if line.has(piece_id):
-				intersects = true
-				break
-		if intersects:
-			for piece_id: int in groups[index].piece_ids:
-				if not merged.piece_ids.has(piece_id):
-					merged.piece_ids.append(piece_id)
-			groups.remove_at(index)
-	merged.piece_ids.sort()
-	groups.append(merged)
+	return BoardMatchDetector.find_matches_at(state, minimum_match_count, coordinate)
 #endregion
