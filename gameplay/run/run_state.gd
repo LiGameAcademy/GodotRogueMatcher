@@ -62,6 +62,7 @@ func reset_counters() -> void:
 	line_clear = LineClearState.new()
 	dye = DyeState.new()
 	goal_bonus_score = 0
+	rules.shape_unlocks = ShapeUnlockState.new()
 	rule_error = ""
 	random.seed = _initial_seed
 	phase = Phase.INITIALIZING

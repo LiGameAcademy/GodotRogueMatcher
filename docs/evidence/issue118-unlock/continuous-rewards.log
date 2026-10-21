@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-unlock/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_empty_board_recovery.gd
+[0m* test_recovery_consumes_displayed_tokens_once_without_player_or_stage_action
+* test_recovery_honors_each_finite_modifier_without_consuming_its_batches
+* test_original_refill_obligation_finishes_before_any_recovery_check
+* test_all_pending_rewards_finish_before_recovery_and_share_one_budget
+* test_reward_wait_after_recovery_cannot_reset_budget_before_input_boundary
+* test_real_continuous_milestone_rewards_keep_one_recovery_budget
+* test_still_empty_after_one_recovery_is_error_not_recursive_or_board_full
+* test_ended_error_or_retired_run_cannot_start_recovery
+* test_recovery_first_birth_chain_settles_rewards_then_finishes_remaining_tokens
+* test_unlock_and_recovery_score_do_not_settle_stage_or_increment_pressure
+[1m10/10 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                10
+Passing Tests        10
+Asserts             140
+Time              0.274s
+
+
+[32m---- All tests passed! ----
+[0m

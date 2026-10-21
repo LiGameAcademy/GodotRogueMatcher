@@ -88,7 +88,7 @@ func step(run: RunController, result: RunStepResult) -> void:
 	var after: Dictionary = RunSnapshot.capture(run)
 	var births: Array[Dictionary] = []
 	for spawn: SpawnResult in result.spawns:
-		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches)})
+		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches), "source": String(spawn.source), "batch_id": str(spawn.batch_id)})
 	append("RuleResult", {"stage": String(result.kind), "births": births, "events": matches(result.matches), "activations": run.state.ability_events.take_traces(), "challenge": {} if result.challenge == null else result.challenge.data(), "goal_before": result.goal_before, "after": after})
 	checkpoint(run, after)
 	needs_flush = result.kind in [&"spawn", &"input"] or needs_flush
@@ -146,7 +146,7 @@ static func pieces(values: Array[PieceState]) -> Array[Dictionary]:
 static func matches(values: Array[MatchResult]) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for value: MatchResult in values:
-		var event: Dictionary = RunSnapshot.normalize({"cause": value.cause, "removed": pieces(value.removed), "recolored": pieces(value.recolored), "previous_colors": value.previous_colors, "source_color": value.source_color, "center": value.center, "source_id": value.source_id, "line_axis": value.line_axis, "radius": value.radius, "cross_radius": value.cross_radius, "generation": value.generation, "followups": value.followups, "trigger_strength": value.trigger_strength, "score": RunSnapshot.score(value.score_entry)})
+		var event: Dictionary = RunSnapshot.normalize({"cause": value.cause, "match_source": value.match_source, "removed": pieces(value.removed), "recolored": pieces(value.recolored), "previous_colors": value.previous_colors, "source_color": value.source_color, "center": value.center, "source_id": value.source_id, "line_axis": value.line_axis, "radius": value.radius, "cross_radius": value.cross_radius, "generation": value.generation, "followups": value.followups, "trigger_strength": value.trigger_strength, "score": RunSnapshot.score(value.score_entry)})
 		var shapes: Array[Dictionary] = []
 		var has_template: bool = false
 		for hit: BoardMatchHit in value.hits:

@@ -10,7 +10,7 @@ static func prepare(run: RunController, generator: SkillOfferGenerator) -> Skill
 		previous.unavailable.clear()
 		for skill: SkillDefinition in previous.choices:
 			if skill == null or not skill.validation_error().is_empty(): return _fail(run, "invalid_frozen_skill")
-			if not SkillOfferGenerator.CATALOG.any(func(known: SkillDefinition) -> bool: return known.skill_id == skill.skill_id):
+			if not run.offer_catalog().any(func(known: SkillDefinition) -> bool: return known.skill_id == skill.skill_id):
 				return _fail(run, "unknown_frozen_skill")
 			var target: SkillTarget = previous.targets.get(skill.skill_id)
 			if target == null: return _fail(run, "missing_frozen_target")

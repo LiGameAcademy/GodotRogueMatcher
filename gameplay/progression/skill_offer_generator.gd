@@ -67,6 +67,9 @@ func _init() -> void:
 func set_catalog(catalog: Array[SkillDefinition]) -> void:
 	_catalog.assign(catalog)
 
+func catalog() -> Array[SkillDefinition]:
+	return _catalog.duplicate()
+
 ## 相同待处理奖励返回已冻结候选；重建UI不消耗随机数。
 func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 	last_error = ""

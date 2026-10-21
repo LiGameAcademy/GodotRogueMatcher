@@ -1,10 +1,13 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v41-followup-strength"
+const RULES_VERSION: String = "run-commands-v42-shape-unlock-recovery"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
+	if value is MatchShapeTemplate:
+		var template: MatchShapeTemplate = value as MatchShapeTemplate
+		return normalize({"shape_id": template.shape_id, "offsets": template.offsets})
 	if value is SkillEffect or value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
 		if value is AbilityDefinition and not AbilityTriggerAdapter.validation_error(value as AbilityDefinition).is_empty():
 			return {"invalid": AbilityTriggerAdapter.validation_error(value as AbilityDefinition)}
@@ -40,7 +43,7 @@ static func resource_fields(resource: Resource) -> Dictionary:
 
 static func config(run: RunController) -> Dictionary:
 	var skills: Array[Dictionary] = []
-	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
+	for skill: SkillDefinition in run.offer_catalog():
 		var fields: Dictionary = resource_fields(skill)
 		# Display-only summary does not change rules; keep the full description field for existing config hashes.
 		fields.erase("short_description")
@@ -49,6 +52,7 @@ static func config(run: RunController) -> Dictionary:
 
 	if not run.state.rules.template_data().is_empty():
 		result["prototype_match_templates"] = normalize(run.state.rules.template_data())
+	if not run.prototype_profile.is_empty(): result["prototype_profile"] = String(run.prototype_profile)
 	return result
 
 ## Record explicit in-run trigger parameters; exclude plugin managers, time fields, and shared run counters.
@@ -146,6 +150,7 @@ static func capture(run: RunController) -> Dictionary:
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)
 	snapshot["reward_repair_used"] = state.rewards.repair_used
+	snapshot["shape_unlocks"] = normalize(state.rules.shape_unlocks.data())
 	return snapshot
 
 static func _roots(state: RunState) -> Array[Dictionary]:

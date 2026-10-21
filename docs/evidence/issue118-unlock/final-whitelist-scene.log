@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-unlock/final-target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_shape_unlock_replay.gd
+[0m* test_unlock_recovery_disk_replay_and_safe_prefix_keep_budget_and_acquisition
+* test_shape_state_and_profile_tampering_are_rejected_and_v41_is_explicitly_old
+[1m2/2 passed.
+[0m[4m
+
+res://tests/integration/test_shape_unlock_scene.gd
+[0m* test_normal_real_popup_unlock_and_recovery
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_fast_real_popup_unlock_and_recovery
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_low_effects_real_popup_unlock_and_recovery
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_fast_low_effects_real_popup_unlock_and_recovery
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_retry_during_recovery_discards_old_run_identity_and_callbacks
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[1m5/5 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               2
+Tests                 7
+Passing Tests         7
+Asserts              74
+Time              1.869s
+
+
+[32m---- All tests passed! ----
+[0m

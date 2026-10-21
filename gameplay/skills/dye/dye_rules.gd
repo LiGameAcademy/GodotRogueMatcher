@@ -100,6 +100,6 @@ static func recolor(resolver: AbilityResolver, ids: Array[int], color: int, hold
 	change.center = change.recolored[0].coordinate
 	change.score_entry = state.ledger.commit(0, 1.0, 0, &"dye", DemolitionRules.root_id(state), ids)
 	var results: Array[MatchResult] = [change]
-	results.append_array(resolver.resolve(state.rules.find_matches(), hold_descendants))
+	results.append_array(resolver.resolve(state.rules.find_matches(), hold_descendants, &"dye"))
 	return results
 

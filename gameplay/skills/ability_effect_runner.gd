@@ -6,6 +6,9 @@ extends RefCounted
 
 static func preflight(run: RunController, effect: SkillEffect, frozen: SkillTarget, selected_color: int = -1, root: bool = true) -> String:
 	if effect == null: return "skill effect missing"
+	if root:
+		var shape_error: String = _shape_root_error(run, effect)
+		if not shape_error.is_empty(): return shape_error
 	if effect is ChoiceEffect:
 		return _preflight_choice(run, effect as ChoiceEffect, frozen, selected_color)
 	if effect is CompositeEffect:
@@ -67,6 +70,10 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 	if not request.error.is_empty(): return request.error
 	var state: RunState = run.state
 	match request.kind:
+		ChoiceEffectRequest.Kind.UNLOCK_SHAPE:
+			if not state.rules.shape_unlocks.unlock(request.shape_template, state.rule_action_id): return "shape already unlocked"
+			result.matches.append_array(run.abilities.resolve(state.rules.find_matches(), hold_blasts, &"shape_unlock"))
+			run.check_rewards()
 		ChoiceEffectRequest.Kind.TRANSFORM:
 			var paid: Array[PieceState] = []
 			for id: int in request.cost_piece_ids:
@@ -243,6 +250,14 @@ static func _preflight_choice(run: RunController, effect: ChoiceEffect, frozen: 
 
 static func _validate_request(run: RunController, request: ChoiceEffectRequest) -> String:
 	if not request.error.is_empty(): return request.error
+	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_SHAPE:
+		if request.shape_template == null: return "missing shape template"
+		if run.state.rules.shape_unlocks.contains(request.shape_template.shape_id): return "shape already unlocked"
+		var preview: BoardRules = run.state.rules.placement_preview()
+		if not preview.shape_unlocks.unlock(request.shape_template, 0): return "invalid shape unlock"
+		var error: String = BoardMatchDetector.validation_error(preview.match_templates())
+		if not error.is_empty(): return error
+		return run.abilities.validation_error(preview.find_matches().size())
 	if request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE, ChoiceEffectRequest.Kind.ASSIGN_FUSE] and request.piece_ids.is_empty(): return ""
 	if request.kind in [ChoiceEffectRequest.Kind.CLEAR, ChoiceEffectRequest.Kind.DYE]: return run.abilities.validation_error(1)
 	if request.kind == ChoiceEffectRequest.Kind.UNLOCK_CORE: return _preflight_unlock_core(run, request)
@@ -250,6 +265,27 @@ static func _validate_request(run: RunController, request: ChoiceEffectRequest) 
 	if request.kind == ChoiceEffectRequest.Kind.TRANSFORM:
 		return run.abilities.transformation_error(request.piece_ids, request.content_id, request.cost_piece_ids)
 	return ""
+
+## Reject duplicate/obsolete unlock leaves before any earlier leaf can commit.
+static func _shape_root_error(run: RunController, effect: SkillEffect) -> String:
+	var error: String = effect.validation_error()
+	if not error.is_empty(): return error
+	var templates: Array[MatchShapeTemplate] = []
+	_collect_shapes(effect, templates)
+	if templates.is_empty(): return ""
+	var ids: Array[StringName] = run.state.rules.shape_unlocks.ids()
+	for template: MatchShapeTemplate in templates:
+		if template == null: return "missing shape template"
+		if ids.has(template.shape_id): return "shape already unlocked"
+		ids.append(template.shape_id)
+	templates.append_array(run.state.rules.match_templates())
+	return BoardMatchDetector.validation_error(templates)
+
+static func _collect_shapes(effect: SkillEffect, templates: Array[MatchShapeTemplate]) -> void:
+	if effect is UnlockShapeEffect:
+		templates.append((effect as UnlockShapeEffect).template)
+	elif effect is CompositeEffect:
+		for child: SkillEffect in (effect as CompositeEffect).children: _collect_shapes(child, templates)
 static func _preflight_unlock_core(run: RunController, request: ChoiceEffectRequest) -> String:
 	var state: RunState = run.state
 	var preview: BoardRules = state.rules.placement_preview()

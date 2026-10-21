@@ -16,6 +16,9 @@ var _last_payload: Dictionary = {}
 var _last_result: CommandResult
 var action_refill_count: int = 0
 var _retired: bool = false
+var prototype_profile: StringName = &""
+const PROTOTYPE_PROFILE: StringName = &"shape-unlock-fixture-v1"
+const SHAPE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain"]
 
 func is_retired() -> bool:
 	return _retired
@@ -41,7 +44,9 @@ func report_error(reason: String) -> void:
 		recorder.append("Diagnostic", {"reason": reason})
 		recorder.checkpoint(self)
 
-func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null) -> void:
+func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"") -> void:
+	assert(profile in [&"", PROTOTYPE_PROFILE])
+	prototype_profile = profile
 	state = RunState.new(rules, run_seed)
 	state.stage = StageState.new(stage_config, state.ledger)
 	abilities = AbilityResolver.new(state)
@@ -68,13 +73,13 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	_freeze_action_refill()
 	state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
 	state.phase = RunState.Phase.MOVING
-	result.matches = resolve_matches_at(target)
+	result.matches = resolve_matches_at(target, false, &"direct_move")
 	state.valid_moves += 1
 	result.direct_match = not result.matches.is_empty() and result.matches[0].cause == &"match"
 	return result
 
-func resolve_matches_at(coordinate: Vector2i, hold_descendants: bool = false) -> Array[MatchResult]:
-	return _resolve_groups(state.rules.find_matches_at(coordinate), hold_descendants)
+func resolve_matches_at(coordinate: Vector2i, hold_descendants: bool = false, match_source: StringName = &"") -> Array[MatchResult]:
+	return _resolve_groups(state.rules.find_matches_at(coordinate), hold_descendants, match_source)
 
 func resolve_all_matches() -> Array[MatchResult]:
 	return _resolve_groups(state.rules.find_matches())
@@ -115,14 +120,14 @@ func finish_game(reason: StringName = &"board_full") -> void:
 	state.phase = RunState.Phase.FINISHED
 
 ## 一枚一枚选择真实空位，出生即查线；批次不会因首枚消除提前停止。
-func spawn_batch(count: int = 3) -> Array[SpawnResult]:
+func spawn_batch(count: int = 3, source: StringName = &"normal", batch_id: int = 0) -> Array[SpawnResult]:
 	var result: Array[SpawnResult] = []
 	if state.is_game_over or not state.rule_error.is_empty() or count <= 0:
 		return result
 	state.phase = RunState.Phase.SPAWNING
 	state.spawning.ensure_plan(count, state.explosion, state.line_clear)
 	for index: int in range(count):
-		var spawn: SpawnResult = spawn_one()
+		var spawn: SpawnResult = spawn_one(source, batch_id)
 		if spawn == null:
 			return result
 		result.append(spawn)
@@ -131,7 +136,7 @@ func spawn_batch(count: int = 3) -> Array[SpawnResult]:
 	check_space_after_spawning()
 	return result
 
-func spawn_one() -> SpawnResult:
+func spawn_one(source: StringName = &"normal", batch_id: int = 0) -> SpawnResult:
 	if state.is_game_over or not state.rule_error.is_empty():
 		return null
 	state.phase = RunState.Phase.SPAWNING
@@ -155,13 +160,15 @@ func spawn_one() -> SpawnResult:
 			ghost = true
 			break
 	var result: SpawnResult = SpawnResult.new()
+	result.source = source
+	result.batch_id = batch_id
 	if core:
 		result.piece = abilities.add_core(coordinate, color)
 	elif token.line_axis >= 0:
 		result.piece = abilities.add_line_piece(token.line_axis, coordinate, color)
 	else:
 		result.piece = state.rules.place_piece(coordinate, color, &"", ghost)
-	result.matches = resolve_matches_at(coordinate)
+	result.matches = resolve_matches_at(coordinate, false, &"recovery_birth" if source == &"empty_recovery" else &"birth")
 	state.spawn_history.append(result)
 	return result
 
@@ -171,8 +178,8 @@ func check_space_after_spawning() -> void:
 	if state.rules.state.get_empty_coordinates().is_empty():
 		finish_game()
 
-func _resolve_groups(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> Array[MatchResult]:
-	var result: Array[MatchResult] = abilities.resolve(groups, hold_descendants)
+func _resolve_groups(groups: Array[BoardMatchGroup], hold_descendants: bool = false, match_source: StringName = &"") -> Array[MatchResult]:
+	var result: Array[MatchResult] = abilities.resolve(groups, hold_descendants, match_source)
 	if not abilities.last_error.is_empty():
 		state.rule_error = abilities.last_error
 		state.phase = RunState.Phase.ERROR
@@ -187,7 +194,10 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	if state.stage.enabled() and not state.stage.config.validation_error().is_empty():
 		report_error(state.stage.config.validation_error())
 		return result
-	if mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
+	if mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE:
+		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
+		demo.populate(self, mode)
+	elif mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
 	elif mode == "fixture_f6": ExplosionDemo.populate(self)
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
 	elif mode == "fixture_dye": DyeDemo.populate(self)
@@ -213,10 +223,18 @@ func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = n
 	enter_rewards()
 	var existing: SkillOffer = state.rewards.active_offer
 	var source: SkillOfferGenerator = generator if generator != null else SkillOfferGenerator.new()
+	if generator == null: source.set_catalog(offer_catalog())
 	var offer: SkillOffer = RewardOfferRules.prepare(self, source)
 	if offer != null and offer != existing and recorder != null and record_offer:
 		recorder.offer(self, offer)
 	return offer
+
+## Explicit fixture profile only; production never installs test recipes.
+func offer_catalog() -> Array[SkillDefinition]:
+	if prototype_profile == PROTOTYPE_PROFILE:
+		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
+		return demo.catalog()
+	return SkillOfferGenerator.new().catalog()
 
 func execute_command(command: RunCommand) -> CommandResult:
 	if _retired:
@@ -327,6 +345,11 @@ func advance() -> RunStepResult:
 		result.kind = &"offer"
 		result.offer = prepare_offer()
 		return result
+	if continuation in [&"idle", &"after_spawn"]:
+		var recovery: RunStepResult = EmptyBoardRecovery.advance(self)
+		if recovery != null:
+			if recorder != null: recorder.step(self, recovery)
+			return recovery
 	if state.stage.awaiting_reward: state.stage.start_next()
 	match continuation:
 		&"before_end":

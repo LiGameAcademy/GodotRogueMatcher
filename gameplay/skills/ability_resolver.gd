@@ -93,7 +93,7 @@ func upgrade_reward() -> bool:
 	return true
 
 ## Same-generation order is by source id; descendants run only after the current generation finishes. No UI or animation dependency.
-func resolve(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> Array[MatchResult]:
+func resolve(groups: Array[BoardMatchGroup], hold_descendants: bool = false, match_source: StringName = &"") -> Array[MatchResult]:
 	var results: Array[MatchResult] = []
 	last_error = ""
 	if groups.is_empty():
@@ -104,6 +104,7 @@ func resolve(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> 
 	var global_multiplier: float = state.explosion.multiplier_level * config.multiplier_per_level
 	for group: BoardMatchGroup in groups:
 		var result: MatchResult = MatchResult.new()
+		result.match_source = match_source
 		for hit: BoardMatchHit in group.hits: result.hits.append(hit.copy())
 		for piece_id: int in group.piece_ids:
 			result.removed.append(state.rules.state.get_piece(piece_id))

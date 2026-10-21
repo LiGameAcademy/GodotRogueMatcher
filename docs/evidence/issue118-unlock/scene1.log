@@ -1,0 +1,387 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-unlock/scene-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_shape_unlock_scene.gd
+[0m* test_normal_real_popup_unlock_and_recovery
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_skill_result (res://gameplay/board/board.gd:250)
+       [4] _choose (res://gameplay/game_reward_flow.gd:108)
+       [5] _submit (res://ui/popup_skill_choice.gd:215)
+       [6] confirm_selection (res://ui/popup_skill_choice.gd:191)
+       [7] _choose (res://tests/integration/test_shape_unlock_scene.gd:52)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_spawns (res://gameplay/board/board.gd:418)
+       [4] continue_run (res://gameplay/board/board_run_flow.gd:24)
+       [5] finish_presentation (res://gameplay/board/board.gd:246)
+       [6] _wait_for_score (res://gameplay/game.gd:379)
+       [7] wait_for_score (res://ui/hud.gd:145)
+       [8] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [9] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+   at: _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+   GDScript backtrace (most recent call first):
+       [0] _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+       [1] wait_until (res://addons/gut/test.gd:2540)
+       [2] _end_wait (res://addons/gut/awaiter.gd:126)
+       [3] _physics_process (res://addons/gut/awaiter.gd:100)
+[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+      at line 70
+* test_fast_real_popup_unlock_and_recovery
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_skill_result (res://gameplay/board/board.gd:250)
+       [4] _choose (res://gameplay/game_reward_flow.gd:108)
+       [5] _submit (res://ui/popup_skill_choice.gd:215)
+       [6] confirm_selection (res://ui/popup_skill_choice.gd:191)
+       [7] _choose (res://tests/integration/test_shape_unlock_scene.gd:52)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_spawns (res://gameplay/board/board.gd:418)
+       [4] continue_run (res://gameplay/board/board_run_flow.gd:24)
+       [5] finish_presentation (res://gameplay/board/board.gd:246)
+       [6] _wait_for_score (res://gameplay/game.gd:379)
+       [7] wait_for_score (res://ui/hud.gd:145)
+       [8] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [9] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+   at: _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+   GDScript backtrace (most recent call first):
+       [0] _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+       [1] wait_until (res://addons/gut/test.gd:2540)
+       [2] _end_wait (res://addons/gut/awaiter.gd:126)
+       [3] _physics_process (res://addons/gut/awaiter.gd:100)
+[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+      at line 73
+* test_low_effects_real_popup_unlock_and_recovery
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_skill_result (res://gameplay/board/board.gd:250)
+       [4] _choose (res://gameplay/game_reward_flow.gd:108)
+       [5] _submit (res://ui/popup_skill_choice.gd:215)
+       [6] confirm_selection (res://ui/popup_skill_choice.gd:191)
+       [7] _choose (res://tests/integration/test_shape_unlock_scene.gd:52)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_spawns (res://gameplay/board/board.gd:418)
+       [4] continue_run (res://gameplay/board/board_run_flow.gd:24)
+       [5] finish_presentation (res://gameplay/board/board.gd:246)
+       [6] _wait_for_score (res://gameplay/game.gd:379)
+       [7] wait_for_score (res://ui/hud.gd:145)
+       [8] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [9] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+   at: _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+   GDScript backtrace (most recent call first):
+       [0] _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+       [1] wait_until (res://addons/gut/test.gd:2540)
+       [2] _end_wait (res://addons/gut/awaiter.gd:126)
+       [3] _physics_process (res://addons/gut/awaiter.gd:100)
+[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+      at line 76
+* test_fast_low_effects_real_popup_unlock_and_recovery
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_skill_result (res://gameplay/board/board.gd:250)
+       [4] _choose (res://gameplay/game_reward_flow.gd:108)
+       [5] _submit (res://ui/popup_skill_choice.gd:215)
+       [6] confirm_selection (res://ui/popup_skill_choice.gd:191)
+       [7] _choose (res://tests/integration/test_shape_unlock_scene.gd:52)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_spawns (res://gameplay/board/board.gd:418)
+       [4] continue_run (res://gameplay/board/board_run_flow.gd:24)
+       [5] finish_presentation (res://gameplay/board/board.gd:246)
+       [6] _wait_for_score (res://gameplay/game.gd:379)
+       [7] wait_for_score (res://ui/hud.gd:145)
+       [8] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [9] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+   at: _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+   GDScript backtrace (most recent call first):
+       [0] _success (res://tests/integration/test_shape_unlock_scene.gd:67)
+       [1] wait_until (res://addons/gut/test.gd:2540)
+       [2] _end_wait (res://addons/gut/awaiter.gd:126)
+       [3] _physics_process (res://addons/gut/awaiter.gd:100)
+[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+      at line 79
+* test_retry_during_recovery_discards_old_run_identity_and_callbacks
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_skill_result (res://gameplay/board/board.gd:250)
+       [4] _choose (res://gameplay/game_reward_flow.gd:108)
+       [5] _submit (res://ui/popup_skill_choice.gd:215)
+       [6] confirm_selection (res://ui/popup_skill_choice.gd:191)
+       [7] _choose (res://tests/integration/test_shape_unlock_scene.gd:52)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+       [1] enqueue (res://gameplay/presentation/presentation_director.gd:43)
+       [2] _submit_plan (res://gameplay/board/board.gd:228)
+       [3] present_spawns (res://gameplay/board/board.gd:418)
+       [4] continue_run (res://gameplay/board/board_run_flow.gd:24)
+       [5] finish_presentation (res://gameplay/board/board.gd:246)
+       [6] _wait_for_score (res://gameplay/game.gd:379)
+       [7] wait_for_score (res://ui/hud.gd:145)
+       [8] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [9] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+ERROR: Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] _dispatch (res://gameplay/presentation/presentation_director.gd:125)
+[0m[31m    [Failed] [0m
+      at line 84
+SCRIPT ERROR: Invalid call. Nonexistent function 'is_retired' in base 'Nil'.
+   at: test_retry_during_recovery_discards_old_run_identity_and_callbacks (res://tests/integration/test_shape_unlock_scene.gd:85)
+   GDScript backtrace (most recent call first):
+       [0] test_retry_during_recovery_discards_old_run_identity_and_callbacks (res://tests/integration/test_shape_unlock_scene.gd:85)
+       [1] wait_until (res://addons/gut/test.gd:2540)
+       [2] _end_wait (res://addons/gut/awaiter.gd:126)
+       [3] _physics_process (res://addons/gut/awaiter.gd:88)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'is_retired' in base 'Nil'.
+      at line 85
+[1m0/5 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/integration/test_shape_unlock_scene.gd
+[0m- test_normal_real_popup_unlock_and_recovery
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+          at line 70
+- test_fast_real_popup_unlock_and_recovery
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+          at line 73
+- test_low_effects_real_popup_unlock_and_recovery
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+          at line 76
+- test_fast_low_effects_real_popup_unlock_and_recovery
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'get_piece_count' in base 'Node2D (BoardView)'.
+          at line 79
+- test_retry_during_recovery_discards_old_run_identity_and_callbacks
+[31m    [Failed]:  [0m
+          at line 84
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [2] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [3] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [4] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [5] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [6] <engine-0>Error calling from signal 'step_requested' to callable: 'Node(test_shape_unlock_scene.gd)::_observe_step': Method expected 1 argument(s), but called with 3.
+    [7] <engine-2>Invalid call. Nonexistent function 'is_retired' in base 'Nil'.
+          at line 85
+
+Totals
+------
+Scripts               1
+Tests                 5
+Passing Tests      none
+Failing Tests         5
+Asserts           37/43
+Time              1.79s
+
+
+[31m---- 5 failing tests ----
+[0m
