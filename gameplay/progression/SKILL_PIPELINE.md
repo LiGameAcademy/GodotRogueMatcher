@@ -1,10 +1,10 @@
 # O4 技能管线（#64）
 
-规则版本：`run-commands-v39-target-strength`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
+规则版本：`run-commands-v41-followup-strength`（记录与调试见 `../skills/SKILL_RECORDING.md`）。旧版本记录明确拒绝跨版本回放。
 
 ## 离场后代强度（#135第二片）
 
-爆破/扫线在离场触发时捕获独占RemovalStrength，执行时查询当前目标及标记；后叶升级不追溯旧事件，新后代独立采样。余震在实际创建时采样。记录区分冻结强度、命中和得分，pending_removals只是只读投影，不是恢复。此分支同步#167 review修复，运行版本v39；完整染色/附引信强度窗口仍待后续，详见docs/quality/issue135_trigger_strength.md。
+爆破/扫线在离场触发时捕获独占RemovalStrength，执行时查询当前目标及标记；后叶升级不追溯旧事件，新后代独立采样。余震在实际创建时采样。记录区分冻结强度、命中和得分，pending_removals只是只读投影，不是恢复。匹配染色资格、目标数量、波次上限及匹配附引信范围/数量同样在触发时捕获，执行只读取存活目标；运行版本v41，详见docs/quality/issue135_trigger_strength.md。
 
 ## Composite接入首片（#135）
 
@@ -14,7 +14,7 @@
 
 固定目标显式FIXED并沿用冻结身份；动态叶显式DYNAMIC，freeze_offer只保存延迟契约，到达后才freeze一次。比例清理、疏整、行清理、附引信和染色共用该路径。既有独立单卡资源保持FIXED；正式清色后染的染色叶为DYNAMIC。Composite整树刷新方法已删除，数值叶仅刷新数值；预检不抽样，已知无效在首叶前拒绝。
 
-固定合法失效由具体叶过滤/重校验并记录partial/empty；坏参数不转成成功。结果区分rejected/applied/error，异常取消后代记录interrupted。此片不是全B/S/T、异形或存档收口。触发强度由#168接管，详见docs/quality/issue135_composite_boundaries.md。
+固定合法失效由具体叶过滤/重校验并记录partial/empty；坏参数不转成成功。结果区分rejected/applied/error，异常取消后代记录interrupted。B/T补齐根全空门禁、嵌套完成/失败路径、专门原子成本及旧Run退役；异形与任意存档服务不在此片收口。触发强度由#168接管，详见docs/quality/issue135_composite_boundaries.md。
 
 ## 奖励等待与场景协调（#133）
 

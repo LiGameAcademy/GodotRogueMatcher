@@ -1,6 +1,10 @@
-# 当前记录增量 · #135第二片
+# 当前记录增量 · #135 B/S/T
 
-规则版本为 `run-commands-v39-target-strength`，旧v36/v37/v38明确拒绝跨版本精确回放。离场爆破/扫线的事件结果增加 `trigger_strength`：范围、过滤、计分系数和装填参数与实际 `removed`/`score` 分列。快照增加 `pending_removals` 的独立只读数据，用于定位等待事件，不代表已支持磁盘恢复。新事件在各自触发时采样，不从根事件继承旧强度。证据见 `docs/evidence/issue135-strength/`；同步#167后递归记录每叶固定目标或延迟契约，RuleResult包含skill_outcome/target_changes，取消后代记录interrupted。当前证据见docs/evidence/issue135-review-strength/；下文保留#63历史记录。
+规则版本 `run-commands-v41-followup-strength`；v39/v40 等旧版明确拒绝精确回放。离场爆破/扫线的 `trigger_strength` 与实际 removed/score 分列。匹配和爆破结果的 `followups` 保存来源 score event 身份、冻结范围/数量/波次上限、实际目标以及 pending/applied/empty/wave_limit/batch_not_selected/interrupted 诊断。
+
+快照的 pending_removals / pending_followups 为脱离票据引用的只读数据。RuleResult 增加 completed_leaves / failed_leaf；保留 skill_outcome / target_changes / activations.interrupted。普通及延迟爆破异常均取消尚未执行的局部队列和染色，重试退役旧 Run。
+
+验证包括真实染色命令的落盘回放、两次安全命令前缀重建、正常/快放低特效；安全前缀由完整命令重算，不支持中途叶子快照直接接管或 #160 任意存档恢复。证据见 docs/evidence/issue135-bst-completion/。下文为历史设计。
 
 # O4 / #63：技能记录、回放与调试
 
