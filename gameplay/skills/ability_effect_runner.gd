@@ -252,9 +252,7 @@ static func _validate_request(run: RunController, request: ChoiceEffectRequest) 
 	return ""
 static func _preflight_unlock_core(run: RunController, request: ChoiceEffectRequest) -> String:
 	var state: RunState = run.state
-	var preview: BoardRules = BoardRules.new(BoardState.new(state.rules.state.columns, state.rules.state.rows), state.rules.minimum_match_count)
-	for piece: PieceState in state.rules.state.get_snapshot():
-		preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
+	var preview: BoardRules = state.rules.placement_preview()
 	preview.place_piece(request.coordinate, request.color, &"special_demolition")
 	var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
 	return run.abilities.validation_error(groups.size(), 1, 1)
@@ -263,9 +261,7 @@ static func _preflight_unlock_line(run: RunController, request: ChoiceEffectRequ
 	var state: RunState = run.state
 	var content: StringName = state.line_clear.content_id(request.stat)
 	if content.is_empty(): return "扫线轴向无效"
-	var preview: BoardRules = BoardRules.new(BoardState.new(state.rules.state.columns, state.rules.state.rows), state.rules.minimum_match_count)
-	for piece: PieceState in state.rules.state.get_snapshot():
-		preview.place_piece(piece.coordinate, piece.match_color, piece.content_id, piece.is_ghost)
+	var preview: BoardRules = state.rules.placement_preview()
 	preview.place_piece(request.coordinate, request.color, content)
 	var groups: Array[BoardMatchGroup] = preview.find_matches_at(request.coordinate)
 	return run.abilities.validation_error(groups.size(), 0, 1, 1)

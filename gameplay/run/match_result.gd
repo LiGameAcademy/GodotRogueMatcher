@@ -16,3 +16,5 @@ var generation: int = 0
 var followups: Array[Dictionary] = []
 ## Detached scalar data for recording the trigger snapshot alongside actual hits.
 var trigger_strength: Dictionary = {}
+## Geometry survives removal; cause/root action remain independent of shape identity.
+var hits: Array[BoardMatchHit] = []

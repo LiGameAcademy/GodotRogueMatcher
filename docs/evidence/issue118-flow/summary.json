@@ -1,0 +1,14 @@
+{
+  "commit": "5f37e67b3acc78ced03bf5c9485ef033ba78452f",
+  "scripts": 89,
+  "tests": 657,
+  "passing": 657,
+  "exit_code": 0,
+  "golden_replay_records": 415,
+  "prototype_replay_records": 30,
+  "template_events": 1,
+  "target_tests": 12,
+  "target_asserts": 96,
+  "asserts": 23078,
+  "seconds": 198.788
+}

@@ -104,6 +104,7 @@ func resolve(groups: Array[BoardMatchGroup], hold_descendants: bool = false) -> 
 	var global_multiplier: float = state.explosion.multiplier_level * config.multiplier_per_level
 	for group: BoardMatchGroup in groups:
 		var result: MatchResult = MatchResult.new()
+		for hit: BoardMatchHit in group.hits: result.hits.append(hit.copy())
 		for piece_id: int in group.piece_ids:
 			result.removed.append(state.rules.state.get_piece(piece_id))
 		result.center = result.removed[result.removed.size() / 2].coordinate
