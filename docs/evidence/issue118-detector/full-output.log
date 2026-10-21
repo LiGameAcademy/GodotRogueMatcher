@@ -1,0 +1,1892 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+Loading resource: res://localization/localization.en_US.translation remapped: res://localization/localization.en_US.translation
+Completed load for: 'res://localization/localization.en_US.translation' remapped 'res://localization/localization.en_US.translation' at thread -1
+Loading resource: res://localization/localization.zh_CN.translation remapped: res://localization/localization.zh_CN.translation
+Completed load for: 'res://localization/localization.zh_CN.translation' remapped 'res://localization/localization.zh_CN.translation' at thread -1
+Loading resource: res://localization/game.en_US.translation remapped: res://localization/game.en_US.translation
+Completed load for: 'res://localization/game.en_US.translation' remapped 'res://localization/game.en_US.translation' at thread -1
+Loading resource: res://localization/game.zh_CN.translation remapped: res://localization/game.zh_CN.translation
+Completed load for: 'res://localization/game.zh_CN.translation' remapped 'res://localization/game.zh_CN.translation' at thread -1
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+Loading resource: res://assets/fonts/noto_sans_sc_regular.otf remapped: res://assets/fonts/noto_sans_sc_regular.otf
+Loading resource: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata remapped: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata
+Completed load for: 'res://assets/fonts/noto_sans_sc_regular.otf' remapped 'res://assets/fonts/noto_sans_sc_regular.otf' at thread -1
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://addons/gut/gut_cmdln.gd remapped: res://addons/gut/gut_cmdln.gd
+Completed load for: 'res://addons/gut/gut_cmdln.gd' remapped 'res://addons/gut/gut_cmdln.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/gut/version_conversion.gd remapped: res://addons/gut/version_conversion.gd
+Completed load for: 'res://addons/gut/version_conversion.gd' remapped 'res://addons/gut/version_conversion.gd' at thread -1
+Loading resource: res://addons/gut/gut_loader.gd remapped: res://addons/gut/gut_loader.gd
+Loading resource: res://addons/gut/warnings_manager.gd remapped: res://addons/gut/warnings_manager.gd
+Completed load for: 'res://addons/gut/warnings_manager.gd' remapped 'res://addons/gut/warnings_manager.gd' at thread -1
+Loading resource: res://addons/gut/utils.gd remapped: res://addons/gut/utils.gd
+Loading resource: res://addons/gut/GutScene.tscn remapped: res://addons/gut/GutScene.tscn
+Loading resource: res://addons/gut/GutScene.gd remapped: res://addons/gut/GutScene.gd
+Completed load for: 'res://addons/gut/GutScene.gd' remapped 'res://addons/gut/GutScene.gd' at thread -1
+Loading resource: res://addons/gut/gui/NormalGui.tscn remapped: res://addons/gut/gui/NormalGui.tscn
+Loading resource: res://addons/gut/gui/GutSceneTheme.tres remapped: res://addons/gut/gui/GutSceneTheme.tres
+Loading resource: res://addons/gut/fonts/AnonymousPro-Regular.ttf remapped: res://addons/gut/fonts/AnonymousPro-Regular.ttf
+Loading resource: res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata remapped: res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata
+Completed load for: 'res://addons/gut/fonts/AnonymousPro-Regular.ttf' remapped 'res://addons/gut/fonts/AnonymousPro-Regular.ttf' at thread -1
+Completed load for: 'res://addons/gut/gui/GutSceneTheme.tres' remapped 'res://addons/gut/gui/GutSceneTheme.tres' at thread -1
+Loading resource: res://addons/gut/gui/gut_gui.gd remapped: res://addons/gut/gui/gut_gui.gd
+Completed load for: 'res://addons/gut/gui/gut_gui.gd' remapped 'res://addons/gut/gui/gut_gui.gd' at thread -1
+Loading resource: res://addons/gut/fonts/CourierPrime-Regular.ttf remapped: res://addons/gut/fonts/CourierPrime-Regular.ttf
+Loading resource: res://.godot/imported/CourierPrime-Regular.ttf-3babe7e4a7a588dfc9a84c14b4f1fe23.fontdata remapped: res://.godot/imported/CourierPrime-Regular.ttf-3babe7e4a7a588dfc9a84c14b4f1fe23.fontdata
+Completed load for: 'res://addons/gut/fonts/CourierPrime-Regular.ttf' remapped 'res://addons/gut/fonts/CourierPrime-Regular.ttf' at thread -1
+Loading resource: res://addons/gut/gui/ResizeHandle.tscn remapped: res://addons/gut/gui/ResizeHandle.tscn
+Loading resource: res://addons/gut/gui/ResizeHandle.gd remapped: res://addons/gut/gui/ResizeHandle.gd
+Completed load for: 'res://addons/gut/gui/ResizeHandle.gd' remapped 'res://addons/gut/gui/ResizeHandle.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/ResizeHandle.tscn' remapped 'res://addons/gut/gui/ResizeHandle.tscn' at thread -1
+Completed load for: 'res://addons/gut/gui/NormalGui.tscn' remapped 'res://addons/gut/gui/NormalGui.tscn' at thread -1
+Loading resource: res://addons/gut/gui/MinGui.tscn remapped: res://addons/gut/gui/MinGui.tscn
+Completed load for: 'res://addons/gut/gui/MinGui.tscn' remapped 'res://addons/gut/gui/MinGui.tscn' at thread -1
+Completed load for: 'res://addons/gut/GutScene.tscn' remapped 'res://addons/gut/GutScene.tscn' at thread -1
+Loading resource: res://addons/gut/lazy_loader.gd remapped: res://addons/gut/lazy_loader.gd
+Loading resource: res://addons/gut/thing_counter.gd remapped: res://addons/gut/thing_counter.gd
+Completed load for: 'res://addons/gut/thing_counter.gd' remapped 'res://addons/gut/thing_counter.gd' at thread -1
+Completed load for: 'res://addons/gut/lazy_loader.gd' remapped 'res://addons/gut/lazy_loader.gd' at thread -1
+Loading resource: res://addons/gut/version_numbers.gd remapped: res://addons/gut/version_numbers.gd
+Completed load for: 'res://addons/gut/version_numbers.gd' remapped 'res://addons/gut/version_numbers.gd' at thread -1
+Loading resource: res://addons/gut/gui/editor_globals.gd remapped: res://addons/gut/gui/editor_globals.gd
+Loading resource: res://addons/gut/gui/gut_user_preferences.gd remapped: res://addons/gut/gui/gut_user_preferences.gd
+Completed load for: 'res://addons/gut/gui/gut_user_preferences.gd' remapped 'res://addons/gut/gui/gut_user_preferences.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/editor_globals.gd' remapped 'res://addons/gut/gui/editor_globals.gd' at thread -1
+Loading resource: res://addons/gut/gui/RunExternally.tscn remapped: res://addons/gut/gui/RunExternally.tscn
+Loading resource: res://addons/gut/gui/RunExternally.gd remapped: res://addons/gut/gui/RunExternally.gd
+Completed load for: 'res://addons/gut/gui/RunExternally.gd' remapped 'res://addons/gut/gui/RunExternally.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/RunExternally.tscn' remapped 'res://addons/gut/gui/RunExternally.tscn' at thread -1
+Loading resource: res://addons/gut/gut_fonts.gd remapped: res://addons/gut/gut_fonts.gd
+Completed load for: 'res://addons/gut/gut_fonts.gd' remapped 'res://addons/gut/gut_fonts.gd' at thread -1
+Loading resource: res://addons/gut/dynamic_gdscript.gd remapped: res://addons/gut/dynamic_gdscript.gd
+Completed load for: 'res://addons/gut/dynamic_gdscript.gd' remapped 'res://addons/gut/dynamic_gdscript.gd' at thread -1
+Completed load for: 'res://addons/gut/utils.gd' remapped 'res://addons/gut/utils.gd' at thread -1
+Loading resource: res://addons/gut/autofree.gd remapped: res://addons/gut/autofree.gd
+Completed load for: 'res://addons/gut/autofree.gd' remapped 'res://addons/gut/autofree.gd' at thread -1
+Loading resource: res://addons/gut/awaiter.gd remapped: res://addons/gut/awaiter.gd
+Completed load for: 'res://addons/gut/awaiter.gd' remapped 'res://addons/gut/awaiter.gd' at thread -1
+Loading resource: res://addons/gut/comparator.gd remapped: res://addons/gut/comparator.gd
+Completed load for: 'res://addons/gut/comparator.gd' remapped 'res://addons/gut/comparator.gd' at thread -1
+Loading resource: res://addons/gut/collected_test.gd remapped: res://addons/gut/collected_test.gd
+Completed load for: 'res://addons/gut/collected_test.gd' remapped 'res://addons/gut/collected_test.gd' at thread -1
+Loading resource: res://addons/gut/collected_script.gd remapped: res://addons/gut/collected_script.gd
+Completed load for: 'res://addons/gut/collected_script.gd' remapped 'res://addons/gut/collected_script.gd' at thread -1
+Loading resource: res://addons/gut/compare_result.gd remapped: res://addons/gut/compare_result.gd
+Completed load for: 'res://addons/gut/compare_result.gd' remapped 'res://addons/gut/compare_result.gd' at thread -1
+Loading resource: res://addons/gut/diff_formatter.gd remapped: res://addons/gut/diff_formatter.gd
+Completed load for: 'res://addons/gut/diff_formatter.gd' remapped 'res://addons/gut/diff_formatter.gd' at thread -1
+Loading resource: res://addons/gut/diff_tool.gd remapped: res://addons/gut/diff_tool.gd
+Completed load for: 'res://addons/gut/diff_tool.gd' remapped 'res://addons/gut/diff_tool.gd' at thread -1
+Loading resource: res://addons/gut/double_tools.gd remapped: res://addons/gut/double_tools.gd
+Completed load for: 'res://addons/gut/double_tools.gd' remapped 'res://addons/gut/double_tools.gd' at thread -1
+Loading resource: res://addons/gut/doubler.gd remapped: res://addons/gut/doubler.gd
+Completed load for: 'res://addons/gut/doubler.gd' remapped 'res://addons/gut/doubler.gd' at thread -1
+Loading resource: res://addons/gut/godot_singletons.gd remapped: res://addons/gut/godot_singletons.gd
+Completed load for: 'res://addons/gut/godot_singletons.gd' remapped 'res://addons/gut/godot_singletons.gd' at thread -1
+Loading resource: res://addons/gut/gut.gd remapped: res://addons/gut/gut.gd
+Completed load for: 'res://addons/gut/gut.gd' remapped 'res://addons/gut/gut.gd' at thread -1
+Loading resource: res://addons/gut/gut_config.gd remapped: res://addons/gut/gut_config.gd
+Completed load for: 'res://addons/gut/gut_config.gd' remapped 'res://addons/gut/gut_config.gd' at thread -1
+Loading resource: res://addons/gut/inner_class_registry.gd remapped: res://addons/gut/inner_class_registry.gd
+Completed load for: 'res://addons/gut/inner_class_registry.gd' remapped 'res://addons/gut/inner_class_registry.gd' at thread -1
+Loading resource: res://addons/gut/input_factory.gd remapped: res://addons/gut/input_factory.gd
+Completed load for: 'res://addons/gut/input_factory.gd' remapped 'res://addons/gut/input_factory.gd' at thread -1
+Loading resource: res://addons/gut/input_sender.gd remapped: res://addons/gut/input_sender.gd
+Completed load for: 'res://addons/gut/input_sender.gd' remapped 'res://addons/gut/input_sender.gd' at thread -1
+Loading resource: res://addons/gut/junit_xml_export.gd remapped: res://addons/gut/junit_xml_export.gd
+Completed load for: 'res://addons/gut/junit_xml_export.gd' remapped 'res://addons/gut/junit_xml_export.gd' at thread -1
+Loading resource: res://addons/gut/logger.gd remapped: res://addons/gut/logger.gd
+Completed load for: 'res://addons/gut/logger.gd' remapped 'res://addons/gut/logger.gd' at thread -1
+Loading resource: res://addons/gut/method_maker.gd remapped: res://addons/gut/method_maker.gd
+Completed load for: 'res://addons/gut/method_maker.gd' remapped 'res://addons/gut/method_maker.gd' at thread -1
+Loading resource: res://addons/gut/one_to_many.gd remapped: res://addons/gut/one_to_many.gd
+Completed load for: 'res://addons/gut/one_to_many.gd' remapped 'res://addons/gut/one_to_many.gd' at thread -1
+Loading resource: res://addons/gut/gui/option_maker.gd remapped: res://addons/gut/gui/option_maker.gd
+Completed load for: 'res://addons/gut/gui/option_maker.gd' remapped 'res://addons/gut/gui/option_maker.gd' at thread -1
+Loading resource: res://addons/gut/orphan_counter.gd remapped: res://addons/gut/orphan_counter.gd
+Completed load for: 'res://addons/gut/orphan_counter.gd' remapped 'res://addons/gut/orphan_counter.gd' at thread -1
+Loading resource: res://addons/gut/parameter_factory.gd remapped: res://addons/gut/parameter_factory.gd
+Completed load for: 'res://addons/gut/parameter_factory.gd' remapped 'res://addons/gut/parameter_factory.gd' at thread -1
+Loading resource: res://addons/gut/parameter_handler.gd remapped: res://addons/gut/parameter_handler.gd
+Completed load for: 'res://addons/gut/parameter_handler.gd' remapped 'res://addons/gut/parameter_handler.gd' at thread -1
+Loading resource: res://addons/gut/printers.gd remapped: res://addons/gut/printers.gd
+Completed load for: 'res://addons/gut/printers.gd' remapped 'res://addons/gut/printers.gd' at thread -1
+Loading resource: res://addons/gut/result_exporter.gd remapped: res://addons/gut/result_exporter.gd
+Completed load for: 'res://addons/gut/result_exporter.gd' remapped 'res://addons/gut/result_exporter.gd' at thread -1
+Loading resource: res://addons/gut/script_parser.gd remapped: res://addons/gut/script_parser.gd
+Completed load for: 'res://addons/gut/script_parser.gd' remapped 'res://addons/gut/script_parser.gd' at thread -1
+Loading resource: res://addons/gut/signal_watcher.gd remapped: res://addons/gut/signal_watcher.gd
+Completed load for: 'res://addons/gut/signal_watcher.gd' remapped 'res://addons/gut/signal_watcher.gd' at thread -1
+Loading resource: res://addons/gut/singleton_parser.gd remapped: res://addons/gut/singleton_parser.gd
+Completed load for: 'res://addons/gut/singleton_parser.gd' remapped 'res://addons/gut/singleton_parser.gd' at thread -1
+Loading resource: res://addons/gut/spy.gd remapped: res://addons/gut/spy.gd
+Completed load for: 'res://addons/gut/spy.gd' remapped 'res://addons/gut/spy.gd' at thread -1
+Loading resource: res://addons/gut/stubber.gd remapped: res://addons/gut/stubber.gd
+Completed load for: 'res://addons/gut/stubber.gd' remapped 'res://addons/gut/stubber.gd' at thread -1
+Loading resource: res://addons/gut/stub_params.gd remapped: res://addons/gut/stub_params.gd
+Completed load for: 'res://addons/gut/stub_params.gd' remapped 'res://addons/gut/stub_params.gd' at thread -1
+Loading resource: res://addons/gut/stubs.gd remapped: res://addons/gut/stubs.gd
+Completed load for: 'res://addons/gut/stubs.gd' remapped 'res://addons/gut/stubs.gd' at thread -1
+Loading resource: res://addons/gut/summary.gd remapped: res://addons/gut/summary.gd
+Completed load for: 'res://addons/gut/summary.gd' remapped 'res://addons/gut/summary.gd' at thread -1
+Loading resource: res://addons/gut/test.gd remapped: res://addons/gut/test.gd
+Completed load for: 'res://addons/gut/test.gd' remapped 'res://addons/gut/test.gd' at thread -1
+Loading resource: res://addons/gut/test_collector.gd remapped: res://addons/gut/test_collector.gd
+Completed load for: 'res://addons/gut/test_collector.gd' remapped 'res://addons/gut/test_collector.gd' at thread -1
+Completed load for: 'res://addons/gut/gut_loader.gd' remapped 'res://addons/gut/gut_loader.gd' at thread -1
+Loading resource: res://addons/godot_core_system/source/core_system.gd remapped: res://addons/godot_core_system/source/core_system.gd
+Completed load for: 'res://addons/godot_core_system/source/core_system.gd' remapped 'res://addons/godot_core_system/source/core_system.gd' at thread -1
+Loading resource: res://gameplay/run/game_manager.gd remapped: res://gameplay/run/game_manager.gd
+Loading resource: res://gameplay/progression/content/progression_config.tres remapped: res://gameplay/progression/content/progression_config.tres
+Loading resource: res://gameplay/progression/progression_config.gd remapped: res://gameplay/progression/progression_config.gd
+Completed load for: 'res://gameplay/progression/progression_config.gd' remapped 'res://gameplay/progression/progression_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/progression_config.tres' remapped 'res://gameplay/progression/content/progression_config.tres' at thread -1
+Loading resource: res://gameplay/run/run_config.tres remapped: res://gameplay/run/run_config.tres
+Loading resource: res://gameplay/run/run_config.gd remapped: res://gameplay/run/run_config.gd
+Completed load for: 'res://gameplay/run/run_config.gd' remapped 'res://gameplay/run/run_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/run_config.tres' remapped 'res://gameplay/run/run_config.tres' at thread -1
+Loading resource: res://gameplay/run/spawn_config.tres remapped: res://gameplay/run/spawn_config.tres
+Loading resource: res://gameplay/run/spawn_config.gd remapped: res://gameplay/run/spawn_config.gd
+Completed load for: 'res://gameplay/run/spawn_config.gd' remapped 'res://gameplay/run/spawn_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/spawn_config.tres' remapped 'res://gameplay/run/spawn_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/explosion_config.tres remapped: res://gameplay/skills/content/explosion_config.tres
+Loading resource: res://gameplay/skills/explosion_config.gd remapped: res://gameplay/skills/explosion_config.gd
+Completed load for: 'res://gameplay/skills/explosion_config.gd' remapped 'res://gameplay/skills/explosion_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/explosion_config.tres' remapped 'res://gameplay/skills/content/explosion_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/demolition_config.tres remapped: res://gameplay/skills/content/demolition_config.tres
+Loading resource: res://gameplay/skills/demolition_config.gd remapped: res://gameplay/skills/demolition_config.gd
+Completed load for: 'res://gameplay/skills/demolition_config.gd' remapped 'res://gameplay/skills/demolition_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/demolition_config.tres' remapped 'res://gameplay/skills/content/demolition_config.tres' at thread -1
+Loading resource: res://gameplay/skills/dye/dye_config.tres remapped: res://gameplay/skills/dye/dye_config.tres
+Loading resource: res://gameplay/skills/dye/dye_config.gd remapped: res://gameplay/skills/dye/dye_config.gd
+Completed load for: 'res://gameplay/skills/dye/dye_config.gd' remapped 'res://gameplay/skills/dye/dye_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/dye/dye_config.tres' remapped 'res://gameplay/skills/dye/dye_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_explosion.tres remapped: res://gameplay/skills/content/on_eliminated_explosion.tres
+Loading resource: res://gameplay/skills/effects/explode_effect.gd remapped: res://gameplay/skills/effects/explode_effect.gd
+Completed load for: 'res://gameplay/skills/effects/explode_effect.gd' remapped 'res://gameplay/skills/effects/explode_effect.gd' at thread -1
+Loading resource: res://gameplay/skills/conditions/removal_cause_condition.gd remapped: res://gameplay/skills/conditions/removal_cause_condition.gd
+Completed load for: 'res://gameplay/skills/conditions/removal_cause_condition.gd' remapped 'res://gameplay/skills/conditions/removal_cause_condition.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/on_eliminated_explosion.tres' remapped 'res://gameplay/skills/content/on_eliminated_explosion.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_line_sweep.tres remapped: res://gameplay/skills/content/on_eliminated_line_sweep.tres
+Completed load for: 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' remapped 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' at thread -1
+Loading resource: res://gameplay/skills/content/line_clear_config.tres remapped: res://gameplay/skills/content/line_clear_config.tres
+Loading resource: res://gameplay/skills/line_clear_config.gd remapped: res://gameplay/skills/line_clear_config.gd
+Completed load for: 'res://gameplay/skills/line_clear_config.gd' remapped 'res://gameplay/skills/line_clear_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/line_clear_config.tres' remapped 'res://gameplay/skills/content/line_clear_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_core_transform.tres remapped: res://gameplay/progression/content/instant_core_transform.tres
+Loading resource: res://gameplay/progression/skill_definition.gd remapped: res://gameplay/progression/skill_definition.gd
+Completed load for: 'res://gameplay/progression/skill_definition.gd' remapped 'res://gameplay/progression/skill_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/transform_material_effect.gd remapped: res://gameplay/progression/effects/transform_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/transform_material_effect.gd' remapped 'res://gameplay/progression/effects/transform_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_core_transform.tres' remapped 'res://gameplay/progression/content/instant_core_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_row_transform.tres remapped: res://gameplay/progression/content/instant_row_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_row_transform.tres' remapped 'res://gameplay/progression/content/instant_row_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_column_transform.tres remapped: res://gameplay/progression/content/instant_column_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_column_transform.tres' remapped 'res://gameplay/progression/content/instant_column_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_refill_color.tres remapped: res://gameplay/progression/content/composite_refill_color.tres
+Loading resource: res://gameplay/progression/effects/color_weight_effect.gd remapped: res://gameplay/progression/effects/color_weight_effect.gd
+Completed load for: 'res://gameplay/progression/effects/color_weight_effect.gd' remapped 'res://gameplay/progression/effects/color_weight_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_refill_color.tres' remapped 'res://gameplay/progression/content/composite_refill_color.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_clear_dye.tres remapped: res://gameplay/progression/content/composite_clear_dye.tres
+Loading resource: res://gameplay/progression/effects/clear_material_effect.gd remapped: res://gameplay/progression/effects/clear_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/clear_material_effect.gd' remapped 'res://gameplay/progression/effects/clear_material_effect.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/dye_material_effect.gd remapped: res://gameplay/progression/effects/dye_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/dye_material_effect.gd' remapped 'res://gameplay/progression/effects/dye_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_clear_dye.tres' remapped 'res://gameplay/progression/content/composite_clear_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/goal_score_bonus.tres remapped: res://gameplay/progression/content/goal_score_bonus.tres
+Loading resource: res://gameplay/progression/effects/install_goal_bonus_effect.gd remapped: res://gameplay/progression/effects/install_goal_bonus_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' remapped 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/goal_score_bonus.tres' remapped 'res://gameplay/progression/content/goal_score_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_drop.tres remapped: res://gameplay/progression/content/line_row_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_line_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_line_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_row_drop.tres' remapped 'res://gameplay/progression/content/line_row_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_drop.tres remapped: res://gameplay/progression/content/line_column_drop.tres
+Completed load for: 'res://gameplay/progression/content/line_column_drop.tres' remapped 'res://gameplay/progression/content/line_column_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_manual_clear.tres remapped: res://gameplay/progression/content/line_manual_clear.tres
+Loading resource: res://gameplay/progression/effects/install_line_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_line_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_manual_clear.tres' remapped 'res://gameplay/progression/content/line_manual_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_span.tres remapped: res://gameplay/progression/content/line_row_span.tres
+Completed load for: 'res://gameplay/progression/content/line_row_span.tres' remapped 'res://gameplay/progression/content/line_row_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_span.tres remapped: res://gameplay/progression/content/line_column_span.tres
+Completed load for: 'res://gameplay/progression/content/line_column_span.tres' remapped 'res://gameplay/progression/content/line_column_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_cross_upgrade.tres remapped: res://gameplay/progression/content/line_cross_upgrade.tres
+Completed load for: 'res://gameplay/progression/content/line_cross_upgrade.tres' remapped 'res://gameplay/progression/content/line_cross_upgrade.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_clear_score.tres remapped: res://gameplay/progression/content/line_clear_score.tres
+Completed load for: 'res://gameplay/progression/content/line_clear_score.tres' remapped 'res://gameplay/progression/content/line_clear_score.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_drop.tres remapped: res://gameplay/progression/content/core_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_core_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_core_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/core_drop.tres' remapped 'res://gameplay/progression/content/core_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/assign_fuse.tres remapped: res://gameplay/progression/content/assign_fuse.tres
+Completed load for: 'res://gameplay/progression/content/assign_fuse.tres' remapped 'res://gameplay/progression/content/assign_fuse.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_extra.tres remapped: res://gameplay/progression/content/blast_extra.tres
+Completed load for: 'res://gameplay/progression/content/blast_extra.tres' remapped 'res://gameplay/progression/content/blast_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/score_multiplier.tres remapped: res://gameplay/progression/content/score_multiplier.tres
+Completed load for: 'res://gameplay/progression/content/score_multiplier.tres' remapped 'res://gameplay/progression/content/score_multiplier.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_extra.tres remapped: res://gameplay/progression/content/match_extra.tres
+Completed load for: 'res://gameplay/progression/content/match_extra.tres' remapped 'res://gameplay/progression/content/match_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_thin.tres remapped: res://gameplay/progression/content/instant_thin.tres
+Completed load for: 'res://gameplay/progression/content/instant_thin.tres' remapped 'res://gameplay/progression/content/instant_thin.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_percent_clear.tres remapped: res://gameplay/progression/content/instant_percent_clear.tres
+Loading resource: res://gameplay/progression/effects/percent_clear_effect.gd remapped: res://gameplay/progression/effects/percent_clear_effect.gd
+Completed load for: 'res://gameplay/progression/effects/percent_clear_effect.gd' remapped 'res://gameplay/progression/effects/percent_clear_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_percent_clear.tres' remapped 'res://gameplay/progression/content/instant_percent_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_less.tres remapped: res://gameplay/progression/content/refill_less.tres
+Completed load for: 'res://gameplay/progression/content/refill_less.tres' remapped 'res://gameplay/progression/content/refill_less.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_more.tres remapped: res://gameplay/progression/content/refill_more.tres
+Completed load for: 'res://gameplay/progression/content/refill_more.tres' remapped 'res://gameplay/progression/content/refill_more.tres' at thread -1
+Loading resource: res://gameplay/progression/content/precision_reward.tres remapped: res://gameplay/progression/content/precision_reward.tres
+Loading resource: res://gameplay/progression/effects/install_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/precision_reward.tres' remapped 'res://gameplay/progression/content/precision_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_capacity.tres remapped: res://gameplay/progression/content/fuse_capacity.tres
+Completed load for: 'res://gameplay/progression/content/fuse_capacity.tres' remapped 'res://gameplay/progression/content/fuse_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_radius.tres remapped: res://gameplay/progression/content/blast_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_radius.tres' remapped 'res://gameplay/progression/content/blast_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_reward.tres remapped: res://gameplay/progression/content/blast_reward.tres
+Completed load for: 'res://gameplay/progression/content/blast_reward.tres' remapped 'res://gameplay/progression/content/blast_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_up.tres remapped: res://gameplay/progression/content/color_weight_up.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_up.tres' remapped 'res://gameplay/progression/content/color_weight_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_down.tres remapped: res://gameplay/progression/content/color_weight_down.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_down.tres' remapped 'res://gameplay/progression/content/color_weight_down.tres' at thread -1
+Loading resource: res://gameplay/progression/content/relay_capacity.tres remapped: res://gameplay/progression/content/relay_capacity.tres
+Completed load for: 'res://gameplay/progression/content/relay_capacity.tres' remapped 'res://gameplay/progression/content/relay_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/marked_reward.tres remapped: res://gameplay/progression/content/marked_reward.tres
+Completed load for: 'res://gameplay/progression/content/marked_reward.tres' remapped 'res://gameplay/progression/content/marked_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/longline_reward.tres remapped: res://gameplay/progression/content/longline_reward.tres
+Completed load for: 'res://gameplay/progression/content/longline_reward.tres' remapped 'res://gameplay/progression/content/longline_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_supply_up.tres remapped: res://gameplay/progression/content/core_supply_up.tres
+Completed load for: 'res://gameplay/progression/content/core_supply_up.tres' remapped 'res://gameplay/progression/content/core_supply_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_radius.tres remapped: res://gameplay/progression/content/core_radius.tres
+Completed load for: 'res://gameplay/progression/content/core_radius.tres' remapped 'res://gameplay/progression/content/core_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_clear.tres remapped: res://gameplay/progression/content/instant_color_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_clear.tres' remapped 'res://gameplay/progression/content/instant_color_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_line_clear.tres remapped: res://gameplay/progression/content/instant_line_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_line_clear.tres' remapped 'res://gameplay/progression/content/instant_line_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_relay.tres remapped: res://gameplay/progression/content/fuse_relay.tres
+Completed load for: 'res://gameplay/progression/content/fuse_relay.tres' remapped 'res://gameplay/progression/content/fuse_relay.tres' at thread -1
+Loading resource: res://gameplay/progression/content/chain_reward.tres remapped: res://gameplay/progression/content/chain_reward.tres
+Completed load for: 'res://gameplay/progression/content/chain_reward.tres' remapped 'res://gameplay/progression/content/chain_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_fuse_ignite.tres remapped: res://gameplay/progression/content/instant_fuse_ignite.tres
+Loading resource: res://gameplay/progression/effects/ignite_fuses_effect.gd remapped: res://gameplay/progression/effects/ignite_fuses_effect.gd
+Completed load for: 'res://gameplay/progression/effects/ignite_fuses_effect.gd' remapped 'res://gameplay/progression/effects/ignite_fuses_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_fuse_ignite.tres' remapped 'res://gameplay/progression/content/instant_fuse_ignite.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_manual_detonation.tres remapped: res://gameplay/progression/content/core_manual_detonation.tres
+Completed load for: 'res://gameplay/progression/content/core_manual_detonation.tres' remapped 'res://gameplay/progression/content/core_manual_detonation.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_match_plant.tres remapped: res://gameplay/progression/content/fuse_match_plant.tres
+Completed load for: 'res://gameplay/progression/content/fuse_match_plant.tres' remapped 'res://gameplay/progression/content/fuse_match_plant.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_bonus.tres remapped: res://gameplay/progression/content/blast_chain_bonus.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_bonus.tres' remapped 'res://gameplay/progression/content/blast_chain_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/selective_blast.tres remapped: res://gameplay/progression/content/selective_blast.tres
+Completed load for: 'res://gameplay/progression/content/selective_blast.tres' remapped 'res://gameplay/progression/content/selective_blast.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_fuse_payload.tres remapped: res://gameplay/progression/content/core_fuse_payload.tres
+Completed load for: 'res://gameplay/progression/content/core_fuse_payload.tres' remapped 'res://gameplay/progression/content/core_fuse_payload.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_radius.tres remapped: res://gameplay/progression/content/blast_chain_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_radius.tres' remapped 'res://gameplay/progression/content/blast_chain_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_refill_relief.tres remapped: res://gameplay/progression/content/blast_refill_relief.tres
+Completed load for: 'res://gameplay/progression/content/blast_refill_relief.tres' remapped 'res://gameplay/progression/content/blast_refill_relief.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_aftershock.tres remapped: res://gameplay/progression/content/blast_aftershock.tres
+Completed load for: 'res://gameplay/progression/content/blast_aftershock.tres' remapped 'res://gameplay/progression/content/blast_aftershock.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_dye_echo.tres remapped: res://gameplay/progression/content/match_dye_echo.tres
+Loading resource: res://gameplay/progression/effects/install_dye_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_dye_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/match_dye_echo.tres' remapped 'res://gameplay/progression/content/match_dye_echo.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_target_up.tres remapped: res://gameplay/progression/content/dye_target_up.tres
+Completed load for: 'res://gameplay/progression/content/dye_target_up.tres' remapped 'res://gameplay/progression/content/dye_target_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_chain_depth.tres remapped: res://gameplay/progression/content/dye_chain_depth.tres
+Completed load for: 'res://gameplay/progression/content/dye_chain_depth.tres' remapped 'res://gameplay/progression/content/dye_chain_depth.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_mark_reward.tres remapped: res://gameplay/progression/content/dye_mark_reward.tres
+Completed load for: 'res://gameplay/progression/content/dye_mark_reward.tres' remapped 'res://gameplay/progression/content/dye_mark_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_dye.tres remapped: res://gameplay/progression/content/blast_dye.tres
+Completed load for: 'res://gameplay/progression/content/blast_dye.tres' remapped 'res://gameplay/progression/content/blast_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_dye.tres remapped: res://gameplay/progression/content/instant_color_dye.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_dye.tres' remapped 'res://gameplay/progression/content/instant_color_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/offer_config.tres remapped: res://gameplay/progression/content/offer_config.tres
+Loading resource: res://gameplay/progression/offer_config.gd remapped: res://gameplay/progression/offer_config.gd
+Completed load for: 'res://gameplay/progression/offer_config.gd' remapped 'res://gameplay/progression/offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/offer_config.tres' remapped 'res://gameplay/progression/content/offer_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/rescue_offer_config.tres remapped: res://gameplay/progression/content/rescue_offer_config.tres
+Loading resource: res://gameplay/progression/rescue_offer_config.gd remapped: res://gameplay/progression/rescue_offer_config.gd
+Completed load for: 'res://gameplay/progression/rescue_offer_config.gd' remapped 'res://gameplay/progression/rescue_offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/rescue_offer_config.tres' remapped 'res://gameplay/progression/content/rescue_offer_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/game_manager.gd' remapped 'res://gameplay/run/game_manager.gd' at thread -1
+Loading resource: res://gameplay/board/match_system.gd remapped: res://gameplay/board/match_system.gd
+Loading resource: res://gameplay/presentation/board_juice_config.tres remapped: res://gameplay/presentation/board_juice_config.tres
+Loading resource: res://gameplay/presentation/board_juice_config.gd remapped: res://gameplay/presentation/board_juice_config.gd
+Completed load for: 'res://gameplay/presentation/board_juice_config.gd' remapped 'res://gameplay/presentation/board_juice_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/board_juice_config.tres' remapped 'res://gameplay/presentation/board_juice_config.tres' at thread -1
+Loading resource: res://gameplay/run/modes/stage_challenge.tres remapped: res://gameplay/run/modes/stage_challenge.tres
+Loading resource: res://gameplay/run/modes/game_mode_definition.gd remapped: res://gameplay/run/modes/game_mode_definition.gd
+Completed load for: 'res://gameplay/run/modes/game_mode_definition.gd' remapped 'res://gameplay/run/modes/game_mode_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/stages/stage_config.tres remapped: res://gameplay/progression/stages/stage_config.tres
+Completed load for: 'res://gameplay/progression/stages/stage_config.tres' remapped 'res://gameplay/progression/stages/stage_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/modes/stage_challenge.tres' remapped 'res://gameplay/run/modes/stage_challenge.tres' at thread -1
+Loading resource: res://gameplay/presentation/presentation_config.tres remapped: res://gameplay/presentation/presentation_config.tres
+Loading resource: res://gameplay/presentation/presentation_config.gd remapped: res://gameplay/presentation/presentation_config.gd
+Completed load for: 'res://gameplay/presentation/presentation_config.gd' remapped 'res://gameplay/presentation/presentation_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/presentation_config.tres' remapped 'res://gameplay/presentation/presentation_config.tres' at thread -1
+Loading resource: res://services/telemetry/telemetry_config.tres remapped: res://services/telemetry/telemetry_config.tres
+Loading resource: res://services/telemetry/telemetry_config.gd remapped: res://services/telemetry/telemetry_config.gd
+Completed load for: 'res://services/telemetry/telemetry_config.gd' remapped 'res://services/telemetry/telemetry_config.gd' at thread -1
+Completed load for: 'res://services/telemetry/telemetry_config.tres' remapped 'res://services/telemetry/telemetry_config.tres' at thread -1
+Loading resource: res://gameplay/board/cell/cell.tscn remapped: res://gameplay/board/cell/cell.tscn
+Loading resource: res://gameplay/board/cell/tile_surface.gdshader remapped: res://gameplay/board/cell/tile_surface.gdshader
+Completed load for: 'res://gameplay/board/cell/tile_surface.gdshader' remapped 'res://gameplay/board/cell/tile_surface.gdshader' at thread -1
+Completed load for: 'res://gameplay/board/cell/cell.tscn' remapped 'res://gameplay/board/cell/cell.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/chess_piece.tscn remapped: res://gameplay/board/piece/chess_piece.tscn
+Loading resource: res://gameplay/board/piece/piece_surface.gdshader remapped: res://gameplay/board/piece/piece_surface.gdshader
+Completed load for: 'res://gameplay/board/piece/piece_surface.gdshader' remapped 'res://gameplay/board/piece/piece_surface.gdshader' at thread -1
+Loading resource: res://gameplay/board/piece/piece_aura.tscn remapped: res://gameplay/board/piece/piece_aura.tscn
+Completed load for: 'res://gameplay/board/piece/piece_aura.tscn' remapped 'res://gameplay/board/piece/piece_aura.tscn' at thread -1
+Completed load for: 'res://gameplay/board/piece/chess_piece.tscn' remapped 'res://gameplay/board/piece/chess_piece.tscn' at thread -1
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.tscn remapped: res://gameplay/presentation/explosion_visual/explosion_visual.tscn
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.gd remapped: res://gameplay/presentation/explosion_visual/explosion_visual.gd
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_config.tres remapped: res://gameplay/presentation/score_float/score_float_config.tres
+Loading resource: res://gameplay/presentation/score_float/score_float_config.gd remapped: res://gameplay/presentation/score_float/score_float_config.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.gd' remapped 'res://gameplay/presentation/score_float/score_float_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.tres' remapped 'res://gameplay/presentation/score_float/score_float_config.tres' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float.tscn remapped: res://gameplay/presentation/score_float/score_float.tscn
+Loading resource: res://gameplay/presentation/score_float/score_float.gd remapped: res://gameplay/presentation/score_float/score_float.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float.gd' remapped 'res://gameplay/presentation/score_float/score_float.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float.tscn' remapped 'res://gameplay/presentation/score_float/score_float.tscn' at thread -1
+Completed load for: 'res://gameplay/board/match_system.gd' remapped 'res://gameplay/board/match_system.gd' at thread -1
+Loading resource: res://gameplay/progression/level_up_system.gd remapped: res://gameplay/progression/level_up_system.gd
+Completed load for: 'res://gameplay/progression/level_up_system.gd' remapped 'res://gameplay/progression/level_up_system.gd' at thread -1
+Loaded system CA certificates
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+Loading resource: res://addons/gut/cli/gut_cli.gd remapped: res://addons/gut/cli/gut_cli.gd
+Completed load for: 'res://addons/gut/cli/gut_cli.gd' remapped 'res://addons/gut/cli/gut_cli.gd' at thread -1
+Loading resource: res://addons/gut/cli/optparse.gd remapped: res://addons/gut/cli/optparse.gd
+Completed load for: 'res://addons/gut/cli/optparse.gd' remapped 'res://addons/gut/cli/optparse.gd' at thread -1
+Loading resource: res://addons/gut/gui/GutRunner.tscn remapped: res://addons/gut/gui/GutRunner.tscn
+Loading resource: res://addons/gut/gui/GutRunner.gd remapped: res://addons/gut/gui/GutRunner.gd
+Completed load for: 'res://addons/gut/gui/GutRunner.gd' remapped 'res://addons/gut/gui/GutRunner.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/GutRunner.tscn' remapped 'res://addons/gut/gui/GutRunner.tscn' at thread -1
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118/appdata-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+Loading resource: res://tests/integration/test_board_juice.gd remapped: res://tests/integration/test_board_juice.gd
+Loading resource: res://gameplay/board/board_view.tscn remapped: res://gameplay/board/board_view.tscn
+Loading resource: res://gameplay/presentation/move_path_visual.tscn remapped: res://gameplay/presentation/move_path_visual.tscn
+Completed load for: 'res://gameplay/presentation/move_path_visual.tscn' remapped 'res://gameplay/presentation/move_path_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_layer.tscn remapped: res://gameplay/presentation/score_float/score_float_layer.tscn
+Completed load for: 'res://gameplay/presentation/score_float/score_float_layer.tscn' remapped 'res://gameplay/presentation/score_float/score_float_layer.tscn' at thread -1
+Loading resource: res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn remapped: res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn
+Loading resource: res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader remapped: res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader
+Completed load for: 'res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader' remapped 'res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader' at thread -1
+Completed load for: 'res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn' remapped 'res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn' at thread -1
+Completed load for: 'res://gameplay/board/board_view.tscn' remapped 'res://gameplay/board/board_view.tscn' at thread -1
+Completed load for: 'res://tests/integration/test_board_juice.gd' remapped 'res://tests/integration/test_board_juice.gd' at thread -1
+Loading resource: res://tests/integration/test_board_signal.gd remapped: res://tests/integration/test_board_signal.gd
+Loading resource: res://gameplay/game.tscn remapped: res://gameplay/game.tscn
+Loading resource: res://gameplay/game.gd remapped: res://gameplay/game.gd
+Loading resource: res://ui/build_card/build_card.tscn remapped: res://ui/build_card/build_card.tscn
+Loading resource: res://ui/build_card/build_card.gd remapped: res://ui/build_card/build_card.gd
+Completed load for: 'res://ui/build_card/build_card.gd' remapped 'res://ui/build_card/build_card.gd' at thread -1
+Loading resource: res://ui/skill_text.tscn remapped: res://ui/skill_text.tscn
+Loading resource: res://ui/skill_text.gd remapped: res://ui/skill_text.gd
+Loading resource: res://ui/skill_details.tscn remapped: res://ui/skill_details.tscn
+Loading resource: res://ui/skill_details.gd remapped: res://ui/skill_details.gd
+Completed load for: 'res://ui/skill_details.gd' remapped 'res://ui/skill_details.gd' at thread -1
+Completed load for: 'res://ui/skill_details.tscn' remapped 'res://ui/skill_details.tscn' at thread -1
+Completed load for: 'res://ui/skill_text.gd' remapped 'res://ui/skill_text.gd' at thread -1
+Completed load for: 'res://ui/skill_text.tscn' remapped 'res://ui/skill_text.tscn' at thread -1
+Completed load for: 'res://ui/build_card/build_card.tscn' remapped 'res://ui/build_card/build_card.tscn' at thread -1
+Loading resource: res://ui/goal_progress/score_mote.tscn remapped: res://ui/goal_progress/score_mote.tscn
+Loading resource: res://ui/goal_progress/score_mote.gd remapped: res://ui/goal_progress/score_mote.gd
+Completed load for: 'res://ui/goal_progress/score_mote.gd' remapped 'res://ui/goal_progress/score_mote.gd' at thread -1
+Completed load for: 'res://ui/goal_progress/score_mote.tscn' remapped 'res://ui/goal_progress/score_mote.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress_config.tres remapped: res://ui/goal_progress/goal_progress_config.tres
+Completed load for: 'res://ui/goal_progress/goal_progress_config.tres' remapped 'res://ui/goal_progress/goal_progress_config.tres' at thread -1
+Loading resource: res://gameplay/run/modes/classic_endless.tres remapped: res://gameplay/run/modes/classic_endless.tres
+Completed load for: 'res://gameplay/run/modes/classic_endless.tres' remapped 'res://gameplay/run/modes/classic_endless.tres' at thread -1
+Loading resource: res://gameplay/tutorial/tutorial_config.tres remapped: res://gameplay/tutorial/tutorial_config.tres
+Loading resource: res://gameplay/tutorial/tutorial_config.gd remapped: res://gameplay/tutorial/tutorial_config.gd
+Completed load for: 'res://gameplay/tutorial/tutorial_config.gd' remapped 'res://gameplay/tutorial/tutorial_config.gd' at thread -1
+Completed load for: 'res://gameplay/tutorial/tutorial_config.tres' remapped 'res://gameplay/tutorial/tutorial_config.tres' at thread -1
+Loading resource: res://ui/skill_card.tscn remapped: res://ui/skill_card.tscn
+Completed load for: 'res://ui/skill_card.tscn' remapped 'res://ui/skill_card.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_theme/light_toy.tres remapped: res://gameplay/presentation/game_theme/light_toy.tres
+Loading resource: res://gameplay/presentation/game_theme/light_toy_ui.tres remapped: res://gameplay/presentation/game_theme/light_toy_ui.tres
+Completed load for: 'res://gameplay/presentation/game_theme/light_toy_ui.tres' remapped 'res://gameplay/presentation/game_theme/light_toy_ui.tres' at thread -1
+Completed load for: 'res://gameplay/presentation/game_theme/light_toy.tres' remapped 'res://gameplay/presentation/game_theme/light_toy.tres' at thread -1
+Loading resource: res://gameplay/presentation/game_theme/dark_instrument.tres remapped: res://gameplay/presentation/game_theme/dark_instrument.tres
+Loading resource: res://gameplay/presentation/game_theme/dark_instrument_ui.tres remapped: res://gameplay/presentation/game_theme/dark_instrument_ui.tres
+Completed load for: 'res://gameplay/presentation/game_theme/dark_instrument_ui.tres' remapped 'res://gameplay/presentation/game_theme/dark_instrument_ui.tres' at thread -1
+Completed load for: 'res://gameplay/presentation/game_theme/dark_instrument.tres' remapped 'res://gameplay/presentation/game_theme/dark_instrument.tres' at thread -1
+Completed load for: 'res://gameplay/game.gd' remapped 'res://gameplay/game.gd' at thread -1
+Loading resource: res://ui/hud.tscn remapped: res://ui/hud.tscn
+Loading resource: res://ui/preview_theme.tres remapped: res://ui/preview_theme.tres
+Completed load for: 'res://ui/preview_theme.tres' remapped 'res://ui/preview_theme.tres' at thread -1
+Loading resource: res://ui/spawn_preview.tscn remapped: res://ui/spawn_preview.tscn
+Completed load for: 'res://ui/spawn_preview.tscn' remapped 'res://ui/spawn_preview.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress.tscn remapped: res://ui/goal_progress/goal_progress.tscn
+Loading resource: res://ui/goal_progress/progress_glow.gdshader remapped: res://ui/goal_progress/progress_glow.gdshader
+Completed load for: 'res://ui/goal_progress/progress_glow.gdshader' remapped 'res://ui/goal_progress/progress_glow.gdshader' at thread -1
+Completed load for: 'res://ui/goal_progress/goal_progress.tscn' remapped 'res://ui/goal_progress/goal_progress.tscn' at thread -1
+Loading resource: res://ui/piece_pool/piece_pool.tscn remapped: res://ui/piece_pool/piece_pool.tscn
+Completed load for: 'res://ui/piece_pool/piece_pool.tscn' remapped 'res://ui/piece_pool/piece_pool.tscn' at thread -1
+Loading resource: res://ui/build_list/build_list.tscn remapped: res://ui/build_list/build_list.tscn
+Completed load for: 'res://ui/build_list/build_list.tscn' remapped 'res://ui/build_list/build_list.tscn' at thread -1
+Completed load for: 'res://ui/hud.tscn' remapped 'res://ui/hud.tscn' at thread -1
+Loading resource: res://gameplay/presentation/presentation_director.tscn remapped: res://gameplay/presentation/presentation_director.tscn
+Completed load for: 'res://gameplay/presentation/presentation_director.tscn' remapped 'res://gameplay/presentation/presentation_director.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_feedback.tscn remapped: res://gameplay/presentation/game_feedback.tscn
+Completed load for: 'res://gameplay/presentation/game_feedback.tscn' remapped 'res://gameplay/presentation/game_feedback.tscn' at thread -1
+Loading resource: res://ui/release_menu/release_menu.tscn remapped: res://ui/release_menu/release_menu.tscn
+Loading resource: res://ui/tutorial/tutorial.tscn remapped: res://ui/tutorial/tutorial.tscn
+Loading resource: res://ui/popup_skill_choice.tscn remapped: res://ui/popup_skill_choice.tscn
+Loading resource: res://ui/color_target_picker.tscn remapped: res://ui/color_target_picker.tscn
+Completed load for: 'res://ui/color_target_picker.tscn' remapped 'res://ui/color_target_picker.tscn' at thread -1
+Completed load for: 'res://ui/popup_skill_choice.tscn' remapped 'res://ui/popup_skill_choice.tscn' at thread -1
+Completed load for: 'res://ui/tutorial/tutorial.tscn' remapped 'res://ui/tutorial/tutorial.tscn' at thread -1
+Loading resource: res://ui/collection_controls/collection_controls.tscn remapped: res://ui/collection_controls/collection_controls.tscn
+Completed load for: 'res://ui/collection_controls/collection_controls.tscn' remapped 'res://ui/collection_controls/collection_controls.tscn' at thread -1
+Completed load for: 'res://ui/release_menu/release_menu.tscn' remapped 'res://ui/release_menu/release_menu.tscn' at thread -1
+Loading resource: res://services/telemetry/run_collection.tscn remapped: res://services/telemetry/run_collection.tscn
+Completed load for: 'res://services/telemetry/run_collection.tscn' remapped 'res://services/telemetry/run_collection.tscn' at thread -1
+Loading resource: res://ui/skill_pool/skill_pool.tscn remapped: res://ui/skill_pool/skill_pool.tscn
+Completed load for: 'res://ui/skill_pool/skill_pool.tscn' remapped 'res://ui/skill_pool/skill_pool.tscn' at thread -1
+Loading resource: res://ui/card_transfer/card_transfer.tscn remapped: res://ui/card_transfer/card_transfer.tscn
+Completed load for: 'res://ui/card_transfer/card_transfer.tscn' remapped 'res://ui/card_transfer/card_transfer.tscn' at thread -1
+Loading resource: res://ui/playback_settings/playback_settings.tscn remapped: res://ui/playback_settings/playback_settings.tscn
+Completed load for: 'res://ui/playback_settings/playback_settings.tscn' remapped 'res://ui/playback_settings/playback_settings.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_background/game_background.tscn remapped: res://gameplay/presentation/game_background/game_background.tscn
+Loading resource: res://gameplay/presentation/game_background/game_background.gdshader remapped: res://gameplay/presentation/game_background/game_background.gdshader
+Completed load for: 'res://gameplay/presentation/game_background/game_background.gdshader' remapped 'res://gameplay/presentation/game_background/game_background.gdshader' at thread -1
+Completed load for: 'res://gameplay/presentation/game_background/game_background.tscn' remapped 'res://gameplay/presentation/game_background/game_background.tscn' at thread -1
+Completed load for: 'res://gameplay/game.tscn' remapped 'res://gameplay/game.tscn' at thread -1
+Completed load for: 'res://tests/integration/test_board_signal.gd' remapped 'res://tests/integration/test_board_signal.gd' at thread -1
+Loading resource: res://tests/integration/test_board_view.gd remapped: res://tests/integration/test_board_view.gd
+Completed load for: 'res://tests/integration/test_board_view.gd' remapped 'res://tests/integration/test_board_view.gd' at thread -1
+Loading resource: res://tests/integration/test_build_cards.gd remapped: res://tests/integration/test_build_cards.gd
+Completed load for: 'res://tests/integration/test_build_cards.gd' remapped 'res://tests/integration/test_build_cards.gd' at thread -1
+Loading resource: res://tests/integration/test_command_scene.gd remapped: res://tests/integration/test_command_scene.gd
+Loading resource: res://main.tscn remapped: res://main.tscn
+Loading resource: res://main.gd remapped: res://main.gd
+Completed load for: 'res://main.gd' remapped 'res://main.gd' at thread -1
+Completed load for: 'res://main.tscn' remapped 'res://main.tscn' at thread -1
+Loading resource: res://tools/bot_testing/bot_config.tres remapped: res://tools/bot_testing/bot_config.tres
+Loading resource: res://tools/bot_testing/bot_config.gd remapped: res://tools/bot_testing/bot_config.gd
+Completed load for: 'res://tools/bot_testing/bot_config.gd' remapped 'res://tools/bot_testing/bot_config.gd' at thread -1
+Completed load for: 'res://tools/bot_testing/bot_config.tres' remapped 'res://tools/bot_testing/bot_config.tres' at thread -1
+Completed load for: 'res://tests/integration/test_command_scene.gd' remapped 'res://tests/integration/test_command_scene.gd' at thread -1
+Loading resource: res://tests/integration/test_composite_contract_scene.gd remapped: res://tests/integration/test_composite_contract_scene.gd
+Completed load for: 'res://tests/integration/test_composite_contract_scene.gd' remapped 'res://tests/integration/test_composite_contract_scene.gd' at thread -1
+Loading resource: res://tests/integration/test_conversion_scene.gd remapped: res://tests/integration/test_conversion_scene.gd
+Loading resource: res://tools/bot_testing/result_viewer.tscn remapped: res://tools/bot_testing/result_viewer.tscn
+Loading resource: res://tools/bot_testing/result_viewer.gd remapped: res://tools/bot_testing/result_viewer.gd
+Completed load for: 'res://tools/bot_testing/result_viewer.gd' remapped 'res://tools/bot_testing/result_viewer.gd' at thread -1
+Completed load for: 'res://tools/bot_testing/result_viewer.tscn' remapped 'res://tools/bot_testing/result_viewer.tscn' at thread -1
+Completed load for: 'res://tests/integration/test_conversion_scene.gd' remapped 'res://tests/integration/test_conversion_scene.gd' at thread -1
+Loading resource: res://tests/integration/test_core_preview_color.gd remapped: res://tests/integration/test_core_preview_color.gd
+Completed load for: 'res://tests/integration/test_core_preview_color.gd' remapped 'res://tests/integration/test_core_preview_color.gd' at thread -1
+Loading resource: res://tests/integration/test_expanded_skill_scene.gd remapped: res://tests/integration/test_expanded_skill_scene.gd
+Completed load for: 'res://tests/integration/test_expanded_skill_scene.gd' remapped 'res://tests/integration/test_expanded_skill_scene.gd' at thread -1
+Loading resource: res://tests/integration/test_explosion_loop.gd remapped: res://tests/integration/test_explosion_loop.gd
+Completed load for: 'res://tests/integration/test_explosion_loop.gd' remapped 'res://tests/integration/test_explosion_loop.gd' at thread -1
+Loading resource: res://tests/integration/test_feedback_settings.gd remapped: res://tests/integration/test_feedback_settings.gd
+Completed load for: 'res://tests/integration/test_feedback_settings.gd' remapped 'res://tests/integration/test_feedback_settings.gd' at thread -1
+Loading resource: res://tests/integration/test_game_background.gd remapped: res://tests/integration/test_game_background.gd
+Completed load for: 'res://tests/integration/test_game_background.gd' remapped 'res://tests/integration/test_game_background.gd' at thread -1
+Loading resource: res://tests/integration/test_game_layout.gd remapped: res://tests/integration/test_game_layout.gd
+Completed load for: 'res://tests/integration/test_game_layout.gd' remapped 'res://tests/integration/test_game_layout.gd' at thread -1
+Loading resource: res://tests/integration/test_game_themes.gd remapped: res://tests/integration/test_game_themes.gd
+Completed load for: 'res://tests/integration/test_game_themes.gd' remapped 'res://tests/integration/test_game_themes.gd' at thread -1
+Loading resource: res://tests/integration/test_goal_progress.gd remapped: res://tests/integration/test_goal_progress.gd
+Completed load for: 'res://tests/integration/test_goal_progress.gd' remapped 'res://tests/integration/test_goal_progress.gd' at thread -1
+Loading resource: res://tests/integration/test_hud.gd remapped: res://tests/integration/test_hud.gd
+Completed load for: 'res://tests/integration/test_hud.gd' remapped 'res://tests/integration/test_hud.gd' at thread -1
+Loading resource: res://tests/integration/test_input_buffer.gd remapped: res://tests/integration/test_input_buffer.gd
+Completed load for: 'res://tests/integration/test_input_buffer.gd' remapped 'res://tests/integration/test_input_buffer.gd' at thread -1
+Loading resource: res://tests/integration/test_line_clear_visual.gd remapped: res://tests/integration/test_line_clear_visual.gd
+Completed load for: 'res://tests/integration/test_line_clear_visual.gd' remapped 'res://tests/integration/test_line_clear_visual.gd' at thread -1
+Loading resource: res://tests/integration/test_localization.gd remapped: res://tests/integration/test_localization.gd
+Completed load for: 'res://tests/integration/test_localization.gd' remapped 'res://tests/integration/test_localization.gd' at thread -1
+Loading resource: res://tests/integration/test_manual_line_scene.gd remapped: res://tests/integration/test_manual_line_scene.gd
+Completed load for: 'res://tests/integration/test_manual_line_scene.gd' remapped 'res://tests/integration/test_manual_line_scene.gd' at thread -1
+Loading resource: res://tests/integration/test_playback_settings.gd remapped: res://tests/integration/test_playback_settings.gd
+Completed load for: 'res://tests/integration/test_playback_settings.gd' remapped 'res://tests/integration/test_playback_settings.gd' at thread -1
+Loading resource: res://tests/integration/test_presentation_director.gd remapped: res://tests/integration/test_presentation_director.gd
+Completed load for: 'res://tests/integration/test_presentation_director.gd' remapped 'res://tests/integration/test_presentation_director.gd' at thread -1
+Loading resource: res://tests/integration/test_refill_lifecycle.gd remapped: res://tests/integration/test_refill_lifecycle.gd
+Completed load for: 'res://tests/integration/test_refill_lifecycle.gd' remapped 'res://tests/integration/test_refill_lifecycle.gd' at thread -1
+Loading resource: res://tests/integration/test_release_flow.gd remapped: res://tests/integration/test_release_flow.gd
+Completed load for: 'res://tests/integration/test_release_flow.gd' remapped 'res://tests/integration/test_release_flow.gd' at thread -1
+Loading resource: res://tests/integration/test_result_viewer.gd remapped: res://tests/integration/test_result_viewer.gd
+Completed load for: 'res://tests/integration/test_result_viewer.gd' remapped 'res://tests/integration/test_result_viewer.gd' at thread -1
+Loading resource: res://tests/integration/test_reward_coordination.gd remapped: res://tests/integration/test_reward_coordination.gd
+Completed load for: 'res://tests/integration/test_reward_coordination.gd' remapped 'res://tests/integration/test_reward_coordination.gd' at thread -1
+Loading resource: res://tests/integration/test_reward_presentation.gd remapped: res://tests/integration/test_reward_presentation.gd
+Completed load for: 'res://tests/integration/test_reward_presentation.gd' remapped 'res://tests/integration/test_reward_presentation.gd' at thread -1
+Loading resource: res://tests/integration/test_score_floats.gd remapped: res://tests/integration/test_score_floats.gd
+Completed load for: 'res://tests/integration/test_score_floats.gd' remapped 'res://tests/integration/test_score_floats.gd' at thread -1
+Loading resource: res://tests/integration/test_skill_card_selection.gd remapped: res://tests/integration/test_skill_card_selection.gd
+Completed load for: 'res://tests/integration/test_skill_card_selection.gd' remapped 'res://tests/integration/test_skill_card_selection.gd' at thread -1
+Loading resource: res://tests/integration/test_skill_cards.gd remapped: res://tests/integration/test_skill_cards.gd
+Completed load for: 'res://tests/integration/test_skill_cards.gd' remapped 'res://tests/integration/test_skill_cards.gd' at thread -1
+Loading resource: res://tests/integration/test_skill_instance_cards.gd remapped: res://tests/integration/test_skill_instance_cards.gd
+Completed load for: 'res://tests/integration/test_skill_instance_cards.gd' remapped 'res://tests/integration/test_skill_instance_cards.gd' at thread -1
+Loading resource: res://tests/integration/test_skill_pool.gd remapped: res://tests/integration/test_skill_pool.gd
+Completed load for: 'res://tests/integration/test_skill_pool.gd' remapped 'res://tests/integration/test_skill_pool.gd' at thread -1
+Loading resource: res://tests/integration/test_skill_target_ux.gd remapped: res://tests/integration/test_skill_target_ux.gd
+Completed load for: 'res://tests/integration/test_skill_target_ux.gd' remapped 'res://tests/integration/test_skill_target_ux.gd' at thread -1
+Loading resource: res://tests/integration/test_skip_recovery.gd remapped: res://tests/integration/test_skip_recovery.gd
+Completed load for: 'res://tests/integration/test_skip_recovery.gd' remapped 'res://tests/integration/test_skip_recovery.gd' at thread -1
+Loading resource: res://tests/integration/test_stage_scene.gd remapped: res://tests/integration/test_stage_scene.gd
+Completed load for: 'res://tests/integration/test_stage_scene.gd' remapped 'res://tests/integration/test_stage_scene.gd' at thread -1
+Loading resource: res://tests/integration/test_telemetry_scene.gd remapped: res://tests/integration/test_telemetry_scene.gd
+Completed load for: 'res://tests/integration/test_telemetry_scene.gd' remapped 'res://tests/integration/test_telemetry_scene.gd' at thread -1
+Loading resource: res://tests/rules/test_ability_composite_effects.gd remapped: res://tests/rules/test_ability_composite_effects.gd
+Completed load for: 'res://tests/rules/test_ability_composite_effects.gd' remapped 'res://tests/rules/test_ability_composite_effects.gd' at thread -1
+Loading resource: res://tests/rules/test_ability_events.gd remapped: res://tests/rules/test_ability_events.gd
+Completed load for: 'res://tests/rules/test_ability_events.gd' remapped 'res://tests/rules/test_ability_events.gd' at thread -1
+Loading resource: res://tests/rules/test_ability_triggers.gd remapped: res://tests/rules/test_ability_triggers.gd
+Completed load for: 'res://tests/rules/test_ability_triggers.gd' remapped 'res://tests/rules/test_ability_triggers.gd' at thread -1
+Loading resource: res://tests/rules/test_board_rules.gd remapped: res://tests/rules/test_board_rules.gd
+Completed load for: 'res://tests/rules/test_board_rules.gd' remapped 'res://tests/rules/test_board_rules.gd' at thread -1
+Loading resource: res://tests/rules/test_catalog_skill_pipeline.gd remapped: res://tests/rules/test_catalog_skill_pipeline.gd
+Completed load for: 'res://tests/rules/test_catalog_skill_pipeline.gd' remapped 'res://tests/rules/test_catalog_skill_pipeline.gd' at thread -1
+Loading resource: res://tests/rules/test_collection_batches.gd remapped: res://tests/rules/test_collection_batches.gd
+Completed load for: 'res://tests/rules/test_collection_batches.gd' remapped 'res://tests/rules/test_collection_batches.gd' at thread -1
+Loading resource: res://tests/rules/test_collection_lifecycle.gd remapped: res://tests/rules/test_collection_lifecycle.gd
+Completed load for: 'res://tests/rules/test_collection_lifecycle.gd' remapped 'res://tests/rules/test_collection_lifecycle.gd' at thread -1
+Loading resource: res://tests/rules/test_commands_replay.gd remapped: res://tests/rules/test_commands_replay.gd
+Completed load for: 'res://tests/rules/test_commands_replay.gd' remapped 'res://tests/rules/test_commands_replay.gd' at thread -1
+Loading resource: res://tests/rules/test_composite_boundaries.gd remapped: res://tests/rules/test_composite_boundaries.gd
+Completed load for: 'res://tests/rules/test_composite_boundaries.gd' remapped 'res://tests/rules/test_composite_boundaries.gd' at thread -1
+Loading resource: res://tests/rules/test_composite_contracts.gd remapped: res://tests/rules/test_composite_contracts.gd
+Completed load for: 'res://tests/rules/test_composite_contracts.gd' remapped 'res://tests/rules/test_composite_contracts.gd' at thread -1
+Loading resource: res://tests/rules/test_composite_empty_dye.gd remapped: res://tests/rules/test_composite_empty_dye.gd
+Completed load for: 'res://tests/rules/test_composite_empty_dye.gd' remapped 'res://tests/rules/test_composite_empty_dye.gd' at thread -1
+Loading resource: res://tests/rules/test_composite_offer_lifecycle.gd remapped: res://tests/rules/test_composite_offer_lifecycle.gd
+Completed load for: 'res://tests/rules/test_composite_offer_lifecycle.gd' remapped 'res://tests/rules/test_composite_offer_lifecycle.gd' at thread -1
+Loading resource: res://tests/rules/test_composite_preview.gd remapped: res://tests/rules/test_composite_preview.gd
+Completed load for: 'res://tests/rules/test_composite_preview.gd' remapped 'res://tests/rules/test_composite_preview.gd' at thread -1
+Loading resource: res://tests/rules/test_composite_score_events.gd remapped: res://tests/rules/test_composite_score_events.gd
+Completed load for: 'res://tests/rules/test_composite_score_events.gd' remapped 'res://tests/rules/test_composite_score_events.gd' at thread -1
+Loading resource: res://tests/rules/test_continue_challenge.gd remapped: res://tests/rules/test_continue_challenge.gd
+Completed load for: 'res://tests/rules/test_continue_challenge.gd' remapped 'res://tests/rules/test_continue_challenge.gd' at thread -1
+Loading resource: res://tests/rules/test_demolition_build.gd remapped: res://tests/rules/test_demolition_build.gd
+Completed load for: 'res://tests/rules/test_demolition_build.gd' remapped 'res://tests/rules/test_demolition_build.gd' at thread -1
+Loading resource: res://tests/rules/test_dye_rules.gd remapped: res://tests/rules/test_dye_rules.gd
+Completed load for: 'res://tests/rules/test_dye_rules.gd' remapped 'res://tests/rules/test_dye_rules.gd' at thread -1
+Loading resource: res://tests/rules/test_dynamic_transform_preflight.gd remapped: res://tests/rules/test_dynamic_transform_preflight.gd
+Completed load for: 'res://tests/rules/test_dynamic_transform_preflight.gd' remapped 'res://tests/rules/test_dynamic_transform_preflight.gd' at thread -1
+Loading resource: res://tests/rules/test_expanded_skills.gd remapped: res://tests/rules/test_expanded_skills.gd
+Completed load for: 'res://tests/rules/test_expanded_skills.gd' remapped 'res://tests/rules/test_expanded_skills.gd' at thread -1
+Loading resource: res://tests/rules/test_explosion_rules.gd remapped: res://tests/rules/test_explosion_rules.gd
+Completed load for: 'res://tests/rules/test_explosion_rules.gd' remapped 'res://tests/rules/test_explosion_rules.gd' at thread -1
+Loading resource: res://tests/rules/test_followup_strength.gd remapped: res://tests/rules/test_followup_strength.gd
+Completed load for: 'res://tests/rules/test_followup_strength.gd' remapped 'res://tests/rules/test_followup_strength.gd' at thread -1
+Loading resource: res://tests/rules/test_forest_clear_score.gd remapped: res://tests/rules/test_forest_clear_score.gd
+Completed load for: 'res://tests/rules/test_forest_clear_score.gd' remapped 'res://tests/rules/test_forest_clear_score.gd' at thread -1
+Loading resource: res://tests/rules/test_goal_score_bonus.gd remapped: res://tests/rules/test_goal_score_bonus.gd
+Completed load for: 'res://tests/rules/test_goal_score_bonus.gd' remapped 'res://tests/rules/test_goal_score_bonus.gd' at thread -1
+Loading resource: res://tests/rules/test_legacy_item_isolation.gd remapped: res://tests/rules/test_legacy_item_isolation.gd
+Loading resource: res://assets/icons/prism_tower.svg remapped: res://assets/icons/prism_tower.svg
+Loading resource: res://.godot/imported/prism_tower.svg-0627f9e8a1a93784e71d99534124cd2d.ctex remapped: res://.godot/imported/prism_tower.svg-0627f9e8a1a93784e71d99534124cd2d.ctex
+Completed load for: 'res://assets/icons/prism_tower.svg' remapped 'res://assets/icons/prism_tower.svg' at thread -1
+Loading resource: res://assets/icons/amplifier.svg remapped: res://assets/icons/amplifier.svg
+Loading resource: res://.godot/imported/amplifier.svg-80e6f9f41361306a5a8471034a2b335c.ctex remapped: res://.godot/imported/amplifier.svg-80e6f9f41361306a5a8471034a2b335c.ctex
+Completed load for: 'res://assets/icons/amplifier.svg' remapped 'res://assets/icons/amplifier.svg' at thread -1
+Loading resource: res://assets/icons/dye_station.svg remapped: res://assets/icons/dye_station.svg
+Loading resource: res://.godot/imported/dye_station.svg-ac43cd4404800aa52c930bfbfed60ae3.ctex remapped: res://.godot/imported/dye_station.svg-ac43cd4404800aa52c930bfbfed60ae3.ctex
+Completed load for: 'res://assets/icons/dye_station.svg' remapped 'res://assets/icons/dye_station.svg' at thread -1
+Loading resource: res://assets/icons/ether_totem.svg remapped: res://assets/icons/ether_totem.svg
+Loading resource: res://.godot/imported/ether_totem.svg-26436b0c2c0526ba3286c8df7c9fe39a.ctex remapped: res://.godot/imported/ether_totem.svg-26436b0c2c0526ba3286c8df7c9fe39a.ctex
+Completed load for: 'res://assets/icons/ether_totem.svg' remapped 'res://assets/icons/ether_totem.svg' at thread -1
+Loading resource: res://assets/icons/energy_core.svg remapped: res://assets/icons/energy_core.svg
+Loading resource: res://.godot/imported/energy_core.svg-8a55a28e67d29d7fd7a9ef630651ae98.ctex remapped: res://.godot/imported/energy_core.svg-8a55a28e67d29d7fd7a9ef630651ae98.ctex
+Completed load for: 'res://assets/icons/energy_core.svg' remapped 'res://assets/icons/energy_core.svg' at thread -1
+Loading resource: res://assets/icons/space_compressor.svg remapped: res://assets/icons/space_compressor.svg
+Loading resource: res://.godot/imported/space_compressor.svg-d4619d0754da59f8a7b9fe00469924f3.ctex remapped: res://.godot/imported/space_compressor.svg-d4619d0754da59f8a7b9fe00469924f3.ctex
+Completed load for: 'res://assets/icons/space_compressor.svg' remapped 'res://assets/icons/space_compressor.svg' at thread -1
+Completed load for: 'res://tests/rules/test_legacy_item_isolation.gd' remapped 'res://tests/rules/test_legacy_item_isolation.gd' at thread -1
+Loading resource: res://tests/rules/test_line_build_completion.gd remapped: res://tests/rules/test_line_build_completion.gd
+Completed load for: 'res://tests/rules/test_line_build_completion.gd' remapped 'res://tests/rules/test_line_build_completion.gd' at thread -1
+Loading resource: res://tests/rules/test_line_clear_drop.gd remapped: res://tests/rules/test_line_clear_drop.gd
+Completed load for: 'res://tests/rules/test_line_clear_drop.gd' remapped 'res://tests/rules/test_line_clear_drop.gd' at thread -1
+Loading resource: res://tests/rules/test_line_clear_removal.gd remapped: res://tests/rules/test_line_clear_removal.gd
+Completed load for: 'res://tests/rules/test_line_clear_removal.gd' remapped 'res://tests/rules/test_line_clear_removal.gd' at thread -1
+Loading resource: res://tests/rules/test_line_cross.gd remapped: res://tests/rules/test_line_cross.gd
+Completed load for: 'res://tests/rules/test_line_cross.gd' remapped 'res://tests/rules/test_line_cross.gd' at thread -1
+Loading resource: res://tests/rules/test_line_score_availability.gd remapped: res://tests/rules/test_line_score_availability.gd
+Completed load for: 'res://tests/rules/test_line_score_availability.gd' remapped 'res://tests/rules/test_line_score_availability.gd' at thread -1
+Loading resource: res://tests/rules/test_line_span.gd remapped: res://tests/rules/test_line_span.gd
+Completed load for: 'res://tests/rules/test_line_span.gd' remapped 'res://tests/rules/test_line_span.gd' at thread -1
+Loading resource: res://tests/rules/test_manual_line_clear.gd remapped: res://tests/rules/test_manual_line_clear.gd
+Completed load for: 'res://tests/rules/test_manual_line_clear.gd' remapped 'res://tests/rules/test_manual_line_clear.gd' at thread -1
+Loading resource: res://tests/rules/test_manual_use_limit.gd remapped: res://tests/rules/test_manual_use_limit.gd
+Completed load for: 'res://tests/rules/test_manual_use_limit.gd' remapped 'res://tests/rules/test_manual_use_limit.gd' at thread -1
+Loading resource: res://tests/rules/test_paired_windows.gd remapped: res://tests/rules/test_paired_windows.gd
+Completed load for: 'res://tests/rules/test_paired_windows.gd' remapped 'res://tests/rules/test_paired_windows.gd' at thread -1
+Loading resource: res://tests/rules/test_percent_clear.gd remapped: res://tests/rules/test_percent_clear.gd
+Completed load for: 'res://tests/rules/test_percent_clear.gd' remapped 'res://tests/rules/test_percent_clear.gd' at thread -1
+Loading resource: res://tests/rules/test_pressure_loop.gd remapped: res://tests/rules/test_pressure_loop.gd
+Completed load for: 'res://tests/rules/test_pressure_loop.gd' remapped 'res://tests/rules/test_pressure_loop.gd' at thread -1
+Loading resource: res://tests/rules/test_pressure_offers.gd remapped: res://tests/rules/test_pressure_offers.gd
+Completed load for: 'res://tests/rules/test_pressure_offers.gd' remapped 'res://tests/rules/test_pressure_offers.gd' at thread -1
+Loading resource: res://tests/rules/test_reward_waiting_rules.gd remapped: res://tests/rules/test_reward_waiting_rules.gd
+Completed load for: 'res://tests/rules/test_reward_waiting_rules.gd' remapped 'res://tests/rules/test_reward_waiting_rules.gd' at thread -1
+Loading resource: res://tests/rules/test_run_controller.gd remapped: res://tests/rules/test_run_controller.gd
+Completed load for: 'res://tests/rules/test_run_controller.gd' remapped 'res://tests/rules/test_run_controller.gd' at thread -1
+Loading resource: res://tests/rules/test_score_ledger.gd remapped: res://tests/rules/test_score_ledger.gd
+Completed load for: 'res://tests/rules/test_score_ledger.gd' remapped 'res://tests/rules/test_score_ledger.gd' at thread -1
+Loading resource: res://tests/rules/test_shape_match_detector.gd remapped: res://tests/rules/test_shape_match_detector.gd
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://tests/rules/test_shape_match_detector.gd' remapped 'res://tests/rules/test_shape_match_detector.gd' at thread -1
+Loading resource: res://tests/rules/test_skill_action_migration.gd remapped: res://tests/rules/test_skill_action_migration.gd
+Completed load for: 'res://tests/rules/test_skill_action_migration.gd' remapped 'res://tests/rules/test_skill_action_migration.gd' at thread -1
+Loading resource: res://tests/rules/test_skill_instances.gd remapped: res://tests/rules/test_skill_instances.gd
+Completed load for: 'res://tests/rules/test_skill_instances.gd' remapped 'res://tests/rules/test_skill_instances.gd' at thread -1
+Loading resource: res://tests/rules/test_skill_recording.gd remapped: res://tests/rules/test_skill_recording.gd
+Completed load for: 'res://tests/rules/test_skill_recording.gd' remapped 'res://tests/rules/test_skill_recording.gd' at thread -1
+Loading resource: res://tests/rules/test_skill_rewards.gd remapped: res://tests/rules/test_skill_rewards.gd
+Completed load for: 'res://tests/rules/test_skill_rewards.gd' remapped 'res://tests/rules/test_skill_rewards.gd' at thread -1
+Loading resource: res://tests/rules/test_spawn_preview.gd remapped: res://tests/rules/test_spawn_preview.gd
+Completed load for: 'res://tests/rules/test_spawn_preview.gd' remapped 'res://tests/rules/test_spawn_preview.gd' at thread -1
+Loading resource: res://tests/rules/test_special_conversion.gd remapped: res://tests/rules/test_special_conversion.gd
+Completed load for: 'res://tests/rules/test_special_conversion.gd' remapped 'res://tests/rules/test_special_conversion.gd' at thread -1
+Loading resource: res://tests/rules/test_stage_challenge.gd remapped: res://tests/rules/test_stage_challenge.gd
+Completed load for: 'res://tests/rules/test_stage_challenge.gd' remapped 'res://tests/rules/test_stage_challenge.gd' at thread -1
+Loading resource: res://tests/rules/test_target_freeze.gd remapped: res://tests/rules/test_target_freeze.gd
+Completed load for: 'res://tests/rules/test_target_freeze.gd' remapped 'res://tests/rules/test_target_freeze.gd' at thread -1
+Loading resource: res://tests/rules/test_telemetry.gd remapped: res://tests/rules/test_telemetry.gd
+Completed load for: 'res://tests/rules/test_telemetry.gd' remapped 'res://tests/rules/test_telemetry.gd' at thread -1
+Loading resource: res://tests/rules/test_trial_progression.gd remapped: res://tests/rules/test_trial_progression.gd
+Completed load for: 'res://tests/rules/test_trial_progression.gd' remapped 'res://tests/rules/test_trial_progression.gd' at thread -1
+Loading resource: res://tests/rules/test_trigger_strength.gd remapped: res://tests/rules/test_trigger_strength.gd
+Completed load for: 'res://tests/rules/test_trigger_strength.gd' remapped 'res://tests/rules/test_trigger_strength.gd' at thread -1
+Loading resource: res://tests/test_core_loop.gd remapped: res://tests/test_core_loop.gd
+Completed load for: 'res://tests/test_core_loop.gd' remapped 'res://tests/test_core_loop.gd' at thread -1
+[4m
+
+res://tests/integration/test_board_juice.gd
+[0m* test_piece_flash_isolated_from_other_instance_and_template
+* test_tile_highlight_isolated_from_other_instance_and_template
+* test_birth_keeps_ghost_alpha_and_never_modifies_rule_piece
+* test_cancel_move_clears_path_and_keeps_committed_rules
+* test_selection_pulse_pauses_and_low_effects_stops_motion
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_board_signal.gd
+[0m* test_toggle_does_not_change_snapshot_geometry_or_input_surface
+* test_pause_freezes_clock_fast_does_not_accelerate_and_low_effects_hide_it
+* test_instance_materials_and_template_are_isolated
+* test_settings_preference_round_trip_and_disabled_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:31] [INFO] Config file saved to 'user://test_board_signal.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:31] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_board_signal.cfg'.
+* test_real_sweep_and_retry_keep_exact_replay_and_reset_effect
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_board_view.gd
+[0m* test_standalone_view_renders_without_external_parent_state
+* test_click_only_emits_coordinate_without_moving_rules
+* test_rebuilding_display_preserves_rule_ids_and_colors
+* test_animation_consumes_already_committed_move_result
+* test_rebuild_cancels_old_animation_without_altering_rule_state
+* test_two_views_do_not_share_mutable_materials
+* test_special_tooltips_follow_current_ability_configuration
+* test_tooltip_moves_with_piece_and_is_disabled_before_departure
+* test_rebuild_does_not_reuse_old_run_tooltip_for_same_piece_id
+* test_dye_step_changes_visual_color_before_following_match_without_rule_mutation
+* test_sweep_removals_animate_without_mutating_rules_and_show_truthful_tooltip
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_build_cards.gd
+[0m* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_command_scene.gd
+[0m* test_human_fast_scene_and_headless_command_have_same_state
+Loading resource: res://gameplay/presentation/audio/select.tres remapped: res://gameplay/presentation/audio/select.tres
+Completed load for: 'res://gameplay/presentation/audio/select.tres' remapped 'res://gameplay/presentation/audio/select.tres' at thread -1
+* test_human_slow_scene_and_headless_command_have_same_state
+* test_retry_preserves_earned_reward_state_in_old_record
+* test_fixture_restart_preserves_old_record
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_composite_contract_scene.gd
+[0m* test_t09_partial_result_normal_presentation_and_duplicate_confirmation
+Loading resource: res://gameplay/presentation/audio/reward.tres remapped: res://gameplay/presentation/audio/reward.tres
+Completed load for: 'res://gameplay/presentation/audio/reward.tres' remapped 'res://gameplay/presentation/audio/reward.tres' at thread -1
+Loading resource: res://gameplay/presentation/audio/match.tres remapped: res://gameplay/presentation/audio/match.tres
+Completed load for: 'res://gameplay/presentation/audio/match.tres' remapped 'res://gameplay/presentation/audio/match.tres' at thread -1
+Loading resource: res://gameplay/presentation/audio/blast.tres remapped: res://gameplay/presentation/audio/blast.tres
+Completed load for: 'res://gameplay/presentation/audio/blast.tres' remapped 'res://gameplay/presentation/audio/blast.tres' at thread -1
+* test_t09_partial_result_fast_and_low_effects_preserves_rules
+* test_t09_error_locks_input_retry_retires_run_and_old_callback
+* test_s08_frozen_blast_strength_normal_presentation
+* test_s08_frozen_blast_strength_fast_low_effects
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_conversion_scene.gd
+[0m* test_f12_offer_confirms_and_transforms_same_nodes_with_exact_file_replay
+* test_transform_plan_copies_snapshots_and_low_effects_preserve_nodes
+[1m2/2 passed.
+[0m[4m
+
+res://tests/integration/test_core_preview_color.gd
+[0m* test_skill_core_freezes_weighted_color_and_displays_it_before_selection
+* test_real_board_spawn_animation_and_rebuild_preserve_all_preview_colors
+* test_invalid_frozen_core_color_rejects_without_consuming_choice
+* test_core_budget_preflight_uses_frozen_blue_color
+* test_normal_commands_replay_non_green_skill_core
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_expanded_skill_scene.gd
+[0m* test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
+* test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds
+* test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_explosion_loop.gd
+[0m* test_f6_demo_loads_markers_and_real_move_resolves_two_generations
+* test_two_playback_speeds_keep_chain_scores_and_targets_identical
+* test_retry_while_explosion_move_is_playing_drops_old_abilities
+* test_birth_fault_stops_scene_input_without_full_board_game_over
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_feedback_settings.gd
+[0m* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:45] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:45] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_feedback_settings.cfg'.
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:45] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad[39m[0m
+* test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
+* test_effect_toggle_during_movement_does_not_cancel_required_tween
+* test_muting_cue_dedup_and_retry_stop_plugin_players
+* test_finished_player_reused_by_other_caller_survives_game_cancel
+Loading resource: res://gameplay/presentation/audio/finish.tres remapped: res://gameplay/presentation/audio/finish.tres
+Completed load for: 'res://gameplay/presentation/audio/finish.tres' remapped 'res://gameplay/presentation/audio/finish.tres' at thread -1
+* test_reborrow_before_finished_keeps_original_player_mode
+* test_environment_and_particle_resources_are_instance_local
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_game_background.gd
+[0m* test_settings_save_and_invalid_value_falls_back_to_default
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:48] [INFO] Config file saved to 'user://test_background.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:48] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_background.cfg'.
+[38;2;169;169;169m[2026-10-21T14:52:48] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid[39m[0m
+* test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it
+* test_disabled_and_reduced_effects_use_solid_background_and_keep_rule_state
+* test_materials_and_shared_presets_are_not_mutated_by_other_instances
+* test_real_score_and_retry_are_visual_only_and_replay_stays_exact
+* test_settings_toggle_preserves_pause_and_rules
+* test_saved_theme_is_applied_before_initial_spawn_yields
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_game_layout.gd
+[0m* test_real_board_edges_fit_ui_area_at_multiple_window_sizes
+* test_settings_fit_both_languages_at_supported_sizes_without_changing_run
+* test_scaled_corner_picking_and_move_use_same_grid_coordinates
+* test_mode_menu_fits_supported_viewport_in_both_languages
+* test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_game_themes.gd
+[0m* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:53] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-21T14:52:53] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[38;2;169;169;169m[2026-10-21T14:52:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
+* test_switching_retains_offer_selected_card_and_confirmation
+* test_both_themes_keep_panel_and_button_boundaries_without_focus
+* test_shader_instances_and_templates_stay_isolated_across_views
+* test_switch_during_real_move_keeps_barrier_and_exact_file_replay
+* test_retry_and_new_catalog_cards_inherit_theme_without_resetting_filters
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_goal_progress.gd
+[0m* test_light_starts_at_source_and_fill_waits_for_arrival
+* test_many_gains_merge_at_limit_and_skip_preserves_exact_total
+[33m    --- Awaiting 0.8 seconds  ---
+[0m* test_pause_freezes_flight_and_reset_cancels_old_wait
+[33m    --- Awaiting 0.8 seconds  ---
+[0m* test_low_effects_and_materials_are_isolated_between_instances
+* test_all_score_waiters_finish_when_first_waiter_advances_goal
+[33m    --- Awaiting 0.8 seconds  ---
+[0m[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_hud.gd
+[0m* test_score_counts_up_without_mutating_ledger
+* test_invalid_stage_table_displays_error_without_accessing_missing_target
+* test_reset_cancels_old_wait_and_score
+* test_pause_freezes_score_but_resume_control_remains_available
+* test_hud_uses_real_reward_occupancy_skill_and_score_data
+* test_prototype_layout_leaves_board_click_area_clear
+* test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan
+* test_piece_pool_shows_current_conditional_weights_without_mutating_run
+* test_stage_progress_uses_same_total_including_choice_without_settling
+* test_gain_fades_without_delaying_score_barrier_and_reset_cancels_fade
+[33m    --- Awaiting 1.6 seconds  ---
+[0m* test_second_stage_shows_cumulative_score_and_target
+* test_pool_escape_closes_it_without_requesting_pause
+* test_top_and_bottom_share_the_same_visible_score_during_flight_and_fill
+[1m13/13 passed.
+[0m[4m
+
+res://tests/integration/test_input_buffer.gd
+[0m* test_selection_during_movement_survives_to_next_turn
+* test_only_latest_piece_and_one_move_are_buffered
+* test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant
+* test_retry_discards_buffered_command
+* test_reward_popup_discards_previous_board_intent
+* test_buffered_move_rechecks_target_occupancy
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_line_clear_visual.gd
+[0m* test_frozen_row_and_column_results_draw_full_axis_even_with_no_targets
+* test_pause_fast_playback_and_cancellation_keep_rules_unchanged
+* test_low_effects_and_retry_cleanup_cover_both_sweep_instances
+* test_wide_visual_uses_frozen_radius_and_clips_to_the_board
+* test_skip_sweep_removes_only_frozen_targets_without_resolving_again
+* test_cross_visual_freezes_both_independent_bands_and_cancels_together
+* test_unlocked_sweeper_tooltip_is_localized_and_does_not_mutate_state
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_localization.gd
+[0m* test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run
+* test_every_skill_has_english_text_without_mutating_resources
+* test_color_picker_switch_preserves_selected_target_and_board_view
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_manual_line_scene.gd
+[0m* test_ctrl_shift_f11_scores_bonus_and_shows_owned_card_and_tooltip
+* test_alt_f11_quota_rejection_pause_rebuild_and_tooltip_match_recorded_rules
+* test_f11_debug_entry_loads_replayable_fixture_and_shows_unlocked_tooltip
+* test_double_click_fast_and_normal_scene_match_headless_rules_and_replay
+* test_shift_f11_wide_command_matches_headless_and_freezes_card_preview
+* test_ctrl_f11_cross_chain_matches_headless_and_replays_after_presentation
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_playback_settings.gd
+[0m* test_settings_restore_running_paused_and_menu_states_without_rule_changes
+* test_settings_keep_selected_card_and_offer_and_block_skip_without_consuming_reward
+* test_volume_drag_previews_changes_and_commits_once_on_release
+* test_loading_preferences_does_not_save_and_closing_drag_commits_once
+* test_f8_inside_settings_updates_game_once_and_f1_restores_input
+* test_settings_skip_returns_to_live_presentation_and_preserves_exact_replay
+* test_retry_closes_settings_and_initializes_new_run_without_stale_pause
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_presentation_director.gd
+[0m* test_queue_requires_matching_completion_and_empty_queue_is_complete
+* test_cancel_invalidates_old_completion_before_new_queue
+* test_paused_completion_does_not_dispatch_next_step
+* test_failed_action_is_not_successful_completion
+* test_plan_freezes_path_pieces_and_score_and_orders_generations
+* test_view_parallel_barrier_waits_for_all_required_tweens
+* test_pausing_freezes_required_visual_tasks
+* test_f8_fast_mode_keeps_f6_rule_snapshot_and_telemetry_counts_identical
+* test_skip_preserves_required_segments_and_rejects_old_completion
+* test_skip_stops_at_batch_alignment_and_pause_rejects_request
+* test_fixed_required_clock_ignores_fast_speed_changes
+* test_recovery_callback_starting_next_batch_keeps_new_barrier_busy
+* test_step_guard_freezes_while_paused
+[1m13/13 passed.
+[0m[4m
+
+res://tests/integration/test_refill_lifecycle.gd
+[0m* test_finite_refill_modifier_is_consumed_once_per_actual_batch
+* test_retry_during_birth_cannot_continue_old_run_or_unlock_new_input
+[33m    --- Awaiting signal initialized or 3.0s  ---
+[0m[33m    --- Awaiting 30 idle frames  ---
+[0m[1m2/2 passed.
+[0m[4m
+
+res://tests/integration/test_release_flow.gd
+[0m* test_all_four_lessons_use_real_commands_and_isolated_state
+* test_help_preserves_board_and_previous_pause_and_replay_can_skip
+* test_skip_during_animation_cancels_old_completion_and_allows_replay
+[33m    --- Awaiting 30 idle frames  ---
+[0m* test_tutorial_choice_occurs_after_animation_while_tree_paused
+* test_build_label_uses_application_version_and_explicit_override
+* test_switching_modes_starts_new_runs_and_preserves_mode_on_retry
+* test_challenge_hud_and_end_titles_use_stage_state
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_closing_popup_during_initialization_does_not_resume_stale_dialog
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+[1m8/8 passed.
+[0m[4m
+
+res://tests/integration/test_result_viewer.gd
+[0m* test_cross_records_validate_both_bands_and_view_without_rescoring
+* test_result_viewing_speeds_preserve_snapshot_without_counting_score
+* test_result_watching_accepts_old_config_while_rule_replay_rejects_it
+* test_malformed_consumed_records_fail_without_stalling_viewer
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_reward_coordination.gd
+[0m* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+* test_popup_cannot_mutate_authoritative_frozen_targets
+* test_same_run_old_popup_callback_does_not_submit_again
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+* test_two_rewards_in_normal_mode
+* test_two_rewards_in_fast_mode
+* test_two_rewards_in_low_effects_mode
+* test_two_rewards_in_combined_mode
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_reward_presentation.gd
+[0m* test_match_finishes_before_score_notification_and_reward_popup
+* test_blast_waits_for_longer_visual_before_reward_pauses_game
+* test_core_selection_match_completes_before_next_queued_reward
+* test_retry_cancels_wait_without_publishing_old_score_or_opening_reward
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_score_floats.gd
+[0m* test_split_uses_paid_main_score_and_exact_extra_without_mutating_entry
+* test_bonus_only_and_zero_score_never_invent_base_points
+* test_grade_font_and_colors_are_isolated_per_number_instance
+* test_big_scores_pop_more_and_stay_inside_reserved_sweep
+* test_edge_anchors_bonus_followup_and_overlapping_rewards_stay_readable
+* test_pause_low_effects_speed_and_expiry_preserve_ledger
+* test_delayed_rewards_reserve_motion_range_and_crowded_bursts_do_not_overlap
+* test_float_tail_is_optional_duplicate_results_do_not_repeat_and_reset_clears_old_text
+* test_score_burst_notifies_once_with_an_independent_entry_and_local_anchor
+[1m9/9 passed.
+[0m[4m
+
+res://tests/integration/test_skill_card_selection.gd
+[0m* test_select_switch_inspect_and_pause_do_not_submit_or_mutate_run
+* test_color_choice_uses_same_bottom_confirmation_without_automatic_submission
+* test_rejected_selection_keeps_candidate_and_does_not_fly_card
+* test_accepted_selection_emits_visual_once_after_rule_commit
+* test_reveal_and_transfer_are_visual_only_and_support_pause_low_effects_and_cancel
+* test_closing_submitted_popup_without_success_acknowledgement_does_not_fly_card
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_skill_cards.gd
+[0m* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_skill_instance_cards.gd
+[0m* test_build_card_and_pool_read_real_level_without_changing_rules
+[1m1/1 passed.
+[0m[4m
+
+res://tests/integration/test_skill_pool.gd
+[0m* test_browsing_and_locale_changes_preserve_snapshot_offer_and_random_streams
+* test_escape_restores_existing_pause_and_does_not_reach_game_shortcuts
+* test_catalog_uses_short_effects_and_actual_prerequisite_titles
+* test_choice_menu_roundtrip_preserves_popup_and_observation_location
+* test_terminal_and_presentation_views_restore_their_previous_state
+* test_default_sort_uses_rarity_then_level_then_translated_name
+* test_filters_intersect_and_instant_history_is_not_a_level
+* test_grid_cards_filter_sort_reset_without_changing_rules
+* test_empty_filter_and_grid_column_count
+[1m9/9 passed.
+[0m[4m
+
+res://tests/integration/test_skill_target_ux.gd
+[0m* test_color_has_no_default_invalid_confirm_only_highlights_without_consumption
+* test_fold_view_pause_and_return_preserve_target_and_lock_board_without_reroll
+* test_color_confirm_applies_once_and_proceeds_through_real_reward_coordinator
+* test_hud_temporary_skill_disappears_when_consumed_history_can_be_expanded
+* test_non_color_budget_refusal_keeps_offer_random_and_reward
+* test_paused_card_body_mouse_click_opens_picker_once_without_reroll
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_skip_recovery.gd
+[0m* test_skip_during_required_move_preserves_rule_snapshot_and_waits_for_move
+* test_active_blast_skip_and_normal_play_have_same_snapshot
+* test_skip_score_preserves_exact_integer_and_completes_wait
+* test_skip_before_reward_does_not_choose_or_leak_into_next_batch
+* test_failed_blast_recovers_committed_snapshot_without_recomputing
+* test_invalid_recovery_snapshot_stays_locked_and_preserves_rules
+* test_retry_discards_skip_request_and_old_step_completion
+* test_lost_movement_completion_times_out_and_recovers_without_rule_replay
+* test_compatibility_change_survives_two_queued_batches
+* test_final_alignment_restores_rule_identity_color_and_ability_markers
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_stage_scene.gd
+[0m* test_goal_bonus_keeps_score_label_and_progress_in_sync
+* test_real_stage_pass_waits_for_presentation_then_enters_next_stage
+* test_real_score_shortfall_returns_to_input_after_visuals
+* test_real_final_stage_completes_without_skill_popup
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_victory_continue_button_keeps_run_and_opens_deferred_reward
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_victory_menu_finalizes_once_as_completed
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_telemetry_scene.gd
+[0m* test_game_over_connects_collection_controls_and_refreshes_save_status
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_normal_scene_records_submitted_command_and_turn_without_false_exposure
+* test_real_popup_produces_visible_exposure_then_acquisition_once
+* test_buffer_overwrite_and_reward_cancel_are_terminal_events
+* test_retry_closes_old_sink_and_keeps_session_but_changes_run_id
+* test_mode_switch_records_own_reason_and_integration_context
+* test_help_export_controls_preserve_rules_and_normalize_ui_exit_location
+* test_settings_location_and_pause_are_recorded_without_ending_run
+* test_piece_pool_location_is_observed_and_viewing_preserves_rules
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_ability_composite_effects.gd
+[0m* test_leaf2_reads_state_after_leaf1_commit
+* test_clear_then_dye_defers_descendant_blasts_until_composite_done
+* test_fixed_target_reject_fails_before_mutating
+* test_fixed_target_skip_drops_invalid_ids
+* test_composite_validation_rejects_cycle_depth_and_empty
+* test_acceptance_skill_uses_generic_apply_without_skill_id_branch
+* test_single_leaf_core_drop_still_applies_through_runner
+* test_composite_clear_color_picker_reads_clear_leaf_groups
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_ability_events.gd
+[0m* test_duplicate_event_and_completion_never_repeat_unlimited_ability
+* test_failed_application_does_not_consume_and_empty_policy_is_explicit
+* test_event_source_is_frozen_twice_and_does_not_query_removed_board_piece
+* test_shuffled_events_and_listeners_have_stable_generation_source_ability_order
+* test_all_any_not_and_always_only_query_and_do_not_consume_rng
+* test_invalid_event_cause_composition_or_depth_is_diagnostic
+* test_reset_invalidates_old_bus_events_and_pending_completion
+* test_invalid_batch_is_rejected_before_reserving_or_consuming_any_instance
+* test_real_empty_manual_detonation_keeps_action_cost_and_consumes_once
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_ability_triggers.gd
+[0m* test_resource_composes_core_trigger_conditions_and_independent_effect
+* test_instances_own_counts_without_mutating_shared_trigger_or_global_rng
+* test_wrong_owner_event_or_cause_never_consumes_trigger_count
+* test_changing_only_condition_changes_real_resolver_trigger
+* test_unsupported_condition_refuses_entire_batch_before_board_or_score_commit
+* test_cyclic_or_missing_condition_is_a_diagnostic_not_recursive_evaluation
+* test_configuration_and_snapshot_include_trigger_parameters_and_instance_counts
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_board_rules.gd
+[0m* test_invalid_moves_do_not_mutate_state_or_random_stream
+* test_four_neighbor_path_never_moves_diagonally
+* test_blocked_corner_rejects_diagonal_escape
+* test_path_detours_around_occupied_cell
+* test_rectangular_board_uses_columns_for_x_and_rows_for_y
+* test_four_is_not_a_match_and_long_lines_are_complete
+* test_both_diagonal_directions_match
+* test_t15_independent_lines_remain_two_groups
+* test_t16_crossed_lines_merge_nine_unique_ids
+* test_bridge_line_merges_multiple_existing_groups
+* test_failed_placement_does_not_consume_entity_id
+* test_snapshots_and_two_boards_are_isolated
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_catalog_skill_pipeline.gd
+[0m* test_every_catalog_card_uses_command_pipeline_and_records_all_score_events
+* test_all_declared_level_upgrades_use_frozen_targets_and_preserve_instance
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_collection_batches.gd
+[0m* test_local_sink_accepts_in_memory_then_persists_one_batch
+* test_pressure_snapshot_computes_real_empty_components_without_rng
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_collection_lifecycle.gd
+[0m* test_exit_during_action_records_incomplete_root_and_unique_summary
+* test_finished_action_conserves_score_and_space_and_recovers_only_prefix
+* test_live_session_is_never_recovered_and_zip_contains_current_prefix
+* test_end_screen_session_location_does_not_rewrite_gameplay_ending
+* test_failed_directory_does_not_reject_legal_command
+WARNING: 本局分析记录不完整：telemetry_queue_limit
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] _emit (res://services/telemetry/telemetry_projector.gd:198)
+       [2] _start (res://services/telemetry/telemetry_projector.gd:100)
+       [3] observe_record (res://services/telemetry/telemetry_projector.gd:47)
+       [4] append (res://gameplay/run/recording/run_recorder.gd:59)
+       [5] begin (res://gameplay/run/recording/run_recorder.gd:38)
+       [6] test_failed_directory_does_not_reject_legal_command (res://tests/rules/test_collection_lifecycle.gd:111)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_goal_reward_score_stays_outside_completed_action_and_has_own_identity
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_composite_boundaries.gd
+[0m* test_b01_match_commits_before_fixed_fuse_and_descendants_wait
+* test_b02_inner_return_does_not_release_descendants
+* test_nested_dynamic_leaves_sample_once_when_each_is_reached
+* test_later_leaf_error_keeps_match_commit_but_cancels_waiting_descendants
+* test_deferred_match_plant_keeps_trigger_time_eligibility
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_composite_contracts.gd
+[0m* test_t06_all_empty_requires_root_permission_and_consumes_once
+* test_b06_t07_nested_partial_or_error_preserves_commit_and_cancels_only_on_error
+* test_t08_atomic_cost_and_exact_targets_reject_without_spending_then_commit_once
+* test_nested_color_input_is_forwarded_to_inner_leaf
+* test_t08_incomplete_targets_and_cost_overlap_never_spend
+* test_b08_nested_root_runs_once_and_finite_descendants_settle_once
+* test_b08_cycle_rejects_and_retired_queue_cannot_reach_new_run
+* test_t07_nested_failure_reports_exact_leaf_and_committed_prefix
+* test_t06_empty_ability_policy_is_independent_from_reward_consumption
+* test_nested_empty_permission_applies_only_to_root_acquisition
+* test_fixed_all_empty_after_invalidation_requires_root_permission
+* test_atomic_consumed_material_clears_only_its_dye_mark
+* test_fixed_dye_nonempty_frozen_color_survives_single_color_board
+[1m13/13 passed.
+[0m[4m
+
+res://tests/rules/test_composite_empty_dye.gd
+[0m* test_catalog_clear_dye_does_not_end_a_valid_two_color_run
+REVIEW two-color: success=true error= phase=REWARDS pieces=1 rewards=0
+* test_standalone_dye_still_rejects_missing_targets
+* test_configured_empty_dye_does_not_hide_invalid_live_targets
+* test_configured_empty_board_dye_is_legal
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_composite_offer_lifecycle.gd
+[0m* test_formal_offer_does_not_sample_dynamic_subtree_and_choice_samples_each_once
+* test_each_declared_dynamic_selector_samples_from_post_clear_board_once
+* test_preview_snapshot_and_missing_color_do_not_sample_dynamic_target
+* test_b03_b04_formal_offer_fixed_invalid_target_skip_and_strict_error
+* test_partial_fixed_targets_revalidate_and_bad_color_is_not_swallowed
+* test_skip_policy_does_not_erase_budget_rejection
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_composite_preview.gd
+[0m* test_catalog_refill_color_matches_displayed_frozen_color
+* test_weight_refresh_keeps_color_and_uses_updated_values_without_rng
+* test_nested_offer_and_apply_preserve_displayed_weight_color
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_composite_score_events.gd
+[0m* test_catalog_clear_dye_keeps_first_leaf_score_events
+REVIEW marked reward: ledger=true returned=true total=5
+* test_core_creation_keeps_prior_leaf_results
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_continue_challenge.gd
+[0m* test_continue_keeps_board_score_and_build_and_grants_terminal_reward
+* test_reward_enters_extended_stage_and_whole_record_replays
+* test_command_roundtrip_and_duplicate_grants_reward_once
+* test_rejects_unfinished_board_full_and_closed_records
+* test_extra_goals_use_frozen_final_increment_carry_and_one_new_action
+* test_ending_at_victory_writes_one_valid_footer_and_does_not_continue
+* test_extend_rejects_target_overflow
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_demolition_build.gd
+[0m* test_catalog_has_42_real_distinct_effects_and_five_grades
+* test_prerequisites_and_rarity_multiply_after_clamp_once
+* test_active_core_consumes_once_and_normal_refill_still_happens
+* test_active_budget_failure_preserves_source_score_and_rng
+* test_payload_creates_immediate_chain_and_score_is_extra_only
+* test_relay_snapshot_does_not_propagate_new_source_same_turn
+* test_aftershock_once_selective_filter_and_radius_caps
+* test_relief_waits_for_complete_root_and_extends_without_double_strength
+* test_supply_uses_normal_slots_unique_and_run_state_isolated
+* test_core_drop_new_budget_preflight_preserves_entire_choice
+* test_plant_runs_after_all_match_groups_removed_once_per_root
+* test_chain_radius_only_later_fuses_and_general_rewards_are_independent
+* test_old_parent_root_survives_interleaved_skill_root
+* test_active_command_chain_settlement_and_refill_replay_all_checkpoints
+* test_rarity_styles_are_owned_by_each_card
+[1m15/15 passed.
+[0m[4m
+
+res://tests/rules/test_dye_rules.gd
+[0m* test_echo_completes_second_line_and_scores_mark_once
+* test_new_line_allows_second_wave_but_shared_budget_stops_third
+* test_recolor_preserves_fuse_and_identity_without_direct_score
+* test_no_surviving_target_leaves_only_first_match
+* test_dye_state_is_owned_per_run_and_stale_instant_targets_reject
+* test_fixture_records_replay_rule_and_presentation_events
+* test_non_match_removal_does_not_consume_later_spawn_match_opportunity
+* test_dye_bonus_is_not_paid_on_explosion_removal
+* test_blast_bridge_dyes_surviving_edge_material_and_shares_wave_limit
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_dynamic_transform_preflight.gd
+[0m* test_known_dynamic_source_capacity_rejects_before_action_or_random_commit
+* test_partial_ordinary_conversion_counts_actual_available_sources
+* test_dynamic_atomic_valid_cost_and_exact_source_budget_commit_once
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_expanded_skills.gd
+[0m* test_40_resources_and_support_skills_can_be_drawn_at_third_reward
+* test_refill_modifier_survives_match_skip_and_lasts_three_actual_batches
+* test_refill_repeat_extends_duration_without_stacking_and_opposites_offset
+* test_color_weight_changes_only_selected_color_and_isolates_runs_and_resources
+* test_weighted_colors_are_deterministic_and_follow_modified_distribution
+* test_color_lowering_stays_positive_and_excludes_capped_targets
+* test_color_clear_triggers_fuse_chain_scores_only_explosions_and_preserves_unhit_partner
+* test_line_clear_freezes_both_axes_removes_all_ordinary_targets_with_direct_score
+* test_changed_targets_and_invalid_trigger_refuse_without_consuming_reward_or_action
+* test_command_duplicate_does_not_apply_modifier_twice_and_config_is_stable
+* test_frozen_parameter_changes_and_low_event_budget_preserve_whole_choice
+* test_actual_bot_commands_replay_with_expanded_skills_and_reject_old_rule_version
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_explosion_rules.gd
+[0m* test_t02_core_fuse_chain_scores_70_and_clears
+* test_t03_overlapping_sources_sort_by_id_and_count_target_once
+* test_t09_match_multiplier_and_extra_do_not_multiply_blast_extra
+* test_empty_blast_never_awards_blast_extra
+* test_core_unique_fuse_eligibility_and_one_instance_per_piece
+* test_radius_and_reward_caps_and_shared_definitions_are_isolated
+* test_board_edge_blast_clips_and_ordinary_green_never_explodes
+* test_budget_failure_preserves_board_ledger_and_instances
+* test_reset_clears_fuses_levels_unlock_and_consumed_events
+* test_birth_budget_fault_stops_batch_and_preserves_error_phase
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_followup_strength.gd
+[0m* test_match_plant_freezes_configuration_at_trigger
+* test_match_dye_freezes_target_count_before_later_upgrade
+* test_match_dye_eligibility_is_not_granted_or_revoked_retroactively
+* test_match_dye_freezes_wave_limit_and_keeps_shared_usage
+* test_s08_pending_projection_is_detached_and_retirement_records_interruption
+* test_s08_dye_trace_keeps_frozen_count_and_actual_surviving_target
+* test_match_plant_eligibility_freezes_but_targets_remain_live
+* test_s08_recorded_dye_command_replays_disk_and_restores_prefix_repeatedly
+* test_fault_cancels_match_dye_bridge_and_remaining_local_tickets
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_forest_clear_score.gd
+[0m* test_row_clear_scores_mixed_colors_and_keeps_specials
+* test_column_clear_scores_even_below_five_targets
+* test_fuse_chain_scores_separately_and_global_modifiers_apply_to_direct_clear
+* test_rejected_frozen_target_keeps_board_score_and_reward
+* test_budget_rejection_keeps_direct_score_uncommitted
+* test_command_duplicate_preserves_score_and_recorded_events
+* test_scored_skip_invalid_composite_keeps_scoring_policy
+* test_other_clear_effects_and_normal_match_threshold_are_unchanged
+* test_repeated_or_duplicate_removal_targets_never_pay_twice
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_goal_score_bonus.gd
+[0m* test_bonus_is_once_after_action_and_carry_requires_new_action
+* test_new_choice_does_not_reward_past_goal_and_final_goal_has_no_offer
+* test_shortfall_and_full_board_never_trigger_bonus
+* test_configuration_eligibility_stale_target_and_reset
+* test_telemetry_separates_action_score_and_goal_reward
+* test_actual_choice_and_goal_bonus_replay_every_checkpoint
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_legacy_item_isolation.gd
+[0m* test_local_score_config_does_not_write_current_game
+效果 [add_score] 应用：增加 60 分
+* test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+* test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+* test_legacy_dispatchers_are_not_installed_or_subscribed
+* test_local_catalog_instances_do_not_share_mutable_effect_config
+* test_retained_timing_values_only_control_explicit_local_invocation
+效果 [add_score] 应用：增加 50 分
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_line_build_completion.gd
+[0m* test_score_card_requires_supply_preserves_instance_and_caps_at_three
+* test_empty_short_and_full_sweeps_add_bonus_after_global_multiplier
+* test_cross_chain_counts_live_targets_once_and_does_not_bonus_blasts
+* test_normal_match_and_instant_clear_do_not_gain_sweep_bonus
+* test_starter_slot_is_supply_only_until_any_supply_is_unlocked
+* test_dye_keeps_six_cards_at_lower_weight_and_no_forced_exploration
+* test_scored_fixture_records_and_replays_real_file
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_line_clear_drop.gd
+[0m* test_row_drop_unlocks_places_and_allows_second_piece
+* test_column_drop_is_independent_and_repeat_rejected
+* test_catalog_includes_line_drops
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_line_clear_removal.gd
+[0m* test_column_removed_in_horizontal_match_sweeps_column_and_chains_row
+* test_row_removed_by_clear_sweeps_specials_and_triggers_core
+* test_sweep_fuse_explosion_chain_keeps_generation_and_parent_ids
+* test_explosion_removes_sweeper_then_sweeps_from_frozen_coordinate
+* test_overlapping_sweeps_remove_and_score_each_target_once_in_source_order
+* test_empty_sweep_consumes_once_without_score_or_action_cost
+* test_budget_rejects_before_score_occupancy_or_event_mutation
+* test_held_sweep_waits_for_later_leaf_and_uses_frozen_source
+* test_shared_definition_counts_are_isolated_and_snapshot_records_sweeper
+* test_sweep_at_end_of_blast_queue_does_not_drop_aftershock
+* test_score_uses_global_multiplier_and_extra_without_five_match_upgrades
+* test_identical_fixture_results_records_and_snapshots_are_deterministic
+* test_line_arrival_budget_includes_new_innate_source_before_skill_commit
+* test_moving_sweeper_into_five_costs_only_parent_action_and_duplicate_command_is_noop
+[1m14/14 passed.
+[0m[4m
+
+res://tests/rules/test_line_cross.gd
+[0m* test_cross_requires_either_supply_installs_once_and_is_run_local
+* test_both_source_types_use_independent_spans_and_score_union_once
+* test_corner_cross_clips_each_band_and_dedupes_overlap
+* test_single_axis_can_chain_row_column_core_without_cross_and_without_cycles
+* test_cross_chain_fixture_active_action_and_file_replay_preserve_causal_records
+* test_cross_budget_rejects_before_board_score_and_rng_commit
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_line_score_availability.gd
+[0m* test_score_weight_stays_above_unowned_manual_through_repeat_and_history_penalties
+* test_fixed_seed_offers_show_score_more_often_for_acquisition_and_upgrades_in_both_modes
+Sweep availability: challenge=false level=0, harvest=131/256 manual=45/256
+Sweep availability: challenge=false level=1, harvest=91/256 manual=45/256
+Sweep availability: challenge=false level=2, harvest=92/256 manual=46/256
+Sweep availability: challenge=true level=0, harvest=135/256 manual=44/256
+Sweep availability: challenge=true level=1, harvest=83/256 manual=40/256
+Sweep availability: challenge=true level=2, harvest=85/256 manual=40/256
+* test_manual_rarity_limit_and_score_effect_are_preserved
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_line_span.gd
+[0m* test_span_cards_require_their_own_supply_and_cap_at_one_level
+* test_three_rows_and_columns_score_the_actual_union_once
+* test_edges_clip_symmetrically_without_shifting_to_a_third_line
+* test_five_match_departure_uses_the_same_span_without_an_extra_action
+* test_fuses_on_adjacent_band_chain_and_overlapping_sources_dedupe
+* test_wide_fixture_active_command_file_replay_preserves_radius_and_scores
+* test_greedy_bot_accounts_for_adjacent_bands_without_changing_game_random
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_manual_line_clear.gd
+[0m* test_short_sweeps_score_one_two_four_and_five_without_match_bonuses
+* test_short_sweep_applies_global_multiplier_and_extra
+* test_unlock_card_needs_either_supply_and_uses_shared_acquisition_pipeline
+* test_manual_row_and_column_cost_one_action_refill_and_activate_once
+* test_refill_cost_stays_previewed_when_this_action_increases_pressure
+* test_goal_passes_only_after_normal_refill_and_full_action_settlement
+* test_empty_sweep_still_consumes_action_and_refills_without_award
+* test_rejections_leave_occupancy_score_and_random_unchanged
+* test_budget_rejection_precedes_manual_consumption
+* test_manual_sweep_fuse_chain_keeps_single_source_cost_and_normal_scores
+* test_command_codec_record_file_replay_and_analysis_cover_manual_action
+* test_bots_enumerate_manual_actions_without_touching_game_random
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_manual_use_limit.gd
+[0m* test_row_column_share_three_uses_duplicate_and_fourth_do_not_consume
+* test_core_has_independent_three_uses_empty_costs_once_and_passive_survives
+* test_empty_sweep_costs_once_and_invalid_budget_and_stale_do_not
+* test_cross_chain_charges_root_only_and_shared_config_is_not_mutated
+* test_exhaustion_file_replay_and_telemetry_preserve_uses_and_rejected_attempt
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_paired_windows.gd
+[0m* test_prefix_restores_all_rng_offer_plan_and_isolates_instances
+Loading resource: res://tools/bot_testing/paired_job.gd remapped: res://tools/bot_testing/paired_job.gd
+Completed load for: 'res://tools/bot_testing/paired_job.gd' remapped 'res://tools/bot_testing/paired_job.gd' at thread -1
+* test_illegal_intervention_and_partial_prefix_are_rejected
+* test_censored_window_has_null_delta_and_includes_immediate_choice
+* test_deterministic_branches_replan_and_keep_legal_target_levels
+* test_pressure_report_does_not_classify_tool_limit_as_stage_failure
+* test_long_disk_run_flushes_without_a_ui_driver
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_percent_clear.gd
+[0m* test_floor_zero_and_invalid_ratio
+* test_freeze_is_unique_reproducible_and_preserves_board_random
+* test_plain_clear_preserves_partner_score_turn_and_refill
+* test_stale_and_duplicate_targets_do_not_consume_reward
+* test_fuse_can_be_selected_and_descendants_use_normal_score
+* test_candidate_and_preview_use_frozen_count
+* test_actual_percent_choice_replays_every_checkpoint
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_loop.gd
+[0m* test_pressure_boundaries_are_completed_actions_and_have_no_death_line
+* test_action_at_pressure_boundary_pays_locked_cost_then_previews_increase
+* test_goal_action_pays_five_before_relief_and_offer_uses_next_stage_base
+* test_five_to_three_to_five_preserves_all_tokens_and_content_random
+* test_direct_match_preserves_modifiers_but_full_clear_pays_locked_refill
+* test_temporary_counts_clamp_at_five_and_both_expire_on_real_refill
+* test_config_roundtrip_rejects_old_budget_and_invalid_pressure
+* test_reset_restores_pressure_without_mutating_other_run_or_config
+* test_birth_match_frees_space_and_remaining_five_piece_batch_finishes
+* test_refill_more_at_five_is_rejected_instead_of_promising_six
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_offers.gd
+[0m* test_pressure_empty_full_and_equal_occupancy_fragmentation
+* test_rescue_factor_is_bounded_monotonic_and_neutral_for_other_skills
+* test_high_pressure_waives_only_rescue_reward_gate
+* test_classic_keeps_original_weight_gate_and_version
+* test_offer_pressure_and_weights_freeze_and_next_group_resamples
+* test_finished_run_cannot_be_rescued_and_invalid_config_is_rejected
+* test_high_pressure_groups_keep_distinct_legal_choices_and_one_utility
+* test_telemetry_pressure_matches_candidate_snapshot_and_does_not_touch_board_rng
+* test_offer_record_emits_frozen_pressure_weights_and_version
+* test_challenge_record_replays_offers_with_current_config
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_reward_waiting_rules.gd
+[0m* test_partial_invalid_offer_keeps_identity_targets_and_random_without_replacement
+* test_all_invalid_offer_rebuilds_same_reward_once_without_consuming_it
+* test_nested_popup_snapshot_isolates_every_target_collection
+* test_second_complete_invalidation_stops_without_new_offer_or_repair
+* test_failed_freeze_keeps_all_formal_streams_identity_and_reward
+* test_one_and_two_card_groups_are_complete_but_zero_pool_is_an_error
+* test_successful_choose_duplicate_keeps_result_and_consumes_once
+* test_command_cannot_acquire_candidate_with_outdated_frozen_level
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_run_controller.gd
+[0m* test_initialization_adds_five_and_ordinary_batch_still_adds_three
+* test_move_commits_match_before_any_presentation
+* test_invalid_and_busy_move_preserve_run_and_random
+* test_full_clear_sampling_uses_current_board_after_reward
+* test_two_spaces_fill_then_third_spawn_fails
+* test_three_spaces_fill_then_final_space_check_fails
+* test_first_birth_match_does_not_stop_remaining_births
+* test_third_birth_match_is_resolved_before_failure
+* test_independent_events_and_intersection_use_correct_counts
+* test_same_seed_and_replacement_run_are_isolated
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_score_ledger.gd
+[0m* test_lengths_use_confirmed_formula
+* test_multiplier_extra_and_event_floor
+* test_independent_and_crossed_groups_score_separately
+* test_entries_are_copies_and_sum_matches_total
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_shape_match_detector.gd
+[0m* test_l_is_explicit_prototype_and_default_stays_straight_only
+* test_rotations_and_mirrors_are_normalized_and_deduplicated
+* test_missing_wrong_color_and_clipped_edges_do_not_match
+* test_extra_same_color_does_not_extend_template
+* test_line_and_l_union_seven_scores_once_and_freezes_geometry
+* test_transitive_shared_entities_merge_but_adjacency_does_not
+* test_query_and_result_mutation_do_not_change_state_or_template
+* test_two_independent_l_groups_receive_quantity_bonus_per_event
+* test_whole_match_batch_leaves_before_first_blast
+* test_invalid_template_is_diagnosed_without_hits_or_state_change
+ERROR: invalid match template: duplicate required cell
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] find_matches (res://gameplay/board/matching/board_match_detector.gd:11)
+       [1] test_invalid_template_is_diagnosed_without_hits_or_state_change (res://tests/rules/test_shape_match_detector.gd:146)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.  
+ERROR: invalid match template: missing or reserved shape identity
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] find_matches (res://gameplay/board/matching/board_match_detector.gd:11)
+       [1] test_invalid_template_is_diagnosed_without_hits_or_state_change (res://tests/rules/test_shape_match_detector.gd:146)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.  
+ERROR: invalid match template: template missing
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] find_matches (res://gameplay/board/matching/board_match_detector.gd:11)
+       [1] test_invalid_template_is_diagnosed_without_hits_or_state_change (res://tests/rules/test_shape_match_detector.gd:146)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.  
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_skill_action_migration.gd
+[0m* test_assign_fuse_marks_and_unlocks_fuse_route
+* test_thin_removes_without_scoring_or_blast
+* test_blast_radius_levels_and_stat_stay_synced
+* test_score_multiplier_repeat_via_choice_effect
+* test_catalog_every_skill_has_effect_root
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_skill_instances.gd
+[0m* test_shared_definitions_and_independent_instances_with_no_template_writes
+* test_upgrade_retains_ability_identity_count_and_authoritative_level
+* test_failed_core_target_does_not_consume_or_install_any_state
+* test_failed_upgrade_does_not_reset_count_or_consume_reward
+* test_core_leaving_keeps_unlock_and_skills_and_reset_discards_instances
+* test_invalid_levels_and_wrong_effect_types_are_rejected_before_changes
+* test_snapshot_includes_runtime_counts_and_nested_level_config
+* test_desynchronized_modifier_refuses_upgrade_without_consumption
+* test_actual_commands_replay_acquisition_and_upgrade_instances
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_skill_recording.gd
+[0m* test_snapshot_ability_instances_expose_debug_links
+* test_explain_matches_adapter_and_records_condition_rejection
+* test_rule_result_activations_locate_consume_after_blast
+* test_replay_describe_error_covers_version_and_truncation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_skill_rewards.gd
+[0m* test_first_offer_has_starter_and_distinct_legal_ids
+* test_empty_board_uses_fallback_and_freezes_offer
+* test_invalid_target_preserves_every_rule_state_and_reward
+* test_fuse_marks_actual_one_target_and_preserves_color
+* test_weight_example_and_live_driver_compensation
+* test_full_caps_exclude_upgrades_and_core_unique
+* test_current_and_future_fuses_share_upgraded_radius_only_in_same_run
+* test_core_landing_resolves_match_without_movement_and_records_once
+* test_core_budget_rejection_does_not_insert_or_consume
+* test_fixed_seed_offers_targets_and_board_stream_are_independent
+* test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades
+[1m11/11 passed.
+[0m[4m
+
+res://tests/rules/test_spawn_preview.gd
+[0m* test_preview_matches_actual_births_and_only_actual_consumption_advances
+* test_direct_match_without_full_clear_preserves_plan_and_temporary_batches
+* test_count_changes_preserve_prefix_and_weights_only_affect_appended_tokens
+* test_position_random_read_only_preview_and_copies_cannot_change_content_plan
+* test_core_candidates_have_locked_fallback_and_actual_unique_constraint
+* test_full_board_does_not_consume_pending_token
+* test_core_birth_uses_all_five_preview_colors_and_fallback_stays_locked
+* test_preview_colored_core_participates_in_same_color_five_match
+* test_non_default_core_birth_replays_from_real_commands
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_special_conversion.gd
+[0m* test_all_types_freeze_zero_one_two_three_and_more_without_replacement
+* test_capabilities_specials_and_ghosts_are_never_overwritten
+* test_duplicate_stale_and_newly_marked_targets_reject_atomically
+* test_conversion_instances_are_independent_and_manual_quota_is_not_refilled
+* test_converted_row_column_core_chain_uses_type_upgrades_and_single_use_instances
+* test_real_files_replay_all_three_conversion_commands
+* test_telemetry_records_transformation_without_counting_births_removals_or_score
+* test_composite_keeps_both_batches_of_transformation_results
+* test_fixed_conversion_keeps_invalidated_sources_without_resampling
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_stage_challenge.gd
+[0m* test_score_shortfall_does_not_end_at_old_tenth_action
+* test_last_action_passes_only_after_tail_and_grants_one_reward
+* test_one_point_short_keeps_playing_and_does_not_grant_reward
+* test_final_stage_completes_without_card_and_total_is_not_debited
+* test_board_full_wins_over_carry_and_actual_refill_finishes_first
+* test_carry_cannot_auto_pass_next_stage_and_rewards_do_not_use_actions
+* test_instant_choice_scores_next_goal_without_consuming_action_or_auto_pass
+* test_invalid_and_duplicate_commands_preserve_stage_and_random
+* test_active_core_counts_one_action_even_with_zero_score
+* test_invalid_config_refuses_before_births_and_state_is_owned
+* test_exact_replay_and_terminal_classification_for_challenge
+* test_bot_challenge_ends_only_at_real_board_full_and_exact_replay
+* test_classic_mode_still_grants_score_rewards_without_stage_budget
+* test_bot_prepares_stage_reward_before_requesting_a_skill_command
+* test_choice_excess_counts_but_waits_for_new_action
+[1m15/15 passed.
+[0m[4m
+
+res://tests/rules/test_target_freeze.gd
+[0m* test_source_and_other_run_cannot_change_frozen_curve_or_hash
+* test_burst_keeps_more_carry_without_pricing_up_following_targets
+* test_choice_points_and_extra_choices_do_not_change_frozen_targets
+* test_curve_provenance_round_trips_and_invalid_reference_is_rejected
+* test_curve_fields_are_in_record_header_and_exact_replay
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_telemetry.gd
+[0m* test_collecting_and_failed_sink_do_not_change_rules_or_random_streams
+WARNING: 本局分析记录不完整：test_write_failure
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] flush_pending (res://services/telemetry/telemetry_projector.gd:240)
+       [2] play (res://tools/bot_testing/bot_runner.gd:27)
+       [3] test_collecting_and_failed_sink_do_not_change_rules_or_random_streams (res://tests/rules/test_telemetry.gd:59)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_generated_without_visible_popup_is_not_human_exposure
+* test_repeated_presentation_failed_choice_and_duplicate_confirmation_are_deduplicated
+* test_bot_opportunities_use_generated_offers_without_fake_presentations
+* test_exported_csv_keeps_the_complete_event_envelope
+* test_clock_priority_focus_and_closing_total_are_exclusive
+* test_inputs_have_one_terminal_disposition_and_command_link
+* test_turn_aggregates_chain_and_generated_entities_once
+* test_local_sink_readback_precision_truncation_and_schema_rejection
+* test_core_json_strategy_works_without_autoload_and_preserves_null_error_boundary
+* test_overlapping_prefix_and_complete_files_count_one_run
+* test_experiment_variant_and_bot_configuration_are_separate_groups
+* test_active_core_turn_counts_source_removal_and_reports_action
+[1m13/13 passed.
+[0m[4m
+
+res://tests/rules/test_trial_progression.gd
+[0m* test_one_thousand_points_grants_four_rewards_and_progress_uses_actual_interval
+* test_milestones_are_strictly_increasing_including_tail
+* test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores
+* test_thinning_invalid_target_preserves_whole_action
+* test_midgame_pool_includes_new_utility_and_freezes_real_targets
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_trigger_strength.gd
+[0m* test_s01_radius_upgrade_does_not_change_queued_blast
+* test_s02_upgrade_before_trigger_affects_new_blast
+* test_s03_reward_and_fixed_bonus_freeze_at_trigger
+* test_s04_removed_target_is_not_paid_or_revived
+* test_s05_new_target_is_selected_at_execution
+* test_s06_descendant_samples_its_own_new_strength
+* test_s08_config_mutation_and_other_run_do_not_change_queued_strength
+* test_line_band_and_score_coefficients_freeze_but_targets_remain_live
+* test_target_mark_is_live_but_mark_reward_coefficient_is_frozen
+* test_source_filter_is_frozen_not_retroactively_installed
+* test_s07_nested_composite_preserves_trigger_order
+* test_snapshot_and_record_distinguish_strength_from_actual_targets
+[1m12/12 passed.
+[0m[4m
+
+res://tests/test_core_loop.gd
+[0m* test_occupied_start_can_move_and_restores_obstacle
+* test_compatibility_writes_refresh_special_tooltips_at_rest
+* test_click_move_advances_one_turn_and_spawns_three
+* test_blocked_move_preserves_turn_score_and_occupancy
+* test_five_match_scores_and_clears_without_stale_references
+* test_partial_spawn_fills_last_empty_cell_and_ends_once
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_spawn_checks_match_before_full_board_failure
+* test_crossed_lines_deduplicate
+* test_four_does_not_match_and_diagonal_five_does
+* test_full_clear_repopulates_and_returns_to_input
+* test_failed_spawn_does_not_offer_pending_rescue_reward
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_candidate_ids_are_distinct
+* test_reward_filling_last_space_ends_before_next_reward
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_retry_clears_score_obstacles_and_upgrade_state
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_rewards_queue_and_selection_applies_once
+* test_f7_uses_real_reward_popup_and_returns_to_same_turn
+* test_partial_invalid_core_target_keeps_offer_without_consuming_reward
+* test_old_skill_callback_after_retry_cannot_modify_new_run
+* test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids
+* test_coordinator_rejects_rebuild_during_move_and_finishes_once
+* test_retry_cancels_old_move_without_advancing_new_turn
+* test_extra_score_does_not_exempt_ordinary_spawn
+* test_score_reset_notifies_display_and_replaces_ledger
+* test_move_rules_are_committed_while_animation_is_pending
+* test_presenting_committed_result_twice_does_not_repeat_effects
+* test_fast_and_slow_move_playback_have_identical_rule_results
+[1m26/26 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts              88
+Tests               645
+Passing Tests       645
+Asserts           22982
+Time              220.111s
+
+
+[32m---- All tests passed! ----
+[0m
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Orphan StringName: Vector2 (static: 0, total: 1)
+Orphan StringName: Vector3 (static: 0, total: 1)
+Orphan StringName: Vector4 (static: 0, total: 1)
+Orphan StringName: PackedVector4Array (static: 0, total: 1)
+Orphan StringName: RID (static: 0, total: 1)
+Orphan StringName: Color (static: 0, total: 1)
+Orphan StringName: PackedByteArray (static: 0, total: 1)
+Orphan StringName: Vector2i (static: 0, total: 1)
+Orphan StringName: Callable (static: 0, total: 1)
+Orphan StringName: Vector3i (static: 0, total: 1)
+Orphan StringName: Vector4i (static: 0, total: 1)
+Orphan StringName: PackedStringArray (static: 0, total: 1)
+Orphan StringName: Basis (static: 0, total: 1)
+Orphan StringName: int (static: 0, total: 1)
+Orphan StringName: PackedFloat32Array (static: 0, total: 1)
+Orphan StringName: Plane (static: 0, total: 1)
+Orphan StringName: PackedFloat64Array (static: 0, total: 1)
+Orphan StringName: NodePath (static: 0, total: 1)
+Orphan StringName: Signal (static: 0, total: 1)
+Orphan StringName: StringName (static: 0, total: 1)
+Orphan StringName: String (static: 0, total: 1)
+Orphan StringName: Transform2D (static: 0, total: 1)
+Orphan StringName: Transform3D (static: 0, total: 1)
+Orphan StringName: Array (static: 0, total: 1)
+Orphan StringName: Quaternion (static: 0, total: 1)
+Orphan StringName: bool (static: 0, total: 1)
+Orphan StringName: PackedColorArray (static: 0, total: 1)
+Orphan StringName: PackedVector2Array (static: 0, total: 1)
+Orphan StringName: Object (static: 1, total: 2)
+Orphan StringName: AABB (static: 0, total: 1)
+Orphan StringName: float (static: 0, total: 1)
+Orphan StringName: Dictionary (static: 0, total: 1)
+Orphan StringName: Projection (static: 0, total: 1)
+Orphan StringName: Rect2 (static: 0, total: 1)
+Orphan StringName: PackedVector3Array (static: 0, total: 1)
+Orphan StringName: PackedInt32Array (static: 0, total: 1)
+Orphan StringName: Rect2i (static: 0, total: 1)
+Orphan StringName: PackedInt64Array (static: 0, total: 1)
+StringName: 38 unclaimed string names at exit.

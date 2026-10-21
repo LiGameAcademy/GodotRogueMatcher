@@ -1,0 +1,42 @@
+[
+  {
+    "file": ".gitattributes",
+    "bytes": 13,
+    "sha256": "d91263f8075671bd30be9efc2b2cff966cb0c46ab41280e44e71175dede42226"
+  },
+  {
+    "file": "config-green.log",
+    "bytes": 55640,
+    "sha256": "e4b01b8dd6f172b85039acbcd213bf8dfaabf7b824645cf017f72083c744f490"
+  },
+  {
+    "file": "config-red.log",
+    "bytes": 55138,
+    "sha256": "fffbaa63cac3be6108afe7dbd93a558e0ea29abaf1b2eaabe2efcf7d5c66eb24"
+  },
+  {
+    "file": "full-output.log",
+    "bytes": 152788,
+    "sha256": "493fef92d4fdaa75170310d7d959eeb5054056666759082499a273f144a05c7c"
+  },
+  {
+    "file": "golden-replay.log",
+    "bytes": 235,
+    "sha256": "548e1ba90298abb0789de887f6beba808ef7d28fc3133928b7afee6737d464f4"
+  },
+  {
+    "file": "line-counts.json",
+    "bytes": 26620,
+    "sha256": "230ad146e049ead27c48079f602a28a3b1d1cdd50965db599ecbcdf66bd57943"
+  },
+  {
+    "file": "script-results.json",
+    "bytes": 9648,
+    "sha256": "cb0d08deababdd5f47b91296cc49e9cdbf95b6bc15e9b38fc6d1c9abf4f08655"
+  },
+  {
+    "file": "summary.json",
+    "bytes": 260,
+    "sha256": "11ec0c11c5fd203551b5c255645f4783f6a8105fd0047bf20c128d214af9f98d"
+  }
+]
