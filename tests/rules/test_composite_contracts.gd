@@ -259,3 +259,20 @@ func test_atomic_consumed_material_clears_only_its_dye_mark() -> void:
 	assert_true(Fixture.apply(run, current).success)
 	assert_false(run.state.dye.marks.has(target.cost_piece_ids[0]))
 	assert_true(run.state.dye.marks.has(target.piece_ids[0]))
+
+func test_fixed_dye_nonempty_frozen_color_survives_single_color_board() -> void:
+	var run: RunController = Fixture.run()
+	var dye: Fixture.FixedDye = Fixture.FixedDye.new()
+	var id: int = run.state.rules.state.get_piece_at(Vector2i(5, 2)).piece_id
+	dye.ids = [id]
+	dye.selected = 0
+	dye.allow_empty_targets = true
+	var effect: CompositeEffect = CompositeEffect.new()
+	effect.children = [dye]
+	var current: SkillOffer = Fixture.offer(run, effect)
+	assert_not_null(current)
+	if current == null: return
+	for piece: PieceState in run.state.rules.state.get_snapshot():
+		if piece.piece_id != id: run.state.rules.remove_piece(piece.piece_id)
+	assert_true(Fixture.apply(run, current).success)
+	assert_eq(run.state.rules.state.get_piece(id).match_color, 0)

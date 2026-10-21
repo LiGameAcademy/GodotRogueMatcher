@@ -46,7 +46,10 @@ func _child_rejection(context: ChoiceEffectContext) -> String:
 func empty_targets_allowed(context: ChoiceEffectContext) -> bool:
 	if children.is_empty(): return false
 	for child: SkillEffect in children:
-		if child is ChoiceEffect and not (child as ChoiceEffect).empty_targets_allowed(context): return false
+		if child is ChoiceEffect:
+			var choice: ChoiceEffect = child as ChoiceEffect
+			# A fixed leaf may still repaint to a color no longer present on the board.
+			if not choice.dynamic_targets() or not choice.empty_targets_allowed(context): return false
 		if child is CompositeEffect and not (child as CompositeEffect).empty_targets_allowed(context): return false
 	return true
 
