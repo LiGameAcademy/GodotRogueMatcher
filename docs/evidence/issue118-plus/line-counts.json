@@ -1,0 +1,1358 @@
+[
+  {
+    "file": "gameplay/game.gd",
+    "lines": 437
+  },
+  {
+    "file": "gameplay/game_reward_flow.gd",
+    "lines": 128
+  },
+  {
+    "file": "gameplay/board/board.gd",
+    "lines": 474
+  },
+  {
+    "file": "gameplay/board/board_input_buffer.gd",
+    "lines": 38
+  },
+  {
+    "file": "gameplay/board/board_match_group.gd",
+    "lines": 6
+  },
+  {
+    "file": "gameplay/board/board_move_result.gd",
+    "lines": 11
+  },
+  {
+    "file": "gameplay/board/board_pressure.gd",
+    "lines": 31
+  },
+  {
+    "file": "gameplay/board/board_rules.gd",
+    "lines": 120
+  },
+  {
+    "file": "gameplay/board/board_run_flow.gd",
+    "lines": 46
+  },
+  {
+    "file": "gameplay/board/board_state.gd",
+    "lines": 85
+  },
+  {
+    "file": "gameplay/board/board_view.gd",
+    "lines": 397
+  },
+  {
+    "file": "gameplay/board/match_system.gd",
+    "lines": 15
+  },
+  {
+    "file": "gameplay/board/piece_state.gd",
+    "lines": 18
+  },
+  {
+    "file": "gameplay/items/gameplay_condition.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/items/gameplay_effect.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/items/item_data.gd",
+    "lines": 71
+  },
+  {
+    "file": "gameplay/items/item_effect_config.gd",
+    "lines": 41
+  },
+  {
+    "file": "gameplay/items/item_registry.gd",
+    "lines": 107
+  },
+  {
+    "file": "gameplay/presentation/board_juice_config.gd",
+    "lines": 15
+  },
+  {
+    "file": "gameplay/presentation/game_feedback.gd",
+    "lines": 56
+  },
+  {
+    "file": "gameplay/presentation/glow_effect.gd",
+    "lines": 41
+  },
+  {
+    "file": "gameplay/presentation/move_path_visual.gd",
+    "lines": 31
+  },
+  {
+    "file": "gameplay/presentation/playback_plan_builder.gd",
+    "lines": 89
+  },
+  {
+    "file": "gameplay/presentation/player_preferences.gd",
+    "lines": 39
+  },
+  {
+    "file": "gameplay/presentation/presentation_config.gd",
+    "lines": 8
+  },
+  {
+    "file": "gameplay/presentation/presentation_director.gd",
+    "lines": 152
+  },
+  {
+    "file": "gameplay/presentation/presentation_step.gd",
+    "lines": 11
+  },
+  {
+    "file": "gameplay/progression/composite_skill_target.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/progression/level_up_system.gd",
+    "lines": 38
+  },
+  {
+    "file": "gameplay/progression/offer_config.gd",
+    "lines": 15
+  },
+  {
+    "file": "gameplay/progression/progression_config.gd",
+    "lines": 13
+  },
+  {
+    "file": "gameplay/progression/progression_state.gd",
+    "lines": 20
+  },
+  {
+    "file": "gameplay/progression/rescue_offer_config.gd",
+    "lines": 15
+  },
+  {
+    "file": "gameplay/progression/rescue_offer_rules.gd",
+    "lines": 23
+  },
+  {
+    "file": "gameplay/progression/reward_offer_rules.gd",
+    "lines": 71
+  },
+  {
+    "file": "gameplay/progression/reward_state.gd",
+    "lines": 18
+  },
+  {
+    "file": "gameplay/progression/skill_apply_result.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/progression/skill_definition.gd",
+    "lines": 85
+  },
+  {
+    "file": "gameplay/progression/skill_instance.gd",
+    "lines": 43
+  },
+  {
+    "file": "gameplay/progression/skill_level_definition.gd",
+    "lines": 20
+  },
+  {
+    "file": "gameplay/progression/skill_offer.gd",
+    "lines": 39
+  },
+  {
+    "file": "gameplay/progression/skill_offer_generator.gd",
+    "lines": 232
+  },
+  {
+    "file": "gameplay/progression/skill_rules.gd",
+    "lines": 185
+  },
+  {
+    "file": "gameplay/progression/skill_target.gd",
+    "lines": 49
+  },
+  {
+    "file": "gameplay/run/command_result.gd",
+    "lines": 9
+  },
+  {
+    "file": "gameplay/run/empty_board_recovery.gd",
+    "lines": 40
+  },
+  {
+    "file": "gameplay/run/game_manager.gd",
+    "lines": 73
+  },
+  {
+    "file": "gameplay/run/match_result.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/run/run_config.gd",
+    "lines": 5
+  },
+  {
+    "file": "gameplay/run/run_controller.gd",
+    "lines": 397
+  },
+  {
+    "file": "gameplay/run/run_state.gd",
+    "lines": 78
+  },
+  {
+    "file": "gameplay/run/run_step_result.gd",
+    "lines": 11
+  },
+  {
+    "file": "gameplay/run/spawn_config.gd",
+    "lines": 10
+  },
+  {
+    "file": "gameplay/run/spawn_result.gd",
+    "lines": 7
+  },
+  {
+    "file": "gameplay/run/spawn_state.gd",
+    "lines": 87
+  },
+  {
+    "file": "gameplay/run/spawn_token.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/run/turn_result.gd",
+    "lines": 8
+  },
+  {
+    "file": "gameplay/scoring/legacy_score_modifiers.gd",
+    "lines": 31
+  },
+  {
+    "file": "gameplay/scoring/score_entry.gd",
+    "lines": 29
+  },
+  {
+    "file": "gameplay/scoring/score_ledger.gd",
+    "lines": 43
+  },
+  {
+    "file": "gameplay/skills/ability_activation.gd",
+    "lines": 10
+  },
+  {
+    "file": "gameplay/skills/ability_definition.gd",
+    "lines": 15
+  },
+  {
+    "file": "gameplay/skills/ability_effect_runner.gd",
+    "lines": 303
+  },
+  {
+    "file": "gameplay/skills/ability_event.gd",
+    "lines": 24
+  },
+  {
+    "file": "gameplay/skills/ability_events.gd",
+    "lines": 149
+  },
+  {
+    "file": "gameplay/skills/ability_instance.gd",
+    "lines": 12
+  },
+  {
+    "file": "gameplay/skills/ability_resolver.gd",
+    "lines": 394
+  },
+  {
+    "file": "gameplay/skills/ability_trigger_adapter.gd",
+    "lines": 85
+  },
+  {
+    "file": "gameplay/skills/blast_request.gd",
+    "lines": 14
+  },
+  {
+    "file": "gameplay/skills/demolition_action_state.gd",
+    "lines": 8
+  },
+  {
+    "file": "gameplay/skills/demolition_config.gd",
+    "lines": 20
+  },
+  {
+    "file": "gameplay/skills/demolition_rules.gd",
+    "lines": 87
+  },
+  {
+    "file": "gameplay/skills/explosion_config.gd",
+    "lines": 12
+  },
+  {
+    "file": "gameplay/skills/explosion_state.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/skills/fuse_plant_trigger.gd",
+    "lines": 27
+  },
+  {
+    "file": "gameplay/skills/line_clear_config.gd",
+    "lines": 10
+  },
+  {
+    "file": "gameplay/skills/line_clear_rules.gd",
+    "lines": 24
+  },
+  {
+    "file": "gameplay/skills/line_clear_state.gd",
+    "lines": 29
+  },
+  {
+    "file": "gameplay/skills/manual_activation_rules.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/skills/removal_strength.gd",
+    "lines": 55
+  },
+  {
+    "file": "gameplay/tutorial/tutorial_config.gd",
+    "lines": 15
+  },
+  {
+    "file": "gameplay/tutorial/tutorial_session.gd",
+    "lines": 71
+  },
+  {
+    "file": "gameplay/skills/conditions/always_ability_condition.gd",
+    "lines": 6
+  },
+  {
+    "file": "gameplay/skills/conditions/removal_cause_condition.gd",
+    "lines": 14
+  },
+  {
+    "file": "gameplay/skills/debug/demolition_demo.gd",
+    "lines": 27
+  },
+  {
+    "file": "gameplay/skills/debug/dye_demo.gd",
+    "lines": 16
+  },
+  {
+    "file": "gameplay/skills/debug/explosion_demo.gd",
+    "lines": 14
+  },
+  {
+    "file": "gameplay/skills/debug/line_clear_demo.gd",
+    "lines": 59
+  },
+  {
+    "file": "gameplay/skills/debug/shape_unlock_demo.gd",
+    "lines": 32
+  },
+  {
+    "file": "gameplay/skills/debug/transformation_demo.gd",
+    "lines": 20
+  },
+  {
+    "file": "gameplay/skills/dye/dye_config.gd",
+    "lines": 11
+  },
+  {
+    "file": "gameplay/skills/dye/dye_rules.gd",
+    "lines": 105
+  },
+  {
+    "file": "gameplay/skills/dye/dye_state.gd",
+    "lines": 24
+  },
+  {
+    "file": "gameplay/skills/dye/dye_trigger.gd",
+    "lines": 47
+  },
+  {
+    "file": "gameplay/skills/effects/composite_effect.gd",
+    "lines": 72
+  },
+  {
+    "file": "gameplay/skills/effects/explode_effect.gd",
+    "lines": 13
+  },
+  {
+    "file": "gameplay/skills/effects/line_sweep_effect.gd",
+    "lines": 20
+  },
+  {
+    "file": "gameplay/skills/effects/skill_effect.gd",
+    "lines": 9
+  },
+  {
+    "file": "gameplay/run/commands/activate_line_command.gd",
+    "lines": 4
+  },
+  {
+    "file": "gameplay/run/commands/choose_skill_command.gd",
+    "lines": 7
+  },
+  {
+    "file": "gameplay/run/commands/continue_challenge_command.gd",
+    "lines": 2
+  },
+  {
+    "file": "gameplay/run/commands/detonate_core_command.gd",
+    "lines": 4
+  },
+  {
+    "file": "gameplay/run/commands/move_piece_command.gd",
+    "lines": 5
+  },
+  {
+    "file": "gameplay/run/commands/run_command.gd",
+    "lines": 14
+  },
+  {
+    "file": "gameplay/run/modes/game_modes.gd",
+    "lines": 11
+  },
+  {
+    "file": "gameplay/run/modes/game_mode_definition.gd",
+    "lines": 8
+  },
+  {
+    "file": "gameplay/run/recording/command_codec.gd",
+    "lines": 70
+  },
+  {
+    "file": "gameplay/run/recording/run_recorder.gd",
+    "lines": 158
+  },
+  {
+    "file": "gameplay/run/recording/run_snapshot.gd",
+    "lines": 170
+  },
+  {
+    "file": "gameplay/run/replay/rule_replay.gd",
+    "lines": 192
+  },
+  {
+    "file": "gameplay/progression/effects/assign_fuse_effect.gd",
+    "lines": 59
+  },
+  {
+    "file": "gameplay/progression/effects/atomic_transform_effect.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/progression/effects/choice_effect.gd",
+    "lines": 41
+  },
+  {
+    "file": "gameplay/progression/effects/choice_effect_context.gd",
+    "lines": 28
+  },
+  {
+    "file": "gameplay/progression/effects/choice_effect_request.gd",
+    "lines": 18
+  },
+  {
+    "file": "gameplay/progression/effects/clear_material_effect.gd",
+    "lines": 92
+  },
+  {
+    "file": "gameplay/progression/effects/color_weight_effect.gd",
+    "lines": 43
+  },
+  {
+    "file": "gameplay/progression/effects/demolition_stat_effect.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/progression/effects/dye_material_effect.gd",
+    "lines": 74
+  },
+  {
+    "file": "gameplay/progression/effects/ignite_fuses_effect.gd",
+    "lines": 18
+  },
+  {
+    "file": "gameplay/progression/effects/install_dye_upgrade_effect.gd",
+    "lines": 22
+  },
+  {
+    "file": "gameplay/progression/effects/install_goal_bonus_effect.gd",
+    "lines": 25
+  },
+  {
+    "file": "gameplay/progression/effects/install_line_upgrade_effect.gd",
+    "lines": 28
+  },
+  {
+    "file": "gameplay/progression/effects/install_upgrade_effect.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/progression/effects/percent_clear_effect.gd",
+    "lines": 43
+  },
+  {
+    "file": "gameplay/progression/effects/refill_count_effect.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/progression/effects/thin_material_effect.gd",
+    "lines": 45
+  },
+  {
+    "file": "gameplay/progression/effects/transform_material_effect.gd",
+    "lines": 54
+  },
+  {
+    "file": "gameplay/progression/effects/unlock_core_supply_effect.gd",
+    "lines": 26
+  },
+  {
+    "file": "gameplay/progression/effects/unlock_line_supply_effect.gd",
+    "lines": 31
+  },
+  {
+    "file": "gameplay/progression/effects/unlock_shape_effect.gd",
+    "lines": 18
+  },
+  {
+    "file": "gameplay/progression/stages/goal_completion_rules.gd",
+    "lines": 16
+  },
+  {
+    "file": "gameplay/progression/stages/stage_config.gd",
+    "lines": 45
+  },
+  {
+    "file": "gameplay/progression/stages/stage_result.gd",
+    "lines": 25
+  },
+  {
+    "file": "gameplay/progression/stages/stage_state.gd",
+    "lines": 117
+  },
+  {
+    "file": "gameplay/presentation/board_signal_effect/board_signal_config.gd",
+    "lines": 10
+  },
+  {
+    "file": "gameplay/presentation/board_signal_effect/board_signal_effect.gd",
+    "lines": 60
+  },
+  {
+    "file": "gameplay/presentation/explosion_visual/explosion_visual.gd",
+    "lines": 42
+  },
+  {
+    "file": "gameplay/presentation/game_background/background_flow_config.gd",
+    "lines": 9
+  },
+  {
+    "file": "gameplay/presentation/game_background/game_background.gd",
+    "lines": 65
+  },
+  {
+    "file": "gameplay/presentation/game_theme/board_appearance.gd",
+    "lines": 17
+  },
+  {
+    "file": "gameplay/presentation/game_theme/game_theme.gd",
+    "lines": 21
+  },
+  {
+    "file": "gameplay/presentation/game_theme/game_themes.gd",
+    "lines": 9
+  },
+  {
+    "file": "gameplay/presentation/line_clear_visual/line_clear_visual.gd",
+    "lines": 49
+  },
+  {
+    "file": "gameplay/presentation/score_float/score_float.gd",
+    "lines": 85
+  },
+  {
+    "file": "gameplay/presentation/score_float/score_float_config.gd",
+    "lines": 24
+  },
+  {
+    "file": "gameplay/presentation/score_float/score_float_layer.gd",
+    "lines": 68
+  },
+  {
+    "file": "gameplay/items/conditions/condition_in_range.gd",
+    "lines": 50
+  },
+  {
+    "file": "gameplay/items/conditions/condition_piece_color.gd",
+    "lines": 35
+  },
+  {
+    "file": "gameplay/items/conditions/condition_timing.gd",
+    "lines": 30
+  },
+  {
+    "file": "gameplay/items/effects/effect_add_score.gd",
+    "lines": 39
+  },
+  {
+    "file": "gameplay/items/effects/effect_destroy_pieces.gd",
+    "lines": 32
+  },
+  {
+    "file": "gameplay/items/effects/effect_dye_piece.gd",
+    "lines": 37
+  },
+  {
+    "file": "gameplay/board/cell/cell.gd",
+    "lines": 113
+  },
+  {
+    "file": "gameplay/board/matching/board_match_detector.gd",
+    "lines": 101
+  },
+  {
+    "file": "gameplay/board/matching/board_match_hit.gd",
+    "lines": 22
+  },
+  {
+    "file": "gameplay/board/matching/match_shape_template.gd",
+    "lines": 65
+  },
+  {
+    "file": "gameplay/board/matching/shape_unlock_state.gd",
+    "lines": 41
+  },
+  {
+    "file": "gameplay/board/piece/chess_piece.gd",
+    "lines": 368
+  },
+  {
+    "file": "gameplay/board/piece/piece_aura.gd",
+    "lines": 31
+  },
+  {
+    "file": "gameplay/board/piece/piece_tooltip.gd",
+    "lines": 56
+  },
+  {
+    "file": "ui/color_target_picker.gd",
+    "lines": 95
+  },
+  {
+    "file": "ui/game_theme_ui.gd",
+    "lines": 27
+  },
+  {
+    "file": "ui/hud.gd",
+    "lines": 239
+  },
+  {
+    "file": "ui/hud_details.gd",
+    "lines": 86
+  },
+  {
+    "file": "ui/item_tooltip.gd",
+    "lines": 48
+  },
+  {
+    "file": "ui/item_widget.gd",
+    "lines": 229
+  },
+  {
+    "file": "ui/popup_game_over.gd",
+    "lines": 56
+  },
+  {
+    "file": "ui/popup_level_up.gd",
+    "lines": 163
+  },
+  {
+    "file": "ui/popup_skill_choice.gd",
+    "lines": 228
+  },
+  {
+    "file": "ui/score_tooltip.gd",
+    "lines": 20
+  },
+  {
+    "file": "ui/skill_card.gd",
+    "lines": 153
+  },
+  {
+    "file": "ui/skill_choice_text.gd",
+    "lines": 82
+  },
+  {
+    "file": "ui/skill_details.gd",
+    "lines": 12
+  },
+  {
+    "file": "ui/skill_rarity.gd",
+    "lines": 34
+  },
+  {
+    "file": "ui/skill_text.gd",
+    "lines": 10
+  },
+  {
+    "file": "ui/spawn_preview.gd",
+    "lines": 47
+  },
+  {
+    "file": "ui/stage_text.gd",
+    "lines": 23
+  },
+  {
+    "file": "ui/ui_manager.gd",
+    "lines": 64
+  },
+  {
+    "file": "ui/build_card/build_card.gd",
+    "lines": 41
+  },
+  {
+    "file": "ui/build_list/build_list.gd",
+    "lines": 38
+  },
+  {
+    "file": "ui/card_transfer/card_transfer.gd",
+    "lines": 34
+  },
+  {
+    "file": "ui/collection_controls/collection_controls.gd",
+    "lines": 23
+  },
+  {
+    "file": "ui/goal_progress/goal_progress.gd",
+    "lines": 163
+  },
+  {
+    "file": "ui/goal_progress/goal_progress_config.gd",
+    "lines": 9
+  },
+  {
+    "file": "ui/goal_progress/goal_progress_text.gd",
+    "lines": 22
+  },
+  {
+    "file": "ui/goal_progress/score_mote.gd",
+    "lines": 51
+  },
+  {
+    "file": "ui/piece_pool/piece_pool.gd",
+    "lines": 85
+  },
+  {
+    "file": "ui/piece_pool/spawn_pool_text.gd",
+    "lines": 23
+  },
+  {
+    "file": "ui/playback_settings/playback_settings.gd",
+    "lines": 127
+  },
+  {
+    "file": "ui/release_menu/release_menu.gd",
+    "lines": 110
+  },
+  {
+    "file": "ui/skill_pool/skill_pool.gd",
+    "lines": 126
+  },
+  {
+    "file": "ui/skill_pool/skill_pool_query.gd",
+    "lines": 24
+  },
+  {
+    "file": "ui/skill_pool/skill_pool_text.gd",
+    "lines": 31
+  },
+  {
+    "file": "ui/tutorial/tutorial.gd",
+    "lines": 170
+  },
+  {
+    "file": "services/telemetry/board_observation.gd",
+    "lines": 62
+  },
+  {
+    "file": "services/telemetry/collection_session.gd",
+    "lines": 96
+  },
+  {
+    "file": "services/telemetry/local_jsonl_sink.gd",
+    "lines": 79
+  },
+  {
+    "file": "services/telemetry/run_collection.gd",
+    "lines": 165
+  },
+  {
+    "file": "services/telemetry/telemetry_clock.gd",
+    "lines": 28
+  },
+  {
+    "file": "services/telemetry/telemetry_config.gd",
+    "lines": 9
+  },
+  {
+    "file": "services/telemetry/telemetry_factory.gd",
+    "lines": 32
+  },
+  {
+    "file": "services/telemetry/telemetry_facts.gd",
+    "lines": 30
+  },
+  {
+    "file": "services/telemetry/telemetry_projector.gd",
+    "lines": 277
+  },
+  {
+    "file": "services/telemetry/telemetry_reader.gd",
+    "lines": 56
+  },
+  {
+    "file": "services/telemetry/telemetry_schema.gd",
+    "lines": 174
+  },
+  {
+    "file": "services/telemetry/telemetry_sink.gd",
+    "lines": 11
+  },
+  {
+    "file": "services/telemetry/telemetry_summary.gd",
+    "lines": 41
+  },
+  {
+    "file": "services/telemetry/telemetry_turn.gd",
+    "lines": 70
+  },
+  {
+    "file": "services/telemetry/telemetry_write_result.gd",
+    "lines": 13
+  },
+  {
+    "file": "tools/bot_testing/batch_cli.gd",
+    "lines": 15
+  },
+  {
+    "file": "tools/bot_testing/batch_job.gd",
+    "lines": 117
+  },
+  {
+    "file": "tools/bot_testing/bot_config.gd",
+    "lines": 13
+  },
+  {
+    "file": "tools/bot_testing/bot_runner.gd",
+    "lines": 73
+  },
+  {
+    "file": "tools/bot_testing/greedy_bot.gd",
+    "lines": 74
+  },
+  {
+    "file": "tools/bot_testing/paired_job.gd",
+    "lines": 65
+  },
+  {
+    "file": "tools/bot_testing/paired_window.gd",
+    "lines": 141
+  },
+  {
+    "file": "tools/bot_testing/pressure_batch_report.gd",
+    "lines": 82
+  },
+  {
+    "file": "tools/bot_testing/random_legal_bot.gd",
+    "lines": 2
+  },
+  {
+    "file": "tools/bot_testing/record_view_data.gd",
+    "lines": 97
+  },
+  {
+    "file": "tools/bot_testing/result_viewer.gd",
+    "lines": 191
+  },
+  {
+    "file": "tools/bot_testing/rule_bot.gd",
+    "lines": 93
+  },
+  {
+    "file": "tools/bot_testing/run_analysis.gd",
+    "lines": 136
+  },
+  {
+    "file": "tools/telemetry_analysis/analysis_cli.gd",
+    "lines": 31
+  },
+  {
+    "file": "tools/telemetry_analysis/collection_benchmark.gd",
+    "lines": 84
+  },
+  {
+    "file": "tools/telemetry_analysis/collection_probe.gd",
+    "lines": 45
+  },
+  {
+    "file": "tools/telemetry_analysis/telemetry_report.gd",
+    "lines": 165
+  },
+  {
+    "file": "tools/ux_capture/background_capture.gd",
+    "lines": 119
+  },
+  {
+    "file": "tools/ux_capture/demolition_capture.gd",
+    "lines": 107
+  },
+  {
+    "file": "tools/ux_capture/game_theme_capture.gd",
+    "lines": 69
+  },
+  {
+    "file": "tools/ux_capture/goal_progress_capture.gd",
+    "lines": 76
+  },
+  {
+    "file": "tools/ux_capture/score_float_capture.gd",
+    "lines": 46
+  },
+  {
+    "file": "tools/ux_capture/settings_capture.gd",
+    "lines": 44
+  },
+  {
+    "file": "tools/ux_capture/skill_copy_capture.gd",
+    "lines": 121
+  },
+  {
+    "file": "tools/ux_capture/skill_ux_capture.gd",
+    "lines": 119
+  },
+  {
+    "file": "tests/test_core_loop.gd",
+    "lines": 448
+  },
+  {
+    "file": "tests/integration/test_board_juice.gd",
+    "lines": 94
+  },
+  {
+    "file": "tests/integration/test_board_signal.gd",
+    "lines": 119
+  },
+  {
+    "file": "tests/integration/test_board_view.gd",
+    "lines": 168
+  },
+  {
+    "file": "tests/integration/test_build_cards.gd",
+    "lines": 123
+  },
+  {
+    "file": "tests/integration/test_command_scene.gd",
+    "lines": 78
+  },
+  {
+    "file": "tests/integration/test_composite_contract_scene.gd",
+    "lines": 130
+  },
+  {
+    "file": "tests/integration/test_conversion_scene.gd",
+    "lines": 84
+  },
+  {
+    "file": "tests/integration/test_core_preview_color.gd",
+    "lines": 156
+  },
+  {
+    "file": "tests/integration/test_expanded_skill_scene.gd",
+    "lines": 121
+  },
+  {
+    "file": "tests/integration/test_explosion_loop.gd",
+    "lines": 95
+  },
+  {
+    "file": "tests/integration/test_feedback_settings.gd",
+    "lines": 146
+  },
+  {
+    "file": "tests/integration/test_game_background.gd",
+    "lines": 154
+  },
+  {
+    "file": "tests/integration/test_game_layout.gd",
+    "lines": 144
+  },
+  {
+    "file": "tests/integration/test_game_themes.gd",
+    "lines": 173
+  },
+  {
+    "file": "tests/integration/test_goal_progress.gd",
+    "lines": 87
+  },
+  {
+    "file": "tests/integration/test_hud.gd",
+    "lines": 181
+  },
+  {
+    "file": "tests/integration/test_input_buffer.gd",
+    "lines": 115
+  },
+  {
+    "file": "tests/integration/test_line_clear_visual.gd",
+    "lines": 152
+  },
+  {
+    "file": "tests/integration/test_localization.gd",
+    "lines": 102
+  },
+  {
+    "file": "tests/integration/test_manual_line_scene.gd",
+    "lines": 159
+  },
+  {
+    "file": "tests/integration/test_playback_settings.gd",
+    "lines": 147
+  },
+  {
+    "file": "tests/integration/test_plus_template_scene.gd",
+    "lines": 77
+  },
+  {
+    "file": "tests/integration/test_presentation_director.gd",
+    "lines": 230
+  },
+  {
+    "file": "tests/integration/test_refill_lifecycle.gd",
+    "lines": 81
+  },
+  {
+    "file": "tests/integration/test_release_flow.gd",
+    "lines": 208
+  },
+  {
+    "file": "tests/integration/test_result_viewer.gd",
+    "lines": 102
+  },
+  {
+    "file": "tests/integration/test_reward_coordination.gd",
+    "lines": 174
+  },
+  {
+    "file": "tests/integration/test_reward_presentation.gd",
+    "lines": 123
+  },
+  {
+    "file": "tests/integration/test_score_floats.gd",
+    "lines": 174
+  },
+  {
+    "file": "tests/integration/test_shape_unlock_scene.gd",
+    "lines": 98
+  },
+  {
+    "file": "tests/integration/test_skill_cards.gd",
+    "lines": 155
+  },
+  {
+    "file": "tests/integration/test_skill_card_selection.gd",
+    "lines": 116
+  },
+  {
+    "file": "tests/integration/test_skill_instance_cards.gd",
+    "lines": 45
+  },
+  {
+    "file": "tests/integration/test_skill_pool.gd",
+    "lines": 158
+  },
+  {
+    "file": "tests/integration/test_skill_target_ux.gd",
+    "lines": 180
+  },
+  {
+    "file": "tests/integration/test_skip_recovery.gd",
+    "lines": 225
+  },
+  {
+    "file": "tests/integration/test_stage_scene.gd",
+    "lines": 188
+  },
+  {
+    "file": "tests/integration/test_telemetry_scene.gd",
+    "lines": 164
+  },
+  {
+    "file": "tests/integration/test_t_template_scene.gd",
+    "lines": 77
+  },
+  {
+    "file": "tests/rules/test_ability_composite_effects.gd",
+    "lines": 178
+  },
+  {
+    "file": "tests/rules/test_ability_events.gd",
+    "lines": 180
+  },
+  {
+    "file": "tests/rules/test_ability_triggers.gd",
+    "lines": 129
+  },
+  {
+    "file": "tests/rules/test_board_rules.gd",
+    "lines": 143
+  },
+  {
+    "file": "tests/rules/test_catalog_skill_pipeline.gd",
+    "lines": 91
+  },
+  {
+    "file": "tests/rules/test_collection_batches.gd",
+    "lines": 27
+  },
+  {
+    "file": "tests/rules/test_collection_lifecycle.gd",
+    "lines": 173
+  },
+  {
+    "file": "tests/rules/test_commands_replay.gd",
+    "lines": 196
+  },
+  {
+    "file": "tests/rules/test_composite_boundaries.gd",
+    "lines": 173
+  },
+  {
+    "file": "tests/rules/test_composite_contracts.gd",
+    "lines": 278
+  },
+  {
+    "file": "tests/rules/test_composite_empty_dye.gd",
+    "lines": 53
+  },
+  {
+    "file": "tests/rules/test_composite_offer_lifecycle.gd",
+    "lines": 232
+  },
+  {
+    "file": "tests/rules/test_composite_preview.gd",
+    "lines": 68
+  },
+  {
+    "file": "tests/rules/test_composite_score_events.gd",
+    "lines": 62
+  },
+  {
+    "file": "tests/rules/test_continue_challenge.gd",
+    "lines": 154
+  },
+  {
+    "file": "tests/rules/test_demolition_build.gd",
+    "lines": 320
+  },
+  {
+    "file": "tests/rules/test_dye_rules.gd",
+    "lines": 122
+  },
+  {
+    "file": "tests/rules/test_dynamic_transform_preflight.gd",
+    "lines": 58
+  },
+  {
+    "file": "tests/rules/test_empty_board_recovery.gd",
+    "lines": 235
+  },
+  {
+    "file": "tests/rules/test_expanded_skills.gd",
+    "lines": 256
+  },
+  {
+    "file": "tests/rules/test_explosion_rules.gd",
+    "lines": 169
+  },
+  {
+    "file": "tests/rules/test_followup_strength.gd",
+    "lines": 189
+  },
+  {
+    "file": "tests/rules/test_forest_clear_score.gd",
+    "lines": 186
+  },
+  {
+    "file": "tests/rules/test_goal_score_bonus.gd",
+    "lines": 183
+  },
+  {
+    "file": "tests/rules/test_legacy_item_isolation.gd",
+    "lines": 73
+  },
+  {
+    "file": "tests/rules/test_line_build_completion.gd",
+    "lines": 148
+  },
+  {
+    "file": "tests/rules/test_line_clear_drop.gd",
+    "lines": 61
+  },
+  {
+    "file": "tests/rules/test_line_clear_removal.gd",
+    "lines": 250
+  },
+  {
+    "file": "tests/rules/test_line_cross.gd",
+    "lines": 129
+  },
+  {
+    "file": "tests/rules/test_line_score_availability.gd",
+    "lines": 74
+  },
+  {
+    "file": "tests/rules/test_line_span.gd",
+    "lines": 140
+  },
+  {
+    "file": "tests/rules/test_manual_line_clear.gd",
+    "lines": 230
+  },
+  {
+    "file": "tests/rules/test_manual_use_limit.gd",
+    "lines": 154
+  },
+  {
+    "file": "tests/rules/test_paired_windows.gd",
+    "lines": 117
+  },
+  {
+    "file": "tests/rules/test_percent_clear.gd",
+    "lines": 152
+  },
+  {
+    "file": "tests/rules/test_plus_template_flow.gd",
+    "lines": 170
+  },
+  {
+    "file": "tests/rules/test_plus_template_geometry.gd",
+    "lines": 116
+  },
+  {
+    "file": "tests/rules/test_pressure_loop.gd",
+    "lines": 167
+  },
+  {
+    "file": "tests/rules/test_pressure_offers.gd",
+    "lines": 179
+  },
+  {
+    "file": "tests/rules/test_reward_waiting_rules.gd",
+    "lines": 168
+  },
+  {
+    "file": "tests/rules/test_run_controller.gd",
+    "lines": 145
+  },
+  {
+    "file": "tests/rules/test_score_ledger.gd",
+    "lines": 37
+  },
+  {
+    "file": "tests/rules/test_shape_flow_integration.gd",
+    "lines": 257
+  },
+  {
+    "file": "tests/rules/test_shape_match_detector.gd",
+    "lines": 148
+  },
+  {
+    "file": "tests/rules/test_shape_unlock_composites.gd",
+    "lines": 136
+  },
+  {
+    "file": "tests/rules/test_shape_unlock_lifecycle.gd",
+    "lines": 134
+  },
+  {
+    "file": "tests/rules/test_shape_unlock_replay.gd",
+    "lines": 62
+  },
+  {
+    "file": "tests/rules/test_skill_action_migration.gd",
+    "lines": 79
+  },
+  {
+    "file": "tests/rules/test_skill_instances.gd",
+    "lines": 190
+  },
+  {
+    "file": "tests/rules/test_skill_recording.gd",
+    "lines": 67
+  },
+  {
+    "file": "tests/rules/test_skill_rewards.gd",
+    "lines": 171
+  },
+  {
+    "file": "tests/rules/test_spawn_preview.gd",
+    "lines": 169
+  },
+  {
+    "file": "tests/rules/test_special_conversion.gd",
+    "lines": 222
+  },
+  {
+    "file": "tests/rules/test_stage_challenge.gd",
+    "lines": 256
+  },
+  {
+    "file": "tests/rules/test_target_freeze.gd",
+    "lines": 91
+  },
+  {
+    "file": "tests/rules/test_telemetry.gd",
+    "lines": 310
+  },
+  {
+    "file": "tests/rules/test_trial_progression.gd",
+    "lines": 89
+  },
+  {
+    "file": "tests/rules/test_trigger_strength.gd",
+    "lines": 165
+  },
+  {
+    "file": "tests/rules/test_t_template_flow.gd",
+    "lines": 147
+  },
+  {
+    "file": "tests/rules/test_t_template_geometry.gd",
+    "lines": 129
+  },
+  {
+    "file": "tests/support/composite_contract_fixture.gd",
+    "lines": 64
+  },
+  {
+    "file": "tests/support/plus_template_fixture.gd",
+    "lines": 36
+  },
+  {
+    "file": "tests/support/shape_unlock_fixture.gd",
+    "lines": 19
+  },
+  {
+    "file": "tests/support/t_template_fixture.gd",
+    "lines": 36
+  }
+]
