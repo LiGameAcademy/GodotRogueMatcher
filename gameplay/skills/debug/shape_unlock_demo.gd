@@ -22,10 +22,19 @@ static func x() -> SkillDefinition:
 static func x_catalog() -> Array[SkillDefinition]:
 	return [l(), x(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
+static func zs() -> SkillDefinition:
+	return load("res://gameplay/skills/debug/shape_unlock/unlock_zs.tres") as SkillDefinition
+
+static func zs_catalog() -> Array[SkillDefinition]:
+	return [l(), zs(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
+
 static func catalog() -> Array[SkillDefinition]:
 	return [l(), t(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
 static func populate(run: RunController, mode: String) -> void:
+	if mode in RunController.ZS_INITIALIZATIONS:
+		ZsTemplateDemo.populate(run, mode)
+		return
 	var definition: SkillDefinition = t() if mode in ["fixture_shape_unlock_t", "fixture_shape_unlock_t_empty", "fixture_shape_unlock_t_two_rewards"] else l()
 	if mode in RunController.PLUS_INITIALIZATIONS: definition = plus()
 	if mode in RunController.X_INITIALIZATIONS: definition = x()
