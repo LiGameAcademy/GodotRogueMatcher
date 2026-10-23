@@ -13,7 +13,7 @@ var recovery_action_id: int = 0
 func ids() -> Array[StringName]:
 	var result: Array[StringName] = []
 	result.assign(_templates.keys())
-	result.sort()
+	result.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	return result
 
 func templates() -> Array[MatchShapeTemplate]:

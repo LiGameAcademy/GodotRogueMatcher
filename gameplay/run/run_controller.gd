@@ -18,7 +18,7 @@ var action_refill_count: int = 0
 var _retired: bool = false
 var prototype_profile: StringName = &""
 const PROTOTYPE_PROFILE: StringName = &"shape-unlock-fixture-v1"
-const SHAPE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain"]
+const SHAPE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain", "fixture_shape_unlock_t", "fixture_shape_unlock_t_empty", "fixture_shape_unlock_t_two_rewards"]
 
 func is_retired() -> bool:
 	return _retired
