@@ -18,6 +18,8 @@ var action_refill_count: int = 0
 var _retired: bool = false
 var prototype_profile: StringName = &""
 const PROTOTYPE_PROFILE: StringName = &"shape-unlock-fixture-v1"
+const PLUS_PROFILE: StringName = &"shape-unlock-plus-fixture-v1"
+const PLUS_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock_plus", "fixture_shape_unlock_plus_empty", "fixture_shape_unlock_plus_two_rewards"]
 const SHAPE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain", "fixture_shape_unlock_t", "fixture_shape_unlock_t_empty", "fixture_shape_unlock_t_two_rewards"]
 
 func is_retired() -> bool:
@@ -45,7 +47,7 @@ func report_error(reason: String) -> void:
 		recorder.checkpoint(self)
 
 func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"") -> void:
-	assert(profile in [&"", PROTOTYPE_PROFILE])
+	assert(profile in [&"", PROTOTYPE_PROFILE, PLUS_PROFILE])
 	prototype_profile = profile
 	state = RunState.new(rules, run_seed)
 	state.stage = StageState.new(stage_config, state.ledger)
@@ -194,7 +196,7 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	if state.stage.enabled() and not state.stage.config.validation_error().is_empty():
 		report_error(state.stage.config.validation_error())
 		return result
-	if mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE:
+	if (mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE) or (mode in PLUS_INITIALIZATIONS and prototype_profile == PLUS_PROFILE):
 		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
 		demo.populate(self, mode)
 	elif mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
@@ -231,9 +233,9 @@ func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = n
 
 ## Explicit fixture profile only; production never installs test recipes.
 func offer_catalog() -> Array[SkillDefinition]:
-	if prototype_profile == PROTOTYPE_PROFILE:
+	if prototype_profile in [PROTOTYPE_PROFILE, PLUS_PROFILE]:
 		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
-		return demo.catalog()
+		return demo.plus_catalog() if prototype_profile == PLUS_PROFILE else demo.catalog()
 	return SkillOfferGenerator.new().catalog()
 
 func execute_command(command: RunCommand) -> CommandResult:

@@ -1,0 +1,66 @@
+{
+  "commit": "a4b51ed4695fbecac0da9261055eea27991b8010",
+  "base": "e3e06104b86093f3e068b061e1ca8d2dd72fd19c",
+  "scripts": 100,
+  "tests": 730,
+  "passing": 730,
+  "exit_code": 0,
+  "new_tests": 22,
+  "target_asserts": 202,
+  "asserts": 23814,
+  "seconds": 200.808,
+  "rules_version": "run-commands-v43-shape-identity-order",
+  "new_profile": "shape-unlock-plus-fixture-v1",
+  "owned_gd_files": 339,
+  "max_gd_lines": 474,
+  "independent_replays": {
+    "plus": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/plus-unlock-record.jsonl",
+      "sha256": "8b87f8467b009eab9ff14d042d83f8d5ed7befbca42db8337793bfd145797a7a",
+      "exit_code": 0
+    },
+    "l-plus": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/order-l-plus.jsonl",
+      "sha256": "1ad63f9d9db8fe5481312c7f31edc4678f7628cd9fcc507c73094a699d300a4a",
+      "exit_code": 0
+    },
+    "plus-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/order-plus-l.jsonl",
+      "sha256": "646b056b302932c7adf9b5f74bece3745ab6dc5f952be9644900c4826454cf91",
+      "exit_code": 0
+    },
+    "old-t": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/t-unlock-record.jsonl",
+      "sha256": "27d053168e8370d1b430d7fac01669755796859ace807334d401e52e2c32c4a0",
+      "exit_code": 0
+    },
+    "old-l-t": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/order-l-t.jsonl",
+      "sha256": "af5d23eff634521a8a8e51d2e5298c6628eee5808470dd834b55f5d714739769",
+      "exit_code": 0
+    },
+    "old-t-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/order-t-l.jsonl",
+      "sha256": "68f16cd7e0130647ccbdb0dea9899f3e2b68803037d7294762512c225c7f0334",
+      "exit_code": 0
+    }
+  }
+}
