@@ -28,10 +28,19 @@ static func zs() -> SkillDefinition:
 static func zs_catalog() -> Array[SkillDefinition]:
 	return [l(), zs(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
+static func u() -> SkillDefinition:
+	return load("res://gameplay/skills/debug/shape_unlock/unlock_u.tres") as SkillDefinition
+
+static func u_catalog() -> Array[SkillDefinition]:
+	return [l(), u(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
+
 static func catalog() -> Array[SkillDefinition]:
 	return [l(), t(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
 static func populate(run: RunController, mode: String) -> void:
+	if mode in RunController.U_INITIALIZATIONS:
+		UTemplateDemo.populate(run, mode)
+		return
 	if mode in RunController.ZS_INITIALIZATIONS:
 		ZsTemplateDemo.populate(run, mode)
 		return
