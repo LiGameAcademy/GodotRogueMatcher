@@ -33,6 +33,7 @@ func show_state(state: RunState) -> void:
 		cards.remove_child(retired)
 		retired.queue_free()
 		_cards.erase(id)
+	cards.columns = 1 if active.is_empty() else 3
 	empty_label.visible = active.is_empty()
 	empty_label.text = tr("尚未获得持续技能")
 

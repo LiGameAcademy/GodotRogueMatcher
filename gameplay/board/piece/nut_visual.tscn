@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://gameplay/board/piece/nut_visual.gd" id="1"]
 
+[ext_resource type="Shader" path="res://gameplay/board/piece/nut_flash.gdshader" id="2"]
+
+[sub_resource type="ShaderMaterial" id="flash"]
+shader = ExtResource("2")
+shader_parameter/flash_amount = 0.0
+
 [node name="NutVisual" type="Node2D"]
 script = ExtResource("1")
+material = SubResource("flash")
 texture_filter = 4
 
 [node name="BlinkTimer" type="Timer" parent="."]

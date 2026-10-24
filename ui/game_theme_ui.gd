@@ -15,7 +15,7 @@ static func apply(root: Node, preset: GameTheme) -> void:
 		if control is Button and not control is SkillCard:
 			for state: StringName in [&"normal", &"hover", &"pressed", &"focus", &"disabled"]: control.remove_theme_stylebox_override(state)
 		if control is Label or control is RichTextLabel:
-			var role: StringName = &"muted" if control.name in [&"Hint", &"Version", &"Notice", &"Kind", &"Metadata", &"Level", &"Action", &"Empty", &"Message"] else &"text"
+			var role: StringName = &"muted" if control.name in [&"Hint", &"Version", &"Notice", &"Kind", &"Metadata", &"Level", &"Action", &"Empty", &"Message", &"Flavor"] else &"text"
 			control.add_theme_color_override("default_color" if control is RichTextLabel else "font_color", preset.ui_theme.get_color(role, "Game"))
 		if control is ColorRect and control.name in [&"Backdrop", &"Shade", &"BackgroundOverlay"]:
 			(control as ColorRect).color = Color(preset.background, 0.96)

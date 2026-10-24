@@ -10,6 +10,7 @@ extends Button
 @onready var level_label: Label = %Level
 @onready var effect_label: RichTextLabel = %Effect
 @onready var preview_label: Label = %Preview
+@onready var flavor_label: Label = %Flavor
 @onready var action_label: Label = %Action
 @onready var content: MarginContainer = $Content
 @export var hover_duration: float = 0.12
@@ -65,6 +66,8 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	level_label.text = SkillChoiceText.level_text(skill, target)
 	level_label.visible = not level_label.text.is_empty()
 	effect_label.text = SkillChoiceText.summary_rich(skill)
+	flavor_label.text = tr(skill.flavor_text) if not skill.flavor_text.is_empty() else ""
+	flavor_label.visible = not flavor_label.text.is_empty()
 	preview_label.text = SkillChoiceText.compact_preview(skill, target)
 	preview_label.visible = not preview_label.text.is_empty()
 	action_label.text = tr("点选后，在下方确认")
@@ -126,7 +129,7 @@ func set_presentation_only() -> void:
 
 func _fit_catalog_height() -> void:
 	if _catalog_run == null: return
-	custom_minimum_size.y = maxf(352.0, content.get_combined_minimum_size().y + 36.0)
+	custom_minimum_size.y = maxf(360.0, content.get_combined_minimum_size().y + 36.0)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _skill != null:

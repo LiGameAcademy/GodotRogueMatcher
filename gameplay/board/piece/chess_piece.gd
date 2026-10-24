@@ -349,6 +349,7 @@ static func color_for(index: int) -> Color:
 	return JUICE.piece_colors[posmod(index, JUICE.piece_colors.size())]
 
 func _set_flash(value: float) -> void:
+	if is_instance_valid(nut_visual): nut_visual.set_flash(value)
 	_surface.set_shader_parameter("flash", value)
 ## 更新图标视觉（道具）
 func _update_icon_visual() -> void:

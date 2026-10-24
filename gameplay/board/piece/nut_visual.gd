@@ -26,6 +26,7 @@ var _cosmetic_random: RandomNumberGenerator = RandomNumberGenerator.new()
 		queue_redraw()
 
 func _ready() -> void:
+	material = material.duplicate() as ShaderMaterial
 	blink_timer.timeout.connect(_on_blink_timeout)
 
 func _draw() -> void:
@@ -62,3 +63,6 @@ static func _draw_face(canvas: CanvasItem, texture: Texture2D, bounds: Rect2, an
 	var width: float = bounds.size.x * width_ratio
 	var face_size: Vector2 = Vector2(width, width * texture.get_height() / texture.get_width())
 	canvas.draw_texture_rect(texture, Rect2(bounds.position + bounds.size * anchor - face_size * Vector2(0.5, pivot_y), face_size), false)
+
+func set_flash(value: float) -> void:
+	(material as ShaderMaterial).set_shader_parameter("flash_amount", value)
