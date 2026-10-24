@@ -1,5 +1,9 @@
 extends Node2D
 
+## Explicit host scenes can own restart without replacing normal game behavior.
+signal restart_requested
+@export var use_external_restart: bool = false
+
 const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 
 @onready var background: GameBackground = $ColorRect
@@ -220,6 +224,9 @@ func _continue_challenge() -> void:
 	_refresh_hud()
 
 func _on_retry_requested() -> void:
+	if use_external_restart:
+		restart_requested.emit()
+		return
 	settings.close()
 	skill_pool.close()
 	collection.finish(_restart_reason)
