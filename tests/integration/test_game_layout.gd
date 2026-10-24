@@ -38,6 +38,14 @@ func test_real_board_edges_fit_ui_area_at_multiple_window_sizes() -> void:
 		assert_eq((game.get_node("ColorRect") as ColorRect).size, Vector2(resolution))
 		var displayed: Rect2 = board.get_global_transform_with_canvas() * board.view.get_display_rect()
 		var area: Rect2 = hud.get_board_area()
+		var header: Rect2 = (hud.get_node("Margin/Rows/Header") as Control).get_global_rect()
+		var footer: Rect2 = (hud.get_node("Margin/Rows/Footer") as Control).get_global_rect()
+		assert_lte(header.size.y, 68.0, "紧凑顶栏保持六槽，避免回到双层厚面板")
+		assert_almost_eq(header.position.x, (hud.get_node("%Left") as Control).get_global_rect().position.x, 0.1)
+		assert_almost_eq(header.position.x, footer.position.x, 0.1)
+		assert_almost_eq(header.end.x, hud.board_area.get_global_rect().end.x, 0.1)
+		assert_almost_eq(header.end.x, footer.end.x, 0.1)
+		assert_almost_eq(hud.goal_progress.get_global_rect().get_center().y, hud.pressure_bar.get_global_rect().get_center().y, 1.0)
 		assert_true(area.grow(0.1).encloses(displayed), str(resolution))
 		assert_almost_eq(displayed.get_center().x, area.get_center().x, 0.1)
 		assert_almost_eq(displayed.get_center().y, area.get_center().y, 0.1)
@@ -122,8 +130,9 @@ func test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_langu
 			var bounds: Rect2 = Rect2(Vector2.ZERO, preview.size)
 			assert_eq(preview._tokens.size(), 5)
 			# 已确认的补棋上限为五枚，每个32像素槽位都应完整位于面板内。
-			for index: int in range(5):
-				var slot: Rect2 = Rect2(Vector2(2 + index * 36, 21), Vector2(32, 32))
+			assert_eq(SpawnPreview.SLOT_COUNT, 6)
+			for index: int in range(SpawnPreview.SLOT_COUNT):
+				var slot: Rect2 = Rect2(Vector2(2 + index * 36, 16), Vector2(32, 32))
 				assert_true(bounds.encloses(slot), "%s %s slot %d" % [locale, resolution, index + 1])
 			assert_true(bounds.encloses(preview.title.get_rect()))
 			assert_lte(preview.title.get_minimum_size().x, preview.title.size.x)

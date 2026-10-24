@@ -8,16 +8,19 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 script = ExtResource("1")
 
-[node name="Cards" type="VBoxContainer" parent="."]
+[node name="Cards" type="GridContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
 mouse_filter = 2
 
 [node name="Empty" type="Label" parent="Cards"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 text = "尚未获得持续技能"
 autowrap_mode = 2

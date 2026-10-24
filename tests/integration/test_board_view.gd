@@ -89,7 +89,7 @@ func test_special_tooltips_follow_current_ability_configuration() -> void:
 	assert_string_contains(view.get_piece(core.piece_id).tooltip_region.tooltip_text, "爆壳手")
 	assert_string_contains(view.get_piece(core.piece_id).tooltip_region.tooltip_text, "3×3")
 	assert_string_contains(view.get_piece(fuse.piece_id).tooltip_region.tooltip_text, "引信棋子")
-	assert_string_contains(view.get_piece(fuse.piece_id).tooltip_region.tooltip_text, "红色")
+	assert_string_contains(view.get_piece(fuse.piece_id).tooltip_region.tooltip_text, "花生")
 	assert_eq(view.get_piece(ordinary.piece_id).tooltip_region.tooltip_text, "")
 	assert_eq(view.get_piece(core.piece_id).tooltip_region.mouse_filter, Control.MOUSE_FILTER_PASS)
 	assert_eq(view.get_piece(ordinary.piece_id).tooltip_region.mouse_filter, Control.MOUSE_FILTER_IGNORE)

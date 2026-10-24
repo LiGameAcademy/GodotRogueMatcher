@@ -131,6 +131,7 @@ size_flags_horizontal = 3
 text = "设置与操作"
 
 [node name="ConfirmSelection" type="Button" parent="Center/Panel/Column"]
+theme_type_variation = &"PrimaryButton"
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 42)

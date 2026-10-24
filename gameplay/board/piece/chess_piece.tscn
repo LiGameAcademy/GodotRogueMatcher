@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dij52hrxv40e8"]
+[gd_scene load_steps=8 format=3 uid="uid://dij52hrxv40e8"]
 
 [ext_resource type="Script" uid="uid://db43lw5ionsge" path="res://gameplay/board/piece/chess_piece.gd" id="1_5vn5g"]
 [ext_resource type="Shader" path="res://gameplay/board/piece/piece_surface.gdshader" id="2"]
 [ext_resource type="PackedScene" path="res://gameplay/board/piece/piece_aura.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://gameplay/board/piece/nut_visual.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://gameplay/board/piece/piece_ability_visual.tscn" id="5"]
 
 [sub_resource type="ShaderMaterial" id="Surface"]
 shader = ExtResource("2")
@@ -35,6 +37,10 @@ antialiased = true
 
 [node name="PieceAura" parent="." instance=ExtResource("3")]
 
+[node name="PieceAbilityVisual" parent="." instance=ExtResource("5")]
+
+[node name="NutVisual" parent="." instance=ExtResource("4")]
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 1)
@@ -46,13 +52,13 @@ process_material = SubResource("ParticleProcessMaterial_1")
 
 [node name="AbilityMarker" type="Label" parent="."]
 visible = false
-offset_left = -16.0
-offset_top = -15.0
-offset_right = 16.0
-offset_bottom = 15.0
+offset_left = 12.0
+offset_top = -28.0
+offset_right = 30.0
+offset_bottom = -10.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 

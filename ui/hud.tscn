@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=10 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
 
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" path="res://ui/goal_progress/goal_progress.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://ui/piece_pool/piece_pool.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://ui/build_list/build_list.tscn" id="6"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_settings.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_pause.png" id="8"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.065, 0.085, 0.12, 0.96)
@@ -51,25 +54,27 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 12
 
-[node name="Header" type="VBoxContainer" parent="Margin/Rows"]
+[node name="Header" type="PanelContainer" parent="Margin/Rows"]
+theme_type_variation = &"HudHeader"
 layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
 theme_override_constants/separation = 16
 
 [node name="Top" type="HBoxContainer" parent="Margin/Rows/Header"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(90, 0)
 text = "技能连珠 · 试玩"
 theme_override_font_sizes/font_size = 20
 
 [node name="ScoreFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
-theme_type_variation = &"HudPanel"
+size_flags_vertical = 4
+theme_type_variation = &"HudHeaderInset"
 
 [node name="ScoreRow" type="HBoxContainer" parent="Margin/Rows/Header/Top/ScoreFrame"]
 layout_mode = 2
@@ -77,8 +82,8 @@ layout_mode = 2
 [node name="ScoreLabel" type="Label" parent="Margin/Rows/Header/Top/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(128, 0)
-theme_override_font_sizes/font_size = 28
+custom_minimum_size = Vector2(100, 0)
+theme_override_font_sizes/font_size = 24
 text = "分数  0"
 tooltip_text = "总分 · 整局累计得分"
 mouse_filter = 0
@@ -86,13 +91,14 @@ mouse_filter = 0
 [node name="GainLabel" type="Label" parent="Margin/Rows/Header/Top/ScoreFrame/ScoreRow"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(40, 0)
+custom_minimum_size = Vector2(0, 0)
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
 
 [node name="PreviewFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2
-theme_type_variation = &"HudPanel"
+size_flags_vertical = 4
+theme_type_variation = &"HudHeaderInset"
 
 [node name="SpawnPreview" parent="Margin/Rows/Header/Top/PreviewFrame" instance=ExtResource("3")]
 unique_name_in_owner = true
@@ -110,26 +116,37 @@ mouse_filter = 2
 [node name="SettingsButton" type="Button" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "设置"
+text = ""
+icon = ExtResource("7")
+size_flags_vertical = 4
+expand_icon = true
+custom_minimum_size = Vector2(42, 42)
+theme_override_constants/icon_max_width = 24
 tooltip_text = "设置、播放与操作说明（F1）"
 
 [node name="PauseButton" type="Button" parent="Margin/Rows/Header/Top"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "暂停 / ESC"
+text = ""
+icon = ExtResource("8")
+size_flags_vertical = 4
+expand_icon = true
+custom_minimum_size = Vector2(42, 42)
+theme_override_constants/icon_max_width = 24
+tooltip_text = "暂停 / ESC"
 
 [node name="Body" type="HBoxContainer" parent="Margin/Rows"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_constants/separation = 48
+theme_override_constants/separation = 16
 
 [node name="Left" type="PanelContainer" parent="Margin/Rows/Body"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HudPanel"
-custom_minimum_size = Vector2(260, 0)
+custom_minimum_size = Vector2(240, 0)
 
 
 [node name="Content" type="VBoxContainer" parent="Margin/Rows/Body/Left"]
@@ -139,7 +156,7 @@ theme_override_constants/separation = 12
 [node name="BoardArea" type="Control" parent="Margin/Rows/Body"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 custom_minimum_size = Vector2(240, 0)
 mouse_filter = 2
 
@@ -180,49 +197,57 @@ custom_minimum_size = Vector2(0, 82)
 bbcode_enabled = true
 text = "尚未得分"
 
-[node name="Footer" type="HBoxContainer" parent="Margin/Rows"]
+[node name="Footer" type="PanelContainer" parent="Margin/Rows"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 28)
 theme_override_constants/separation = 12
 
-[node name="ResumeReward" type="Button" parent="Margin/Rows/Footer"]
+[node name="Bottom" type="HBoxContainer" parent="Margin/Rows/Footer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GoalTitle" type="Label" parent="Margin/Rows/Footer/Bottom"]
+layout_mode = 2
+text = "阶段目标"
+
+[node name="ResumeReward" type="Button" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 visible = false
 process_mode = 3
 layout_mode = 2
 text = "继续选卡"
 
-[node name="SelectionLabel" type="Label" parent="Margin/Rows/Footer"]
+[node name="SelectionLabel" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(260, 0)
+custom_minimum_size = Vector2(0, 0)
 text = "未选中棋子"
 clip_text = true
 
-[node name="StatusLabel" type="Label" parent="Margin/Rows/Footer"]
+[node name="StatusLabel" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 1
 text = "准备棋盘…"
-clip_text = true
+autowrap_mode = 2
 
-[node name="BoardLabel" type="Label" parent="Margin/Rows/Footer"]
+[node name="GoalProgress" parent="Margin/Rows/Footer/Bottom" instance=ExtResource("4")]
+unique_name_in_owner = true
+layout_mode = 2size_flags_horizontal = 3
+
+[node name="BoardLabel" type="Label" parent="Margin/Rows/Footer/Bottom"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "空位 81 / 81"
 
-[node name="PressureBar" type="ProgressBar" parent="Margin/Rows/Footer"]
+[node name="PressureBar" type="ProgressBar" parent="Margin/Rows/Footer/Bottom"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(80, 8)
 size_flags_vertical = 4
 show_percentage = false
 
-[node name="TurnLabel" type="Label" parent="Margin/Rows/Footer"]
+[node name="TurnLabel" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "回合 0 · 移动 0"
-
-[node name="GoalProgress" parent="Margin/Rows" instance=ExtResource("4")]
-unique_name_in_owner = true
-layout_mode = 2

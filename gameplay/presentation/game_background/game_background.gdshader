@@ -8,6 +8,8 @@ uniform float phase = 0.0;
 uniform float strength = 0.08;
 uniform float response = 0.0;
 uniform float aspect = 1.7778;
+uniform sampler2D background_texture : source_color, filter_linear;
+uniform bool has_background = false;
 
 void fragment() {
 	vec2 p = (UV - vec2(0.5)) * vec2(aspect, 1.0);
@@ -17,5 +19,6 @@ void fragment() {
 	float outside = smoothstep(0.12, 0.65, length(UV - vec2(0.5)));
 	float amount = (strength + response) * ribbon * outside;
 	vec3 tint = mix(flow_color.rgb, second_color.rgb, crossing * 0.5);
-	COLOR = vec4(mix(base_color.rgb, tint, amount), base_color.a);
+	vec3 base = has_background ? texture(background_texture, UV).rgb : base_color.rgb;
+	COLOR = vec4(mix(base, tint, amount), base_color.a);
 }

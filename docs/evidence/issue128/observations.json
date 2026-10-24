@@ -1,0 +1,19 @@
+{
+  "issue": 128,
+  "candidate_commit": null,
+  "participant": null,
+  "device": null,
+  "viewport": null,
+  "locale": null,
+  "mode": null,
+  "cases": {
+    "match": {"readability": null, "discomfort": null, "notes": null},
+    "blast_row": {"cause_explanation": null, "notes": null},
+    "row_blast": {"cause_explanation": null, "notes": null},
+    "shape": {"identity_understood": null, "notes": null},
+    "cards": {"upgrade": null, "finite_uses": null, "composite_order": null, "flavor": null, "notes": null}
+  },
+  "audio": null,
+  "decision": null,
+  "kr3_scope": null
+}

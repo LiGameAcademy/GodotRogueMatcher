@@ -50,7 +50,9 @@ func _ready() -> void:
 	%ResumeReward.pressed.connect(reward_resume_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
 	settings_button.pressed.connect(settings_requested.emit)
-	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	(%Title as Label).text = tr("技能连珠")
+	show_pause_state(get_tree().paused)
+	settings_button.text = ""
 	history_button.toggled.connect(_show_history)
 	board_area.item_rect_changed.connect(_notify_board_area)
 	piece_pool.pool_view_changed.connect(piece_pool_visibility_changed.emit)
@@ -77,12 +79,18 @@ func _show_breakdown(state: RunState) -> void:
 
 func _layout_content() -> void:
 	var body: HBoxContainer = $Margin/Rows/Body
-	var available: float = maxf(240.0, size.x - 340.0)
-	board_area.custom_minimum_size.x = minf(available, maxf(240.0, body.size.y - 8.0))
+	var margin: MarginContainer = $Margin
+	var group_width: float = minf(size.x - 40.0, maxf(760.0, body.size.y + 256.0))
+	var side: int = maxi(20, roundi((size.x - group_width) * 0.5))
+	margin.add_theme_constant_override("margin_left", side)
+	margin.add_theme_constant_override("margin_right", side)
+	board_area.custom_minimum_size.x = 240.0
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
-	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	(%Title as Label).text = tr("技能连珠")
+	show_pause_state(get_tree().paused)
+	settings_button.text = ""
 	score_label.text = tr("分数  %d") % displayed_score
 	if _run != null: show_run(_run)
 	show_selection(_selection, _selection_fuse)
@@ -237,3 +245,8 @@ func _cancel_score() -> void:
 	if _gain_tween != null and _gain_tween.is_valid(): _gain_tween.kill()
 	_score_tween = null
 	score_animation_changed.emit()
+
+## 图标按钮不以状态文字撑大布局；操作含义保留在本地化提示里。
+func show_pause_state(paused: bool) -> void:
+	pause_button.text = ""
+	pause_button.tooltip_text = tr("继续 / ESC") if paused else tr("暂停 / ESC")

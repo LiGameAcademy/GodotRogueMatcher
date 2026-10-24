@@ -6,6 +6,8 @@ extends Resource
 @export_multiline var description: String
 ## 卡面摘要；完整规则仍由description保存，不参与玩法配置哈希。
 @export_multiline var short_description: String
+## 可空的主题短句，仅供显示，不进入规则计算/配置哈希。
+@export_multiline var flavor_text: String
 @export var base_weight: float = 1.0
 @export var tags: Array[StringName] = []
 @export var is_starter: bool = false

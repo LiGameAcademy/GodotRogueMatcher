@@ -900,3 +900,24 @@ Leave feedback on itch.io with the version, browser and a screenshot."
 棋盘信号效果,棋盘信号效果,Board signal effect
 棋盘局部扫描与边缘描光；低特效时关闭。,棋盘局部扫描与边缘描光；低特效时关闭。,Local scans and edge highlights. Disabled with Reduced Effects.
 目标在执行时选择,目标在执行时选择,Targets selected during execution
+花生,花生,Peanut
+腰果,腰果,Cashew
+杏仁,杏仁,Almond
+核桃,核桃,Walnut
+开心果,开心果,Pistachio
+阶段目标,阶段目标,Goal
+"%s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s
+
+Clear %d pieces
+Fuses included: %d"
+
+"好搭档，总会再碰面。","好搭档，总会再碰面。","Good partners find each other again."
+"留点空位，下一手更从容。","留点空位，下一手更从容。","A little room for the next move."
+"先收拾，再换个心情。","先收拾，再换个心情。","Tidy up, then change the mood."
+"自选颜色清理","自选颜色清理","Clear a chosen color"

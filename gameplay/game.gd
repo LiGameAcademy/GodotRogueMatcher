@@ -129,7 +129,7 @@ func _on_locale_changed(_old: String, _new: String) -> void:
 	if board.run == null: return
 	_refresh_hud()
 	board.view.refresh_piece_details(board.run.state.rules.state.get_snapshot(), board.run.state.explosion, board.run.abilities.config, board.run.state.line_clear, board.run.state.manual_uses_used)
-	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+	hud.show_pause_state(get_tree().paused)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -196,7 +196,7 @@ func _play_from_menu(new_run: bool) -> void:
 	get_tree().paused = false if new_run else _menu_previous_pause
 	_menu_owns_pause = false
 	_has_played = true
-	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+	hud.show_pause_state(get_tree().paused)
 	if new_run: await _on_retry_requested()
 	else: _set_collection_location("")
 	if board.observation.telemetry != null: board.observation.telemetry.play_started()
@@ -400,7 +400,7 @@ func _toggle_pause() -> void:
 		return
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
 	get_tree().paused = not get_tree().paused
-	hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+	hud.show_pause_state(get_tree().paused)
 	hud.show_status("已暂停" if get_tree().paused else ("请选择棋子与目标空格" if board.can_selected else "正在结算与播放…"))
 	collection.location("pause" if get_tree().paused else "board_input" if board.can_selected else "presentation")
 

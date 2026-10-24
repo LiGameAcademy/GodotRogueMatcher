@@ -5,6 +5,7 @@ extends Control
 @onready var hint: Label = $Hint
 var _tokens: Array[SpawnToken] = []
 var _game_theme: GameTheme
+const SLOT_COUNT: int = 6
 
 func apply_game_theme(preset: GameTheme) -> void:
 	_game_theme = preset
@@ -25,23 +26,13 @@ func show_plan(tokens: Array[SpawnToken], finished: bool = false) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	for index: int in range(SLOT_COUNT):
+		var slot: Rect2 = Rect2(Vector2(2 + index * 36, 16), Vector2(32, 32))
+		draw_style_box(get_theme_stylebox("normal", "Button"), slot)
 	for index: int in range(_tokens.size()):
 		var token: SpawnToken = _tokens[index]
-		var center: Vector2 = Vector2(18 + index * 36, 37)
-		draw_style_box(get_theme_stylebox("normal", "Button"), Rect2(center - Vector2(16, 16), Vector2(32, 32)))
-		var color: Color = ChessPiece.color_for(token.color)
-		if _game_theme != null: color = _game_theme.board.piece_colors[token.color]
-		if token.color == ChessPiece.ShapeType.CIRCLE:
-			draw_circle(center, 9.0, color)
-		else:
-			var points: PackedVector2Array = PackedVector2Array()
-			var vertices: int = [0, 4, 3, 5, 10][token.color]
-			for vertex: int in range(vertices):
-				var angle: float = TAU * vertex / vertices - PI / 2.0
-				if token.color == ChessPiece.ShapeType.SQUARE: angle += PI / 4.0
-				var radius: float = 4.4 if token.color == ChessPiece.ShapeType.STAR and vertex % 2 == 1 else 11.0
-				points.append(center + Vector2(cos(angle), sin(angle)) * radius)
-			draw_colored_polygon(points, color)
+		var center: Vector2 = Vector2(18 + index * 36, 32)
+		NutVisual.draw_on(self, token.color, Rect2(center - Vector2(16, 16), Vector2(32, 32)))
 		if token.core_candidate:
 			var marker: Color = _game_theme.board.marker_color if _game_theme != null else Color.WHITE
-			draw_string(get_theme_default_font(), center + Vector2(-11, 4), tr("爆?"), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, marker)
+			draw_string(get_theme_default_font(), center + Vector2(6, -7), "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, marker)
