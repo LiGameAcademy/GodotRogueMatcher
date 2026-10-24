@@ -65,19 +65,19 @@ func test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it() -> voi
 	background._process(1.0)
 	assert_eq(background.phase, normal)
 
-func test_disabled_and_reduced_effects_use_solid_background_and_keep_rule_state() -> void:
+func test_disabled_and_reduced_effects_keep_static_background_and_rule_state() -> void:
 	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
 	background.respond_to_score(500)
 	assert_gt(background.response, 0.0)
 	game.call("_set_low_effects", true, false)
-	assert_null(background.material)
+	assert_eq((background.material as ShaderMaterial).get_shader_parameter("strength"), 0.0)
 	assert_false(background.is_processing())
 	assert_eq(background.response, 0.0)
 	background.respond_to_score(500)
 	assert_eq(background.response, 0.0)
 	game.call("_set_background_motion", false, false)
 	game.call("_set_low_effects", false, false)
-	assert_null(background.material)
+	assert_eq((background.material as ShaderMaterial).get_shader_parameter("strength"), 0.0)
 	game.call("_set_background_motion", true, false)
 	assert_true(background.material is ShaderMaterial)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
@@ -93,16 +93,16 @@ func test_materials_and_shared_presets_are_not_mutated_by_other_instances() -> v
 	assert_eq(background.response, GameThemes.ALL[0].background_flow.score_response)
 	assert_eq(other.response, 0.0)
 	assert_eq(b.get_shader_parameter("response"), 0.0)
-	assert_eq(GameThemes.ALL[0].background_flow.contrast, 0.12)
+	assert_eq(GameThemes.ALL[0].background_flow.contrast, 0.025)
 	var fresh: GameBackground = BACKGROUND.instantiate() as GameBackground
 	var original_strength: Variant = (fresh.material as ShaderMaterial).get_shader_parameter("strength")
 	a.set_shader_parameter("strength", 0.8)
 	assert_eq((fresh.material as ShaderMaterial).get_shader_parameter("strength"), original_strength)
-	assert_eq(b.get_shader_parameter("strength"), 0.12)
+	assert_eq(b.get_shader_parameter("strength"), GameThemes.ALL[0].background_flow.contrast)
 	# A fresh scene still starts from the resource's original shader values.
 	add_child_autofree(fresh)
 	fresh.apply_game_theme(GameThemes.ALL[0])
-	assert_eq((fresh.material as ShaderMaterial).get_shader_parameter("strength"), 0.12)
+	assert_eq((fresh.material as ShaderMaterial).get_shader_parameter("strength"), GameThemes.ALL[0].background_flow.contrast)
 
 func test_real_score_and_retry_are_visual_only_and_replay_stays_exact() -> void:
 	assert_true(board.load_explosion_demo())
@@ -128,7 +128,7 @@ func test_settings_toggle_preserves_pause_and_rules() -> void:
 	game.call("_open_settings")
 	settings.background_button.button_pressed = false
 	assert_true(get_tree().paused)
-	assert_null(background.material)
+	assert_eq((background.material as ShaderMaterial).get_shader_parameter("strength"), 0.0)
 	assert_false((game.get("preferences") as PlayerPreferences).background_motion)
 	settings.close()
 	assert_false(get_tree().paused)

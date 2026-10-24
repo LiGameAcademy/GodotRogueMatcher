@@ -43,7 +43,8 @@ func test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills()
 	var card: CARD_SCRIPT = hud.build_list._cards[&"precision_reward"] as CARD_SCRIPT
 	assert_eq(card.level_label.text, "Lv.2")
 	assert_string_contains(card.effect_label.get_parsed_text(), "额外得分+5")
-	assert_eq(card.tooltip_text, "")
+	assert_string_contains(card.tooltip_text, card.title_label.text)
+	assert_string_contains(card.tooltip_text, card.effect_label.get_parsed_text())
 	var temporary: CARD_SCRIPT = hud.build_list._cards[&"refill_less"] as CARD_SCRIPT
 	assert_eq(temporary.remaining_label.text, "剩余 3 次实际补棋")
 	assert_string_contains(temporary.effect_label.text, "[b]消耗[/b]")
@@ -92,8 +93,10 @@ func test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated() -> v
 			for panel: PanelContainer in hud.build_list._cards.values():
 				var card: CARD_SCRIPT = panel as CARD_SCRIPT
 				assert_lte(card.size.x, hud.build_list.size.x)
-				assert_true(card.get_global_rect().encloses(card.effect_label.get_global_rect()))
-				assert_gte(card.size.x, card.size.y, "构筑横卡宽于高: " + card.title_label.text)
+				assert_true(card.get_global_rect().encloses(card.symbol.get_global_rect()))
+				assert_true(card.get_global_rect().encloses(card.badge.get_global_rect()))
+				assert_false(card.effect_label.is_visible_in_tree())
+				assert_string_contains(card.tooltip_text, card.effect_label.get_parsed_text())
 	var cards: Array[PanelContainer] = []
 	cards.assign(hud.build_list._cards.values())
 	var first: PanelContainer = cards[0] as PanelContainer

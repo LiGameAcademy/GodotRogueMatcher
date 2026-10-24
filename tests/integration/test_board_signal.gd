@@ -58,7 +58,7 @@ func test_pause_freezes_clock_fast_does_not_accelerate_and_low_effects_hide_it()
 	effect._process(1.0)
 	assert_eq(effect.phase, normal)
 	effect.respond()
-	assert_gt(effect.response, 0.0)
+	assert_eq(effect.response, GameThemes.ALL[0].board_signal.response_strength)
 	game.call("_set_low_effects", true, false)
 	assert_false(effect.visible)
 	assert_false(effect.is_processing())
@@ -79,7 +79,7 @@ func test_instance_materials_and_template_are_isolated() -> void:
 	assert_eq(template.get_shader_parameter("scan_strength"), initial_strength)
 	effect.respond()
 	assert_eq(other.response, 0.0)
-	assert_eq(GameThemes.ALL[0].board_signal.scan_strength, 0.018)
+	assert_eq(GameThemes.ALL[0].board_signal.scan_strength, 0.0)
 
 func test_settings_preference_round_trip_and_disabled_fallback() -> void:
 	var settings: PlaybackSettings = game.get_node("PlaybackSettings") as PlaybackSettings
@@ -113,7 +113,7 @@ func test_real_sweep_and_retry_keep_exact_replay_and_reset_effect() -> void:
 	assert_true(replay.replay_file(board.run.recorder.path), replay.error)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(replay.run)), RunSnapshot.digest(RunSnapshot.capture(board.run)))
 	effect.respond()
-	assert_gt(effect.response, 0.0)
+	assert_eq(effect.response, GameThemes.ALL[0].board_signal.response_strength)
 	await game.call("_on_retry_requested")
 	assert_eq(effect.response, 0.0)
 	assert_lt(effect.phase, 0.2)
