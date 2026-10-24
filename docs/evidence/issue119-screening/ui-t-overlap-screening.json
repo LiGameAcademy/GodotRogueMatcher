@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "config_id": "screening-t-v1",
+  "elapsed_ms": 88,
+  "participant": null,
+  "predictions": null,
+  "reason": "fixed_complete",
+  "record": "user://screening_records/119-48868-1792823140526000-14335712.jsonl",
+  "record_error": "",
+  "run_id": "119-48868-1792823140526000-14335712",
+  "selection_decision": null,
+  "task": "overlap"
+}
