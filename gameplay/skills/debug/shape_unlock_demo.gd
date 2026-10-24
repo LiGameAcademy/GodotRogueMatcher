@@ -40,10 +40,19 @@ static func ring() -> SkillDefinition:
 static func ring_catalog() -> Array[SkillDefinition]:
 	return [u(), ring(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
+static func square() -> SkillDefinition:
+	return load("res://gameplay/skills/debug/shape_unlock/unlock_square.tres") as SkillDefinition
+
+static func square_catalog() -> Array[SkillDefinition]:
+	return [ring(), square(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
+
 static func catalog() -> Array[SkillDefinition]:
 	return [l(), t(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
 static func populate(run: RunController, mode: String) -> void:
+	if mode in RunController.SQUARE_INITIALIZATIONS:
+		SquareTemplateDemo.populate(run, mode)
+		return
 	if mode in RunController.RING_INITIALIZATIONS:
 		RingTemplateDemo.populate(run, mode)
 		return
