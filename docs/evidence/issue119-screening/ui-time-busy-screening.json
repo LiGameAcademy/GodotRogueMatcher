@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "config_id": "screening-baseline-v1",
+  "elapsed_ms": 29,
+  "participant": null,
+  "predictions": null,
+  "reason": "time_limit",
+  "record": "user://screening_records/119-48868-1792823141833000-15642663.jsonl",
+  "record_error": "",
+  "run_id": "119-48868-1792823141833000-15642663",
+  "selection_decision": null,
+  "task": "free"
+}

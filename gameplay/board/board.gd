@@ -22,6 +22,8 @@ var rules: BoardRules
 var run: RunController
 var telemetry_factory: TelemetryFactory
 var observation: BoardObservation = BoardObservation.new()
+## Optional outer-session gate; does not change game rules or consume an action.
+var input_permission: Callable
 var can_selected: bool = false
 var _generation: int = 0
 var _presented_events: Dictionary[int, bool] = {}
@@ -353,6 +355,7 @@ func _on_piece_activated(coordinate: Vector2i) -> void:
 	await _execute_action(command, director.config.spawn_duration)
 
 func _execute_action(command: RunCommand, duration: float, input_id: String = "") -> bool:
+	if input_permission.is_valid() and not input_permission.call(run): return false
 	if input_id.is_empty(): input_id = observation.input(String(CommandCodec.encode(command).type), command.buffered)
 	observation.busy(true)
 	var outcome: CommandResult = run.execute_command(command)
@@ -395,6 +398,7 @@ func resume_run(active: RunController) -> void:
 	await BoardRunFlow.continue_run(self, active)
 	if run != active: return
 	can_selected = active.state.phase == RunState.Phase.INPUT and not active.state.is_game_over and active.state.rule_error.is_empty()
+	if can_selected and input_permission.is_valid(): can_selected = bool(input_permission.call(active))
 	_turn_in_progress = false
 	if can_selected: _resume_buffered_input()
 

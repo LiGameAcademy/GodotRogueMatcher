@@ -81,13 +81,13 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 			templates.append(template)
 	var profile: StringName = &""
 	if config.has("prototype_profile"):
-		if config.prototype_profile not in [String(RunController.PROTOTYPE_PROFILE), String(RunController.PLUS_PROFILE), String(RunController.X_PROFILE), String(RunController.ZS_PROFILE), String(RunController.U_PROFILE), String(RunController.RING_PROFILE), String(RunController.SQUARE_PROFILE), String(RunController.MIXED_PROFILE)]: return _fail("invalid_prototype_profile")
+		if config.prototype_profile not in [String(RunController.PROTOTYPE_PROFILE), String(RunController.PLUS_PROFILE), String(RunController.X_PROFILE), String(RunController.ZS_PROFILE), String(RunController.U_PROFILE), String(RunController.RING_PROFILE), String(RunController.SQUARE_PROFILE), String(RunController.MIXED_PROFILE), String(RunController.SCREENING_PROFILE), String(RunController.SCREENING_FIXED_PROFILE)]: return _fail("invalid_prototype_profile")
 		profile = StringName(config.prototype_profile)
 	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config, profile)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
-	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"] + RunController.SHAPE_INITIALIZATIONS + RunController.PLUS_INITIALIZATIONS + RunController.X_INITIALIZATIONS + RunController.ZS_INITIALIZATIONS + RunController.U_INITIALIZATIONS + RunController.RING_INITIALIZATIONS + RunController.SQUARE_INITIALIZATIONS + MixedTemplateDemo.MODES: return _fail("unsupported_initialization")
+	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"] + RunController.SHAPE_INITIALIZATIONS + RunController.PLUS_INITIALIZATIONS + RunController.X_INITIALIZATIONS + RunController.ZS_INITIALIZATIONS + RunController.U_INITIALIZATIONS + RunController.RING_INITIALIZATIONS + RunController.SQUARE_INITIALIZATIONS + MixedTemplateDemo.MODES + ScreeningDeck.modes(): return _fail("unsupported_initialization")
 	run.initialize(header.initialization)
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()
