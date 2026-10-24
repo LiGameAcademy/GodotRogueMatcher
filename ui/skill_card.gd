@@ -16,6 +16,7 @@ extends Button
 @export var hover_duration: float = 0.12
 var _reveal: Tween
 var _selected: bool = false
+var _unavailable_reason: String = ""
 var _motion: Tween
 var _accent: Color = Color.WHITE
 var _skill: SkillDefinition
@@ -48,6 +49,8 @@ func _exit_tree() -> void:
 func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	finish_reveal()
 	_selected = false
+	_unavailable_reason = ""
+	tooltip_text = ""
 	_catalog_run = null
 	action_label.show()
 	focus_mode = Control.FOCUS_ALL
@@ -97,8 +100,26 @@ func set_selected(selected: bool) -> void:
 		box.set_border_width_all(2 if selected else 1)
 		box.border_width_top = 3
 	add_theme_stylebox_override("normal", box)
-	if _catalog_run == null: action_label.text = tr("已点选 · 等待确认") if selected else tr("点选后，在下方确认")
+	if _game_theme != null:
+		box.bg_color = _game_theme.ui_theme.get_color("hover" if selected else "surface", "Game")
+		add_theme_stylebox_override("normal", box)
+	_refresh_action()
 	_update_feedback()
+
+## 失效原因直接可见，不只依赖悬停或变淡；不改变候选内容。
+func set_unavailable(reason: String) -> void:
+	_unavailable_reason = reason
+	disabled = not reason.is_empty()
+	tooltip_text = tr(reason)
+	_refresh_action()
+	_update_feedback()
+
+func _refresh_action() -> void:
+	if _catalog_run != null: return
+	if not _unavailable_reason.is_empty():
+		action_label.text = tr("暂不可选：%s") % tr(_unavailable_reason)
+	else:
+		action_label.text = ("✓ " + tr("已点选 · 等待确认")) if _selected else tr("点选后，在下方确认")
 
 func reveal(delay: float, low_effects: bool) -> void:
 	finish_reveal()
@@ -134,15 +155,22 @@ func _fit_catalog_height() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _skill != null:
 		if _catalog_run != null: configure_catalog(_skill, _catalog_run)
-		else: configure(_skill, _target)
+		else:
+			var selected_before: bool = _selected
+			var reason_before: String = _unavailable_reason
+			var disabled_before: bool = disabled
+			configure(_skill, _target)
+			set_unavailable(reason_before)
+			set_selected(selected_before)
+			disabled = disabled_before
 
 func _update_feedback() -> void:
 	var highlighted: bool = not disabled and (is_hovered() or has_focus() or _selected)
-	var tint: Color = Color.WHITE if not disabled else Color("748195")
+	var tint: Color = Color.WHITE if _game_theme != null or not disabled else Color("748195")
 	if _motion != null: _motion.kill()
 	_motion = create_tween().set_parallel(true)
 	_motion.tween_property(content, "modulate", tint, hover_duration)
-	_motion.tween_property(action_label, "modulate", Color.WHITE if highlighted else Color("acbacb"), hover_duration)
+	_motion.tween_property(action_label, "modulate", Color.WHITE if _game_theme != null or highlighted else Color("acbacb"), hover_duration)
 
 func _press_feedback() -> void:
 	if disabled or _catalog_run != null: return

@@ -70,13 +70,19 @@ theme_override_font_sizes/font_size = 14
 [node name="Effect" parent="Content/Column" instance=ExtResource("2")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.85, 0.9, 0.97, 1)
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 18
 theme_override_constants/line_separation = 4
 fit_content = true
 scroll_active = false
+
+[node name="Preview" type="Label" parent="Content/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.69, 0.79, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 2
 
 [node name="Flavor" type="Label" parent="Content/Column"]
 unique_name_in_owner = true
@@ -85,12 +91,10 @@ layout_mode = 2
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 13
 
-[node name="Preview" type="Label" parent="Content/Column"]
-unique_name_in_owner = true
+[node name="Spacer" type="Control" parent="Content/Column"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.69, 0.79, 0.9, 1)
-theme_override_font_sizes/font_size = 14
-autowrap_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="Action" type="Label" parent="Content/Column"]
 unique_name_in_owner = true
