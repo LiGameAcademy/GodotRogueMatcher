@@ -1,0 +1,171 @@
+{
+  "commit": "84af6173355ddd5ee06c2dbf9df881ce0ce68de5",
+  "base": "6daf664620af3817372d1dd42af10e1956701d59",
+  "scripts": 111,
+  "tests": 810,
+  "passing": 810,
+  "exit_code": 0,
+  "new_tests": 29,
+  "target_asserts": 281,
+  "asserts": 24569,
+  "seconds": 220.811,
+  "rules_version": "run-commands-v43-shape-identity-order",
+  "new_profile": "shape-unlock-u-fixture-v1",
+  "owned_gd_files": 357,
+  "max_gd_lines": 474,
+  "gui": "Visible U game launched; READY and stable viewport checked; startup errors empty; human experience not evaluated",
+  "independent_replays": {
+    "u": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/u-unlock-record.jsonl",
+      "sha256": "1de4d1cae7abb3efc4743e112b6f80cd88eab66185551e364157582b5c6e6aed",
+      "exit_code": 0
+    },
+    "l-u": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/order-l-u.jsonl",
+      "sha256": "a12cb582c9c5b8e07c32e71cad753f766a43b243aa6d92bc6fe6c3a0dfce0f59",
+      "exit_code": 0
+    },
+    "u-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/order-u-l.jsonl",
+      "sha256": "90cd9b6fc4225112b5cee634f853dd98fd742b6c41b317468b1ce96b8b8835f4",
+      "exit_code": 0
+    },
+    "rotated": {
+      "checked_records": 11,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/rotated-playground.jsonl",
+      "sha256": "df106429c0b882aa41e56f5680bcf66ed70e8a8cd0aa206d0c20fa3aa5cca17f",
+      "exit_code": 0
+    },
+    "move": {
+      "checked_records": 14,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/move-playground.jsonl",
+      "sha256": "f431879e00093b85881bf98c747a7f41280fa934f32f3ba823a7475b5970e1c0",
+      "exit_code": 0
+    },
+    "old-zs": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/zs-unlock-record.jsonl",
+      "sha256": "08827fb0fa47aa66fd8ff5f7b0eede2de5b3313993abafd3605cfe0cad809c3a",
+      "exit_code": 0
+    },
+    "old-zs-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/order-zs-l.jsonl",
+      "sha256": "0414d79240b2c004204b3146ca5028c0ceb859e35b6c488ef3da3b04d032d982",
+      "exit_code": 0
+    },
+    "old-l-zs": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/order-l-zs.jsonl",
+      "sha256": "c0cee59514ecf09c89dcb27534cfc028ee0275a171f7c38c7ae780bcbbf1e0b6",
+      "exit_code": 0
+    },
+    "old-zs-mirror": {
+      "checked_records": 11,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/mirror-playground.jsonl",
+      "sha256": "c6eeaf8728fdbe60032e49163c5b0aaebae652d2e1ebf4c29d58deed3a55f63e",
+      "exit_code": 0
+    },
+    "old-zs-move": {
+      "checked_records": 14,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/move-playground.jsonl",
+      "sha256": "820616f532cca0475c50cac200068dbc9cb8a5a233727b5fb4236d16e16e2d2a",
+      "exit_code": 0
+    },
+    "old-x": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-x/x-unlock-record.jsonl",
+      "sha256": "d962111f66a671f56afe680b1b7a1f40950058aa2b3bfac95afc4365d7a7d7d6",
+      "exit_code": 0
+    },
+    "old-l-x": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-x/order-l-x.jsonl",
+      "sha256": "e746266c7aa6f5ca21e16be902bc2c398aad7db4392cce7ea313e358cb6cd98f",
+      "exit_code": 0
+    },
+    "old-x-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-x/order-x-l.jsonl",
+      "sha256": "98e0af77a77a4e9f34f2f0ea51523696144f6a7c19a8434b61c2c08a24f38fdd",
+      "exit_code": 0
+    },
+    "old-plus": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/plus-unlock-record.jsonl",
+      "sha256": "8b87f8467b009eab9ff14d042d83f8d5ed7befbca42db8337793bfd145797a7a",
+      "exit_code": 0
+    },
+    "old-l-plus": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/order-l-plus.jsonl",
+      "sha256": "1ad63f9d9db8fe5481312c7f31edc4678f7628cd9fcc507c73094a699d300a4a",
+      "exit_code": 0
+    },
+    "old-plus-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/order-plus-l.jsonl",
+      "sha256": "646b056b302932c7adf9b5f74bece3745ab6dc5f952be9644900c4826454cf91",
+      "exit_code": 0
+    },
+    "old-t": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/t-unlock-record.jsonl",
+      "sha256": "27d053168e8370d1b430d7fac01669755796859ace807334d401e52e2c32c4a0",
+      "exit_code": 0
+    },
+    "old-l-t": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/order-l-t.jsonl",
+      "sha256": "af5d23eff634521a8a8e51d2e5298c6628eee5808470dd834b55f5d714739769",
+      "exit_code": 0
+    },
+    "old-t-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/order-t-l.jsonl",
+      "sha256": "68f16cd7e0130647ccbdb0dea9899f3e2b68803037d7294762512c225c7f0334",
+      "exit_code": 0
+    }
+  }
+}
