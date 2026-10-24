@@ -40,3 +40,5 @@
 - 最终独立复审 APPROVE，无剩余发现；相关自有代码均低于500行，diff空白检查通过。
 
 PR保留作者 review；本片真人审美/辨识验收仍未填写为通过。
+
+交付可视试玩窗口（最终提交版本）能够启动并响应，但其stderr出现 GLES shader initialize 的 err != OK 错误；原样保留于 evidence/issue129-icons/playtest-startup.log。此前截图导出已完成，不能据此宣称这些启动错误完全无影响，需作者观察当前窗口；不外推跨驱动表现。
