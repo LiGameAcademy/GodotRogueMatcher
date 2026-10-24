@@ -18,6 +18,7 @@ var action_refill_count: int = 0
 var _retired: bool = false
 var prototype_profile: StringName = &""
 const PROTOTYPE_PROFILE: StringName = &"shape-unlock-fixture-v1"
+const MIXED_PROFILE: StringName = &"shape-mixed-fixture-v1"
 const SQUARE_PROFILE: StringName = &"shape-unlock-square-fixture-v1"
 const SQUARE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock_square", "fixture_shape_unlock_square_empty", "fixture_shape_unlock_square_two_rewards", "fixture_shape_unlock_square_center", "fixture_shape_square_move"]
 const RING_PROFILE: StringName = &"shape-unlock-ring-fixture-v1"
@@ -57,7 +58,7 @@ func report_error(reason: String) -> void:
 		recorder.checkpoint(self)
 
 func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"") -> void:
-	assert(profile in [&"", PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE])
+	assert(profile in [&"", PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE, MIXED_PROFILE])
 	prototype_profile = profile
 	state = RunState.new(rules, run_seed)
 	state.stage = StageState.new(stage_config, state.ledger)
@@ -206,7 +207,9 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	if state.stage.enabled() and not state.stage.config.validation_error().is_empty():
 		report_error(state.stage.config.validation_error())
 		return result
-	if (mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE) or (mode in PLUS_INITIALIZATIONS and prototype_profile == PLUS_PROFILE) or (mode in X_INITIALIZATIONS and prototype_profile == X_PROFILE) or (mode in ZS_INITIALIZATIONS and prototype_profile == ZS_PROFILE) or (mode in U_INITIALIZATIONS and prototype_profile == U_PROFILE) or (mode in RING_INITIALIZATIONS and prototype_profile == RING_PROFILE) or (mode in SQUARE_INITIALIZATIONS and prototype_profile == SQUARE_PROFILE):
+	if mode in MixedTemplateDemo.MODES and prototype_profile == MIXED_PROFILE:
+		MixedTemplateDemo.populate(self, mode)
+	elif (mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE) or (mode in PLUS_INITIALIZATIONS and prototype_profile == PLUS_PROFILE) or (mode in X_INITIALIZATIONS and prototype_profile == X_PROFILE) or (mode in ZS_INITIALIZATIONS and prototype_profile == ZS_PROFILE) or (mode in U_INITIALIZATIONS and prototype_profile == U_PROFILE) or (mode in RING_INITIALIZATIONS and prototype_profile == RING_PROFILE) or (mode in SQUARE_INITIALIZATIONS and prototype_profile == SQUARE_PROFILE):
 		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
 		demo.populate(self, mode)
 	elif mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
@@ -243,8 +246,9 @@ func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = n
 
 ## Explicit fixture profile only; production never installs test recipes.
 func offer_catalog() -> Array[SkillDefinition]:
-	if prototype_profile in [PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE]:
+	if prototype_profile in [PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE, MIXED_PROFILE]:
 		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
+		if prototype_profile == MIXED_PROFILE: return MixedTemplateDemo.catalog()
 		if prototype_profile == SQUARE_PROFILE: return demo.square_catalog()
 		if prototype_profile == RING_PROFILE: return demo.ring_catalog()
 		if prototype_profile == U_PROFILE: return demo.u_catalog()
