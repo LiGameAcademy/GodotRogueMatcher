@@ -6,6 +6,8 @@
 @onready var level_label: Label = %Level
 @onready var effect_label: RichTextLabel = %Effect
 @onready var remaining_label: Label = %Remaining
+@onready var mechanic_icon: TextureRect = %MechanicIcon
+@onready var mechanic_role: Label = %MechanicRole
 @onready var symbol: Label = %Symbol
 @onready var badge: Label = %Badge
 var _game_theme: GameTheme
@@ -40,7 +42,14 @@ func configure(skill: SkillDefinition, level: int, remaining: int, manual_remain
 	style.border_color = SkillRarity.COLORS[skill.rarity]
 	add_theme_stylebox_override("panel", style)
 	if _game_theme != null: apply_game_theme(_game_theme)
-	# 正式技能图标待逐项设计；缩写仅作为可辨认的占位符，不伪造技能插画。
+	# 首批正式机制图元；角色小字区分同族的登场/补给/范围，其他卡继续缩写。
+	mechanic_icon.texture = SkillMechanicIcons.texture_for(skill.skill_id)
+	mechanic_icon.visible = mechanic_icon.texture != null
+	mechanic_icon.pivot_offset = Vector2(12, 12)
+	mechanic_icon.rotation_degrees = SkillMechanicIcons.rotation_for(skill.skill_id)
+	mechanic_role.text = SkillMechanicIcons.role_for(skill.skill_id)
+	mechanic_role.visible = mechanic_icon.visible
+	symbol.visible = not mechanic_icon.visible
 	symbol.text = tr(skill.title).left(2)
 	if TranslationServer.get_locale().begins_with("en"):
 		symbol.text = ""
