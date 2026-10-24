@@ -78,7 +78,7 @@ theme_override_constants/separation = 10
 
 [node name="Heading" type="Label" parent="Center/Panel/Column"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(0.96, 0.94, 0.86, 1)
 horizontal_alignment = 1
 
@@ -109,14 +109,16 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="ViewButton" type="Button" parent="Center/Panel/Column"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 38)
-text = "查看棋盘 · 暂时收起面板，保留本次选择"
-theme_override_font_sizes/font_size = 16
-
 [node name="Tools" type="HBoxContainer" parent="Center/Panel/Column"]
 layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ViewButton" type="Button" parent="Center/Panel/Column/Tools"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 38)
+text = "查看棋盘"
+tooltip_text = "暂时收起面板，保留本次选择"
 
 [node name="SkillPoolButton" type="Button" parent="Center/Panel/Column/Tools"]
 unique_name_in_owner = true

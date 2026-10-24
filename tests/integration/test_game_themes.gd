@@ -91,7 +91,8 @@ func test_switching_retains_offer_selected_card_and_confirmation() -> void:
 		assert_gt((unselected.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
 		assert_gt((popup.confirm_button.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
 		assert_eq(popup.confirm_button.text, text)
-		assert_eq(card.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("surface", "Game"))
+		assert_eq(card.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("hover", "Game"))
+		assert_eq(unselected.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("surface", "Game"))
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
 		assert_true(get_tree().paused)
 

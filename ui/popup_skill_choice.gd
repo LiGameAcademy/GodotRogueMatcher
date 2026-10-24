@@ -15,7 +15,7 @@ signal closed
 @onready var picker: ColorTargetPicker = $Center/Panel/Column/ColorTargetPicker
 @onready var center: CenterContainer = $Center
 @onready var backdrop: ColorRect = $Backdrop
-@onready var view_button: Button = $Center/Panel/Column/ViewButton
+@onready var view_button: Button = $Center/Panel/Column/Tools/ViewButton
 @onready var return_bar: PanelContainer = $ReturnBar
 @onready var return_label: Label = $ReturnBar/Row/Message
 @onready var return_button: Button = $ReturnBar/Row/Return
@@ -89,8 +89,7 @@ func show_offer(next_offer: SkillOffer, reason: String = "") -> void:
 		if not button.visible: continue
 		var skill: SkillDefinition = offer.choices[index]
 		button.configure(skill, offer.targets[skill.skill_id])
-		button.disabled = offer.unavailable.has(skill.skill_id)
-		if button.disabled: button.tooltip_text = offer.unavailable[skill.skill_id]
+		button.set_unavailable(offer.unavailable.get(skill.skill_id, ""))
 	_update_visibility()
 	_update_confirmation()
 	_animate_cards()
@@ -159,6 +158,9 @@ func show_error(reason: String) -> void:
 
 func set_unavailable(reasons: Dictionary[StringName, String]) -> void:
 	offer.unavailable.assign(reasons)
+	for index: int in range(offer.choices.size()):
+		(options.get_child(index) as SkillCard).set_unavailable(offer.unavailable.get(offer.choices[index].skill_id, ""))
+	_update_confirmation()
 
 ## A card click only changes the pending UI selection, never applies a skill.
 func _select(index: int) -> void:
