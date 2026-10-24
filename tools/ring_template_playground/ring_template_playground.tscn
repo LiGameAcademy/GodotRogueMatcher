@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tools/ring_template_playground/ring_template_playground.gd" id="1"]
+
+[node name="RingTemplatePlayground" type="Node"]
+script = ExtResource("1")
+
+[node name="Tools" type="CanvasLayer" parent="."]
+layer = 180
+
+[node name="Panel" type="PanelContainer" parent="Tools"]
+offset_left = 12.0
+offset_top = 390.0
+offset_right = 330.0
+offset_bottom = 690.0
+
+[node name="Rows" type="VBoxContainer" parent="Tools/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Tools/Panel/Rows"]
+layout_mode = 2
+text = "空心环 黑盒试玩（测试配置）"
+
+[node name="Modes" type="HBoxContainer" parent="Tools/Panel/Rows"]
+layout_mode = 2
+
+[node name="Ring" type="Button" parent="Tools/Panel/Rows/Modes"]
+layout_mode = 2
+text = "环解锁"
+
+[node name="Center" type="Button" parent="Tools/Panel/Rows/Modes"]
+layout_mode = 2
+text = "中心同色"
+
+[node name="Empty" type="Button" parent="Tools/Panel/Rows/Modes"]
+layout_mode = 2
+text = "空盘恢复"
+
+[node name="Move" type="Button" parent="Tools/Panel/Rows/Modes"]
+layout_mode = 2
+text = "移动题"
+
+[node name="Instructions" type="Label" parent="Tools/Panel/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(310, 100)
+autowrap_mode = 2
+
+[node name="Status" type="Label" parent="Tools/Panel/Rows"]
+layout_mode = 2
+text = "准备中"
