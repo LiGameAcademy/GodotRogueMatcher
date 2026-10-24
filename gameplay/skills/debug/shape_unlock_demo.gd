@@ -34,10 +34,19 @@ static func u() -> SkillDefinition:
 static func u_catalog() -> Array[SkillDefinition]:
 	return [l(), u(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
+static func ring() -> SkillDefinition:
+	return load("res://gameplay/skills/debug/shape_unlock/unlock_ring.tres") as SkillDefinition
+
+static func ring_catalog() -> Array[SkillDefinition]:
+	return [u(), ring(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
+
 static func catalog() -> Array[SkillDefinition]:
 	return [l(), t(), load("res://gameplay/progression/content/refill_less.tres") as SkillDefinition]
 
 static func populate(run: RunController, mode: String) -> void:
+	if mode in RunController.RING_INITIALIZATIONS:
+		RingTemplateDemo.populate(run, mode)
+		return
 	if mode in RunController.U_INITIALIZATIONS:
 		UTemplateDemo.populate(run, mode)
 		return
