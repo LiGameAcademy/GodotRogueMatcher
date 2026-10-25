@@ -11,6 +11,9 @@ const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
 const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"blast_extra": EXPLOSION,
+	&"blast_chain_bonus": EXPLOSION,
+	&"blast_refill_relief": EXPLOSION,
 	&"match_extra": MATCH_BONUS,
 	&"precision_reward": MATCH_BONUS,
 	&"longline_reward": MATCH_BONUS,
@@ -32,6 +35,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"blast_extra": "补分",
+	&"blast_chain_bonus": "节拍",
+	&"blast_refill_relief": "留白",
 	&"match_extra": "补分",
 	&"precision_reward": "正好",
 	&"longline_reward": "长连",

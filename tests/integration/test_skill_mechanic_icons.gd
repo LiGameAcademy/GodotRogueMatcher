@@ -217,5 +217,47 @@ func test_match_bonus_roles_keep_conditions_levels_and_multiplier_separate_witho
 		assert_same(multiplier.mechanic_icon.texture, SkillMechanicIcons.MULTIPLIER)
 		assert_not_same(multiplier.mechanic_icon.texture, SkillMechanicIcons.MATCH_BONUS)
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
-	for id: StringName in [&"goal_score_bonus", &"blast_extra", &"color_weight_up"]:
+	for id: StringName in [&"goal_score_bonus", &"blast_reward", &"color_weight_up"]:
+		assert_null(SkillMechanicIcons.texture_for(id))
+
+func test_blast_payoffs_keep_hit_generation_and_threshold_conditions_without_starting_refill_uses() -> void:
+	var ids: Array[StringName] = [&"blast_extra", &"blast_chain_bonus", &"blast_refill_relief"]
+	var levels: Array[int] = [2, 3, 1]
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	for id: StringName in [&"core_drop", &"assign_fuse", &"blast_extra", &"blast_extra", &"blast_chain_bonus", &"blast_chain_bonus", &"blast_chain_bonus", &"blast_refill_relief", &"match_extra"]:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	assert_eq(run.state.rule_error, "")
+	assert_eq(run.state.spawning.refill_batches[-1], 0)
+	assert_eq(run.state.spawning.refill_batches[1], 0)
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		hud.show_run(run)
+		await wait_process_frames(3)
+		var roles: Array[String] = []
+		for index: int in range(ids.size()):
+			var card: BUILD_SCRIPT = hud.build_list._cards[ids[index]] as BUILD_SCRIPT
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.EXPLOSION)
+			assert_eq(card.badge.text, "Lv.%d" % levels[index])
+			assert_false(card.remaining_label.visible)
+			assert_false(roles.has(card.mechanic_role.text))
+			roles.append(card.mechanic_role.text)
+			assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+			if index == 0:
+				assert_string_contains(card.tooltip_text, "命中爆炸" if locale == "zh_CN" else "blast that hits a piece")
+			elif index == 1:
+				assert_string_contains(card.tooltip_text, "第2/3/≥4代" if locale == "zh_CN" else "2 / 3 / 4+")
+			else:
+				assert_string_contains(card.tooltip_text, "≥8" if locale == "zh_CN" else "8+ pieces")
+				assert_string_contains(card.tooltip_text, "不叠加减量" if locale == "zh_CN" else "not a larger reduction")
+		var match_bonus: BUILD_SCRIPT = hud.build_list._cards[&"match_extra"] as BUILD_SCRIPT
+		assert_same(match_bonus.mechanic_icon.texture, SkillMechanicIcons.MATCH_BONUS)
+		assert_not_same(match_bonus.mechanic_icon.texture, SkillMechanicIcons.EXPLOSION)
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	assert_eq(run.state.spawning.refill_batches[-1], 0)
+	assert_eq(run.state.spawning.refill_batches[1], 0)
+	for id: StringName in [&"blast_reward", &"selective_blast", &"blast_aftershock"]:
 		assert_null(SkillMechanicIcons.texture_for(id))
