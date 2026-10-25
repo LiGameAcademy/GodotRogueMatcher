@@ -2,13 +2,15 @@ extends Node
 
 ## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-blast-payoff-icons/captures"
+const OUTPUT: String = "res://.godot/issue129-manual-icons-outlines/captures"
+const MANUAL: Array[StringName] = [&"core_manual_detonation", &"line_manual_clear"]
 const BLAST_PAYOFF: Array[StringName] = [&"blast_extra", &"blast_chain_bonus", &"blast_refill_relief"]
 const MATCH_BONUS: Array[StringName] = [&"match_extra", &"precision_reward", &"longline_reward"]
 const FUSE_BASE: Array[StringName] = [&"fuse_match_plant", &"fuse_relay"]
 const DYE_UPGRADES: Array[StringName] = [&"dye_target_up", &"dye_chain_depth"]
 const ECONOMY: Array[StringName] = [&"refill_less", &"refill_more", &"score_multiplier"]
 const LABELS: Dictionary[String, String] = {
+	"manual": "主动两卡", "manual_build": "主动与轮廓",
 	"arrival": "登场三卡", "upgrade": "强化三卡", "build": "构筑与回退",
 	"economy": "供给与倍率", "economy_build": "供给构筑",
 	"dye": "染色接续", "dye_upgrades": "染色强化", "dye_build": "染色构筑",
@@ -21,7 +23,7 @@ const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "blast_payoff"
+var current: String = "manual"
 var tools_panel: PanelContainer
 var tools: VBoxContainer
 var low: bool = false
@@ -29,7 +31,7 @@ var preset_index: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_window().title = "技能连珠 · 爆破收益图标（#129）"
+	get_window().title = "技能连珠 · 主动图标与轮廓（#129）"
 	var layer: CanvasLayer = CanvasLayer.new()
 	# 仅测试工具置于HUD/弹窗之上；H收起后检查完整卡面。
 	layer.layer = 200
@@ -112,11 +114,22 @@ func load_case(key: String) -> void:
 	if key == "blast_payoff_build":
 		for id: StringName in [&"blast_extra", &"blast_extra", &"blast_chain_bonus", &"blast_chain_bonus", &"blast_chain_bonus", &"blast_refill_relief", &"match_extra", &"color_weight_up"]:
 			AestheticCases.install(run, definition(id))
+	if key in ["manual", "manual_build"]:
+		for id: StringName in DROP + [&"assign_fuse"]: AestheticCases.install(run, definition(id))
+	if key == "manual_build":
+		for id: StringName in MANUAL: AestheticCases.install(run, definition(id))
+		# 同色同轮廓对照；只通过正式规则入口放置、附引信，不伪造状态组合。
+		for color: int in range(5):
+			var plain: PieceState = run.state.rules.place_piece(Vector2i(color + 2, 3), color)
+			var fused: PieceState = run.state.rules.place_piece(Vector2i(color + 2, 4), color)
+			if plain == null or fused == null or not run.abilities.assign_fuse(fused.piece_id):
+				run.report_error("outline fixture placement failed")
 	run.start_turn()
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build"]:
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build"]:
 		var skills: Array[SkillDefinition] = []
 		var ids: Array[StringName] = UPGRADE
-		if key == "arrival": ids = DROP
+		if key == "manual": ids = MANUAL
+		elif key == "arrival": ids = DROP
 		elif key == "economy": ids = ECONOMY
 		elif key == "dye": ids = [&"match_dye_echo"]
 		elif key == "dye_upgrades": ids = DYE_UPGRADES
@@ -137,7 +150,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build"]: await board.resume_run(run)
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -160,14 +173,16 @@ func capture_suite() -> void:
 			get_window().content_scale_size = resolution
 			for theme: int in [0, 1]:
 				preset_index = theme
-				for key: String in ["blast_payoff", "blast_payoff_build"]:
-					await load_case(key)
-					tools_panel.hide()
-					for frame: int in range(45): await get_tree().process_frame
-					await RenderingServer.frame_post_draw
-					var error: Error = get_viewport().get_texture().get_image().save_png(OUTPUT.path_join("%s_%s_%d_%d.png" % [key, locale, resolution.x, theme]))
-					if error != OK: push_error(error_string(error))
-					print("ICON_CAPTURE ", key, " error=", board.run.state.rule_error)
+				for reduced: bool in [false, true]:
+					low = reduced
+					for key: String in ["manual", "manual_build"]:
+						await load_case(key)
+						tools_panel.hide()
+						for frame: int in range(45): await get_tree().process_frame
+						await RenderingServer.frame_post_draw
+						var error: Error = get_viewport().get_texture().get_image().save_png(OUTPUT.path_join("%s_%s_%d_%d_%s.png" % [key, locale, resolution.x, theme, "low" if low else "normal"]))
+						if error != OK: push_error(error_string(error))
+						print("ICON_CAPTURE ", key, " error=", board.run.state.rule_error)
 	tools_panel.show()
 	for frame: int in range(3): await get_tree().process_frame
 	await RenderingServer.frame_post_draw
