@@ -1,0 +1,9 @@
+{
+  "asset": "assets/textures/ui/icon_ability_dye.svg",
+  "source": "SVG itself; authored in this change from basic paths",
+  "size": [
+    32,
+    32
+  ],
+  "sha256": "7bd4ec4c2b3782fb20375a1efcbde12e0757f46dbeab5e358ddf5dae9ebf4b9b"
+}

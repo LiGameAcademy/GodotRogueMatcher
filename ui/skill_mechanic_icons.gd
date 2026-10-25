@@ -7,7 +7,11 @@ const SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_sweep.pn
 const REFILL_LESS: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_less.svg")
 const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_more.svg")
 const MULTIPLIER: Texture2D = preload("res://assets/textures/ui/icon_ability_multiplier.svg")
+const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"match_dye_echo": DYE,
+	&"dye_target_up": DYE,
+	&"dye_chain_depth": DYE,
 	&"refill_less": REFILL_LESS,
 	&"refill_more": REFILL_MORE,
 	&"score_multiplier": MULTIPLIER,
@@ -20,6 +24,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"match_dye_echo": "接续",
+	&"dye_target_up": "扩散",
+	&"dye_chain_depth": "再续",
 	&"refill_less": "减量",
 	&"refill_more": "增量",
 	&"score_multiplier": "倍率（短）",

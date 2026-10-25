@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Dye mechanism</title>
+<path d="M16 3C13 8 5 15 5 21a11 9 0 0 0 22 0C27 15 19 8 16 3Z" fill="#73cfc3" stroke="#fff8eb" stroke-width="4" stroke-linejoin="round"/>
+<path d="M16 4C19 9 26 15 26 21c0 5-4 9-10 9Z" fill="#bbadd0"/>
+<path d="M16 3C13 8 5 15 5 21a11 9 0 0 0 22 0C27 15 19 8 16 3Z" fill="none" stroke="#493958" stroke-width="2" stroke-linejoin="round"/>
+<path d="M10 18c-2 3-1 5 1 6" fill="none" stroke="#fff8eb" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

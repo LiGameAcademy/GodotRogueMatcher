@@ -126,3 +126,32 @@ func test_refill_icons_keep_real_remaining_uses_and_multiplier_keeps_level() -> 
 			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), snapshot)
 		if remaining > 0: run.state.spawning.consume_refill_count(RunController.SPAWN_CONFIG)
 	assert_not_same(SkillMechanicIcons.REFILL_LESS, SkillMechanicIcons.REFILL_MORE)
+
+func test_dye_build_uses_one_shared_glyph_but_distinct_roles_and_real_levels() -> void:
+	var ids: Array[StringName] = [&"match_dye_echo", &"dye_target_up", &"dye_chain_depth"]
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	for id: StringName in ids:
+		var skill: SkillDefinition = load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
+		AestheticCases.install(run, skill)
+	assert_eq(run.state.rule_error, "")
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		hud.show_run(run)
+		await wait_process_frames(3)
+		var roles: Array[String] = []
+		for id: StringName in ids:
+			var card: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.DYE)
+			assert_eq(card.badge.text, "Lv.1")
+			assert_false(card.remaining_label.visible)
+			assert_false(roles.has(card.mechanic_role.text))
+			roles.append(card.mechanic_role.text)
+			assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	var instant: SkillDefinition = load("res://gameplay/progression/content/instant_color_dye.tres") as SkillDefinition
+	assert_null(SkillMechanicIcons.texture_for(instant.skill_id))
+	assert_eq(SkillMechanicIcons.role_for(instant.skill_id), "")
