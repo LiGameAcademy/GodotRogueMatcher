@@ -183,3 +183,39 @@ func test_fuse_roles_and_relay_level_two_preserve_rules_and_other_fuse_cards_kee
 	for id: StringName in [&"assign_fuse", &"fuse_capacity", &"instant_fuse_ignite"]:
 		assert_null(SkillMechanicIcons.texture_for(id))
 		assert_eq(SkillMechanicIcons.role_for(id), "")
+
+func test_match_bonus_roles_keep_conditions_levels_and_multiplier_separate_without_awarding_score() -> void:
+	var ids: Array[StringName] = [&"match_extra", &"precision_reward", &"longline_reward"]
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	for id: StringName in [&"match_extra", &"precision_reward", &"precision_reward", &"longline_reward", &"longline_reward", &"longline_reward", &"score_multiplier"]:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	assert_eq(run.state.rule_error, "")
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		hud.show_run(run)
+		await wait_process_frames(3)
+		var roles: Array[String] = []
+		for index: int in range(ids.size()):
+			var card: BUILD_SCRIPT = hud.build_list._cards[ids[index]] as BUILD_SCRIPT
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.MATCH_BONUS)
+			assert_eq(card.badge.text, "Lv.%d" % (index + 1))
+			assert_false(card.remaining_label.visible)
+			assert_false(roles.has(card.mechanic_role.text))
+			roles.append(card.mechanic_role.text)
+			assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+			if index == 1:
+				assert_string_contains(card.tooltip_text, "恰好消除5枚" if locale == "zh_CN" else "exactly 5")
+				assert_string_contains(card.tooltip_text, "不受倍率影响" if locale == "zh_CN" else "unaffected by multipliers")
+			elif index == 2:
+				assert_string_contains(card.tooltip_text, "≥6" if locale == "zh_CN" else "6+")
+				assert_string_contains(card.tooltip_text, "不吃倍率" if locale == "zh_CN" else "not multiplied")
+		var multiplier: BUILD_SCRIPT = hud.build_list._cards[&"score_multiplier"] as BUILD_SCRIPT
+		assert_same(multiplier.mechanic_icon.texture, SkillMechanicIcons.MULTIPLIER)
+		assert_not_same(multiplier.mechanic_icon.texture, SkillMechanicIcons.MATCH_BONUS)
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	for id: StringName in [&"goal_score_bonus", &"blast_extra", &"color_weight_up"]:
+		assert_null(SkillMechanicIcons.texture_for(id))
