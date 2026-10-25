@@ -93,3 +93,36 @@ func test_orientation_and_modulation_are_instance_local_and_do_not_intercept_inp
 	assert_eq(a.mechanic_icon.rotation_degrees, 0.0)
 	assert_eq(a.mechanic_icon.mouse_filter, Control.MOUSE_FILTER_IGNORE)
 	assert_eq(b.mechanic_icon.mouse_filter, Control.MOUSE_FILTER_IGNORE)
+
+func test_refill_icons_keep_real_remaining_uses_and_multiplier_keeps_level() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	run.state.rewards.consumed_count = 3
+	for id: StringName in [&"refill_less", &"refill_more", &"score_multiplier"]:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	assert_eq(run.state.rule_error, "")
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for remaining: int in [3, 2, 1, 0]:
+		var snapshot: String = RunSnapshot.digest(RunSnapshot.capture(run))
+		for locale: String in ["zh_CN", "en_US"]:
+			TranslationServer.set_locale(locale)
+			hud.show_run(run)
+			await wait_process_frames(3)
+			for id: StringName in [&"refill_less", &"refill_more"]:
+				assert_eq(hud.build_list._cards.has(id), remaining > 0)
+				if remaining == 0: continue
+				var card: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
+				assert_same(card.mechanic_icon.texture, SkillMechanicIcons.texture_for(id))
+				assert_false(card.level_label.visible)
+				assert_string_contains(card.badge.text, str(remaining))
+				assert_string_contains(card.remaining_label.text, str(remaining))
+				assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+			var multiplier: BUILD_SCRIPT = hud.build_list._cards[&"score_multiplier"] as BUILD_SCRIPT
+			assert_same(multiplier.mechanic_icon.texture, SkillMechanicIcons.MULTIPLIER)
+			assert_eq(multiplier.badge.text, "Lv.1")
+			assert_false(multiplier.remaining_label.visible)
+			assert_true(multiplier.get_global_rect().encloses(multiplier.mechanic_role.get_global_rect()))
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), snapshot)
+		if remaining > 0: run.state.spawning.consume_refill_count(RunController.SPAWN_CONFIG)
+	assert_not_same(SkillMechanicIcons.REFILL_LESS, SkillMechanicIcons.REFILL_MORE)

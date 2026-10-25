@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher-128/.godot/issue129-economy-icons/test_userdata/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_skill_mechanic_icons.gd
+* test_registered_icons_match_choices_catalog_and_compact_build_without_mutating_run
+* test_unregistered_and_same_tag_cards_keep_fallback_and_reused_nodes_clear_previous_icons
+* test_orientation_and_modulation_are_instance_local_and_do_not_intercept_input
+* test_refill_icons_keep_real_remaining_uses_and_multiplier_keeps_level
+4/4 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               1
+Tests                 4
+Passing Tests         4
+Asserts             656
+Time              1.196s
+
+
+---- All tests passed! ----

@@ -4,7 +4,13 @@ extends RefCounted
 ## 显示侧首批图标清单；不依据名称/宽泛Tag猜测，不写入技能规则Resource。
 const EXPLOSION: Texture2D = preload("res://assets/textures/ui/icon_ability_explosion.png")
 const SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_sweep.png")
+const REFILL_LESS: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_less.svg")
+const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_more.svg")
+const MULTIPLIER: Texture2D = preload("res://assets/textures/ui/icon_ability_multiplier.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"refill_less": REFILL_LESS,
+	&"refill_more": REFILL_MORE,
+	&"score_multiplier": MULTIPLIER,
 	&"core_drop": EXPLOSION,
 	&"core_supply_up": EXPLOSION,
 	&"core_radius": EXPLOSION,
@@ -14,6 +20,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"refill_less": "减量",
+	&"refill_more": "增量",
+	&"score_multiplier": "倍率（短）",
 	&"core_drop": "登场",
 	&"core_supply_up": "补给",
 	&"core_radius": "范围",

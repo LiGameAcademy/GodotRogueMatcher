@@ -1,14 +1,16 @@
 extends Node
 
-## 首批机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
+## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-icons/captures"
+const OUTPUT: String = "res://.godot/issue129-economy-icons/captures"
+const ECONOMY: Array[StringName] = [&"refill_less", &"refill_more", &"score_multiplier"]
+const LABELS: Dictionary[String, String] = {"arrival": "登场三卡", "upgrade": "强化三卡", "build": "构筑与回退", "economy": "供给与倍率", "economy_build": "供给构筑"}
 const DROP: Array[StringName] = [&"core_drop", &"line_row_drop", &"line_column_drop"]
 const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_column_span"]
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "upgrade"
+var current: String = "economy"
 var tools: VBoxContainer
 var low: bool = false
 var preset_index: int = 0
@@ -22,9 +24,9 @@ func _ready() -> void:
 	tools = VBoxContainer.new()
 	tools.position = Vector2(6, 100)
 	layer.add_child(tools)
-	for key: String in ["arrival", "upgrade", "build"]:
+	for key: String in LABELS:
 		var button: Button = Button.new()
-		button.text = "登场三卡" if key == "arrival" else ("强化三卡" if key == "upgrade" else "构筑与回退")
+		button.text = LABELS[key]
 		button.pressed.connect(load_case.bind(key))
 		tools.add_child(button)
 	for title: String in ["中文/English", "明亮/深色", "普通/低特效"]:
@@ -64,14 +66,18 @@ func load_case(key: String) -> void:
 	board.run.retire()
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
 	run.initialize()
-	if key != "arrival":
+	# 供给卡从中期候选池开放；夹具从第4次奖励起，不放宽正式合法条件。
+	if key in ["economy", "economy_build"]: run.state.rewards.consumed_count = 3
+	if key in ["upgrade", "build"]:
 		for id: StringName in DROP: AestheticCases.install(run, definition(id))
 	if key == "build":
-		for id: StringName in UPGRADE + [&"core_radius", &"refill_less"]: AestheticCases.install(run, definition(id))
+		for id: StringName in UPGRADE + [&"core_radius", &"match_extra"]: AestheticCases.install(run, definition(id))
+	if key == "economy_build":
+		for id: StringName in ECONOMY + [&"match_extra"]: AestheticCases.install(run, definition(id))
 	run.start_turn()
-	if key != "build":
+	if key not in ["build", "economy_build"]:
 		var skills: Array[SkillDefinition] = []
-		for id: StringName in DROP if key == "arrival" else UPGRADE: skills.append(definition(id))
+		for id: StringName in ECONOMY if key == "economy" else (DROP if key == "arrival" else UPGRADE): skills.append(definition(id))
 		AestheticCases.offer(run, skills)
 	board.run = run
 	board.rules = run.state.rules
@@ -84,7 +90,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key != "build": await board.resume_run(run)
+	if key not in ["build", "economy_build"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -107,7 +113,7 @@ func capture_suite() -> void:
 			get_window().content_scale_size = resolution
 			for theme: int in [0, 1]:
 				preset_index = theme
-				for key: String in ["arrival", "upgrade", "build"]:
+				for key: String in ["economy", "economy_build"]:
 					await load_case(key)
 					tools.hide()
 					for frame: int in range(45): await get_tree().process_frame

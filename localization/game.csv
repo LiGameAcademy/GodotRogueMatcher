@@ -927,3 +927,6 @@ Fuses included: %d"
 "登场","登场","Arrival"
 "补给","补给","Supply"
 "范围","范围","Range"
+减量,减量,Less
+增量,增量,More
+倍率（短）,倍率,Mult.
