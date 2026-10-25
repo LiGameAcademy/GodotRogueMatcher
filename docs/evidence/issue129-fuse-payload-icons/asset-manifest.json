@@ -1,0 +1,13 @@
+{
+  "path": "assets/textures/ui/icon_ability_fuse.svg",
+  "dimensions": [
+    32,
+    32
+  ],
+  "working_file_sha256": "51d80940138f134df7cad15aa78762bbd08f468a5e5a0ef2a8e83b23fee27846",
+  "git_blob_sha256": "6384301cae5b086f12d6089787cddaa20f204e234e9fc401700ab82d20ca7d16",
+  "bytes": 802,
+  "unchanged_source_from": "85226e0757a0ca91115ce02a627e3121f0dc8343",
+  "comparison": "Identical after CRLF/LF normalization; SVG is not modified in this PR",
+  "source": "Original editable SVG from #191, docs/quality/issue129_fuse_icons.md"
+}
