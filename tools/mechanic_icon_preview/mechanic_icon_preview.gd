@@ -2,7 +2,8 @@ extends Node
 
 ## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-match-bonus-icons/captures"
+const OUTPUT: String = "res://.godot/issue129-blast-payoff-icons/captures"
+const BLAST_PAYOFF: Array[StringName] = [&"blast_extra", &"blast_chain_bonus", &"blast_refill_relief"]
 const MATCH_BONUS: Array[StringName] = [&"match_extra", &"precision_reward", &"longline_reward"]
 const FUSE_BASE: Array[StringName] = [&"fuse_match_plant", &"fuse_relay"]
 const DYE_UPGRADES: Array[StringName] = [&"dye_target_up", &"dye_chain_depth"]
@@ -13,13 +14,14 @@ const LABELS: Dictionary[String, String] = {
 	"dye": "染色接续", "dye_upgrades": "染色强化", "dye_build": "染色构筑",
 	"fuse": "布雷与传递", "fuse_capacity": "传递接力", "fuse_build": "引信构筑",
 	"bonus": "五连额外分", "bonus_build": "收益与倍率构筑",
+	"blast_payoff": "爆破收益三卡", "blast_payoff_build": "爆破收益构筑",
 }
 const DROP: Array[StringName] = [&"core_drop", &"line_row_drop", &"line_column_drop"]
 const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_column_span"]
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "bonus"
+var current: String = "blast_payoff"
 var tools_panel: PanelContainer
 var tools: VBoxContainer
 var low: bool = false
@@ -27,7 +29,7 @@ var preset_index: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_window().title = "技能连珠 · 五连收益图标（#129）"
+	get_window().title = "技能连珠 · 爆破收益图标（#129）"
 	var layer: CanvasLayer = CanvasLayer.new()
 	# 仅测试工具置于HUD/弹窗之上；H收起后检查完整卡面。
 	layer.layer = 200
@@ -105,8 +107,13 @@ func load_case(key: String) -> void:
 	if key == "bonus_build":
 		for id: StringName in [&"match_extra", &"precision_reward", &"precision_reward", &"longline_reward", &"longline_reward", &"longline_reward", &"score_multiplier", &"color_weight_up"]:
 			AestheticCases.install(run, definition(id))
+	if key in ["blast_payoff", "blast_payoff_build"]:
+		for id: StringName in [&"core_drop", &"assign_fuse"]: AestheticCases.install(run, definition(id))
+	if key == "blast_payoff_build":
+		for id: StringName in [&"blast_extra", &"blast_extra", &"blast_chain_bonus", &"blast_chain_bonus", &"blast_chain_bonus", &"blast_refill_relief", &"match_extra", &"color_weight_up"]:
+			AestheticCases.install(run, definition(id))
 	run.start_turn()
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build"]:
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build"]:
 		var skills: Array[SkillDefinition] = []
 		var ids: Array[StringName] = UPGRADE
 		if key == "arrival": ids = DROP
@@ -116,6 +123,7 @@ func load_case(key: String) -> void:
 		elif key == "fuse": ids = FUSE_BASE
 		elif key == "fuse_capacity": ids = [&"relay_capacity"]
 		elif key == "bonus": ids = MATCH_BONUS
+		elif key == "blast_payoff": ids = BLAST_PAYOFF
 		for id: StringName in ids: skills.append(definition(id))
 		AestheticCases.offer(run, skills)
 	board.run = run
@@ -129,7 +137,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build"]: await board.resume_run(run)
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -152,7 +160,7 @@ func capture_suite() -> void:
 			get_window().content_scale_size = resolution
 			for theme: int in [0, 1]:
 				preset_index = theme
-				for key: String in ["bonus", "bonus_build"]:
+				for key: String in ["blast_payoff", "blast_payoff_build"]:
 					await load_case(key)
 					tools_panel.hide()
 					for frame: int in range(45): await get_tree().process_frame

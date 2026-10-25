@@ -1,0 +1,12 @@
+{
+  "asset": "assets/textures/ui/icon_ability_explosion.png",
+  "reused": true,
+  "unchanged_from_base": "34ad0b5",
+  "size": [
+    79,
+    64
+  ],
+  "sha256": "87e8ee1912a5a920f794413ba34d5f3daf439af2c96c2818a50fa45f523a7fd1",
+  "source": "Existing generated baseline slice; see assets/textures/README.md and docs/quality/issue129_mechanic_icons.md",
+  "new_production_images": 0
+}
