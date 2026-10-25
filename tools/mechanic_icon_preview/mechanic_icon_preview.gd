@@ -2,7 +2,8 @@ extends Node
 
 ## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-fuse-payload-icons/captures"
+const OUTPUT: String = "res://.godot/issue129-transform-icons/captures"
+const TRANSFORM: Array[StringName] = [&"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
 const FUSE_PAYLOAD: Array[StringName] = [&"assign_fuse", &"fuse_capacity", &"core_fuse_payload"]
 const MANUAL: Array[StringName] = [&"core_manual_detonation", &"line_manual_clear"]
 const BLAST_PAYOFF: Array[StringName] = [&"blast_extra", &"blast_chain_bonus", &"blast_refill_relief"]
@@ -11,6 +12,8 @@ const FUSE_BASE: Array[StringName] = [&"fuse_match_plant", &"fuse_relay"]
 const DYE_UPGRADES: Array[StringName] = [&"dye_target_up", &"dye_chain_depth"]
 const ECONOMY: Array[StringName] = [&"refill_less", &"refill_more", &"score_multiplier"]
 const LABELS: Dictionary[String, String] = {
+	"transform": "即时改装三卡", "transform_core": "爆壳改装结果",
+	"transform_row": "横扫改装结果", "transform_column": "纵扫改装结果",
 	"fuse_payload": "赋能扩容装填", "fuse_payload_build": "扩容与装填构筑",
 	"manual": "主动两卡", "manual_build": "主动与轮廓",
 	"arrival": "登场三卡", "upgrade": "强化三卡", "build": "构筑与回退",
@@ -25,7 +28,7 @@ const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "fuse_payload"
+var current: String = "transform"
 var tools_panel: PanelContainer
 var tools: VBoxContainer
 var low: bool = false
@@ -33,7 +36,7 @@ var preset_index: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_window().title = "技能连珠 · 引信赋能与装填（#129）"
+	get_window().title = "技能连珠 · 即时改装图标（#129）"
 	var layer: CanvasLayer = CanvasLayer.new()
 	# 仅测试工具置于HUD/弹窗之上；H收起后检查完整卡面。
 	layer.layer = 200
@@ -48,7 +51,7 @@ func _ready() -> void:
 	tools = VBoxContainer.new()
 	tools_panel.add_child(tools)
 	var case_grid: GridContainer = GridContainer.new()
-	case_grid.columns = 2
+	case_grid.columns = 3
 	tools.add_child(case_grid)
 	for key: String in LABELS:
 		var button: Button = Button.new()
@@ -134,11 +137,21 @@ func load_case(key: String) -> void:
 	if key == "fuse_payload_build":
 		for id: StringName in [&"fuse_capacity", &"fuse_capacity", &"core_fuse_payload", &"fuse_match_plant", &"color_weight_up"]:
 			AestheticCases.install(run, definition(id))
+	if key.begins_with("transform"):
+		# 即时转化从第3次奖励起；保持正式最低奖励条件。
+		run.state.rewards.consumed_count = 2
+		for x: int in range(9):
+			if run.state.rules.state.get_piece_id(Vector2i(x, 4)) == 0:
+				run.state.rules.place_piece(Vector2i(x, 4), x % 5)
+		if key != "transform":
+			var index: int = 0 if key == "transform_core" else (1 if key == "transform_row" else 2)
+			AestheticCases.install(run, definition(TRANSFORM[index]))
 	run.start_turn()
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build"]:
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build", "transform_core", "transform_row", "transform_column"]:
 		var skills: Array[SkillDefinition] = []
 		var ids: Array[StringName] = UPGRADE
-		if key == "fuse_payload": ids = FUSE_PAYLOAD
+		if key == "transform": ids = TRANSFORM
+		elif key == "fuse_payload": ids = FUSE_PAYLOAD
 		elif key == "manual": ids = MANUAL
 		elif key == "arrival": ids = DROP
 		elif key == "economy": ids = ECONOMY
@@ -161,7 +174,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build"]: await board.resume_run(run)
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build", "transform_core", "transform_row", "transform_column"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -186,7 +199,7 @@ func capture_suite() -> void:
 				preset_index = theme
 				for reduced: bool in [false, true]:
 					low = reduced
-					for key: String in ["fuse_payload", "fuse_payload_build"]:
+					for key: String in ["transform", "transform_column"]:
 						await load_case(key)
 						tools_panel.hide()
 						for frame: int in range(45): await get_tree().process_frame

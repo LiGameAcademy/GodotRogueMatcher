@@ -1,0 +1,24 @@
+[
+  {
+    "path": "assets/textures/ui/icon_ability_explosion.png",
+    "dimensions": [
+      79,
+      64
+    ],
+    "bytes": 8372,
+    "sha256": "87e8ee1912a5a920f794413ba34d5f3daf439af2c96c2818a50fa45f523a7fd1",
+    "unchanged_from": "9f33cba16332bc91be03fb48fefbdd485513b31c",
+    "source": "Existing production PNG, provenance in assets/textures/README.md and docs/quality/issue129_mechanic_icons.md"
+  },
+  {
+    "path": "assets/textures/ui/icon_ability_sweep.png",
+    "dimensions": [
+      85,
+      42
+    ],
+    "bytes": 5256,
+    "sha256": "36c2f013281aa580f3b550d02b9ec3bb7fc84984dc66d88173da1056d3f48054",
+    "unchanged_from": "9f33cba16332bc91be03fb48fefbdd485513b31c",
+    "source": "Existing production PNG, provenance in assets/textures/README.md and docs/quality/issue129_mechanic_icons.md"
+  }
+]
