@@ -8,7 +8,11 @@ const REFILL_LESS: Texture2D = preload("res://assets/textures/ui/icon_ability_re
 const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_more.svg")
 const MULTIPLIER: Texture2D = preload("res://assets/textures/ui/icon_ability_multiplier.svg")
 const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
+const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"fuse_match_plant": FUSE,
+	&"fuse_relay": FUSE,
+	&"relay_capacity": FUSE,
 	&"match_dye_echo": DYE,
 	&"dye_target_up": DYE,
 	&"dye_chain_depth": DYE,
@@ -24,6 +28,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"fuse_match_plant": "布雷",
+	&"fuse_relay": "传递",
+	&"relay_capacity": "接力",
 	&"match_dye_echo": "接续",
 	&"dye_target_up": "扩散",
 	&"dye_chain_depth": "再续",

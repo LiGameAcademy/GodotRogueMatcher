@@ -155,3 +155,31 @@ func test_dye_build_uses_one_shared_glyph_but_distinct_roles_and_real_levels() -
 	var instant: SkillDefinition = load("res://gameplay/progression/content/instant_color_dye.tres") as SkillDefinition
 	assert_null(SkillMechanicIcons.texture_for(instant.skill_id))
 	assert_eq(SkillMechanicIcons.role_for(instant.skill_id), "")
+
+func test_fuse_roles_and_relay_level_two_preserve_rules_and_other_fuse_cards_keep_fallback() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	for id: StringName in [&"core_drop", &"assign_fuse", &"fuse_match_plant", &"fuse_relay", &"relay_capacity", &"relay_capacity"]:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	assert_eq(run.state.rule_error, "")
+	assert_false(SkillRules.effect_context(run.state).fuse_ids.is_empty())
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		hud.show_run(run)
+		await wait_process_frames(3)
+		var roles: Array[String] = []
+		for id: StringName in [&"fuse_match_plant", &"fuse_relay", &"relay_capacity"]:
+			var card: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.FUSE)
+			assert_eq(card.badge.text, "Lv.2" if id == &"relay_capacity" else "Lv.1")
+			assert_false(card.remaining_label.visible)
+			assert_false(roles.has(card.mechanic_role.text))
+			roles.append(card.mechanic_role.text)
+			assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	for id: StringName in [&"assign_fuse", &"fuse_capacity", &"instant_fuse_ignite"]:
+		assert_null(SkillMechanicIcons.texture_for(id))
+		assert_eq(SkillMechanicIcons.role_for(id), "")
