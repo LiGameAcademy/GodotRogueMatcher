@@ -261,3 +261,31 @@ func test_blast_payoffs_keep_hit_generation_and_threshold_conditions_without_sta
 	assert_eq(run.state.spawning.refill_batches[1], 0)
 	for id: StringName in [&"blast_reward", &"selective_blast", &"blast_aftershock"]:
 		assert_null(SkillMechanicIcons.texture_for(id))
+
+func test_manual_icons_keep_real_shared_quota_at_zero_without_changing_run() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	var ids: Array[StringName] = [&"core_manual_detonation", &"line_manual_clear"]
+	for id: StringName in [&"core_drop", &"line_row_drop", &"line_column_drop"] + ids:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	assert_eq(run.state.rule_error, "")
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for used: int in [0, 3]:
+		# Quota is run-owned, shared by both sweeper axes; rendering never consumes it.
+		for id: StringName in ids: run.state.manual_uses_used[id] = used
+		var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+		for locale: String in ["zh_CN", "en_US"]:
+			TranslationServer.set_locale(locale)
+			hud.show_run(run)
+			await wait_process_frames(3)
+			for id: StringName in ids:
+				var card: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
+				assert_true(card.mechanic_icon.visible)
+				assert_same(card.mechanic_icon.texture, SkillMechanicIcons.EXPLOSION if id == ids[0] else SkillMechanicIcons.MANUAL_SWEEP)
+				assert_eq(card.mechanic_role.text, "主动" if locale == "zh_CN" else "Manual")
+				assert_eq(card.badge.text, "Lv.1 · %d" % (3 - used))
+				assert_string_contains(card.remaining_label.text, "%d / 3" % (3 - used))
+				assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	assert_not_same(SkillMechanicIcons.MANUAL_SWEEP, SkillMechanicIcons.SWEEP)

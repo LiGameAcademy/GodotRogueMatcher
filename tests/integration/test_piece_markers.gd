@@ -75,3 +75,32 @@ func test_arrow_axes_pause_and_reduced_effects_keep_static_identity() -> void:
 	row.set_ability_marker("")
 	assert_false(row.ability_visual.visible)
 	assert_eq(rules.state.get_piece_count(), 2)
+
+func test_core_and_fuse_keep_distinct_static_contours_when_reused_or_reduced() -> void:
+	var piece: ChessPiece = view.get_cell(Vector2i.ZERO).piece
+	var other: ChessPiece = view.get_cell(Vector2i(1, 0)).piece
+	var config: PieceMarkerConfig = piece.ability_visual.config
+	var before: Array[PieceState] = rules.state.get_snapshot()
+	piece.set_ability_marker("爆")
+	other.set_ability_marker("引")
+	view.set_low_effects(true)
+	var first: ShaderMaterial = piece.ability_visual.body_outline.material as ShaderMaterial
+	var second: ShaderMaterial = other.ability_visual.body_outline.material as ShaderMaterial
+	assert_false(first.get_shader_parameter("fuse_mark"))
+	assert_true(second.get_shader_parameter("fuse_mark"))
+	assert_eq(first.get_shader_parameter("outline_width"), config.outline_width)
+	assert_eq(first.get_shader_parameter("rim_width"), config.outline_rim_width)
+	assert_eq(first.get_shader_parameter("energy"), 0.0)
+	assert_true(piece.ability_visual.body_outline.visible)
+	assert_true(other.ability_visual.body_outline.visible)
+	await wait_process_frames(8)
+	assert_eq(first.get_shader_parameter("energy"), 0.0)
+	piece.set_ability_marker("引")
+	assert_true(first.get_shader_parameter("fuse_mark"))
+	other.set_ability_marker("行")
+	assert_false(second.get_shader_parameter("fuse_mark"))
+	assert_false(other.ability_visual.body_outline.visible)
+	assert_true(other.ability_visual.first_arrow.visible)
+	assert_eq(config.outline_width, 3.0)
+	assert_eq(rules.state.get_snapshot().size(), before.size())
+	assert_eq(rules.state.get_piece_at(Vector2i.ZERO).match_color, 0)

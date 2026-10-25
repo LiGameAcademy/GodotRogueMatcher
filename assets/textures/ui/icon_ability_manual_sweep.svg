@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Original dual-axis mechanism glyph: manual sweeps share one quota. -->
+  <path d="M32 6V58M6 32H58M32 6L24 16M32 6L40 16M32 58L24 48M32 58L40 48M6 32L16 24M6 32L16 40M58 32L48 24M58 32L48 40" fill="none" stroke="#40334e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 6V58M6 32H58M32 6L24 16M32 6L40 16M32 58L24 48M32 58L40 48M6 32L16 24M6 32L16 40M58 32L48 24M58 32L48 40" fill="none" stroke="#f6c65b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

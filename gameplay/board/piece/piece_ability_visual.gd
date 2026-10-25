@@ -16,6 +16,8 @@ func _ready() -> void:
 	body_outline.material = _outline
 	_outline.set_shader_parameter("outline_width", config.outline_width)
 	_outline.set_shader_parameter("outline_color", config.outline_color)
+	_outline.set_shader_parameter("rim_width", config.outline_rim_width)
+	_outline.set_shader_parameter("rim_color", config.outline_rim_color)
 	for arrow: Sprite2D in [first_arrow, second_arrow]:
 		arrow.scale = config.arrow_size / arrow.texture.get_size()
 
@@ -26,6 +28,7 @@ func configure(marker: StringName, body: Texture2D, reduced: bool) -> void:
 	var changed: bool = kind != marker or low_effects != reduced
 	kind = marker
 	low_effects = reduced
+	_outline.set_shader_parameter("fuse_mark", kind == &"引")
 	body_outline.visible = kind in [&"爆", &"引"]
 	first_arrow.visible = kind in [&"行", &"列"]
 	second_arrow.visible = first_arrow.visible

@@ -3,6 +3,7 @@ extends RefCounted
 
 ## 显示侧首批图标清单；不依据名称/宽泛Tag猜测，不写入技能规则Resource。
 const EXPLOSION: Texture2D = preload("res://assets/textures/ui/icon_ability_explosion.png")
+const MANUAL_SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_manual_sweep.svg")
 const SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_sweep.png")
 const REFILL_LESS: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_less.svg")
 const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_more.svg")
@@ -11,6 +12,8 @@ const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
 const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"core_manual_detonation": EXPLOSION,
+	&"line_manual_clear": MANUAL_SWEEP,
 	&"blast_extra": EXPLOSION,
 	&"blast_chain_bonus": EXPLOSION,
 	&"blast_refill_relief": EXPLOSION,
@@ -35,6 +38,8 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"core_manual_detonation": "主动",
+	&"line_manual_clear": "主动",
 	&"blast_extra": "补分",
 	&"blast_chain_bonus": "节拍",
 	&"blast_refill_relief": "留白",
