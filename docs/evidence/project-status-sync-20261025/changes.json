@@ -1,0 +1,88 @@
+{
+  "project": {
+    "id": "PVT_kwDOC_Fun84BmT2k",
+    "title": "技能连珠开发",
+    "url": "https://github.com/orgs/LiGameAcademy/projects/1"
+  },
+  "changes": [
+    {
+      "number": 114,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBKnbw",
+      "before": "待设计",
+      "after": "开发中",
+      "reason": "异形原型与筛选工具已实际交付，#118/#119仍有后续验收"
+    },
+    {
+      "number": 116,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBKnoQ",
+      "before": "待设计",
+      "after": "开发中",
+      "reason": "#186及#187—#197已合并，#129持续开发，#130/#131未完成"
+    },
+    {
+      "number": 117,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBKnvU",
+      "before": "待设计",
+      "after": "开发中",
+      "reason": "迁移子片已合并，#135/#136仍有整版验收边界"
+    },
+    {
+      "number": 118,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBKv5Q",
+      "before": "待设计",
+      "after": "开发中",
+      "reason": "#170—#183逐片交付匹配、解锁恢复及模板原型，整项尚未关闭"
+    },
+    {
+      "number": 119,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBKwEg",
+      "before": "待设计",
+      "after": "待试玩",
+      "reason": "#184/#185正式题集与汇总工具已合并，真人筛选未完成且受#192阻断"
+    },
+    {
+      "number": 128,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBK69Y",
+      "before": "待开发",
+      "after": "开发中",
+      "reason": "#186代表性最小切片作者已通过，制作成本/长期与整体范围不外推完成"
+    },
+    {
+      "number": 132,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBLBwA",
+      "before": "待设计",
+      "after": "完成",
+      "reason": "#164兼容基线普查已复审合并；已知布局问题在#165修复，迁移准备验收完成"
+    },
+    {
+      "number": 133,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBLB8A",
+      "before": "待设计",
+      "after": "完成",
+      "reason": "#165奖励归属和弹窗协调已合并，574/574及作者review通过"
+    },
+    {
+      "number": 134,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBLDCU",
+      "before": "待设计",
+      "after": "完成",
+      "reason": "#166旧写入口退役已合并，经后续#136合并树复验"
+    },
+    {
+      "number": 135,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBLDP0",
+      "before": "待设计",
+      "after": "开发中",
+      "reason": "#167/#168已交付B/S/T，但整版扩展边界与后续存档等仍需复核"
+    },
+    {
+      "number": 136,
+      "item_id": "PVTI_lADOC_Fun84BmT2kzhBLDjk",
+      "before": "待设计",
+      "after": "开发中",
+      "reason": "#169仅迁移阶段验收通过，文档明确整版出口不自动关闭"
+    }
+  ],
+  "verified": true,
+  "issue_state_changed": false
+}

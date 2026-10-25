@@ -3,7 +3,7 @@ extends RefCounted
 
 ## 显示侧首批图标清单；不依据名称/宽泛Tag猜测，不写入技能规则Resource。
 const EXPLOSION: Texture2D = preload("res://assets/textures/ui/icon_ability_explosion.png")
-const MANUAL_SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_manual_sweep.svg")
+const DUAL_SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_manual_sweep.svg")
 const SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_sweep.png")
 const REFILL_LESS: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_less.svg")
 const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_more.svg")
@@ -12,6 +12,8 @@ const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
 const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"line_cross_upgrade": DUAL_SWEEP,
+	&"line_clear_score": DUAL_SWEEP,
 	&"instant_core_transform": EXPLOSION,
 	&"instant_row_transform": SWEEP,
 	&"instant_column_transform": SWEEP,
@@ -19,7 +21,7 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"fuse_capacity": FUSE,
 	&"core_fuse_payload": FUSE,
 	&"core_manual_detonation": EXPLOSION,
-	&"line_manual_clear": MANUAL_SWEEP,
+	&"line_manual_clear": DUAL_SWEEP,
 	&"blast_extra": EXPLOSION,
 	&"blast_chain_bonus": EXPLOSION,
 	&"blast_refill_relief": EXPLOSION,
@@ -44,6 +46,8 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"line_cross_upgrade": "十字",
+	&"line_clear_score": "收获",
 	&"instant_core_transform": "改装",
 	&"instant_row_transform": "改装",
 	&"instant_column_transform": "改装",

@@ -2,7 +2,8 @@ extends Node
 
 ## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-transform-icons/captures"
+const OUTPUT: String = "res://.godot/issue129-cross-sweep-icons/captures"
+const CROSS_SWEEP: Array[StringName] = [&"line_cross_upgrade", &"line_clear_score"]
 const TRANSFORM: Array[StringName] = [&"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
 const FUSE_PAYLOAD: Array[StringName] = [&"assign_fuse", &"fuse_capacity", &"core_fuse_payload"]
 const MANUAL: Array[StringName] = [&"core_manual_detonation", &"line_manual_clear"]
@@ -12,6 +13,7 @@ const FUSE_BASE: Array[StringName] = [&"fuse_match_plant", &"fuse_relay"]
 const DYE_UPGRADES: Array[StringName] = [&"dye_target_up", &"dye_chain_depth"]
 const ECONOMY: Array[StringName] = [&"refill_less", &"refill_more", &"score_multiplier"]
 const LABELS: Dictionary[String, String] = {
+	"cross_sweep": "十字与扫线收获", "cross_sweep_build": "十字与收获构筑",
 	"transform": "即时改装三卡", "transform_core": "爆壳改装结果",
 	"transform_row": "横扫改装结果", "transform_column": "纵扫改装结果",
 	"fuse_payload": "赋能扩容装填", "fuse_payload_build": "扩容与装填构筑",
@@ -28,7 +30,7 @@ const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "transform"
+var current: String = "cross_sweep"
 var tools_panel: PanelContainer
 var tools: VBoxContainer
 var low: bool = false
@@ -36,7 +38,7 @@ var preset_index: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_window().title = "技能连珠 · 即时改装图标（#129）"
+	get_window().title = "技能连珠 · 十字与扫线收益（#129）"
 	var layer: CanvasLayer = CanvasLayer.new()
 	# 仅测试工具置于HUD/弹窗之上；H收起后检查完整卡面。
 	layer.layer = 200
@@ -146,11 +148,17 @@ func load_case(key: String) -> void:
 		if key != "transform":
 			var index: int = 0 if key == "transform_core" else (1 if key == "transform_row" else 2)
 			AestheticCases.install(run, definition(TRANSFORM[index]))
+	if key in ["cross_sweep", "cross_sweep_build"]:
+		for id: StringName in [&"line_row_drop", &"line_column_drop"]: AestheticCases.install(run, definition(id))
+	if key == "cross_sweep_build":
+		for id: StringName in [&"line_manual_clear", &"line_cross_upgrade", &"line_clear_score", &"line_clear_score", &"color_weight_up"]:
+			AestheticCases.install(run, definition(id))
 	run.start_turn()
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build", "transform_core", "transform_row", "transform_column"]:
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build", "transform_core", "transform_row", "transform_column", "cross_sweep_build"]:
 		var skills: Array[SkillDefinition] = []
 		var ids: Array[StringName] = UPGRADE
-		if key == "transform": ids = TRANSFORM
+		if key == "cross_sweep": ids = CROSS_SWEEP
+		elif key == "transform": ids = TRANSFORM
 		elif key == "fuse_payload": ids = FUSE_PAYLOAD
 		elif key == "manual": ids = MANUAL
 		elif key == "arrival": ids = DROP
@@ -174,7 +182,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build", "transform_core", "transform_row", "transform_column"]: await board.resume_run(run)
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build", "transform_core", "transform_row", "transform_column", "cross_sweep_build"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -199,7 +207,7 @@ func capture_suite() -> void:
 				preset_index = theme
 				for reduced: bool in [false, true]:
 					low = reduced
-					for key: String in ["transform", "transform_column"]:
+					for key: String in ["cross_sweep", "cross_sweep_build"]:
 						await load_case(key)
 						tools_panel.hide()
 						for frame: int in range(45): await get_tree().process_frame

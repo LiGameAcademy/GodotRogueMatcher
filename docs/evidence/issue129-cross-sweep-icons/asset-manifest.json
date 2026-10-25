@@ -1,0 +1,12 @@
+{
+  "path": "assets/textures/ui/icon_ability_manual_sweep.svg",
+  "dimensions": [
+    64,
+    64
+  ],
+  "working_file_sha256": "d54b1562ebac0c88a9500efbcc8e477cdf0b6844811ea319818d660870725e8c",
+  "git_blob_sha256": "6184deb1c9ed19365e63abf43094f41a82a1605ad81356e4156ac2891f877edc",
+  "unchanged_from": "3685afe5708ef28c718dce1021f971fff6acf505",
+  "comparison": "Identical after CRLF/LF normalization; production asset is unchanged",
+  "source": "Original project SVG from #195, docs/quality/issue129_manual_icons_outlines.md"
+}
