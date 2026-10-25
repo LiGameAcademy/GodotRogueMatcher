@@ -25,6 +25,9 @@ enum DisplayMode {
 @onready var aura: PieceAura = $PieceAura
 var _surface: ShaderMaterial
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var nut_visual: NutVisual = $NutVisual
+@onready var ability_visual: PieceAbilityVisual = $PieceAbilityVisual
+var _ability_kind: StringName = &""
 @onready var glow_particles: GPUParticles2D = $GlowParticles
 @onready var ability_marker: Label = $AbilityMarker
 @onready var tooltip_region: Control = $TooltipRegion
@@ -58,6 +61,8 @@ var _appearance: BoardAppearance
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	_refresh_idle_expression()
+	if is_instance_valid(ability_visual): ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects)
 	if is_instance_valid(aura): aura.show_selection(_piece_color(), is_selected and not is_eliminating, low_effects)
 	if glow_particles:
 		glow_particles.emitting = false
@@ -97,8 +102,10 @@ func is_moving() -> bool:
 
 ## 标记由表现调用者根据本局能力映射传入。
 func set_ability_marker(text: String) -> void:
+	_ability_kind = StringName(text)
 	ability_marker.text = tr(text)
-	ability_marker.visible = not text.is_empty()
+	ability_marker.visible = not text.is_empty() and _ability_kind not in [&"行", &"列", &"爆", &"引"]
+	ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects)
 
 ## 使用原生提示，不截获格子的点击与路径输入。
 func set_tooltip_text(text: String) -> void:
@@ -111,6 +118,7 @@ func cancel_movement() -> void:
 		if tween != null:
 			tween.kill()
 		_is_moving = false
+		_refresh_idle_expression()
 		movement_completed.emit()
 
 ## 更新视觉效果
@@ -162,6 +170,14 @@ func _update_shape_visual() -> void:
 		# 更新辉光粒子颜色
 		if glow_particles:
 			update_particle_color(color)
+		# 几何数据保留为旧形状模式的查询依据；实际表现改用已定稿坚果。
+		nut_visual.nut_type = type_index
+		ability_visual.configure(_ability_kind, NutVisual.BODIES[type_index], low_effects)
+		nut_visual.visible = true
+		_refresh_idle_expression()
+		polygon.visible = false
+		shadow_polygon.visible = false
+		outline.visible = false
 
 ## 生成圆形多边形
 func generate_circle_polygon(radius: float, segments: int = 16) -> PackedVector2Array:
@@ -242,6 +258,7 @@ func update_particle_color(color: Color) -> void:
 func selected() -> void:
 	if is_selected or _is_moving or is_eliminating: return
 	is_selected = true
+	_refresh_idle_expression()
 	if tween != null: tween.kill()
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE * (1.04 if low_effects else JUICE.selected_scale), 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -251,6 +268,7 @@ func deselected() -> void:
 	if not is_selected: return
 	is_selected = false
 	aura.show_selection(_piece_color(), false, low_effects)
+	_refresh_idle_expression()
 	if _is_moving or is_eliminating: return
 	if tween != null: tween.kill()
 	tween = create_tween()
@@ -261,6 +279,7 @@ func move_to_and_wait(target_cell: Cell, duration: float = 0.15) -> void:
 		tween.kill()
 
 	_is_moving = true
+	_refresh_idle_expression()
 	tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
@@ -271,6 +290,7 @@ func move_to_and_wait(target_cell: Cell, duration: float = 0.15) -> void:
 func eliminate() -> void:
 	if is_eliminating: return
 	is_eliminating = true
+	_refresh_idle_expression()
 	is_selected = false
 	aura.show_selection(_piece_color(), false, low_effects)
 	if tween != null: tween.kill()
@@ -287,6 +307,7 @@ func eliminate() -> void:
 func reset() -> void:
 	is_selected = false
 	is_eliminating = false
+	_refresh_idle_expression()
 	scale = Vector2.ONE
 	rotation = 0.0
 	modulate.a = 0.5 if is_ghost else 1.0
@@ -331,6 +352,9 @@ func _set_flash(value: float) -> void:
 	_surface.set_shader_parameter("flash", value)
 ## 更新图标视觉（道具）
 func _update_icon_visual() -> void:
+	nut_visual.visible = false
+	_refresh_idle_expression()
+	ability_visual.visible = false
 	# 隐藏形状，显示图标
 	shadow_polygon.visible = false
 	outline.visible = false
@@ -365,4 +389,9 @@ func _get_rarity_color() -> Color:
 ## 移动完成回调
 func _on_move_completed() -> void:
 	_is_moving = false
+	_refresh_idle_expression()
 	movement_completed.emit()
+
+func _refresh_idle_expression() -> void:
+	if not is_instance_valid(nut_visual): return
+	nut_visual.configure_idle(piece_id, display_mode == DisplayMode.SHAPE and not (low_effects or _is_moving or is_eliminating or is_selected))

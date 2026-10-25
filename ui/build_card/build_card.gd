@@ -6,6 +6,8 @@
 @onready var level_label: Label = %Level
 @onready var effect_label: RichTextLabel = %Effect
 @onready var remaining_label: Label = %Remaining
+@onready var symbol: Label = %Symbol
+@onready var badge: Label = %Badge
 var _game_theme: GameTheme
 var _rarity: SkillDefinition.Rarity = SkillDefinition.Rarity.COMMON
 
@@ -38,4 +40,13 @@ func configure(skill: SkillDefinition, level: int, remaining: int, manual_remain
 	style.border_color = SkillRarity.COLORS[skill.rarity]
 	add_theme_stylebox_override("panel", style)
 	if _game_theme != null: apply_game_theme(_game_theme)
+	# 正式技能图标待逐项设计；缩写仅作为可辨认的占位符，不伪造技能插画。
+	symbol.text = tr(skill.title).left(2)
+	if TranslationServer.get_locale().begins_with("en"):
+		symbol.text = ""
+		for word: String in tr(skill.title).split(" ", false):
+			if symbol.text.length() < 3: symbol.text += word.left(1).to_upper()
+	badge.text = level_label.text if skill.is_persistent else ""
+	if remaining_label.visible: badge.text += " · " + str(manual_remaining if skill.manual_use_limit > 0 else remaining)
+	tooltip_text = "%s\n%s\n%s\n%s" % [title_label.text, metadata_label.text, effect_label.get_parsed_text(), remaining_label.text if remaining_label.visible else ""]
 

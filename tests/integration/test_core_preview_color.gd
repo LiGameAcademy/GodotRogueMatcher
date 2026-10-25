@@ -115,10 +115,13 @@ func test_core_budget_preflight_uses_frozen_blue_color() -> void:
 func _assert_visible_core(piece: ChessPiece, color: int) -> void:
 	assert_not_null(piece)
 	assert_eq(piece.piece_type, color)
-	assert_true(piece.polygon.visible, "验证实际可见图形，不能只核对规则数据")
+	assert_true(piece.nut_visual.is_visible_in_tree(), "验证实际可见坚果，不能只核对规则数据")
+	assert_eq(piece.nut_visual.nut_type, color)
+	assert_false(piece.polygon.visible)
 	assert_false(piece.sprite.visible)
 	assert_eq(piece.polygon.color, GameThemes.ALL[0].board.piece_colors[color])
-	assert_true(piece.ability_marker.visible)
+	assert_true(piece.ability_visual.body_outline.visible)
+	assert_false(piece.ability_marker.visible)
 	assert_string_contains(piece.tooltip_region.tooltip_text, PieceTooltip.COLOR_NAMES[color])
 
 func test_normal_commands_replay_non_green_skill_core() -> void:

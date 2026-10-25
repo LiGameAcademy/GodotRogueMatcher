@@ -1,0 +1,53 @@
+# 坚果主题图元
+
+2026-10-24追加：selection_corner_top_left已由四个TextureRect旋转复用，sweep_arrow_right已按横/竖双向复用；AtlasTexture去留白，PNG未改。见[实机标记与参数](../../../art/samples/nut_markers_godot_v01/README.md)。
+
+2026-10-24接入进展：五种身体与eyes_idle/mouth_smile已由NutVisual共用，棋盘/预告统一绘制；设置/暂停图标已绑定HUD。backgrounds/garden_background.png为补制庭院背景候选。见[实装截图及剩余图元](../../../art/samples/nut_gameplay_godot_v01/README.md)。下文“未绑定”是此前入库阶段的历史状态。
+
+2026-10-24新增UI切图接入候选：`ui/icon_settings.png`、`icon_pause.png`、`icon_history.png`、`icon_chevron_down.png`（后者三张同在ui目录）为白色RGB＋alpha单色符号，必须由主题/控件着色；`ui/icon_ability_explosion.png`、`ui/icon_ability_sweep.png`为彩色构筑机制图标。原切片、阈值处理、尺寸、哈希及对照见`art/samples/ui_icons_v01/README.md`，副本内容一致，未绑定场景。机制图标不替换`board/sweep_arrow_right.png`棋盘能力图元。
+
+文件命名遵守教程工作区[资产命名规范](../../../art/资产命名规范.md)。当前文件名沿用，后续按固定角色/姿态词表新增；源图版本放在art样稿目录，运行路径保持稳定。设计编号和验收状态在登记里维护，不追加final或new。
+
+2026-10-21。当前为已入库的接入试用素材，尚未绑定场景或替换旧主题。
+
+| 资源 | 用途与复用 | 来源 |
+| --- | --- | --- |
+| `ui/selection_corner_top_left.png` | 左上角标；其余三角通过90/180/270度旋转复用 | `art/samples/selection_corner_v01/` |
+| `board/sweep_arrow_right.png` | 朝右扫线箭头；左/上/下通过旋转复用，成对放于棋子外侧 | `art/samples/sweep_arrow_v01/` |
+| `pieces/peanut_body.png` | 开壳红皮花生身体，无五官 | `art/samples/piece_bodies_v01/` |
+| `pieces/cashew_body.png` | 奶油黄腰果身体，无五官 | 同上 |
+| `pieces/almond_body.png` | 肉桂色杏仁身体，无五官 | 同上 |
+| `pieces/walnut_body.png` | 灰可可核桃身体，无五官 | 同上 |
+| `pieces/pistachio_body.png` | 米白壳、绿色果仁开心果身体，无五官 | 同上 |
+| `faces/eyes_idle.png` | E0双眼与短眉，首批共用待机眼部候选 | `art/samples/idle_layers_v01/` |
+| `faces/mouth_smile.png` | M0闭嘴小笑，与眼部独立定位 | 同上 |
+| `faces/eyes_focus.png` | E2蓄劲/专注眼部候选 | `art/samples/emotion_layers_v01/` |
+| `faces/mouth_purse.png` | M1抿嘴候选，与E2配对 | 同上 |
+| `faces/eyes_happy.png` | E3开心弯眼候选 | 同上 |
+| `faces/mouth_happy.png` | M2短开口笑候选，与E3配对 | 同上 |
+| `faces/eyes_surprise.png` | E5惊讶睁眼，2026-10-23新增候选 | 同上 |
+| `faces/mouth_round.png` | M4小圆嘴，与E5配对 | 同上 |
+| `faces/eyes_attentive.png` | E1期待/注意眼部候选，复用M0 | `art/samples/expression_completion_v01/` |
+| `faces/eyes_smug.png` | E4得意半眯眼候选 | 同上 |
+| `faces/mouth_smirk.png` | M3歪嘴笑候选，与E4配对 | 同上 |
+| `faces/eyes_sad.png` | E6受挫眼部候选 | 同上 |
+| `faces/mouth_flat.png` | M5扁嘴轻垂候选，与E6配对 | 同上 |
+| `faces/eyes_blink_closed.png` | EB闭眼关键姿态候选，不是完整动画 | 同上 |
+
+剩余基础表情的统一坐标、图层比例、留白校准与文件检查见`art/samples/expression_completion_v01/README.md`。共有8种眼姿态、6种嘴形，以指定配方组合，不随机全排列。新增姿态尚待作者评审。
+
+2026-10-23作者已暂时定稿蓄劲/开心两组；上表对应“候选”是原制作状态。惊讶两张仍待评审，来源与文件检查见`art/samples/emotion_layers_v01/README.md`。
+
+作者已确认v02统一布局。新增两种表情仍待评审；图层参考点校准、实际PNG组合证据见`art/samples/emotion_layers_v01/README.md`。这些是静态姿态，不是序列帧或已验收眨眼动画。
+
+眼嘴均1254×1254 RGBA，保留生成原图，不按身体轮廓裁切。HTML棋盘组合、定位百分比与48/64/96像素对照见`art/samples/idle_layers_v01/README.md`；48像素嘴线偏弱待评审。它们尚未被Godot场景引用，角色专属待机差异尚未制作。
+
+以上由本对话内置image_gen生成；完整提示词与原始图片保存在教程工作区art对应目录。本目录保存接入候选，当前没有场景引用。颜色来自当前认可的概念图；独立资源仍需作者查看、小尺寸和实际棋盘验证。
+
+五种身体均1254×1254 RGBA透明PNG，工程副本与源图哈希一致。身体占幅/中心尚未统一，部分有极淡alpha残留；不能直接使用统一控件尺寸当作最终显示比例。后续眼睛、嘴巴分层叠加，爆破描光仅取身体遮罩。文件边界与目视差异见`art/samples/piece_bodies_v01/README.md`。
+
+图片为高分辨率RGBA并带真实透明通道。角标原图存在极低透明残留；两图的外侧透明留白均应按实际显示区域设置，不假定画布边缘等于可见形状边缘。未做精确数学对称、颜色或低透明像素清理；当前不能称最终生产验收通过。
+
+导入时保持alpha；UI小尺寸优先检查线性过滤、mipmap与缩放后的边缘，不在本文硬定所有显示尺寸。当前未写入.import配置，由编辑器正常生成导入元数据。图片只读共享，旋转/透明度/缩放优先作用于节点；运行Shader的实例参数与可变材质隔离在接入阶段验证。
+
+角标四个TextureRect不拦截输入，旋转中心与锚点一致；箭头始终依棋盘水平/垂直轴放置，不跟随坚果斜放角度。辉光与脉冲不再叠加重复的大面积亮边。

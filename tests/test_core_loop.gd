@@ -34,10 +34,10 @@ func test_compatibility_writes_refresh_special_tooltips_at_rest() -> void:
 	var display: ChessPiece = _place(Vector2i.ZERO, 0)
 	assert_true(board.run.abilities.assign_fuse(display.piece_id))
 	board.refresh_ability_markers()
-	assert_string_contains(display.tooltip_region.tooltip_text, "红色")
+	assert_string_contains(display.tooltip_region.tooltip_text, "花生")
 	assert_true(board.set_piece_color(Vector2i.ZERO, 3))
-	assert_string_contains(display.tooltip_region.tooltip_text, "黄色")
-	assert_false(display.tooltip_region.tooltip_text.contains("红色"))
+	assert_string_contains(display.tooltip_region.tooltip_text, "核桃")
+	assert_false(display.tooltip_region.tooltip_text.contains("花生"))
 	var ghost: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
 	ghost.is_ghost = true
 	assert_true(board.place_piece(Vector2i(1, 0), ghost))

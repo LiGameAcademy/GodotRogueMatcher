@@ -900,3 +900,19 @@ Leave feedback on itch.io with the version, browser and a screenshot."
 棋盘信号效果,棋盘信号效果,Board signal effect
 棋盘局部扫描与边缘描光；低特效时关闭。,棋盘局部扫描与边缘描光；低特效时关闭。,Local scans and edge highlights. Disabled with Reduced Effects.
 目标在执行时选择,目标在执行时选择,Targets selected during execution
+花生,花生,Peanut
+腰果,腰果,Cashew
+杏仁,杏仁,Almond
+核桃,核桃,Walnut
+开心果,开心果,Pistachio
+阶段目标,阶段目标,Goal
+"%s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s
+
+Clear %d pieces
+Fuses included: %d"

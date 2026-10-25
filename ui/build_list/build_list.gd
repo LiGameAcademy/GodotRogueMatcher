@@ -2,7 +2,7 @@ extends ScrollContainer
 
 const CARD: PackedScene = preload("res://ui/build_card/build_card.tscn")
 const CARD_SCRIPT: Script = preload("res://ui/build_card/build_card.gd")
-@onready var cards: VBoxContainer = %Cards
+@onready var cards: GridContainer = %Cards
 @onready var empty_label: Label = %Empty
 var _cards: Dictionary[StringName, PanelContainer] = {}
 var _game_theme: GameTheme

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/board/piece/nut_visual.gd" id="1"]
+
+[node name="NutVisual" type="Node2D"]
+script = ExtResource("1")
+texture_filter = 4
+
+[node name="BlinkTimer" type="Timer" parent="."]
+one_shot = true

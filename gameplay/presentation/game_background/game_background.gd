@@ -8,6 +8,7 @@ var _shader: ShaderMaterial
 var _config: BackgroundFlowConfig
 var _motion_enabled: bool = true
 var _low_effects: bool = false
+var _background_texture: Texture2D
 
 func _ready() -> void:
 	_shader = material.duplicate() as ShaderMaterial
@@ -23,6 +24,9 @@ func _process(delta: float) -> void:
 
 func apply_game_theme(preset: GameTheme) -> void:
 	_config = preset.background_flow
+	_background_texture = preset.background_texture
+	_shader.set_shader_parameter("background_texture", _background_texture)
+	_shader.set_shader_parameter("has_background", _background_texture != null)
 	color = preset.background
 	_shader.set_shader_parameter("base_color", preset.background)
 	_shader.set_shader_parameter("flow_color", preset.ui_theme.get_color("accent", "Game"))
@@ -55,7 +59,8 @@ func reset_visual() -> void:
 
 func _sync_activity() -> void:
 	var active: bool = _motion_enabled and not _low_effects and _config != null
-	material = _shader if active else null
+	material = _shader if active or _background_texture != null else null
+	_shader.set_shader_parameter("strength", _config.contrast if active else 0.0)
 	set_process(active)
 	if not active:
 		response = 0.0
