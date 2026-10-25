@@ -27,6 +27,23 @@ theme_override_constants/separation = 6
 layout_mode = 2
 theme_override_constants/separation = 8
 
+[node name="MechanicSlot" type="Control" parent="Content/Column/Tags"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MechanicIcon" type="TextureRect" parent="Content/Column/Tags/MechanicSlot"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Kind" type="Label" parent="Content/Column/Tags"]
 unique_name_in_owner = true
 layout_mode = 2

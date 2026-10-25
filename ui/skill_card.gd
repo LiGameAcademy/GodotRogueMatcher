@@ -2,6 +2,8 @@ class_name SkillCard
 extends Button
 
 ## 独立卡面只消费定义和冻结目标，选择仍由弹窗提交命令。
+@onready var mechanic_slot: Control = $Content/Column/Tags/MechanicSlot
+@onready var mechanic_icon: TextureRect = %MechanicIcon
 @onready var card_back: Panel = $CardBack
 @onready var rarity_label: Label = %Rarity
 @onready var kind_label: Label = %Kind
@@ -55,6 +57,11 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	action_label.show()
 	focus_mode = Control.FOCUS_ALL
 	_skill = skill
+	mechanic_icon.texture = SkillMechanicIcons.texture_for(skill.skill_id)
+	mechanic_icon.visible = mechanic_icon.texture != null
+	mechanic_slot.visible = mechanic_icon.visible
+	mechanic_icon.pivot_offset = Vector2(12, 12)
+	mechanic_icon.rotation_degrees = SkillMechanicIcons.rotation_for(skill.skill_id)
 	_target = target
 	_accent = SkillRarity.color_for(skill.rarity, _game_theme)
 	SkillRarity.style(self, skill.rarity, _game_theme)
