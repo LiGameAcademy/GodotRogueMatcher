@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Ordinary refill increase</title>
+<path d="M12 3v12m-4-4 4 4 4-4" fill="none" stroke="#fff8eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g stroke="#493958" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<path d="M4 21v7h24v-7" fill="#f5ce76"/>
+<circle cx="9" cy="22" r="3" fill="#fff8eb"/><circle cx="16" cy="22" r="3" fill="#fff8eb"/><circle cx="23" cy="22" r="3" fill="#fff8eb"/>
+<path d="M12 3v12m-4-4 4 4 4-4" fill="none"/>
+<circle cx="25" cy="9" r="6" fill="#fff8eb"/>
+</g>
+<g fill="none" stroke="#493958" stroke-width="2" stroke-linecap="round"><path d="M21 9h8"/><path d="M25 5v8"/></g>
+</svg>

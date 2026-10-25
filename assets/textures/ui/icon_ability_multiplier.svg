@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Base match score multiplier</title>
+<path d="M10 3h12l7 7v12l-7 7H10l-7-7V10z" fill="#bbadd0" stroke="#493958" stroke-width="2" stroke-linejoin="round"/>
+<path d="m10 10 12 12m0-12L10 22" fill="none" stroke="#493958" stroke-width="6" stroke-linecap="round"/>
+<path d="m10 10 12 12m0-12L10 22" fill="none" stroke="#fff8eb" stroke-width="3" stroke-linecap="round"/>
+</svg>
