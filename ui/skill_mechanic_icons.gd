@@ -12,6 +12,9 @@ const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
 const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"instant_core_transform": EXPLOSION,
+	&"instant_row_transform": SWEEP,
+	&"instant_column_transform": SWEEP,
 	&"assign_fuse": FUSE,
 	&"fuse_capacity": FUSE,
 	&"core_fuse_payload": FUSE,
@@ -41,6 +44,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"instant_core_transform": "改装",
+	&"instant_row_transform": "改装",
+	&"instant_column_transform": "改装",
 	&"assign_fuse": "赋能",
 	&"fuse_capacity": "扩容",
 	&"core_fuse_payload": "装填",
@@ -69,7 +75,7 @@ const ROLES: Dictionary[StringName, String] = {
 	&"line_row_span": "范围",
 	&"line_column_span": "范围",
 }
-const VERTICAL: Array[StringName] = [&"line_column_drop", &"line_column_span"]
+const VERTICAL: Array[StringName] = [&"instant_column_transform", &"line_column_drop", &"line_column_span"]
 
 static func texture_for(id: StringName) -> Texture2D:
 	return TEXTURES.get(id) as Texture2D

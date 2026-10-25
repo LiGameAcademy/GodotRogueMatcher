@@ -334,3 +334,45 @@ func test_fuse_assignment_capacity_and_payload_keep_lifecycles_and_live_levels()
 			assert_true(build.get_global_rect().encloses(build.mechanic_role.get_global_rect()))
 			assert_string_contains(build.tooltip_text, "2 → 3 → 4" if id == &"fuse_capacity" else ("爆炸前" if locale == "zh_CN" else "Before the blast"))
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+
+func test_instant_conversion_icons_keep_frozen_targets_colors_and_supply_locked() -> void:
+	var ids: Array[StringName] = [&"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
+	var contents: Array[StringName] = [&"special_demolition", LineClearState.CONTENT_ROW, LineClearState.CONTENT_COLUMN]
+	for index: int in range(ids.size()):
+		var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+		run.initialize()
+		run.state.rewards.consumed_count = 2
+		for x: int in range(9):
+			if run.state.rules.state.get_piece_id(Vector2i(x, 4)) == 0:
+				run.state.rules.place_piece(Vector2i(x, 4), x % 5)
+		var skill: SkillDefinition = load("res://gameplay/progression/content/%s.tres" % ids[index]) as SkillDefinition
+		var offer: SkillOffer = AestheticCases.offer(run, [skill])
+		var target: SkillTarget = offer.targets[skill.skill_id]
+		assert_eq(target.piece_ids.size(), 3)
+		var originals: Dictionary[int, PieceState] = {}
+		for id: int in target.piece_ids: originals[id] = run.state.rules.state.get_piece(id).copy()
+		var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+		var card: SkillCard = CARD.instantiate() as SkillCard
+		add_child_autofree(card)
+		for locale: String in ["zh_CN", "en_US"]:
+			TranslationServer.set_locale(locale)
+			card.configure(skill, target)
+			await wait_process_frames(3)
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.EXPLOSION if index == 0 else SkillMechanicIcons.SWEEP)
+			assert_eq(card.mechanic_icon.rotation_degrees, 90.0 if index == 2 else 0.0)
+			assert_eq(SkillMechanicIcons.role_for(skill.skill_id), "改装" if locale == "zh_CN" else "Convert")
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+		var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, skill.skill_id)
+		assert_true(result.success, result.error)
+		for id: int in originals:
+			var piece: PieceState = run.state.rules.state.get_piece(id)
+			assert_eq(piece.content_id, contents[index])
+			assert_eq(piece.match_color, originals[id].match_color)
+			assert_eq(piece.coordinate, originals[id].coordinate)
+		assert_false(run.state.explosion.core_pool_unlocked)
+		assert_false(run.state.line_clear.row_unlocked)
+		assert_false(run.state.line_clear.column_unlocked)
+		var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+		add_child_autofree(hud)
+		hud.show_run(run)
+		assert_false(hud.build_list._cards.has(skill.skill_id))
