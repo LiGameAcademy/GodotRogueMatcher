@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Match bonus score</title>
+<rect x="4" y="4" width="24" height="24" rx="6" fill="#f5ce76" stroke="#fff8eb" stroke-width="4"/>
+<rect x="4" y="4" width="24" height="24" rx="6" fill="none" stroke="#493958" stroke-width="2"/>
+<path d="M16 9v14M9 16h14" fill="none" stroke="#493958" stroke-width="6" stroke-linecap="round"/>
+<path d="M16 9v14M9 16h14" fill="none" stroke="#fff8eb" stroke-width="3" stroke-linecap="round"/>
+</svg>

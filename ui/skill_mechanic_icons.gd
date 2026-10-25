@@ -9,7 +9,11 @@ const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_re
 const MULTIPLIER: Texture2D = preload("res://assets/textures/ui/icon_ability_multiplier.svg")
 const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
+const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"match_extra": MATCH_BONUS,
+	&"precision_reward": MATCH_BONUS,
+	&"longline_reward": MATCH_BONUS,
 	&"fuse_match_plant": FUSE,
 	&"fuse_relay": FUSE,
 	&"relay_capacity": FUSE,
@@ -28,6 +32,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"match_extra": "补分",
+	&"precision_reward": "正好",
+	&"longline_reward": "长连",
 	&"fuse_match_plant": "布雷",
 	&"fuse_relay": "传递",
 	&"relay_capacity": "接力",
