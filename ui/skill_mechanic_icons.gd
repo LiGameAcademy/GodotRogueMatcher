@@ -12,6 +12,9 @@ const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
 const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
 const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
 const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"assign_fuse": FUSE,
+	&"fuse_capacity": FUSE,
+	&"core_fuse_payload": FUSE,
 	&"core_manual_detonation": EXPLOSION,
 	&"line_manual_clear": MANUAL_SWEEP,
 	&"blast_extra": EXPLOSION,
@@ -38,6 +41,9 @@ const TEXTURES: Dictionary[StringName, Texture2D] = {
 	&"line_column_span": SWEEP,
 }
 const ROLES: Dictionary[StringName, String] = {
+	&"assign_fuse": "赋能",
+	&"fuse_capacity": "扩容",
+	&"core_fuse_payload": "装填",
 	&"core_manual_detonation": "主动",
 	&"line_manual_clear": "主动",
 	&"blast_extra": "补分",

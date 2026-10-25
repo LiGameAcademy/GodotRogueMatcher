@@ -2,7 +2,8 @@ extends Node
 
 ## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-manual-icons-outlines/captures"
+const OUTPUT: String = "res://.godot/issue129-fuse-payload-icons/captures"
+const FUSE_PAYLOAD: Array[StringName] = [&"assign_fuse", &"fuse_capacity", &"core_fuse_payload"]
 const MANUAL: Array[StringName] = [&"core_manual_detonation", &"line_manual_clear"]
 const BLAST_PAYOFF: Array[StringName] = [&"blast_extra", &"blast_chain_bonus", &"blast_refill_relief"]
 const MATCH_BONUS: Array[StringName] = [&"match_extra", &"precision_reward", &"longline_reward"]
@@ -10,6 +11,7 @@ const FUSE_BASE: Array[StringName] = [&"fuse_match_plant", &"fuse_relay"]
 const DYE_UPGRADES: Array[StringName] = [&"dye_target_up", &"dye_chain_depth"]
 const ECONOMY: Array[StringName] = [&"refill_less", &"refill_more", &"score_multiplier"]
 const LABELS: Dictionary[String, String] = {
+	"fuse_payload": "赋能扩容装填", "fuse_payload_build": "扩容与装填构筑",
 	"manual": "主动两卡", "manual_build": "主动与轮廓",
 	"arrival": "登场三卡", "upgrade": "强化三卡", "build": "构筑与回退",
 	"economy": "供给与倍率", "economy_build": "供给构筑",
@@ -23,7 +25,7 @@ const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "manual"
+var current: String = "fuse_payload"
 var tools_panel: PanelContainer
 var tools: VBoxContainer
 var low: bool = false
@@ -31,7 +33,7 @@ var preset_index: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_window().title = "技能连珠 · 主动图标与轮廓（#129）"
+	get_window().title = "技能连珠 · 引信赋能与装填（#129）"
 	var layer: CanvasLayer = CanvasLayer.new()
 	# 仅测试工具置于HUD/弹窗之上；H收起后检查完整卡面。
 	layer.layer = 200
@@ -124,11 +126,20 @@ func load_case(key: String) -> void:
 			var fused: PieceState = run.state.rules.place_piece(Vector2i(color + 2, 4), color)
 			if plain == null or fused == null or not run.abilities.assign_fuse(fused.piece_id):
 				run.report_error("outline fixture placement failed")
+	if key in ["fuse_payload", "fuse_payload_build"]:
+		for x: int in range(9):
+			if run.state.rules.state.get_piece_id(Vector2i(x, 4)) == 0:
+				run.state.rules.place_piece(Vector2i(x, 4), x % 5)
+		for id: StringName in [&"core_drop", &"assign_fuse"]: AestheticCases.install(run, definition(id))
+	if key == "fuse_payload_build":
+		for id: StringName in [&"fuse_capacity", &"fuse_capacity", &"core_fuse_payload", &"fuse_match_plant", &"color_weight_up"]:
+			AestheticCases.install(run, definition(id))
 	run.start_turn()
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build"]:
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build"]:
 		var skills: Array[SkillDefinition] = []
 		var ids: Array[StringName] = UPGRADE
-		if key == "manual": ids = MANUAL
+		if key == "fuse_payload": ids = FUSE_PAYLOAD
+		elif key == "manual": ids = MANUAL
 		elif key == "arrival": ids = DROP
 		elif key == "economy": ids = ECONOMY
 		elif key == "dye": ids = [&"match_dye_echo"]
@@ -150,7 +161,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build"]: await board.resume_run(run)
+	if key not in ["build", "economy_build", "dye_build", "fuse_build", "bonus_build", "blast_payoff_build", "manual_build", "fuse_payload_build"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -175,7 +186,7 @@ func capture_suite() -> void:
 				preset_index = theme
 				for reduced: bool in [false, true]:
 					low = reduced
-					for key: String in ["manual", "manual_build"]:
+					for key: String in ["fuse_payload", "fuse_payload_build"]:
 						await load_case(key)
 						tools_panel.hide()
 						for frame: int in range(45): await get_tree().process_frame

@@ -180,7 +180,7 @@ func test_fuse_roles_and_relay_level_two_preserve_rules_and_other_fuse_cards_kee
 			roles.append(card.mechanic_role.text)
 			assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
-	for id: StringName in [&"assign_fuse", &"fuse_capacity", &"instant_fuse_ignite"]:
+	for id: StringName in [&"instant_fuse_ignite", &"marked_reward", &"chain_reward"]:
 		assert_null(SkillMechanicIcons.texture_for(id))
 		assert_eq(SkillMechanicIcons.role_for(id), "")
 
@@ -289,3 +289,48 @@ func test_manual_icons_keep_real_shared_quota_at_zero_without_changing_run() -> 
 				assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
 			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
 	assert_not_same(SkillMechanicIcons.MANUAL_SWEEP, SkillMechanicIcons.SWEEP)
+
+func test_fuse_assignment_capacity_and_payload_keep_lifecycles_and_live_levels() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	for x: int in range(9):
+		if run.state.rules.state.get_piece_id(Vector2i(x, 4)) == 0:
+			run.state.rules.place_piece(Vector2i(x, 4), x % 5)
+	for id: StringName in [&"core_drop", &"assign_fuse", &"fuse_capacity"]:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	var ids: Array[StringName] = [&"assign_fuse", &"fuse_capacity", &"core_fuse_payload"]
+	var skills: Array[SkillDefinition] = []
+	for id: StringName in ids: skills.append(load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	var offer: SkillOffer = AestheticCases.offer(run, skills)
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var card: SkillCard = CARD.instantiate() as SkillCard
+	add_child_autofree(card)
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		for skill: SkillDefinition in skills:
+			card.configure(skill, offer.targets[skill.skill_id])
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.FUSE)
+			assert_eq(skill.is_persistent, skill.skill_id != &"assign_fuse")
+			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	# Finish the offered upgrade via the real acceptance path, then install payload.
+	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, &"fuse_capacity")
+	assert_true(result.success, result.error)
+	AestheticCases.install(run, skills[2])
+	assert_eq(run.state.rule_error, "")
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	before = RunSnapshot.digest(RunSnapshot.capture(run))
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		hud.show_run(run)
+		await wait_process_frames(3)
+		assert_false(hud.build_list._cards.has(&"assign_fuse"))
+		for id: StringName in [&"fuse_capacity", &"core_fuse_payload"]:
+			var build: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
+			assert_same(build.mechanic_icon.texture, SkillMechanicIcons.FUSE)
+			assert_eq(build.badge.text, "Lv.2" if id == &"fuse_capacity" else "Lv.1")
+			assert_false(build.remaining_label.visible)
+			assert_eq(build.mechanic_role.text, SkillMechanicIcons.role_for(id))
+			assert_true(build.get_global_rect().encloses(build.mechanic_role.get_global_rect()))
+			assert_string_contains(build.tooltip_text, "2 → 3 → 4" if id == &"fuse_capacity" else ("爆炸前" if locale == "zh_CN" else "Before the blast"))
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
