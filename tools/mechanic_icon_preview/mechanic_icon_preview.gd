@@ -2,22 +2,23 @@ extends Node
 
 ## 分片机制图标的确定性真实选卡/构筑入口；不进入正式菜单，不收集真人数据。
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
-const OUTPUT: String = "res://.godot/issue129-economy-icons/captures"
+const OUTPUT: String = "res://.godot/issue129-dye-icons/captures"
+const DYE_UPGRADES: Array[StringName] = [&"dye_target_up", &"dye_chain_depth"]
 const ECONOMY: Array[StringName] = [&"refill_less", &"refill_more", &"score_multiplier"]
-const LABELS: Dictionary[String, String] = {"arrival": "登场三卡", "upgrade": "强化三卡", "build": "构筑与回退", "economy": "供给与倍率", "economy_build": "供给构筑"}
+const LABELS: Dictionary[String, String] = {"arrival": "登场三卡", "upgrade": "强化三卡", "build": "构筑与回退", "economy": "供给与倍率", "economy_build": "供给构筑", "dye": "染色接续", "dye_upgrades": "染色强化", "dye_build": "染色构筑"}
 const DROP: Array[StringName] = [&"core_drop", &"line_row_drop", &"line_column_drop"]
 const UPGRADE: Array[StringName] = [&"core_supply_up", &"line_row_span", &"line_column_span"]
 var game: Node2D
 var board: Board
 var loading: bool = false
-var current: String = "economy"
+var current: String = "dye"
 var tools: VBoxContainer
 var low: bool = false
 var preset_index: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_window().title = "技能连珠 · 机制图标预览（#129）"
+	get_window().title = "技能连珠 · 染色机制图标（#129）"
 	var layer: CanvasLayer = CanvasLayer.new()
 	layer.layer = 100
 	add_child(layer)
@@ -74,10 +75,18 @@ func load_case(key: String) -> void:
 		for id: StringName in UPGRADE + [&"core_radius", &"match_extra"]: AestheticCases.install(run, definition(id))
 	if key == "economy_build":
 		for id: StringName in ECONOMY + [&"match_extra"]: AestheticCases.install(run, definition(id))
+	if key in ["dye_upgrades", "dye_build"]: AestheticCases.install(run, definition(&"match_dye_echo"))
+	if key == "dye_build":
+		for id: StringName in DYE_UPGRADES + [&"match_extra"]: AestheticCases.install(run, definition(id))
 	run.start_turn()
-	if key not in ["build", "economy_build"]:
+	if key not in ["build", "economy_build", "dye_build"]:
 		var skills: Array[SkillDefinition] = []
-		for id: StringName in ECONOMY if key == "economy" else (DROP if key == "arrival" else UPGRADE): skills.append(definition(id))
+		var ids: Array[StringName] = UPGRADE
+		if key == "arrival": ids = DROP
+		elif key == "economy": ids = ECONOMY
+		elif key == "dye": ids = [&"match_dye_echo"]
+		elif key == "dye_upgrades": ids = DYE_UPGRADES
+		for id: StringName in ids: skills.append(definition(id))
 		AestheticCases.offer(run, skills)
 	board.run = run
 	board.rules = run.state.rules
@@ -90,7 +99,7 @@ func load_case(key: String) -> void:
 	game.call("_refresh_hud")
 	board.can_selected = true
 	loading = false
-	if key not in ["build", "economy_build"]: await board.resume_run(run)
+	if key not in ["build", "economy_build", "dye_build"]: await board.resume_run(run)
 
 func definition(id: StringName) -> SkillDefinition:
 	return load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition
@@ -113,7 +122,7 @@ func capture_suite() -> void:
 			get_window().content_scale_size = resolution
 			for theme: int in [0, 1]:
 				preset_index = theme
-				for key: String in ["economy", "economy_build"]:
+				for key: String in ["dye", "dye_upgrades", "dye_build"]:
 					await load_case(key)
 					tools.hide()
 					for frame: int in range(45): await get_tree().process_frame

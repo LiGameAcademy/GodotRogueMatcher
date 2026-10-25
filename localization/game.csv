@@ -930,3 +930,6 @@ Fuses included: %d"
 减量,减量,Less
 增量,增量,More
 倍率（短）,倍率,Mult.
+接续,接续,Echo
+扩散,扩散,Spread
+再续,再续,Chain
