@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Loaded resource as image file, this will not work on export: 'res://icon.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://.godot/issue130-audio-validation/check_icon.gd:3)
+PROJECT_ICON_CHECK true size=(1254, 1254)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
