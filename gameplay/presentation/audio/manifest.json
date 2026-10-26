@@ -1,0 +1,474 @@
+{
+  "pack": "nut_sfx_cc0_v01",
+  "date": "2026-10-25",
+  "license": "CC0-1.0",
+  "contains_music": false,
+  "runtime_integration": true,
+  "assets": [
+    {
+      "design_id": "SX01",
+      "candidate_id": "select_a",
+      "file": "sfx_board_select.wav",
+      "category": "选中",
+      "sha256": "00e54e55b8e3881a6894bce477c9e8395e6d8e53e87946cd52f5cd66cf076d41",
+      "seconds": 0.1684,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/impact-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "select_a",
+          "source_layers": [
+            {
+              "file": "sources/source/impact/Audio/impactWood_light_000.ogg",
+              "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3"
+            }
+          ],
+          "processing": "前后静音边界裁切、增益配平、2ms边界淡化；48kHz单声道16bit WAV",
+          "filter_graph": null,
+          "gain_db": -7.9,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "00e54e55b8e3881a6894bce477c9e8395e6d8e53e87946cd52f5cd66cf076d41"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX02",
+      "candidate_id": "land_b",
+      "file": "sfx_board_land.wav",
+      "category": "落位",
+      "sha256": "a09758877dbf1c4f46b2e7dad5c2c72edf78dba2049fb8990f21d87908cfc4e2",
+      "seconds": 0.2309,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/impact-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "land_b",
+          "source_layers": [
+            {
+              "file": "sources/source/impact/Audio/impactWood_medium_001.ogg",
+              "sha256": "15271dbe8e2872dbb0ff1aeb7b12b2d2b92b7c1951c88532b9ab9158c36dfc73"
+            }
+          ],
+          "processing": "CC0原料试听编辑；滤波、可选音高/延迟叠层及增益配平，详见filter_graph；48kHz/16bit单声道",
+          "filter_graph": "[0:a]highpass=f=90,lowpass=f=3000[out]",
+          "gain_db": -7.33,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "a09758877dbf1c4f46b2e7dad5c2c72edf78dba2049fb8990f21d87908cfc4e2"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX03",
+      "candidate_id": "reject_b",
+      "file": "sfx_board_reject.wav",
+      "category": "无效操作",
+      "sha256": "e7cd0e4159bdc46239814e92fa87ae6ac1370bbb04c0dad4d5bf8e141018bdde",
+      "seconds": 0.1045,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "reject_b",
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/error_004.ogg",
+              "sha256": "0b574cea597d96507e782ae9764f88482ce49f46e931e57054bf7150047f2d69"
+            }
+          ],
+          "processing": "CC0原料试听编辑；滤波、可选音高/延迟叠层及增益配平，详见filter_graph；48kHz/16bit单声道",
+          "filter_graph": "[0:a]lowpass=f=2200[out]",
+          "gain_db": -11.03,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "e7cd0e4159bdc46239814e92fa87ae6ac1370bbb04c0dad4d5bf8e141018bdde"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX04",
+      "candidate_id": "spawn_b",
+      "file": "sfx_board_spawn.wav",
+      "category": "补棋",
+      "sha256": "7b78547ece6052269710af07ec8be694306c3ddaebb6aed4bd61e13bd1d82dc3",
+      "seconds": 0.2727,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/impact-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "spawn_b",
+          "source_layers": [
+            {
+              "file": "sources/source/impact/Audio/impactWood_light_003.ogg",
+              "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004"
+            }
+          ],
+          "processing": "CC0原料试听编辑；滤波、可选音高/延迟叠层及增益配平，详见filter_graph；48kHz/16bit单声道",
+          "filter_graph": "[0:a]lowpass=f=3200,asplit=2[a][b];[b]adelay=45,volume=0.55[c];[a][c]amix=inputs=2:normalize=0[out]",
+          "gain_db": -11.14,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "7b78547ece6052269710af07ec8be694306c3ddaebb6aed4bd61e13bd1d82dc3"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX05",
+      "candidate_id": "match_b",
+      "file": "sfx_board_match_var01.wav",
+      "category": "消除",
+      "sha256": "1f7066589f1425f24ce40f15d1a7c77d162f570693fa797685d2bebf5ee3ae92",
+      "seconds": 0.2899,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "match_b",
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/confirmation_001.ogg",
+              "sha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a"
+            }
+          ],
+          "processing": "前后静音边界裁切、增益配平、2ms边界淡化；48kHz单声道16bit WAV",
+          "filter_graph": null,
+          "gain_db": -12.69,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "1f7066589f1425f24ce40f15d1a7c77d162f570693fa797685d2bebf5ee3ae92"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX05",
+      "candidate_id": "match_var_a",
+      "file": "sfx_board_match_var02.wav",
+      "category": "消除第二变体",
+      "sha256": "ee5845068fcc3b4c2232b6ce516f96375b59e8ae078841de96c0398f439257ad",
+      "seconds": 0.2988,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "match_b",
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/confirmation_001.ogg",
+              "sha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a"
+            }
+          ],
+          "processing": "前后静音边界裁切、增益配平、2ms边界淡化；48kHz单声道16bit WAV",
+          "filter_graph": null,
+          "gain_db": -12.69,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "1f7066589f1425f24ce40f15d1a7c77d162f570693fa797685d2bebf5ee3ae92"
+        },
+        {
+          "candidate_id": "match_var_a",
+          "source_layers": [
+            {
+              "file": "sources/audio/match_b.wav",
+              "sha256": "1f7066589f1425f24ce40f15d1a7c77d162f570693fa797685d2bebf5ee3ae92"
+            }
+          ],
+          "processing": "已有CC0素材滤波/音高/延迟编辑；48kHz16bit单声道",
+          "filter_graph": "[0:a]aresample=48000,asetrate=46560,aresample=48000[out]",
+          "gain_db": 3.1,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "ee5845068fcc3b4c2232b6ce516f96375b59e8ae078841de96c0398f439257ad"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX06",
+      "candidate_id": "blast_e",
+      "file": "sfx_ability_explosion_activate.wav",
+      "category": "爆破",
+      "sha256": "8f3e5d077da1673161ac01fd986b41de80984b5ebef2017c94f100a2be5f760b",
+      "seconds": 0.4836,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/impact-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "blast_e",
+          "source_layers": [
+            {
+              "file": "sources/source/impact/Audio/impactPlank_medium_002.ogg",
+              "sha256": "f6a14da45994229676b4f29e6a35f504b5c2ec2b8166fb1a3b1aa004bc6911ef"
+            }
+          ],
+          "processing": "免费CC0原料编辑；滤波/增益/边界淡化，具体音高与叠层见配方；目标RMS -21dBFS、峰值不高于-4.5dBFS",
+          "filter_graph": "[0:a]aresample=48000,highpass=f=90,lowpass=f=2200[out]",
+          "gain_db": -4.98,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "8f3e5d077da1673161ac01fd986b41de80984b5ebef2017c94f100a2be5f760b"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX07",
+      "candidate_id": "sweep_f",
+      "file": "sfx_ability_sweep_activate.wav",
+      "category": "扫线",
+      "sha256": "ea84c617932b38c63641239ddcaded6823786598a899f9d821edad88c55c95cd",
+      "seconds": 0.1589,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "artisticdude",
+      "source_page": "https://opengameart.org/content/swishes-sound-pack",
+      "editing_chain": [
+        {
+          "candidate_id": "sweep_f",
+          "source_layers": [
+            {
+              "file": "sources/source/swishes/swishes/swish-9.wav",
+              "sha256": "123883f006ce55feecbff11eea5f87c4493df4399989983037144570a23723c1"
+            }
+          ],
+          "processing": "免费CC0原料编辑；滤波/增益/边界淡化，具体音高与叠层见配方；目标RMS -21dBFS、峰值不高于-4.5dBFS",
+          "filter_graph": "[0:a]highpass=f=110,lowpass=f=6500[out]",
+          "gain_db": -9.39,
+          "trim_start_seconds": 0.0224,
+          "output_sha256": "ea84c617932b38c63641239ddcaded6823786598a899f9d821edad88c55c95cd"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX08",
+      "candidate_id": "ui_confirm_a",
+      "file": "sfx_ui_confirm.wav",
+      "category": "按钮确认",
+      "sha256": "f439aa2da4a72bee02198f45bab75804baaf8564b52e80d814d936a0bcde04b0",
+      "seconds": 0.0071,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "ui_confirm_a",
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/click_003.ogg",
+              "sha256": "2fa929138bc3a0f432696588f66eac94b8f6d463905ec8808c6461ce4b054292"
+            }
+          ],
+          "processing": "CC0原料试听编辑；滤波、可选音高/延迟叠层及增益配平，详见filter_graph；48kHz/16bit单声道",
+          "filter_graph": "[0:a]lowpass=f=3500[out]",
+          "gain_db": -11.65,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "f439aa2da4a72bee02198f45bab75804baaf8564b52e80d814d936a0bcde04b0"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX09",
+      "candidate_id": "skill_offer_a",
+      "file": "sfx_ui_skill_offer.wav",
+      "category": "技能候选出现",
+      "sha256": "765d070814c5d80fd42a62105160baaabde671c7a4c8d8fff67e26547aea5717",
+      "seconds": 0.3125,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "skill_offer_a",
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/open_002.ogg",
+              "sha256": "24ff224fe2c09c6aed1b41249825382dc74cf324b887ff279d8494912ce2beee"
+            }
+          ],
+          "processing": "CC0原料试听编辑；滤波、可选音高/延迟叠层及增益配平，详见filter_graph；48kHz/16bit单声道",
+          "filter_graph": "[0:a]lowpass=f=4500[out]",
+          "gain_db": -2.17,
+          "trim_start_seconds": 0.0013,
+          "output_sha256": "765d070814c5d80fd42a62105160baaabde671c7a4c8d8fff67e26547aea5717"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX10",
+      "candidate_id": "skill_acquire_c",
+      "file": "sfx_ui_skill_acquire.wav",
+      "category": "技能确认",
+      "sha256": "cb9d6bece0e9d2f9c0e3c4571dedd4c50b23823d85dedbf8e4969b89e17d6fb9",
+      "seconds": 0.5254,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/impact-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "skill_acquire_c",
+          "source_layers": [
+            {
+              "file": "sources/source/impact/Audio/impactWood_light_001.ogg",
+              "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f"
+            },
+            {
+              "file": "sources/source/interface/Audio/confirmation_004.ogg",
+              "sha256": "568967a3d9f8a8f6af54ea01729c4882284308f2a27d78c07ffd7ee0d6951661"
+            }
+          ],
+          "processing": "CC0原料试听编辑；滤波、可选音高/延迟叠层及增益配平，详见filter_graph；48kHz/16bit单声道",
+          "filter_graph": "[0:a]lowpass=f=3200,volume=0.6[a];[1:a]lowpass=f=5000,adelay=35,volume=0.7[b];[a][b]amix=inputs=2:normalize=0[out]",
+          "gain_db": -8.0,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "cb9d6bece0e9d2f9c0e3c4571dedd4c50b23823d85dedbf8e4969b89e17d6fb9"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "design_id": "SX11",
+      "candidate_id": "failure_c",
+      "file": "sfx_ui_run_failure.wav",
+      "category": "本局失败",
+      "sha256": "f87433b1a8eeb94a4459ad47f2d7661b65a0ab47089fb271829113a91bde3add",
+      "seconds": 0.4527,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "candidate_id": "failure_c",
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/pluck_001.ogg",
+              "sha256": "be97ec4893a02d6eccfb678daa76c83e34cb2583b834ec2593d2641def739fa4"
+            }
+          ],
+          "processing": "已有CC0素材滤波/音高/延迟编辑；48kHz16bit单声道",
+          "filter_graph": "[0:a]aresample=48000,asplit=3[a][b][c];[a]lowpass=f=3000,volume=0.7[d];[b]asetrate=42768,aresample=48000,lowpass=f=2700,adelay=160,volume=0.55[e];[c]asetrate=36000,aresample=48000,lowpass=f=2400,adelay=320,volume=0.4[f];[d][e][f]amix=inputs=3:normalize=0[out]",
+          "gain_db": -1.65,
+          "trim_start_seconds": 0.0,
+          "output_sha256": "f87433b1a8eeb94a4459ad47f2d7661b65a0ab47089fb271829113a91bde3add"
+        }
+      ],
+      "commercial_game": true,
+      "tutorial_video": true,
+      "source_redistribution": true,
+      "modification_reuse": true,
+      "ai_input": "未上传；本交付不依赖AI服务",
+      "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    }
+  ],
+  "combo_pitch": {
+    "base_asset": "audio/sfx_board_match_var01.wav",
+    "ratios": [
+      1,
+      1.03,
+      1.06,
+      1.09
+    ],
+    "max_tier": 4,
+    "at_cap": "保持第四档",
+    "volume_increase": false,
+    "note": "仅参数方案，不包含四声演示文件；真实事件映射待接入"
+  },
+  "source_distribution": "art/releases/nut_sfx_cc0_v01 (outer tutorial workspace); original source URLs and hashes retained below",
+  "integration_date": "2026-10-26"
+}

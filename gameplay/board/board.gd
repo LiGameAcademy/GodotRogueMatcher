@@ -8,6 +8,7 @@ signal goal_bonus_ready(entry: ScoreEntry)
 signal selection_changed(piece: PieceState, has_fuse: bool)
 signal operation_feedback(message: String)
 signal feedback_requested(cue: StringName)
+signal match_feedback_requested(generation: int)
 signal run_reset
 signal reward_requested(active: RunController, offer: SkillOffer)
 ## Game显式提供兄弟HUD的等待入口，不从棋盘查找UI节点。
@@ -259,6 +260,7 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 	match step.kind:
 		PresentationStep.Kind.MOVE:
 			completed = await view.animate_move(step.movement, step.duration)
+			if completed and director.is_current(epoch, token): feedback_requested.emit(&"land")
 		PresentationStep.Kind.SPAWN:
 			for piece: PieceState in step.pieces: view.animate_spawn(piece, step.duration)
 		PresentationStep.Kind.REMOVE:
@@ -268,8 +270,11 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 		PresentationStep.Kind.MATCHES:
 			var cue: StringName = &"match"
 			for result: MatchResult in step.matches:
-				if result.cause in [&"explosion", &"line_clear"]: cue = &"blast"
-			if not step.matches.is_empty(): feedback_requested.emit(cue)
+				if result.cause == &"explosion": cue = &"blast"
+				elif result.cause == &"line_clear": cue = &"sweep"
+			if not step.matches.is_empty():
+				if cue == &"match": match_feedback_requested.emit(step.matches.front().generation)
+				else: feedback_requested.emit(cue)
 			view.animate_matches(step.matches)
 		PresentationStep.Kind.ALIGN:
 			# 旧公开写入口的额外提交只在全部步骤结束后纳入对齐。
@@ -367,6 +372,7 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 		push_error(run.state.rule_error)
 		return false
 	if not outcome.accepted or turn == null:
+		if not outcome.accepted: feedback_requested.emit(&"reject")
 		observation.busy(false)
 		selected_piece = null
 		return false
@@ -418,6 +424,7 @@ func continue_challenge() -> bool:
 	return can_selected
 
 func present_spawns(spawns: Array[SpawnResult]) -> void:
+	if not spawns.is_empty(): feedback_requested.emit(&"spawn")
 	var active_run: RunController = run
 	_submit_plan(PlaybackPlanBuilder.spawns(spawns, director.config.spawn_duration))
 	if not await finish_presentation() or run != active_run: return

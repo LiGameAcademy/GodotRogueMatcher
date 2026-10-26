@@ -16,6 +16,8 @@
 
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_background/game_background.tscn" id="12_background"]
 
+[ext_resource type="PackedScene" path="res://gameplay/presentation/game_music.tscn" id="13_music"]
+
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
 ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
@@ -66,3 +68,5 @@ layer = 130
 [node name="SkillPool" parent="." instance=ExtResource("9_pool")]
 
 [node name="CardTransfer" parent="." instance=ExtResource("10_transfer")]
+
+[node name="GameMusic" parent="." instance=ExtResource("13_music")]
