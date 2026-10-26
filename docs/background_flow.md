@@ -6,7 +6,7 @@
 
 ## 生命周期与边界
 
-- `GameBackground` 是独立场景，根节点同名脚本，显式接收 GameTheme 与已提交得分。为保留现有场景引用，在 Game 中仍实例化为 `ColorRect`。
+- `GameBackground` 是独立场景，根节点同名脚本，显式接收 GameTheme 与已提交得分。Game 里的实例也叫 `GameBackground`。
 - GameTheme 组合只读 `BackgroundFlowConfig`；速度0.25弧度/秒，得分响应上限0.025，按150分达到最大响应，1.6秒线性消退。连携累加也不超过上限。
 - 使用独立表现时钟、显式 PAUSABLE，不用 Shader TIME：ESC、设置及选卡暂停时冻结；快放不加速背景。重试/调试盘面清零相位和响应；切换主题保留相位、清除旧响应。
 - 低特效或关闭开关时移除 ShaderMaterial、停止处理，显示纯色；恢复后从冻结相位继续，不补算停用时的得分。

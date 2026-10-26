@@ -72,4 +72,4 @@ Web 导出参见 [English README](README.md#run-the-source)，目录参见 [DIRE
 
 代码、文案和宣传封面使用了 AI 辅助；截图来自实际游戏。人工审查与可运行验证是交付流程的一部分，我们不回避这个项目的 Vibe Coding 属性。
 
-项目采用 [GPL-3.0](LICENSE)，依赖保留各自许可。[Noto Sans SC 字体](assets/fonts/README.md)采用 SIL Open Font License；Godot 引擎采用 MIT 许可。
+程序源码采用 [MIT](LICENSE)。游戏名、原创美术、文案和数值保留权利，范围见 [LICENSING.md](LICENSING.md)。依赖保留各自许可。[Noto Sans SC 字体](assets/fonts/README.md)采用 SIL Open Font License；Godot 引擎采用 MIT 许可。

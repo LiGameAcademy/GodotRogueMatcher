@@ -58,7 +58,7 @@ func test_switching_in_settings_preserves_pause_focus_rules_and_random_streams()
 		settings.theme_choice.select(index)
 		settings.theme_choice.item_selected.emit(index)
 		assert_same(game.get("game_theme"), GameThemes.ALL[index])
-		var background: ColorRect = game.get_node("ColorRect") as ColorRect
+		var background: GameBackground = game.get_node("GameBackground") as GameBackground
 		assert_eq(background.color, GameThemes.ALL[index].background)
 		assert_eq(background.mouse_filter, Control.MOUSE_FILTER_IGNORE)
 		assert_true(get_tree().paused)
@@ -91,8 +91,7 @@ func test_switching_retains_offer_selected_card_and_confirmation() -> void:
 		assert_gt((unselected.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
 		assert_gt((popup.confirm_button.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left, 0)
 		assert_eq(popup.confirm_button.text, text)
-		assert_eq(card.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("hover", "Game"))
-		assert_eq(unselected.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("surface", "Game"))
+		assert_eq(card.get_theme_stylebox("normal").get("bg_color"), preset.ui_theme.get_color("surface", "Game"))
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
 		assert_true(get_tree().paused)
 

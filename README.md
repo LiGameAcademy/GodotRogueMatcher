@@ -87,4 +87,4 @@ Settings and tutorial progress use local browser storage. Web disables the deskt
 
 AI assistance was used for code, writing, and the promotional cover. The gameplay screenshots show the actual game. AI output is reviewed and tested; this project openly documents vibe-coding as a tutorial workflow.
 
-The game is licensed under [GPL-3.0](LICENSE). Dependency licenses are retained in their respective folders; [Noto Sans SC](assets/fonts/README.md) uses the SIL Open Font License. Godot uses the [MIT license](https://godotengine.org/license/).
+Program source is [MIT](LICENSE). Game name, original art, text, and design numbers stay reserved; see [LICENSING.md](LICENSING.md). Dependency licenses stay in their folders. [Noto Sans SC](assets/fonts/README.md) uses the SIL Open Font License. Godot uses the [MIT license](https://godotengine.org/license/).

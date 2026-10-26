@@ -1,22 +1,12 @@
 class_name RunController
 extends RefCounted
 
-var state: RunState
-var abilities: AbilityResolver
+## Owns deterministic run progression, command validation and rule-result sequencing.
+## Presentation requests advance explicitly; no UI node or animation controls rule outcomes.
+
 const PROGRESSION: ProgressionConfig = preload("res://gameplay/progression/content/progression_config.tres")
 const CONFIG: RunConfig = preload("res://gameplay/run/run_config.tres")
 const SPAWN_CONFIG: SpawnConfig = preload("res://gameplay/run/spawn_config.tres")
-var recorder: RunRecorder
-var continuation: StringName = &"idle"
-var last_command_id: int = 0
-var initialization: String = "normal"
-var _direct_match: bool = false
-var turn_action_id: int = 0
-var _last_payload: Dictionary = {}
-var _last_result: CommandResult
-var action_refill_count: int = 0
-var _retired: bool = false
-var prototype_profile: StringName = &""
 const PROTOTYPE_PROFILE: StringName = &"shape-unlock-fixture-v1"
 const SCREENING_PROFILE: StringName = &"screening-free-v1"
 const SCREENING_FIXED_PROFILE: StringName = &"screening-fixed-v1"
@@ -35,6 +25,23 @@ const PLUS_PROFILE: StringName = &"shape-unlock-plus-fixture-v1"
 const PLUS_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock_plus", "fixture_shape_unlock_plus_empty", "fixture_shape_unlock_plus_two_rewards"]
 const SHAPE_INITIALIZATIONS: Array[String] = ["fixture_shape_unlock", "fixture_shape_unlock_empty", "fixture_shape_unlock_chain", "fixture_shape_unlock_t", "fixture_shape_unlock_t_empty", "fixture_shape_unlock_t_two_rewards"]
 
+## Shared run state and services; mutation belongs to this controller and rule collaborators.
+var state: RunState
+var abilities: AbilityResolver
+var recorder: RunRecorder
+var continuation: StringName = &"idle"
+var last_command_id: int = 0
+var initialization: String = "normal"
+var turn_action_id: int = 0
+var action_refill_count: int = 0
+var prototype_profile: StringName = &""
+
+var _direct_match: bool = false
+var _last_payload: Dictionary = {}
+var _last_result: CommandResult
+var _retired: bool = false
+
+## Reports whether the owning scene has permanently closed this run.
 func is_retired() -> bool:
 	return _retired
 
@@ -45,13 +52,15 @@ func retire() -> void:
 	abilities.abandon_held_blasts()
 	state.ability_events.close()
 
+## Reports whether the completed challenge can continue without replacing this run.
 func can_continue_challenge() -> bool:
 	return state.is_game_over and state.end_reason == &"challenge_completed" and state.rule_error.is_empty() and state.stage.can_continue() and not state.rules.state.get_empty_coordinates().is_empty() and (recorder == null or not recorder.ended)
 
+## Returns whether the current root action produced a direct match.
 func direct_match() -> bool:
 	return _direct_match
 
-## 驱动发现无法推进时也留下显式诊断；不伪造棋盘失败。
+## Records a driver failure as a rule diagnostic without inventing a board loss.
 func report_error(reason: String) -> void:
 	state.rule_error = reason
 	state.phase = RunState.Phase.ERROR
@@ -59,6 +68,8 @@ func report_error(reason: String) -> void:
 		recorder.append("Diagnostic", {"reason": reason})
 		recorder.checkpoint(self)
 
+# Keep construction after these lightweight queries: moving it first breaks
+# AbilityResolver resource typing in the existing cyclic load graph (Godot 4.7.2).
 func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"") -> void:
 	assert(profile in [&"", PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE, MIXED_PROFILE, SCREENING_PROFILE, SCREENING_FIXED_PROFILE])
 	prototype_profile = profile
@@ -67,7 +78,7 @@ func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, p
 	abilities = AbilityResolver.new(state)
 	state.run_id = "%d-%d-%d-%d" % [run_seed, OS.get_process_id(), int(Time.get_unix_time_from_system() * 1000000.0), Time.get_ticks_usec()]
 
-## 合法操作一次提交移动、消除和基础计分；演出不重新计算。
+## Commits a legal move, matching and base score once; presentation consumes the result.
 func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	var result: TurnResult = TurnResult.new()
 	if _retired or state.phase != RunState.Phase.INPUT or state.is_game_over or (state.stage.enabled() and not state.stage.can_act()):
@@ -93,24 +104,30 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	result.direct_match = not result.matches.is_empty() and result.matches[0].cause == &"match"
 	return result
 
+## Resolves groups containing the landing entity; optional descendant holding preserves order.
 func resolve_matches_at(coordinate: Vector2i, hold_descendants: bool = false, match_source: StringName = &"") -> Array[MatchResult]:
 	return _resolve_groups(state.rules.find_matches_at(coordinate), hold_descendants, match_source)
 
+## Scans and resolves enabled groups against the current authoritative board.
 func resolve_all_matches() -> Array[MatchResult]:
 	return _resolve_groups(state.rules.find_matches())
 
+## Enters reward waiting only while the run remains healthy and active.
 func enter_rewards() -> void:
 	if not state.is_game_over and state.rule_error.is_empty():
 		state.phase = RunState.Phase.REWARDS
 
+## Commits turn-end phase and relay effects without awaiting presentation.
 func end_turn() -> void:
 	if not state.is_game_over and state.rule_error.is_empty():
 		state.phase = RunState.Phase.TURN_END
 		DemolitionRules.relay(abilities)
 
+## Refills after a nonmatch or an empty board, including a clearing direct match.
 func should_spawn(direct_match: bool) -> bool:
 	return not direct_match or state.rules.state.get_piece_count() == 0
 
+## Starts the next input turn and ensures its announced spawn plan.
 func start_turn() -> void:
 	if state.is_game_over or not state.rule_error.is_empty():
 		return
@@ -118,15 +135,12 @@ func start_turn() -> void:
 	prepare_spawn_plan()
 	state.phase = RunState.Phase.INPUT
 
+## Preserves an existing plan or creates the next announced refill.
 func prepare_spawn_plan() -> void:
 	if not state.is_game_over and state.rule_error.is_empty():
 		state.spawning.ensure_plan(state.next_refill_count(), state.explosion, state.line_clear)
 
-## 在阶段u推进前冻结已预告批次；本行动越线不会改变其补棋代价。
-func _freeze_action_refill() -> void:
-	action_refill_count = state.next_refill_count()
-	state.spawning.ensure_plan(action_refill_count, state.explosion, state.line_clear)
-
+## Closes an active healthy run with an explicit end reason.
 func finish_game(reason: StringName = &"board_full") -> void:
 	if state.is_game_over or not state.rule_error.is_empty():
 		return
@@ -134,7 +148,7 @@ func finish_game(reason: StringName = &"board_full") -> void:
 	state.is_game_over = true
 	state.phase = RunState.Phase.FINISHED
 
-## 一枚一枚选择真实空位，出生即查线；批次不会因首枚消除提前停止。
+## Chooses live empty cells one by one; matches do not truncate a valid batch.
 func spawn_batch(count: int = 3, source: StringName = &"normal", batch_id: int = 0) -> Array[SpawnResult]:
 	var result: Array[SpawnResult] = []
 	if state.is_game_over or not state.rule_error.is_empty() or count <= 0:
@@ -151,6 +165,7 @@ func spawn_batch(count: int = 3, source: StringName = &"normal", batch_id: int =
 	check_space_after_spawning()
 	return result
 
+## Consumes one planned token and resolves birth matches at its chosen live empty cell.
 func spawn_one(source: StringName = &"normal", batch_id: int = 0) -> SpawnResult:
 	if state.is_game_over or not state.rule_error.is_empty():
 		return null
@@ -187,21 +202,14 @@ func spawn_one(source: StringName = &"normal", batch_id: int = 0) -> SpawnResult
 	state.spawn_history.append(result)
 	return result
 
+## Ends a healthy run if no empty cell remains after the batch.
 func check_space_after_spawning() -> void:
 	if not state.rule_error.is_empty():
 		return
 	if state.rules.state.get_empty_coordinates().is_empty():
 		finish_game()
 
-func _resolve_groups(groups: Array[BoardMatchGroup], hold_descendants: bool = false, match_source: StringName = &"") -> Array[MatchResult]:
-	var result: Array[MatchResult] = abilities.resolve(groups, hold_descendants, match_source)
-	if not abilities.last_error.is_empty():
-		state.rule_error = abilities.last_error
-		state.phase = RunState.Phase.ERROR
-	check_rewards()
-	return result
-
-## 初始化与自动阶段也使用规则结果，UI只选择何时请求下一步。
+## Initializes rule state and returns committed births for presentation or headless drivers.
 func initialize(mode: String = "normal") -> RunStepResult:
 	initialization = mode
 	var result: RunStepResult = RunStepResult.new()
@@ -234,9 +242,11 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	if state.pending_rewards > 0: enter_rewards()
 	return result
 
+## Checks classic score milestones; stage mode owns its reward schedule.
 func check_rewards(score_override: int = -1) -> int:
 	return 0 if state.stage.enabled() else state.progression.check_score(state, PROGRESSION, score_override)
 
+## Returns the current valid offer, recording only newly generated offers when requested.
 func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = null) -> SkillOffer:
 	if state.pending_rewards <= 0 or state.is_game_over or not state.rule_error.is_empty(): return null
 	enter_rewards()
@@ -262,6 +272,7 @@ func offer_catalog() -> Array[SkillDefinition]:
 		return demo.plus_catalog() if prototype_profile == PLUS_PROFILE else demo.catalog()
 	return SkillOfferGenerator.new().catalog()
 
+## Validates run/action identity and reuses the cached result for an identical command retry.
 func execute_command(command: RunCommand) -> CommandResult:
 	if _retired:
 		var closed: CommandResult = CommandResult.new()
@@ -354,7 +365,7 @@ func execute_command(command: RunCommand) -> CommandResult:
 		if result.offer != null: recorder.offer(self, result.offer, "all_candidates_unavailable")
 	return result
 
-## 每次仅越过一个安全阶段；机器人直接确认，真人先等演出。
+## Crosses one safe phase boundary; callers decide when presentation permits the next step.
 func advance() -> RunStepResult:
 	var result: RunStepResult = RunStepResult.new()
 	if _retired:
@@ -405,7 +416,20 @@ func advance() -> RunStepResult:
 	if recorder != null: recorder.step(self, result)
 	return result
 
-## 完整根行动收束的唯一阶段结算入口，演出只消费结果。
+## Freezes the announced refill before stage progress can change its cost.
+func _freeze_action_refill() -> void:
+	action_refill_count = state.next_refill_count()
+	state.spawning.ensure_plan(action_refill_count, state.explosion, state.line_clear)
+
+func _resolve_groups(groups: Array[BoardMatchGroup], hold_descendants: bool = false, match_source: StringName = &"") -> Array[MatchResult]:
+	var result: Array[MatchResult] = abilities.resolve(groups, hold_descendants, match_source)
+	if not abilities.last_error.is_empty():
+		state.rule_error = abilities.last_error
+		state.phase = RunState.Phase.ERROR
+	check_rewards()
+	return result
+
+## Settles a completed root action exactly once; presentation only consumes its result.
 func _settle_stage(step: RunStepResult) -> StageResult:
 	if not state.stage.enabled() or not state.rule_error.is_empty(): return null
 	var result: StageResult = state.stage.settle(state.ledger.get_entries(), state.rules.state.get_empty_coordinates().is_empty(), state.rewards.consumed_count + 1)
