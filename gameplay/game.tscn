@@ -16,6 +16,8 @@
 
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_background/game_background.tscn" id="12_background"]
 
+[ext_resource type="PackedScene" path="res://gameplay/presentation/game_music.tscn" id="13_music"]
+
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
 ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
@@ -42,10 +44,18 @@ environment = SubResource("Environment_8cj0n")
 
 [node name="RunCollection" parent="." instance=ExtResource("8_collection")]
 
-[node name="ColorRect" parent="." instance=ExtResource("12_background")]
+[node name="GameBackground" parent="." instance=ExtResource("12_background")]
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+; 叠层从底到顶。层号写在拥有该 CanvasLayer 的场景里，这里只作索引。
+; 0 背景与棋盘（无 CanvasLayer）
+; 128 HUD（本场景 UILayer）
+; 129 弹窗（UIManager，autoload）
+; 130 主菜单（本场景 MenuLayer）
+; 135 卡牌飞入（card_transfer.tscn）
+; 140 技能池（skill_pool.tscn）
+; 145 设置（playback_settings.tscn）
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 128
 
@@ -66,3 +76,5 @@ layer = 130
 [node name="SkillPool" parent="." instance=ExtResource("9_pool")]
 
 [node name="CardTransfer" parent="." instance=ExtResource("10_transfer")]
+
+[node name="GameMusic" parent="." instance=ExtResource("13_music")]

@@ -18,7 +18,7 @@ func before_each() -> void:
 	game.set("show_start_menu", false)
 	add_child_autofree(game)
 	board = game.get_node("Board") as Board
-	background = game.get_node("ColorRect") as GameBackground
+	background = game.get_node("GameBackground") as GameBackground
 	await board.initialized
 	await wait_process_frames(2)
 	game.call("_set_volume", 0.0, false)
@@ -145,7 +145,7 @@ func test_saved_theme_is_applied_before_initial_spawn_yields() -> void:
 		(opening.get("preferences") as PlayerPreferences).theme_id = preset.theme_id
 		add_child_autofree(opening)
 		var opening_board: Board = opening.get_node("Board") as Board
-		var opening_background: GameBackground = opening.get_node("ColorRect") as GameBackground
+		var opening_background: GameBackground = opening.get_node("GameBackground") as GameBackground
 		assert_same(opening.get("game_theme"), preset)
 		assert_eq(opening_background.color, preset.background)
 		assert_eq(opening_background.size, opening.get_viewport_rect().size)

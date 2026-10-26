@@ -68,8 +68,8 @@ func report_error(reason: String) -> void:
 		recorder.append("Diagnostic", {"reason": reason})
 		recorder.checkpoint(self)
 
-# Construction stays after lightweight queries to preserve resource typing
-# in the existing cyclic AbilityResolver load graph (Godot 4.7.2).
+# Keep construction after these lightweight queries: moving it first breaks
+# AbilityResolver resource typing in the existing cyclic load graph (Godot 4.7.2).
 func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"") -> void:
 	assert(profile in [&"", PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE, MIXED_PROFILE, SCREENING_PROFILE, SCREENING_FIXED_PROFILE])
 	prototype_profile = profile

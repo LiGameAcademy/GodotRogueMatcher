@@ -32,7 +32,7 @@ var _has_played: bool = false
 var _menu_previous_pause: bool = false
 var _menu_owns_pause: bool = false
 
-@onready var _background: GameBackground = $ColorRect
+@onready var _background: GameBackground = $GameBackground
 @onready var _world_environment: WorldEnvironment = $WorldEnvironment
 @onready var _board: Board = $Board
 @onready var _hud: Hud = $UILayer/HUD
@@ -47,59 +47,9 @@ var _menu_owns_pause: bool = false
 func _ready() -> void:
 	_world_environment.environment = _world_environment.environment.duplicate() as Environment
 	if persist_preferences: preferences.load_values(CoreSystem.config_manager)
-	GameManager.game_overed.connect(_on_game_over)
-	GameManager.score_changed.connect(_hud.show_score)
-	GameManager.piece_count_changed.connect(_hud.show_occupancy)
-	GameManager.turn_started.connect(_on_turn_started)
-	_board.initialized.connect(_refresh_hud)
-	_board.initialized.connect(func() -> void: _collection.bind(_board.run))
-	_board.initialized.connect(_update_board_layout)
-	_hud.board_area_changed.connect(_update_board_layout)
-	_board.presentation_updated.connect(_refresh_hud)
-	_board.director.busy_changed.connect(_on_playback_busy)
-	_board.score_presenter = _wait_for_score
-	_board.reward_requested.connect(_on_reward_requested)
-	_board.run_reset.connect(_reward_flow.cancel)
-	_reward_flow.resume_available.connect(_hud.set_reward_waiting)
-	_reward_flow.selection_committed.connect(_on_reward_committed)
-	_reward_flow.error_reported.connect(_hud.show_status)
-	_hud.reward_resume_requested.connect(request_rewards)
-	_settings.fast_requested.connect(_set_fast)
-	_hud.pause_requested.connect(_toggle_pause)
-	_hud.settings_requested.connect(_open_settings)
-	_settings.view_changed.connect(_on_settings_view_changed)
-	_settings.menu_requested.connect(_show_menu)
-	release_menu.settings_requested.connect(_open_settings)
-	release_menu.skill_pool_requested.connect(_open_skill_pool)
-	_skill_pool.view_changed.connect(_on_skill_pool_view_changed)
-	UIManager.popup_opened.connect(_on_popup_opened)
-	release_menu.mode_requested.connect(_select_mode)
-	release_menu.play_requested.connect(_play_from_menu)
-	release_menu.tutorial_completed.connect(_tutorial_completed)
-	release_menu.language_requested.connect(_set_language)
-	release_menu.set_language_preference(CoreSystem.localization_manager.get_preferred_locale())
-	CoreSystem.localization_manager.locale_changed.connect(_on_locale_changed)
-	get_window().focus_exited.connect(_pause_on_focus_loss)
-	_hud.skip_requested.connect(_request_skip)
-	_settings.skip_requested.connect(_request_skip)
-	_settings.low_effects_requested.connect(_set_low_effects)
-	_settings.volume_requested.connect(_preview_volume)
-	_settings.volume_committed.connect(_set_volume)
-	_settings.theme_requested.connect(_set_theme)
-	_settings.background_motion_requested.connect(_set_background_motion)
-	_settings.board_signal_requested.connect(_set_board_signal)
-	_board.run_reset.connect(_background.reset_visual)
-	_board.feedback_requested.connect(_feedback.play)
-	_board.director.playback_failed.connect(func(_reason: String) -> void: _feedback.cancel())
-	_board.run_reset.connect(_feedback.cancel)
-	_board.run_reset.connect(_hud.reset_score_effects)
-	_board.run_reset.connect(_card_transfer.cancel)
-	_board.view.score_floats.score_visualized.connect(_on_score_visualized)
-	_board.goal_bonus_ready.connect(_on_goal_bonus_ready)
-	_hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
-	_board.selection_changed.connect(_on_selection_feedback)
-	_board.selection_changed.connect(_hud.show_selection)
-	_board.operation_feedback.connect(_hud.show_status)
+	_connect_run_signals()
+	_connect_menu_signals()
+	_connect_settings_signals()
 	_set_background_motion(preferences.background_motion, false)
 	_set_board_signal(preferences.board_signal, false)
 	_set_fast(preferences.fast, false)
@@ -111,7 +61,6 @@ func _ready() -> void:
 		_collection.configure(collection_context)
 		_board.telemetry_factory = _collection.factory
 	_connect_collection_controls(release_menu.collection_controls)
-	_collection.status_changed.connect(_show_collection_status)
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await _board.start_game(board_rules, record_runs)
@@ -171,6 +120,67 @@ func request_rewards() -> void:
 	_board.can_selected = false
 	var step: RunStepResult = active.advance()
 	if step.kind == &"offer": _reward_flow.present(_board, active, step.offer, true)
+
+func _connect_run_signals() -> void:
+	GameManager.game_overed.connect(_on_game_over)
+	GameManager.score_changed.connect(_hud.show_score)
+	GameManager.piece_count_changed.connect(_hud.show_occupancy)
+	GameManager.turn_started.connect(_on_turn_started)
+	_board.initialized.connect(_refresh_hud)
+	_board.initialized.connect(func() -> void: _collection.bind(_board.run))
+	_board.initialized.connect(_update_board_layout)
+	_hud.board_area_changed.connect(_update_board_layout)
+	_board.presentation_updated.connect(_refresh_hud)
+	_board.director.busy_changed.connect(_on_playback_busy)
+	_board.score_presenter = _wait_for_score
+	_board.reward_requested.connect(_on_reward_requested)
+	_board.run_reset.connect(_reward_flow.cancel)
+	_board.run_reset.connect(_background.reset_visual)
+	_board.run_reset.connect(_feedback.cancel)
+	_board.run_reset.connect(_hud.reset_score_effects)
+	_board.run_reset.connect(_card_transfer.cancel)
+	_reward_flow.resume_available.connect(_hud.set_reward_waiting)
+	_reward_flow.selection_committed.connect(_on_reward_committed)
+	_reward_flow.error_reported.connect(_hud.show_status)
+	_hud.reward_resume_requested.connect(request_rewards)
+	_board.feedback_requested.connect(_feedback.play)
+	_board.match_feedback_requested.connect(_feedback.play_match)
+	_board.director.playback_failed.connect(func(_reason: String) -> void: _feedback.cancel())
+	_board.view.score_floats.score_visualized.connect(_on_score_visualized)
+	_board.goal_bonus_ready.connect(_on_goal_bonus_ready)
+	_hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
+	_board.selection_changed.connect(_on_selection_feedback)
+	_board.selection_changed.connect(_hud.show_selection)
+	_board.operation_feedback.connect(_hud.show_status)
+	_collection.status_changed.connect(_show_collection_status)
+
+func _connect_menu_signals() -> void:
+	_hud.pause_requested.connect(_toggle_pause)
+	_hud.settings_requested.connect(_open_settings)
+	_settings.menu_requested.connect(_show_menu)
+	release_menu.settings_requested.connect(_open_settings)
+	release_menu.skill_pool_requested.connect(_open_skill_pool)
+	release_menu.mode_requested.connect(_select_mode)
+	release_menu.play_requested.connect(_play_from_menu)
+	release_menu.tutorial_completed.connect(_tutorial_completed)
+	release_menu.language_requested.connect(_set_language)
+	release_menu.set_language_preference(CoreSystem.localization_manager.get_preferred_locale())
+	_skill_pool.view_changed.connect(_on_skill_pool_view_changed)
+	UIManager.popup_opened.connect(_on_popup_opened)
+	CoreSystem.localization_manager.locale_changed.connect(_on_locale_changed)
+	get_window().focus_exited.connect(_pause_on_focus_loss)
+
+func _connect_settings_signals() -> void:
+	_settings.fast_requested.connect(_set_fast)
+	_settings.view_changed.connect(_on_settings_view_changed)
+	_hud.skip_requested.connect(_request_skip)
+	_settings.skip_requested.connect(_request_skip)
+	_settings.low_effects_requested.connect(_set_low_effects)
+	_settings.volume_requested.connect(_preview_volume)
+	_settings.volume_committed.connect(_set_volume)
+	_settings.theme_requested.connect(_set_theme)
+	_settings.background_motion_requested.connect(_set_background_motion)
+	_settings.board_signal_requested.connect(_set_board_signal)
 
 func _set_language(preference: String) -> void:
 	var error: Error = CoreSystem.localization_manager.set_preferred_locale(preference, persist_preferences)
@@ -265,10 +275,12 @@ func _preview_volume(volume: float) -> void:
 	_set_volume(volume, false)
 
 func _open_skill_pool() -> void:
+	_feedback.play(&"confirm")
 	_skill_pool.open(_board.run)
 
 func _open_settings() -> void:
 	if _settings.panel.visible or _skill_pool.panel.visible: return
+	_feedback.play(&"confirm")
 	_hud.piece_pool.close()
 	_settings_previous_location = _collection.ui if _collection.ui in ["help", "start_menu", "result", "pause"] else ""
 	_settings.open(not get_tree().paused and not is_instance_valid(UIManager.current_popup), not is_instance_valid(UIManager.current_popup))
@@ -316,6 +328,7 @@ func _request_skip() -> void:
 		_hud.show_status("已请求略过可跳部分，必播动作仍需完成")
 
 func _toggle_pause() -> void:
+	_feedback.play(&"confirm")
 	if release_menu.visible: return
 	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).toggle_selection_pause()
@@ -328,7 +341,7 @@ func _toggle_pause() -> void:
 
 func _update_board_layout() -> void:
 	# A Control under Node2D has no parent Control to stretch against.
-	($ColorRect as ColorRect).size = get_viewport_rect().size
+	_background.size = get_viewport_rect().size
 	var bounds: Rect2 = _board.view.transform * _board.view.get_display_rect()
 	if not bounds.has_area(): return
 	var area: Rect2 = get_global_transform_with_canvas().affine_inverse() * _hud.get_board_area()
@@ -377,7 +390,7 @@ func _on_game_over() -> void:
 	if not await _board.finish_presentation() or _board.run != active_run: return
 	_refresh_hud()
 	_hud.show_status(StageText.end_title(active_run.state))
-	_feedback.play(&"finish")
+	if active_run.state.end_reason != &"challenge_completed": _feedback.play(&"finish")
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state, "can_continue": active_run.can_continue_challenge()})
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
@@ -425,6 +438,7 @@ func _on_reward_requested(active: RunController, offer: SkillOffer) -> void:
 	_reward_flow.present(_board, active, offer)
 
 func _on_reward_committed(active: RunController) -> void:
+	_feedback.play(&"acquire")
 	await _board.resume_run(active)
 	if _board.run == active: _refresh_hud()
 

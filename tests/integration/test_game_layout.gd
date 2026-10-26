@@ -35,7 +35,7 @@ func test_real_board_edges_fit_ui_area_at_multiple_window_sizes() -> void:
 	for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(1024, 640), Vector2i(1600, 720)]:
 		viewport.size = resolution
 		await wait_process_frames(5)
-		assert_eq((game.get_node("ColorRect") as ColorRect).size, Vector2(resolution))
+		assert_eq((game.get_node("GameBackground") as GameBackground).size, Vector2(resolution))
 		var displayed: Rect2 = board.get_global_transform_with_canvas() * board.view.get_display_rect()
 		var area: Rect2 = hud.get_board_area()
 		var header: Rect2 = (hud.get_node("Margin/Rows/Header") as Control).get_global_rect()

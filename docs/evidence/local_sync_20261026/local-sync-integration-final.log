@@ -1,0 +1,890 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/nut-audio-130/.godot/local-sync-integration/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_aesthetic_acceptance.gd
+* test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_real_reward_popup_unlocks_l_and_restores_input
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_three_real_card_types_fit_and_can_be_chosen_bilingually
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_flash_reaches_visible_nut_and_is_isolated_from_other_instances_and_template
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_empty_build_hint_uses_full_width_then_returns_to_three_columns
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_legacy_v43_replay_and_flavor_do_not_change_rule_configuration
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_legacy_debug_keys_cannot_escape_acceptance_fixture
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+8/8 passed.
+
+
+res://tests/integration/test_board_juice.gd
+* test_piece_flash_isolated_from_other_instance_and_template
+* test_tile_highlight_isolated_from_other_instance_and_template
+* test_birth_keeps_ghost_alpha_and_never_modifies_rule_piece
+* test_cancel_move_clears_path_and_keeps_committed_rules
+* test_selection_pulse_pauses_and_low_effects_stops_motion
+5/5 passed.
+
+
+res://tests/integration/test_board_signal.gd
+* test_toggle_does_not_change_snapshot_geometry_or_input_surface
+* test_pause_freezes_clock_fast_does_not_accelerate_and_low_effects_hide_it
+* test_instance_materials_and_template_are_isolated
+* test_settings_preference_round_trip_and_disabled_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:16:11] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false
+[2026-10-26T17:16:11] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T17:16:11] [INFO] Config file saved to 'user://test_board_signal.cfg'.
+[2026-10-26T17:16:11] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_board_signal.cfg'.
+* test_real_sweep_and_retry_keep_exact_replay_and_reset_effect
+5/5 passed.
+
+
+res://tests/integration/test_board_view.gd
+* test_standalone_view_renders_without_external_parent_state
+* test_click_only_emits_coordinate_without_moving_rules
+* test_rebuilding_display_preserves_rule_ids_and_colors
+* test_animation_consumes_already_committed_move_result
+* test_rebuild_cancels_old_animation_without_altering_rule_state
+* test_two_views_do_not_share_mutable_materials
+* test_special_tooltips_follow_current_ability_configuration
+* test_tooltip_moves_with_piece_and_is_disabled_before_departure
+* test_rebuild_does_not_reuse_old_run_tooltip_for_same_piece_id
+* test_dye_step_changes_visual_color_before_following_match_without_rule_mutation
+* test_sweep_removals_animate_without_mutating_rules_and_show_truthful_tooltip
+11/11 passed.
+
+
+res://tests/integration/test_build_cards.gd
+* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+4/4 passed.
+
+
+res://tests/integration/test_choice_visual_layout.gd
+* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+* test_selected_and_unavailable_state_survives_locale_and_theme_changes
+* test_deselect_restores_surface_and_other_card_style_is_unchanged
+3/3 passed.
+
+
+res://tests/integration/test_command_scene.gd
+* test_human_fast_scene_and_headless_command_have_same_state
+* test_human_slow_scene_and_headless_command_have_same_state
+* test_retry_preserves_earned_reward_state_in_old_record
+* test_fixture_restart_preserves_old_record
+4/4 passed.
+
+
+res://tests/integration/test_composite_contract_scene.gd
+* test_t09_partial_result_normal_presentation_and_duplicate_confirmation
+* test_t09_partial_result_fast_and_low_effects_preserves_rules
+* test_t09_error_locks_input_retry_retires_run_and_old_callback
+* test_s08_frozen_blast_strength_normal_presentation
+* test_s08_frozen_blast_strength_fast_low_effects
+5/5 passed.
+
+
+res://tests/integration/test_conversion_scene.gd
+* test_f12_offer_confirms_and_transforms_same_nodes_with_exact_file_replay
+* test_transform_plan_copies_snapshots_and_low_effects_preserve_nodes
+2/2 passed.
+
+
+res://tests/integration/test_core_preview_color.gd
+* test_skill_core_freezes_weighted_color_and_displays_it_before_selection
+* test_real_board_spawn_animation_and_rebuild_preserve_all_preview_colors
+* test_invalid_frozen_core_color_rejects_without_consuming_choice
+* test_core_budget_preflight_uses_frozen_blue_color
+* test_normal_commands_replay_non_green_skill_core
+5/5 passed.
+
+
+res://tests/integration/test_expanded_skill_scene.gd
+* test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
+* test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds
+* test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup
+3/3 passed.
+
+
+res://tests/integration/test_explosion_loop.gd
+* test_f6_demo_loads_markers_and_real_move_resolves_two_generations
+* test_two_playback_speeds_keep_chain_scores_and_targets_identical
+* test_retry_while_explosion_move_is_playing_drops_old_abilities
+* test_birth_fault_stops_scene_input_without_full_board_game_over
+4/4 passed.
+
+
+res://tests/integration/test_feedback_settings.gd
+* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:16:31] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T17:16:31] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.
+[2026-10-26T17:16:31] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_feedback_settings.cfg'.
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad
+[2026-10-26T17:16:31] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad
+* test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
+* test_effect_toggle_during_movement_does_not_cancel_required_tween
+* test_muting_cue_dedup_and_retry_stop_plugin_players
+* test_finished_player_reused_by_other_caller_survives_game_cancel
+* test_reborrow_before_finished_keeps_original_player_mode
+* test_environment_and_particle_resources_are_instance_local
+* test_explicit_rejection_is_audible_but_blank_click_is_not
+8/8 passed.
+
+
+res://tests/integration/test_game_background.gd
+* test_settings_save_and_invalid_value_falls_back_to_default
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:16:34] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T17:16:34] [INFO] Config file saved to 'user://test_background.cfg'.
+[2026-10-26T17:16:34] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_background.cfg'.
+[2026-10-26T17:16:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid
+* test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it
+* test_disabled_and_reduced_effects_keep_static_background_and_rule_state
+* test_materials_and_shared_presets_are_not_mutated_by_other_instances
+* test_real_score_and_retry_are_visual_only_and_replay_stays_exact
+* test_settings_toggle_preserves_pause_and_rules
+* test_saved_theme_is_applied_before_initial_spawn_yields
+7/7 passed.
+
+
+res://tests/integration/test_game_layout.gd
+* test_real_board_edges_fit_ui_area_at_multiple_window_sizes
+* test_settings_fit_both_languages_at_supported_sizes_without_changing_run
+* test_scaled_corner_picking_and_move_use_same_grid_coordinates
+* test_mode_menu_fits_supported_viewport_in_both_languages
+* test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages
+5/5 passed.
+
+
+res://tests/integration/test_game_themes.gd
+* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:16:40] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument
+[2026-10-26T17:16:40] [INFO] Config file saved to 'user://test_game_theme.cfg'.
+[2026-10-26T17:16:40] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[2026-10-26T17:16:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
+* test_switching_retains_offer_selected_card_and_confirmation
+* test_both_themes_keep_panel_and_button_boundaries_without_focus
+* test_shader_instances_and_templates_stay_isolated_across_views
+* test_switch_during_real_move_keeps_barrier_and_exact_file_replay
+* test_retry_and_new_catalog_cards_inherit_theme_without_resetting_filters
+7/7 passed.
+
+
+res://tests/integration/test_goal_progress.gd
+* test_light_starts_at_source_and_fill_waits_for_arrival
+* test_many_gains_merge_at_limit_and_skip_preserves_exact_total
+    --- Awaiting 0.8 seconds  ---
+* test_pause_freezes_flight_and_reset_cancels_old_wait
+    --- Awaiting 0.8 seconds  ---
+* test_low_effects_and_materials_are_isolated_between_instances
+* test_all_score_waiters_finish_when_first_waiter_advances_goal
+    --- Awaiting 0.8 seconds  ---
+5/5 passed.
+
+
+res://tests/integration/test_hud.gd
+* test_score_counts_up_without_mutating_ledger
+* test_invalid_stage_table_displays_error_without_accessing_missing_target
+* test_reset_cancels_old_wait_and_score
+* test_pause_freezes_score_but_resume_control_remains_available
+* test_hud_uses_real_reward_occupancy_skill_and_score_data
+* test_prototype_layout_leaves_board_click_area_clear
+* test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan
+* test_piece_pool_shows_current_conditional_weights_without_mutating_run
+* test_stage_progress_uses_same_total_including_choice_without_settling
+* test_gain_fades_without_delaying_score_barrier_and_reset_cancels_fade
+    --- Awaiting 1.6 seconds  ---
+* test_second_stage_shows_cumulative_score_and_target
+* test_pool_escape_closes_it_without_requesting_pause
+* test_top_and_bottom_share_the_same_visible_score_during_flight_and_fill
+13/13 passed.
+
+
+res://tests/integration/test_input_buffer.gd
+* test_selection_during_movement_survives_to_next_turn
+* test_only_latest_piece_and_one_move_are_buffered
+* test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant
+* test_retry_discards_buffered_command
+* test_reward_popup_discards_previous_board_intent
+* test_buffered_move_rechecks_target_occupancy
+6/6 passed.
+
+
+res://tests/integration/test_line_clear_visual.gd
+* test_frozen_row_and_column_results_draw_full_axis_even_with_no_targets
+* test_pause_fast_playback_and_cancellation_keep_rules_unchanged
+* test_low_effects_and_retry_cleanup_cover_both_sweep_instances
+* test_wide_visual_uses_frozen_radius_and_clips_to_the_board
+* test_skip_sweep_removes_only_frozen_targets_without_resolving_again
+* test_cross_visual_freezes_both_independent_bands_and_cancels_together
+* test_unlocked_sweeper_tooltip_is_localized_and_does_not_mutate_state
+7/7 passed.
+
+
+res://tests/integration/test_localization.gd
+* test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run
+* test_every_skill_has_english_text_without_mutating_resources
+* test_color_picker_switch_preserves_selected_target_and_board_view
+3/3 passed.
+
+
+res://tests/integration/test_manual_line_scene.gd
+* test_ctrl_shift_f11_scores_bonus_and_shows_owned_card_and_tooltip
+* test_alt_f11_quota_rejection_pause_rebuild_and_tooltip_match_recorded_rules
+* test_f11_debug_entry_loads_replayable_fixture_and_shows_unlocked_tooltip
+* test_double_click_fast_and_normal_scene_match_headless_rules_and_replay
+* test_shift_f11_wide_command_matches_headless_and_freezes_card_preview
+* test_ctrl_f11_cross_chain_matches_headless_and_replays_after_presentation
+6/6 passed.
+
+
+res://tests/integration/test_mixed_template_playground.gd
+* test_real_board_input_all_four_mixed_cases_and_line_baselines
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_lt_baseline
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_plus_x
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_plus_x_baseline
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_independent
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_independent_baseline
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_nested_baseline
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_dropdown_baseline_and_reset_retire_old_run_and_keep_same_initial_board
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+MIXED_PLAYGROUND_READY fixture_mixed_nested_baseline
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_nested_baseline
+* test_normal_full_mixed_playback_continues_classic_reward
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_full_mixed_playback_continues_classic_reward
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_full_mixed_playback_continues_classic_reward
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_full_mixed_playback_continues_classic_reward
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+* test_menu_and_end_retry_keep_current_mixed_case_and_record_directory
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+* test_rebuild_disables_controls_and_restores_authoritative_case_after_stale_request
+MIXED_PLAYGROUND_READY fixture_mixed_lt
+MIXED_PLAYGROUND_READY fixture_mixed_nested
+8/8 passed.
+
+
+res://tests/integration/test_nut_audio.gd
+* test_all_public_cues_resolve_to_real_wav_files
+* test_match_pitch_caps_and_variants_alternate_without_rule_rng
+* test_paused_ui_cues_and_cancel_restore_pool_ownership
+* test_missing_optional_music_is_silent_and_valid
+* test_optional_music_loop_is_instance_local_and_scene_owned
+* test_actual_tree_pause_freezes_board_voice_but_keeps_reward_voice_live
+* test_retiring_feedback_returns_borrowed_voice_before_next_scene
+* test_paused_scene_voice_is_freed_after_natural_finish
+* test_external_ogg_path_plays_without_changing_imported_template
+9/9 passed.
+
+
+res://tests/integration/test_nut_idle.gd
+* test_stagger_and_refresh_preserve_timer_and_gameplay_random_streams
+* test_real_timer_closes_then_opens_and_pause_freezes_closed_pose
+* test_low_effects_and_selection_interrupt_and_restore_idle
+* test_move_and_elimination_interrupt_without_waiting_for_blink
+4/4 passed.
+
+
+res://tests/integration/test_piece_markers.gd
+* test_explosion_material_is_per_instance_and_tracks_body_without_faces
+* test_arrow_axes_pause_and_reduced_effects_keep_static_identity
+* test_core_and_fuse_keep_distinct_static_contours_when_reused_or_reduced
+3/3 passed.
+
+
+res://tests/integration/test_playback_settings.gd
+* test_settings_restore_running_paused_and_menu_states_without_rule_changes
+* test_settings_keep_selected_card_and_offer_and_block_skip_without_consuming_reward
+* test_volume_drag_previews_changes_and_commits_once_on_release
+* test_loading_preferences_does_not_save_and_closing_drag_commits_once
+* test_f8_inside_settings_updates_game_once_and_f1_restores_input
+* test_settings_skip_returns_to_live_presentation_and_preserves_exact_replay
+* test_retry_closes_settings_and_initializes_new_run_without_stale_pause
+7/7 passed.
+
+
+res://tests/integration/test_plus_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+4/4 passed.
+
+
+res://tests/integration/test_presentation_director.gd
+* test_queue_requires_matching_completion_and_empty_queue_is_complete
+* test_cancel_invalidates_old_completion_before_new_queue
+* test_paused_completion_does_not_dispatch_next_step
+* test_failed_action_is_not_successful_completion
+* test_plan_freezes_path_pieces_and_score_and_orders_generations
+* test_view_parallel_barrier_waits_for_all_required_tweens
+* test_pausing_freezes_required_visual_tasks
+* test_f8_fast_mode_keeps_f6_rule_snapshot_and_telemetry_counts_identical
+* test_skip_preserves_required_segments_and_rejects_old_completion
+* test_skip_stops_at_batch_alignment_and_pause_rejects_request
+* test_fixed_required_clock_ignores_fast_speed_changes
+* test_recovery_callback_starting_next_batch_keeps_new_barrier_busy
+* test_step_guard_freezes_while_paused
+13/13 passed.
+
+
+res://tests/integration/test_refill_lifecycle.gd
+* test_finite_refill_modifier_is_consumed_once_per_actual_batch
+* test_retry_during_birth_cannot_continue_old_run_or_unlock_new_input
+    --- Awaiting signal initialized or 3.0s  ---
+    --- Awaiting 30 idle frames  ---
+2/2 passed.
+
+
+res://tests/integration/test_release_flow.gd
+* test_all_four_lessons_use_real_commands_and_isolated_state
+* test_help_preserves_board_and_previous_pause_and_replay_can_skip
+* test_skip_during_animation_cancels_old_completion_and_allows_replay
+    --- Awaiting 30 idle frames  ---
+* test_tutorial_choice_occurs_after_animation_while_tree_paused
+* test_build_label_uses_application_version_and_explicit_override
+* test_switching_modes_starts_new_runs_and_preserves_mode_on_retry
+* test_challenge_hud_and_end_titles_use_stage_state
+* test_closing_popup_during_initialization_does_not_resume_stale_dialog
+8/8 passed.
+
+
+res://tests/integration/test_result_viewer.gd
+* test_cross_records_validate_both_bands_and_view_without_rescoring
+* test_result_viewing_speeds_preserve_snapshot_without_counting_score
+* test_result_watching_accepts_old_config_while_rule_replay_rejects_it
+* test_malformed_consumed_records_fail_without_stalling_viewer
+4/4 passed.
+
+
+res://tests/integration/test_reward_coordination.gd
+* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+* test_popup_cannot_mutate_authoritative_frozen_targets
+* test_same_run_old_popup_callback_does_not_submit_again
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+* test_two_rewards_in_normal_mode
+* test_two_rewards_in_fast_mode
+* test_two_rewards_in_low_effects_mode
+* test_two_rewards_in_combined_mode
+10/10 passed.
+
+
+res://tests/integration/test_reward_presentation.gd
+* test_match_finishes_before_score_notification_and_reward_popup
+* test_blast_waits_for_longer_visual_before_reward_pauses_game
+* test_core_selection_match_completes_before_next_queued_reward
+* test_retry_cancels_wait_without_publishing_old_score_or_opening_reward
+4/4 passed.
+
+
+res://tests/integration/test_ring_playground.gd
+* test_playground_starts_at_real_z_choice_and_scores_five_cells
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_center_button_retires_waiting_run_and_uses_same_identity
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+RING_PLAYGROUND_READY fixture_shape_unlock_ring_center
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_move_button_installs_replayable_puzzle_and_real_board_input
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+RING_PLAYGROUND_READY fixture_shape_ring_move
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_real_menu_new_run_stays_in_current_fixture_and_disables_old_shortcuts
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+* test_real_end_popup_retry_restarts_fixture_without_default_record_directory
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+RING_PLAYGROUND_READY fixture_shape_unlock_ring
+5/5 passed.
+
+
+res://tests/integration/test_ring_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+4/4 passed.
+
+
+res://tests/integration/test_score_floats.gd
+* test_split_uses_paid_main_score_and_exact_extra_without_mutating_entry
+* test_bonus_only_and_zero_score_never_invent_base_points
+* test_grade_font_and_colors_are_isolated_per_number_instance
+* test_big_scores_pop_more_and_stay_inside_reserved_sweep
+* test_edge_anchors_bonus_followup_and_overlapping_rewards_stay_readable
+* test_pause_low_effects_speed_and_expiry_preserve_ledger
+* test_delayed_rewards_reserve_motion_range_and_crowded_bursts_do_not_overlap
+* test_float_tail_is_optional_duplicate_results_do_not_repeat_and_reset_clears_old_text
+* test_score_burst_notifies_once_with_an_independent_entry_and_local_anchor
+9/9 passed.
+
+
+res://tests/integration/test_screening_playground.gd
+* test_all_twenty_four_fixed_tasks_run_real_scene_and_seal_one_complete_action
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY baseline direct
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline wrong
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l direct
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l wrong
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t direct
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t wrong
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus direct
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus wrong
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x direct
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x wrong
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs direct
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs wrong
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_normal_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_fast_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_low_effects_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_fast_low_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_action_budget_seals_after_real_move_and_blocks_stale_or_buffered_action
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY l free
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_time_budget_does_not_cut_playback_and_pause_is_included
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY baseline free
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+SCREENING_PLAYGROUND_READY baseline free
+* test_controls_and_menu_restart_keep_configuration_and_close_old_record
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY x outside
+SCREENING_PLAYGROUND_READY x outside
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    [WARNING]:  Warn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_switching_while_reward_waits_closes_old_sample_and_does_not_touch_new_free_run
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+SCREENING_PLAYGROUND_READY zs free
+* test_closing_during_initialization_does_not_try_to_seal_temporary_unrecorded_run
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY l direct
+10/10 passed.
+
+
+res://tests/integration/test_screening_report_cli.gd
+* test_actual_cli_writes_report_and_blank_template_without_modifying_sources
+* test_actual_cli_keeps_valid_records_and_reports_damaged_input_with_nonzero_exit
+* test_actual_cli_rejects_empty_or_malformed_manual_input_instead_of_silently_ignoring_it
+* test_actual_cli_rejects_unknown_human_ids_and_empty_directories
+4/4 passed.
+
+
+res://tests/integration/test_shape_unlock_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_retry_during_recovery_discards_old_run_identity_and_callbacks
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+5/5 passed.
+
+
+res://tests/integration/test_skill_card_selection.gd
+* test_select_switch_inspect_and_pause_do_not_submit_or_mutate_run
+* test_color_choice_uses_same_bottom_confirmation_without_automatic_submission
+* test_rejected_selection_keeps_candidate_and_does_not_fly_card
+* test_accepted_selection_emits_visual_once_after_rule_commit
+* test_reveal_and_transfer_are_visual_only_and_support_pause_low_effects_and_cancel
+* test_closing_submitted_popup_without_success_acknowledgement_does_not_fly_card
+6/6 passed.
+
+
+res://tests/integration/test_skill_cards.gd
+* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+5/5 passed.
+
+
+res://tests/integration/test_skill_instance_cards.gd
+* test_build_card_and_pool_read_real_level_without_changing_rules
+1/1 passed.
+
+
+res://tests/integration/test_skill_mechanic_icons.gd
+* test_registered_icons_match_choices_catalog_and_compact_build_without_mutating_run
+* test_unregistered_and_same_tag_cards_keep_fallback_and_reused_nodes_clear_previous_icons
+* test_orientation_and_modulation_are_instance_local_and_do_not_intercept_input
+* test_refill_icons_keep_real_remaining_uses_and_multiplier_keeps_level
+* test_dye_build_uses_one_shared_glyph_but_distinct_roles_and_real_levels
+* test_fuse_roles_and_relay_level_two_preserve_rules_and_other_fuse_cards_keep_fallback
+* test_match_bonus_roles_keep_conditions_levels_and_multiplier_separate_without_awarding_score
+* test_blast_payoffs_keep_hit_generation_and_threshold_conditions_without_starting_refill_uses
+* test_manual_icons_keep_real_shared_quota_at_zero_without_changing_run
+* test_fuse_assignment_capacity_and_payload_keep_lifecycles_and_live_levels
+* test_instant_conversion_icons_keep_frozen_targets_colors_and_supply_locked
+* test_cross_and_sweep_harvest_keep_levels_and_manual_quota_separate
+12/12 passed.
+
+
+res://tests/integration/test_skill_pool.gd
+* test_browsing_and_locale_changes_preserve_snapshot_offer_and_random_streams
+* test_escape_restores_existing_pause_and_does_not_reach_game_shortcuts
+* test_catalog_uses_short_effects_and_actual_prerequisite_titles
+* test_choice_menu_roundtrip_preserves_popup_and_observation_location
+* test_terminal_and_presentation_views_restore_their_previous_state
+* test_default_sort_uses_rarity_then_level_then_translated_name
+* test_filters_intersect_and_instant_history_is_not_a_level
+* test_grid_cards_filter_sort_reset_without_changing_rules
+* test_empty_filter_and_grid_column_count
+9/9 passed.
+
+
+res://tests/integration/test_skill_target_ux.gd
+* test_color_has_no_default_invalid_confirm_only_highlights_without_consumption
+* test_fold_view_pause_and_return_preserve_target_and_lock_board_without_reroll
+* test_color_confirm_applies_once_and_proceeds_through_real_reward_coordinator
+* test_hud_temporary_skill_disappears_when_consumed_history_can_be_expanded
+* test_non_color_budget_refusal_keeps_offer_random_and_reward
+* test_paused_card_body_mouse_click_opens_picker_once_without_reroll
+6/6 passed.
+
+
+res://tests/integration/test_skip_recovery.gd
+* test_skip_during_required_move_preserves_rule_snapshot_and_waits_for_move
+* test_active_blast_skip_and_normal_play_have_same_snapshot
+* test_skip_score_preserves_exact_integer_and_completes_wait
+* test_skip_before_reward_does_not_choose_or_leak_into_next_batch
+* test_failed_blast_recovers_committed_snapshot_without_recomputing
+* test_invalid_recovery_snapshot_stays_locked_and_preserves_rules
+* test_retry_discards_skip_request_and_old_step_completion
+* test_lost_movement_completion_times_out_and_recovers_without_rule_replay
+* test_compatibility_change_survives_two_queued_batches
+* test_final_alignment_restores_rule_identity_color_and_ability_markers
+10/10 passed.
+
+
+res://tests/integration/test_square_playground.gd
+* test_playground_starts_at_real_square_choice_and_scores_nine_cells
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_center_button_retires_waiting_run_and_uses_same_identity
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square_center
+* test_move_button_installs_replayable_puzzle_and_real_board_input
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+SQUARE_PLAYGROUND_READY fixture_shape_square_move
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_real_menu_new_run_stays_in_current_fixture_and_disables_old_shortcuts
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+* test_real_end_popup_retry_restarts_fixture_without_default_record_directory
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+SQUARE_PLAYGROUND_READY fixture_shape_unlock_square
+5/5 passed.
+
+
+res://tests/integration/test_square_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+4/4 passed.
+
+
+res://tests/integration/test_stage_scene.gd
+* test_goal_bonus_keeps_score_label_and_progress_in_sync
+* test_real_stage_pass_waits_for_presentation_then_enters_next_stage
+* test_real_score_shortfall_returns_to_input_after_visuals
+* test_real_final_stage_completes_without_skill_popup
+* test_victory_continue_button_keeps_run_and_opens_deferred_reward
+* test_victory_menu_finalizes_once_as_completed
+6/6 passed.
+
+
+res://tests/integration/test_t_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+4/4 passed.
+
+
+res://tests/integration/test_telemetry_scene.gd
+* test_game_over_connects_collection_controls_and_refreshes_save_status
+* test_normal_scene_records_submitted_command_and_turn_without_false_exposure
+* test_real_popup_produces_visible_exposure_then_acquisition_once
+* test_buffer_overwrite_and_reward_cancel_are_terminal_events
+* test_retry_closes_old_sink_and_keeps_session_but_changes_run_id
+* test_mode_switch_records_own_reason_and_integration_context
+* test_help_export_controls_preserve_rules_and_normalize_ui_exit_location
+* test_settings_location_and_pause_are_recorded_without_ending_run
+* test_piece_pool_location_is_observed_and_viewing_preserves_rules
+9/9 passed.
+
+
+res://tests/integration/test_u_playground.gd
+* test_playground_starts_at_real_z_choice_and_scores_five_cells
+U_PLAYGROUND_READY fixture_shape_unlock_u
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_rotated_button_retires_waiting_run_and_uses_same_identity
+U_PLAYGROUND_READY fixture_shape_unlock_u
+U_PLAYGROUND_READY fixture_shape_unlock_u_rotated
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_move_button_installs_replayable_puzzle_and_real_board_input
+U_PLAYGROUND_READY fixture_shape_unlock_u
+U_PLAYGROUND_READY fixture_shape_u_move
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_real_menu_new_run_stays_in_current_fixture_and_disables_old_shortcuts
+U_PLAYGROUND_READY fixture_shape_unlock_u
+U_PLAYGROUND_READY fixture_shape_unlock_u
+* test_real_end_popup_retry_restarts_fixture_without_default_record_directory
+U_PLAYGROUND_READY fixture_shape_unlock_u
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+U_PLAYGROUND_READY fixture_shape_unlock_u
+5/5 passed.
+
+
+res://tests/integration/test_u_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+4/4 passed.
+
+
+res://tests/integration/test_x_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+4/4 passed.
+
+
+res://tests/integration/test_zs_playground.gd
+* test_playground_starts_at_real_z_choice_and_scores_five_cells
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_mirror_button_retires_waiting_run_and_uses_same_family
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs_mirror
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_move_button_installs_replayable_puzzle_and_real_board_input
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+ZS_PLAYGROUND_READY fixture_shape_zs_move
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_real_menu_new_run_stays_in_current_fixture_and_disables_old_shortcuts
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+* test_real_end_popup_retry_restarts_fixture_without_default_record_directory
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+ZS_PLAYGROUND_READY fixture_shape_unlock_zs
+5/5 passed.
+
+
+res://tests/integration/test_zs_template_scene.gd
+* test_normal_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_fast_low_effects_real_popup_unlock_and_recovery
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+4/4 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Warnings             29
+
+Scripts              57
+Tests               338
+Passing Tests       338
+Asserts           10595
+Time              203.889s
+
+
+---- All tests passed! ----
+

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-26",
+  "engine": "4.7.2",
+  "rules": {
+    "passed": 606,
+    "total": 606,
+    "assertions": 18984,
+    "exit": 0
+  },
+  "integration": {
+    "passed": 338,
+    "total": 338,
+    "assertions": 10595,
+    "exit": 0,
+    "warnings": 29
+  },
+  "audio": {
+    "passed": 9,
+    "total": 9,
+    "assertions": 88,
+    "exit": 0
+  },
+  "review": "APPROVE after restoring pause icon and selected-card regression expectations",
+  "music_bytes_committed": false,
+  "export_run": false
+}

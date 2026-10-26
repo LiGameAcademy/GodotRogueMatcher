@@ -58,7 +58,7 @@ func test_switching_in_settings_preserves_pause_focus_rules_and_random_streams()
 		settings.theme_choice.select(index)
 		settings.theme_choice.item_selected.emit(index)
 		assert_same(game.get("game_theme"), GameThemes.ALL[index])
-		var background: ColorRect = game.get_node("ColorRect") as ColorRect
+		var background: GameBackground = game.get_node("GameBackground") as GameBackground
 		assert_eq(background.color, GameThemes.ALL[index].background)
 		assert_eq(background.mouse_filter, Control.MOUSE_FILTER_IGNORE)
 		assert_true(get_tree().paused)
