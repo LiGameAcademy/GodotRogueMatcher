@@ -1,0 +1,99 @@
+# 0.0.3 美学落地与跨对话维护约定
+
+2026-10-26。作者认可当前0.0.3美学程度，本切片暂时冻结；后续在其他对话继续开发时沿用本文。声音接入提交9657639及UID补充2677c2c是本次核对起点。本次只补规范，没有新增灯光、Shader、Tween或环境效果，也没有重跑视觉验收。
+
+本文是引擎实现与验收的维护入口；外层教程库art/维护美学方向、色盘、表情、组件、声音和制作来源。改实现时同步本页对应条目及证据，不把旧样稿中的建议数值当作当前实际配置，不将0.0.3美学冻结解释为整个版本已发布。
+
+## 共同目标与分工
+
+活泼俏皮的卡通坚果、清晰的小尺寸轮廓、统一且克制的五官、温馨背景；反馈清脆弹跳但长期读盘不吵。视觉优先级依次为棋子与操作状态、消除/能力因果、UI信息、环境装饰。先保证不依赖额外灯光与后处理时仍能识别五种坚果。
+
+素材负责形状/主辅色/壳纹与眼嘴；Theme负责UI样式；局部Shader负责表面/轮廓；Tween负责短促反馈；背景控制器负责环境节奏。灯光或后处理不得重复冲白素材、补偿不清晰的轮廓或改变匹配身份。表现只消费已提交结果，不改规则、分数、生成和玩法随机流，不以音画回调决定结果。
+
+## 配置所有权与实际入口
+
+路径相对res://。读取顺序为实际场景/Resource引用、实例参数及对应脚本默认值；.tres没有写出的属性才回退脚本默认值。
+
+| 层 | 权威入口与责任 | 后续修改边界 |
+| --- | --- | --- |
+| 主题 | gameplay/presentation/game_theme/game_theme.gd；light_toy.tres、dark_instrument.tres、对应原生Theme | Game统一下发，不能逐页硬编码第二套配色；保留深色兼容 |
+| 棋盘表面 | game_theme/board_appearance.gd；board/cell/tile_surface.gdshader、board/piece/piece_surface.gdshader | 主题只读，每个需要修改的材质实例独占 |
+| 坚果/表情 | gameplay/board/piece/nut_visual.gd及nut_idle_config.tres | 身体/眼嘴分层，预告与棋盘共用绘制，不为不同棋子移动脸位 |
+| 能力身份 | board/piece/piece_ability_visual.gd、body_outline.gdshader、piece_marker_config.tres | 身体alpha描边、独立箭头、选中角标；不在身体PNG中烘焙身份 |
+| 操作Tween | board/piece/chess_piece.gd及presentation/board_juice_config.gd | 棋子自身维护可取消动画；位置由路径表现控制，不能被装饰另写 |
+| 播放策略 | gameplay/presentation/presentation_director.gd、presentation_config.tres、playback_plan_builder.gd | 正常/快速/跳过及完成屏障沿用导演；不新增装饰屏障 |
+| 背景 | presentation/game_background/game_background.gd、同名gdshader、background_flow_config.gd | 复用现有控制器与显式相位，不另建全局背景管理器 |
+| 棋盘信号层 | presentation/board_signal_effect/board_signal_config.gd及同目录场景/Shader | 当前明亮主题四项强度为0；不得因默认值非0而意外恢复扫描线等 |
+| 灯光/环境 | gameplay/game.tscn的WorldEnvironment；game.gd中的实例复制与低特效开关 | 不改变渲染器，不为本切片补建全局Light2D/CanvasModulate |
+| 音效/音乐 | presentation/audio/nut_audio.tres、game_feedback.gd、game_music.tscn | 公开CC0音效与私有可选音乐分别管理，见audio/README.md和local_audio/README.md |
+
+## 当前参数快照（维护参考，不新增一套运行配置）
+
+以下由2026-10-26工作树读取；修改时编辑实际Resource/所属组件并更新本表，不在调用者重新填写这些数值。
+
+| 项 | 读取位置 | 当前值与单位 |
+| --- | --- | --- |
+| 渲染/窗口 | project.godot | Godot 4.7特征，Compatibility，1280×720，canvas_items拉伸 |
+| 背景低强度流动 | light_toy.tres的flow | contrast 0.025，speed 0.12（相位速度参数，不是周期秒数） |
+| 背景得分响应 | BackgroundFlowConfig默认 | score_response 0.025，response_seconds 1.6秒，reference_score 150；控制器有限幅 |
+| 明亮主题棋盘信号 | light_toy.tres的signal | scan_strength/rim_strength/sweep_strength/response_strength均为0 |
+| 能力标记 | PieceMarkerConfig默认 | pulse_seconds 2.0秒；outline_width 1.6（按64逻辑尺寸采样）；暖金f6c65b |
+| 箭头/角标 | 同上 | 箭头8×14、偏移27、往复2；角标尺寸14、边界32、往复0.8，均为局部逻辑单位 |
+| 眨眼 | NutIdleConfig默认 | 首次1.5～5.0秒，间隔4.0～9.0秒，闭眼0.14秒；独立装饰随机错峰 |
+| 操作与能力 | BoardJuiceConfig默认 | selected_scale 1.08；elimination_seconds 0.2秒；blast/line_clear_seconds各0.38秒 |
+| 演出速度 | PresentationConfig默认 | normal_speed 1.0，fast_speed 2.0，spawn_duration 0.3秒；step_timeout_seconds 10仅为故障保护 |
+| 当前局部选中Tween | chess_piece.gd | 选中0.12秒Cubic/Out，取消0.1秒；低特效选中缩放1.04；这些值当前仍在组件中，后续有调参需求再迁至配置 |
+| 表情定位 | NutVisual | 眼锚点(0.34,0.57)、嘴(0.34,0.68)；宽比0.36/0.23，保持五种棋子一致 |
+
+不把逻辑单位视作所有窗口下的屏幕像素。小窗口、UI缩放、透明边距和Shader采样一起检查；改64逻辑尺寸需要联动描边采样与箭头/角标定位。
+
+## Shader约定
+
+1. 只读Shader/纹理可共享；任何会修改uniform的ShaderMaterial在实例化时隔离。验证修改A不影响B或模板，不凭运行时设置resource_local_to_scene猜测已有实例已隔离。
+2. 爆破轮廓只采样身体alpha，不把外伸眼嘴、箭头或纹理矩形边界作为轮廓。当前body_outline.gdshader以alpha阈值0.20～0.45过滤微透明残边，16方向采样；改阈值/画布留白/纹理过滤后重查花生交界、核桃沟槽和开心果开口。
+3. 动态优先显式phase/energy/response，由所属控制器或绑定节点的Tween推进。需要随暂停停止的效果不得直接依赖不受控TIME；新增Shader先验证暂停与低特效，而不是只停_process。
+4. 能力高亮弱且局部，不周期冲白主体或遮挡表情。箭头固定屏幕棋盘行列轴，不随坚果斜放方向转动；轮廓不暗示实际作用范围。
+5. 背景当前为unshaded CanvasItem Shader，用静态图加边缘弱色流；不是已实现的叶片骨骼摆动或实时受光。控制器限制得分响应，不随连携累计成全屏白闪。
+6. 新增屏幕采样效果必须登记绘制顺序、影响层、关闭结果与实机证据；每次只增加一个变量。不把背景/能力Shader中相近参数另抄到全屏层重复增强。
+
+## Tween、Timer与中断约定
+
+- 每个可取消动画由所属场景持有句柄；创建新动画前处理旧句柄。以节点绑定的Tween为主，避免脱离场景仍持续的匿名循环。
+- 同一时刻每个属性只有一个动画写入方。移动position、操作scale/alpha、四角局部位移和能力energy各有所属层；新增效果先排查父子缩放叠乘及互相kill，不能同时从HUD和棋子写同一属性。
+- 棋子整体形变同时带动身体与五官，表情切换只操作眼嘴；预告静态，待机错峰，不让所有棋子同时呼吸或眨眼。
+- 取消、切局、重试和对象离场时停止旧Tween/Timer，恢复scale、alpha、位置、表情、energy等所属基态；只终止句柄而不复位不算完成。旧回调不得恢复新局输入或重新应用旧主题。
+- 必播动作及快进/跳过由PresentationDirector决定；装饰尾迹、眨眼、背景和音效不加入完成屏障。低特效减少装饰幅度，不能通过取消必要移动改变结果。
+- 暂停冻结棋盘Tween、眨眼Timer和背景相位；暂停/设置菜单仍可操作。恢复从冻结位置继续，不补播暂停期间积压的装饰。主题切换不重新抽选或重建规则状态。
+
+## 灯光、WorldEnvironment与后处理
+
+0.0.3不新增实时灯光依赖。当前优先使用素材自身的暖色、主题/接触阴影与局部描光。WorldEnvironment中存在glow/tonemap等序列化属性，只能说明配置被保存，不能证明所有参数在当前2D Compatibility路径上有效；game.gd会复制Environment并随低特效开关glow。
+
+后续确需试Light2D时，先在独立对照场景验证：灯光与目标CanvasItem处于正确canvas，明确light mask、目标材质受光方式和UI隔离。当前unshaded背景/描边不会因新增灯节点自动获得预期受光；不能为让灯起效而全局移除unshaded或降低全场亮度。只让背景接收装饰光，棋子匹配色和HUD可读性保持基线。
+
+阴影优先现有Theme/静态低透明层；没有实际需求不为81格分别增加实时阴影或法线图。需要实时阴影时另外记录遮光体、灯数量、质量及目标平台成本。
+
+全屏色偏、扫描线、色边、泛光、暗角、景深等均不作为明亮坚果主题新增前置。实验时必须提供效果关/开的同盘面对照，保留原色与UI清晰度，并检查实际渲染器和导出目标；没有明确收益就保持关闭。不能用AI目标图证明灯光、HDR或后处理已生效，不在本次文档收尾中切换渲染器。
+
+## 模式与生命周期验收表
+
+| 情况 | 必须保持 | 装饰政策与观察点 |
+| --- | --- | --- |
+| 普通 | 路径、消除、能力来源和读数清晰 | 能力弱脉冲；背景低对比；眼嘴不漂移 |
+| 快速 | 同样规则结果与输入恢复 | 导演调节必需动作时长，不提高闪光/音量或堆叠补播 |
+| 跳过 | 必播步骤、最终盘面、分数一致 | 按步骤policy完成/对齐，不能留下scale/透明度/相位污染 |
+| 暂停/恢复 | 冻结棋盘表现，菜单操作有效 | 检查Tween、Timer、Shader显式相位；不是仅靠截图判断 |
+| 低特效 | 棋子身份、选中、方向和必要动作可见 | 静态描边/箭头保留，眨眼与背景装饰关闭，不依赖光照识别 |
+| 主题切换 | 真实状态、候选选择、焦点与暂停保留 | 新对象继承主题；已发出的独立效果沿既定出生颜色结束 |
+| 重试/离场 | 新局不受旧回调影响 | 检查旧音频/Tween/粒子/Timer的释放与基态恢复 |
+| A/B实例 | B和原始模板不变 | 修改A材质、Environment或粒子资源后检查B与模板 |
+
+最低画面样本为中文1280×720、英文1024×640，含单枚/相邻多枚特殊棋子、棋盘边角、选中与能力叠加、三选一和设置。动态效果至少录暂停/恢复、低特效、快速与重试片段；同一提交/夹具比较，截图和AI图分别标记。性能记录设备、分辨率、渲染器与构建模式、观测方法及前后值；尚无性能基线时写未测，不编造FPS目标或宣称所有平台通过。
+
+## 后续对话执行入口
+
+先读本文、docs/game_themes.md、对应组件及Resource，再读外层art/当前美学基线.md和对应细项规范。任务简报写明目标、改动层、参数所有权、关闭/降级表现及验收样本；先复用现有入口，不新建并行的全局效果系统。
+
+交付记录至少包括：提交/资源哈希、实际配置引用及变化值和单位、作用层、暂停/低特效/重试行为、同盘截图/录屏、测试结果、实际设备性能状态和剩余项。检查运行行为与作者视觉判断分别记录；局部技术通过不自动关闭所有美学issue。
+
+当前冻结范围保留五种坚果、统一五官/错峰眨眼、四角/行列箭头/身体轮廓、现有UI布局与主题、庭院背景、十二个CC0音效及可选音乐入口。完整表情序列、额外环境灯、全屏后处理、更多P1音效和音乐C署名/无缝循环留待后续，不在本轮继续开发。私有音乐不入Git，公开导出默认排除local_audio/*；音乐缺失不影响游戏运行。
