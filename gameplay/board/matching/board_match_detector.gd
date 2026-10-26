@@ -1,11 +1,13 @@
 class_name BoardMatchDetector
 extends RefCounted
 
+## Detects enabled same-color shapes without mutating board state.
+## Overlapping hits merge by shared entity; landing filters run after the full scan.
+
 const LINE_DIRECTIONS: Array[Vector2i] = [Vector2i.RIGHT, Vector2i.DOWN, Vector2i(1, 1), Vector2i(1, -1)]
 const MAXIMUM_TEMPLATES: int = 8
 
-## Collect every enabled hit before merging or filtering by the landing entity.
-## Production defaults to lines; prototype BoardRules supplies detached construction-time templates.
+## Collects every enabled hit, deduplicates identities and returns entity-sorted groups.
 static func find_matches(state: BoardState, minimum_count: int, templates: Array[MatchShapeTemplate] = []) -> Array[BoardMatchGroup]:
 	var error: String = validation_error(templates)
 	if not error.is_empty():
@@ -28,6 +30,7 @@ static func find_matches(state: BoardState, minimum_count: int, templates: Array
 	groups.sort_custom(func(a: BoardMatchGroup, b: BoardMatchGroup) -> bool: return a.piece_ids[0] < b.piece_ids[0])
 	return groups
 
+## Returns the first unsupported template configuration, or an empty string.
 static func validation_error(templates: Array[MatchShapeTemplate]) -> String:
 	if templates.size() > MAXIMUM_TEMPLATES: return "too many match templates"
 	for template: MatchShapeTemplate in templates:
@@ -36,6 +39,7 @@ static func validation_error(templates: Array[MatchShapeTemplate]) -> String:
 		if not error.is_empty(): return error
 	return ""
 
+## Filters fully merged groups by the entity currently occupying the landing cell.
 static func find_matches_at(state: BoardState, minimum_count: int, coordinate: Vector2i, templates: Array[MatchShapeTemplate] = []) -> Array[BoardMatchGroup]:
 	var groups: Array[BoardMatchGroup] = []
 	var id: int = state.get_piece_id(coordinate)
@@ -82,6 +86,7 @@ static func _hit(state: BoardState, ids: Array[int], shape: StringName, origin: 
 	for id: int in hit.piece_ids: hit.coordinates.append(state.get_piece(id).coordinate)
 	return hit
 
+## Merges all intersecting groups in reverse index order without losing hit provenance.
 static func _merge(groups: Array[BoardMatchGroup], hit: BoardMatchHit) -> void:
 	var merged: BoardMatchGroup = BoardMatchGroup.new()
 	merged.piece_ids = hit.piece_ids.duplicate()
