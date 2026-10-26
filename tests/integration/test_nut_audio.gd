@@ -139,3 +139,21 @@ func test_paused_scene_voice_is_freed_after_natural_finish() -> void:
 	assert_false(is_instance_valid(voice))
 	assert_true(feedback._paused_players.is_empty())
 	assert_true(feedback._players.is_empty())
+
+func test_external_ogg_path_plays_without_changing_imported_template() -> void:
+	var original: AudioStreamOggVorbis = load(TEST_MUSIC) as AudioStreamOggVorbis
+	var original_loop: bool = original.loop
+	var destination: String = ProjectSettings.globalize_path("user://external_music_fixture.ogg")
+	var file: FileAccess = FileAccess.open(destination, FileAccess.WRITE)
+	assert_not_null(file)
+	if file == null: return
+	file.store_buffer(FileAccess.get_file_as_bytes(TEST_MUSIC))
+	file.close()
+	var music: GameMusic = MUSIC.instantiate() as GameMusic
+	music.local_path = destination
+	add_child_autofree(music)
+	assert_true(music.playing)
+	assert_true((music.stream as AudioStreamOggVorbis).loop)
+	assert_eq(original.loop, original_loop)
+	music.stop()
+	assert_eq(DirAccess.remove_absolute(destination), OK)

@@ -1,9 +1,9 @@
 class_name GameMusic
 extends AudioStreamPlayer
 
-## 课程私有仓库中的可选音乐，位于公开子模块之外。缺失时公开构建无音乐。
+## Owns optional music outside the public project; missing files leave the game silent.
 const PRIVATE_MUSIC_RELATIVE: String = "../local_audio/gameplay.mp3"
-## 空字符串使用课程仓库中的私有文件。res:// 只用于工程内测试音源。
+## Empty selects the sibling private file; res:// permits imported test audio.
 @export var local_path: String = ""
 @export_range(0.0, 1.0) var music_gain: float = 0.5
 

@@ -202,7 +202,7 @@ func _play_from_menu(new_run: bool) -> void:
 	get_tree().paused = false if new_run else _menu_previous_pause
 	_menu_owns_pause = false
 	_has_played = true
-	_hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+	_hud.show_pause_state(get_tree().paused)
 	if new_run: await _on_retry_requested()
 	else: _set_collection_location("")
 	if _board.observation.telemetry != null: _board.observation.telemetry.play_started()
@@ -335,7 +335,7 @@ func _toggle_pause() -> void:
 		return
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
 	get_tree().paused = not get_tree().paused
-	_hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+	_hud.show_pause_state(get_tree().paused)
 	_hud.show_status("已暂停" if get_tree().paused else ("请选择棋子与目标空格" if _board.can_selected else "正在结算与播放…"))
 	_collection.location("pause" if get_tree().paused else "board_input" if _board.can_selected else "presentation")
 
@@ -382,7 +382,7 @@ func _on_locale_changed(_old: String, _new: String) -> void:
 	if _board.run == null: return
 	_refresh_hud()
 	_board.view.refresh_piece_details(_board.run.state.rules.state.get_snapshot(), _board.run.state.explosion, _board.run.abilities.config, _board.run.state.line_clear, _board.run.state.manual_uses_used)
-	_hud.pause_button.text = tr("继续 / ESC") if get_tree().paused else tr("暂停 / ESC")
+	_hud.show_pause_state(get_tree().paused)
 
 func _on_game_over() -> void:
 	_board.can_selected = false

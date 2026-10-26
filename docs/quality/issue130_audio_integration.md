@@ -39,3 +39,9 @@
 作者指出旧icon.png不合适，并要求加入眼睛和嘴巴以增强轻松氛围。采用内置imagegen，以项目walnut_body.png为风格参考生成，再按作者反馈添加大圆眼与微笑、简化壳纹；替换icon.png，显式设置config/icon与Windows导出application/icon，Web沿既有export_icon取应用图标。未改棋子素材或玩法。完整提示词见docs/quality/project_icon_prompt.txt。图标不等于全游戏角色美术已重做；本片不宣称实际Windows/Web导出验证。
 
 图标定向检查通过：1254×1254 PNG，应用与Windows引用一致。首次普通导入扫描等待后中止，恢复模式最终完成icon.png重导入并退出0；保留原始记录和verbose退出39个StringName诊断。源图直接读取的检查脚本产生导出时应使用导入资源的提示，该脚本仅位于.godot诊断目录，不在游戏运行路径。未执行成品导出，不用本检查代替导出验收。
+
+## 2026-10-26 本地与远端整合
+
+作者随后明确要求先提交所有本地项目内容、合并PR并保证双端一致。本轮将本地快照5187d11及文档提交整合进#199，再合入#200后的develop；不是新玩法开发。同步GameBackground节点名及启动前主题配置、CardTransfer层135、工程外可选音乐读取、目录/许可文档与旧icon.svg清理。LICENSE/LICENSING采用作者已有本地文本，不代表新增法律结论。私有音乐没有加入Git或公开导出。
+
+冲突整合保留新版图标、轮廓及暂停音效修复。复审发现旧暂停按钮文字和选中卡测试预期回退，已恢复HUD.show_pause_state及hover/surface双断言。外部Ogg真实文件读取、循环与模板隔离定向9/9、88断言通过。最终整合树成绩见docs/evidence/local_sync_20261026。作者本轮已明确授权测试/复审后合并，先前“保留review”是原交付状态。
