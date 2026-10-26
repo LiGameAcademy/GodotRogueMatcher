@@ -34,4 +34,4 @@ Serve index.html through HTTP(S); opening a local file directly is unsupported. 
 
 An open-source AI-assisted vibe-coding tutorial by Li Game Academy, developed with Cursor and OpenAI Codex / ChatGPT. [知识星球](https://wx.zsxq.com/group/28885154818841) · [Patreon](https://www.patreon.com/cw/LiGameAcademy)
 
-Game: GPL-3.0. CoreSystem and font licenses are included in licenses/; font credits are in font_credits.md. Godot: [MIT license and third-party notices](https://godotengine.org/license/). Source and dependency revisions are recorded in the build manifest.
+Program source: MIT (`licenses/game.txt`). Game name, original art, text, and design numbers are reserved (`licenses/licensing.txt`). CoreSystem and font licenses are included in `licenses/`; font credits are in `font_credits.md`. Godot: [MIT license and third-party notices](https://godotengine.org/license/). Source and dependency revisions are recorded in the build manifest.

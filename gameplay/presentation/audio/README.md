@@ -8,6 +8,6 @@ nut_audio.tres是声音路径、消除变体、四档音高、70ms同类去重�
 
 奖励/获得/按钮/失败可在弹窗暂停时播放，其余棋盘音效随暂停。finished和cancel均恢复借用播放器的process_mode和pitch_scale；重试只停止本适配器持有的音效。旧合成原型不再作为当前播放源。音量滑杆仍控制Master，并未新增两套音量UI。
 
-音乐由独立GameMusic场景持有，默认查找res://local_audio/gameplay.mp3，缺失时无音乐运行；本次没有复制音乐C。Git忽略与公开导出排除分别控制，接入说明见../../../local_audio/README.md。版权署名UI和循环接缝须在含音乐发布前完成。
+音乐由独立GameMusic场景持有，默认读取课程私有仓库中、公开子模块之外的../local_audio/gameplay.mp3，缺失时无音乐运行；本次没有复制音乐C。课程仓库忽略*.mp3，公开导出仍排除项目内local_audio/*。接入说明见../../../local_audio/README.md。版权署名UI和循环接缝须在含音乐发布前完成。
 
 这是首次实机接入，技术回归不替代听感验收；在Godot编辑器中检查正常/快速演出、暂停、重试和高密度连携的音量与重复疲劳。

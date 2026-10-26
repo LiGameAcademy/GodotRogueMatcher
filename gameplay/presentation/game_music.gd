@@ -1,8 +1,10 @@
 class_name GameMusic
 extends AudioStreamPlayer
 
-## Optional locally supplied music. Missing files are a supported public build.
-@export_file("*.mp3", "*.ogg") var local_path: String = "res://local_audio/gameplay.mp3"
+## 课程私有仓库中的可选音乐，位于公开子模块之外。缺失时公开构建无音乐。
+const PRIVATE_MUSIC_RELATIVE: String = "../local_audio/gameplay.mp3"
+## 空字符串使用课程仓库中的私有文件。res:// 只用于工程内测试音源。
+@export var local_path: String = ""
 @export_range(0.0, 1.0) var music_gain: float = 0.5
 
 func _ready() -> void:
@@ -12,13 +14,12 @@ func _ready() -> void:
 func start_optional() -> bool:
 	stop()
 	stream = null
-	if local_path.is_empty() or not ResourceLoader.exists(local_path): return false
-	var loaded: AudioStream = load(local_path) as AudioStream
+	var path: String = _resolve_music_path()
+	var loaded: AudioStream = _load_optional_stream(path)
 	if loaded == null:
-		push_warning("Optional music is not an AudioStream: " + local_path)
 		return false
 	if not loaded is AudioStreamMP3 and not loaded is AudioStreamOggVorbis:
-		push_warning("Optional music requires MP3 or Ogg Vorbis: " + local_path)
+		push_warning("Optional music requires MP3 or Ogg Vorbis: " + path)
 		return false
 	stream = loaded.duplicate() as AudioStream
 	if stream is AudioStreamMP3: (stream as AudioStreamMP3).loop = true
@@ -27,3 +28,28 @@ func start_optional() -> bool:
 	volume_db = linear_to_db(music_gain)
 	play()
 	return true
+
+func _resolve_music_path() -> String:
+	if local_path.is_empty():
+		return ProjectSettings.globalize_path("res://").path_join(PRIVATE_MUSIC_RELATIVE).simplify_path()
+	if local_path.begins_with("res://") or local_path.is_absolute_path():
+		return local_path
+	return ProjectSettings.globalize_path("res://").path_join(local_path).simplify_path()
+
+func _load_optional_stream(path: String) -> AudioStream:
+	if path.begins_with("res://"):
+		if not ResourceLoader.exists(path):
+			return null
+		var imported: AudioStream = load(path) as AudioStream
+		if imported == null:
+			push_warning("Optional music is not an AudioStream: " + path)
+		return imported
+	if not FileAccess.file_exists(path):
+		return null
+	var extension: String = path.get_extension().to_lower()
+	if extension == "mp3":
+		return AudioStreamMP3.load_from_file(path)
+	if extension == "ogg":
+		return AudioStreamOggVorbis.load_from_file(path)
+	push_warning("Optional music requires MP3 or Ogg Vorbis: " + path)
+	return null

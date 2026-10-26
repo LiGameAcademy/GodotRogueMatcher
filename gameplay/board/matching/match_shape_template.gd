@@ -1,13 +1,18 @@
 class_name MatchShapeTemplate
 extends Resource
 
+## Read-only required-cell configuration shared by detection and replay.
+## Callers receive detached variants; enabling detection does not acquire a skill.
+
 const MAXIMUM_OFFSET: int = 64
 const MAXIMUM_CELLS: int = 4096
 
-## Read-only detection configuration; enabling a prototype is not acquiring a skill.
+## Stable content identity; empty names and the built-in line identity are reserved.
 @export var shape_id: StringName
+## Required same-color cells relative to an origin; extra occupied cells are allowed.
 @export var offsets: Array[Vector2i] = []
 
+## Returns the first invalid identity, bounds or duplicate-cell error, or an empty string.
 func validation_error() -> String:
 	if shape_id.is_empty() or shape_id == &"line": return "missing or reserved shape identity"
 	if offsets.is_empty(): return "template has no required cells"
@@ -37,6 +42,7 @@ static func from_record(value: Variant) -> MatchShapeTemplate:
 		result.offsets.append(Vector2i(x, y))
 	return result if result.validation_error().is_empty() else null
 
+## Builds unique translated rotations and reflections without modifying the source resource.
 func variants() -> Array[MatchShapeTemplate]:
 	var result: Array[MatchShapeTemplate] = []
 	var seen: Dictionary[String, bool] = {}
