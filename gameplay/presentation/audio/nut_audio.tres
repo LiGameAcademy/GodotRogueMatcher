@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GameAudioConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/presentation/audio/game_audio_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+cue_paths = Dictionary[StringName, String]({
+&"select": "res://gameplay/presentation/audio/sfx_board_select.wav",
+&"land": "res://gameplay/presentation/audio/sfx_board_land.wav",
+&"reject": "res://gameplay/presentation/audio/sfx_board_reject.wav",
+&"spawn": "res://gameplay/presentation/audio/sfx_board_spawn.wav",
+&"match": "res://gameplay/presentation/audio/sfx_board_match_var01.wav",
+&"blast": "res://gameplay/presentation/audio/sfx_ability_explosion_activate.wav",
+&"sweep": "res://gameplay/presentation/audio/sfx_ability_sweep_activate.wav",
+&"confirm": "res://gameplay/presentation/audio/sfx_ui_confirm.wav",
+&"reward": "res://gameplay/presentation/audio/sfx_ui_skill_offer.wav",
+&"acquire": "res://gameplay/presentation/audio/sfx_ui_skill_acquire.wav",
+&"finish": "res://gameplay/presentation/audio/sfx_ui_run_failure.wav"
+})
+match_variants = Array[String](["res://gameplay/presentation/audio/sfx_board_match_var01.wav", "res://gameplay/presentation/audio/sfx_board_match_var02.wav"])

@@ -81,6 +81,7 @@ func _ready() -> void:
 	settings.board_signal_requested.connect(_set_board_signal)
 	board.run_reset.connect(background.reset_visual)
 	board.feedback_requested.connect(feedback.play)
+	board.match_feedback_requested.connect(feedback.play_match)
 	board.director.playback_failed.connect(func(_reason: String) -> void: feedback.cancel())
 	board.run_reset.connect(feedback.cancel)
 	board.run_reset.connect(hud.reset_score_effects)
@@ -173,7 +174,7 @@ func _on_game_over() -> void:
 	if not await board.finish_presentation() or board.run != active_run: return
 	_refresh_hud()
 	hud.show_status(StageText.end_title(active_run.state))
-	feedback.play(&"finish")
+	if active_run.state.end_reason != &"challenge_completed": feedback.play(&"finish")
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state, "can_continue": active_run.can_continue_challenge()})
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
@@ -296,6 +297,7 @@ func _on_goal_bonus_ready(entry: ScoreEntry) -> void:
 	hud.show_score_burst(entry, hud.score_label.get_global_rect().get_center())
 
 func _open_skill_pool() -> void:
+	feedback.play(&"confirm")
 	skill_pool.open(board.run)
 
 func _on_popup_opened(popup: Control) -> void:
@@ -318,11 +320,13 @@ func _on_reward_requested(active: RunController, offer: SkillOffer) -> void:
 	reward_flow.present(board, active, offer)
 
 func _on_reward_committed(active: RunController) -> void:
+	feedback.play(&"acquire")
 	await board.resume_run(active)
 	if board.run == active: _refresh_hud()
 
 func _open_settings() -> void:
 	if settings.panel.visible or skill_pool.panel.visible: return
+	feedback.play(&"confirm")
 	hud.piece_pool.close()
 	_settings_previous_location = collection.ui if collection.ui in ["help", "start_menu", "result", "pause"] else ""
 	settings.open(not get_tree().paused and not is_instance_valid(UIManager.current_popup), not is_instance_valid(UIManager.current_popup))
@@ -394,6 +398,7 @@ func _request_skip() -> void:
 		hud.show_status("已请求略过可跳部分，必播动作仍需完成")
 
 func _toggle_pause() -> void:
+	feedback.play(&"confirm")
 	if release_menu.visible: return
 	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).toggle_selection_pause()

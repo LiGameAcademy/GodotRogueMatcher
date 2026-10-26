@@ -1,7 +1,13 @@
-# 原型提示音
+# 坚果音效接入 · 2026-10-26
 
-本目录五个 AudioStreamWAV 由本项目程序合成，不依赖外部音频素材：16 位单声道、11025 Hz，短谐波音加起音与衰减包络。select/match/blast/reward/finish 分别用于选中、消除、爆炸、技能面板和结束反馈；属于可替换原型音效。
+当前GameFeedback通过插件AudioManager的SFX池播放本目录十二个CC0 WAV。来源/哈希/处理链在manifest.json，原料在Godot忽略的sources/，许可在LICENSE.md、NOTICE.md、licenses/。音效资产与项目代码分开许可。旧select/match/blast/reward/finish.tres保留为历史原型，当前配置不再引用。
 
-GameFeedback 通过 godot_core_system AudioManager 的 SFX 池播放。相同提示 70ms 内去重；音效长尾不进入演出完成屏障。奖励和结束提示可在弹窗暂停时播放，其余提示遵循游戏暂停。自然结束归还播放器跟踪及原处理模式；重试只停止仍由本场景借用的音频。
+nut_audio.tres是声音路径、消除变体、四档音高、70ms同类去重、最大六声音效和0.65播放增益的权威配置。音效不调用规则，不加入演出完成屏障；快速/低特效不改变声音时长和播放增益。消除两变体按表现计数交替，不消耗规则随机流；按已经冻结的MatchResult.generation取[1,1.03,1.06,1.09]并封顶，不无限升高。
 
-音量滑块控制插件 Master 总线，0 为静音。快速播放不改变音频音调或长度，低特效不改变音量。
+事件映射：select=真实选中；land=移动表现完成；spawn=每个非空补棋批次一次；reject=权威行动明确拒绝；match=非能力消除；blast=explosion；sweep=line_clear（横竖共用）；reward=技能候选整组打开；acquire=实际选卡提交后；confirm=暂停/设置/技能池入口；finish=失败结束，challenge_completed不播放失败声。染色专属声、阶段达成和胜利声不在本次交付内。
+
+奖励/获得/按钮/失败可在弹窗暂停时播放，其余棋盘音效随暂停。finished和cancel均恢复借用播放器的process_mode和pitch_scale；重试只停止本适配器持有的音效。旧合成原型不再作为当前播放源。音量滑杆仍控制Master，并未新增两套音量UI。
+
+音乐由独立GameMusic场景持有，默认查找res://local_audio/gameplay.mp3，缺失时无音乐运行；本次没有复制音乐C。Git忽略与公开导出排除分别控制，接入说明见../../../local_audio/README.md。版权署名UI和循环接缝须在含音乐发布前完成。
+
+这是首次实机接入，技术回归不替代听感验收；在Godot编辑器中检查正常/快速演出、暂停、重试和高密度连携的音量与重复疲劳。
