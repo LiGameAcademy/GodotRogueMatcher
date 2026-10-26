@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/nut-audio-130/.godot/audio_tests/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_nut_audio.gd
+* test_all_public_cues_resolve_to_real_wav_files
+* test_match_pitch_caps_and_variants_alternate_without_rule_rng
+* test_paused_ui_cues_and_cancel_restore_pool_ownership
+* test_missing_optional_music_is_silent_and_valid
+* test_optional_music_loop_is_instance_local_and_scene_owned
+* test_actual_tree_pause_freezes_board_voice_but_keeps_reward_voice_live
+* test_retiring_feedback_returns_borrowed_voice_before_next_scene
+* test_paused_scene_voice_is_freed_after_natural_finish
+8/8 passed.
+
+
+res://tests/integration/test_reward_coordination.gd
+* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+* test_popup_cannot_mutate_authoritative_frozen_targets
+* test_same_run_old_popup_callback_does_not_submit_again
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+* test_two_rewards_in_normal_mode
+* test_two_rewards_in_fast_mode
+* test_two_rewards_in_low_effects_mode
+* test_two_rewards_in_combined_mode
+10/10 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               2
+Tests                18
+Passing Tests        18
+Asserts             158
+Time              5.656s
+
+
+---- All tests passed! ----
+

@@ -1,0 +1,11 @@
+{
+  "gameplay/board/board.gd": 485,
+  "gameplay/game.gd": 449,
+  "gameplay/presentation/audio/game_audio_config.gd": 10,
+  "gameplay/presentation/game_feedback.gd": 95,
+  "gameplay/presentation/game_music.gd": 29,
+  "tests/integration/test_feedback_settings.gd": 164,
+  "tests/integration/test_manual_line_scene.gd": 163,
+  "tests/integration/test_nut_audio.gd": 141,
+  "tools/audio_acceptance/audio_acceptance.gd": 63
+}

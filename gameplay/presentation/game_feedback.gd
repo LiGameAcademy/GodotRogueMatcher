@@ -1,12 +1,13 @@
 class_name GameFeedback
 extends Node
 
-## 项目提示音适配器；播放使用插件池，音效长尾不加入演出屏障。
+## 项目提示音适配器；常规借用插件池，暂停声由场景持有，不加入演出屏障。
 signal cue_played(cue: StringName)
 @export var config: GameAudioConfig = preload("res://gameplay/presentation/audio/nut_audio.tres")
 var _match_index: int = 0
 var _original_pitch: Dictionary[AudioStreamPlayer, float] = {}
 var _players: Array[AudioStreamPlayer] = []
+var _paused_players: Array[AudioStreamPlayer] = []
 var _original_modes: Dictionary[AudioStreamPlayer, int] = {}
 var _last_played: Dictionary[StringName, int] = {}
 var volume: float = 0.7
@@ -33,6 +34,8 @@ func cancel() -> void:
 		player.stop()
 		player.process_mode = _original_modes.get(player, Node.PROCESS_MODE_INHERIT)
 		player.pitch_scale = _original_pitch.get(player, 1.0)
+		if _paused_players.has(player): player.queue_free()
+	_paused_players.clear()
 	_players.clear()
 	_original_modes.clear()
 	_last_played.clear()
@@ -53,7 +56,9 @@ func _play(cue: StringName, generation: int) -> void:
 			_match_index += 1
 		if not config.match_pitch.is_empty():
 			pitch = config.match_pitch[clampi(generation, 0, config.match_pitch.size() - 1)]
-	var player: AudioStreamPlayer = CoreSystem.audio_manager.play_sound(path, config.sfx_gain)
+	# The plugin pool treats paused voices as idle. Keep paused-scene cues local
+	# so a reward/button sound cannot replace a suspended board voice.
+	var player: AudioStreamPlayer = _create_paused_player(path) if get_tree().paused else CoreSystem.audio_manager.play_sound(path, config.sfx_gain)
 	if player == null: return
 	# 插件池可能在finished信号派发前复用已停止播放器，保留首次借用模式。
 	if not _original_modes.has(player):
@@ -61,11 +66,23 @@ func _play(cue: StringName, generation: int) -> void:
 		_original_pitch[player] = player.pitch_scale
 	player.pitch_scale = pitch
 	player.process_mode = Node.PROCESS_MODE_ALWAYS if cue in [&"reward", &"acquire", &"finish", &"confirm"] else Node.PROCESS_MODE_PAUSABLE
+	if _paused_players.has(player): player.play()
 	if not _players.has(player): _players.append(player)
 	var finished: Callable = _on_sound_finished.bind(player)
 	if not player.finished.is_connected(finished):
 		player.finished.connect(finished, CONNECT_ONE_SHOT)
 	cue_played.emit(cue)
+
+func _create_paused_player(path: String) -> AudioStreamPlayer:
+	var sound: AudioStream = load(path) as AudioStream
+	if sound == null: return null
+	var player: AudioStreamPlayer = AudioStreamPlayer.new()
+	player.stream = sound
+	player.bus = &"SFX"
+	player.volume_db = linear_to_db(config.sfx_gain)
+	add_child(player)
+	_paused_players.append(player)
+	return player
 
 func _on_sound_finished(player: AudioStreamPlayer) -> void:
 	player.pitch_scale = _original_pitch.get(player, 1.0)
@@ -73,3 +90,6 @@ func _on_sound_finished(player: AudioStreamPlayer) -> void:
 	player.process_mode = _original_modes.get(player, Node.PROCESS_MODE_INHERIT)
 	_original_modes.erase(player)
 	_players.erase(player)
+	if _paused_players.has(player):
+		_paused_players.erase(player)
+		player.queue_free()

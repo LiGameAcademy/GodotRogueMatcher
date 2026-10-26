@@ -4,16 +4,30 @@ const FEEDBACK: PackedScene = preload("res://gameplay/presentation/game_feedback
 const MUSIC: PackedScene = preload("res://gameplay/presentation/game_music.tscn")
 const TEST_MUSIC: String = "res://addons/godot_core_system/examples/audio_demo/assets/music/bgm.ogg"
 var feedback: GameFeedback
+var _prepared_voice: AudioStreamPlayer
+var _pool_mode: int
+var _pool_pitch: float
 
 func before_each() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = false
 	feedback = FEEDBACK.instantiate() as GameFeedback
 	add_child_autofree(feedback)
 	feedback.set_volume(0.7)
+	# Own a known idle slot for this test; preserve the prior suite's pool defaults.
+	_prepared_voice = CoreSystem.audio_manager.play_sound(feedback.config.cue_paths[&"match"])
+	_pool_mode = _prepared_voice.process_mode
+	_pool_pitch = _prepared_voice.pitch_scale
+	_prepared_voice.stop()
+	_prepared_voice.process_mode = Node.PROCESS_MODE_INHERIT
+	_prepared_voice.pitch_scale = 1.0
 
 func after_each() -> void:
 	get_tree().paused = false
-	feedback.cancel()
+	if is_instance_valid(feedback): feedback.cancel()
+	if is_instance_valid(_prepared_voice):
+		_prepared_voice.process_mode = _pool_mode
+		_prepared_voice.pitch_scale = _pool_pitch
 
 func test_all_public_cues_resolve_to_real_wav_files() -> void:
 	assert_eq(feedback.config.cue_paths.size(), 11)
@@ -71,3 +85,57 @@ func test_optional_music_loop_is_instance_local_and_scene_owned() -> void:
 	assert_eq(original.loop, loop_before)
 	music.stop()
 	assert_false(music.playing)
+
+func test_actual_tree_pause_freezes_board_voice_but_keeps_reward_voice_live() -> void:
+	feedback.play_match(2)
+	var board_voice: AudioStreamPlayer = feedback._players.front()
+	# Keep a live board voice across device startup; never edit the shared WAV.
+	var looping: AudioStreamWAV = board_voice.stream.duplicate() as AudioStreamWAV
+	looping.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	looping.loop_end = roundi(looping.get_length() * looping.mix_rate)
+	board_voice.stream = looping
+	board_voice.play()
+	assert_true(board_voice.playing)
+	get_tree().paused = true
+	await wait_process_frames(2)
+	assert_true(board_voice.stream_paused)
+	feedback.play(&"acquire")
+	var ui_voice: AudioStreamPlayer = feedback._players.back()
+	assert_not_same(ui_voice, board_voice)
+	assert_false(ui_voice.stream_paused)
+	assert_true(ui_voice.playing)
+	get_tree().paused = false
+	await wait_process_frames(2)
+	assert_false(board_voice.stream_paused)
+	feedback.cancel()
+	for voice: AudioStreamPlayer in [board_voice, ui_voice]:
+		assert_false(voice.playing)
+		assert_eq(voice.process_mode, Node.PROCESS_MODE_INHERIT)
+		assert_eq(voice.pitch_scale, 1.0)
+
+func test_retiring_feedback_returns_borrowed_voice_before_next_scene() -> void:
+	feedback.play_match(3)
+	var voice: AudioStreamPlayer = feedback._players.front()
+	assert_almost_eq(voice.pitch_scale, 1.09, 0.0001)
+	feedback.queue_free()
+	await wait_process_frames(2)
+	assert_false(voice.playing)
+	assert_eq(voice.process_mode, Node.PROCESS_MODE_INHERIT)
+	assert_eq(voice.pitch_scale, 1.0)
+	feedback = FEEDBACK.instantiate() as GameFeedback
+	add_child_autofree(feedback)
+	feedback.play_match(0)
+	var next_voice: AudioStreamPlayer = feedback._players.front()
+	assert_eq(next_voice.pitch_scale, 1.0)
+	assert_eq(next_voice.stream.resource_path, feedback.config.match_variants[0])
+
+func test_paused_scene_voice_is_freed_after_natural_finish() -> void:
+	get_tree().paused = true
+	feedback.play(&"acquire")
+	var voice: AudioStreamPlayer = feedback._players.front()
+	assert_true(feedback._paused_players.has(voice))
+	await voice.finished
+	await wait_process_frames(2)
+	assert_false(is_instance_valid(voice))
+	assert_true(feedback._paused_players.is_empty())
+	assert_true(feedback._players.is_empty())
