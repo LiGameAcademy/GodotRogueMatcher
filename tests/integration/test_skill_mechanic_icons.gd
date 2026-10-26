@@ -282,13 +282,13 @@ func test_manual_icons_keep_real_shared_quota_at_zero_without_changing_run() -> 
 			for id: StringName in ids:
 				var card: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
 				assert_true(card.mechanic_icon.visible)
-				assert_same(card.mechanic_icon.texture, SkillMechanicIcons.EXPLOSION if id == ids[0] else SkillMechanicIcons.MANUAL_SWEEP)
+				assert_same(card.mechanic_icon.texture, SkillMechanicIcons.EXPLOSION if id == ids[0] else SkillMechanicIcons.DUAL_SWEEP)
 				assert_eq(card.mechanic_role.text, "主动" if locale == "zh_CN" else "Manual")
 				assert_eq(card.badge.text, "Lv.1 · %d" % (3 - used))
 				assert_string_contains(card.remaining_label.text, "%d / 3" % (3 - used))
 				assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
 			assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
-	assert_not_same(SkillMechanicIcons.MANUAL_SWEEP, SkillMechanicIcons.SWEEP)
+	assert_not_same(SkillMechanicIcons.DUAL_SWEEP, SkillMechanicIcons.SWEEP)
 
 func test_fuse_assignment_capacity_and_payload_keep_lifecycles_and_live_levels() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
@@ -376,3 +376,33 @@ func test_instant_conversion_icons_keep_frozen_targets_colors_and_supply_locked(
 		add_child_autofree(hud)
 		hud.show_run(run)
 		assert_false(hud.build_list._cards.has(skill.skill_id))
+
+func test_cross_and_sweep_harvest_keep_levels_and_manual_quota_separate() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 129)
+	run.initialize()
+	for id: StringName in [&"line_row_drop", &"line_column_drop", &"line_manual_clear", &"line_cross_upgrade", &"line_clear_score", &"line_clear_score"]:
+		AestheticCases.install(run, load("res://gameplay/progression/content/%s.tres" % id) as SkillDefinition)
+	assert_eq(run.state.rule_error, "")
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
+	var hud: Hud = (load("res://ui/hud.tscn") as PackedScene).instantiate() as Hud
+	add_child_autofree(hud)
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		hud.show_run(run)
+		await wait_process_frames(3)
+		var roles: Array[String] = []
+		for id: StringName in [&"line_cross_upgrade", &"line_clear_score", &"line_manual_clear"]:
+			var card: BUILD_SCRIPT = hud.build_list._cards[id] as BUILD_SCRIPT
+			assert_same(card.mechanic_icon.texture, SkillMechanicIcons.DUAL_SWEEP)
+			assert_false(roles.has(card.mechanic_role.text))
+			roles.append(card.mechanic_role.text)
+			assert_true(card.get_global_rect().encloses(card.mechanic_role.get_global_rect()))
+			if id == &"line_manual_clear":
+				assert_eq(card.badge.text, "Lv.1 · 3")
+				assert_true(card.remaining_label.visible)
+			else:
+				assert_eq(card.badge.text, "Lv.2" if id == &"line_clear_score" else "Lv.1")
+				assert_false(card.remaining_label.visible)
+				assert_string_contains(card.tooltip_text, "+2" if id == &"line_clear_score" else ("两轴" if locale == "zh_CN" else "Both span"))
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
+	assert_eq(ManualActivationRules.remaining(run.state, true), 3)
