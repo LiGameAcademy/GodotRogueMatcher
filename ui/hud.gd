@@ -28,8 +28,8 @@ signal reward_resume_requested
 @onready var breakdown_label: RichTextLabel = %BreakdownLabel
 @onready var status_label: Label = %StatusLabel
 @onready var selection_label: Label = %SelectionLabel
-@onready var pause_button: Button = %PauseButton
-@onready var settings_button: Button = %SettingsButton
+@onready var pause_button: FeedbackButton = %PauseButton
+@onready var settings_button: FeedbackButton = %SettingsButton
 @onready var board_area: Control = %BoardArea
 @onready var history_button: Button = %HistoryButton
 @onready var history_label: RichTextLabel = %HistoryLabel
@@ -225,6 +225,8 @@ func set_fast(fast: bool) -> void:
 
 func set_low_effects(enabled: bool) -> void:
 	goal_progress.set_low_effects(enabled)
+	pause_button.set_low_effects(enabled)
+	settings_button.set_low_effects(enabled)
 
 func _on_goal_value_changed(value: int) -> void:
 	_set_score(float(value))

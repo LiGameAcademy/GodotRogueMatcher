@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=11 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
 
@@ -10,6 +10,8 @@
 
 [ext_resource type="Texture2D" path="res://assets/textures/ui/icon_settings.png" id="7"]
 [ext_resource type="Texture2D" path="res://assets/textures/ui/icon_pause.png" id="8"]
+
+[ext_resource type="PackedScene" path="res://ui/feedback_button/feedback_button.tscn" id="feedback"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.065, 0.085, 0.12, 0.96)
@@ -113,7 +115,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="SettingsButton" type="Button" parent="Margin/Rows/Header/Top"]
+[node name="SettingsButton" parent="Margin/Rows/Header/Top" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 text = ""
@@ -124,7 +126,7 @@ custom_minimum_size = Vector2(42, 42)
 theme_override_constants/icon_max_width = 24
 tooltip_text = "设置、播放与操作说明（F1）"
 
-[node name="PauseButton" type="Button" parent="Margin/Rows/Header/Top"]
+[node name="PauseButton" parent="Margin/Rows/Header/Top" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 text = ""

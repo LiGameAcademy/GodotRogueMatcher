@@ -244,6 +244,7 @@ func _set_low_effects(enabled: bool, save: bool = true) -> void:
 	_world_environment.environment.glow_enabled = not enabled
 	_hud.set_low_effects(enabled)
 	_settings.set_low_effects(enabled)
+	release_menu.set_low_effects(enabled)
 	if enabled: _card_transfer.cancel()
 	if is_instance_valid(UIManager.current_popup) and UIManager.current_popup is PopupSkillChoice:
 		(UIManager.current_popup as PopupSkillChoice).set_low_effects(enabled)

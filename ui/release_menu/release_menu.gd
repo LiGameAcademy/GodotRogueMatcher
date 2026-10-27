@@ -1,6 +1,7 @@
 class_name ReleaseMenu
 extends Control
 
+## Coordinates the existing start menu and its child views.
 signal play_requested(new_run: bool)
 signal mode_requested(mode_id: StringName)
 signal skill_pool_requested
@@ -8,11 +9,19 @@ signal settings_requested
 signal tutorial_completed
 signal language_requested(preference: String)
 
+const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
+
+var _active_mode: StringName = &"stage_challenge"
+var _low_effects: bool = false
+var _has_game: bool = false
+var _tutorial_seen: bool = false
+var _game_over: bool = false
+var _practice_done: bool = false
+
 @onready var mode_button: OptionButton = %Mode
 @onready var mode_hint: Label = %ModeHint
-var _active_mode: StringName = &"stage_challenge"
 @onready var home: CenterContainer = %Home
-@onready var play_button: Button = %Play
+@onready var play_button: FeedbackButton = %Play
 @onready var new_button: Button = %New
 @onready var learn_button: Button = %Learn
 @onready var version_label: Label = %Version
@@ -21,12 +30,7 @@ var _active_mode: StringName = &"stage_challenge"
 @onready var language: OptionButton = %Language
 @onready var collection_controls: CollectionControls = %CollectionControls
 @onready var notice: Label = %Notice
-var _low_effects: bool = false
-var _has_game: bool = false
-var _tutorial_seen: bool = false
-var _game_over: bool = false
-var _practice_done: bool = false
-const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
+@onready var _settings_button: FeedbackButton = %SettingsButton
 
 func _ready() -> void:
 	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
@@ -49,6 +53,34 @@ func set_language_preference(preference: String) -> void:
 func show_language_error() -> void:
 	hint.text = tr("语言设置保存失败；当前选择仍可使用。")
 
+func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: bool = false, mode_id: StringName = &"stage_challenge") -> void:
+	_active_mode = mode_id
+	for index: int in range(GameModes.ALL.size()):
+		if GameModes.ALL[index].mode_id == mode_id: mode_button.select(index)
+	set_low_effects(low_effects)
+	_has_game = has_game
+	_tutorial_seen = tutorial_seen
+	_game_over = game_over
+	_practice_done = false
+	tutorial.cancel()
+	home.show()
+	show()
+	play_button.visible = not game_over
+	new_button.visible = has_game or game_over
+	_refresh_text()
+	if tutorial_seen and play_button.visible: play_button.grab_focus()
+	else: learn_button.grab_focus()
+
+## Applies reduced effects to the primary menu controls.
+func set_low_effects(enabled: bool) -> void:
+	_low_effects = enabled
+	play_button.set_low_effects(enabled)
+	_settings_button.set_low_effects(enabled)
+
+func close() -> void:
+	tutorial.cancel()
+	hide()
+
 func _refresh_text() -> void:
 	version_label.text = tr("v%s · Web 预览试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
 	if not OS.has_feature("web"):
@@ -65,28 +97,6 @@ func _refresh_text() -> void:
 		play_button.text = tr("开始所选模式 · 新局")
 		mode_hint.text += "\n" + tr("切换模式将开始新局，重置本局棋盘与构筑。")
 	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
-
-func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: bool = false, mode_id: StringName = &"stage_challenge") -> void:
-	_active_mode = mode_id
-	for index: int in range(GameModes.ALL.size()):
-		if GameModes.ALL[index].mode_id == mode_id: mode_button.select(index)
-	_low_effects = low_effects
-	_has_game = has_game
-	_tutorial_seen = tutorial_seen
-	_game_over = game_over
-	_practice_done = false
-	tutorial.cancel()
-	home.show()
-	show()
-	play_button.visible = not game_over
-	new_button.visible = has_game or game_over
-	_refresh_text()
-	if tutorial_seen and play_button.visible: play_button.grab_focus()
-	else: learn_button.grab_focus()
-
-func close() -> void:
-	tutorial.cancel()
-	hide()
 
 func _play(new_run: bool) -> void:
 	close()
