@@ -31,6 +31,7 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 		frozen.cross_radius = result.cross_radius
 		frozen.generation = result.generation
 		frozen.score_entry = result.score_entry.copy()
+		for hit: BoardMatchHit in result.hits: frozen.hits.append(hit.copy())
 		for piece: PieceState in result.removed: frozen.removed.append(piece.copy())
 		steps.back().matches.append(frozen)
 		if result.cause not in [&"explosion", &"line_clear"]:
