@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gd" id="1"]
+[ext_resource type="Shader" path="res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdshader" id="2"]
+
+[sub_resource type="ShaderMaterial" id="Shadow"]
+shader = ExtResource("2")
+
+[node name="PieceContactShadow" type="Sprite2D"]
+visible = false
+texture_filter = 4
+material = SubResource("Shadow")
+script = ExtResource("1")
