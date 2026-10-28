@@ -29,7 +29,7 @@ func test_explosion_material_is_per_instance_and_tracks_body_without_faces() -> 
 	var second: ShaderMaterial = b.ability_visual.body_outline.material as ShaderMaterial
 	var template: ChessPiece = PIECE.instantiate() as ChessPiece
 	autofree(template)
-	var original: ShaderMaterial = (template.get_node("PieceAbilityVisual/BodyOutline") as Sprite2D).material as ShaderMaterial
+	var original: ShaderMaterial = (template.get_node("MotionVisuals/PieceAbilityVisual/BodyOutline") as Sprite2D).material as ShaderMaterial
 	var initial: Variant = original.get_shader_parameter("energy")
 	assert_ne(first, second)
 	assert_ne(first, original)

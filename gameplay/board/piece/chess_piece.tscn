@@ -37,9 +37,11 @@ antialiased = true
 
 [node name="PieceAura" parent="." instance=ExtResource("3")]
 
-[node name="PieceAbilityVisual" parent="." instance=ExtResource("5")]
+[node name="MotionVisuals" type="Node2D" parent="."]
 
-[node name="NutVisual" parent="." instance=ExtResource("4")]
+[node name="PieceAbilityVisual" parent="MotionVisuals" instance=ExtResource("5")]
+
+[node name="NutVisual" parent="MotionVisuals" instance=ExtResource("4")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
