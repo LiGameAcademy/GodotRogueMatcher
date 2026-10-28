@@ -123,9 +123,13 @@ static func apply_choice_request(run: RunController, request: ChoiceEffectReques
 				result.removed.append(state.rules.remove_piece(id))
 		ChoiceEffectRequest.Kind.ASSIGN_FUSE:
 			state.explosion.fuse_unlocked = true
+			var marks: SkillMarkResult = SkillMarkResult.new()
+			marks.after_match_count = result.matches.size()
 			for target: int in request.piece_ids:
 				run.abilities.assign_fuse(target)
 				result.marked_ids.append(target)
+				marks.pieces.append(state.rules.state.get_piece(target).copy())
+			if not marks.pieces.is_empty(): result.mark_batches.append(marks)
 		ChoiceEffectRequest.Kind.DEMOLITION_STAT:
 			match request.stat as DemolitionStatEffect.Stat:
 				DemolitionStatEffect.Stat.RADIUS:

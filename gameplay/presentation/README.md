@@ -6,6 +6,8 @@ M4分数漂字：BoardView组合ScoreFloatLayer，读取冻结计分结果，在
 
 PresentationDirector场景拥有队列与epoch/token，父Board响应步骤信号，调用BoardView，实际动画结束后确认步骤。规则由RunController提交，播放不再次计分、抽选或推进随机。
 
+取得技能的附引信事实由SkillMarkResult保存目标快照和after_match_count。PlaybackPlanBuilder在相应叶结果之后插入MARK_FUSES必播步，复用配置spawn_duration短暂保留标记；快速缩时，低特效仍显示必要标记，不新增计分或声音事件。BoardView延迟新标记的最终态刷新，避免提前泄露后叶结果；切局/重建/取消清理延迟集合。
+
 PlaybackPlanBuilder在入队前复制路径、棋子与账本，保留规则事件顺序；同代匹配并行，跨代与逐枚出生顺序播放。补棋统一由RunController推进，BoardRunFlow只消费结果并请求表现；旧SpawnManager循环已于#134退役。奖励展示等待队列排空和已提交得分发布。
 
 F8切换正常1×/快速2×，PresentationConfig管理速度、出生时长和故障保护阈值。移动、消除、出生、爆炸遵循速度，切换更新活动Tween；FIXED_REQUIRED使用自身时钟。暂停冻结动作和故障保护并停止后续派发，取消不视为完成。快速播放、低特效和音量通过插件ConfigManager保存，提示音使用插件AudioManager。

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=14 format=3]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
+[ext_resource type="Script" path="res://gameplay/skills/effects/composite_effect.gd" id="2"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/dye_material_effect.gd" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/effects/assign_fuse_effect.gd" id="4"]
+[ext_resource type="Script" path="res://gameplay/skills/effects/skill_effect.gd" id="5"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="6"]
+[ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="7"]
+[sub_resource type="Resource" id="dye"]
+script = ExtResource("3")
+[sub_resource type="Resource" id="mark"]
+script = ExtResource("4")
+[sub_resource type="Resource" id="inner"]
+script = ExtResource("2")
+children = Array[ExtResource("5")]([SubResource("dye")])
+[sub_resource type="Resource" id="outer"]
+script = ExtResource("2")
+children = Array[ExtResource("5")]([SubResource("inner"), SubResource("mark")])
+[sub_resource type="Resource" id="ability"]
+script = ExtResource("7")
+ability_id = &"fixture_composite_rhythm"
+event_type = &"skill_acquired"
+effect = SubResource("outer")
+[sub_resource type="Resource" id="level"]
+script = ExtResource("6")
+level = 1
+abilities = Array[ExtResource("7")]([SubResource("ability")])
+[resource]
+script = ExtResource("1")
+skill_id = &"fixture_composite_rhythm"
+title = "验收：先染后引"
+description = "仅验收：内层改色并兑现匹配，外层再给存活普通棋附引信；全部叶子完成后处理延迟爆破。"
+short_description = "改色匹配 → 附引信 → 延迟爆破"
+levels = Array[ExtResource("6")]([SubResource("level")])
+maximum_level = 1
+is_persistent = true
+base_weight = 1.0

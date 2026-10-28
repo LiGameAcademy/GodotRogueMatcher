@@ -1,10 +1,13 @@
 extends RefCounted
 
 ## Fixed long-chain initial states; all consequences run through the production command path.
+const COMPOSITE_CASE: Script = preload("res://tools/chain_rhythm_acceptance/composite_rhythm_case.gd")
 const L_TEMPLATE: MatchShapeTemplate = preload("res://gameplay/board/matching/l_template.tres")
-const KEYS: Array[String] = ["blast_row", "row_blast", "long_chain", "shape_chain"]
+const KEYS: Array[String] = ["blast_row", "row_blast", "long_chain", "shape_chain", "composite_chain"]
 
 static func create(key: String) -> RunController:
+	if key == "composite_chain":
+		return COMPOSITE_CASE.create()
 	if key in ["blast_row", "row_blast"]: return AestheticCases.create(key)
 	var templates: Array[MatchShapeTemplate] = []
 	if key == "shape_chain": templates.append(L_TEMPLATE)
@@ -29,4 +32,4 @@ static func create(key: String) -> RunController:
 
 static func title(key: String) -> String:
 	return {"blast_row": "爆破→扫线", "row_blast": "扫线→爆破",
-		"long_chain": "六段长链", "shape_chain": "直线＋L重叠→六段长链"}.get(key, key)
+		"composite_chain": "改色→标记→延迟后代", "long_chain": "六段长链", "shape_chain": "直线＋L重叠→六段长链"}.get(key, key)
