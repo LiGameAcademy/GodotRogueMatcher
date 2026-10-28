@@ -1,0 +1,191 @@
+extends Node
+
+## Observes real short chains; only fixture setup writes state, never playback callbacks.
+signal sample_finished(report: Dictionary)
+const OUTPUT: String = "res://.godot/issue130-chain-rhythm"
+const KEYS: Array[String] = ["blast_row", "row_blast"]
+var loading: bool = true
+var case_key: String = "blast_row"
+var report: Dictionary = {}
+var _epoch: int = 0
+var _recording: bool = false
+var _events: Array[Dictionary] = []
+var _cues: Array[StringName] = []
+var _scores: Array[int] = []
+var _seen: Dictionary[int, bool] = {}
+var _errors: Array[String] = []
+var _started_us: int = 0
+## Read-only scene ports for integration tests and deterministic fixture commands.
+@onready var board: Board = $Game/Board
+@onready var game: Node2D = $Game
+@onready var _feedback: GameFeedback = $Game/GameFeedback
+
+func _ready() -> void:
+	get_window().title = "技能连珠 · 连携节奏验收（1/2切例，Enter重播）"
+	while not board.can_selected: await get_tree().process_frame
+	board.view.match_visualized.connect(_on_match_visualized)
+	board.view.score_floats.score_visualized.connect(_on_score_visualized)
+	_feedback.cue_played.connect(_on_cue_played)
+	game.restart_requested.connect(_reload)
+	loading = false
+	await load_case(KEYS[0])
+	if "--capture-rhythm" in OS.get_cmdline_user_args(): await _capture_suite()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event is InputEventKey: return
+	var key: InputEventKey = event as InputEventKey
+	if not key.pressed or key.echo or get_tree().paused: return
+	if key.physical_keycode == KEY_1: load_case(KEYS[0])
+	elif key.physical_keycode == KEY_2: load_case(KEYS[1])
+	elif key.physical_keycode == KEY_ENTER:
+		if not loading: _replay()
+	else: return
+	get_viewport().set_input_as_handled()
+
+## Retires the previous run through the real board lifecycle, then installs a fixed case.
+func load_case(key: String) -> void:
+	if key not in KEYS or loading: return
+	loading = true
+	_epoch += 1
+	_recording = false
+	(game.get_node("PlaybackSettings") as PlaybackSettings).close()
+	get_tree().paused = false
+	UIManager.close_popup()
+	_feedback.cancel()
+	await board.start_game(BoardRules.new(BoardState.new(9, 9), 5), false)
+	board.run.retire()
+	board.run = AestheticCases.create(key)
+	board.rules = board.run.state.rules
+	game.set("board_rules", board.rules)
+	GameManager.reset_game(board.run)
+	board.view.rebuild(board.rules.state.get_snapshot())
+	board.refresh_ability_markers()
+	board.can_selected = true
+	game.call("_refresh_hud")
+	case_key = key
+	get_window().title = "技能连珠 · 连携验收 · " + ("爆破→扫线" if key == "blast_row" else "扫线→爆破") + "（1/2切例，Enter重播）"
+	report = {}
+	loading = false
+	print("CHAIN_RHYTHM_READY ", key)
+
+## Preserves independent fast/reduced-effects preferences without touching the fixture seed.
+func configure_modes(fast: bool, reduced: bool) -> void:
+	game.call("_set_fast", fast, false)
+	game.call("_set_low_effects", reduced, false)
+
+## Runs one real command and records facts; wall time is never a rule or acceptance gate.
+func play_case() -> void:
+	if loading or _recording or not board.can_selected or get_tree().paused: return
+	var epoch: int = _epoch
+	_recording = true
+	_events.clear()
+	_cues.clear()
+	_scores.clear()
+	_seen.clear()
+	_errors.clear()
+	_started_us = Time.get_ticks_usec()
+	var preferences: PlayerPreferences = game.get("preferences") as PlayerPreferences
+	var fast: bool = preferences.fast
+	var reduced: bool = preferences.low_effects
+	if case_key == "row_blast":
+		await board._on_piece_activated(Vector2i(1, 4))
+	else:
+		board.selected_piece = board.get_cell(Vector2i(5, 5)).piece
+		await board.move_selected_piece(board.get_cell(Vector2i(5, 4)))
+	if epoch != _epoch: return
+	_recording = false
+	var score_sum: int = 0
+	for value: int in _scores: score_sum += value
+	report = {"case": case_key, "fast": fast, "low": reduced,
+		"events": _events.duplicate(true), "cues": _cues.duplicate(), "errors": _errors.duplicate(),
+		"score": GameManager.score, "visualized_score": score_sum,
+		"rules_digest": RunSnapshot.digest(RunSnapshot.capture(board.run)),
+		"input_restored": board.can_selected, "director_idle": not board.director.is_busy(),
+		"view_idle": not board.view.is_presenting(), "live_effects": _live_effects(),
+		"rule_error": board.run.state.rule_error, "presentation_error": board.director.error,
+		"wall_elapsed_ms": (Time.get_ticks_usec() - _started_us) / 1000.0,
+		"headless": DisplayServer.get_name() == "headless",
+		"author_source_readable": null, "author_wait_acceptable": null, "author_audio_clear": null}
+	print("CHAIN_RHYTHM_RESULT ", JSON.stringify(report))
+	sample_finished.emit(report.duplicate(true))
+
+func _live_effects() -> int:
+	var count: int = 0
+	for child: Node in board.view.get_children():
+		if (child is ExplosionVisual or child is LineClearVisual) and not child.is_queued_for_deletion(): count += 1
+	return count
+
+func _replay() -> void:
+	await load_case(case_key)
+	await play_case()
+
+func _reload() -> void:
+	load_case(case_key)
+
+func _capture_suite() -> void:
+	var samples: Array[Dictionary] = []
+	var digests: Dictionary[String, String] = {}
+	var valid: bool = true
+	for key: String in KEYS:
+		for fast: bool in [false, true]:
+			for reduced: bool in [false, true]:
+				await load_case(key)
+				configure_modes(fast, reduced)
+				await play_case()
+				var sample: Dictionary = report.duplicate(true)
+				var sample_valid: bool = _sample_valid(sample)
+				if sample_valid:
+					if digests.has(key): sample_valid = digests[key] == str(sample.rules_digest)
+					else: digests[key] = str(sample.rules_digest)
+				valid = valid and sample_valid
+				sample["technical_valid"] = sample_valid
+				samples.append(sample)
+	var write_error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT))
+	if write_error == OK: write_error = _write_samples(samples, OUTPUT.path_join("real_capture.json"))
+	if write_error != OK: push_error("Cannot write chain rhythm evidence: " + error_string(write_error))
+	if not valid: push_error("Invalid chain rhythm sample; inspect evidence")
+	get_tree().quit(0 if valid and write_error == OK else 1)
+
+func _sample_valid(sample: Dictionary) -> bool:
+	if sample.is_empty() or str(sample.get("case", "")) not in KEYS: return false
+	if not (sample.errors as Array).is_empty(): return false
+	if sample.rule_error != "" or sample.presentation_error != "": return false
+	if not sample.input_restored or not sample.director_idle or not sample.view_idle: return false
+	if int(sample.live_effects) != 0: return false
+	var expected_score: int = 61 if sample.case == "blast_row" else 16
+	if int(sample.score) != expected_score or int(sample.visualized_score) != expected_score: return false
+	var expected: Array[String] = ["match", "explosion", "line_clear"]
+	if sample.case == "row_blast": expected.assign(["line_clear", "explosion"])
+	var events: Array = sample.events
+	if events.size() != expected.size(): return false
+	for index: int in range(events.size()):
+		var event: Dictionary = events[index]
+		if event.cause != expected[index] or not event.input_blocked: return false
+	return true
+
+func _write_samples(samples: Array[Dictionary], path: String) -> Error:
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	if file == null: return FileAccess.get_open_error()
+	file.store_string(JSON.stringify(samples, "\t"))
+	file.flush()
+	var error: Error = file.get_error()
+	file.close()
+	return error
+
+func _on_match_visualized(result: MatchResult, _cells: Array[Cell]) -> void:
+	if not _recording: return
+	var identity: int = result.score_entry.event_id
+	if _seen.has(identity): _errors.append("duplicate_visual_event:%d" % identity)
+	_seen[identity] = true
+	if board.can_selected: _errors.append("input_open_during_match")
+	_events.append({"event_id": identity, "cause": String(result.cause), "source_id": result.source_id,
+		"center": [result.center.x, result.center.y], "generation": result.generation,
+		"axis": result.line_axis, "removed": result.removed.size(),
+		"score": result.score_entry.final_score, "input_blocked": not board.can_selected,
+		"at_ms": (Time.get_ticks_usec() - _started_us) / 1000.0})
+
+func _on_score_visualized(entry: ScoreEntry, _origin: Vector2) -> void:
+	if _recording: _scores.append(entry.final_score)
+
+func _on_cue_played(cue: StringName) -> void:
+	if _recording: _cues.append(cue)
