@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dij52hrxv40e8"]
+[gd_scene load_steps=9 format=3 uid="uid://dij52hrxv40e8"]
 
 [ext_resource type="Script" uid="uid://db43lw5ionsge" path="res://gameplay/board/piece/chess_piece.gd" id="1_5vn5g"]
 [ext_resource type="Shader" path="res://gameplay/board/piece/piece_surface.gdshader" id="2"]
 [ext_resource type="PackedScene" path="res://gameplay/board/piece/piece_aura.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://gameplay/board/piece/nut_visual.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://gameplay/board/piece/piece_ability_visual.tscn" id="5"]
+
+[ext_resource type="PackedScene" path="res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.tscn" id="contact_shadow"]
 
 [sub_resource type="ShaderMaterial" id="Surface"]
 shader = ExtResource("2")
@@ -21,9 +23,7 @@ color = Color(1, 0, 0, 1)
 z_index = 2
 script = ExtResource("1_5vn5g")
 
-[node name="ShadowPolygon" type="Polygon2D" parent="."]
-position = Vector2(1, 3)
-color = Color(0, 0, 0, 0.55)
+[node name="ContactShadow" parent="." instance=ExtResource("contact_shadow")]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 material = SubResource("Surface")

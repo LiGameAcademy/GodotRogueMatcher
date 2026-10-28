@@ -1,0 +1,15 @@
+{
+  "base_commit": "70da6337aef9f0e32c5fbe78c981dd2c0fca3113",
+  "renderer": "Compatibility / NVIDIA RTX 2070",
+  "viewport": "1280x720",
+  "fixed_seed": 130,
+  "rule_snapshot_unchanged": true,
+  "author_visual_acceptance": null,
+  "performance_measurement": null,
+  "sha256": {
+    "dark_instrument_low0_shadow0.png": "82e4a1d1dacc1ffee37a0fda37fa69849b9a41e9d979fe7a18535697d30ac2bf",
+    "dark_instrument_low0_shadow1.png": "01a14233097d1d4d181827b0fe160b528f236f18d0d6e874297580eed12c5f27",
+    "light_toy_low0_shadow0.png": "4d7563a6d076d0ac2971d45149d6378fdcc92b277fc6d27f4f3af1eebfd96fca",
+    "light_toy_low0_shadow1.png": "2117ddf3a88a65927d8e5b67420d82541d65e9683bc6777f99dd89b60164ac0a"
+  }
+}

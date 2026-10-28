@@ -1,6 +1,8 @@
 extends Node2D
 class_name ChessPiece
 
+const CONTACT_SHADOW: Script = preload("res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gd")
+
 const JUICE: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
 
 ## 棋子形状枚举（色盲友好：颜色和形状一一对应）
@@ -20,7 +22,7 @@ enum DisplayMode {
 
 ## 节点引用
 @onready var polygon: Polygon2D = $Polygon2D
-@onready var shadow_polygon: Polygon2D = $ShadowPolygon
+@onready var _contact_shadow: CONTACT_SHADOW = $ContactShadow
 @onready var outline: Line2D = $Outline
 @onready var aura: PieceAura = $PieceAura
 var _surface: ShaderMaterial
@@ -87,8 +89,6 @@ func _ready() -> void:
 func apply_game_theme(appearance: BoardAppearance) -> void:
 	_appearance = appearance
 	_surface.set_shader_parameter("surface_strength", appearance.surface_strength)
-	shadow_polygon.color = appearance.piece_shadow
-	shadow_polygon.position = appearance.shadow_offset
 	ability_marker.add_theme_color_override("font_color", appearance.marker_color)
 	ability_marker.add_theme_color_override("font_shadow_color", appearance.marker_background)
 	update_visual()
@@ -162,8 +162,6 @@ func _update_shape_visual() -> void:
 			ShapeType.STAR:  # 紫色 - 星形
 				polygon.polygon = generate_star_polygon(20)
 		
-		shadow_polygon.visible = true
-		shadow_polygon.polygon = polygon.polygon
 		outline.visible = true
 		outline.points = polygon.polygon
 		aura.show_selection(color, is_selected, low_effects)
@@ -176,7 +174,8 @@ func _update_shape_visual() -> void:
 		nut_visual.visible = true
 		_refresh_idle_expression()
 		polygon.visible = false
-		shadow_polygon.visible = false
+		var shadow_appearance: BoardAppearance = _appearance if _appearance != null else BoardAppearance.new()
+		_contact_shadow.configure(NutVisual.BODIES[type_index], shadow_appearance)
 		outline.visible = false
 
 ## 生成圆形多边形
@@ -357,7 +356,7 @@ func _update_icon_visual() -> void:
 	_refresh_idle_expression()
 	ability_visual.visible = false
 	# 隐藏形状，显示图标
-	shadow_polygon.visible = false
+	_contact_shadow.hide()
 	outline.visible = false
 	if polygon:
 		polygon.visible = false
