@@ -240,6 +240,7 @@ func finish_presentation() -> bool:
 
 ## Presents committed skill results without rerunning matching or scoring.
 func present_skill_result(result: SkillApplyResult) -> void:
+	view.defer_fuse_markers(result.marked_ids)
 	_submit_plan(PlaybackPlanBuilder.skill(result, director.config.spawn_duration))
 	refresh_ability_markers()
 	_update_count_display()
@@ -421,6 +422,8 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
 		PresentationStep.Kind.TRANSFORM:
 			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration)
+		PresentationStep.Kind.MARK_FUSES:
+			view.show_fuse_marks(step.pieces, step.duration)
 		PresentationStep.Kind.MATCHES:
 			var cue: StringName = &"match"
 			for result: MatchResult in step.matches:

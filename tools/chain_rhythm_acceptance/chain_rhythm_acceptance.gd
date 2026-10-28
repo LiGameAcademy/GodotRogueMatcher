@@ -11,6 +11,7 @@ var report: Dictionary = {}
 var _epoch: int = 0
 var _recording: bool = false
 var _events: Array[Dictionary] = []
+var _markers: Array[Dictionary] = []
 var _cues: Array[StringName] = []
 var _scores: Array[int] = []
 var _seen: Dictionary[int, bool] = {}
@@ -22,9 +23,10 @@ var _started_us: int = 0
 @onready var _feedback: GameFeedback = $Game/GameFeedback
 
 func _ready() -> void:
-	get_window().title = "技能连珠 · 连携节奏验收（1–4切例，Enter重播）"
+	get_window().title = "技能连珠 · 连携节奏验收（1–5切例，Enter重播）"
 	while not board.can_selected: await get_tree().process_frame
 	board.view.match_visualized.connect(_on_match_visualized)
+	board.view.fuses_visualized.connect(_on_fuses_visualized)
 	board.view.score_floats.score_visualized.connect(_on_score_visualized)
 	_feedback.cue_played.connect(_on_cue_played)
 	game.restart_requested.connect(_reload)
@@ -40,6 +42,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	elif key.physical_keycode == KEY_2: load_case(KEYS[1])
 	elif key.physical_keycode == KEY_3: load_case(KEYS[2])
 	elif key.physical_keycode == KEY_4: load_case(KEYS[3])
+	elif key.physical_keycode == KEY_5: load_case(KEYS[4])
 	elif key.physical_keycode == KEY_ENTER:
 		if not loading: _replay()
 	else: return
@@ -66,8 +69,17 @@ func load_case(key: String) -> void:
 	board.can_selected = true
 	game.call("_refresh_hud")
 	case_key = key
-	get_window().title = "技能连珠 · 连携验收 · " + CASES.title(key) + "（1–4切例，Enter重播）"
+	get_window().title = "技能连珠 · 连携验收 · " + CASES.title(key) + "（1–5切例，Enter重播）"
 	report = {}
+	if key == "composite_chain":
+		board.run.recorder = RunRecorder.new()
+		board.run.recorder.begin(board.run, "fixture_composite_rhythm", false)
+		board.can_selected = false
+		BoardRunFlow.continue_run(board, board.run)
+		for _frame: int in range(600):
+			if UIManager.current_popup is PopupSkillChoice and get_tree().paused:
+				if not UIManager.current_popup.skill_selected.get_connections().is_empty(): break
+			await get_tree().process_frame
 	loading = false
 	print("CHAIN_RHYTHM_READY ", key)
 
@@ -78,10 +90,14 @@ func configure_modes(fast: bool, reduced: bool) -> void:
 
 ## Runs one real command and records facts; wall time is never a rule or acceptance gate.
 func play_case() -> void:
-	if loading or _recording or not board.can_selected or get_tree().paused: return
+	if loading or _recording: return
+	if case_key == "composite_chain":
+		if not UIManager.current_popup is PopupSkillChoice: return
+	elif not board.can_selected or get_tree().paused: return
 	var epoch: int = _epoch
 	_recording = true
 	_events.clear()
+	_markers.clear()
 	_cues.clear()
 	_scores.clear()
 	_seen.clear()
@@ -90,7 +106,17 @@ func play_case() -> void:
 	var preferences: PlayerPreferences = game.get("preferences") as PlayerPreferences
 	var fast: bool = preferences.fast
 	var reduced: bool = preferences.low_effects
-	if case_key == "row_blast":
+	if case_key == "composite_chain":
+		var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+		popup._select(0)
+		popup.confirm_selection()
+		var deadline: int = Time.get_ticks_msec() + 10000
+		while epoch == _epoch and (board.director.is_busy() or not board.can_selected or get_tree().paused):
+			if Time.get_ticks_msec() >= deadline:
+				_errors.append("composite_play_timeout")
+				break
+			await get_tree().process_frame
+	elif case_key == "row_blast":
 		await board._on_piece_activated(Vector2i(1, 4))
 	else:
 		board.selected_piece = board.get_cell(Vector2i(5, 5)).piece
@@ -100,7 +126,9 @@ func play_case() -> void:
 	var score_sum: int = 0
 	for value: int in _scores: score_sum += value
 	report = {"case": case_key, "fast": fast, "low": reduced,
-		"events": _events.duplicate(true), "cues": _cues.duplicate(), "errors": _errors.duplicate(),
+		"events": _events.duplicate(true), "markers": _markers.duplicate(true),
+		"seed": 145 if case_key == "composite_chain" else 128,
+		"rule_records": _rule_records(), "cues": _cues.duplicate(), "errors": _errors.duplicate(),
 		"score": GameManager.score, "visualized_score": score_sum,
 		"rules_digest": RunSnapshot.digest(RunSnapshot.capture(board.run)),
 		"input_restored": board.can_selected,
@@ -162,9 +190,10 @@ func _sample_valid(sample: Dictionary) -> bool:
 		if int(sample.pending_rewards) != 1: return false
 	elif not sample.input_restored or sample.reward_waiting or int(sample.pending_rewards) != 0: return false
 	if int(sample.live_effects) != 0: return false
-	var expected_score: int = {"blast_row": 61, "row_blast": 16, "long_chain": 77, "shape_chain": 111}[sample.case]
+	var expected_score: int = {"blast_row": 61, "row_blast": 16, "long_chain": 77, "shape_chain": 111, "composite_chain": 60}[sample.case]
 	if int(sample.score) != expected_score or int(sample.visualized_score) != expected_score: return false
 	var expected: Array[String] = ["match", "explosion", "line_clear"]
+	if sample.case == "composite_chain": expected.assign(["dye", "match", "explosion", "explosion"])
 	if sample.case == "row_blast": expected.assign(["line_clear", "explosion"])
 	if sample.case in ["long_chain", "shape_chain"]:
 		expected.assign(["match", "explosion", "line_clear", "explosion", "line_clear", "explosion"])
@@ -173,6 +202,7 @@ func _sample_valid(sample: Dictionary) -> bool:
 	for index: int in range(events.size()):
 		var event: Dictionary = events[index]
 		if event.cause != expected[index] or not event.input_blocked: return false
+	if sample.case == "composite_chain": return _composite_sample_valid(sample)
 	if sample.case in ["long_chain", "shape_chain"]: return _long_sample_valid(sample)
 	return true
 
@@ -204,6 +234,35 @@ func _long_sample_valid(sample: Dictionary) -> bool:
 		if not union.has(id): return false
 	if sample.case == "shape_chain" and not shapes.has("l"): return false
 	return true
+
+func _composite_sample_valid(sample: Dictionary) -> bool:
+	var events: Array = sample.events
+	var markers: Array = sample.markers
+	if not events[0].new_fuses_visible.is_empty() or not events[1].new_fuses_visible.is_empty(): return false
+	if markers.size() != 1 or markers[0].ids != [6, 8] or markers[0].visible_ids != [6, 8] or not markers[0].input_blocked: return false
+	if float(markers[0].at_ms) <= float(events[1].at_ms) or float(markers[0].at_ms) >= float(events[2].at_ms): return false
+	if events[2].center != [3, 2] or events[3].center != [3, 3]: return false
+	if int(events[2].source_id) != 3 or int(events[3].source_id) != 6: return false
+	if int(events[2].generation) != 1 or int(events[3].generation) != 2: return false
+	for record: Dictionary in sample.rule_records:
+		if record.kind == "RuleResult" and record.has("completed_leaves"):
+			return record.completed_leaves == ["0.0", "1"] and record.skill_outcome == "applied"
+	return false
+
+func _new_fuse_ids() -> Array[int]:
+	var ids: Array[int] = []
+	if case_key == "composite_chain":
+		for id: int in [6, 8]:
+			var piece: ChessPiece = board.view.get_piece(id)
+			if is_instance_valid(piece) and StringName(piece.get("_ability_kind")) == &"引": ids.append(id)
+	return ids
+
+func _rule_records() -> Array[Dictionary]:
+	var records: Array[Dictionary] = []
+	if case_key == "composite_chain" and board.run.recorder != null:
+		for record: Dictionary in board.run.recorder.records:
+			if record.kind in ["CommandAttempt", "SkillAcquired", "RuleResult"]: records.append(record.duplicate(true))
+	return records
 
 func _write_samples(samples: Array[Dictionary], path: String) -> Error:
 	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
@@ -238,7 +297,7 @@ func _on_match_visualized(result: MatchResult, _cells: Array[Cell]) -> void:
 	_events.append({"event_id": identity, "cause": String(result.cause), "source_id": result.source_id,
 		"center": [result.center.x, result.center.y], "generation": result.generation,
 		"axis": result.line_axis, "removed": result.removed.size(),
-		"score": result.score_entry.final_score, "removed_ids": _piece_ids(result.removed),
+		"score": result.score_entry.final_score, "new_fuses_visible": _new_fuse_ids(), "removed_ids": _piece_ids(result.removed),
 		"hits": _hit_data(result.hits), "input_blocked": not board.can_selected,
 		"at_ms": (Time.get_ticks_usec() - _started_us) / 1000.0})
 
@@ -247,3 +306,8 @@ func _on_score_visualized(entry: ScoreEntry, _origin: Vector2) -> void:
 
 func _on_cue_played(cue: StringName) -> void:
 	if _recording: _cues.append(cue)
+
+func _on_fuses_visualized(pieces: Array[PieceState]) -> void:
+	if _recording:
+		_markers.append({"ids": _piece_ids(pieces), "visible_ids": _new_fuse_ids(), "input_blocked": not board.can_selected,
+			"at_ms": (Time.get_ticks_usec() - _started_us) / 1000.0})

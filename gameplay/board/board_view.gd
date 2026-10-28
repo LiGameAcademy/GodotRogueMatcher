@@ -12,11 +12,14 @@ signal piece_activated(coordinate: Vector2i)
 signal presentation_changed
 signal piece_removing(piece: ChessPiece)
 signal match_visualized(result: MatchResult, cells: Array[Cell])
+## Emitted after committed fuse markers become visible; this never mutates ability state.
+signal fuses_visualized(pieces: Array[PieceState])
 
 var _cells: Dictionary[Vector2i, Cell] = {}
 var _pieces: Dictionary[int, ChessPiece] = {}
 var _items: Dictionary[StringName, ItemData] = {}
 var _generation: int = 0
+var _deferred_fuse_ids: Array[int] = []
 var _spacing: Vector2
 var _dimensions: Vector2i
 var _cell_size: Vector2
@@ -117,6 +120,7 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	_deferred_fuse_ids.clear()
 	signal_effect.reset_visual()
 	move_path.clear()
 	score_floats.clear(true)
@@ -184,7 +188,7 @@ func show_ability_marker(piece_id: int, text: String) -> void:
 func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig, line_clear: LineClearState = null, manual_uses_used: Dictionary[StringName, int] = {}) -> void:
 	for piece_state: PieceState in snapshot:
 		var piece: ChessPiece = get_piece(piece_state.piece_id)
-		if not is_instance_valid(piece): continue
+		if not is_instance_valid(piece) or _deferred_fuse_ids.has(piece_state.piece_id): continue
 		var marker: String = ""
 		if explosion.instances.has(piece_state.piece_id):
 			marker = "爆" if piece_state.content_id == &"special_demolition" else "引"
@@ -192,6 +196,21 @@ func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionStat
 			marker = "行" if piece_state.content_id == LineClearState.CONTENT_ROW else "列"
 		piece.set_ability_marker(marker)
 		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data, line_clear, manual_uses_used))
+
+## Prevent final-state refreshes from revealing a later leaf before its committed boundary.
+func defer_fuse_markers(ids: Array[int]) -> void:
+	for id: int in ids:
+		if not _deferred_fuse_ids.has(id): _deferred_fuse_ids.append(id)
+
+## Present frozen targets, including sources already removed from the final rule board.
+func show_fuse_marks(pieces: Array[PieceState], duration: float) -> void:
+	for piece: PieceState in pieces:
+		_deferred_fuse_ids.erase(piece.piece_id)
+		show_ability_marker(piece.piece_id, "引")
+	var hold: Tween = create_tween()
+	hold.tween_interval(maxf(0.0, duration))
+	track_presentation(hold)
+	fuses_visualized.emit(pieces)
 
 func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 	if radius < 0 or not _cells.has(center):
@@ -306,6 +325,7 @@ func set_step_policy(policy: PresentationStep.Policy) -> void:
 
 ## 仅取消当前视图任务，唤醒旧等待；跳过权限由导演判断。
 func cancel_animations() -> void:
+	_deferred_fuse_ids.clear()
 	move_path.clear()
 	score_floats.clear()
 	for cell: Cell in _cells.values(): cell.unhighlight()

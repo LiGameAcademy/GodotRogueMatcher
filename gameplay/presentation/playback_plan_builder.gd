@@ -72,7 +72,23 @@ static func skill(result: SkillApplyResult, duration: float) -> Array[Presentati
 		step.duration = maxf(0.0, duration)
 		for piece: PieceState in result.transformed: step.pieces.append(piece.copy())
 		steps.append(step)
-	steps.append_array(matches(result.matches))
+	steps.append_array(_skill_matches(result, duration))
+	return steps
+
+## Marker boundaries split otherwise coalescible matches; every piece snapshot is detached.
+static func _skill_matches(result: SkillApplyResult, duration: float) -> Array[PresentationStep]:
+	var steps: Array[PresentationStep] = []
+	var offset: int = 0
+	for batch: SkillMarkResult in result.mark_batches:
+		steps.append_array(matches(result.matches.slice(offset, batch.after_match_count)))
+		var step: PresentationStep = PresentationStep.new()
+		step.kind = PresentationStep.Kind.MARK_FUSES
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
+		step.duration = maxf(0.0, duration)
+		for piece: PieceState in batch.pieces: step.pieces.append(piece.copy())
+		steps.append(step)
+		offset = batch.after_match_count
+	steps.append_array(matches(result.matches.slice(offset)))
 	return steps
 
 ## 终态仅验证数据合法性，不修改或重新计算规则。
