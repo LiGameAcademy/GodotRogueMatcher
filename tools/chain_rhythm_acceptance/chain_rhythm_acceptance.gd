@@ -1,9 +1,10 @@
 extends Node
 
-## Observes real short chains; only fixture setup writes state, never playback callbacks.
+## Observes real short/long chains; only fixture setup writes state, never playback callbacks.
 signal sample_finished(report: Dictionary)
 const OUTPUT: String = "res://.godot/issue130-chain-rhythm"
-const KEYS: Array[String] = ["blast_row", "row_blast"]
+const CASES: Script = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_cases.gd")
+const KEYS: Array[String] = CASES.KEYS
 var loading: bool = true
 var case_key: String = "blast_row"
 var report: Dictionary = {}
@@ -21,7 +22,7 @@ var _started_us: int = 0
 @onready var _feedback: GameFeedback = $Game/GameFeedback
 
 func _ready() -> void:
-	get_window().title = "技能连珠 · 连携节奏验收（1/2切例，Enter重播）"
+	get_window().title = "技能连珠 · 连携节奏验收（1–4切例，Enter重播）"
 	while not board.can_selected: await get_tree().process_frame
 	board.view.match_visualized.connect(_on_match_visualized)
 	board.view.score_floats.score_visualized.connect(_on_score_visualized)
@@ -37,6 +38,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if not key.pressed or key.echo or get_tree().paused: return
 	if key.physical_keycode == KEY_1: load_case(KEYS[0])
 	elif key.physical_keycode == KEY_2: load_case(KEYS[1])
+	elif key.physical_keycode == KEY_3: load_case(KEYS[2])
+	elif key.physical_keycode == KEY_4: load_case(KEYS[3])
 	elif key.physical_keycode == KEY_ENTER:
 		if not loading: _replay()
 	else: return
@@ -54,7 +57,7 @@ func load_case(key: String) -> void:
 	_feedback.cancel()
 	await board.start_game(BoardRules.new(BoardState.new(9, 9), 5), false)
 	board.run.retire()
-	board.run = AestheticCases.create(key)
+	board.run = CASES.create(key)
 	board.rules = board.run.state.rules
 	game.set("board_rules", board.rules)
 	GameManager.reset_game(board.run)
@@ -63,7 +66,7 @@ func load_case(key: String) -> void:
 	board.can_selected = true
 	game.call("_refresh_hud")
 	case_key = key
-	get_window().title = "技能连珠 · 连携验收 · " + ("爆破→扫线" if key == "blast_row" else "扫线→爆破") + "（1/2切例，Enter重播）"
+	get_window().title = "技能连珠 · 连携验收 · " + CASES.title(key) + "（1–4切例，Enter重播）"
 	report = {}
 	loading = false
 	print("CHAIN_RHYTHM_READY ", key)
@@ -100,7 +103,10 @@ func play_case() -> void:
 		"events": _events.duplicate(true), "cues": _cues.duplicate(), "errors": _errors.duplicate(),
 		"score": GameManager.score, "visualized_score": score_sum,
 		"rules_digest": RunSnapshot.digest(RunSnapshot.capture(board.run)),
-		"input_restored": board.can_selected, "director_idle": not board.director.is_busy(),
+		"input_restored": board.can_selected,
+		"pending_rewards": board.run.state.pending_rewards,
+		"reward_waiting": board.run.state.phase == RunState.Phase.REWARDS,
+		"reward_popup": UIManager.current_popup is PopupSkillChoice, "director_idle": not board.director.is_busy(),
 		"view_idle": not board.view.is_presenting(), "live_effects": _live_effects(),
 		"rule_error": board.run.state.rule_error, "presentation_error": board.director.error,
 		"wall_elapsed_ms": (Time.get_ticks_usec() - _started_us) / 1000.0,
@@ -150,17 +156,53 @@ func _sample_valid(sample: Dictionary) -> bool:
 	if sample.is_empty() or str(sample.get("case", "")) not in KEYS: return false
 	if not (sample.errors as Array).is_empty(): return false
 	if sample.rule_error != "" or sample.presentation_error != "": return false
-	if not sample.input_restored or not sample.director_idle or not sample.view_idle: return false
+	if not sample.director_idle or not sample.view_idle: return false
+	if sample.case == "shape_chain":
+		if sample.input_restored or not sample.reward_waiting or not sample.reward_popup: return false
+		if int(sample.pending_rewards) != 1: return false
+	elif not sample.input_restored or sample.reward_waiting or int(sample.pending_rewards) != 0: return false
 	if int(sample.live_effects) != 0: return false
-	var expected_score: int = 61 if sample.case == "blast_row" else 16
+	var expected_score: int = {"blast_row": 61, "row_blast": 16, "long_chain": 77, "shape_chain": 111}[sample.case]
 	if int(sample.score) != expected_score or int(sample.visualized_score) != expected_score: return false
 	var expected: Array[String] = ["match", "explosion", "line_clear"]
 	if sample.case == "row_blast": expected.assign(["line_clear", "explosion"])
+	if sample.case in ["long_chain", "shape_chain"]:
+		expected.assign(["match", "explosion", "line_clear", "explosion", "line_clear", "explosion"])
 	var events: Array = sample.events
 	if events.size() != expected.size(): return false
 	for index: int in range(events.size()):
 		var event: Dictionary = events[index]
 		if event.cause != expected[index] or not event.input_blocked: return false
+	if sample.case in ["long_chain", "shape_chain"]: return _long_sample_valid(sample)
+	return true
+
+func _long_sample_valid(sample: Dictionary) -> bool:
+	var events: Array = sample.events
+	var removed: Dictionary[int, bool] = {}
+	var identities: Dictionary[int, bool] = {}
+	var centers: Array[Vector2i] = [Vector2i(5, 4), Vector2i(6, 4), Vector2i(8, 4), Vector2i(8, 3), Vector2i(8, 0)]
+	for index: int in range(events.size()):
+		var event: Dictionary = events[index]
+		if int(event.generation) != index or identities.has(int(event.event_id)): return false
+		identities[int(event.event_id)] = true
+		for id: int in event.removed_ids:
+			if removed.has(id): return false
+			removed[id] = true
+		if index > 0:
+			if event.center != [centers[index - 1].x, centers[index - 1].y]: return false
+			if float(event.at_ms) <= float(events[index - 1].at_ms): return false
+			if not (events[index - 1].removed_ids as Array).has(int(event.source_id)): return false
+	var first: Dictionary = events[0]
+	if int(first.removed) != (7 if sample.case == "shape_chain" else 5): return false
+	var shapes: Array[String] = []
+	var union: Dictionary[int, bool] = {}
+	for hit: Dictionary in first.hits:
+		shapes.append(str(hit.shape_id))
+		for id: int in hit.ids: union[id] = true
+	if not shapes.has("line") or union.size() != int(first.removed): return false
+	for id: int in first.removed_ids:
+		if not union.has(id): return false
+	if sample.case == "shape_chain" and not shapes.has("l"): return false
 	return true
 
 func _write_samples(samples: Array[Dictionary], path: String) -> Error:
@@ -172,6 +214,21 @@ func _write_samples(samples: Array[Dictionary], path: String) -> Error:
 	file.close()
 	return error
 
+func _piece_ids(pieces: Array[PieceState]) -> Array[int]:
+	var ids: Array[int] = []
+	for piece: PieceState in pieces: ids.append(piece.piece_id)
+	return ids
+
+func _hit_data(hits: Array[BoardMatchHit]) -> Array[Dictionary]:
+	var data: Array[Dictionary] = []
+	for hit: BoardMatchHit in hits:
+		var coordinates: Array[Array] = []
+		for at: Vector2i in hit.coordinates: coordinates.append([at.x, at.y])
+		data.append({"shape_id": String(hit.shape_id), "ids": hit.piece_ids.duplicate(),
+			"origin": [hit.origin.x, hit.origin.y], "direction": [hit.direction.x, hit.direction.y],
+			"coordinates": coordinates})
+	return data
+
 func _on_match_visualized(result: MatchResult, _cells: Array[Cell]) -> void:
 	if not _recording: return
 	var identity: int = result.score_entry.event_id
@@ -181,7 +238,8 @@ func _on_match_visualized(result: MatchResult, _cells: Array[Cell]) -> void:
 	_events.append({"event_id": identity, "cause": String(result.cause), "source_id": result.source_id,
 		"center": [result.center.x, result.center.y], "generation": result.generation,
 		"axis": result.line_axis, "removed": result.removed.size(),
-		"score": result.score_entry.final_score, "input_blocked": not board.can_selected,
+		"score": result.score_entry.final_score, "removed_ids": _piece_ids(result.removed),
+		"hits": _hit_data(result.hits), "input_blocked": not board.can_selected,
 		"at_ms": (Time.get_ticks_usec() - _started_us) / 1000.0})
 
 func _on_score_visualized(entry: ScoreEntry, _origin: Vector2) -> void:

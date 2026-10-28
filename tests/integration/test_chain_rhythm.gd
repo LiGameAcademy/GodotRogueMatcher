@@ -1,6 +1,6 @@
 extends GutTest
 
-## Audits real short-chain order, score uniqueness, mode equivalence and interruption.
+## Audits real short/long-chain order, score uniqueness, mode equivalence and interruption.
 const HOST: PackedScene = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_acceptance.tscn")
 const HOST_SCRIPT: Script = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_acceptance.gd")
 var _host: HOST_SCRIPT
@@ -27,6 +27,85 @@ func test_blast_to_sweep_preserves_order_score_and_four_mode_state() -> void:
 
 func test_sweep_to_blast_preserves_reverse_order_and_four_mode_state() -> void:
 	await _verify_case("row_blast", 16, [&"line_clear", &"explosion"])
+
+func test_long_chain_and_overlap_keep_six_stages_and_unique_union_in_four_modes() -> void:
+	for key: String in ["long_chain", "shape_chain"]:
+		var baseline: String = ""
+		for fast: bool in [false, true]:
+			for reduced: bool in [false, true]:
+				await _host.load_case(key)
+				_host.configure_modes(fast, reduced)
+				var sources: Array[int] = []
+				for at: Vector2i in [Vector2i(5, 5), Vector2i(6, 4), Vector2i(8, 4), Vector2i(8, 3), Vector2i(8, 0)]:
+					sources.append(_host.board.rules.state.get_piece_id(at))
+				await _host.play_case()
+				var sample: Dictionary = _host.report
+				assert_true(_host._sample_valid(sample), key)
+				var events: Array = sample.events
+				assert_eq(events.size(), 6)
+				assert_eq(bool(sample.input_restored), key == "long_chain")
+				assert_eq(bool(sample.reward_waiting), key == "shape_chain")
+				assert_eq(bool(sample.reward_popup), key == "shape_chain")
+				assert_eq((sample.cues as Array).count("match"), 1)
+				var removed: Dictionary[int, bool] = {}
+				var centers: Array[Vector2i] = [Vector2i(5, 4), Vector2i(6, 4), Vector2i(8, 4), Vector2i(8, 3), Vector2i(8, 0)]
+				for index: int in range(events.size()):
+					var event: Dictionary = events[index]
+					assert_eq(int(event.generation), index)
+					for id: int in event.removed_ids:
+						assert_false(removed.has(id), "each entity leaves once")
+						removed[id] = true
+					if index > 0:
+						assert_eq(int(event.source_id), sources[index - 1])
+						assert_eq(event.center, [centers[index - 1].x, centers[index - 1].y])
+						assert_gt(float(event.at_ms), float(events[index - 1].at_ms))
+				var first: Dictionary = events[0]
+				assert_eq(int(first.removed), 7 if key == "shape_chain" else 5)
+				var shapes: Array[String] = []
+				for hit: Dictionary in first.hits:
+					if str(hit.shape_id) not in shapes: shapes.append(str(hit.shape_id))
+				assert_has(shapes, "line")
+				if key == "shape_chain": assert_has(shapes, "l")
+				else: assert_eq(shapes, ["line"])
+				assert_has(sample.cues, "blast")
+				assert_has(sample.cues, "sweep")
+				assert_null(sample.author_audio_clear)
+				if baseline.is_empty(): baseline = str(sample.rules_digest)
+				else: assert_eq(str(sample.rules_digest), baseline)
+
+func test_long_capture_rejects_missing_geometry_duplicate_removal_and_wrong_generation() -> void:
+	await _host.load_case("shape_chain")
+	_host.configure_modes(true, true)
+	await _host.play_case()
+	assert_true(_host._sample_valid(_host.report))
+	var geometry: Dictionary = _host.report.duplicate(true)
+	geometry.events[0].hits = []
+	assert_false(_host._sample_valid(geometry))
+	var duplicate: Dictionary = _host.report.duplicate(true)
+	duplicate.events[2].removed_ids = duplicate.events[1].removed_ids.duplicate()
+	assert_false(_host._sample_valid(duplicate))
+	var generation: Dictionary = _host.report.duplicate(true)
+	generation.events[3].generation = 0
+	assert_false(_host._sample_valid(generation))
+
+func test_playback_geometry_is_detached_from_rule_result_and_shared_template() -> void:
+	var run: RunController = HOST_SCRIPT.CASES.create("shape_chain")
+	var groups: Array[BoardMatchGroup] = []
+	var moved: BoardMoveResult = run.state.rules.move_piece(run.state.rules.state.get_piece_id(Vector2i(5, 5)), Vector2i(5, 4))
+	assert_eq(moved.failure, BoardMoveResult.Failure.NONE)
+	groups = run.state.rules.find_matches_at(Vector2i(5, 4))
+	var results: Array[MatchResult] = run.abilities.resolve(groups)
+	var steps: Array[PresentationStep] = PlaybackPlanBuilder.matches(results)
+	var frozen: MatchResult = steps[0].matches[0]
+	assert_gt(frozen.hits.size(), 1)
+	var original_ids: Array[int] = frozen.hits[0].piece_ids.duplicate()
+	results[0].hits[0].piece_ids.clear()
+	results[0].hits[0].coordinates.clear()
+	assert_eq(frozen.hits[0].piece_ids, original_ids)
+	assert_false(frozen.hits[0].coordinates.is_empty())
+	frozen.hits[0].piece_ids.clear()
+	assert_false(groups[0].hits[0].piece_ids.is_empty())
+	run.retire()
 
 func test_pause_freezes_chain_without_dispatching_children_or_opening_input() -> void:
 	await _host.load_case("blast_row")
