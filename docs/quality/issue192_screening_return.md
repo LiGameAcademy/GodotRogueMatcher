@@ -26,7 +26,7 @@
 - 相关4脚本screening_playground / skill_card_selection / reward_coordination / choice_visual_layout：29/29、1008断言、退出0，[日志](../evidence/issue192/regression.log)。保留29条Float/Int比较警告。两次启动均有证书仓读取诊断；无脚本解析错误、退出资源保留诊断。未跑整库。
 - 初轮headless/GUI各1/2失败、118/124断言：1024点击View中心被原工具截获。保留两份初轮日志；改为露出区域真实鼠标后最终通过。未以键盘绕行掩盖失败。
 - 独立code-reviewer两次只读复审无阻断；最终复核含补齐的单次取得/消费与封存断言、试玩说明。不是GitHub批准或远端CI。
-- 代码行数修改前playground148行，修改后156行；新增测试164行；git diff --check通过。
+- 代码行数修改前playground148行，修改后156行；新增测试163行；git diff --check通过。
 
 本轮投入未可靠计量主动工时，不按测试墙钟扣预算。正式参与者、时段和设备待作者安排；复用既有空白表与汇总工具，不联系真人、不填预测或保留名单。
 
