@@ -1,0 +1,130 @@
+{
+  "bad_input": {
+    "runs": 1,
+    "exit": 1,
+    "files": 2,
+    "error": "invalid_telemetry_json"
+  },
+  "schema": "o1-first-batch-validation-v1",
+  "completion": {
+    "dirty": [],
+    "head_after": "8d15bd4860d480a47d03642ca230f9a501a2fa11",
+    "finished_utc": "2026-10-29T08:54:04.2617799Z",
+    "exit": 0
+  },
+  "gut": {
+    "scripts": 138,
+    "assertions": 31156,
+    "passing": 985,
+    "tests": 985,
+    "warnings": 29
+  },
+  "launch": {
+    "base": "9589563051f845e2c710f9522f4deed76307a265",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "gut": "9.6.0",
+    "tested_commit": "8d15bd4860d480a47d03642ca230f9a501a2fa11",
+    "started_utc": "2026-10-29T08:48:20.5557574Z",
+    "fixed_fps": 60,
+    "directories": [
+      "res://tests/rules",
+      "res://tests/integration"
+    ]
+  },
+  "raw_artifacts": [
+    {
+      "path": ".godot/o1-evidence/frozen-regression.log",
+      "bytes": 517696,
+      "sha256": "b3268884948c1378e244ed1cb16f4cf6905f4c021b2eb7b1df0d2e82e00172a3"
+    },
+    {
+      "path": ".godot/o1-evidence/frozen-engine.log",
+      "bytes": 510652,
+      "sha256": "4ae5211d92534401f952afaece9f950a56ddc2649a41a9cbff1a500b5cc13a86"
+    },
+    {
+      "path": ".godot/o1-evidence/frozen-batch.log",
+      "bytes": 560,
+      "sha256": "624cd3d1d6620842482983d9e8c965b36056b3ce3f1b465a8cbb0fb4c2914815"
+    },
+    {
+      "path": ".godot/o1-evidence/frozen-analysis.log",
+      "bytes": 386,
+      "sha256": "a2b7305b9d5da9a80c03fc40bc76e8b289a3758460636da81847ebea0c5ac3a2"
+    },
+    {
+      "path": ".godot/o1-evidence/frozen-duplicates.log",
+      "bytes": 396,
+      "sha256": "d1a7434eb9c49aae44290f810983ef3b9e998003eecb56956f030546dec06dd5"
+    },
+    {
+      "path": ".godot/o1-evidence/frozen-bad.log",
+      "bytes": 390,
+      "sha256": "80f5a4cf1c5a6fd9291f47bbfd690a816aaf398248d118b20daf323e4ca51c4d"
+    },
+    {
+      "path": ".godot/o1-evidence/cli-boundaries.json",
+      "bytes": 433,
+      "sha256": "89ce60f8bf8b03a7582f9e703df83d03ba4999ed309c03597fdd6cc44caaa755"
+    }
+  ],
+  "review": {
+    "remote_ci": false,
+    "method": "one read-only code-reviewer subagent",
+    "result": "APPROVE after input-boundary fixes and final diff follow-ups",
+    "github_approval": false
+  },
+  "batch": {
+    "replay": "3/3 OK",
+    "actual_moves": [
+      18,
+      18,
+      18
+    ],
+    "choices": [
+      0,
+      0,
+      0
+    ],
+    "scores": [
+      0,
+      0,
+      0
+    ],
+    "commit": "8d15bd4860d480a47d03642ca230f9a501a2fa11",
+    "move_limit": 20,
+    "strategy": "random-legal-v1",
+    "exit": 0,
+    "seeds": [
+      "777000",
+      "777001",
+      "777002"
+    ],
+    "count": 3
+  },
+  "duplicate_input": {
+    "runs": 1,
+    "exit": 0,
+    "files": 2,
+    "events": 186,
+    "errors": 0
+  },
+  "rng_scheme": "sl-rng-v1",
+  "base": "9589563051f845e2c710f9522f4deed76307a265",
+  "web_validation": null,
+  "human_observation": null,
+  "large_batch_analysis_complete": false,
+  "platform": "Windows",
+  "historical_450_failure_reproduced": false,
+  "analysis": {
+    "runs": 3,
+    "exit": 0,
+    "events": 558,
+    "errors": 0
+  },
+  "command": "godot --headless --text-driver Dummy --fixed-fps 60 --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests/rules,res://tests/integration -gexit",
+  "display": "headless",
+  "rules_version": "run-commands-v44-six-streams",
+  "maximum_changed_script_lines": 445,
+  "tested_commit": "8d15bd4860d480a47d03642ca230f9a501a2fa11"
+}

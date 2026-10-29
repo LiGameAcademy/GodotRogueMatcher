@@ -1,0 +1,22 @@
+[0m[1m4/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Warnings             29
+
+Scripts             138
+Tests               985
+Passing Tests       985
+Asserts           31156
+Time              333.088s
+
+
+[32m---- All tests passed! ----
+[0m
