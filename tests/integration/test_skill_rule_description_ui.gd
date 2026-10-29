@@ -158,4 +158,3 @@ func _click(button: Button) -> void:
 	var release: InputEventMouseButton = press.duplicate() as InputEventMouseButton
 	release.pressed = false
 	get_viewport().push_input(release, true)
-

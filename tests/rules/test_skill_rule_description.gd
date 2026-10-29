@@ -172,4 +172,3 @@ func test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchange
 	for id: StringName in random_states:
 		assert_eq(run.state.random_streams.stream(id).state, random_states[id])
 	run.retire()
-
