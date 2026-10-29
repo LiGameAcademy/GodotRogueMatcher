@@ -72,14 +72,14 @@ func test_each_declared_dynamic_selector_samples_from_post_clear_board_once() ->
 		var composite: CompositeEffect = CompositeEffect.new()
 		composite.children = [clear, leaf]
 		var skill: SkillDefinition = _skill(composite)
-		var cursor: int = run.state.rewards.target_random.state
+		var cursor: int = run.state.random_streams.stream(&"effect_execution").state
 		var offer: SkillOffer = _offer(run, skill)
 		assert_not_null(offer)
 		if offer == null: continue
 		var frozen: CompositeSkillTarget = offer.targets[skill.skill_id] as CompositeSkillTarget
 		assert_true(frozen.leaf_targets[1].deferred)
 		assert_true(frozen.leaf_targets[1].piece_ids.is_empty())
-		assert_eq(run.state.rewards.target_random.state, cursor)
+		assert_eq(run.state.random_streams.stream(&"effect_execution").state, cursor)
 		var expected: RunController = _run()
 		for piece: PieceState in expected.state.rules.state.get_snapshot():
 			if piece.match_color == 0: expected.state.rules.remove_piece(piece.piece_id)
@@ -88,7 +88,7 @@ func test_each_declared_dynamic_selector_samples_from_post_clear_board_once() ->
 		var selected: SkillTarget = leaf.freeze(SkillRules.effect_context(expected.state), random)
 		var result: SkillApplyResult = _choose(run, offer, 0)
 		assert_true(result.success, result.error)
-		assert_eq(run.state.rewards.target_random.state, random.state)
+		assert_eq(run.state.random_streams.stream(&"effect_execution").state, random.state)
 		if leaf is AssignFuseEffect:
 			assert_eq(result.marked_ids, selected.piece_ids)
 		else:

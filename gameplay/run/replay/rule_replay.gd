@@ -60,6 +60,12 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	var config: Dictionary = header.config
 	if header.get("rules_version") != RunSnapshot.RULES_VERSION or header.get("offer_version") != SkillOfferGenerator.version_for_mode(StringName(str(config.get("mode_id", "classic_endless")))) or header.get("content_version") != RunSnapshot.digest(config.get("skills")):
 		return _fail("record_version_mismatch")
+	if not header.get("engine_build") is String or header.engine_build != Engine.get_version_info().hash: return _fail("engine_build_mismatch")
+	if not header.get("platform") is String or header.platform != OS.get_name(): return _fail("platform_mismatch")
+	if not header.get("rng_scheme_version") is String or header.rng_scheme_version != RunRandomStreams.SCHEME_VERSION: return _fail("unsupported_rng_scheme")
+	var initial_random: RunRandomStreams = RunRandomStreams.from_data(header.get("rng"))
+	if initial_random == null: return _fail("invalid_random_streams")
+	if header.seed.to_int() < 0 or initial_random.master_seed != header.seed.to_int(): return _fail("invalid_master_seed")
 	for key: String in ["columns", "rows", "match_count"]:
 		if not CommandCodec.valid_integer(config.get(key)): return _fail("invalid_board_config")
 	var columns: int = config.columns.to_int()
@@ -89,6 +95,7 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 		return _fail("configuration_mismatch")
 	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"] + RunController.SHAPE_INITIALIZATIONS + RunController.PLUS_INITIALIZATIONS + RunController.X_INITIALIZATIONS + RunController.ZS_INITIALIZATIONS + RunController.U_INITIALIZATIONS + RunController.RING_INITIALIZATIONS + RunController.SQUARE_INITIALIZATIONS + MixedTemplateDemo.MODES + ScreeningDeck.modes(): return _fail("unsupported_initialization")
 	run.initialize(header.initialization)
+	if RunSnapshot.canonical(run.state.random_streams.data()) != RunSnapshot.canonical(header.rng): return _fail("initial_random_mismatch")
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()
 	run.recorder = generated

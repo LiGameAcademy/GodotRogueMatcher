@@ -14,7 +14,7 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 	var ids: Array[int] = _candidates(context)
 	var count: int = mini(2 + context.upgrades.get(&"fuse_capacity", 0), ids.size())
 	for _index: int in range(count):
-		var chosen: int = random.randi_range(0, ids.size() - 1)
+		var chosen: int = (random.randi_range(0, ids.size() - 1) if ids.size() > 1 else 0)
 		target.piece_ids.append(ids[chosen])
 		ids.remove_at(chosen)
 	return target

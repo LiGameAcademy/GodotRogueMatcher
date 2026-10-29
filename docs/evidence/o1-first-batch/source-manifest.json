@@ -1,0 +1,237 @@
+[
+  {
+    "lines": 37,
+    "path": "gameplay/items/effects/effect_dye_piece.gd",
+    "sha256": "2618cdc253d757ca377a1eb795dbd88e77ce55000448e2bcc4b081338dbd89c3"
+  },
+  {
+    "lines": 59,
+    "path": "gameplay/progression/effects/assign_fuse_effect.gd",
+    "sha256": "ab8296a75907512313f6a721c37be426cc879497513d6ca7b1a77c6d0a86bd02"
+  },
+  {
+    "lines": 92,
+    "path": "gameplay/progression/effects/clear_material_effect.gd",
+    "sha256": "1c44102226b87b5db836e373a0e8755b7238ce4825184788001de7b0600dbf8c"
+  },
+  {
+    "lines": 43,
+    "path": "gameplay/progression/effects/color_weight_effect.gd",
+    "sha256": "05884b0f8650016b6eea41bab3d1b0d15a62228dff0a6006e39888195710c943"
+  },
+  {
+    "lines": 74,
+    "path": "gameplay/progression/effects/dye_material_effect.gd",
+    "sha256": "104227d8d13e18908a25937ea3f5d5c222bbdf45ac9fd57cf60896ebcdcc6615"
+  },
+  {
+    "lines": 43,
+    "path": "gameplay/progression/effects/percent_clear_effect.gd",
+    "sha256": "9f57f4d34a1f0c0a6d4debf019cf74d8b1a331c3e7b34c28f8fec433bc1809f9"
+  },
+  {
+    "lines": 45,
+    "path": "gameplay/progression/effects/thin_material_effect.gd",
+    "sha256": "f9b1e1c85d380ea4f544a669b7200f3195b251a3ab00d9b72422a0c3ea7b0d06"
+  },
+  {
+    "lines": 54,
+    "path": "gameplay/progression/effects/transform_material_effect.gd",
+    "sha256": "37d844a60eb2331155d9a23ce29c681c90ca6aaafc719711fed753c2a118dab3"
+  },
+  {
+    "lines": 26,
+    "path": "gameplay/progression/effects/unlock_core_supply_effect.gd",
+    "sha256": "17104820c4d368dde818d6d3c25b6a99056789663c767ede967a49eb656e77bd"
+  },
+  {
+    "lines": 31,
+    "path": "gameplay/progression/effects/unlock_line_supply_effect.gd",
+    "sha256": "16fe4fbedabf29b796a34c96bcfe7d3506a689849adaed8237bf65e5878d2286"
+  },
+  {
+    "lines": 19,
+    "path": "gameplay/progression/reward_state.gd",
+    "sha256": "dd8b26d561ddd3909a6484973f05f330d5688f305779ab28056c353d2616b86e"
+  },
+  {
+    "lines": 158,
+    "path": "gameplay/run/recording/run_recorder.gd",
+    "sha256": "718a1682e3eb05993b4ee652aa6211736e5d722cab2094d07804800e568bcc49"
+  },
+  {
+    "lines": 172,
+    "path": "gameplay/run/recording/run_snapshot.gd",
+    "sha256": "8eb7687874baf9aef8f204c6a161afda09d406d2bc8f87b1b7a773064b7625f3"
+  },
+  {
+    "lines": 199,
+    "path": "gameplay/run/replay/rule_replay.gd",
+    "sha256": "96bfaec79a01aac504150a0b029a298b1e53e8a15c2f89bd5f02ecd75b7def17"
+  },
+  {
+    "lines": 445,
+    "path": "gameplay/run/run_controller.gd",
+    "sha256": "ef11b3d3538e512110f04c987eedf9ddf2dc9808c7c5480c663ea6640fc0eae9"
+  },
+  {
+    "lines": 59,
+    "path": "gameplay/run/run_random_streams.gd",
+    "sha256": "547f8050015c4e4d14c8115715ebc34fd0f6809b3f071836850e661d8a933e2c"
+  },
+  {
+    "lines": null,
+    "path": "gameplay/run/run_random_streams.gd.uid",
+    "sha256": "c1ea7f69b051bd7f0ee0864e91b9892034f923c083536effed7b6c790a0e2809"
+  },
+  {
+    "lines": 82,
+    "path": "gameplay/run/run_state.gd",
+    "sha256": "2aabaa1d730052401d1e97239dc57a19674cfd8c2e2a2686302f81aca637b32c"
+  },
+  {
+    "lines": 91,
+    "path": "gameplay/run/spawn_state.gd",
+    "sha256": "409d78462897e788bbffd58df8fb4a4cb1fd4bd7b06f63c1431be8d27cd05c1b"
+  },
+  {
+    "lines": 307,
+    "path": "gameplay/skills/ability_effect_runner.gd",
+    "sha256": "4742f3fa8ce81a04642d941e2aebc62b97740affe19ace51c70ef50593e0b610"
+  },
+  {
+    "lines": 203,
+    "path": "tests/integration/test_aesthetic_acceptance.gd",
+    "sha256": "badd70adee0c7be61059f28ecd30370b81735d0c2eb09d87902a22d741b25336"
+  },
+  {
+    "lines": 78,
+    "path": "tests/integration/test_command_scene.gd",
+    "sha256": "b3704461f30f4d574ad5881eeb6641d8f3d2f4bc42012c0d67293d445a9032bd"
+  },
+  {
+    "lines": 166,
+    "path": "tests/integration/test_core_preview_color.gd",
+    "sha256": "59299937c10f851e3760e333e17d29d863e9576e0aef88f8801e757c2f3c0778"
+  },
+  {
+    "lines": 64,
+    "path": "tests/integration/test_screening_report_cli.gd",
+    "sha256": "3312eb30913214f38892eb9fc1986e0d4e3b938a18262b7df39ad762b0cd599c"
+  },
+  {
+    "lines": 178,
+    "path": "tests/rules/test_ability_composite_effects.gd",
+    "sha256": "8433ebe06342bc19acb5e18d4ea959d0dcdaa3ef2df924960205e490acdf34ff"
+  },
+  {
+    "lines": 173,
+    "path": "tests/rules/test_composite_boundaries.gd",
+    "sha256": "36b686cbd9ba901d5bf344bd6810031969ef1d148b3664b82150b2e62180b73f"
+  },
+  {
+    "lines": 232,
+    "path": "tests/rules/test_composite_offer_lifecycle.gd",
+    "sha256": "1e91c508ab82bafa400fc8efdd6021704cf70f7c07dd2546d1272f263cb00402"
+  },
+  {
+    "lines": 261,
+    "path": "tests/rules/test_expanded_skills.gd",
+    "sha256": "35b39a1d6445ef90abe5eede868463157fefbd8cdd8febac70d7dac5e081751e"
+  },
+  {
+    "lines": 170,
+    "path": "tests/rules/test_plus_template_flow.gd",
+    "sha256": "eb30384926d57be119df2d50adfbd498c00051b96f4792f2d92d3f65e2396bf6"
+  },
+  {
+    "lines": 186,
+    "path": "tests/rules/test_ring_template_flow.gd",
+    "sha256": "28d49d7e8b3ebd35e0355872ca05955b0d322bf12127efa769021aba937c86f3"
+  },
+  {
+    "lines": 141,
+    "path": "tests/rules/test_run_random_streams.gd",
+    "sha256": "0fb36d60fa708584db11ee96e5244d4eaf2b39f350d5a80acbe61160e806388d"
+  },
+  {
+    "lines": 203,
+    "path": "tests/rules/test_screening_annotations.gd",
+    "sha256": "3a2aa6818bb75e3c159ff0e1e4dc5491f47ad6a7917534dce0fab39480bd5a11"
+  },
+  {
+    "lines": 191,
+    "path": "tests/rules/test_screening_report_reader.gd",
+    "sha256": "469ba273c9efc1e7b88406722c7159e27b9f2b81c137a8aa20ceaceed4208adb"
+  },
+  {
+    "lines": 67,
+    "path": "tests/rules/test_skill_recording.gd",
+    "sha256": "932033ae377eec4d098fbd7ea36452214f1d8b2f8a9456a4e9711417db1a10f8"
+  },
+  {
+    "lines": 179,
+    "path": "tests/rules/test_skill_rewards.gd",
+    "sha256": "89f91792348eaa06f1d7dd9f55524f077736a37a45da4ddf280ab76c4be01d98"
+  },
+  {
+    "lines": 169,
+    "path": "tests/rules/test_spawn_preview.gd",
+    "sha256": "5d91a4546fb855d89796e5708e5b0b454cb57ae40931107658981fab1f125607"
+  },
+  {
+    "lines": 187,
+    "path": "tests/rules/test_square_template_flow.gd",
+    "sha256": "d3f6b6a131e7178d336b43d47e1fa6948c3ff2b5462b626e99da62d06af87137"
+  },
+  {
+    "lines": 147,
+    "path": "tests/rules/test_t_template_flow.gd",
+    "sha256": "bfb4270107834f216a3436124a3bf19a6c517c7c14eac0c6cc48c60ca9521e04"
+  },
+  {
+    "lines": 177,
+    "path": "tests/rules/test_u_template_flow.gd",
+    "sha256": "aaa58806a3aebffb92523813b2e6779dfe2ccbad4abccac09e1cddbae6499d93"
+  },
+  {
+    "lines": 170,
+    "path": "tests/rules/test_x_template_flow.gd",
+    "sha256": "89bcfa5a006f8f817c7bbe1aed8b725096c67e87c70e4481c69d418a32f93095"
+  },
+  {
+    "lines": 172,
+    "path": "tests/rules/test_zs_template_flow.gd",
+    "sha256": "716f9f602a1bb096afe795c56fe3ea2db8793be79bf42092fa953f7da7d47fb8"
+  },
+  {
+    "lines": 59,
+    "path": "tests/support/screening_current_records.gd",
+    "sha256": "04b2430378e405605bd10a0ba06f00e3625e58ebc63756ef89000e7c9af59120"
+  },
+  {
+    "lines": 122,
+    "path": "tools/bot_testing/batch_job.gd",
+    "sha256": "32f7759bc926a9d597384d47445a31a5616c35764d8701757dac31b196c4eb43"
+  },
+  {
+    "lines": 77,
+    "path": "tools/bot_testing/bot_runner.gd",
+    "sha256": "ee945175a995387fc8f5c5d2be140ac24a2c28a1ae3c139abe6967ce385b3af5"
+  },
+  {
+    "lines": 71,
+    "path": "tools/bot_testing/paired_job.gd",
+    "sha256": "fa2dfbbfbaa4cd44ac55fd6726abe782e9651402366ee39da37cf88db116876e"
+  },
+  {
+    "lines": 315,
+    "path": "tools/chain_rhythm_acceptance/chain_rhythm_acceptance.gd",
+    "sha256": "5e079d484f35613a65fd490cf37ef0590516887f7e0efb59f8cc450ca6daa80b"
+  },
+  {
+    "lines": 26,
+    "path": "tools/chain_rhythm_acceptance/composite_rhythm_case.gd",
+    "sha256": "e54c5f7e1f599ec53a38469ad0922e76395bd97e41e16f014e774c365c3bdce4"
+  }
+]

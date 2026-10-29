@@ -7,8 +7,7 @@ func before_each() -> void:
 	directory = "user://screening_cli_tests/%s" % str(Time.get_ticks_usec())
 	source = directory.path_join("source")
 	assert_eq(DirAccess.make_dir_recursive_absolute(source), OK)
-	for name: String in ["ui-t-overlap.jsonl", "ui-t-overlap-screening.json"]:
-		assert_eq(DirAccess.copy_absolute("res://docs/evidence/issue119-screening/" + name, source.path_join(name)), OK)
+	assert_false(preload("res://tests/support/screening_current_records.gd").write(source, "ui-t-overlap").is_empty())
 
 func _invoke(input: String, output: String, notes: String = "") -> int:
 	var args: PackedStringArray = ["--headless", "--path", ProjectSettings.globalize_path("res://"), "-s", "tools/screening_analysis/report_cli.gd", "--", input, output]

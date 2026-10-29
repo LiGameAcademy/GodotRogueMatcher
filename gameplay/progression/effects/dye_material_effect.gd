@@ -26,13 +26,13 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 		if not colors.has(piece.match_color): colors.append(piece.match_color)
 	colors.sort()
 	if colors.size() < 2: return target
-	target.color = colors[random.randi_range(0, colors.size() - 1)]
+	target.color = colors[(random.randi_range(0, colors.size() - 1) if colors.size() > 1 else 0)]
 	var ids: Array[int] = []
 	for piece: PieceState in context.material:
 		if piece.match_color != target.color: ids.append(piece.piece_id)
 	ids.sort()
 	for index: int in range(mini(ids.size(), DyeRules.CONFIG.instant_targets)):
-		var position: int = random.randi_range(0, ids.size() - 1)
+		var position: int = (random.randi_range(0, ids.size() - 1) if ids.size() > 1 else 0)
 		target.piece_ids.append(ids[position])
 		ids.remove_at(position)
 	return target

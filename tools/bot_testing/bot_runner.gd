@@ -6,6 +6,10 @@ var last_replay_error: String = ""
 var telemetry_factory: TelemetryFactory
 var last_telemetry: TelemetryProjector
 
+## Preserve the existing strategy offset, wrapping explicitly at the nonnegative 63-bit boundary.
+static func strategy_seed_for(run_seed: int) -> int:
+	return run_seed + 100000 if run_seed <= 9223372036854675807 else run_seed - 9223372036854675808
+
 func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = true, verify: bool = true) -> RunRecorder:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value, stage_config)
 	run.initialize()

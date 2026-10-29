@@ -24,7 +24,7 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 	if not rejection(context).is_empty(): return target
 	var ids: Array[int] = _candidates(context)
 	for _index: int in range(available_target_count(context)):
-		var index: int = random.randi_range(0, ids.size() - 1)
+		var index: int = (random.randi_range(0, ids.size() - 1) if ids.size() > 1 else 0)
 		target.piece_ids.append(ids[index])
 		ids.remove_at(index)
 	return target

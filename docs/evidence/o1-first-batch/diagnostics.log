@@ -1,0 +1,24 @@
+ERROR: Object '<Object#129810823128026>' was freed or unreferenced while a signal is being emitted from it. Try connecting to the signal using 'CONNECT_DEFERRED' flag, or use queue_free() to free the object (if this object is a Node) to avoid this error and potential crashes.
+   at: ~Object (core/object/object.cpp:2324)
+   GDScript backtrace (most recent call first):
+       [0] free_all (res://addons/gut/autofree.gd:70)
+       [1] _run_test (res://addons/gut/gut.gd:635)
+       [2] test_real_game_theme_and_four_mode_changes_preserve_run_snapshot (res://tests/integration/test_contact_shadow.gd:106)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+ERROR: Object '<Object#129810688911044>' was freed or unreferenced while a signal is being emitted from it. Try connecting to the signal using 'CONNECT_DEFERRED' flag, or use queue_free() to free the object (if this object is a Node) to avoid this error and potential crashes.
+   at: ~Object (core/object/object.cpp:2324)
+   GDScript backtrace (most recent call first):
+       [0] free_all (res://addons/gut/autofree.gd:70)
+       [1] _run_test (res://addons/gut/gut.gd:635)
+       [2] test_real_game_theme_and_four_mode_changes_preserve_run_snapshot (res://tests/integration/test_contact_shadow.gd:106)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)

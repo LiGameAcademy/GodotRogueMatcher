@@ -5,7 +5,9 @@ enum Phase { INITIALIZING, INPUT, MOVING, REWARDS, TURN_END, SPAWNING, FINISHED,
 
 var rules: BoardRules
 var ledger: ScoreLedger = ScoreLedger.new()
-var random: RandomNumberGenerator = RandomNumberGenerator.new()
+## Compatibility reference to spawn_position; owned by random_streams.
+var random: RandomNumberGenerator
+var random_streams: RunRandomStreams
 var phase: Phase = Phase.INITIALIZING
 var turn_count: int = 0
 var action_id: int = 0
@@ -34,10 +36,11 @@ var _initial_seed: int
 func _init(board_rules: BoardRules, run_seed: int) -> void:
 	rules = board_rules
 	_initial_seed = run_seed
-	random.seed = run_seed
-	rewards = RewardState.new(run_seed)
+	random_streams = RunRandomStreams.new(run_seed)
+	random = random_streams.stream(&"spawn_position")
+	rewards = RewardState.new(run_seed, random_streams)
 	progression = ProgressionState.new(RunController.PROGRESSION)
-	spawning = SpawnState.new(RunController.SPAWN_CONFIG, run_seed)
+	spawning = SpawnState.new(RunController.SPAWN_CONFIG, run_seed, random_streams.stream(&"spawn_content"))
 
 func reset_counters() -> void:
 	ledger = ScoreLedger.new()
@@ -50,13 +53,15 @@ func reset_counters() -> void:
 	end_reason = &""
 	stage = StageState.new(stage.config, ledger)
 	pending_rewards = 0
-	rewards = RewardState.new(_initial_seed)
+	random_streams = RunRandomStreams.new(_initial_seed)
+	random = random_streams.stream(&"spawn_position")
+	rewards = RewardState.new(_initial_seed, random_streams)
 	skill_instances.clear()
 	ability_events.close()
 	ability_events = AbilityEvents.new()
 	progression = ProgressionState.new(RunController.PROGRESSION)
 	valid_moves = 0
-	spawning = SpawnState.new(RunController.SPAWN_CONFIG, _initial_seed)
+	spawning = SpawnState.new(RunController.SPAWN_CONFIG, _initial_seed, random_streams.stream(&"spawn_content"))
 	spawn_history.clear()
 	explosion = ExplosionState.new()
 	line_clear = LineClearState.new()
@@ -64,7 +69,6 @@ func reset_counters() -> void:
 	goal_bonus_score = 0
 	rules.shape_unlocks = ShapeUnlockState.new()
 	rule_error = ""
-	random.seed = _initial_seed
 	phase = Phase.INITIALIZING
 
 func mode_id() -> StringName:

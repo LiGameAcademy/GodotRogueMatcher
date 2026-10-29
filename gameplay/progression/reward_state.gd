@@ -8,11 +8,12 @@ var active_offer: SkillOffer
 var applications: Array[SkillApplyResult] = []
 var acquired: Dictionary[StringName, int] = {}
 var previous_unselected: Array[StringName] = []
-var candidate_random: RandomNumberGenerator = RandomNumberGenerator.new()
-var target_random: RandomNumberGenerator = RandomNumberGenerator.new()
-var display_random: RandomNumberGenerator = RandomNumberGenerator.new()
+## References to the run-owned offer streams; generation commits temporary states atomically.
+var candidate_random: RandomNumberGenerator
+var target_random: RandomNumberGenerator
+var display_random: RandomNumberGenerator
 
-func _init(run_seed: int) -> void:
-	candidate_random.seed = run_seed ^ 0x1517
-	target_random.seed = run_seed ^ 0x2971
-	display_random.seed = run_seed ^ 0x3919
+func _init(run_seed: int, streams: RunRandomStreams = null) -> void:
+	candidate_random = streams.stream(&"offer_candidates") if streams != null else RunRandomStreams.create(run_seed, &"offer_candidates")
+	target_random = streams.stream(&"offer_targets") if streams != null else RunRandomStreams.create(run_seed, &"offer_targets")
+	display_random = streams.stream(&"offer_order") if streams != null else RunRandomStreams.create(run_seed, &"offer_order")

@@ -1,7 +1,13 @@
 extends GutTest
 
-const ROOT: String = "res://docs/evidence/issue119-screening/"
+const CURRENT: Script = preload("res://tests/support/screening_current_records.gd")
+var _root: String
 var directory: String
+
+func before_all() -> void:
+	_root = "user://screening_current_records/%s/" % str(Time.get_ticks_usec())
+	for name: String in ["t-direct", "t-wrong", "t-overlap", "ui-t-overlap", "ui-action-limit", "ui-time-paused", "free-baseline", "free-l", "free-t", "free-plus", "free-x", "free-zs"]:
+		assert_false(CURRENT.write(_root, name).is_empty(), name)
 
 func before_each() -> void:
 	directory = "user://screening_report_tests/%s" % str(Time.get_ticks_usec())
@@ -9,8 +15,8 @@ func before_each() -> void:
 
 func _copy(name: String, sidecar: bool = false) -> String:
 	var path: String = directory.path_join(name + ".jsonl")
-	assert_eq(DirAccess.copy_absolute(ROOT + name + ".jsonl", path), OK)
-	if sidecar: assert_eq(DirAccess.copy_absolute(ROOT + name + "-screening.json", path.get_basename() + "-screening.json"), OK)
+	assert_eq(DirAccess.copy_absolute(_root + name + ".jsonl", path), OK)
+	if sidecar: assert_eq(DirAccess.copy_absolute(_root + name + "-screening.json", path.get_basename() + "-screening.json"), OK)
 	return path
 
 func _write(path: String, text: String) -> void:
@@ -18,9 +24,9 @@ func _write(path: String, text: String) -> void:
 	file.store_string(text)
 	file.close()
 
-func test_real_ui_record_has_deduplicated_nine_cells_and_unknown_human_fields() -> void:
+func test_current_synthetic_ui_record_has_deduplicated_nine_cells_and_unknown_human_fields() -> void:
 	var reader: ScreeningRecordReader = ScreeningRecordReader.new()
-	var row: Dictionary = reader.read(ROOT + "ui-t-overlap.jsonl")
+	var row: Dictionary = reader.read(_root + "ui-t-overlap.jsonl")
 	assert_eq(reader.error, "")
 	assert_eq(row.score, 126)
 	assert_eq(row.source_kind, "human_unobserved")
@@ -34,23 +40,28 @@ func test_real_ui_record_has_deduplicated_nine_cells_and_unknown_human_fields() 
 	assert_eq(row.metrics.net_empty_cells, 9)
 	for value: Variant in row.human.values(): assert_null(value)
 
-func test_six_bot_windows_remain_automated_and_zero_score_is_observed_not_failure() -> void:
+func test_six_bot_windows_preserve_current_results_and_observed_zeroes() -> void:
+	var zeroes: int = 0
 	for key: String in ScreeningDeck.CONFIGS:
 		var reader: ScreeningRecordReader = ScreeningRecordReader.new()
-		var row: Dictionary = reader.read(ROOT + "free-" + key + ".jsonl")
+		var row: Dictionary = reader.read(_root + "free-" + key + ".jsonl")
 		assert_eq(reader.error, "")
 		assert_eq(row.source_kind, "automated")
 		assert_eq(row.actions, 15)
 		assert_true(row.window_complete)
-		assert_eq(row.score, 0)
-		assert_eq(row.metrics.match_events, 0)
+		var records: Array[Dictionary] = RuleReplay.new().read_file(_root + "free-" + key + ".jsonl")
+		assert_eq(row.score, records.back().score.to_int())
+		if row.score == 0:
+			zeroes += 1
+			assert_eq(row.metrics.match_events, 0)
 		assert_eq(row.metrics.births_in_window, 45)
-		assert_eq(row.metrics.net_empty_cells, -45)
+		assert_eq(row.metrics.net_empty_cells, row.metrics.removed_unique_entities - row.metrics.births_in_window)
 		assert_null(row.elapsed_ms)
 		assert_null(row.human.prediction_correct)
+	assert_gt(zeroes, 0, "observed zero-score runs must remain valid, not become missing observations")
 
 func test_wrong_task_records_births_separately_from_matches() -> void:
-	var row: Dictionary = ScreeningRecordReader.new().read(ROOT + "t-wrong.jsonl")
+	var row: Dictionary = ScreeningRecordReader.new().read(_root + "t-wrong.jsonl")
 	assert_eq(row.score, 0)
 	assert_eq(row.metrics.match_events, 0)
 	assert_eq(row.metrics.births_in_window, 3)
@@ -101,9 +112,9 @@ func test_sidecar_conflicts_and_invalid_metadata_are_explicit_errors() -> void:
 	assert_eq(reader.error, "invalid_metadata")
 
 func test_shortened_ui_windows_are_not_claimed_as_formal_fifteen_or_eight_minutes() -> void:
-	var action: Dictionary = ScreeningRecordReader.new().read(ROOT + "ui-action-limit.jsonl")
+	var action: Dictionary = ScreeningRecordReader.new().read(_root + "ui-action-limit.jsonl")
 	assert_false(action.window_complete)
-	var time: Dictionary = ScreeningRecordReader.new().read(ROOT + "ui-time-paused.jsonl")
+	var time: Dictionary = ScreeningRecordReader.new().read(_root + "ui-time-paused.jsonl")
 	assert_false(time.window_complete)
 	var path: String = _copy("ui-time-paused")
 	var missing: Dictionary = ScreeningRecordReader.new().read(path)
@@ -113,7 +124,7 @@ func test_shortened_ui_windows_are_not_claimed_as_formal_fifteen_or_eight_minute
 func test_identical_copies_are_counted_once_and_conflicting_ids_quarantine_all_copies() -> void:
 	var report: ScreeningReport = ScreeningReport.new()
 	var path: String = _copy("t-direct")
-	report.add(ROOT + "t-direct.jsonl")
+	report.add(_root + "t-direct.jsonl")
 	report.add(path)
 	assert_eq(report.runs.size(), 1)
 	assert_eq(report.duplicate_files, 1)
@@ -125,12 +136,12 @@ func test_identical_copies_are_counted_once_and_conflicting_ids_quarantine_all_c
 	report.add(path)
 	assert_eq(report.runs.size(), 0)
 	assert_eq(report.diagnostics.back().reason, "conflicting_duplicate_run")
-	report.add(ROOT + "t-direct.jsonl")
+	report.add(_root + "t-direct.jsonl")
 	assert_eq(report.runs.size(), 0)
 
 func test_event_projections_do_not_double_count_shared_entities_or_repeated_event_ids() -> void:
 	var replay: RuleReplay = RuleReplay.new()
-	var rows: Array[Dictionary] = replay.read_file(ROOT + "t-overlap.jsonl")
+	var rows: Array[Dictionary] = replay.read_file(_root + "t-overlap.jsonl")
 	for row: Dictionary in rows:
 		if row.kind == "RuleResult" and not row.events.is_empty(): row.events.append(row.events[0].duplicate(true))
 	var result: Dictionary = ScreeningRecordReader._metrics(rows)
@@ -140,8 +151,8 @@ func test_event_projections_do_not_double_count_shared_entities_or_repeated_even
 
 func test_writer_preserves_inputs_existing_output_and_does_not_retain_high_scores() -> void:
 	var report: ScreeningReport = ScreeningReport.new()
-	report.add(ROOT + "ui-t-overlap.jsonl")
-	var before: String = FileAccess.get_sha256(ROOT + "ui-t-overlap.jsonl")
+	report.add(_root + "ui-t-overlap.jsonl")
+	var before: String = FileAccess.get_sha256(_root + "ui-t-overlap.jsonl")
 	var output: String = directory.path_join("report")
 	assert_true(report.write(output), report.error)
 	var content: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(output.path_join("screening-report.json"))) as Dictionary
@@ -149,7 +160,7 @@ func test_writer_preserves_inputs_existing_output_and_does_not_retain_high_score
 	assert_true(content.fixed_task_accuracy.is_empty())
 	assert_false(report.write(output))
 	assert_true(report.error.begins_with("output_exists:"))
-	assert_eq(FileAccess.get_sha256(ROOT + "ui-t-overlap.jsonl"), before)
+	assert_eq(FileAccess.get_sha256(_root + "ui-t-overlap.jsonl"), before)
 	assert_eq(content.runs[0].human, ScreeningRecordReader.blank_human())
 
 func test_replayable_missing_or_modified_geometry_cannot_impersonate_a_versioned_config() -> void:
@@ -170,3 +181,11 @@ func test_replayable_missing_or_modified_geometry_cannot_impersonate_a_versioned
 		var reader: ScreeningRecordReader = ScreeningRecordReader.new()
 		assert_true(reader.read(run.recorder.path).is_empty())
 		assert_eq(reader.error, "configuration_geometry_mismatch")
+
+func test_historical_v43_evidence_is_preserved_and_not_replayed_as_current() -> void:
+	var path: String = "res://docs/evidence/issue119-screening/ui-t-overlap.jsonl"
+	var before: String = FileAccess.get_sha256(path)
+	var reader: ScreeningRecordReader = ScreeningRecordReader.new()
+	assert_true(reader.read(path).is_empty())
+	assert_eq(reader.error, "record_version_mismatch")
+	assert_eq(FileAccess.get_sha256(path), before)

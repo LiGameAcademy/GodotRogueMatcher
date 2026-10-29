@@ -38,7 +38,7 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 		var group: int = _group(piece, target.line_axis)
 		if not groups.has(group): groups.append(group)
 	groups.sort()
-	var chosen: int = groups[random.randi_range(0, groups.size() - 1)]
+	var chosen: int = groups[(random.randi_range(0, groups.size() - 1) if groups.size() > 1 else 0)]
 	if selector == Selector.COLOR: target.color = chosen
 	else: target.line_index = chosen
 	for piece: PieceState in context.material:

@@ -13,7 +13,7 @@ func rejection(context: ChoiceEffectContext) -> String:
 
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	var target: SkillTarget = SkillTarget.new()
-	target.coordinate = context.empty_coordinates[random.randi_range(0, context.empty_coordinates.size() - 1)]
+	target.coordinate = context.empty_coordinates[(random.randi_range(0, context.empty_coordinates.size() - 1) if context.empty_coordinates.size() > 1 else 0)]
 	target.color = SpawnState.sample_color(context.color_weights, random)
 	target.line_index = axis
 	return target

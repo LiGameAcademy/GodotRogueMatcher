@@ -1,7 +1,7 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v43-shape-identity-order"
+const RULES_VERSION: String = "run-commands-v44-six-streams"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
@@ -151,6 +151,7 @@ static func capture(run: RunController) -> Dictionary:
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)
 	snapshot["reward_repair_used"] = state.rewards.repair_used
+	snapshot["rng"] = state.random_streams.data()
 	snapshot["shape_unlocks"] = normalize(state.rules.shape_unlocks.data())
 	return snapshot
 

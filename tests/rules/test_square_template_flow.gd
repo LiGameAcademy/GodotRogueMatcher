@@ -90,7 +90,7 @@ func test_real_square_unlock_immediately_scans_and_does_not_enable_ring() -> voi
 	assert_eq(RunSnapshot.canonical(run.state.spawning.plan_data()), plan)
 	assert_eq(run.state.valid_moves, 0)
 
-func test_real_square_full_clear_uses_one_recovery_and_disk_replays_v43() -> void:
+func test_real_square_full_clear_uses_one_recovery_and_disk_replays_current_protocol() -> void:
 	var run: RunController = F.unlock_run(true)
 	UNLOCK.record(run, true)
 	var offer: SkillOffer = run.prepare_offer()
@@ -118,7 +118,7 @@ func test_real_square_full_clear_uses_one_recovery_and_disk_replays_v43() -> voi
 	run.recorder.finish(run, "censored", "square_template_slice")
 	assert_true(replay.replay_file(run.recorder.path), replay.error)
 	assert_eq(replay.checked_records, run.recorder.records.size())
-	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v43-shape-identity-order")
+	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v44-six-streams")
 
 func test_square_and_ring_unlock_orders_keep_independent_identity_and_stable_resources() -> void:
 	for square_first: bool in [false, true]:
