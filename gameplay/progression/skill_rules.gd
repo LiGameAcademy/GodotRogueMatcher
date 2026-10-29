@@ -65,26 +65,23 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
 	return context
 
-static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, frozen_pressure: float = -1.0) -> String:
+static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, _frozen_pressure: float = -1.0, build: SkillBuildSnapshot = null) -> String:
 	var definition_error: String = skill.validation_error()
 	if not definition_error.is_empty(): return definition_error
 	if state.is_game_over or not state.rule_error.is_empty():
 		return "本局已经结束或规则异常"
-	if not is_finite(skill.base_weight) or skill.base_weight <= 0.0:
-		return "技能权重必须为正数"
-	if skill.requires_core and not state.explosion.core_pool_unlocked: return "需先获得爆壳手登场"
-	if skill.requires_fuse_unlock and not state.explosion.fuse_unlocked: return "需先解锁引信路线"
-	if skill.requires_fuse and effect_context(state).fuse_ids.is_empty(): return "棋盘上需要引信"
+	var frozen: SkillBuildSnapshot = build if build != null else SkillBuildSnapshot.capture(state, [])
+	for need: StringName in skill.offer_traits.needs:
+		if not frozen.capabilities.has(need): return "missing_required_capability:" + String(need)
 	if not skill.prerequisite.is_empty() and state.rewards.acquired.get(skill.prerequisite, 0) == 0: return "缺少前置升级"
 	var owned: SkillInstance = state.skill_instances.get(skill.skill_id)
 	if owned != null and owned.definition != skill: return "技能定义与已安装实例不符"
 	if skill.maximum_level > 0 and level(state, skill) >= skill.maximum_level: return "已满级"
+	if skill.offer_traits.once_per_run and state.rewards.acquired.get(skill.skill_id, 0) > 0: return "already_acquired_once_per_run"
 	if level(state, skill) >= 1000000: return "等级已达安全上限"
-	var early_rescue: bool = RescueOfferRules.early_allowed(state, skill, frozen_pressure)
-	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
+	if state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
 	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
 	if effect == null: return "技能缺少执行配置"
-	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
 	if not skill.levels.is_empty() and effect is InstallUpgradeEffect:
 		var upgrade: StringName = (effect as InstallUpgradeEffect).upgrade
 		if state.explosion.level(upgrade) != level(state, skill): return "技能等级与生成修正不一致"

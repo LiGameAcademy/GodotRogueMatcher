@@ -1,14 +1,14 @@
 class_name RunSnapshot
 extends RefCounted
 
-const RULES_VERSION: String = "run-commands-v44-six-streams"
+const RULES_VERSION: String = "run-commands-v46-unified-offer-audit"
 
 ## Convert all integers to decimal strings; coordinates, entities, and dictionaries keep a fixed canonical order.
 static func normalize(value: Variant) -> Variant:
 	if value is MatchShapeTemplate:
 		var template: MatchShapeTemplate = value as MatchShapeTemplate
 		return normalize({"shape_id": template.shape_id, "offsets": template.offsets})
-	if value is SkillEffect or value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition:
+	if value is SkillEffect or value is ChoiceEffect or value is SkillLevelDefinition or value is AbilityDefinition or value is SkillOfferTraits or value is OfferRarityStep:
 		if value is AbilityDefinition and not AbilityTriggerAdapter.validation_error(value as AbilityDefinition).is_empty():
 			return {"invalid": AbilityTriggerAdapter.validation_error(value as AbilityDefinition)}
 		if value is CompositeEffect:
@@ -49,7 +49,7 @@ static func config(run: RunController) -> Dictionary:
 		fields.erase("short_description")
 		fields.erase("flavor_text")
 		skills.append(fields)
-	var result: Dictionary = normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "line_clear": resource_fields(LineClearRules.CONFIG), "line_trigger": normalize(AbilityResolver.LINE_SWEEP), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "rescue_offer": resource_fields(RescueOfferRules.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
+	var result: Dictionary = normalize({"rules": RULES_VERSION, "columns": run.state.rules.state.columns, "rows": run.state.rules.state.rows, "match_count": run.state.rules.minimum_match_count, "colors": 5, "initial_piece_count": RunController.CONFIG.initial_piece_count, "spawning": resource_fields(RunController.SPAWN_CONFIG), "score_formula": "n*(n+5),floor(B*G+E)", "explosion": resource_fields(run.abilities.config), "demolition": resource_fields(DemolitionRules.CONFIG), "dye": resource_fields(DyeRules.CONFIG), "line_clear": resource_fields(LineClearRules.CONFIG), "line_trigger": normalize(AbilityResolver.LINE_SWEEP), "ability_trigger": trigger_config(AbilityResolver.EXPLOSION), "progression": resource_fields(RunController.PROGRESSION), "offer": resource_fields(SkillOfferGenerator.CONFIG), "skills": skills, "mode_id": run.state.mode_id(), "challenge": {} if not run.state.stage.enabled() else resource_fields(run.state.stage.config)})
 
 	if not run.state.rules.template_data().is_empty():
 		result["prototype_match_templates"] = normalize(run.state.rules.template_data())
@@ -92,7 +92,7 @@ static func offer_data(offer: SkillOffer) -> Dictionary:
 	for skill: SkillDefinition in offer.choices:
 		choices.append(String(skill.skill_id))
 		targets[String(skill.skill_id)] = target_data(offer.targets[skill.skill_id])
-	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "replaces_offer_id": offer.replaces_offer_id, "choices": choices, "targets": targets, "pressure_snapshot": offer.pressure_snapshot, "rescue_multiplier": offer.rescue_multiplier, "offer_rules_version": offer.rules_version, "baseline_weights": offer.baseline_weights, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log})
+	return normalize({"offer_id": offer.offer_id, "reward_id": offer.reward_id, "replaces_offer_id": offer.replaces_offer_id, "choices": choices, "targets": targets, "pressure_snapshot": offer.pressure_snapshot, "rescue_multiplier": offer.rescue_multiplier, "offer_rules_version": offer.rules_version, "baseline_weights": offer.baseline_weights, "weights": offer.weights, "generation_order": offer.generation_order, "candidate_before": offer.candidate_state_before, "candidate_after": offer.candidate_state_after, "log": offer.pool_log, "explanations": offer.explanations, "slots": offer.slot_log, "build_snapshot": offer.build_snapshot, "parameters": offer.parameter_snapshot})
 
 ## Include deferred contracts and fixed identities throughout nested effect trees.
 static func target_data(target: SkillTarget) -> Dictionary:
