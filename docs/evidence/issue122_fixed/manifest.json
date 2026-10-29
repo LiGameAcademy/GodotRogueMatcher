@@ -2,6 +2,7 @@
   "source": "fixture/automated",
   "base_commit": "1a03cb19d7cde1570edfecbc56e1fd3bfa878407",
   "fixed_tests_code_commit": "0c6829d22be2ae42d1d8de172d5bac7e4650f576",
+  "encoding": "UTF-8 without BOM, LF; log newlines normalized for Git",
   "natural_sample_count": 0,
   "human_observation": null,
   "files": [
@@ -12,8 +13,8 @@
     },
     {
       "file": "fixed-tests.log",
-      "bytes": 1355,
-      "sha256": "6968bf16235813e25c101711df630893aa75a9908ed73e6e965958bb2aea0426"
+      "bytes": 1318,
+      "sha256": "c6466f2e81467d943b838af97d0a870041b53b9a209dbebb747d0682ef58c215"
     },
     {
       "file": "line-baseline.jsonl",
@@ -42,8 +43,8 @@
     },
     {
       "file": "related-tests.log",
-      "bytes": 3426,
-      "sha256": "9878e8f50966f5d8362d2998158f81d8953b7b00f87eccd166e3c522ef1405d6"
+      "bytes": 3350,
+      "sha256": "36a04e2f0f0fa728f9931b6ba1458b2f954879e9f6f4ba20d364b0ec83fd7125"
     }
   ]
 }

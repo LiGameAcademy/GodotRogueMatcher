@@ -62,7 +62,7 @@ $env:O3_EVIDENCE_DIR = Join-Path (Get-Location) '.godot/o3-rerun'
 & 'D:/GameMaker/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe' --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/rules/test_o3_fixed_builds.gd -gexit
 ```
 
-输出目录可另取新名；PR中封存的证据不得用复跑覆盖。文件SHA256见[证据清单](../evidence/issue122_fixed/manifest.json)。两个自有代码文件均远低于500行。
+输出目录可另取新名；PR中封存的证据不得用复跑覆盖。封存文本统一UTF-8无BOM/LF，日志只规范化换行以匹配仓库.gitattributes；文件SHA256见[证据清单](../evidence/issue122_fixed/manifest.json)，按实际Git存储字节核对。两个自有代码文件均远低于500行。
 
 ## 本批出口与剩余
 
