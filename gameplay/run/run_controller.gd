@@ -174,7 +174,7 @@ func spawn_one(source: StringName = &"normal", batch_id: int = 0) -> SpawnResult
 	if empty.is_empty():
 		finish_game()
 		return null
-	var coordinate: Vector2i = empty[state.random.randi_range(0, empty.size() - 1)]
+	var coordinate: Vector2i = empty[state.random.randi_range(0, empty.size() - 1) if empty.size() > 1 else 0]
 	state.spawning.ensure_plan(1, state.explosion, state.line_clear)
 	var token: SpawnToken = state.spawning.consume_token()
 	var core: bool = false
@@ -186,7 +186,7 @@ func spawn_one(source: StringName = &"normal", batch_id: int = 0) -> SpawnResult
 	var color: int = token.color
 	var ghost: bool = false
 	for piece: PieceState in state.rules.state.get_snapshot():
-		if piece.content_id == &"space_compressor" and state.random.randf() < 0.2:
+		if piece.content_id == &"space_compressor" and state.random_streams.stream(&"effect_execution").randf() < 0.2:
 			ghost = true
 			break
 	var result: SpawnResult = SpawnResult.new()

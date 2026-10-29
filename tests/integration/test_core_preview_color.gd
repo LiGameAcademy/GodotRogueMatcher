@@ -15,6 +15,7 @@ func test_skill_core_freezes_weighted_color_and_displays_it_before_selection() -
 		run.state.pending_rewards = 1
 		run.enter_rewards()
 		var generator: SkillOfferGenerator = SkillOfferGenerator.new()
+		generator.set_catalog([CORE])
 		var offer: SkillOffer = generator.generate(run)
 		var target: SkillTarget = offer.targets[&"core_drop"]
 		var card: SkillCard = CARD.instantiate() as SkillCard
@@ -74,7 +75,7 @@ func test_real_board_spawn_animation_and_rebuild_preserve_all_preview_colors() -
 		summoned.state.spawning.color_weights[color] = 20
 		summoned.state.pending_rewards = 1
 		summoned.enter_rewards()
-		var offer: SkillOffer = SkillOfferGenerator.new().generate(summoned)
+		var offer: SkillOffer = _core_offer(summoned)
 		var result: SkillApplyResult = SkillRules.apply(summoned, offer.offer_id, &"core_drop")
 		assert_true(result.success)
 		board.run = summoned
@@ -90,7 +91,7 @@ func test_invalid_frozen_core_color_rejects_without_consuming_choice() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
 	run.state.pending_rewards = 1
 	run.enter_rewards()
-	var offer: SkillOffer = SkillOfferGenerator.new().generate(run)
+	var offer: SkillOffer = _core_offer(run)
 	for color: int in [-1, 5]:
 		offer.targets[&"core_drop"].color = color
 		var before: String = RunSnapshot.digest(RunSnapshot.capture(run))
@@ -102,7 +103,7 @@ func test_core_budget_preflight_uses_frozen_blue_color() -> void:
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 2)
 	run.state.pending_rewards = 1
 	run.enter_rewards()
-	var offer: SkillOffer = SkillOfferGenerator.new().generate(run)
+	var offer: SkillOffer = _core_offer(run)
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
 	offer.targets[&"core_drop"].color = 2
 	var config: ExplosionConfig = run.abilities.config.duplicate() as ExplosionConfig
@@ -157,3 +158,9 @@ func test_normal_commands_replay_non_green_skill_core() -> void:
 		assert_eq(replay.checked_records, run.recorder.records.size())
 		break
 	assert_true(seen, "普通开局通过真实选卡命令产生非绿色首枚，并精确回放")
+
+## Color application fixtures require this card explicitly, independent of natural selection.
+func _core_offer(run: RunController) -> SkillOffer:
+	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
+	generator.set_catalog([CORE])
+	return generator.generate(run)

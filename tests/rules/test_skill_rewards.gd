@@ -14,13 +14,12 @@ func test_first_offer_has_starter_and_distinct_legal_ids() -> void:
 	var offer: SkillOffer = generator.generate(run)
 	assert_eq(offer.choices.size(), 3)
 	assert_true(offer.generation_order[0] in [&"core_drop", &"line_row_drop", &"line_column_drop"])
-	assert_true(_contains(offer, &"core_drop"))
 	for skill: SkillDefinition in offer.choices: assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "")
 	assert_eq(run.state.pending_rewards, 3)
 
 func test_empty_board_uses_fallback_and_freezes_offer() -> void:
 	var board_random: int = run.state.random.state
-	var offer: SkillOffer = generator.generate(run)
+	var offer: SkillOffer = _core_offer()
 	var candidate_random: int = run.state.rewards.candidate_random.state
 	assert_true(_contains(offer, &"core_drop"))
 	assert_false(_contains(offer, &"assign_fuse"))
@@ -35,7 +34,7 @@ func test_empty_board_uses_fallback_and_freezes_offer() -> void:
 	assert_eq(run.state.rules.state.get_piece_count(), 1)
 
 func test_invalid_target_preserves_every_rule_state_and_reward() -> void:
-	var offer: SkillOffer = generator.generate(run)
+	var offer: SkillOffer = _core_offer()
 	var target: Vector2i = offer.targets[&"core_drop"].coordinate
 	run.state.rules.place_piece(target, 3)
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, &"core_drop")
@@ -108,7 +107,7 @@ func test_current_and_future_fuses_share_upgraded_radius_only_in_same_run() -> v
 
 func test_core_landing_resolves_match_without_movement_and_records_once() -> void:
 	for x: int in range(4): run.state.rules.place_piece(Vector2i(x, 0), 1)
-	var offer: SkillOffer = generator.generate(run)
+	var offer: SkillOffer = _core_offer()
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
 	offer.targets[&"core_drop"].color = 1
 	var result: SkillApplyResult = SkillRules.apply(run, offer.offer_id, &"core_drop")
@@ -126,7 +125,7 @@ func test_core_budget_rejection_does_not_insert_or_consume() -> void:
 	var config: ExplosionConfig = AbilityResolver.DEFAULT_CONFIG.duplicate() as ExplosionConfig
 	config.event_budget = 1
 	run.abilities = AbilityResolver.new(run.state, config)
-	var offer: SkillOffer = generator.generate(run)
+	var offer: SkillOffer = _core_offer()
 	offer.targets[&"core_drop"].coordinate = Vector2i(4, 0)
 	offer.targets[&"core_drop"].color = 1
 	assert_false(SkillRules.apply(run, offer.offer_id, &"core_drop").success)
@@ -143,7 +142,10 @@ func test_fixed_seed_offers_targets_and_board_stream_are_independent() -> void:
 	var first: SkillOffer = generator.generate(run)
 	var second: SkillOffer = generator.generate(other)
 	assert_eq(first.generation_order, second.generation_order)
-	assert_eq(first.targets[&"core_drop"].coordinate, second.targets[&"core_drop"].coordinate)
+	for id: StringName in first.generation_order:
+		assert_eq(first.targets[id].coordinate, second.targets[id].coordinate)
+		assert_eq(first.targets[id].color, second.targets[id].color)
+		assert_eq(first.targets[id].piece_ids, second.targets[id].piece_ids)
 	assert_eq(first.candidate_state_after, second.candidate_state_after)
 
 func test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades() -> void:
@@ -159,6 +161,12 @@ func test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades() -> voi
 			if unique.has(skill.skill_id) or not SkillRules.rejection(sample.state, skill, sample.abilities.config).is_empty(): invalid += 1
 			unique.append(skill.skill_id)
 	assert_eq(invalid, 0)
+
+## Application fixtures select their intended card explicitly, independent of the protocol sequence.
+func _core_offer() -> SkillOffer:
+	var controlled: SkillOfferGenerator = SkillOfferGenerator.new()
+	controlled.set_catalog([_definition(&"core_drop")])
+	return controlled.generate(run)
 
 func _definition(id: StringName) -> SkillDefinition:
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:

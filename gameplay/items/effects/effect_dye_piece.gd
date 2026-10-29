@@ -26,10 +26,10 @@ func apply(context: Dictionary = {}) -> bool:
 		if in_range and piece.content_id.is_empty(): targets.append(piece)
 	var changed: int = 0
 	for index: int in range(mini(dye_count, targets.size())):
-		var selected: int = run.state.random.randi_range(0, targets.size() - 1)
+		var selected: int = run.state.random_streams.stream(&"effect_execution").randi_range(0, targets.size() - 1) if targets.size() > 1 else 0
 		var piece: PieceState = targets[selected]
 		targets.remove_at(selected)
-		var color: int = target_color if target_color >= 0 else run.state.random.randi_range(0, 4)
+		var color: int = target_color if target_color >= 0 else run.state.random_streams.stream(&"effect_execution").randi_range(0, 4)
 		if run.state.rules.set_piece_color(piece.piece_id, color): changed += 1
 	return changed > 0
 

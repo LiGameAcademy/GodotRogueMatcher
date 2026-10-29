@@ -150,7 +150,7 @@ static func _apply_choice(run: RunController, effect: ChoiceEffect, frozen: Skil
 		if not effect.dynamic_targets() or not frozen.valid_deferred_contract(): return "invalid deferred target"
 		var reason: String = effect.rejection(SkillRules.effect_context(run.state))
 		if not reason.is_empty() and not (effect is DyeMaterialEffect and (effect as DyeMaterialEffect).allow_empty_targets): return reason
-		target = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+		target = effect.freeze(SkillRules.effect_context(run.state), run.state.random_streams.stream(&"effect_execution"))
 	if effect.requires_color_choice():
 		target = (effect as ClearMaterialEffect).choose_color(frozen, selected_color)
 		if target == null: return "choose a valid color first"
@@ -176,7 +176,7 @@ static func _apply_composite(run: RunController, effect: CompositeEffect, frozen
 		# 只刷新真正到达的叶；不能提前刷新整棵子树，再由内层重复抽样。
 		if (index > 0 or refresh_first) and child is ChoiceEffect and not leaf_frozen.deferred:
 			var context: ChoiceEffectContext = SkillRules.effect_context(run.state)
-			leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.rewards.target_random)
+			leaf_frozen = (child as ChoiceEffect).refresh_after_previous(context, leaf_frozen, run.state.random_streams.stream(&"effect_execution"))
 		var leaf_color: int = -1
 		if (child is ChoiceEffect and (child as ChoiceEffect).requires_color_choice()) or (child is CompositeEffect and (child as CompositeEffect).requires_color_choice()):
 			if color_consumed or selected_color == -1: return "choose a valid color first"
@@ -205,7 +205,7 @@ static func _apply_choice_with_policy(run: RunController, effect: ChoiceEffect, 
 		if not effect.dynamic_targets() or not frozen.valid_deferred_contract(): return "invalid deferred target"
 		var reason: String = effect.rejection(SkillRules.effect_context(run.state))
 		if not reason.is_empty() and not (effect is DyeMaterialEffect and (effect as DyeMaterialEffect).allow_empty_targets): return reason
-		target = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
+		target = effect.freeze(SkillRules.effect_context(run.state), run.state.random_streams.stream(&"effect_execution"))
 	if effect.requires_color_choice():
 		target = (effect as ClearMaterialEffect).choose_color(frozen, selected_color)
 		if target == null: return "choose a valid color first"

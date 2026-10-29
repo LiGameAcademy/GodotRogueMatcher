@@ -33,7 +33,6 @@ func _apply(run: RunController, id: StringName) -> SkillApplyResult:
 
 func test_40_resources_and_support_skills_can_be_drawn_at_third_reward() -> void:
 	assert_eq(SkillOfferGenerator.CATALOG.size(), 52)
-	var seen: Array[StringName] = []
 	for seed_value: int in range(150):
 		var run: RunController = _run(seed_value)
 		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, x), x)
@@ -44,9 +43,15 @@ func test_40_resources_and_support_skills_can_be_drawn_at_third_reward() -> void
 		assert_same(SkillOfferGenerator.new().generate(run), offer)
 		assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), before)
 		assert_eq(run.state.random.state, random_before)
-		for skill: SkillDefinition in offer.choices:
-			if NEW_IDS.has(skill.skill_id) and not seen.has(skill.skill_id): seen.append(skill.skill_id)
-	for id: StringName in NEW_IDS: assert_has(seen, id)
+	# Qualification is deterministic; a finite natural sample cannot guarantee every rare card.
+	for id: StringName in NEW_IDS:
+		var run: RunController = _run()
+		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, x), x)
+		var generator: SkillOfferGenerator = SkillOfferGenerator.new()
+		generator.set_catalog([_skill(id)])
+		var offer: SkillOffer = generator.generate(run)
+		assert_not_null(offer, String(id))
+		if offer != null: assert_eq(offer.choices[0].skill_id, id)
 
 func test_refill_modifier_survives_match_skip_and_lasts_three_actual_batches() -> void:
 	var run: RunController = _run()

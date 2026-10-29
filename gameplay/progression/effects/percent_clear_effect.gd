@@ -4,7 +4,7 @@ extends ChoiceEffect
 func _init() -> void:
 	target_policy = TargetPolicy.DYNAMIC
 
-## 只读比例配置；使用奖励目标随机流，不影响普通补棋。
+## Read-only ratio; dynamic execution uses effect_execution, independent of spawning.
 @export_range(0.0, 1.0) var ratio: float = 0.25
 
 func rejection(context: ChoiceEffectContext) -> String:
@@ -20,7 +20,7 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 	target.value_before = remaining.size()
 	var count: int = floori(remaining.size() * ratio)
 	for index: int in range(count):
-		var chosen: int = random.randi_range(0, remaining.size() - 1)
+		var chosen: int = (random.randi_range(0, remaining.size() - 1) if remaining.size() > 1 else 0)
 		target.piece_ids.append(remaining[chosen])
 		remaining.remove_at(chosen)
 	return target

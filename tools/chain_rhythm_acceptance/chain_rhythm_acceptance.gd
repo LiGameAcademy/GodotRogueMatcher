@@ -127,7 +127,9 @@ func play_case() -> void:
 	for value: int in _scores: score_sum += value
 	report = {"case": case_key, "fast": fast, "low": reduced,
 		"events": _events.duplicate(true), "markers": _markers.duplicate(true),
-		"seed": 145 if case_key == "composite_chain" else 128,
+		"seed": CASES.COMPOSITE_CASE.SEED if case_key == "composite_chain" else 128,
+		"rng_scheme_version": RunRandomStreams.SCHEME_VERSION,
+		"rules_version": RunSnapshot.RULES_VERSION,
 		"rule_records": _rule_records(), "cues": _cues.duplicate(), "errors": _errors.duplicate(),
 		"score": GameManager.score, "visualized_score": score_sum,
 		"rules_digest": RunSnapshot.digest(RunSnapshot.capture(board.run)),

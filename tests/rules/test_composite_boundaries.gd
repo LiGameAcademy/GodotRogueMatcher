@@ -105,13 +105,13 @@ func test_nested_dynamic_leaves_sample_once_when_each_is_reached() -> void:
 	inner_target.leaf_targets = [SkillTarget.new(), SkillTarget.new()]
 	frozen.leaf_targets = [outer.children[0].freeze(SkillRules.effect_context(run.state), null), inner_target]
 	var random: RandomNumberGenerator = RandomNumberGenerator.new()
-	random.state = run.state.rewards.target_random.state
+	random.state = run.state.random_streams.stream(&"effect_execution").state
 	random.randi()
 	random.randi()
 	assert_eq(AbilityEffectRunner.apply_skill_effect(run, outer, frozen, SkillApplyResult.new()), "")
 	assert_eq(first.samples, 1)
 	assert_eq(second.samples, 1)
-	assert_eq(run.state.rewards.target_random.state, random.state)
+	assert_eq(run.state.random_streams.stream(&"effect_execution").state, random.state)
 
 func test_later_leaf_error_keeps_match_commit_but_cancels_waiting_descendants() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 135)

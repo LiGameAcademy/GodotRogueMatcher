@@ -1,5 +1,11 @@
 extends GutTest
 
+const CURRENT: Script = preload("res://tests/support/screening_current_records.gd")
+var _record_path: String
+
+func before_all() -> void:
+	_record_path = CURRENT.write("user://screening_annotation_current/%s" % str(Time.get_ticks_usec()), "ui-t-overlap")
+	assert_false(_record_path.is_empty())
 ## Synthetic observation fixtures only; never evidence of actual participants.
 func _runs() -> Array[Dictionary]:
 	var rows: Array[Dictionary] = []
@@ -123,7 +129,7 @@ func test_manual_decision_requires_scope_reason_confirmation_and_existing_eviden
 
 func test_report_build_does_not_mutate_original_or_invent_people_from_notes() -> void:
 	var report: ScreeningReport = ScreeningReport.new()
-	report.add("res://docs/evidence/issue119-screening/ui-t-overlap.jsonl")
+	report.add(_record_path)
 	var raw: String = JSON.stringify(report.runs)
 	var doc: Dictionary = ScreeningAnnotations.template(report.runs)
 	doc.observations[0].participant = "synthetic-P"
@@ -175,7 +181,7 @@ func test_decisions_need_observed_evidence_except_explicit_insufficient() -> voi
 
 func test_markdown_includes_observation_reason_and_evidence_as_escaped_text() -> void:
 	var report: ScreeningReport = ScreeningReport.new()
-	report.add("res://docs/evidence/issue119-screening/ui-t-overlap.jsonl")
+	report.add(_record_path)
 	var run: Dictionary = report.runs[0]
 	var doc: Dictionary = ScreeningAnnotations.template(report.runs)
 	doc.observations[0].participant = "synthetic-P"

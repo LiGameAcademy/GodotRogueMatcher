@@ -4,12 +4,12 @@ extends RefCounted
 ## 每局独占；不修改共享生成配置。
 var refill_batches: Dictionary[int, int] = {-1: 0, 1: 0}
 var color_weights: Array[int] = []
-var content_random: RandomNumberGenerator = RandomNumberGenerator.new()
+var content_random: RandomNumberGenerator
 var _plan: Array[SpawnToken] = []
 
-func _init(config: SpawnConfig, run_seed: int = 0) -> void:
+func _init(config: SpawnConfig, run_seed: int = 0, random: RandomNumberGenerator = null) -> void:
 	color_weights = config.color_weights.duplicate()
-	content_random.seed = run_seed ^ 0x535041574E
+	content_random = random if random != null else RunRandomStreams.create(run_seed, &"spawn_content")
 
 ## 只在规则入口补足计划；已显示的前缀不因权重或数量变化重抽。
 func ensure_plan(count: int, explosion: ExplosionState, line_clear: LineClearState = null) -> void:
@@ -29,7 +29,7 @@ func _draw_token(explosion: ExplosionState, line_clear: LineClearState) -> Spawn
 	if line_clear.column_unlocked:
 		column_weight = LineClearRules.CONFIG.line_type_weight + line_clear.level(&"line_column_supply") * LineClearRules.CONFIG.line_supply_per_level
 	var total: int = ordinary + core_weight + row_weight + column_weight
-	var sample: int = content_random.randi_range(1, total)
+	var sample: int = content_random.randi_range(1, total) if core_weight + row_weight + column_weight > 0 else total
 	if sample <= core_weight:
 		return SpawnToken.new(color, true, color, -1)
 	sample -= core_weight
@@ -75,6 +75,10 @@ func draw_color(random: RandomNumberGenerator) -> int:
 	return sample_color(color_weights, random)
 
 static func sample_color(weights: Array[int], random: RandomNumberGenerator) -> int:
+	var supported: Array[int] = []
+	for color: int in range(weights.size()):
+		if weights[color] > 0: supported.append(color)
+	if supported.size() == 1: return supported[0]
 	# 均匀权重直接抽颜色；内容随机流与落点流相互独立。
 	if weights.all(func(weight: int) -> bool: return weight == weights[0]):
 		return random.randi_range(0, weights.size() - 1)

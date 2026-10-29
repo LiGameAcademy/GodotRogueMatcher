@@ -139,9 +139,28 @@ func test_empty_build_hint_uses_full_width_then_returns_to_three_columns() -> vo
 	assert_eq(list.cards.columns, 3)
 	assert_false(list.empty_label.visible)
 
-func test_legacy_v43_replay_and_flavor_do_not_change_rule_configuration() -> void:
+func test_legacy_v43_remains_viewable_but_new_protocol_rejects_exact_replay() -> void:
 	var replay: RuleReplay = RuleReplay.new()
-	assert_true(replay.replay_file("res://tests/fixtures/issue128_legacy_v43.jsonl"), replay.error)
+	var records: Array[Dictionary] = replay.read_file("res://tests/fixtures/issue128_legacy_v43.jsonl")
+	assert_eq(replay.error, "")
+	assert_false(records.is_empty())
+	assert_false(replay.replay(records))
+	assert_eq(replay.error, "record_version_mismatch")
+	assert_false(replay.complete)
+	assert_true(RecordViewData.valid_state(records[0].initial, Vector2i(9, 9)))
+	assert_eq(records[0].rules_version, "run-commands-v43-shape-identity-order")
+
+func test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration() -> void:
+	var current: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 13)
+	current.initialize()
+	current.recorder = RunRecorder.new()
+	current.recorder.begin(current, "fixture", false)
+	var bot: RandomLegalBot = RandomLegalBot.new(99)
+	assert_true(current.execute_command(bot.choose(current)).accepted)
+	while current.state.phase != RunState.Phase.INPUT: current.advance()
+	current.recorder.finish(current, "censored", "fixture_boundary")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay(current.recorder.records), replay.error)
 	assert_true(replay.complete)
 	var run: RunController = AestheticCases.create("cards")
 	var before: String = RunSnapshot.digest(RunSnapshot.config(run))
