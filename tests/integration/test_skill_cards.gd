@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const CARD: PackedScene = preload("res://ui/skill_card.tscn")
 const POPUP: PackedScene = preload("res://ui/popup_skill_choice.tscn")
@@ -65,6 +65,8 @@ func _assert_all_cards_fit(low_effects: bool) -> void:
 
 func test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run() -> void:
 	var skill: SkillDefinition = SkillDefinition.new()
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.roles = [&"generic"]
 	skill.description = "旧完整描述"
 	assert_string_contains(SkillChoiceText.summary(skill), "[人工规则]")
 	assert_string_contains(SkillChoiceText.summary(skill), skill.description)

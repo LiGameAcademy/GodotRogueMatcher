@@ -90,38 +90,7 @@ func write(directory: String) -> bool:
 	return file.get_error() == OK
 
 func _opportunities() -> Dictionary:
-	var generated: Dictionary[String, Dictionary] = {}
-	var presented: Dictionary[String, bool] = {}
-	var acquired: Dictionary[String, String] = {}
-	var failed_choices: int = 0
-	for event: Dictionary in events:
-		var data: Dictionary = event.payload
-		var key: String = event.run_id + ":" + String(data.get("offer_id", ""))
-		match event.event_name:
-			"offer_generated": generated[key] = event
-			"offer_presented": presented[key] = true
-			"skill_acquired": acquired[key] = data.skill_id
-			"command_resolved":
-				if data.type == "choose" and not data.accepted: failed_choices += 1
-	var skills: Dictionary = {}
-	var unseen: int = 0
-	var unconsumed: int = 0
-	for key: String in generated:
-		var event: Dictionary = generated[key]
-		var opportunity: bool = event.source == "bot" or (event.source in ["human", "fixture"] and presented.has(key))
-		if event.source == "human" and not presented.has(key): unseen += 1
-		if presented.has(key) and not acquired.has(key): unconsumed += 1
-		for id: String in event.payload.choices:
-			var group: String = _group_key(event) + "/" + id
-			if not skills.has(group): skills[group] = {"dimensions": _dimensions(event), "skill_id": id, "generated": 0, "opportunities": 0, "acquired": 0}
-			skills[group].generated += 1
-			if opportunity:
-				skills[group].opportunities += 1
-				if acquired.get(key) == id: skills[group].acquired += 1
-	for key: String in skills:
-		var row: Dictionary = skills[key]
-		row["conditional_selection_rate"] = float(row.acquired) / row.opportunities if row.opportunities > 0 else null
-	return {"skills": skills, "human_generated_not_presented": unseen, "presented_not_consumed": unconsumed, "failed_choices": failed_choices, "eligibility_rate": null}
+	return preload("res://tools/telemetry_analysis/offer_measurements.gd").summarize(events, _group_key, _dimensions)
 
 func _base(event: Dictionary) -> Dictionary:
 	var result: Dictionary = {}

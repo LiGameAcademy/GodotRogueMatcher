@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://gameplay/progression/effects/clear_material_effect.gd" id="5"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/dye_material_effect.gd" id="6"]
 [ext_resource type="Script" path="res://gameplay/skills/effects/skill_effect.gd" id="7"]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
 
 [sub_resource type="Resource" id="clear"]
 script = ExtResource("5")
@@ -34,23 +36,32 @@ script = ExtResource("2")
 level = 1
 abilities = Array[ExtResource("3")]([SubResource("ability")])
 
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([&"dye"])
+affinity = Array[StringName]([&"dye"])
+invests = Array[StringName]([&"dye"])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([])
+needs = Array[StringName]([])
+roles = Array[StringName]([&"bridge", &"instant"])
+lifetime = "instant"
+once_per_run = true
+upgradeable = false
+repeatable = false
+utility_pick = false
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"composite_clear_dye"
 title = "清色后染"
 description = "有序组合：先自选颜色清理该色普通棋（含引信），再对存活异色材料染色。清理触发的引信爆炸等整段组合结束后再结算。"
 short_description = "有序：清一色（含引信）→ 再染色。\n引信爆炸延后到组合结束。"
 levels = Array[ExtResource("2")]([SubResource("level_1")])
-base_weight = 8.0
 tags = Array[StringName]([&"space", &"dye", &"exp", &"extra"])
-is_starter = false
 is_persistent = true
-fallback_only = false
-rescue_offer = true
 rarity = 2
 maximum_level = 1
 minimum_reward = 1
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
 prerequisite = &""

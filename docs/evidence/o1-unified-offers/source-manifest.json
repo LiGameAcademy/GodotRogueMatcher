@@ -1,0 +1,873 @@
+{
+  "tested_commit": "59e8ef3c7267310bf2fcc26765ab13fcaae91905",
+  "files": [
+    {
+      "path": "gameplay/progression/README.md",
+      "sha256": "26d2ff602d37ef9fda90c0c822c58bea3320ded6295b14fc4a2afeb6ceccebbe"
+    },
+    {
+      "path": "gameplay/progression/SKILL_INSTANCES.md",
+      "sha256": "a234fa489293ee17fdd885542775a41fed53613c4a4877054620dc5be782c057"
+    },
+    {
+      "path": "gameplay/progression/SKILL_MIGRATION.md",
+      "sha256": "39bb21016a18474facddda449af77c9ac1df3b150d5c0cf9e1de12f0503be9fc"
+    },
+    {
+      "path": "gameplay/progression/SKILL_PIPELINE.md",
+      "sha256": "7a32c75965254a695c7e709b1248cf57e35cdfdd025bb00e59de2b07e583c795"
+    },
+    {
+      "path": "gameplay/progression/composite_skill_target.gd",
+      "sha256": "1846279684a46b558fce5e36f41e54530f77047979d5209584b03e5685b07733"
+    },
+    {
+      "path": "gameplay/progression/composite_skill_target.gd.uid",
+      "sha256": "02017d4b14491fcb633f0b01415e46aca55c881aff6e2036b257548dc121a4a0"
+    },
+    {
+      "path": "gameplay/progression/content/assign_fuse.tres",
+      "sha256": "b326769bbc8da81042b3d8589a226becaf20833c2dffa71b3f6490dc1ebfb0ad"
+    },
+    {
+      "path": "gameplay/progression/content/blast_aftershock.tres",
+      "sha256": "ce235d8ea9adf0a8df965915ec3beba8e97c3624f68c35189e56ccc37c685ab3"
+    },
+    {
+      "path": "gameplay/progression/content/blast_chain_bonus.tres",
+      "sha256": "376942d24657cd544b9ef0a1dce58270bf571534cec77871bcdfa7a8d7bc1271"
+    },
+    {
+      "path": "gameplay/progression/content/blast_chain_radius.tres",
+      "sha256": "a44a761d70f10d5455c9aea5a1dac080c2dbecc94e9c8d213c15c72de42e70a6"
+    },
+    {
+      "path": "gameplay/progression/content/blast_dye.tres",
+      "sha256": "c73c20a312e779105bf175d5b74b90b6bdf82e57464d184ba533dca06a4aa04d"
+    },
+    {
+      "path": "gameplay/progression/content/blast_extra.tres",
+      "sha256": "11c02ed193b6195514aeabdec2cabd9452febc1e035a7910279242150cc61938"
+    },
+    {
+      "path": "gameplay/progression/content/blast_radius.tres",
+      "sha256": "85d53b84dd9c7a592543e163a96c44f24b02ce0cba9988918408b00982c8ff9e"
+    },
+    {
+      "path": "gameplay/progression/content/blast_refill_relief.tres",
+      "sha256": "1f4d41941881197dc9b0e60645cb255a04ef8fc1a50123ae0cdde0157cc41608"
+    },
+    {
+      "path": "gameplay/progression/content/blast_reward.tres",
+      "sha256": "f15fdacf100ee43cd8008a5ae4ea6060be69b3d0cea182b54116c1f345915303"
+    },
+    {
+      "path": "gameplay/progression/content/chain_reward.tres",
+      "sha256": "7870b3b7972fbbb405b9b06aff3fd189686c7eb4619444a55132e02d028f6d4e"
+    },
+    {
+      "path": "gameplay/progression/content/color_weight_down.tres",
+      "sha256": "d4869efd0f4d0c1fe2eb155c53fb58427f0c158205947009d1c4327a18f5ffbb"
+    },
+    {
+      "path": "gameplay/progression/content/color_weight_up.tres",
+      "sha256": "4982768ebced7dca5549fe3794ba2dde648df2b6b66c85b80d2ba88da3aeb457"
+    },
+    {
+      "path": "gameplay/progression/content/composite_clear_dye.tres",
+      "sha256": "321082503bcf3b4d8a4d9af0f73d0f92605e7ad3f430a04a22067f27a8429d7b"
+    },
+    {
+      "path": "gameplay/progression/content/composite_refill_color.tres",
+      "sha256": "7d3594eb0cc6f1e638bcb4ec40ad10c8a8c09aa4759629a5f09366f6ffe295f0"
+    },
+    {
+      "path": "gameplay/progression/content/core_drop.tres",
+      "sha256": "cc2694558469b58bfc7d42ed1f898c8679f6b58551197f25b09b9067e85cfc7c"
+    },
+    {
+      "path": "gameplay/progression/content/core_fuse_payload.tres",
+      "sha256": "5e400a3a4e3faf54b074bc82f219fa36e5e7c87bc71a846bedada63c360feb32"
+    },
+    {
+      "path": "gameplay/progression/content/core_manual_detonation.tres",
+      "sha256": "4b0dfc15fc8f2c0d266b2a4d2754ef27f2b6d74f2a46d68a983a583dbb95900e"
+    },
+    {
+      "path": "gameplay/progression/content/core_radius.tres",
+      "sha256": "e5ff02a28cf58bc09686aa99ff80bd25bc7ad32cb3ecf16d3cba54f7b6ecd35a"
+    },
+    {
+      "path": "gameplay/progression/content/core_supply_up.tres",
+      "sha256": "f4c0df8d9672b8d2014bd7e613354f618e79c668c3077796f4e709f3eac1806d"
+    },
+    {
+      "path": "gameplay/progression/content/dye_chain_depth.tres",
+      "sha256": "97da6fdadd3980f08372755a21b40d2d7862cbbb2b632bfdbf71c9484287abf6"
+    },
+    {
+      "path": "gameplay/progression/content/dye_mark_reward.tres",
+      "sha256": "1276acc1f8590350d916be7331abc5b9cccf88a58c6fd9f451847377b3f70c2b"
+    },
+    {
+      "path": "gameplay/progression/content/dye_target_up.tres",
+      "sha256": "4d76d61830802a61dc7e95391dfa5119781649a9bd1c2bfc3b61b10d934a22a2"
+    },
+    {
+      "path": "gameplay/progression/content/fuse_capacity.tres",
+      "sha256": "ed419b5eba57fa65814ea23fbda14168782d06a50871b12e5f28a97d4d350865"
+    },
+    {
+      "path": "gameplay/progression/content/fuse_match_plant.tres",
+      "sha256": "0ebe026e0f5abe2a10fba0cb0121719b70c13afe3de90023a95696bd84d7c60f"
+    },
+    {
+      "path": "gameplay/progression/content/fuse_relay.tres",
+      "sha256": "e869d6c0f7c6c2d94c49139ff703876984cdbd93e3b2589f93f0b3672a9405ba"
+    },
+    {
+      "path": "gameplay/progression/content/goal_score_bonus.tres",
+      "sha256": "1206420e096ea4891d0948fde0f6af1f687eac04d10cdd35439e6d069c6e2268"
+    },
+    {
+      "path": "gameplay/progression/content/instant_color_clear.tres",
+      "sha256": "2e7155f598b0d4fb1dab7035074275dd6cb116f04e00d13545ff8288ddaed275"
+    },
+    {
+      "path": "gameplay/progression/content/instant_color_dye.tres",
+      "sha256": "5266b530bc85fb1c05636c5b34e7a33affee7bb6da4e5c41910ed586eaee0075"
+    },
+    {
+      "path": "gameplay/progression/content/instant_column_transform.tres",
+      "sha256": "554b2e9244cbce52536ea946bd7bd6ca207b15f20ddf19d383212c16c9036673"
+    },
+    {
+      "path": "gameplay/progression/content/instant_core_transform.tres",
+      "sha256": "174c5221174e566414bbe9ef27c5838b8c6b44e2c01f92fd483306f8da836901"
+    },
+    {
+      "path": "gameplay/progression/content/instant_fuse_ignite.tres",
+      "sha256": "012aa2fac999853675174582373b92142dd9b1d93842a39f957a2374f4dffd3f"
+    },
+    {
+      "path": "gameplay/progression/content/instant_line_clear.tres",
+      "sha256": "996465f8d836eeb962c0c39c0fd17aa48b7b4a173028a19a64076f6eb7439166"
+    },
+    {
+      "path": "gameplay/progression/content/instant_percent_clear.tres",
+      "sha256": "68216489d168ed272832b93fb3f16ed0c831ea462d51de66fbfbdf39c2c7b7ef"
+    },
+    {
+      "path": "gameplay/progression/content/instant_row_transform.tres",
+      "sha256": "0d549051ca91f54e9e3daa6783fdbb23975ff2abd8c4e7a449eaccbb11deed11"
+    },
+    {
+      "path": "gameplay/progression/content/instant_thin.tres",
+      "sha256": "be36824901afece288a922c62fdf0cf43a35d00372e436667417454f8466e015"
+    },
+    {
+      "path": "gameplay/progression/content/line_clear_score.tres",
+      "sha256": "8a7605e89586f54c0996e3324a4fb261e9cc8a44389383d3ce350fe152dd6de0"
+    },
+    {
+      "path": "gameplay/progression/content/line_column_drop.tres",
+      "sha256": "a75548dd65efb4fedefe310fd65be9288b265a0dfe4c81aaf078854c66c932c6"
+    },
+    {
+      "path": "gameplay/progression/content/line_column_span.tres",
+      "sha256": "c573d71253f0a528dc82003d3545eb9df1d978f188279cd873ddfa57d12e4139"
+    },
+    {
+      "path": "gameplay/progression/content/line_cross_upgrade.tres",
+      "sha256": "94892de6114d17f860d474bd1afb0528635e1bf270dbe4baa73f57013f3b2a80"
+    },
+    {
+      "path": "gameplay/progression/content/line_manual_clear.tres",
+      "sha256": "84350ebdee160065e2afd1f7a9f8f07f224f499e803bf5939860437bfc50026e"
+    },
+    {
+      "path": "gameplay/progression/content/line_row_drop.tres",
+      "sha256": "7605794685dd174f0cd3247b636619de5cadf64f3bbaf118a98379461017a829"
+    },
+    {
+      "path": "gameplay/progression/content/line_row_span.tres",
+      "sha256": "30d88b64fe127bbcac2bb516370e15029ae92527683fd112b2af104b104fd73f"
+    },
+    {
+      "path": "gameplay/progression/content/longline_reward.tres",
+      "sha256": "ec946f0ce37a84e5995f001c45851e9d2450647eddafd5582c7120f8eea412fb"
+    },
+    {
+      "path": "gameplay/progression/content/marked_reward.tres",
+      "sha256": "778161142701265a3841d461092416f64fccbd741ae1c9ecdec6327407768ee1"
+    },
+    {
+      "path": "gameplay/progression/content/match_dye_echo.tres",
+      "sha256": "f102149c879696953819faf8f01080bf4c09d16f4f1f72b8dbb2399d439dc9f2"
+    },
+    {
+      "path": "gameplay/progression/content/match_extra.tres",
+      "sha256": "f176b0fc27db436caddd73cc6389d970c8fb496115f75613557e6c871502c186"
+    },
+    {
+      "path": "gameplay/progression/content/offer_config.tres",
+      "sha256": "b785d6992581dc25fd99de842f49ffd9454f0043e24edc344ad81e6463fa51b5"
+    },
+    {
+      "path": "gameplay/progression/content/precision_reward.tres",
+      "sha256": "ba3a3e1fc68c059c079e4016b661866fd355a9c8dd1118e57530b80c94b1cdda"
+    },
+    {
+      "path": "gameplay/progression/content/progression_config.tres",
+      "sha256": "4a2baeaa48daa0a6c6bc9a1b5d78f71dd33effabf3bfca0cf9d8460e1e3d64ad"
+    },
+    {
+      "path": "gameplay/progression/content/refill_less.tres",
+      "sha256": "de3c0988765e2ee8cff2dd1cd1cca0493bde5fcc8b42cdc58ed99fb2807879c0"
+    },
+    {
+      "path": "gameplay/progression/content/refill_more.tres",
+      "sha256": "e661c0b7019e3a5e624fff89d1ce53d5ee26d587ec2a58d8508df64322bce602"
+    },
+    {
+      "path": "gameplay/progression/content/relay_capacity.tres",
+      "sha256": "c9545c1f6b7ae35bc9e009e6f4f8afb9757886bf97d17ddcf3757e81c942acfb"
+    },
+    {
+      "path": "gameplay/progression/content/score_multiplier.tres",
+      "sha256": "75f359e90a49d3ded135256da751ad2f43346623ad7a77299267465e5082e811"
+    },
+    {
+      "path": "gameplay/progression/content/selective_blast.tres",
+      "sha256": "2c31a74f7d2a67bebd76ca68299908f003f5c40a878d4d4106f54f1f7ea69bff"
+    },
+    {
+      "path": "gameplay/progression/effects/assign_fuse_effect.gd",
+      "sha256": "ab8296a75907512313f6a721c37be426cc879497513d6ca7b1a77c6d0a86bd02"
+    },
+    {
+      "path": "gameplay/progression/effects/assign_fuse_effect.gd.uid",
+      "sha256": "e671dc39b477e36a4f2d8fab4d6ecb80b0f8175f589316829d75674ba13c23e7"
+    },
+    {
+      "path": "gameplay/progression/effects/atomic_transform_effect.gd",
+      "sha256": "13fd1a9425a082135de1dd813f8d1cf7f296487ba944ff3dddae045138e12899"
+    },
+    {
+      "path": "gameplay/progression/effects/atomic_transform_effect.gd.uid",
+      "sha256": "98c2b262c58ca19532e3692687d78f921ed8d55ddbfd65699d26389af7bef0cd"
+    },
+    {
+      "path": "gameplay/progression/effects/choice_effect.gd",
+      "sha256": "6ca54d7b9616eb72c6b96bc870042ca785edaeb1a516d99efd1ea96bab2ecb50"
+    },
+    {
+      "path": "gameplay/progression/effects/choice_effect.gd.uid",
+      "sha256": "3122c70930604bfd46263bb146675d4e3591da8922335628f0f7184c32df41ff"
+    },
+    {
+      "path": "gameplay/progression/effects/choice_effect_context.gd",
+      "sha256": "3f8fdb98b0422b8dede7b0d9db563fc75c644f08cd7849892332170f66df971f"
+    },
+    {
+      "path": "gameplay/progression/effects/choice_effect_context.gd.uid",
+      "sha256": "53b5aea37e8e9921423bb41b6088e13df0ccbaa4b7aa49f9e2f87530aa43395e"
+    },
+    {
+      "path": "gameplay/progression/effects/choice_effect_request.gd",
+      "sha256": "7e91dafb1d68a603ccebcd23a27774a1ef8d5111d4753efda2bdf5c3b6f195d2"
+    },
+    {
+      "path": "gameplay/progression/effects/choice_effect_request.gd.uid",
+      "sha256": "7aa962b3b8b872fe79e57d24d0496a5cea0b70ff406f7b5523d1f9e6687df148"
+    },
+    {
+      "path": "gameplay/progression/effects/clear_material_effect.gd",
+      "sha256": "1c44102226b87b5db836e373a0e8755b7238ce4825184788001de7b0600dbf8c"
+    },
+    {
+      "path": "gameplay/progression/effects/clear_material_effect.gd.uid",
+      "sha256": "b6ca77a7461e45f6ad3d802a1d5770ea95aa34fd67e4c3f0f578c2ce4bf30efe"
+    },
+    {
+      "path": "gameplay/progression/effects/color_weight_effect.gd",
+      "sha256": "05884b0f8650016b6eea41bab3d1b0d15a62228dff0a6006e39888195710c943"
+    },
+    {
+      "path": "gameplay/progression/effects/color_weight_effect.gd.uid",
+      "sha256": "a70b7201dc122355944ab0c96c2d0a97be595823c99110b139c7aad705841832"
+    },
+    {
+      "path": "gameplay/progression/effects/demolition_stat_effect.gd",
+      "sha256": "2970c65b8ad56d065716f49d9d49190020a7404ed3edbf028a0d013a522e5297"
+    },
+    {
+      "path": "gameplay/progression/effects/demolition_stat_effect.gd.uid",
+      "sha256": "672667f8e929b3f42bceec1bbe7e435f67276037025403beb0d7d824e055fd0d"
+    },
+    {
+      "path": "gameplay/progression/effects/dye_material_effect.gd",
+      "sha256": "104227d8d13e18908a25937ea3f5d5c222bbdf45ac9fd57cf60896ebcdcc6615"
+    },
+    {
+      "path": "gameplay/progression/effects/dye_material_effect.gd.uid",
+      "sha256": "d01718fe40a9d92c2420e1ec2cdb995c715c479cb5d7b69cecf2f4eb3c1c68d6"
+    },
+    {
+      "path": "gameplay/progression/effects/ignite_fuses_effect.gd",
+      "sha256": "6ea8a6431698b83aea15c7552ec586cafafa62dfc9ef9058ee73835d34ddbf8f"
+    },
+    {
+      "path": "gameplay/progression/effects/ignite_fuses_effect.gd.uid",
+      "sha256": "dbaca58e195550700234fc74cf14feb39793862ad7f0b2b40b622a2f925b506e"
+    },
+    {
+      "path": "gameplay/progression/effects/install_dye_upgrade_effect.gd",
+      "sha256": "6f168751bfedd9144e53f48e50bdf2a2dbdc50e7180fd21311be7436a45a7274"
+    },
+    {
+      "path": "gameplay/progression/effects/install_dye_upgrade_effect.gd.uid",
+      "sha256": "a3cc318b78b9b1191514e75afd11a3f44fd67db09802315208f55e26970b6415"
+    },
+    {
+      "path": "gameplay/progression/effects/install_goal_bonus_effect.gd",
+      "sha256": "43256cbaa931da186804b3b71b58e2d35000312d5ae329a038f4cf72c699385d"
+    },
+    {
+      "path": "gameplay/progression/effects/install_goal_bonus_effect.gd.uid",
+      "sha256": "4c39f9265f0e6af733132a65f54806d9279bf8aae1981a75304d5c248c6a767d"
+    },
+    {
+      "path": "gameplay/progression/effects/install_line_upgrade_effect.gd",
+      "sha256": "66dcad90aab058aa4c4d9daaeb1c07b385b51084b517249ded06438e1c553286"
+    },
+    {
+      "path": "gameplay/progression/effects/install_line_upgrade_effect.gd.uid",
+      "sha256": "62f37cae8e7c1877d2e5b36962600ffdb2bb21d32a8c9da66fa939b3960d3509"
+    },
+    {
+      "path": "gameplay/progression/effects/install_upgrade_effect.gd",
+      "sha256": "867646c34e7733f387f9764d1cb7f9658c5dc090ea6cb22613b5f3e4122a7cf9"
+    },
+    {
+      "path": "gameplay/progression/effects/install_upgrade_effect.gd.uid",
+      "sha256": "3bdb2446db21189fc5baee8d6f38876f296f73e1fab33259546f3bb385630f23"
+    },
+    {
+      "path": "gameplay/progression/effects/percent_clear_effect.gd",
+      "sha256": "9f57f4d34a1f0c0a6d4debf019cf74d8b1a331c3e7b34c28f8fec433bc1809f9"
+    },
+    {
+      "path": "gameplay/progression/effects/percent_clear_effect.gd.uid",
+      "sha256": "4c305814d8653aa8f6cd46dd1b219137729862895f88a153bb3829a5ea6c8b9a"
+    },
+    {
+      "path": "gameplay/progression/effects/refill_count_effect.gd",
+      "sha256": "09a067c3db38642c2db87491defaa241dec54252cdaacd73daf2bdc4964464cd"
+    },
+    {
+      "path": "gameplay/progression/effects/refill_count_effect.gd.uid",
+      "sha256": "afd0542fe3e58a41b319f91daacec7b4de7b5588bc59ed72dd2d5e8d0518d868"
+    },
+    {
+      "path": "gameplay/progression/effects/thin_material_effect.gd",
+      "sha256": "f9b1e1c85d380ea4f544a669b7200f3195b251a3ab00d9b72422a0c3ea7b0d06"
+    },
+    {
+      "path": "gameplay/progression/effects/thin_material_effect.gd.uid",
+      "sha256": "aac36691274c2d10ad41985182426196adc2b37e60cb1cd882b06c93e03da8e5"
+    },
+    {
+      "path": "gameplay/progression/effects/transform_material_effect.gd",
+      "sha256": "37d844a60eb2331155d9a23ce29c681c90ca6aaafc719711fed753c2a118dab3"
+    },
+    {
+      "path": "gameplay/progression/effects/transform_material_effect.gd.uid",
+      "sha256": "dda1be556d4200fd2aba4ec9ae9a97ec95ce7354994373ab32d3a2e0a2fd78ff"
+    },
+    {
+      "path": "gameplay/progression/effects/unlock_core_supply_effect.gd",
+      "sha256": "17104820c4d368dde818d6d3c25b6a99056789663c767ede967a49eb656e77bd"
+    },
+    {
+      "path": "gameplay/progression/effects/unlock_core_supply_effect.gd.uid",
+      "sha256": "dd63957f3b0d3cb04fdea15be213e5e4e8aaac8d5136f9f977be24c31e3fc554"
+    },
+    {
+      "path": "gameplay/progression/effects/unlock_line_supply_effect.gd",
+      "sha256": "16fe4fbedabf29b796a34c96bcfe7d3506a689849adaed8237bf65e5878d2286"
+    },
+    {
+      "path": "gameplay/progression/effects/unlock_line_supply_effect.gd.uid",
+      "sha256": "473de8e735b23b9b7085a8315950b479d3c4589b9c241aabb5b5c8bb6b64868a"
+    },
+    {
+      "path": "gameplay/progression/effects/unlock_shape_effect.gd",
+      "sha256": "5c57fbde125844d3d983692edb04af4d13ad7932729a28cf411825602475e695"
+    },
+    {
+      "path": "gameplay/progression/effects/unlock_shape_effect.gd.uid",
+      "sha256": "ce32c32582ad8b8ab20a3bc917873701c519c2dee82442cf96a7038df6175598"
+    },
+    {
+      "path": "gameplay/progression/level_up_system.gd",
+      "sha256": "93556ccfba2fef420b29fe12023d874ef7e4903c5070e5b0acdd0b3343e24636"
+    },
+    {
+      "path": "gameplay/progression/level_up_system.gd.uid",
+      "sha256": "79dcfc6f3446da918d47272e4e303f18b47ad222828c81d3dc9f4a079eb19320"
+    },
+    {
+      "path": "gameplay/progression/offer_config.gd",
+      "sha256": "ec1a19d5a41ce7a3c8a79a05bfedce9df3f87d9f59abdaddfb85553f03f9fe1e"
+    },
+    {
+      "path": "gameplay/progression/offer_config.gd.uid",
+      "sha256": "18d6cd2de663afb7cbeb5c825b4fa1ced56f83c6e6671106c58e24b25c22287f"
+    },
+    {
+      "path": "gameplay/progression/offer_rarity_step.gd",
+      "sha256": "d48d8057b271c63e0320b27ee8d5a76668ade9398f636542fd068eca8fdb89d6"
+    },
+    {
+      "path": "gameplay/progression/offer_rarity_step.gd.uid",
+      "sha256": "c2ba5053cb28793e9bfcd3c20ec847c53915d521a9474c00ab66dc9c21068d1e"
+    },
+    {
+      "path": "gameplay/progression/offer_weight_rules.gd",
+      "sha256": "ea554ab0249ce797cea64b3631637f6cc0e4d9365f569944b7e187ca0e3dd74f"
+    },
+    {
+      "path": "gameplay/progression/offer_weight_rules.gd.uid",
+      "sha256": "137e354bf4f21ba5a7a9997772bc7d399e93f94aa91de6e08d42b3413458e651"
+    },
+    {
+      "path": "gameplay/progression/progression_config.gd",
+      "sha256": "91b5e269cb698b12855303b3d6e3abcbe227e53bfc1131ca9745c2c397f5aa34"
+    },
+    {
+      "path": "gameplay/progression/progression_config.gd.uid",
+      "sha256": "8edf66420ab21d876107d394f41f6355f540706fdcfe2255e467be84014eb739"
+    },
+    {
+      "path": "gameplay/progression/progression_state.gd",
+      "sha256": "c59a981488baf4bec697df29a48d06e7d2ca282f317bb68ebd64cbcd734f626b"
+    },
+    {
+      "path": "gameplay/progression/progression_state.gd.uid",
+      "sha256": "4d8b8129fbd1d5de968bab7c53c6eeb485fced27eb6dd94e0713bd909c11c94d"
+    },
+    {
+      "path": "gameplay/progression/reward_offer_rules.gd",
+      "sha256": "9c26372dabc9d396559d60abf17e883bbbdc2df8fc8ec8053b41f2bff291ee67"
+    },
+    {
+      "path": "gameplay/progression/reward_offer_rules.gd.uid",
+      "sha256": "7b882115b766bec91975cdb2ad85a87b93c3dc88796444c14f81e3d279d6121a"
+    },
+    {
+      "path": "gameplay/progression/reward_state.gd",
+      "sha256": "dd8b26d561ddd3909a6484973f05f330d5688f305779ab28056c353d2616b86e"
+    },
+    {
+      "path": "gameplay/progression/reward_state.gd.uid",
+      "sha256": "703b12ec4b668e8658a931c4940d2aae605921a79e7e169d680619450e029617"
+    },
+    {
+      "path": "gameplay/progression/skill_apply_result.gd",
+      "sha256": "fb3715398d93abef461dbc4fd8a6480d8a94353fd34b922c7cb7980ce9d8e5cc"
+    },
+    {
+      "path": "gameplay/progression/skill_apply_result.gd.uid",
+      "sha256": "f054d195aa7b0b7d3b40601b13d29f642f6278e76a2bbe77282ff856a6182ab0"
+    },
+    {
+      "path": "gameplay/progression/skill_build_snapshot.gd",
+      "sha256": "f216e25ba9b9fcea75def38d9cd279a490fd4a00ec1ee5d9ac704d6c34723126"
+    },
+    {
+      "path": "gameplay/progression/skill_build_snapshot.gd.uid",
+      "sha256": "9deb673c6d7716c5c48fd4a7b3c0fa186d541222a54828b421dd73776e6c9f5b"
+    },
+    {
+      "path": "gameplay/progression/skill_definition.gd",
+      "sha256": "ccf533425a15c4d8a99281aa68c7f76cdcf6d494b7a6a807f257149e9d26a055"
+    },
+    {
+      "path": "gameplay/progression/skill_definition.gd.uid",
+      "sha256": "e49b0f16355b82f779c298c78141b6ba2ac19b96130b2223bfc75f218b57039d"
+    },
+    {
+      "path": "gameplay/progression/skill_instance.gd",
+      "sha256": "4e886e063651a21f1eba3f4c6fcd975826550a0db3b0f695657fac3d91564209"
+    },
+    {
+      "path": "gameplay/progression/skill_instance.gd.uid",
+      "sha256": "b7bdc00500221868ccb5ecadfa8860d590a59da9e0df627c377658b1a0e38cb6"
+    },
+    {
+      "path": "gameplay/progression/skill_level_definition.gd",
+      "sha256": "ee9dd8a54ddb918fc9f1230810a03740c175e24b03a15a6aa6295c09f67d0dd4"
+    },
+    {
+      "path": "gameplay/progression/skill_level_definition.gd.uid",
+      "sha256": "bc57f30f7de456ad6ba3828811980a04519d63611c785832a068913a7a4bd330"
+    },
+    {
+      "path": "gameplay/progression/skill_mark_result.gd",
+      "sha256": "9d67b2d9506e7ff55ddde476904e3d9e75a54e8c84dd19eb2fb989f886461003"
+    },
+    {
+      "path": "gameplay/progression/skill_mark_result.gd.uid",
+      "sha256": "ee51e84f458ce58a164fb6ab25bbbd9b026b900f355630c5b804139dab16053b"
+    },
+    {
+      "path": "gameplay/progression/skill_offer.gd",
+      "sha256": "9a6b4dd8467d3f642097b51de32563bb19ecf75cd21b9ba2cb8bcf06c17f3323"
+    },
+    {
+      "path": "gameplay/progression/skill_offer.gd.uid",
+      "sha256": "cb6eb57d1e45acf1c4f3aa8bc561c3b40a846d69e6bed87ad3e9426e6cd87f49"
+    },
+    {
+      "path": "gameplay/progression/skill_offer_generator.gd",
+      "sha256": "1d1cf8c59317c01bcb940b927cb2a7f07c39a2b981de4c3c467d76bddcbc4fa2"
+    },
+    {
+      "path": "gameplay/progression/skill_offer_generator.gd.uid",
+      "sha256": "ab04b3d582bfd8acc5024a52cbf00e0d33100a315c2b66c5fd4fda5e9806943b"
+    },
+    {
+      "path": "gameplay/progression/skill_offer_traits.gd",
+      "sha256": "b6a291cc3cdf744fd024bb51c82a9d983c2a9cf6f81f20ecf3aa665de9ff2519"
+    },
+    {
+      "path": "gameplay/progression/skill_offer_traits.gd.uid",
+      "sha256": "eb13968ec2daa44d1587794708f8fe724624731b7ffee4bf2d3bd8d459c70845"
+    },
+    {
+      "path": "gameplay/progression/skill_rules.gd",
+      "sha256": "589788acd83dcb1653767bc5bfd8fe4c1d463e09455559bc8f61a8d94e4e2b78"
+    },
+    {
+      "path": "gameplay/progression/skill_rules.gd.uid",
+      "sha256": "1bdfc86f713ab62bb0cfac5258aa19bccb7b09f19cefcb0298ba7b730171563e"
+    },
+    {
+      "path": "gameplay/progression/skill_target.gd",
+      "sha256": "d25894c9d6d8018e73265522b9388650bce3909be04cc609bb07bf2881c03e4b"
+    },
+    {
+      "path": "gameplay/progression/skill_target.gd.uid",
+      "sha256": "bf5db5e872d12179ea01e94f4800180a65f74872a6e22f3413c2f5f8a08edcd8"
+    },
+    {
+      "path": "gameplay/progression/stages/goal_completion_rules.gd",
+      "sha256": "af76b6bc746848bf5d4bde71bd6451be7ce0a0666eb7b0f7a5dc6cf3a56e55a6"
+    },
+    {
+      "path": "gameplay/progression/stages/goal_completion_rules.gd.uid",
+      "sha256": "3c85b3c78114d0a6178aa591880f8c4461754852e6326baa0fdcbb55ba484f53"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_config.gd",
+      "sha256": "3bc3fb3ca8ced7b36c0c2514047c7bde5c515c1ca58c472ea1eb6cd539007778"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_config.gd.uid",
+      "sha256": "b3ba41dac400a661d521cbf5e191474cde8c44420aee0239e59e7acce27ee35d"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_config.tres",
+      "sha256": "4d5fddea8d811b975b821cf3b095fe048b95b7d871324ef757b4cc5b49b3a253"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_result.gd",
+      "sha256": "3deaa7ff0998033e4fdccbe038d73b9b3ef25bb5f6a9c43712f919abae61d718"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_result.gd.uid",
+      "sha256": "1716473d74c163d434b3757d703e1b9fb158df8ceb2d9abf507443b0d8a0075d"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_state.gd",
+      "sha256": "ab7eba22505d28b78a04431161c36f8f97bcdab283837b9d7e0859d1563ba219"
+    },
+    {
+      "path": "gameplay/progression/stages/stage_state.gd.uid",
+      "sha256": "9c9bb5be19e3c513d4a6cc6149d1bf4a2aafd03bb87865be8395dc11a430d32d"
+    },
+    {
+      "path": "gameplay/run/recording/run_snapshot.gd",
+      "sha256": "624a59f37838e1612048b29cbdb18c1ed5e60c92da435e9389ed4f7908e0fd6e"
+    },
+    {
+      "path": "services/telemetry/README.md",
+      "sha256": "8e9178cfb9355d52f574a7908381d223aaf909ab2c7e4750f99c73de84bb71a0"
+    },
+    {
+      "path": "services/telemetry/board_observation.gd",
+      "sha256": "4877fc51c2b44b427b26b38965ec4d14abb7eed16e0154e06a9891d255752ef4"
+    },
+    {
+      "path": "services/telemetry/board_observation.gd.uid",
+      "sha256": "af57b34929d970d49ae5dfd178fdd29125436ee5eea60e5b6e19ddef12e22692"
+    },
+    {
+      "path": "services/telemetry/collection_session.gd",
+      "sha256": "0befe711f151f5ff6579ac514fb9ed588f166203d245703996ff0b1fb4e88e9a"
+    },
+    {
+      "path": "services/telemetry/collection_session.gd.uid",
+      "sha256": "631f5f1868e9b323a2148bf135216f60c32057b2a2d1d1a90e14a9367d30ae3e"
+    },
+    {
+      "path": "services/telemetry/local_jsonl_sink.gd",
+      "sha256": "989c74bafeabd2ad1990af4b19145795e317c25f497e8d708767736a7b398ce7"
+    },
+    {
+      "path": "services/telemetry/local_jsonl_sink.gd.uid",
+      "sha256": "f27f3f6783419e247d668153ebe45a0b498adbf795f24e3a2d3b1f361d2d30d9"
+    },
+    {
+      "path": "services/telemetry/offer_explanation_schema.gd",
+      "sha256": "ed7e03f3fdc7d4b6f40ab816b54140e8cee048899db2d17902a30a300baf3c51"
+    },
+    {
+      "path": "services/telemetry/run_collection.gd",
+      "sha256": "497a94acf2863ecb44c0adfc3f567f32021c2fe032b85573018486a603372cc6"
+    },
+    {
+      "path": "services/telemetry/run_collection.gd.uid",
+      "sha256": "023616bb24b93cd33df160b2e8f777612d6ed757b9b2a7958f685ef016d72c9c"
+    },
+    {
+      "path": "services/telemetry/run_collection.tscn",
+      "sha256": "26551e327ffdc591d04a6d8c0160e2ec3056594439ea8da647578717f9b1c896"
+    },
+    {
+      "path": "services/telemetry/telemetry_clock.gd",
+      "sha256": "2028dbde39fdd38246cc8a2ee2e0e6200bb48734401231bf29dc79faae014ac5"
+    },
+    {
+      "path": "services/telemetry/telemetry_clock.gd.uid",
+      "sha256": "990e49ac99954a02f6f7667e9f24928148d4cd21d95db1301e658d2c59c20765"
+    },
+    {
+      "path": "services/telemetry/telemetry_config.gd",
+      "sha256": "8fc90f9a69e90e828d7405b1be3e4c5af6bb24d81ce131f38cd2531192d3b7a9"
+    },
+    {
+      "path": "services/telemetry/telemetry_config.gd.uid",
+      "sha256": "25e03da7a6ebbaa78de22434ccde75ff168000d701d7e073d9e7086eee0bf1c7"
+    },
+    {
+      "path": "services/telemetry/telemetry_config.tres",
+      "sha256": "cc1bd049b7f540f5f97e1acf8874d562c5397c661791fed1fed603483983dda9"
+    },
+    {
+      "path": "services/telemetry/telemetry_factory.gd",
+      "sha256": "86fbdfe7c1a942b8782f157e510ea955bef0a239582e4f5ef1d38d6d0c0d6a75"
+    },
+    {
+      "path": "services/telemetry/telemetry_factory.gd.uid",
+      "sha256": "84691f7779620964641d47d1862b197b4076fd943f4aa5f5b6dca958f8e14f95"
+    },
+    {
+      "path": "services/telemetry/telemetry_facts.gd",
+      "sha256": "ee59a1892da77f128bfd899f84763a4d63e13fa3c582f407545633dfe941affe"
+    },
+    {
+      "path": "services/telemetry/telemetry_facts.gd.uid",
+      "sha256": "fb6128a321501f1f263fe8de064a47b7590b9ddb156c9ec08948fa331c0c39b2"
+    },
+    {
+      "path": "services/telemetry/telemetry_projector.gd",
+      "sha256": "2b56ab9ebf126f606fc0c8bfa5d942ee313433c211dfcf369be8dae1033996e5"
+    },
+    {
+      "path": "services/telemetry/telemetry_projector.gd.uid",
+      "sha256": "12f88b51796311a499f8f6598794186c59734a7a19443390a56c338501654f78"
+    },
+    {
+      "path": "services/telemetry/telemetry_reader.gd",
+      "sha256": "2fd2ecf741037ad29fb8752c6206526f8a138f28390e8b7b15e7ef8f19c1ad16"
+    },
+    {
+      "path": "services/telemetry/telemetry_reader.gd.uid",
+      "sha256": "8a9ea2b3874ec03f1e453cbe0603fc09b2296668cb10322fe97dffd30da824a3"
+    },
+    {
+      "path": "services/telemetry/telemetry_schema.gd",
+      "sha256": "ec74cbbbb9a04bd028be8712455dbd8dc6abf537564917a9dbc710ae3d13035e"
+    },
+    {
+      "path": "services/telemetry/telemetry_schema.gd.uid",
+      "sha256": "d0bbdaa21082d51e192188f88eaa61504b3eae716e08970ce72ae56991155707"
+    },
+    {
+      "path": "services/telemetry/telemetry_sink.gd",
+      "sha256": "57d15e90ff290341d0eae73492e9fdcb823f853f17d695a16568014a4a6669c1"
+    },
+    {
+      "path": "services/telemetry/telemetry_sink.gd.uid",
+      "sha256": "a8cb292122ce139409dfb4eceaebc9c7a583d3a8d8f79a652b7a25a206442443"
+    },
+    {
+      "path": "services/telemetry/telemetry_summary.gd",
+      "sha256": "a4599a339dc7cd01936e38aeb3e8dbb7248742d89dc27a526ffe2fef206184f7"
+    },
+    {
+      "path": "services/telemetry/telemetry_summary.gd.uid",
+      "sha256": "a67aa30aeff1832678722a3250a4962e6a4b12214718313ad335b97e84d7bac3"
+    },
+    {
+      "path": "services/telemetry/telemetry_turn.gd",
+      "sha256": "c29a90d914be13e4773c83290d732f04d8b2657f3d39afdaef5217a451a71a85"
+    },
+    {
+      "path": "services/telemetry/telemetry_turn.gd.uid",
+      "sha256": "98963c857592e0fa4e577af9841e3d9eb0173f6a120fef4a2ab4023ce7415aa6"
+    },
+    {
+      "path": "services/telemetry/telemetry_write_result.gd",
+      "sha256": "f669f125916c6cb5158bb8e19baae2f8b3349034c412fcea139b44009de4c165"
+    },
+    {
+      "path": "services/telemetry/telemetry_write_result.gd.uid",
+      "sha256": "376ee71492dac16fb2fa9e6d399171ad2a5316120e4e4b9d6b2cf7526be098b6"
+    },
+    {
+      "path": "tests/integration/test_skill_pool.gd",
+      "sha256": "8b08d22df9cdc789aaa3a616a86218d1037db51b28e02f9d77a88a79afe0a299"
+    },
+    {
+      "path": "tests/rules/test_offer_measurements.gd",
+      "sha256": "ba8c74cb0922e0aa92e4ccdc87cb4f9ba7a7013ff7fb9d979e840a6a29cc6e85"
+    },
+    {
+      "path": "tests/rules/test_unified_offers.gd",
+      "sha256": "2802cf0df7d9ed58916f06c962d4442aad812ebadabbd8c1e4363a3a0a1af0d2"
+    },
+    {
+      "path": "tools/bot_testing/greedy_bot.gd",
+      "sha256": "deec863a75fa24c066d5f96af400f8f56d96c26eab0da3c17a180990e5e4b638"
+    },
+    {
+      "path": "tools/telemetry_analysis/.gitignore",
+      "sha256": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b"
+    },
+    {
+      "path": "tools/telemetry_analysis/README.md",
+      "sha256": "c8f1c75da06fbd577dc08e30ab148e5dce0c4436f32bbb5a329e5dc5449f220e"
+    },
+    {
+      "path": "tools/telemetry_analysis/TARGET_CURVE.md",
+      "sha256": "ddfa4d9eaa33fa611498b5253e452dadc236ac2f1de45ab9ab3a226f92205791"
+    },
+    {
+      "path": "tools/telemetry_analysis/analysis_cli.gd",
+      "sha256": "c54538d76e12f7a96e133ff1b28ba4a26890d2c9643b64b89b736e561928da5f"
+    },
+    {
+      "path": "tools/telemetry_analysis/analysis_cli.gd.uid",
+      "sha256": "14771c1235001575297ca9a348dda426effa602946baf1bff44b925fd59afdea"
+    },
+    {
+      "path": "tools/telemetry_analysis/collection_benchmark.gd",
+      "sha256": "eacdd9bc377d97cdf4b1e699f485521e0220942eb8307a66a755f503312b94d8"
+    },
+    {
+      "path": "tools/telemetry_analysis/collection_benchmark.gd.uid",
+      "sha256": "884ce9a250f82eaa1333cfd27cc94ce95e3efeb848ccc22e4d28cf8ab653b034"
+    },
+    {
+      "path": "tools/telemetry_analysis/collection_benchmark.tscn",
+      "sha256": "82b086a2ac4b59a4f575de7ab58c82850bf752e7e264a98db96002a1d942ce4b"
+    },
+    {
+      "path": "tools/telemetry_analysis/collection_probe.gd",
+      "sha256": "c8f331481155eb786f9d4dd241af55ee82560c5085bc59fcac945cf58cd02ab8"
+    },
+    {
+      "path": "tools/telemetry_analysis/collection_probe.gd.uid",
+      "sha256": "1b26505ae57f898ec49efb5110967308661acdaa00d2122a640df50da5826d25"
+    },
+    {
+      "path": "tools/telemetry_analysis/collection_probe.tscn",
+      "sha256": "3aeda624f52ec1aba612bb4a850ab205c34695a99f956b20a8806d8d8a65f90b"
+    },
+    {
+      "path": "tools/telemetry_analysis/evidence/issue19-results.json",
+      "sha256": "bcca2326cbb503ea8f0b317fc58d8b706be70b384be3a88c2a7e396772e9bf10"
+    },
+    {
+      "path": "tools/telemetry_analysis/import_sources.py",
+      "sha256": "06a12250c7b97ad313a18471bf5dd1d04777272b48da8210a5137027ce16c225"
+    },
+    {
+      "path": "tools/telemetry_analysis/model_import.py",
+      "sha256": "d67df891139e5df88d0d4d7b77568dc621ab8ca432bb285b7afab2424306b0d5"
+    },
+    {
+      "path": "tools/telemetry_analysis/model_statistics.py",
+      "sha256": "f5405907dfadb2afaae7df6eac1d59b5062951c1a447657a43be152d0d2517f9"
+    },
+    {
+      "path": "tools/telemetry_analysis/offer_measurements.gd",
+      "sha256": "c24b1f1af05ff0c2b7e82dcdc965082ebb82fd0713f2752d1760917bbb3f6b73"
+    },
+    {
+      "path": "tools/telemetry_analysis/reference_profiles/greedy_normal_v1.json",
+      "sha256": "4356965a17adc7d559a262f2e9d94dcda34012871d714faa2cbd3ca60b933056"
+    },
+    {
+      "path": "tools/telemetry_analysis/reference_updates.mjs",
+      "sha256": "eb162a42c23cef2505de781512a94db840d81d44f8c490a1296112a2043512f9"
+    },
+    {
+      "path": "tools/telemetry_analysis/target_curve.py",
+      "sha256": "193514ec8b426a90a5724841325ac41fb7bf1c4489d34efcadb70e305b9e9b78"
+    },
+    {
+      "path": "tools/telemetry_analysis/telemetry_report.gd",
+      "sha256": "fff4f911fb1445ce8d83e71b49bd92466f0082c6f3184a82bfd8d8f9c65b4779"
+    },
+    {
+      "path": "tools/telemetry_analysis/telemetry_report.gd.uid",
+      "sha256": "756ad495e4d5c5e65ec01ca57d0c8a553736933277ed329bbaa2473d444867a7"
+    },
+    {
+      "path": "tools/telemetry_analysis/test_model_import.py",
+      "sha256": "23323fa354dd05c2c72e325fcdb1c477bfcfa4ae72da99ab102ca76cc1f0ce81"
+    },
+    {
+      "path": "tools/telemetry_analysis/test_paired_statistics.py",
+      "sha256": "3f75d5cb507a51455f3ddbee5078fae2609bb6db6a878333352b5e5eb46b2bef"
+    },
+    {
+      "path": "tools/telemetry_analysis/test_reference_updates.mjs",
+      "sha256": "4bb263537403f93da8e5c66ce9971f3b86587960d3513e235e20e998f317bd0d"
+    },
+    {
+      "path": "tools/telemetry_analysis/test_target_curve.py",
+      "sha256": "f36fc815a0a650c13dda77e84e5520188f1391e78609e6660de0c3f4384432d1"
+    },
+    {
+      "path": "tools/telemetry_analysis/verify_workbook.py",
+      "sha256": "85973997d0678909aee99b200c14d833ba9d7e16248fe4a73d1ed4f109985916"
+    },
+    {
+      "path": "tools/telemetry_analysis/write_observations.mjs",
+      "sha256": "9fba7e9b3df05d6767c223cb8cce16e7e536027fc10e5d01e8ad7ca84a0f8af8"
+    },
+    {
+      "path": "tools/telemetry_analysis/xlsx_append.py",
+      "sha256": "c55403a61864ee34c886dc71ad4c38e16f98c241178cb1fd61b3b8588a1ab0d3"
+    },
+    {
+      "path": "ui/skill_pool/skill_pool_text.gd",
+      "sha256": "44cbffb25e21d3d5cff3e0cfe04ad9c355e5c50a0d76500350124fbf9e5f5923"
+    }
+  ]
+}
