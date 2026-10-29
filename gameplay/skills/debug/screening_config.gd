@@ -1,6 +1,9 @@
 class_name ScreeningConfig
 extends Resource
 
+## Read-only screening configuration type required by the runtime fixture parser.
+## Tool-only profiles remain outside the production catalog and Web export.
+
 @export var config_id: StringName
 @export var title: String
 @export var template: MatchShapeTemplate

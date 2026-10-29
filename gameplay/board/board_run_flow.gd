@@ -13,7 +13,8 @@ static func continue_run(board: Board, active: RunController) -> void:
 			&"offer":
 				board.can_selected = false
 				if step.offer == null:
-					board.operation_feedback.emit(active.state.rule_error)
+					push_warning("Reward unavailable: " + active.state.rule_error)
+					board.operation_feedback.emit("hud.status.unavailable")
 					return
 				board.reward_requested.emit(active, step.offer)
 				return
