@@ -1,0 +1,67 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-pool-user/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_skill_description_coverage.gd
+* test_audit_all_52_real_effect_roots_and_declared_levels
+* test_same_family_parameters_and_weight_lifetime_are_not_copied_or_accumulated_per_color
+2/2 passed.
+
+
+res://tests/integration/test_skill_pool_rule_context.gd
+* test_definition_owned_proposed_max_and_expired_contexts_do_not_fabricate_offers
+* test_real_pool_bilingual_views_keep_context_bodies_metadata_and_six_rngs_unchanged
+2/2 passed.
+
+
+res://tests/integration/test_skill_pool.gd
+* test_browsing_and_locale_changes_preserve_snapshot_offer_and_random_streams
+* test_escape_restores_existing_pause_and_does_not_reach_game_shortcuts
+* test_catalog_uses_short_effects_and_actual_prerequisite_titles
+* test_capability_and_once_reasons_remain_readable_in_both_languages
+* test_choice_menu_roundtrip_preserves_popup_and_observation_location
+* test_terminal_and_presentation_views_restore_their_previous_state
+* test_default_sort_uses_rarity_then_level_then_translated_name
+* test_filters_intersect_and_instant_history_is_not_a_level
+* test_grid_cards_filter_sort_reset_without_changing_rules
+* test_empty_filter_and_grid_column_count
+10/10 passed.
+
+
+res://tests/rules/test_skill_rule_description.gd
+* test_all_six_use_configuration_in_both_languages
+* test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
+* test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
+* test_refill_parameters_repeat_remaining_zero_and_net_count_preview
+* test_goal_is_next_target_and_reads_changed_resource_value
+* test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
+* test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
+* test_nested_order_conditions_and_cycle_diagnostics
+* test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+* test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
+10/10 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               4
+Tests                24
+Passing Tests        24
+Asserts            1443
+Time              10.647s
+
+
+---- All tests passed! ----
