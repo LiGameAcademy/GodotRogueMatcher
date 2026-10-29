@@ -1,0 +1,1263 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/offer_config.gd:6)
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/offer_config.gd:29)
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/offer_config.gd:37)
+ERROR: Failed to load script "res://gameplay/progression/offer_config.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not find type "SkillOfferTraits" in the current scope.
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:11)
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:11)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "CONFIG".
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:52)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/stages/stage_result.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/stages/stage_state.gd:0)
+SCRIPT ERROR: Parse Error: Could not find type "SkillOfferTraits" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_definition.gd:11)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/skill_offer.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/reward_state.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/run_state.gd:0)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type Resource to constant "CONFIG" with specified type OfferConfig.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:4)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:173)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:176)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:83)
+SCRIPT ERROR: Parse Error: Identifier "SkillBuildSnapshot" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:83)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "rejection".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:103)
+SCRIPT ERROR: Parse Error: Identifier "OfferWeightRules" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:104)
+SCRIPT ERROR: Parse Error: Identifier "SkillBuildSnapshot" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:174)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:177)
+SCRIPT ERROR: Parse Error: Identifier "OfferWeightRules" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:179)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/recording/run_recorder.gd:0)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:68)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:73)
+SCRIPT ERROR: Parse Error: Identifier "SkillBuildSnapshot" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:73)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "offer_traits".
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:74)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/debug/line_clear_demo.gd:0)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type Resource to constant "CORE" with specified type SkillDefinition.
+   at: GDScript::reload (res://gameplay/skills/manual_activation_rules.gd:4)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type Resource to constant "LINE" with specified type SkillDefinition.
+   at: GDScript::reload (res://gameplay/skills/manual_activation_rules.gd:5)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/run_controller.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/game_manager.gd:0)
+ERROR: Failed to load script "res://gameplay/run/game_manager.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "rejection".
+   at: GDScript::reload (res://ui/skill_pool/skill_pool_text.gd:26)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/skill_card.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/popup_skill_choice.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/ui_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/board/board.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/board/match_system.gd:0)
+ERROR: Failed to load script "res://gameplay/board/match_system.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/issue137-status-messages/.godot/status-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_hud_status_flow.gd
+[0m* test_initial_english_and_all_statuses_refresh_text_and_tooltip
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_initial_english_and_all_statuses_refresh_text_and_tooltip (res://tests/integration/test_hud_status_flow.gd:35)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   GDScript backtrace (most recent call first):
+       [0] test_initial_english_and_all_statuses_refresh_text_and_tooltip (res://tests/integration/test_hud_status_flow.gd:35)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [3] _end_wait (res://addons/gut/awaiter.gd:126)
+       [4] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+      at line -1
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [7] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [8] _run_test (res://addons/gut/gut.gd:629)
+       [9] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [10] _end_wait (res://addons/gut/awaiter.gd:126)
+       [11] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [6] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [7] _run_test (res://addons/gut/gut.gd:629)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [5] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [6] _run_test (res://addons/gut/gut.gd:629)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [4] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [5] _run_test (res://addons/gut/gut.gd:629)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+* test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:56)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:56)
+       [6] _run_test (res://addons/gut/gut.gd:615)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:56)
+       [5] _run_test (res://addons/gut/gut.gd:615)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:56)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:59)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:59)
+       [6] _run_test (res://addons/gut/gut.gd:615)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:59)
+       [5] _run_test (res://addons/gut/gut.gd:615)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation (res://tests/integration/test_hud_status_flow.gd:59)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+      at line -1
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [7] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [8] _run_test (res://addons/gut/gut.gd:629)
+       [9] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [10] _end_wait (res://addons/gut/awaiter.gd:126)
+       [11] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [6] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [7] _run_test (res://addons/gut/gut.gd:629)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [5] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [6] _run_test (res://addons/gut/gut.gd:629)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [4] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [5] _run_test (res://addons/gut/gut.gd:629)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+* test_real_pause_busy_score_and_buffer_feedback_routes
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_real_pause_busy_score_and_buffer_feedback_routes (res://tests/integration/test_hud_status_flow.gd:64)
+   GDScript backtrace (most recent call first):
+       [0] test_real_pause_busy_score_and_buffer_feedback_routes (res://tests/integration/test_hud_status_flow.gd:64)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [3] _end_wait (res://addons/gut/awaiter.gd:126)
+       [4] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line -1
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [7] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [8] _run_test (res://addons/gut/gut.gd:629)
+       [9] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [10] _end_wait (res://addons/gut/awaiter.gd:126)
+       [11] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [6] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [7] _run_test (res://addons/gut/gut.gd:629)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [5] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [6] _run_test (res://addons/gut/gut.gd:629)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [4] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [5] _run_test (res://addons/gut/gut.gd:629)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+* test_terminal_message_retranslates_instead_of_caching_translated_text
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] _on_game_over (res://gameplay/game.gd:391)
+       [6] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:84)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] _on_game_over (res://gameplay/game.gd:391)
+       [5] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:84)
+       [6] _run_test (res://addons/gut/gut.gd:615)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_game_over (res://gameplay/game.gd:392)
+       [5] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:84)
+       [6] _run_test (res://addons/gut/gut.gd:615)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_game_over (res://gameplay/game.gd:392)
+       [4] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:84)
+       [5] _run_test (res://addons/gut/gut.gd:615)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:86)
+       [7] _on_game_over (res://gameplay/game.gd:401)
+       [8] open_popup (res://ui/ui_manager.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:86)
+       [6] _on_game_over (res://gameplay/game.gd:401)
+       [7] open_popup (res://ui/ui_manager.gd:52)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:86)
+       [5] _on_game_over (res://gameplay/game.gd:401)
+       [6] open_popup (res://ui/ui_manager.gd:52)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:86)
+       [4] _on_game_over (res://gameplay/game.gd:401)
+       [5] open_popup (res://ui/ui_manager.gd:52)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:88)
+   GDScript backtrace (most recent call first):
+       [0] test_terminal_message_retranslates_instead_of_caching_translated_text (res://tests/integration/test_hud_status_flow.gd:88)
+       [1] _on_game_over (res://gameplay/game.gd:401)
+       [2] open_popup (res://ui/ui_manager.gd:52)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [9] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line 88
+* test_language_service_refresh_preserves_current_message_during_reward_wait
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_language_service_refresh_preserves_current_message_during_reward_wait (res://tests/integration/test_hud_status_flow.gd:98)
+   GDScript backtrace (most recent call first):
+       [0] test_language_service_refresh_preserves_current_message_during_reward_wait (res://tests/integration/test_hud_status_flow.gd:98)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [3] _end_wait (res://addons/gut/awaiter.gd:126)
+       [4] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line -1
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [7] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [8] _run_test (res://addons/gut/gut.gd:629)
+       [9] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [10] _end_wait (res://addons/gut/awaiter.gd:126)
+       [11] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [6] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [7] _run_test (res://addons/gut/gut.gd:629)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [5] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [6] _run_test (res://addons/gut/gut.gd:629)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [4] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [5] _run_test (res://addons/gut/gut.gd:629)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+* test_internal_reason_never_becomes_player_text
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_internal_reason_never_becomes_player_text (res://tests/integration/test_hud_status_flow.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] test_internal_reason_never_becomes_player_text (res://tests/integration/test_hud_status_flow.gd:106)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [3] _end_wait (res://addons/gut/awaiter.gd:126)
+       [4] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line -1
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [7] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [8] _run_test (res://addons/gut/gut.gd:629)
+       [9] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [10] _end_wait (res://addons/gut/awaiter.gd:126)
+       [11] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [6] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [7] _run_test (res://addons/gut/gut.gd:629)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [5] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [6] _run_test (res://addons/gut/gut.gd:629)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [4] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [5] _run_test (res://addons/gut/gut.gd:629)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+* test_status_accepts_tooltip_hover_without_covering_board_or_pause_button
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [7] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [8] _run_test (res://addons/gut/gut.gd:629)
+       [9] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [10] _end_wait (res://addons/gut/awaiter.gd:126)
+       [11] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _on_locale_changed (res://gameplay/game.gd:384)
+       [3] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [4] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [5] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [6] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [7] _run_test (res://addons/gut/gut.gd:629)
+       [8] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:193)
+       [3] _notification (res://ui/hud.gd:98)
+       [4] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [5] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [6] _run_test (res://addons/gut/gut.gd:629)
+       [7] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:195)
+       [2] _notification (res://ui/hud.gd:98)
+       [3] set_preferred_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:73)
+       [4] after_each (res://tests/integration/test_hud_status_flow.gd:30)
+       [5] _run_test (res://addons/gut/gut.gd:629)
+       [6] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+[1m1/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/integration/test_hud_status_flow.gd
+[0m- test_initial_english_and_all_statuses_refresh_text_and_tooltip
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+- test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+          at line -1
+- test_real_pause_busy_score_and_buffer_feedback_routes
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+- test_terminal_message_retranslates_instead_of_caching_translated_text
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [9] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line 88
+- test_language_service_refresh_preserves_current_message_during_reward_wait
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+- test_internal_reason_never_becomes_player_text
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+
+Totals
+------
+Scripts               1
+Tests                 7
+Passing Tests         1
+Failing Tests         6
+Asserts           11/17
+Time              5.253s
+
+
+[31m---- 6 failing tests ----
+[0m
