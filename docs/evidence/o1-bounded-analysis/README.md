@@ -9,3 +9,5 @@ bounded-cli.log与input-manifest.json：读取#211既存3份v46/v2自然局埋�
 原始输入绝对路径/SHA256在清单中，未改写。运行输出与未规范化原日志在独立树`.godot/o1-bounded/`，本目录日志副本只去掉行末空格。validation.json记录源文件哈希及精确提交/时间/范围。原450样本在已检查登记位置未找到，较宽扫描遇访问限制后停止；没有450自然局重跑、原故障复现或整条#87验收结论。
 
 该模式的预算是输入和紧凑序列化保留账本上限，60秒为协作式期限；不是RSS硬上限或OS强杀。根目录不是原扁平七表导入目录。详细命令、处理范围及剩余出口见docs/quality/issue87_bounded_analysis.md及工具README。后续PR留作者review。
+
+创建PR前纳入最新849d4d8（#137/Web），组合受测提交3d69183139b36e57c362cb0b672078daa1cd9dda：本批4个GDScript与25297aa逐字一致，补2脚本15/15、515断言、退出0；实际3文件CLI再次退出0，五项汇总仍与原模式完全相等。combined-regression.log、combined-cli.log和combined-equivalence.log保留结果。没有将原28项成绩标为组合树新28项全量。

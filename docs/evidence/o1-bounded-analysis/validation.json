@@ -106,5 +106,17 @@
     "compact serialized budget is not RSS hard cap",
     "cooperative deadline is not OS hard timeout",
     "sharded root is not a flat model_import directory"
-  ]
+  ],
+  "combined": {
+    "base": "849d4d8e38a06d625e51bd8ebfcf35af35d3ca43",
+    "tested_commit": "3d69183139b36e57c362cb0b672078daa1cd9dda",
+    "own_scripts_unchanged": true,
+    "scripts": 2,
+    "tests": 15,
+    "passed": 15,
+    "assertions": 515,
+    "exit_code": 0,
+    "cli_exit_code": 0,
+    "equivalence_exit_code": 0
+  }
 }

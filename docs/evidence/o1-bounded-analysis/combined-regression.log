@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/o1-bounded-analysis/.godot/o1-bounded/combined-userdata/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_bounded_analysis.gd
+[0m* test_multiple_runs_duplicate_sources_and_parent_rewards_match_existing_report
+BOUNDED_RUN=87-44948-1793272424723000-8038685 EVENTS=20 ERRORS=0
+BOUNDED_RUN=88-44948-1793272425039000-8354647 EVENTS=20 ERRORS=0
+BOUNDED_RUN=restored-probe EVENTS=20 ERRORS=0
+* test_bad_tail_and_conflicting_duplicate_keep_diagnostics_without_doubling_samples
+BOUNDED_RUN=89-44948-1793272426469000-9784787 EVENTS=20 ERRORS=2
+* test_input_and_observation_budgets_fail_explicitly_without_partial_run_statistics
+* test_prefix_completion_and_version_groups_keep_the_existing_meaning
+BOUNDED_RUN=91-44948-1793272428688000-12004306 EVENTS=20 ERRORS=1
+BOUNDED_RUN=legacy-observation EVENTS=20 ERRORS=0
+* test_line_deadline_and_invalid_header_are_diagnosed_without_overwriting_sources
+* test_actual_cli_exits_for_success_budget_failure_and_bad_options
+* test_case_distinct_run_ids_and_device_names_cannot_overwrite_another_shard
+BOUNDED_RUN=CON EVENTS=20 ERRORS=0
+BOUNDED_RUN=Run-A EVENTS=20 ERRORS=0
+BOUNDED_RUN=run-a EVENTS=20 ERRORS=0
+* test_retained_budget_charges_final_utf8_manifest_and_shard_rows_exactly
+BOUNDED_RUN=95-44948-1793272445587000-28901917 EVENTS=20 ERRORS=0
+BOUNDED_RUN=95-44948-1793272445587000-28901917 EVENTS=20 ERRORS=0
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_offer_measurements.gd
+[0m* test_real_offer_explanation_schema_csv_and_command_replay_are_consistent
+* test_corrupt_binary_factors_weights_or_denominators_are_explicit_schema_errors
+* test_synthetic_replacement_trace_counts_one_reward_and_does_not_call_it_a_refusal
+* test_legacy_missing_explanations_stay_unknown_and_hidden_human_offers_are_not_exposures
+* test_truncated_pool_omitted_candidate_and_forged_quota_are_rejected
+* test_legacy_acquisition_without_reward_id_joins_its_generated_offer
+* test_v1_telemetry_is_legacy_coverage_and_v45_replay_is_explicitly_rejected
+[1m7/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               2
+Tests                15
+Passing Tests        15
+Asserts             515
+Time              23.364s
+
+
+[32m---- All tests passed! ----
+[0m
