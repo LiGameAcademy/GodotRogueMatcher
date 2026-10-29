@@ -1,0 +1,177 @@
+{
+  "amplifier_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_add_score.gd",
+        "parameters": {
+          "effect_id": "add_score",
+          "score_multiplier": 1.0,
+          "fixed_bonus": 0
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 3
+        }
+      },
+      {
+        "script": "res://gameplay/items/conditions/condition_in_range.gd",
+        "parameters": {
+          "condition_id": "in_range",
+          "range_type": "neighbor",
+          "check_position_key": "center_pos"
+        }
+      }
+    ]
+  },
+  "bomb_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_destroy_pieces.gd",
+        "parameters": {
+          "effect_id": "destroy_pieces",
+          "destroy_range": "3x3",
+          "destroy_items": false
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 0
+        }
+      }
+    ]
+  },
+  "drill_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_destroy_pieces.gd",
+        "parameters": {
+          "effect_id": "destroy_pieces",
+          "destroy_range": "3x3",
+          "destroy_items": false
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 0
+        }
+      }
+    ]
+  },
+  "dye_station_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_dye_piece.gd",
+        "parameters": {
+          "effect_id": "dye_piece",
+          "target_color": -1,
+          "dye_range": "adjacent",
+          "dye_count": 1
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 1
+        }
+      }
+    ]
+  },
+  "energy_core_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_add_score.gd",
+        "parameters": {
+          "effect_id": "add_score",
+          "score_multiplier": 0.5,
+          "fixed_bonus": 0
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 3
+        }
+      }
+    ]
+  },
+  "ether_totem_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_add_score.gd",
+        "parameters": {
+          "effect_id": "add_score",
+          "score_multiplier": 0.5,
+          "fixed_bonus": 0
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 3
+        }
+      },
+      {
+        "script": "res://gameplay/items/conditions/condition_piece_color.gd",
+        "parameters": {
+          "condition_id": "piece_color",
+          "target_color": 0
+        }
+      }
+    ]
+  },
+  "prism_tower_effect": {
+    "effects": [
+      {
+        "script": "res://gameplay/items/effects/effect_add_score.gd",
+        "parameters": {
+          "effect_id": "add_score",
+          "score_multiplier": 1.0,
+          "fixed_bonus": 0
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 3
+        }
+      }
+    ]
+  },
+  "swapper_effect": {
+    "effects": [],
+    "conditions": [
+      {
+        "script": "res://gameplay/items/conditions/condition_timing.gd",
+        "parameters": {
+          "condition_id": "timing",
+          "timing": 0
+        }
+      }
+    ]
+  }
+}
