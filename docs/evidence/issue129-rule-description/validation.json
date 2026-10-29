@@ -1,0 +1,126 @@
+{
+  "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+  "base": "7d78fd8fa26624b6ad7f81fe5c9447a60c856e54",
+  "source_manifest": "source-manifest.json",
+  "engine": "Godot 4.7.2 ed1daf0bf",
+  "gut": "9.6",
+  "renderer": "Compatibility / OpenGL 3.3",
+  "gpu": "NVIDIA GeForce RTX 2070",
+  "operating_system": "Windows",
+  "cpu": null,
+  "memory": null,
+  "display_scale": null,
+  "refresh_hz": null,
+  "source_line_limit_pass": true,
+  "regression": {
+    "scripts": 6,
+    "tests": 34,
+    "assertions": 4383,
+    "exit_code": 0,
+    "log": "regression.log"
+  },
+  "gpu_check": {
+    "scripts": 1,
+    "tests": 3,
+    "assertions": 283,
+    "exit_code": 0,
+    "log": "gpu.log",
+    "viewports": [
+      "1024x640",
+      "1280x720"
+    ],
+    "locales": [
+      "zh_CN",
+      "en_US"
+    ],
+    "pictures": [
+      {
+        "file": "captures/en_US_1024_group0.png",
+        "sha256": "7d541c118738e2dc530ac422e1df0f92e836091f2a745d28a459a0d6026474b4",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/en_US_1024_group1.png",
+        "sha256": "dfcfc8de822f7e2af5cf17d7c0b3624b6d0368253394059ca1aa92d39843f3b3",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/en_US_1280_group0.png",
+        "sha256": "d92ec819a5efce50f9a2931a35bb6aa67844ad64f3e4820a6db2dc8c9b06a60c",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/en_US_1280_group1.png",
+        "sha256": "1e564dd75a7713af33e316e321752bac3d1064116e7a7677bcea07ee7485d6a2",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/zh_CN_1024_group0.png",
+        "sha256": "8dd4b335e11a556eadbe8398b97f050e7912fb3d232d7a0c8f4b82ea82a0192f",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/zh_CN_1024_group1.png",
+        "sha256": "6c661f27baeef55e73307aeec36bc81e746a6972c62c943378f46965570c893b",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/zh_CN_1280_group0.png",
+        "sha256": "10eb409510fdeae7b64798a08adab3c8ba85a86cbf9d382aef243ca2e86ec03f",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      },
+      {
+        "file": "captures/zh_CN_1280_group1.png",
+        "sha256": "530ab56fb729644a4f2ff4fb4b2d0c94735c8dd041a7c1b0bcb46566d31a67d3",
+        "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+        "visually_checked": true
+      }
+    ]
+  },
+  "diagnostics": {
+    "regression.log": {
+      "root_certificate_error": true,
+      "script_error": false,
+      "exit_resource_lines": [],
+      "sha256": "98dd5b3b4ad6d5d3b04ae2cb58422ab0f77e4e5eae677ec5e710ffc3b42819c6"
+    },
+    "gpu.log": {
+      "root_certificate_error": true,
+      "script_error": false,
+      "exit_resource_lines": [],
+      "sha256": "17099561896fe3d625c75bde990e0946ea67c07a4cc5926be4d8466a34a677e1"
+    }
+  },
+  "independent_review": "APPROVE; static; final 8fa..2cc increment reviewed",
+  "classification": "B",
+  "author_acceptance": null,
+  "non_designer_observation": null,
+  "weak_device": null,
+  "catalog_context": "configuration definition; runtime-level hookup coordinated later",
+  "publication": null,
+  "historical_raw_archives": [
+    {
+      "raw_archive": "development-display-contract-failures.log.gz",
+      "raw_sha256": "e65d5d25883e0c5431fb04200982ac30eb3db09b4aca254f8dc02efb74a528f1",
+      "archive_sha256": "37e2a1f501501166d6816d51e5e66c9cad465b1e937c2a16923c8bfe306e27c2",
+      "readable_log": "development-display-contract-failures.log",
+      "readable_sha256": "3f34890b5b5b81c27c6d74a317d4302ef4a3528f2989fc3d29c60eca2acb26a1",
+      "normalization": "strip ANSI controls and trailing whitespace only"
+    },
+    {
+      "raw_archive": "pre-import-failure.log.gz",
+      "raw_sha256": "1522083f712030181caadec76b353d09be7a6843c986cdd0938fea95efff433b",
+      "archive_sha256": "22279aedc16b65fec0202b352be4dc7b6a70ddeb5ef9f64829e210744a72ca53",
+      "readable_log": "pre-import-failure.log",
+      "readable_sha256": "e9162ed97f0dce0f69407a743c9f794a969eeb4915075767c08ca7707125918d",
+      "normalization": "strip ANSI controls and trailing whitespace only"
+    }
+  ]
+}

@@ -33,6 +33,7 @@ func apply_game_theme(preset: GameTheme) -> void:
 	SkillRarity.style(self, _skill.rarity, preset)
 	rarity_label.add_theme_color_override("font_color", _accent)
 	set_selected(_selected)
+	_fit_card_width()
 
 func _ready() -> void:
 	_ignore_child_mouse(content)
@@ -43,6 +44,7 @@ func _ready() -> void:
 	button_down.connect(_press_feedback)
 	button_up.connect(_update_feedback)
 	content.minimum_size_changed.connect(_fit_catalog_height)
+	get_viewport().size_changed.connect(_fit_card_width)
 
 func _exit_tree() -> void:
 	if _motion != null: _motion.kill()
@@ -69,25 +71,30 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	rarity_label.add_theme_color_override("font_color", _accent)
 	kind_label.text = SkillChoiceText.tags(skill)
 	kind_label.visible = not kind_label.text.is_empty()
-	consume_label.visible = skill.refill_effect() != null
+	consume_label.visible = skill.refill_effect() != null and not (skill.acquisition_effect(target.level_before) is CompositeEffect)
 	consume_label.text = tr("消耗")
 	consume_label.tooltip_text = tr(SkillChoiceText.CONSUME_HINT)
 	title_label.text = tr(skill.title)
 	level_label.text = SkillChoiceText.level_text(skill, target)
 	level_label.visible = not level_label.text.is_empty()
-	effect_label.text = SkillChoiceText.summary_rich(skill)
+	effect_label.text = SkillChoiceText.summary_rich(skill, maxi(1, target.level_after))
 	flavor_label.text = tr(skill.flavor_text) if not skill.flavor_text.is_empty() else ""
 	flavor_label.visible = not flavor_label.text.is_empty()
 	preview_label.text = SkillChoiceText.compact_preview(skill, target)
 	preview_label.visible = not preview_label.text.is_empty()
 	action_label.text = tr("点选后，在下方确认")
 	_update_feedback()
+	_fit_card_width()
+	_fit_catalog_height.call_deferred()
 
 ## 技能池只读卡面，不冻结随机目标或提供选取动作。
 func configure_catalog(skill: SkillDefinition, run: RunController) -> void:
 	configure(skill, SkillTarget.new())
+	custom_minimum_size.x = 256.0
 	_catalog_run = run
 	_target = null
+	# Catalog text intentionally stays in definition context until O1's single hookup.
+	effect_label.text = SkillChoiceText.summary_rich(skill)
 	level_label.hide()
 	var details: PackedStringArray = SkillPoolText.details(run, skill).split("\n")
 	var effect_lines: int = SkillChoiceText.summary(skill).split("\n").size()
@@ -156,8 +163,16 @@ func set_presentation_only() -> void:
 	_ignore_child_mouse(content, true)
 
 func _fit_catalog_height() -> void:
-	if _catalog_run == null: return
+	# Both catalog and offered cards must contain their generated rules and actions.
 	custom_minimum_size.y = maxf(360.0, content.get_combined_minimum_size().y + 36.0)
+
+func _fit_card_width() -> void:
+	if _catalog_run != null:
+		custom_minimum_size.x = 256.0
+		return
+	# Existing three-card popup: 20px between cards; its default panel has 48px insets.
+	var insets: float = 48.0 if _game_theme == null else _game_theme.ui_theme.get_stylebox("panel", "PanelContainer").get_minimum_size().x
+	custom_minimum_size.x = minf(326.0, maxf(256.0, (get_viewport_rect().size.x - insets - 20.0) / 3.0))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _skill != null:

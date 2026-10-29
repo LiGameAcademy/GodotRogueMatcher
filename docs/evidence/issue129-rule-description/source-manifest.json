@@ -1,0 +1,108 @@
+{
+  "source_head": "2cc4c8463e36e317f2ee1269b3635128bba7746f",
+  "base": "7d78fd8fa26624b6ad7f81fe5c9447a60c856e54",
+  "files": [
+    {
+      "path": "localization/skill_rules.csv",
+      "bytes": 6108,
+      "sha256": "3d20ff097df3a4bf7a9fdc1692196bf0be8edf7d30935ad334bc171d079383dc",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.csv.import",
+      "bytes": 448,
+      "sha256": "165b74329f65b584cf4080c68b495c286c6df6dd0eec6ce04c5c6ec0e6fe4ca9",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.en_US.translation",
+      "bytes": 3098,
+      "sha256": "cdc7ce3aefe0a8aead5361883491f1d7c55a101e1c32dcf8963a5721c8f8f96b",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.zh_CN.translation",
+      "bytes": 3742,
+      "sha256": "b1dec104fe2ac32aadfe1c176a8c41b0f3bf47f6178407798f56e349bea5b3d6",
+      "lines": null
+    },
+    {
+      "path": "project.godot",
+      "bytes": 1801,
+      "sha256": "a8b4364c3b7b3f0763f1c65879524dcebdaca401d07c5d599d54b9775658bc6e",
+      "lines": null
+    },
+    {
+      "path": "tests/integration/test_aesthetic_acceptance.gd",
+      "bytes": 10657,
+      "sha256": "a48a20b8b09f2e620f4b6ea91fe63e9c754430ab4b4fe79e283f8f24665b3307",
+      "lines": 206
+    },
+    {
+      "path": "tests/integration/test_build_cards.gd",
+      "bytes": 6409,
+      "sha256": "d7d467db0dd45c70cd43e8d38556b4725debd8806682358bc9c8b5f97977ac1e",
+      "lines": 127
+    },
+    {
+      "path": "tests/integration/test_skill_cards.gd",
+      "bytes": 8904,
+      "sha256": "6c23055934b5b1f0b516ea70e5e12ce3d0d8ccda8b1c8970756ebbca3b0cbf52",
+      "lines": 161
+    },
+    {
+      "path": "tests/integration/test_skill_rule_description_ui.gd",
+      "bytes": 8489,
+      "sha256": "9431b460d015ae679d22830bcb97fcbce58dbfe3b254f31bfcbf9db4344b3ce6",
+      "lines": 163
+    },
+    {
+      "path": "tests/integration/test_skill_rule_description_ui.gd.uid",
+      "bytes": 20,
+      "sha256": "feb2a801ce5cbbcece46076855a3723de20c893206bffdfb5228477482a30ebb",
+      "lines": null
+    },
+    {
+      "path": "tests/rules/test_skill_rule_description.gd",
+      "bytes": 9887,
+      "sha256": "06c3cbf1ae9c56db9bd630e045227a02f1c00f395e2c6ac6f921ba2f5e580145",
+      "lines": 175
+    },
+    {
+      "path": "tests/rules/test_skill_rule_description.gd.uid",
+      "bytes": 20,
+      "sha256": "249b4d82dca86649a45b55cac1caabcf28d0f04a3da0e92af02af5832c4a00bf",
+      "lines": null
+    },
+    {
+      "path": "ui/build_card/build_card.gd",
+      "bytes": 3551,
+      "sha256": "723b1f24c076a93ddd79198e9bce3e484a52a433e651aae6b2bcfe38fab531e7",
+      "lines": 63
+    },
+    {
+      "path": "ui/skill_card.gd",
+      "bytes": 8619,
+      "sha256": "3531496bf9ece28d2c1d3e5a58676e03d913defdafe6b3b6d4a909479989d6f8",
+      "lines": 206
+    },
+    {
+      "path": "ui/skill_choice_text.gd",
+      "bytes": 8150,
+      "sha256": "3686ec91d2f88be86cf9ef694f5e1436dd5cf8883a57991ee94a5c54c3c076fa",
+      "lines": 99
+    },
+    {
+      "path": "ui/skill_rule_description.gd",
+      "bytes": 9572,
+      "sha256": "74648ed1cc51f39bed5b1bf06c6bfeba65568228052b7db7f17b83a7405f754f",
+      "lines": 144
+    },
+    {
+      "path": "ui/skill_rule_description.gd.uid",
+      "bytes": 20,
+      "sha256": "965d760c6ac0edf5d2b29ee53caabeea6e42a78263cfd9a46a9ea24ef8fa4fe7",
+      "lines": null
+    }
+  ]
+}

@@ -103,7 +103,10 @@ func test_three_real_card_types_fit_and_can_be_chosen_bilingually() -> void:
 			assert_true(finite.consume_label.visible)
 			if locale == "en_US":
 				var composite_card: SkillCard = popup.options.get_child(2) as SkillCard
-				assert_string_contains(composite_card.preview_label.text, "Clear a chosen color")
+				assert_string_contains(composite_card.preview_label.text, "random targets after clearing")
+				assert_string_contains(composite_card.effect_label.text, "Randomly select a surviving ordinary color")
+				assert_string_contains(composite_card.effect_label.text, "up to %d" % DyeRules.CONFIG.instant_targets)
+				assert_string_contains(composite_card.effect_label.text, "outermost steps")
 				assert_string_contains(composite_card.flavor_label.text, "Tidy up")
 			popup._select(selected)
 			if selected == 2: popup.picker.select_color(0)

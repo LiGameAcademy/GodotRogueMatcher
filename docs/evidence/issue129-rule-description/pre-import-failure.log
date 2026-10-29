@@ -1,0 +1,2854 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/offer_config.gd:6)
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/offer_config.gd:29)
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/offer_config.gd:37)
+ERROR: Failed to load script "res://gameplay/progression/offer_config.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not find type "SkillOfferTraits" in the current scope.
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:11)
+SCRIPT ERROR: Parse Error: Could not find type "OfferRarityStep" in the current scope.
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:11)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "CONFIG".
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:52)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/stages/stage_result.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/stages/stage_state.gd:0)
+SCRIPT ERROR: Parse Error: Could not find type "SkillOfferTraits" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_definition.gd:11)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/skill_offer.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/reward_state.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/run_state.gd:0)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type Resource to constant "CONFIG" with specified type OfferConfig.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:4)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:173)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:176)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:83)
+SCRIPT ERROR: Parse Error: Identifier "SkillBuildSnapshot" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:83)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "rejection".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:103)
+SCRIPT ERROR: Parse Error: Identifier "OfferWeightRules" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:104)
+SCRIPT ERROR: Parse Error: Identifier "SkillBuildSnapshot" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:174)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:177)
+SCRIPT ERROR: Parse Error: Identifier "OfferWeightRules" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:179)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/recording/run_recorder.gd:0)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:68)
+SCRIPT ERROR: Parse Error: Could not find type "SkillBuildSnapshot" in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:73)
+SCRIPT ERROR: Parse Error: Identifier "SkillBuildSnapshot" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:73)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "offer_traits".
+   at: GDScript::reload (res://gameplay/progression/skill_rules.gd:74)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/debug/line_clear_demo.gd:0)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type Resource to constant "CORE" with specified type SkillDefinition.
+   at: GDScript::reload (res://gameplay/skills/manual_activation_rules.gd:4)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type Resource to constant "LINE" with specified type SkillDefinition.
+   at: GDScript::reload (res://gameplay/skills/manual_activation_rules.gd:5)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/run_controller.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/game_manager.gd:0)
+ERROR: Failed to load script "res://gameplay/run/game_manager.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "rejection".
+   at: GDScript::reload (res://ui/skill_pool/skill_pool_text.gd:26)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/skill_card.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/popup_skill_choice.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/ui_manager.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/board/board.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/board/match_system.gd:0)
+ERROR: Failed to load script "res://gameplay/board/match_system.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-desc-user/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+SCRIPT ERROR: Parse Error: Identifier "SkillOfferTraits" not declared in the current scope.
+   at: GDScript::reload (res://tests/integration/test_skill_cards.gd:68)
+   GDScript backtrace (most recent call first):
+       [0] load_script_using_custom_warnings (res://addons/gut/warnings_manager.gd:173)
+       [1] _parse_script (res://addons/gut/test_collector.gd:76)
+       [2] add_script (res://addons/gut/test_collector.gd:127)
+       [3] add_script (res://addons/gut/gut.gd:1053)
+       [4] _apply_options (res://addons/gut/gut_config.gd:139)
+       [5] apply_options (res://addons/gut/gut_config.gd:207)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:192)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+ERROR: Failed to load script "res://tests/integration/test_skill_cards.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] load_script_using_custom_warnings (res://addons/gut/warnings_manager.gd:173)
+       [1] _parse_script (res://addons/gut/test_collector.gd:76)
+       [2] add_script (res://addons/gut/test_collector.gd:127)
+       [3] add_script (res://addons/gut/gut.gd:1053)
+       [4] _apply_options (res://addons/gut/gut_config.gd:139)
+       [5] apply_options (res://addons/gut/gut_config.gd:207)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:192)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+[WARNING]:  Ignoring script res://tests/integration/test_skill_cards.gd because it does not extend GutTest
+SCRIPT ERROR: Parse Error: Could not resolve external class member "LINE".
+   at: GDScript::reload (res://tests/integration/test_build_cards.gd:115)
+   GDScript backtrace (most recent call first):
+       [0] load_script_using_custom_warnings (res://addons/gut/warnings_manager.gd:173)
+       [1] _parse_script (res://addons/gut/test_collector.gd:76)
+       [2] add_script (res://addons/gut/test_collector.gd:127)
+       [3] add_script (res://addons/gut/gut.gd:1053)
+       [4] _apply_options (res://addons/gut/gut_config.gd:139)
+       [5] apply_options (res://addons/gut/gut_config.gd:207)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:192)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+ERROR: Failed to load script "res://tests/integration/test_build_cards.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] load_script_using_custom_warnings (res://addons/gut/warnings_manager.gd:173)
+       [1] _parse_script (res://addons/gut/test_collector.gd:76)
+       [2] add_script (res://addons/gut/test_collector.gd:127)
+       [3] add_script (res://addons/gut/gut.gd:1053)
+       [4] _apply_options (res://addons/gut/gut_config.gd:139)
+       [5] apply_options (res://addons/gut/gut_config.gd:207)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:192)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+[WARNING]:  Ignoring script res://tests/integration/test_build_cards.gd because it does not extend GutTest
+
+
+res://tests/integration/test_skill_rule_description_ui.gd
+* test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages (res://tests/integration/test_skill_rule_description_ui.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages (res://tests/integration/test_skill_rule_description_ui.gd:39)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+      at line -1
+* test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default
+SCRIPT ERROR: Invalid access to property or key 'skill_id' on a base object of type 'Nil'.
+   at: SkillCard.configure (res://ui/skill_card.gd:62)
+   GDScript backtrace (most recent call first):
+       [0] configure (res://ui/skill_card.gd:62)
+       [1] test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default (res://tests/integration/test_skill_rule_description_ui.gd:87)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] _run_test (res://addons/gut/gut.gd:643)
+       [5] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  mixed card is not consumed as a whole
+      at line 88
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "3 actual refills".
+      at line 89
+SCRIPT ERROR: Invalid access to property or key 'rarity' on a base object of type 'Nil'.
+   at: configure (res://ui/build_card/build_card.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] configure (res://ui/build_card/build_card.gd:25)
+       [1] test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default (res://tests/integration/test_skill_rule_description_ui.gd:92)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] _run_test (res://addons/gut/gut.gd:643)
+       [5] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0 actual refills remaining".
+      at line 93
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "persists after".
+      at line 94
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "Refill modifier".
+      at line 95
+SCRIPT ERROR: Invalid access to property or key 'rarity' on a base object of type 'Nil'.
+   at: configure (res://ui/build_card/build_card.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] configure (res://ui/build_card/build_card.gd:25)
+       [1] test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default (res://tests/integration/test_skill_rule_description_ui.gd:97)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] _run_test (res://addons/gut/gut.gd:643)
+       [5] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0.6".
+      at line 98
+    [Failed]:  Expected '[Manual rule] ' to contain 'Add 0.2', match_case=true
+      at line 99
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid access to property or key 'skill_id' on a base object of type 'Nil'.
+    [2] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
+    [3] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
+      at line -1
+* test_default_popup_insets_also_fit_three_cards_without_a_game_theme
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: test_default_popup_insets_also_fit_three_cards_without_a_game_theme (res://tests/integration/test_skill_rule_description_ui.gd:112)
+   GDScript backtrace (most recent call first):
+       [0] test_default_popup_insets_also_fit_three_cards_without_a_game_theme (res://tests/integration/test_skill_rule_description_ui.gd:112)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] _run_test (res://addons/gut/gut.gd:643)
+       [4] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+      at line -1
+0/3 passed.
+
+
+res://tests/rules/test_skill_rule_description.gd
+* test_all_six_use_configuration_in_both_languages
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US score_multiplier
+      at line 22
+    [Failed]
+      at line 25
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US line_row_span
+      at line 22
+    [Failed]
+      at line 25
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US refill_less
+      at line 22
+    [Failed]
+      at line 25
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US goal_score_bonus
+      at line 22
+    [Failed]
+      at line 25
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_refill_color
+      at line 22
+    [Failed]
+      at line 25
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_clear_dye
+      at line 22
+    [Failed]
+      at line 25
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN score_multiplier
+      at line 22
+    [Failed]
+      at line 24
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN line_row_span
+      at line 22
+    [Failed]
+      at line 24
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN refill_less
+      at line 22
+    [Failed]
+      at line 24
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN goal_score_bonus
+      at line 22
+    [Failed]
+      at line 24
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_refill_color
+      at line 22
+    [Failed]
+      at line 24
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_clear_dye
+      at line 22
+    [Failed]
+      at line 24
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Cannot call method 'duplicate' on a null value.
+    [3] <engine-2>Cannot call method 'duplicate' on a null value.
+    [4] <engine-2>Cannot call method 'duplicate' on a null value.
+    [5] <engine-2>Cannot call method 'duplicate' on a null value.
+    [6] <engine-2>Cannot call method 'duplicate' on a null value.
+    [7] <engine-2>Cannot call method 'duplicate' on a null value.
+    [8] <engine-2>Cannot call method 'duplicate' on a null value.
+    [9] <engine-2>Cannot call method 'duplicate' on a null value.
+    [10] <engine-2>Cannot call method 'duplicate' on a null value.
+    [11] <engine-2>Cannot call method 'duplicate' on a null value.
+    [12] <engine-2>Cannot call method 'duplicate' on a null value.
+      at line -1
+* test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier (res://tests/rules/test_skill_rule_description.gd:28)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected '[Manual rule] ' to contain '0.2', match_case=true
+      at line 29
+    [Failed]:  Expected '[Manual rule] ' to contain '0.4', match_case=true
+      at line 30
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: compact_preview (res://ui/skill_choice_text.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] compact_preview (res://ui/skill_choice_text.gd:26)
+       [1] test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier (res://tests/rules/test_skill_rule_description.gd:35)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "+0.2 → +0.4".
+      at line 35
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: compact_preview (res://ui/skill_choice_text.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] compact_preview (res://ui/skill_choice_text.gd:26)
+       [1] test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier (res://tests/rules/test_skill_rule_description.gd:36)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "not the final multiplier".
+      at line 36
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+    [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+      at line -1
+* test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary (res://tests/rules/test_skill_rule_description.gd:39)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected '[Manual rule] ' to contain '3', match_case=true
+      at line 41
+    [Failed]:  Expected '[Manual rule] ' to contain 'truncated at edges', match_case=true
+      at line 42
+    [Failed]:  Expected '[Manual rule] ' to contain 'grants no manual activation', match_case=true
+      at line 43
+    [Failed]:  ["null: definition missing"] expected to equal [""]:
+      at line 44
+    [Failed]:  Expected 'null: definition missing' to contain 'maximum', match_case=true
+      at line 45
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Nil'.
+   at: level_text (res://ui/skill_choice_text.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] level_text (res://ui/skill_choice_text.gd:63)
+       [1] test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary (res://tests/rules/test_skill_rule_description.gd:48)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "MAX".
+      at line 48
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Nil'.
+      at line -1
+* test_refill_parameters_repeat_remaining_zero_and_net_count_preview
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_refill_parameters_repeat_remaining_zero_and_net_count_preview (res://tests/rules/test_skill_rule_description.gd:51)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
+   at: test_refill_parameters_repeat_remaining_zero_and_net_count_preview (res://tests/rules/test_skill_rule_description.gd:52)
+   GDScript backtrace (most recent call first):
+       [0] test_refill_parameters_repeat_remaining_zero_and_net_count_preview (res://tests/rules/test_skill_rule_description.gd:52)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
+      at line -1
+* test_goal_is_next_target_and_reads_changed_resource_value
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_goal_is_next_target_and_reads_changed_resource_value (res://tests/rules/test_skill_rule_description.gd:71)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: test_goal_is_next_target_and_reads_changed_resource_value (res://tests/rules/test_skill_rule_description.gd:72)
+   GDScript backtrace (most recent call first):
+       [0] test_goal_is_next_target_and_reads_changed_resource_value (res://tests/rules/test_skill_rule_description.gd:72)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+      at line -1
+* test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_mixed_lifetime_preserves_permanent_weight_after_refill_expires (res://tests/rules/test_skill_rule_description.gd:81)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: test_mixed_lifetime_preserves_permanent_weight_after_refill_expires (res://tests/rules/test_skill_rule_description.gd:82)
+   GDScript backtrace (most recent call first):
+       [0] test_mixed_lifetime_preserves_permanent_weight_after_refill_expires (res://tests/rules/test_skill_rule_description.gd:82)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+      at line -1
+* test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:94)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  [-1] expected to be < than [-1]:
+      at line 96
+    [Failed]:  Expected '[Manual rule] ' to contain 'up to 3', match_case=true
+      at line 97
+    [Failed]:  Expected '[Manual rule] ' to contain 'surviving ordinary', match_case=true
+      at line 98
+    [Failed]:  Expected '[Manual rule] ' to contain 'fuses too', match_case=true
+      at line 99
+    [Failed]:  Expected '[Manual rule] ' to contain 'no match base points', match_case=true
+      at line 100
+    [Failed]:  Expected '[Manual rule] ' to contain 'skip if none', match_case=true
+      at line 101
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: compact_preview (res://ui/skill_choice_text.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] compact_preview (res://ui/skill_choice_text.gd:26)
+       [1] test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:105)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "after clearing".
+      at line 105
+    [Failed]:  [-1] expected to be > than [-1]:
+      at line 106
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:107)
+   GDScript backtrace (most recent call first):
+       [0] test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:107)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+    [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+      at line -1
+* test_nested_order_conditions_and_cycle_diagnostics
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_nested_order_conditions_and_cycle_diagnostics (res://tests/rules/test_skill_rule_description.gd:114)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+   at: test_nested_order_conditions_and_cycle_diagnostics (res://tests/rules/test_skill_rule_description.gd:115)
+   GDScript backtrace (most recent call first):
+       [0] test_nested_order_conditions_and_cycle_diagnostics (res://tests/rules/test_skill_rule_description.gd:115)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+      at line -1
+* test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback (res://tests/rules/test_skill_rule_description.gd:129)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Expected 'null: definition missing' to contain 'line_manual_clear', match_case=true
+      at line 131
+SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
+   at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] _skill (res://tests/rules/test_skill_rule_description.gd:15)
+       [1] test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback (res://tests/rules/test_skill_rule_description.gd:132)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid assignment of property or key 'choice_effect' with value of type 'Nil' on a base object of type 'Nil'.
+   at: test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback (res://tests/rules/test_skill_rule_description.gd:133)
+   GDScript backtrace (most recent call first):
+       [0] test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback (res://tests/rules/test_skill_rule_description.gd:133)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Cannot call method 'duplicate' on a null value.
+    [3] <engine-2>Invalid assignment of property or key 'choice_effect' with value of type 'Nil' on a base object of type 'Nil'.
+      at line -1
+* test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged (res://tests/rules/test_skill_rule_description.gd:155)
+   GDScript backtrace (most recent call first):
+       [0] test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged (res://tests/rules/test_skill_rule_description.gd:155)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line -1
+0/10 passed.
+
+
+res://tests/integration/test_choice_visual_layout.gd
+* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes (res://tests/integration/test_choice_visual_layout.gd:40)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Resource]')
+   at: create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+       [1] test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes (res://tests/integration/test_choice_visual_layout.gd:40)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: _popup (res://tests/integration/test_choice_visual_layout.gd:23)
+   GDScript backtrace (most recent call first):
+       [0] _popup (res://tests/integration/test_choice_visual_layout.gd:23)
+       [1] test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes (res://tests/integration/test_choice_visual_layout.gd:41)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes (res://tests/integration/test_choice_visual_layout.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes (res://tests/integration/test_choice_visual_layout.gd:42)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line -1
+* test_selected_and_unavailable_state_survives_locale_and_theme_changes
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] test_selected_and_unavailable_state_survives_locale_and_theme_changes (res://tests/integration/test_choice_visual_layout.gd:69)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Resource]')
+   at: create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+       [1] test_selected_and_unavailable_state_survives_locale_and_theme_changes (res://tests/integration/test_choice_visual_layout.gd:69)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: _popup (res://tests/integration/test_choice_visual_layout.gd:23)
+   GDScript backtrace (most recent call first):
+       [0] _popup (res://tests/integration/test_choice_visual_layout.gd:23)
+       [1] test_selected_and_unavailable_state_survives_locale_and_theme_changes (res://tests/integration/test_choice_visual_layout.gd:70)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid call. Nonexistent function '_select' in base 'Nil'.
+   at: test_selected_and_unavailable_state_survives_locale_and_theme_changes (res://tests/integration/test_choice_visual_layout.gd:71)
+   GDScript backtrace (most recent call first):
+       [0] test_selected_and_unavailable_state_survives_locale_and_theme_changes (res://tests/integration/test_choice_visual_layout.gd:71)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
+      at line -1
+* test_deselect_restores_surface_and_other_card_style_is_unchanged
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] test_deselect_restores_surface_and_other_card_style_is_unchanged (res://tests/integration/test_choice_visual_layout.gd:95)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [5] _run_test (res://addons/gut/gut.gd:643)
+       [6] after_each (res://tests/integration/test_choice_visual_layout.gd:20)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Resource]')
+   at: create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+       [1] test_deselect_restores_surface_and_other_card_style_is_unchanged (res://tests/integration/test_choice_visual_layout.gd:95)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] _run_test (res://addons/gut/gut.gd:643)
+       [5] after_each (res://tests/integration/test_choice_visual_layout.gd:20)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: _popup (res://tests/integration/test_choice_visual_layout.gd:23)
+   GDScript backtrace (most recent call first):
+       [0] _popup (res://tests/integration/test_choice_visual_layout.gd:23)
+       [1] test_deselect_restores_surface_and_other_card_style_is_unchanged (res://tests/integration/test_choice_visual_layout.gd:96)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] _run_test (res://addons/gut/gut.gd:643)
+       [5] after_each (res://tests/integration/test_choice_visual_layout.gd:20)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'options' on a base object of type 'Nil'.
+   at: test_deselect_restores_surface_and_other_card_style_is_unchanged (res://tests/integration/test_choice_visual_layout.gd:97)
+   GDScript backtrace (most recent call first):
+       [0] test_deselect_restores_surface_and_other_card_style_is_unchanged (res://tests/integration/test_choice_visual_layout.gd:97)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] _run_test (res://addons/gut/gut.gd:643)
+       [4] after_each (res://tests/integration/test_choice_visual_layout.gd:20)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid access to property or key 'options' on a base object of type 'Nil'.
+      at line -1
+0/3 passed.
+
+
+res://tests/integration/test_aesthetic_acceptance.gd
+* test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: RunController.execute_command (res://gameplay/run/run_controller.gd:284)
+   GDScript backtrace (most recent call first):
+       [0] execute_command (res://gameplay/run/run_controller.gd:284)
+       [1] _execute_action (res://gameplay/board/board.gd:341)
+       [2] move_selected_piece (res://gameplay/board/board.gd:281)
+       [3] play_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:101)
+       [4] test_actual_closed_loops_preserve_rules_across_normal_and_low_effects (res://tests/integration/test_aesthetic_acceptance.gd:41)
+       [5] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:90)
+       [6] start_game (res://gameplay/board/board.gd:118)
+       [7] present_spawns (res://gameplay/board/board.gd:315)
+       [8] finish_presentation (res://gameplay/board/board.gd:239)
+       [9] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [10] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [11] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+   at: Board._execute_action (res://gameplay/board/board.gd:342)
+   GDScript backtrace (most recent call first):
+       [0] _execute_action (res://gameplay/board/board.gd:342)
+       [1] move_selected_piece (res://gameplay/board/board.gd:281)
+       [2] play_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:101)
+       [3] test_actual_closed_loops_preserve_rules_across_normal_and_low_effects (res://tests/integration/test_aesthetic_acceptance.gd:41)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:90)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+    [Failed]:  [0] expected to be > than [0]:  match real score
+      at line 45
+    [Failed]
+      at line 47
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_actual_closed_loops_preserve_rules_across_normal_and_low_effects (res://tests/integration/test_aesthetic_acceptance.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] test_actual_closed_loops_preserve_rules_across_normal_and_low_effects (res://tests/integration/test_aesthetic_acceptance.gd:53)
+       [1] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:90)
+       [2] start_game (res://gameplay/board/board.gd:118)
+       [3] present_spawns (res://gameplay/board/board.gd:315)
+       [4] finish_presentation (res://gameplay/board/board.gd:239)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [9] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [10] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+    [11] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+    [12] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line 53
+* test_real_reward_popup_unlocks_l_and_restores_input
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
+   at: populate (res://gameplay/skills/debug/shape_unlock_demo.gd:68)
+   GDScript backtrace (most recent call first):
+       [0] populate (res://gameplay/skills/debug/shape_unlock_demo.gd:68)
+       [1] initialize (res://gameplay/run/run_controller.gd:226)
+       [2] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:26)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'freeze_target' in base 'GDScript'.
+   at: offer (res://tools/aesthetic_acceptance/aesthetic_cases.gd:70)
+   GDScript backtrace (most recent call first):
+       [0] offer (res://tools/aesthetic_acceptance/aesthetic_cases.gd:70)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:27)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] continue_run (res://gameplay/board/board_run_flow.gd:7)
+       [6] resume_run (res://gameplay/board/board.gd:287)
+       [7] play_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:96)
+       [8] test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:61)
+       [9] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:90)
+       [10] start_game (res://gameplay/board/board.gd:118)
+       [11] present_spawns (res://gameplay/board/board.gd:315)
+       [12] finish_presentation (res://gameplay/board/board.gd:239)
+       [13] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [14] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [15] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] continue_run (res://gameplay/board/board_run_flow.gd:7)
+       [5] resume_run (res://gameplay/board/board.gd:287)
+       [6] play_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:96)
+       [7] test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:61)
+       [8] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:90)
+       [9] start_game (res://gameplay/board/board.gd:118)
+       [10] present_spawns (res://gameplay/board/board.gd:315)
+       [11] finish_presentation (res://gameplay/board/board.gd:239)
+       [12] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [13] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [14] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:254)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:254)
+       [1] advance (res://gameplay/run/run_controller.gd:383)
+       [2] continue_run (res://gameplay/board/board_run_flow.gd:8)
+       [3] resume_run (res://gameplay/board/board.gd:287)
+       [4] play_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:96)
+       [5] test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:61)
+       [6] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:90)
+       [7] start_game (res://gameplay/board/board.gd:118)
+       [8] present_spawns (res://gameplay/board/board.gd:315)
+       [9] finish_presentation (res://gameplay/board/board.gd:239)
+       [10] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [11] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [12] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+    --- Awaiting callable to return TRUE or 4.0s.   ---
+    [Failed]
+      at line 62
+SCRIPT ERROR: Invalid call. Nonexistent function '_select' in base 'Nil'.
+   at: test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:65)
+   GDScript backtrace (most recent call first):
+       [0] test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:65)
+       [1] _end_wait (res://addons/gut/awaiter.gd:126)
+       [2] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
+    [9] <engine-2>Invalid call. Nonexistent function 'freeze_target' in base 'GDScript'.
+    [10] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [11] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [12] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [13] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [14] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [15] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
+      at line 65
+* test_three_real_card_types_fit_and_can_be_chosen_bilingually
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Resource]')
+   at: create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+       [1] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [2] start_game (res://gameplay/board/board.gd:118)
+       [3] present_spawns (res://gameplay/board/board.gd:315)
+       [4] finish_presentation (res://gameplay/board/board.gd:239)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:79)
+       [1] start_game (res://gameplay/board/board.gd:118)
+       [2] present_spawns (res://gameplay/board/board.gd:315)
+       [3] finish_presentation (res://gameplay/board/board.gd:239)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_three_real_card_types_fit_and_can_be_chosen_bilingually (res://tests/integration/test_aesthetic_acceptance.gd:83)
+   GDScript backtrace (most recent call first):
+       [0] test_three_real_card_types_fit_and_can_be_chosen_bilingually (res://tests/integration/test_aesthetic_acceptance.gd:83)
+       [1] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:79)
+       [2] start_game (res://gameplay/board/board.gd:118)
+       [3] present_spawns (res://gameplay/board/board.gd:315)
+       [4] finish_presentation (res://gameplay/board/board.gd:239)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [9] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [10] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line 83
+* test_flash_reaches_visible_nut_and_is_isolated_from_other_instances_and_template
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+* test_empty_build_hint_uses_full_width_then_returns_to_three_columns
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Resource]')
+   at: create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:53)
+       [1] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [2] start_game (res://gameplay/board/board.gd:118)
+       [3] present_spawns (res://gameplay/board/board.gd:315)
+       [4] finish_presentation (res://gameplay/board/board.gd:239)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type 'Nil'.
+   at: load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:79)
+       [1] start_game (res://gameplay/board/board.gd:118)
+       [2] present_spawns (res://gameplay/board/board.gd:315)
+       [3] finish_presentation (res://gameplay/board/board.gd:239)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+    [Failed]:  [1] expected to equal [3]:
+      at line 142
+    [Failed]
+      at line 143
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [9] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+      at line 143
+* test_legacy_v43_remains_viewable_but_new_protocol_rejects_exact_replay
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+* test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'config' in base 'GDScript'.
+   at: RunRecorder.begin (res://gameplay/run/recording/run_recorder.gd:36)
+   GDScript backtrace (most recent call first):
+       [0] begin (res://gameplay/run/recording/run_recorder.gd:36)
+       [1] test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration (res://tests/integration/test_aesthetic_acceptance.gd:160)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] before_each (res://tests/integration/test_aesthetic_acceptance.gd:18)
+       [4] wait_until (res://addons/gut/test.gd:2540)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _physics_process (res://addons/gut/awaiter.gd:100)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: RunController.execute_command (res://gameplay/run/run_controller.gd:284)
+   GDScript backtrace (most recent call first):
+       [0] execute_command (res://gameplay/run/run_controller.gd:284)
+       [1] test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration (res://tests/integration/test_aesthetic_acceptance.gd:162)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] before_each (res://tests/integration/test_aesthetic_acceptance.gd:18)
+       [4] wait_until (res://addons/gut/test.gd:2540)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _physics_process (res://addons/gut/awaiter.gd:100)
+SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+   at: test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration (res://tests/integration/test_aesthetic_acceptance.gd:162)
+   GDScript backtrace (most recent call first):
+       [0] test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration (res://tests/integration/test_aesthetic_acceptance.gd:162)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] before_each (res://tests/integration/test_aesthetic_acceptance.gd:18)
+       [3] wait_until (res://addons/gut/test.gd:2540)
+       [4] _end_wait (res://addons/gut/awaiter.gd:126)
+       [5] _physics_process (res://addons/gut/awaiter.gd:100)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'config' in base 'GDScript'.
+    [2] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+    [3] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+      at line -1
+* test_legacy_debug_keys_cannot_escape_acceptance_fixture
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+   at: test_legacy_debug_keys_cannot_escape_acceptance_fixture (res://tests/integration/test_aesthetic_acceptance.gd:179)
+   GDScript backtrace (most recent call first):
+       [0] test_legacy_debug_keys_cannot_escape_acceptance_fixture (res://tests/integration/test_aesthetic_acceptance.gd:179)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] before_each (res://tests/integration/test_aesthetic_acceptance.gd:18)
+       [3] wait_until (res://addons/gut/test.gd:2540)
+       [4] _end_wait (res://addons/gut/awaiter.gd:126)
+       [5] _physics_process (res://addons/gut/awaiter.gd:100)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+      at line -1
+* test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] finish_presentation (res://gameplay/board/board.gd:238)
+       [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] finish_presentation (res://gameplay/board/board.gd:238)
+       [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_turn_started (res://gameplay/game.gd:466)
+       [5] start_game (res://gameplay/board/board.gd:115)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_turn_started (res://gameplay/game.gd:466)
+       [4] start_game (res://gameplay/board/board.gd:115)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+   at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
+       [1] create (res://tools/aesthetic_acceptance/aesthetic_cases.gd:22)
+       [2] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:78)
+       [3] start_game (res://gameplay/board/board.gd:118)
+       [4] present_spawns (res://gameplay/board/board.gd:315)
+       [5] finish_presentation (res://gameplay/board/board.gd:239)
+       [6] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [7] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [8] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [5] start_game (res://gameplay/board/board.gd:118)
+       [6] present_spawns (res://gameplay/board/board.gd:315)
+       [7] finish_presentation (res://gameplay/board/board.gd:239)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] load_case (res://tools/aesthetic_acceptance/aesthetic_acceptance.gd:88)
+       [4] start_game (res://gameplay/board/board.gd:118)
+       [5] present_spawns (res://gameplay/board/board.gd:315)
+       [6] finish_presentation (res://gameplay/board/board.gd:239)
+       [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_locale_changed (res://gameplay/game.gd:384)
+       [5] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:196)
+       [6] _run_test (res://addons/gut/gut.gd:615)
+       [7] before_each (res://tests/integration/test_aesthetic_acceptance.gd:18)
+       [8] wait_until (res://addons/gut/test.gd:2540)
+       [9] _end_wait (res://addons/gut/awaiter.gd:126)
+       [10] _physics_process (res://addons/gut/awaiter.gd:100)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:196)
+       [5] _run_test (res://addons/gut/gut.gd:615)
+       [6] before_each (res://tests/integration/test_aesthetic_acceptance.gd:18)
+       [7] wait_until (res://addons/gut/test.gd:2540)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _physics_process (res://addons/gut/awaiter.gd:100)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_locale_changed (res://gameplay/game.gd:384)
+       [5] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [6] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [7] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:195)
+       [8] _end_wait (res://addons/gut/awaiter.gd:126)
+       [9] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] _sync_locale (res://addons/godot_core_system/source/localization_system/localization_manager.gd:119)
+       [5] _notification (res://addons/godot_core_system/source/localization_system/localization_manager.gd:26)
+       [6] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:195)
+       [7] _end_wait (res://addons/gut/awaiter.gd:126)
+       [8] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _notification (res://ui/hud.gd:95)
+       [4] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:195)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _notification (res://ui/hud.gd:95)
+       [3] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:195)
+       [4] _end_wait (res://addons/gut/awaiter.gd:126)
+       [5] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
+   at: active_skills (res://ui/hud_details.gd:8)
+   GDScript backtrace (most recent call first):
+       [0] active_skills (res://ui/hud_details.gd:8)
+       [1] show_state (res://ui/build_list/build_list.gd:16)
+       [2] show_run (res://ui/hud.gd:190)
+       [3] _refresh_hud (res://gameplay/game.gd:314)
+       [4] _on_locale_changed (res://gameplay/game.gd:384)
+       [5] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:196)
+       [6] _end_wait (res://addons/gut/awaiter.gd:126)
+       [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+   at: history (res://ui/hud_details.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] history (res://ui/hud_details.gd:39)
+       [1] show_run (res://ui/hud.gd:192)
+       [2] _refresh_hud (res://gameplay/game.gd:314)
+       [3] _on_locale_changed (res://gameplay/game.gd:384)
+       [4] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:196)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+      at line 206
+2/9 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://tests/integration/test_skill_rule_description_ui.gd
+- test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+          at line -1
+- test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default
+    [Failed]:  mixed card is not consumed as a whole
+          at line 88
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "3 actual refills".
+          at line 89
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0 actual refills remaining".
+          at line 93
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "persists after".
+          at line 94
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "Refill modifier".
+          at line 95
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0.6".
+          at line 98
+    [Failed]:  Expected '[Manual rule] ' to contain 'Add 0.2', match_case=true
+          at line 99
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid access to property or key 'skill_id' on a base object of type 'Nil'.
+    [2] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
+    [3] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
+          at line -1
+- test_default_popup_insets_also_fit_three_cards_without_a_game_theme
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+          at line -1
+
+res://tests/rules/test_skill_rule_description.gd
+- test_all_six_use_configuration_in_both_languages
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US score_multiplier
+          at line 22
+    [Failed]:
+          at line 25
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US line_row_span
+          at line 22
+    [Failed]:
+          at line 25
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US refill_less
+          at line 22
+    [Failed]:
+          at line 25
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US goal_score_bonus
+          at line 22
+    [Failed]:
+          at line 25
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_refill_color
+          at line 22
+    [Failed]:
+          at line 25
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_clear_dye
+          at line 22
+    [Failed]:
+          at line 25
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN score_multiplier
+          at line 22
+    [Failed]:
+          at line 24
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN line_row_span
+          at line 22
+    [Failed]:
+          at line 24
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN refill_less
+          at line 22
+    [Failed]:
+          at line 24
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN goal_score_bonus
+          at line 22
+    [Failed]:
+          at line 24
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_refill_color
+          at line 22
+    [Failed]:
+          at line 24
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_clear_dye
+          at line 22
+    [Failed]:
+          at line 24
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Cannot call method 'duplicate' on a null value.
+    [3] <engine-2>Cannot call method 'duplicate' on a null value.
+    [4] <engine-2>Cannot call method 'duplicate' on a null value.
+    [5] <engine-2>Cannot call method 'duplicate' on a null value.
+    [6] <engine-2>Cannot call method 'duplicate' on a null value.
+    [7] <engine-2>Cannot call method 'duplicate' on a null value.
+    [8] <engine-2>Cannot call method 'duplicate' on a null value.
+    [9] <engine-2>Cannot call method 'duplicate' on a null value.
+    [10] <engine-2>Cannot call method 'duplicate' on a null value.
+    [11] <engine-2>Cannot call method 'duplicate' on a null value.
+    [12] <engine-2>Cannot call method 'duplicate' on a null value.
+          at line -1
+- test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
+    [Failed]:  Expected '[Manual rule] ' to contain '0.2', match_case=true
+          at line 29
+    [Failed]:  Expected '[Manual rule] ' to contain '0.4', match_case=true
+          at line 30
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "+0.2 → +0.4".
+          at line 35
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "not the final multiplier".
+          at line 36
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+    [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+          at line -1
+- test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
+    [Failed]:  Expected '[Manual rule] ' to contain '3', match_case=true
+          at line 41
+    [Failed]:  Expected '[Manual rule] ' to contain 'truncated at edges', match_case=true
+          at line 42
+    [Failed]:  Expected '[Manual rule] ' to contain 'grants no manual activation', match_case=true
+          at line 43
+    [Failed]:  ["null: definition missing"] expected to equal [""]:
+          at line 44
+    [Failed]:  Expected 'null: definition missing' to contain 'maximum', match_case=true
+          at line 45
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "MAX".
+          at line 48
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Nil'.
+          at line -1
+- test_refill_parameters_repeat_remaining_zero_and_net_count_preview
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
+          at line -1
+- test_goal_is_next_target_and_reads_changed_resource_value
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+          at line -1
+- test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+          at line -1
+- test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
+    [Failed]:  [-1] expected to be < than [-1]:
+          at line 96
+    [Failed]:  Expected '[Manual rule] ' to contain 'up to 3', match_case=true
+          at line 97
+    [Failed]:  Expected '[Manual rule] ' to contain 'surviving ordinary', match_case=true
+          at line 98
+    [Failed]:  Expected '[Manual rule] ' to contain 'fuses too', match_case=true
+          at line 99
+    [Failed]:  Expected '[Manual rule] ' to contain 'no match base points', match_case=true
+          at line 100
+    [Failed]:  Expected '[Manual rule] ' to contain 'skip if none', match_case=true
+          at line 101
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "after clearing".
+          at line 105
+    [Failed]:  [-1] expected to be > than [-1]:
+          at line 106
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+    [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+          at line -1
+- test_nested_order_conditions_and_cycle_diagnostics
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
+          at line -1
+- test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+    [Failed]:  Expected 'null: definition missing' to contain 'line_manual_clear', match_case=true
+          at line 131
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Cannot call method 'duplicate' on a null value.
+    [2] <engine-2>Cannot call method 'duplicate' on a null value.
+    [3] <engine-2>Invalid assignment of property or key 'choice_effect' with value of type 'Nil' on a base object of type 'Nil'.
+          at line -1
+- test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+
+res://tests/integration/test_choice_visual_layout.gd
+- test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+- test_selected_and_unavailable_state_survives_locale_and_theme_changes
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
+          at line -1
+- test_deselect_restores_surface_and_other_card_style_is_unchanged
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid access to property or key 'options' on a base object of type 'Nil'.
+          at line -1
+
+res://tests/integration/test_aesthetic_acceptance.gd
+- test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+    [Failed]:  [0] expected to be > than [0]:  match real score
+          at line 45
+    [Failed]:
+          at line 47
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [9] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [10] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+    [11] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+    [12] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line 53
+- test_real_reward_popup_unlocks_l_and_restores_input
+    [Failed]:
+          at line 62
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
+    [9] <engine-2>Invalid call. Nonexistent function 'freeze_target' in base 'GDScript'.
+    [10] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [11] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [12] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [13] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [14] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [15] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
+          at line 65
+- test_three_real_card_types_fit_and_can_be_chosen_bilingually
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [9] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+    [10] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line 83
+- test_empty_build_hint_uses_full_width_then_returns_to_three_columns
+    [Failed]:  [1] expected to equal [3]:
+          at line 142
+    [Failed]:
+          at line 143
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
+    [8] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
+    [9] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
+          at line 143
+- test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'config' in base 'GDScript'.
+    [2] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+    [3] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+          at line -1
+- test_legacy_debug_keys_cannot_escape_acceptance_fixture
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
+          at line -1
+- test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
+    [Failed]:  Unexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [4] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [5] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [6] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+    [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
+    [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
+          at line 206
+
+Totals
+------
+Warnings              2
+
+Scripts               4
+Tests                25
+Passing Tests         2
+Failing Tests        23
+Asserts           66/144
+Time              32.434s
+
+
+---- 23 failing tests ----
