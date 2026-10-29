@@ -86,7 +86,7 @@ ERROR: Failed to read the root certificate store.
    at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
 Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
 ---  GUT  ---
-[1m[INFO]:  [0musing [C:/Users/ADMINI~1/AppData/Local/Temp/o4-desc-user/Godot/app_userdata/技能连珠] for temporary output.
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-desc-user/Godot/app_userdata/技能连珠] for temporary output.
 Godot version:  4.7.2
 GUT version:  9.6.0
 SCRIPT ERROR: Parse Error: Identifier "SkillOfferTraits" not declared in the current scope.
@@ -115,7 +115,7 @@ ERROR: Failed to load script "res://tests/integration/test_skill_cards.gd" with 
        [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
        [8] main (res://addons/gut/cli/gut_cli.gd:284)
        [9] _init (res://addons/gut/gut_cmdln.gd:38)
-[33m[WARNING]:  [0mIgnoring script res://tests/integration/test_skill_cards.gd because it does not extend GutTest
+[WARNING]:  Ignoring script res://tests/integration/test_skill_cards.gd because it does not extend GutTest
 SCRIPT ERROR: Parse Error: Could not resolve external class member "LINE".
    at: GDScript::reload (res://tests/integration/test_build_cards.gd:115)
    GDScript backtrace (most recent call first):
@@ -142,11 +142,11 @@ ERROR: Failed to load script "res://tests/integration/test_build_cards.gd" with 
        [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
        [8] main (res://addons/gut/cli/gut_cli.gd:284)
        [9] _init (res://addons/gut/gut_cmdln.gd:38)
-[33m[WARNING]:  [0mIgnoring script res://tests/integration/test_build_cards.gd because it does not extend GutTest
-[4m
+[WARNING]:  Ignoring script res://tests/integration/test_build_cards.gd because it does not extend GutTest
+
 
 res://tests/integration/test_skill_rule_description_ui.gd
-[0m* test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
+* test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages (res://tests/integration/test_skill_rule_description_ui.gd:39)
    GDScript backtrace (most recent call first):
@@ -158,7 +158,7 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
        [6] main (res://addons/gut/cli/gut_cli.gd:284)
        [7] _init (res://addons/gut/gut_cmdln.gd:38)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
       at line -1
 * test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default
@@ -173,9 +173,9 @@ SCRIPT ERROR: Invalid access to property or key 'skill_id' on a base object of t
        [5] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
        [6] _end_wait (res://addons/gut/awaiter.gd:126)
        [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[31m    [Failed]:  [0mmixed card is not consumed as a whole
+    [Failed]:  mixed card is not consumed as a whole
       at line 88
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "3 actual refills".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "3 actual refills".
       at line 89
 SCRIPT ERROR: Invalid access to property or key 'rarity' on a base object of type 'Nil'.
    at: configure (res://ui/build_card/build_card.gd:25)
@@ -188,11 +188,11 @@ SCRIPT ERROR: Invalid access to property or key 'rarity' on a base object of typ
        [5] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
        [6] _end_wait (res://addons/gut/awaiter.gd:126)
        [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "0 actual refills remaining".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0 actual refills remaining".
       at line 93
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "persists after".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "persists after".
       at line 94
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "Refill modifier".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "Refill modifier".
       at line 95
 SCRIPT ERROR: Invalid access to property or key 'rarity' on a base object of type 'Nil'.
    at: configure (res://ui/build_card/build_card.gd:25)
@@ -205,11 +205,11 @@ SCRIPT ERROR: Invalid access to property or key 'rarity' on a base object of typ
        [5] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
        [6] _end_wait (res://addons/gut/awaiter.gd:126)
        [7] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "0.6".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0.6".
       at line 98
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'Add 0.2', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'Add 0.2', match_case=true
       at line 99
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid access to property or key 'skill_id' on a base object of type 'Nil'.
     [2] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
     [3] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
@@ -225,14 +225,14 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [4] after_each (res://tests/integration/test_skill_rule_description_ui.gd:21)
        [5] _end_wait (res://addons/gut/awaiter.gd:126)
        [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
       at line -1
-[1m0/3 passed.
-[0m[4m
+0/3 passed.
+
 
 res://tests/rules/test_skill_rule_description.gd
-[0m* test_all_six_use_configuration_in_both_languages
+* test_all_six_use_configuration_in_both_languages
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
    GDScript backtrace (most recent call first):
@@ -240,9 +240,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US score_multiplier
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US score_multiplier
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 25
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -251,9 +251,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US line_row_span
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US line_row_span
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 25
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -262,9 +262,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US refill_less
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US refill_less
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 25
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -273,9 +273,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US goal_score_bonus
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US goal_score_bonus
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 25
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -284,9 +284,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US composite_refill_color
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_refill_color
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 25
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -295,9 +295,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US composite_clear_dye
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_clear_dye
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 25
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -306,9 +306,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN score_multiplier
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN score_multiplier
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 24
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -317,9 +317,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN line_row_span
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN line_row_span
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 24
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -328,9 +328,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN refill_less
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN refill_less
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 24
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -339,9 +339,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN goal_score_bonus
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN goal_score_bonus
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 24
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -350,9 +350,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN composite_refill_color
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_refill_color
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 24
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -361,11 +361,11 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_all_six_use_configuration_in_both_languages (res://tests/rules/test_skill_rule_description.gd:21)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN composite_clear_dye
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_clear_dye
       at line 22
-[31m    [Failed] [0m
+    [Failed]
       at line 24
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Cannot call method 'duplicate' on a null value.
     [3] <engine-2>Cannot call method 'duplicate' on a null value.
@@ -387,9 +387,9 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier (res://tests/rules/test_skill_rule_description.gd:28)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain '0.2', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain '0.2', match_case=true
       at line 29
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain '0.4', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain '0.4', match_case=true
       at line 30
 SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
    at: compact_preview (res://ui/skill_choice_text.gd:26)
@@ -398,7 +398,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [1] test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier (res://tests/rules/test_skill_rule_description.gd:35)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "+0.2 → +0.4".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "+0.2 → +0.4".
       at line 35
 SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
    at: compact_preview (res://ui/skill_choice_text.gd:26)
@@ -407,9 +407,9 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [1] test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier (res://tests/rules/test_skill_rule_description.gd:36)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "not the final multiplier".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "not the final multiplier".
       at line 36
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
     [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
@@ -422,15 +422,15 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary (res://tests/rules/test_skill_rule_description.gd:39)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain '3', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain '3', match_case=true
       at line 41
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'truncated at edges', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'truncated at edges', match_case=true
       at line 42
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'grants no manual activation', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'grants no manual activation', match_case=true
       at line 43
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  
+    [Failed]:  ["null: definition missing"] expected to equal [""]:
       at line 44
-[31m    [Failed]:  [0mExpected 'null: definition missing' to contain 'maximum', match_case=true
+    [Failed]:  Expected 'null: definition missing' to contain 'maximum', match_case=true
       at line 45
 SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object of type 'Nil'.
    at: level_text (res://ui/skill_choice_text.gd:63)
@@ -439,9 +439,9 @@ SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object
        [1] test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary (res://tests/rules/test_skill_rule_description.gd:48)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "MAX".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "MAX".
       at line 48
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Nil'.
       at line -1
@@ -459,7 +459,7 @@ SCRIPT ERROR: Invalid access to property or key 'choice_effect' on a base object
        [0] test_refill_parameters_repeat_remaining_zero_and_net_count_preview (res://tests/rules/test_skill_rule_description.gd:52)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
       at line -1
@@ -477,7 +477,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [0] test_goal_is_next_target_and_reads_changed_resource_value (res://tests/rules/test_skill_rule_description.gd:72)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
       at line -1
@@ -495,7 +495,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [0] test_mixed_lifetime_preserves_permanent_weight_after_refill_expires (res://tests/rules/test_skill_rule_description.gd:82)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
       at line -1
@@ -507,17 +507,17 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:94)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0m[-1] expected to be < than [-1]:  
+    [Failed]:  [-1] expected to be < than [-1]:
       at line 96
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'up to 3', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'up to 3', match_case=true
       at line 97
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'surviving ordinary', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'surviving ordinary', match_case=true
       at line 98
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'fuses too', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'fuses too', match_case=true
       at line 99
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'no match base points', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'no match base points', match_case=true
       at line 100
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'skip if none', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'skip if none', match_case=true
       at line 101
 SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
    at: compact_preview (res://ui/skill_choice_text.gd:26)
@@ -526,9 +526,9 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [1] test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:105)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "after clearing".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "after clearing".
       at line 105
-[31m    [Failed]:  [0m[-1] expected to be > than [-1]:  
+    [Failed]:  [-1] expected to be > than [-1]:
       at line 106
 SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
    at: test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:107)
@@ -536,7 +536,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [0] test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last (res://tests/rules/test_skill_rule_description.gd:107)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
     [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
@@ -555,7 +555,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'acquisition_effect' in base 'N
        [0] test_nested_order_conditions_and_cycle_diagnostics (res://tests/rules/test_skill_rule_description.gd:115)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
       at line -1
@@ -567,7 +567,7 @@ SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
        [1] test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback (res://tests/rules/test_skill_rule_description.gd:129)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mExpected 'null: definition missing' to contain 'line_manual_clear', match_case=true
+    [Failed]:  Expected 'null: definition missing' to contain 'line_manual_clear', match_case=true
       at line 131
 SCRIPT ERROR: Cannot call method 'duplicate' on a null value.
    at: _skill (res://tests/rules/test_skill_rule_description.gd:15)
@@ -582,7 +582,7 @@ SCRIPT ERROR: Invalid assignment of property or key 'choice_effect' with value o
        [0] test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback (res://tests/rules/test_skill_rule_description.gd:133)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Cannot call method 'duplicate' on a null value.
     [3] <engine-2>Invalid assignment of property or key 'choice_effect' with value of type 'Nil' on a base object of type 'Nil'.
@@ -594,14 +594,14 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
        [0] test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged (res://tests/rules/test_skill_rule_description.gd:155)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
       at line -1
-[1m0/10 passed.
-[0m[4m
+0/10 passed.
+
 
 res://tests/integration/test_choice_visual_layout.gd
-[0m* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
 SCRIPT ERROR: Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
    at: card_samples (res://tools/aesthetic_acceptance/aesthetic_cases.gd:17)
    GDScript backtrace (most recent call first):
@@ -630,7 +630,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
        [0] test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes (res://tests/integration/test_choice_visual_layout.gd:42)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
     [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
     [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
@@ -665,7 +665,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function '_select' in base 'Nil'.
        [0] test_selected_and_unavailable_state_survives_locale_and_theme_changes (res://tests/integration/test_choice_visual_layout.gd:71)
        [1] _run_test (res://addons/gut/gut.gd:615)
        [2] _test_the_scripts (res://addons/gut/gut.gd:818)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
     [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
     [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
@@ -716,18 +716,18 @@ SCRIPT ERROR: Invalid access to property or key 'options' on a base object of ty
        [4] after_each (res://tests/integration/test_choice_visual_layout.gd:20)
        [5] _end_wait (res://addons/gut/awaiter.gd:126)
        [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
     [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
     [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
     [4] <engine-2>Invalid access to property or key 'options' on a base object of type 'Nil'.
       at line -1
-[1m0/3 passed.
-[0m[4m
+0/3 passed.
+
 
 res://tests/integration/test_aesthetic_acceptance.gd
-[0m* test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -981,9 +981,9 @@ SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of t
        [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[0m[31m    [Failed]:  [0m[0] expected to be > than [0]:  match real score
+    [Failed]:  [0] expected to be > than [0]:  match real score
       at line 45
-[31m    [Failed] [0m
+    [Failed]
       at line 47
 SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
    at: test_actual_closed_loops_preserve_rules_across_normal_and_low_effects (res://tests/integration/test_aesthetic_acceptance.gd:53)
@@ -996,7 +996,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
        [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -1011,7 +1011,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
     [12] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
       at line 53
 * test_real_reward_popup_unlocks_l_and_restores_input
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -1314,8 +1314,8 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
        [10] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [11] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [12] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[0m[33m    --- Awaiting callable to return TRUE or 4.0s.   ---
-[0m[31m    [Failed] [0m
+    --- Awaiting callable to return TRUE or 4.0s.   ---
+    [Failed]
       at line 62
 SCRIPT ERROR: Invalid call. Nonexistent function '_select' in base 'Nil'.
    at: test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:65)
@@ -1323,7 +1323,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function '_select' in base 'Nil'.
        [0] test_real_reward_popup_unlocks_l_and_restores_input (res://tests/integration/test_aesthetic_acceptance.gd:65)
        [1] _end_wait (res://addons/gut/awaiter.gd:126)
        [2] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -1341,7 +1341,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function '_select' in base 'Nil'.
     [15] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
       at line 65
 * test_three_real_card_types_fit_and_can_be_chosen_bilingually
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -1571,7 +1571,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
        [5] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [6] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [7] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -1584,7 +1584,7 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
     [10] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
       at line 83
 * test_flash_reaches_visible_nut_and_is_isolated_from_other_instances_and_template
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -1697,8 +1697,8 @@ SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object
        [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[0m* test_empty_build_hint_uses_full_width_then_returns_to_three_columns
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_empty_build_hint_uses_full_width_then_returns_to_three_columns
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -1917,11 +1917,11 @@ SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type
        [4] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [5] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [6] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[0m[31m    [Failed]:  [0m[1] expected to equal [3]:  
+    [Failed]:  [1] expected to equal [3]:
       at line 142
-[31m    [Failed] [0m
+    [Failed]
       at line 143
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -1933,7 +1933,7 @@ SCRIPT ERROR: Invalid access to property or key 'state' on a base object of type
     [9] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
       at line 143
 * test_legacy_v43_remains_viewable_but_new_protocol_rejects_exact_replay
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -2046,8 +2046,8 @@ SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object
        [7] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
        [8] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
        [9] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
-[0m* test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -2189,13 +2189,13 @@ SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of t
        [3] wait_until (res://addons/gut/test.gd:2540)
        [4] _end_wait (res://addons/gut/awaiter.gd:126)
        [5] _physics_process (res://addons/gut/awaiter.gd:100)
-[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'config' in base 'GDScript'.
     [2] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
     [3] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
       at line -1
 * test_legacy_debug_keys_cannot_escape_acceptance_fixture
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -2317,11 +2317,11 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'capture' in base 'GDScript'.
        [3] wait_until (res://addons/gut/test.gd:2540)
        [4] _end_wait (res://addons/gut/awaiter.gd:126)
        [5] _physics_process (res://addons/gut/awaiter.gd:100)
-[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
       at line -1
 * test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
-[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 5.0s.   ---
 SCRIPT ERROR: Invalid call. Nonexistent function 'level' in base 'GDScript'.
    at: active_skills (res://ui/hud_details.gd:8)
    GDScript backtrace (most recent call first):
@@ -2526,7 +2526,7 @@ SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object
        [4] test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport (res://tests/integration/test_aesthetic_acceptance.gd:196)
        [5] _end_wait (res://addons/gut/awaiter.gd:126)
        [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
-[0m[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -2536,96 +2536,96 @@ SCRIPT ERROR: Invalid access to property or key 'is_persistent' on a base object
     [7] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [8] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
       at line 206
-[1m2/9 passed.
-[0m
+2/9 passed.
 
 
 
-[33m==============================================
-[0m[33m= Run Summary
-[0m[33m==============================================
-[0m[4m
+
+==============================================
+= Run Summary
+==============================================
+
 res://tests/integration/test_skill_rule_description_ui.gd
-[0m- test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
-[31m    [Failed]:  [0mUnexpected Errors:
+- test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
           at line -1
 - test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default
-[31m    [Failed]:  [0mmixed card is not consumed as a whole
+    [Failed]:  mixed card is not consumed as a whole
           at line 88
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "3 actual refills".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "3 actual refills".
           at line 89
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "0 actual refills remaining".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0 actual refills remaining".
           at line 93
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "persists after".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "persists after".
           at line 94
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "Refill modifier".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "Refill modifier".
           at line 95
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "0.6".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "0.6".
           at line 98
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'Add 0.2', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'Add 0.2', match_case=true
           at line 99
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid access to property or key 'skill_id' on a base object of type 'Nil'.
     [2] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
     [3] <engine-2>Invalid access to property or key 'rarity' on a base object of type 'Nil'.
           at line -1
 - test_default_popup_insets_also_fit_three_cards_without_a_game_theme
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
           at line -1
-[4m
+
 res://tests/rules/test_skill_rule_description.gd
-[0m- test_all_six_use_configuration_in_both_languages
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US score_multiplier
+- test_all_six_use_configuration_in_both_languages
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US score_multiplier
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 25
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US line_row_span
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US line_row_span
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 25
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US refill_less
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US refill_less
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 25
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US goal_score_bonus
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US goal_score_bonus
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 25
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US composite_refill_color
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_refill_color
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 25
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  en_US composite_clear_dye
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  en_US composite_clear_dye
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 25
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN score_multiplier
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN score_multiplier
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 24
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN line_row_span
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN line_row_span
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 24
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN refill_less
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN refill_less
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 24
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN goal_score_bonus
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN goal_score_bonus
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 24
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN composite_refill_color
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_refill_color
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 24
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  zh_CN composite_clear_dye
+    [Failed]:  ["null: definition missing"] expected to equal [""]:  zh_CN composite_clear_dye
           at line 22
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 24
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Cannot call method 'duplicate' on a null value.
     [3] <engine-2>Cannot call method 'duplicate' on a null value.
@@ -2640,121 +2640,121 @@ res://tests/rules/test_skill_rule_description.gd
     [12] <engine-2>Cannot call method 'duplicate' on a null value.
           at line -1
 - test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain '0.2', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain '0.2', match_case=true
           at line 29
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain '0.4', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain '0.4', match_case=true
           at line 30
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "+0.2 → +0.4".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "+0.2 → +0.4".
           at line 35
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "not the final multiplier".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "not the final multiplier".
           at line 36
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
     [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
           at line -1
 - test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain '3', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain '3', match_case=true
           at line 41
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'truncated at edges', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'truncated at edges', match_case=true
           at line 42
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'grants no manual activation', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'grants no manual activation', match_case=true
           at line 43
-[31m    [Failed]:  [0m["null: definition missing"] expected to equal [""]:  
+    [Failed]:  ["null: definition missing"] expected to equal [""]:
           at line 44
-[31m    [Failed]:  [0mExpected 'null: definition missing' to contain 'maximum', match_case=true
+    [Failed]:  Expected 'null: definition missing' to contain 'maximum', match_case=true
           at line 45
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "MAX".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "MAX".
           at line 48
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Nil'.
           at line -1
 - test_refill_parameters_repeat_remaining_zero_and_net_count_preview
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid access to property or key 'choice_effect' on a base object of type 'Nil'.
           at line -1
 - test_goal_is_next_target_and_reads_changed_resource_value
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
           at line -1
 - test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
           at line -1
 - test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
-[31m    [Failed]:  [0m[-1] expected to be < than [-1]:  
+    [Failed]:  [-1] expected to be < than [-1]:
           at line 96
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'up to 3', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'up to 3', match_case=true
           at line 97
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'surviving ordinary', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'surviving ordinary', match_case=true
           at line 98
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'fuses too', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'fuses too', match_case=true
           at line 99
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'no match base points', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'no match base points', match_case=true
           at line 100
-[31m    [Failed]:  [0mExpected '[Manual rule] ' to contain 'skip if none', match_case=true
+    [Failed]:  Expected '[Manual rule] ' to contain 'skip if none', match_case=true
           at line 101
-[31m    [Failed]:  [0mExpected text and search strings to be non-empty. You passed "" and "after clearing".
+    [Failed]:  Expected text and search strings to be non-empty. You passed "" and "after clearing".
           at line 105
-[31m    [Failed]:  [0m[-1] expected to be > than [-1]:  
+    [Failed]:  [-1] expected to be > than [-1]:
           at line 106
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
     [3] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
           at line -1
 - test_nested_order_conditions_and_cycle_diagnostics
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Invalid call. Nonexistent function 'acquisition_effect' in base 'Nil'.
           at line -1
 - test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
-[31m    [Failed]:  [0mExpected 'null: definition missing' to contain 'line_manual_clear', match_case=true
+    [Failed]:  Expected 'null: definition missing' to contain 'line_manual_clear', match_case=true
           at line 131
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Cannot call method 'duplicate' on a null value.
     [2] <engine-2>Cannot call method 'duplicate' on a null value.
     [3] <engine-2>Invalid assignment of property or key 'choice_effect' with value of type 'Nil' on a base object of type 'Nil'.
           at line -1
 - test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
           at line -1
-[4m
+
 res://tests/integration/test_choice_visual_layout.gd
-[0m- test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
-[31m    [Failed]:  [0mUnexpected Errors:
+- test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
     [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
     [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
     [4] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
           at line -1
 - test_selected_and_unavailable_state_survives_locale_and_theme_changes
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
     [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
     [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
     [4] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
           at line -1
 - test_deselect_restores_surface_and_other_card_style_is_unchanged
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid assignment of property or key 'flavor_text' with value of type 'String' on a base object of type 'Nil'.
     [2] <engine-2>Out of bounds get index '0' (on base: 'Array[Resource]')
     [3] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
     [4] <engine-2>Invalid access to property or key 'options' on a base object of type 'Nil'.
           at line -1
-[4m
+
 res://tests/integration/test_aesthetic_acceptance.gd
-[0m- test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
-[31m    [Failed]:  [0m[0] expected to be > than [0]:  match real score
+- test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+    [Failed]:  [0] expected to be > than [0]:  match real score
           at line 45
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 47
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -2769,9 +2769,9 @@ res://tests/integration/test_aesthetic_acceptance.gd
     [12] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
           at line 53
 - test_real_reward_popup_unlocks_l_and_restores_input
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 62
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -2789,7 +2789,7 @@ res://tests/integration/test_aesthetic_acceptance.gd
     [15] <engine-2>Invalid call. Nonexistent function '_select' in base 'Nil'.
           at line 65
 - test_three_real_card_types_fit_and_can_be_chosen_bilingually
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -2802,11 +2802,11 @@ res://tests/integration/test_aesthetic_acceptance.gd
     [10] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
           at line 83
 - test_empty_build_hint_uses_full_width_then_returns_to_three_columns
-[31m    [Failed]:  [0m[1] expected to equal [3]:  
+    [Failed]:  [1] expected to equal [3]:
           at line 142
-[31m    [Failed]:  [0m
+    [Failed]:
           at line 143
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -2818,17 +2818,17 @@ res://tests/integration/test_aesthetic_acceptance.gd
     [9] <engine-2>Invalid access to property or key 'state' on a base object of type 'Nil'.
           at line 143
 - test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'config' in base 'GDScript'.
     [2] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
     [3] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
           at line -1
 - test_legacy_debug_keys_cannot_escape_acceptance_fixture
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'capture' in base 'GDScript'.
           at line -1
 - test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
-[31m    [Failed]:  [0mUnexpected Errors:
+    [Failed]:  Unexpected Errors:
     [1] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
     [2] <engine-2>Invalid access to property or key 'is_persistent' on a base object of type 'Resource'.
     [3] <engine-2>Invalid call. Nonexistent function 'level' in base 'GDScript'.
@@ -2851,5 +2851,4 @@ Asserts           66/144
 Time              32.434s
 
 
-[31m---- 23 failing tests ----
-[0m
+---- 23 failing tests ----

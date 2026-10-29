@@ -16,6 +16,8 @@ Godot 4.7.2 `ed1daf0bf` / GUT 9.6；Windows；真实GPU为NVIDIA GeForce RTX 207
 
 ## 历史失败及纠正
 
+两份带失败断言的长日志提供去ANSI控制码/行尾空白的可读版，同时保留字节完全一致的原始`.log.gz`；原始、压缩与可读版SHA256见validation.json，不删失败内容或改测试数字。
+
 - development-display-contract-failures.log：1a03cb1基础上的开发中树，旧显示契约集21项17过4失败。原断言要求无标记人工回退、旧补棋逐字预览及正文消耗词、旧D06预览，均由本批替换成等价或更强语义断言；不删除回放/规则门禁。
 - pre-import-failure.log：合入#211后未刷新全局类缓存的首次组合试跑，新增OfferRarityStep/SkillOfferTraits不可见，23项失败。随后editor导入解决环境准备问题，没有修改生产规则迎合这些失败；该批不计通过。
 - before-diagnostic-assertion-update.log：8fa源码树相关集33/34，唯一失败是缺Effect负例期待旧“effect missing”，#211已由配置验证先返回“skill has no acquisition effect”。更新诊断断言并保留Manual rule验证；最终34/34另见regression.log。
@@ -29,4 +31,3 @@ Godot 4.7.2 `ed1daf0bf` / GUT 9.6；Windows；真实GPU为NVIDIA GeForce RTX 207
 D01预览0→0.2贡献、D02名义1→3行、D04+25读取对应资源；D03/D05净补棋与余次、D05冻结颜色权重、D06执行后随机目标提示分别展示。失效状态为“原定目标已经失效”，只展示既有失效表达，不制造正式规则变化。8图逐张核对全文、两生命周期分行、短句和操作区；原生鼠标确认由同一GPU专项验证，不能把截图本身叫点击测试。
 
 复现命令见[quality记录](../../quality/issue129_rule_descriptions.md)。卡池当前为配置定义语境；运行等级单次接入与#131真人/设备出口保留，不由本批截图代替。
-
