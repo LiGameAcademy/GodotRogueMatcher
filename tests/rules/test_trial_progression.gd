@@ -50,7 +50,7 @@ func test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores()
 	assert_eq(run.state.ledger.total, 0)
 	assert_eq(result.matches.size(), 0)
 	assert_eq(run.state.pending_rewards, 0)
-	assert_false(SkillOfferGenerator.build_profile(run.state).has(&"thin"))
+	assert_false(SkillOfferGenerator.build_snapshot(run.state).invested.has(&"thin"))
 	assert_false(SkillRules.apply(run, offer.offer_id, definition.skill_id).success)
 
 func test_thinning_invalid_target_preserves_whole_action() -> void:

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1")
-rules_version = "offer-line-trial-v3-starters"
-profile_id = "preview_blast_line"
+rules_version = "offer-unified-trial-v1"
+profile_id = &"gentle_guidance_trial"

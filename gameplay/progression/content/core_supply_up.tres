@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=12 format=3]
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/install_upgrade_effect.gd" id="2"]
 [ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="3"]
 [ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="4"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 upgrade = &"core_supply_up"
@@ -28,21 +30,32 @@ abilities = Array[ExtResource("4")]([SubResource("acquired")])
 script = ExtResource("3")
 level = 2
 abilities = Array[ExtResource("4")]([SubResource("upgraded")])
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([&"blast"])
+affinity = Array[StringName]([&"blast"])
+invests = Array[StringName]([&"blast"])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([])
+needs = Array[StringName]([&"core_supply"])
+roles = Array[StringName]([&"enhancement"])
+lifetime = "persistent"
+once_per_run = false
+upgradeable = true
+repeatable = false
+utility_pick = false
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"core_supply_up"
 title = "爆壳补给"
 description = "本局核心类型权重每级+1（基础1，普通类型20），最多2级。占用正常补棋名额；场上已有核心时不再生成。"
 short_description = "核心生成权重+1/级。\n占正常补棋名额；场上限1枚。"
-base_weight = 10.0
 tags = Array[StringName]([&"exp", &"extra"])
 levels = Array[ExtResource("3")]([SubResource("level_1"), SubResource("level_2")])
 rarity = 1
 maximum_level = 2
 minimum_reward = 1
 is_persistent = true
-is_starter = false
-requires_core = true
-requires_fuse_unlock = false
-requires_fuse = false
 prerequisite = &""

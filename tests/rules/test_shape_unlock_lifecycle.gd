@@ -61,7 +61,7 @@ func test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run() ->
 
 func test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity() -> void:
 	var run: RunController = FIXTURE.run()
-	var profile: Dictionary[StringName, float] = SkillOfferGenerator.build_profile(run.state)
+	var profile: SkillBuildSnapshot = SkillOfferGenerator.build_snapshot(run.state)
 	var before: float = SkillOfferGenerator.weight(run.state, ShapeUnlockDemo.t(), profile)
 	assert_true(FIXTURE.choose(run).accepted)
 	run.state.pending_rewards += 1
@@ -70,8 +70,8 @@ func test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity
 	var offer: SkillOffer = generator.generate(run)
 	assert_eq(offer.choices.size(), 1)
 	assert_eq(offer.choices[0].skill_id, ShapeUnlockDemo.t().skill_id)
-	assert_eq(RunSnapshot.canonical(SkillOfferGenerator.build_profile(run.state)), RunSnapshot.canonical(profile))
-	assert_eq(offer.weights[ShapeUnlockDemo.t().skill_id], before * SkillOfferGenerator.CONFIG.history_factor)
+	assert_true(SkillOfferGenerator.build_snapshot(run.state).invested.has(&"shape"))
+	assert_eq(offer.weights[ShapeUnlockDemo.t().skill_id], before)
 	var alias: SkillDefinition = ShapeUnlockDemo.l().duplicate(true) as SkillDefinition
 	alias.skill_id = &"another_l_recipe"
 	assert_eq(SkillRules.rejection(run.state, alias, run.abilities.config), "shape already unlocked")

@@ -23,6 +23,8 @@ func _skill(effect: SkillEffect) -> SkillDefinition:
 	level.level = 1
 	level.abilities = [ability]
 	var skill: SkillDefinition = SkillDefinition.new()
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.roles = [&"generic"]
 	skill.skill_id = &"review_target_fixture"
 	skill.levels = [level]
 	skill.maximum_level = 1

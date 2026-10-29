@@ -12,12 +12,14 @@ func _skill(effect: SkillEffect, skill_id: StringName = &"composite_acceptance")
 	level.level = 1
 	level.abilities = [ability]
 	var skill: SkillDefinition = SkillDefinition.new()
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.roles = [&"generic"]
 	skill.skill_id = skill_id
 	skill.title = "Composite Acceptance"
 	skill.is_persistent = true
 	skill.maximum_level = 1
 	skill.levels = [level]
-	skill.base_weight = 1.0
+	skill.offer_traits.exception_multiplier = 1.0
 	return skill
 
 func _refill_weight_composite() -> CompositeEffect:
@@ -67,7 +69,7 @@ func test_leaf2_reads_state_after_leaf1_commit() -> void:
 			changed = true
 			assert_eq(run.state.spawning.color_weights[color], before_weights[color] + 2)
 	assert_true(changed)
-	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v44-six-streams")
+	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v45-unified-offers")
 
 func test_clear_then_dye_defers_descendant_blasts_until_composite_done() -> void:
 	var run: RunController = _run()
