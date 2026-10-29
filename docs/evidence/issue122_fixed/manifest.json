@@ -1,0 +1,50 @@
+{
+  "source": "fixture/automated",
+  "base_commit": "1a03cb19d7cde1570edfecbc56e1fd3bfa878407",
+  "fixed_tests_code_commit": "0c6829d22be2ae42d1d8de172d5bac7e4650f576",
+  "encoding": "UTF-8 without BOM, LF; log newlines normalized for Git",
+  "natural_sample_count": 0,
+  "human_observation": null,
+  "files": [
+    {
+      "file": "blocked-path.json",
+      "bytes": 235888,
+      "sha256": "64829fcdce8e2d1db85757e20f28b3e6ed1b093ea4e8df6c907c8f5c83173347"
+    },
+    {
+      "file": "fixed-tests.log",
+      "bytes": 1318,
+      "sha256": "c6466f2e81467d943b838af97d0a870041b53b9a209dbebb747d0682ef58c215"
+    },
+    {
+      "file": "line-baseline.jsonl",
+      "bytes": 96810,
+      "sha256": "f61b4621790d439eda9af2618a9fe3f2183e1b587fb20916bc8f00bd8c1a379d"
+    },
+    {
+      "file": "line-upgrade.json",
+      "bytes": 26652,
+      "sha256": "7cb1f0b66b3e0ddf9dbcc2ee0535db75d474b4ae8758765fb80d38e20c5f085b"
+    },
+    {
+      "file": "line-upgraded.jsonl",
+      "bytes": 100368,
+      "sha256": "59f15a042b17eb1f02c57708b34676118960c8cc2dc8665db02b8e27e6728ba5"
+    },
+    {
+      "file": "preparation-23.json",
+      "bytes": 249668,
+      "sha256": "a7fea64b24d8ad23ae06217dfb5efd7e5c5aca60ce12b1d8fbc7dde15d065fcf"
+    },
+    {
+      "file": "preparation-77.json",
+      "bytes": 249660,
+      "sha256": "a09b0324f88d2323653862db1b51224fd08e35b1ab56960532664ebfbccaf5a6"
+    },
+    {
+      "file": "related-tests.log",
+      "bytes": 3350,
+      "sha256": "36a04e2f0f0fa728f9931b6ba1458b2f954879e9f6f4ba20d364b0ec83fd7125"
+    }
+  ]
+}
