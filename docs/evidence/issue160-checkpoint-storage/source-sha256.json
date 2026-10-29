@@ -1,0 +1,8 @@
+{
+  "base": "e3e3f978ad0ae9f0555756475c7392862c594036",
+  "source_sha256": {
+    "services/run_checkpoint/checkpoint_store.gd": "43d0973dc0a600f20ce184133254650d39c8721cf3888fbfeb6bf762f8cac827",
+    "services/run_checkpoint/checkpoint_files.gd": "c94a15a1fa43f282ac1aca69ffe6b7c4378322cfc711483d65b6cfc4a82e0c91",
+    "tests/rules/test_checkpoint_store.gd": "063eb7fe0692d4c4787b4d29b1a4a62df27d42b1c72b1b2544af3518454d2780"
+  }
+}
