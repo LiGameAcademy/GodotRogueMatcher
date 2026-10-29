@@ -120,6 +120,9 @@ static func _payload(name: String, data: Dictionary) -> String:
 			if name == "offer_generated":
 				integers.append("reward_id")
 				if not data.weights is Dictionary or not data.build is Dictionary: return "invalid_offer_details"
+				if data.get("offer_rules_version") is String and data.offer_rules_version.begins_with("offer-unified-"):
+					var explanation_error: String = preload("res://services/telemetry/offer_explanation_schema.gd").validate(data)
+					if not explanation_error.is_empty(): return explanation_error
 			else: strings = ["presentation_id"]
 		"skill_acquired":
 			integers = ["offer_id", "count_before", "count_after", "score_delta", "net_empty"]

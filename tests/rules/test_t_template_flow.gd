@@ -111,7 +111,7 @@ func test_real_t_full_clear_uses_one_recovery_and_disk_replays_current_protocol(
 	run.recorder.finish(run, "censored", "t_template_slice")
 	assert_true(replay.replay_file(run.recorder.path), replay.error)
 	assert_eq(replay.checked_records, run.recorder.records.size())
-	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v44-six-streams")
+	assert_eq(RunSnapshot.RULES_VERSION, "run-commands-v46-unified-offer-audit")
 
 func test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources() -> void:
 	for t_first: bool in [false, true]:

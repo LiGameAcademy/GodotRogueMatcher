@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=16 format=3]
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/skills/effects/composite_effect.gd" id="2"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/dye_material_effect.gd" id="3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://gameplay/skills/effects/skill_effect.gd" id="5"]
 [ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="6"]
 [ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="7"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
+
 [sub_resource type="Resource" id="dye"]
 script = ExtResource("3")
 [sub_resource type="Resource" id="mark"]
@@ -25,8 +27,24 @@ effect = SubResource("outer")
 script = ExtResource("6")
 level = 1
 abilities = Array[ExtResource("7")]([SubResource("ability")])
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([&"blast", &"fuse", &"dye"])
+affinity = Array[StringName]([&"blast", &"fuse", &"dye"])
+invests = Array[StringName]([&"blast", &"fuse", &"dye"])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([])
+needs = Array[StringName]([])
+roles = Array[StringName]([&"bridge", &"instant"])
+lifetime = "instant"
+once_per_run = true
+upgradeable = false
+repeatable = false
+utility_pick = false
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"fixture_composite_rhythm"
 title = "验收：先染后引"
 description = "仅验收：内层改色并兑现匹配，外层再给存活普通棋附引信；全部叶子完成后处理延迟爆破。"
@@ -34,4 +52,3 @@ short_description = "改色匹配 → 附引信 → 延迟爆破"
 levels = Array[ExtResource("6")]([SubResource("level")])
 maximum_level = 1
 is_persistent = true
-base_weight = 1.0

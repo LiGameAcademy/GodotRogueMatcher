@@ -43,6 +43,8 @@ func test_catalog_has_42_real_distinct_effects_and_five_grades() -> void:
 		run.state.rewards.acquired[&"core_manual_detonation"] = 1
 		run.state.rewards.acquired[&"fuse_relay"] = 1
 		run.state.rewards.acquired[&"match_dye_echo"] = 1
+		run.state.rewards.acquired.erase(skill.skill_id)
+		if skill.skill_id != &"match_dye_echo": run.state.dye.upgrades[&"match_dye_echo"] = 1
 		run.state.rewards.consumed_count = 5
 		for x: int in range(5): run.state.rules.place_piece(Vector2i(x, 1), x)
 		run.abilities.assign_fuse(run.state.rules.state.get_piece_id(Vector2i.ZERO + Vector2i.DOWN))
@@ -72,8 +74,8 @@ func test_prerequisites_and_rarity_multiply_after_clamp_once() -> void:
 	assert_eq(SkillRules.rejection(run.state, _skill(&"fuse_capacity"), run.abilities.config), "")
 	_install(run, &"core_supply_up", 2)
 	assert_false(SkillRules.rejection(run.state, _skill(&"core_supply_up"), run.abilities.config).is_empty())
-	var profile: Dictionary[StringName, float] = {&"exp": 100.0, &"extra": 100.0}
-	assert_almost_eq(SkillOfferGenerator.weight(run.state, _skill(&"blast_aftershock"), profile), 10.0 * 4.0 * 0.06, 0.00001)
+	var profile: SkillBuildSnapshot = SkillOfferGenerator.build_snapshot(run.state)
+	assert_almost_eq(float(OfferWeightRules.evaluate(_skill(&"blast_aftershock"), profile, 1, "", SkillOfferGenerator.CONFIG).W), 1.25 * 0.06, 0.00001)
 
 func test_active_core_consumes_once_and_normal_refill_still_happens() -> void:
 	var run: RunController = _run()

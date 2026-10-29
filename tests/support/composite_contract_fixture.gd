@@ -50,6 +50,8 @@ static func skill(effect: SkillEffect) -> SkillDefinition:
 	level.level = 1
 	level.abilities = [ability]
 	var definition: SkillDefinition = SkillDefinition.new()
+	definition.offer_traits = SkillOfferTraits.new()
+	definition.offer_traits.roles = [&"generic"]
 	definition.skill_id = &"bst_contract_fixture"
 	definition.maximum_level = 1
 	definition.levels = [level]

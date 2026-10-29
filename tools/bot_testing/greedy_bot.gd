@@ -10,7 +10,8 @@ func choose(run: RunController) -> RunCommand:
 		var density: float = float(run.state.rules.state.get_piece_count()) / (run.state.rules.state.columns * run.state.rules.state.rows)
 		for skill: SkillDefinition in run.state.rewards.active_offer.choices:
 			var value: float = config.skill_weights.get(skill.skill_id, 0.0)
-			if not run.state.explosion.unlocked and skill.is_starter: value += config.starter_weight
+			if not run.state.explosion.unlocked and (skill.offer_traits.supplies.has(&"blast") or skill.offer_traits.supplies.has(&"line")):
+				value += config.starter_weight
 			if skill.acquisition_effect() is ThinMaterialEffect and density >= config.dense_threshold: value += config.dense_thin_weight
 			if value > best_score or (value == best_score and String(skill.skill_id) < String(best)):
 				best = skill.skill_id
