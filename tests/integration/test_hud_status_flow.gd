@@ -111,3 +111,9 @@ func test_internal_reason_never_becomes_player_text() -> void:
 	assert_eq(hud.status_label.text, "状态提示暂不可用")
 	assert_eq(hud.status_label.text, hud.status_label.tooltip_text)
 	assert_eq(frozen, RunSnapshot.digest(RunSnapshot.capture(board.run)))
+
+func test_status_accepts_tooltip_hover_without_covering_board_or_pause_button() -> void:
+	assert_eq(hud.status_label.mouse_filter, Control.MOUSE_FILTER_PASS)
+	assert_false(hud.status_label.get_global_rect().intersects(hud.board_area.get_global_rect()))
+	assert_false(hud.status_label.get_global_rect().intersects(hud.pause_button.get_global_rect()))
+	assert_false(hud.status_label.tooltip_text.is_empty())
