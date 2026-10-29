@@ -53,6 +53,13 @@ func test_catalog_uses_short_effects_and_actual_prerequisite_titles() -> void:
 		var text: String = SkillPoolText.details(run, skill)
 		assert_false(text.contains("E+"))
 		assert_false(text.contains("权重必须"))
+		assert_false(text.contains(tr("拥挤时可提前出现")))
+		if skill.offer_traits.needs.has(&"core_supply"):
+			assert_true(text.contains(tr("需先获得爆壳手登场")))
+		if skill.offer_traits.needs.has(&"fuse_unlocked"):
+			assert_true(text.contains(tr("需先解锁引信路线")))
+		if skill.offer_traits.needs.has(&"live_fuse"):
+			assert_true(text.contains(tr("棋盘上需要引信")))
 		if skill.skill_id == &"relay_capacity":
 			found = true
 			for parent: SkillDefinition in SkillOfferGenerator.CATALOG:
