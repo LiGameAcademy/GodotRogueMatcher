@@ -2,7 +2,7 @@
 
 基线：1a03cb19d7cde1570edfecbc56e1fd3bfa878407（含 #210）。引擎：Windows Godot 4.7.2.stable.official.ed1daf0bf，GUT 9.6，headless / Dummy / fixed-fps 60，隔离 APPDATA。
 
-完整回归受测提交 **59e8ef3c7267310bf2fcc26765ab13fcaae91905**：`tests/rules,tests/integration`，141 脚本，1005/1005 测试，29753 断言，退出 0。原始日志为 gut-full.log，源文件哈希为 source-manifest.json。
+完整回归受测提交 **59e8ef3c7267310bf2fcc26765ab13fcaae91905**：`tests/rules,tests/integration`，141 脚本，1005/1005 测试，29753 断言，退出 0。输出副本为 gut-full.log（仅去掉行末空格；原始输出留在本地 .godot/o1-unified/final.log），源文件哈希为 source-manifest.json。
 
 后续提交 **5f996b2dc83bacd0f9ff5ecaa7915c62d66b3421** 只修改 SkillPoolText 的七能力前置与已取得一次提示及其回归。对 skill_pool、skill_cards、skill_mechanic_icons、game_themes 四脚本专项：34/34，5965 断言，退出 0（gut-ui-increment.log）。该增量没有重跑全量；不能将前一提交的全量成绩标成最终代码 head 的新全量。增量文件哈希在 validation.json。两次复审发现的解释一致性和目录旧消费者/内部码问题均已修复，授权只读审查最终 APPROVE。
 

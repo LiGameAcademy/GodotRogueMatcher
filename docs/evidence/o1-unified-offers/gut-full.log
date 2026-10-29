@@ -658,7 +658,7 @@ ERROR: invalid match template: duplicate required cell
        [1] test_invalid_template_is_diagnosed_without_hits_or_state_change (res://tests/rules/test_shape_match_detector.gd:146)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.  
+[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.
 ERROR: invalid match template: missing or reserved shape identity
    at: push_error (core/variant/variant_utility.cpp:1023)
    GDScript backtrace (most recent call first):
@@ -666,7 +666,7 @@ ERROR: invalid match template: missing or reserved shape identity
        [1] test_invalid_template_is_diagnosed_without_hits_or_state_change (res://tests/rules/test_shape_match_detector.gd:146)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.  
+[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.
 ERROR: invalid match template: template missing
    at: push_error (core/variant/variant_utility.cpp:1023)
    GDScript backtrace (most recent call first):
@@ -674,7 +674,7 @@ ERROR: invalid match template: template missing
        [1] test_invalid_template_is_diagnosed_without_hits_or_state_change (res://tests/rules/test_shape_match_detector.gd:146)
        [2] _run_test (res://addons/gut/gut.gd:615)
        [3] _test_the_scripts (res://addons/gut/gut.gd:818)
-[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.  
+[34m[ExpectedError][0mExpected push_error error containing 'invalid match template'.
 [1m10/10 passed.
 [0m[4m
 
