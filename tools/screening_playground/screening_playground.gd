@@ -1,5 +1,6 @@
 extends Node
 
+## Owns screening fixtures and recording windows; only the tool panel yields to board inspection.
 signal fixture_ready(mode: String)
 
 const MAIN: PackedScene = preload("res://main.tscn")
@@ -20,6 +21,7 @@ var summary_path: String = ""
 @onready var instructions: Label = $Tools/Panel/Rows/Instructions
 @onready var configurations: OptionButton = $Tools/Panel/Rows/Configurations
 @onready var tasks: OptionButton = $Tools/Panel/Rows/Tasks
+@onready var _panel: PanelContainer = $Tools/Panel
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -34,10 +36,15 @@ func _reset() -> void:
 	load_fixture(ScreeningDeck.CONFIGS[configurations.selected], ScreeningDeck.TASKS[tasks.selected])
 
 func _process(_delta: float) -> void:
+	_sync_panel_visibility()
 	if loading or not is_instance_valid(board) or board.run == null: return
 	var reason: String = ScreeningWindow.reason(board.run, settings, current_task != "free", elapsed_ms(), board.can_selected)
 	if not stopped and not reason.is_empty(): _finish(reason)
 	status.text = "%s · 行动 %d · %.0f秒\n%s\n%s" % [settings.title, board.run.state.valid_moves + board.run.state.activations, elapsed_ms() / 1000.0, ("已结束：" + stop_reason) if stopped else "试玩中（结算与选卡计时）", record_error if not record_error.is_empty() else summary_path.get_file()]
+
+func _sync_panel_visibility() -> void:
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	_panel.visible = loading or not is_instance_valid(popup) or not popup.is_visible_in_tree() or not popup.viewing_board
 
 func elapsed_ms() -> int:
 	return stopped_elapsed_ms if stopped else maxi(0, Time.get_ticks_msec() - started_ms)
@@ -84,6 +91,7 @@ func load_fixture(key: String, task: String) -> void:
 	_finish("restarted")
 	session = null
 	loading = true
+	_panel.show()
 	current_key = key
 	current_task = task
 	settings = ScreeningDeck.config(key)
