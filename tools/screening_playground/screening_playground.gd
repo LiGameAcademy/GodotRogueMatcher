@@ -22,6 +22,11 @@ var summary_path: String = ""
 @onready var configurations: OptionButton = $Tools/Panel/Rows/Configurations
 @onready var tasks: OptionButton = $Tools/Panel/Rows/Tasks
 @onready var _panel: PanelContainer = $Tools/Panel
+@onready var _rows: VBoxContainer = $Tools/Panel/Rows
+@onready var _title: Label = $Tools/Panel/Rows/Title
+@onready var _panel_position: Vector2 = _panel.position
+@onready var _panel_size: Vector2 = _panel.size
+@onready var _row_separation: int = _rows.get_theme_constant("separation")
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -44,7 +49,15 @@ func _process(_delta: float) -> void:
 
 func _sync_panel_visibility() -> void:
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
-	_panel.visible = loading or not is_instance_valid(popup) or not popup.is_visible_in_tree() or not popup.viewing_board
+	var choosing: bool = not loading and is_instance_valid(popup) and popup.is_visible_in_tree()
+	_panel.visible = not choosing or not popup.viewing_board
+	# Keep fixture controls above the cards; instructions return after the modal closes.
+	_title.visible = not choosing
+	instructions.visible = not choosing
+	status.visible = not choosing
+	_rows.add_theme_constant_override("separation", 4 if choosing else _row_separation)
+	_panel.position = Vector2(_panel_position.x, 12.0) if choosing else _panel_position
+	_panel.size = Vector2(_panel_size.x, 0.0) if choosing else _panel_size
 
 func elapsed_ms() -> int:
 	return stopped_elapsed_ms if stopped else maxi(0, Time.get_ticks_msec() - started_ms)

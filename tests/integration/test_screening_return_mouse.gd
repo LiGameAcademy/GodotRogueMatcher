@@ -25,9 +25,8 @@ func after_each() -> void:
 	get_window().content_scale_size = old_scale
 	await wait_process_frames(3)
 
-func _click(button: Control, horizontal_fraction: float = 0.5) -> void:
-	var bounds: Rect2 = button.get_global_rect()
-	var point: Vector2 = bounds.position + bounds.size * Vector2(horizontal_fraction, 0.5)
+func _click(button: Control) -> void:
+	var point: Vector2 = button.get_global_rect().get_center()
 	var motion: InputEventMouseMotion = InputEventMouseMotion.new()
 	motion.position = point
 	Input.parse_input_event(motion)
@@ -79,8 +78,10 @@ func test_mouse_return_four_size_effect_combinations_preserve_reward_and_replay(
 			var before: String = RunSnapshot.canonical(RunSnapshot.capture(run))
 			var offer: String = RunSnapshot.canonical(RunSnapshot.offer_data(popup.offer))
 			var elapsed: int = int(demo.call("elapsed_ms"))
-			# The existing tool overlaps the left of View at 1024px; its right edge is exposed.
-			await _click(popup.view_button, 0.95)
+			assert_false(panel.get_global_rect().intersects(popup.view_button.get_global_rect()))
+			assert_false(panel.get_global_rect().intersects(popup.confirm_button.get_global_rect()))
+			await _capture("%dx%d-low-%s-entry" % [size.x, size.y, low])
+			await _click(popup.view_button)
 			assert_true(popup.viewing_board)
 			assert_false(panel.visible)
 			assert_true(popup.return_button.is_visible_in_tree())
@@ -97,6 +98,7 @@ func test_mouse_return_four_size_effect_combinations_preserve_reward_and_replay(
 			await _click(popup.return_button)
 			assert_false(popup.viewing_board, "mouse must route to Return, not the screening panel")
 			assert_true(panel.visible)
+			assert_false(panel.get_global_rect().intersects(popup.view_button.get_global_rect()))
 			assert_eq(popup.confirm_button.text, text)
 			assert_false(popup.confirm_button.disabled)
 			assert_eq(RunSnapshot.canonical(RunSnapshot.capture(run)), before)
@@ -121,6 +123,7 @@ func test_mouse_return_four_size_effect_combinations_preserve_reward_and_replay(
 			assert_eq(demo.get("stop_reason"), "fixed_complete")
 			assert_eq(demo.get("record_error"), "")
 			assert_true(panel.visible)
+			assert_true((demo.get("instructions") as Label).visible)
 			var replay: RuleReplay = RuleReplay.new()
 			assert_true(replay.replay_file(run.recorder.path), replay.error)
 			var sidecar: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(str(demo.get("summary_path")))) as Dictionary
@@ -161,3 +164,34 @@ func test_hidden_panel_restores_on_popup_destruction_and_fixture_rebuild() -> vo
 	assert_true(old.recorder.ended)
 	assert_null(UIManager.current_popup)
 	assert_eq((demo.get("board") as Board).run.state.valid_moves, 0)
+
+func test_compact_controls_leave_all_three_cards_clear_and_allow_mouse_fixture_switch() -> void:
+	for size: Vector2i in [Vector2i(1280, 720), Vector2i(1024, 640)]:
+		get_window().size = size
+		get_window().content_scale_size = size
+		var run: RunController = AestheticCases.create("cards")
+		var popup: PopupSkillChoice = await UIManager.open_popup("popup_skill_choice", {"offer": run.state.rewards.active_offer}) as PopupSkillChoice
+		await wait_process_frames(12)
+		var panel: Control = demo.get_node("Tools/Panel") as Control
+		await _capture("%dx%d-three-cards" % [size.x, size.y])
+		for card: Control in popup.options.get_children():
+			assert_false(panel.get_global_rect().intersects(card.get_global_rect()))
+			await _click(card)
+			assert_true((card as SkillCard)._selected)
+			if popup.picker.visible:
+				await _click(popup.picker.back_button)
+			else:
+				assert_false(popup.confirm_button.disabled)
+		assert_false(panel.get_global_rect().intersects(popup.view_button.get_global_rect()))
+		assert_false(panel.get_global_rect().intersects(popup.confirm_button.get_global_rect()))
+		UIManager.close_popup()
+		await wait_process_frames(3)
+	var choice: PopupSkillChoice = await _reward(true)
+	var old: RunController = (demo.get("board") as Board).run
+	await _click(demo.get_node("Tools/Panel/Rows/Reset") as Button)
+	await wait_process_frames(30)
+	assert_true(old.is_retired())
+	assert_true(old.recorder.ended)
+	assert_false(is_instance_valid(choice))
+	assert_ne((demo.get("board") as Board).run, old)
+	assert_true((demo.get("instructions") as Label).visible)
