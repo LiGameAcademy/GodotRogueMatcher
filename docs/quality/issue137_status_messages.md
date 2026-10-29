@@ -38,7 +38,7 @@
 | 新消息专项最终修正 | 2脚本11/11，313断言，退出0，无退出资源保留 | 两语言全目录、参数边界/重复/重排/特殊字符、缺键/错型、兜底/去重、当前消息副本、真实语言服务、终局/异常 |
 | 既有相关回归4脚本 | 23/23，573断言，退出0 | reward_coordination/reward_presentation/localization/input_buffer；包含旧回调/重试/四播放模式；退出8对象/4资源保留，未判为生产缺陷 |
 | 独立代码复审 | 首审建议已修；最终增量APPROVE，无CRITICAL/HIGH/MEDIUM/LOW发现 | 本地代理复审不是GitHub批准或远端CI |
-| 实际Web候选 | 待集成运行时段 | 模板齐全不等于已导出/已验收；不部署、不公开发布 |
+| 实际Web出口 | **未通过**：db7d287导出门禁拒绝，96条ERROR | 失败产物只作浏览器诊断；未部署/发布；详见下节 |
 
 本轮headless环境有根证书读取错误。新2脚本初轮11/11、312断言且没有退出资源保留；既有相关组合的退出保留需继续区分，不隐藏、不升级成已证实生产崩溃。历史contact_shadow/GUT清理诊断保持原提交归属，本片没有据此宣称已修或已完成整版质量验收。
 
@@ -52,3 +52,19 @@
 - tests/integration/test_input_buffer.gd
 
 不跑冻结树全量；本片成绩不代替#135/#136最终质量、#138发行、真人接受或#160续局验收。#137不自动关闭，PR保留作者review、不自动合并。
+
+## Web实际观察与阻断
+
+使用现成4.7.2模板，从干净`db7d2872c6251c753ffff96cb0c8ad6bdc7860c0`运行现有`tools/export_web.ps1 -BuildName web_issue137_candidate`。脚本因导出ERROR拒绝产物，没有把输出当成功发行包、没有ZIP或成功build.json；原始日志为`docs/evidence/issue137/web-export-rejected.log`，失败产物四文件身份见`web-diagnostic.json`。
+
+对失败产物仅做诊断：本机HTTP 127.0.0.1:8873、Codex内置Chromium浏览器、1280×720。实际观察英文ready、移动中`Next piece queued`、`Paused`；通过设置→主菜单同局EN→ZH→EN后，暂停提示变为“已暂停”再变回“Paused”，回合2/行动1/空位73保持。刷新后英文偏好保留。没有在浏览器实际覆盖奖励等待、终局、异常注入、全部tooltip或所有播放模式；这些不以桌面测试补写Web通过。
+
+浏览器启动控制台同时存在`ScreeningConfig`缺类型→`screening_deck.gd`→`run_controller.gd`/`game_manager.gd`依赖编译错误。界面可以运行及局部提示正确不能抵销这些错误。
+
+只读归因与最小后续建议（**未实施**）：
+
+1. `ui/item_widget.tscn`引用不存在的`res://icon.svg`，`popup_level_up.tscn`实例化该旧卡片。main/Game正式奖励走PopupSkillChoice，当前检索未见正式open_popup("popup_level_up")调用；all_resources仍会处理旧场景。可单独将旧卡片占位图引用修为现有合法资源并保留UID关系，不恢复旧奖励入口。
+2. `data/item/effects/`旧资源直接使用`[sub_resource type="ConditionTiming"]`等脚本类名，未在这些子资源上绑定Script，报错堆栈为ClassDB原生类型实例化。对应.gd与class cache均存在，不能说类已删除；序列化格式是当前有证据的主要怀疑点。单独验证Resource＋显式Script引用并保留参数，而非删除类/改TypedArray规则；或由集成明确只排除已确认不进入正式路径的旧数据，但不能默默降低导出门禁。
+3. 正式RunController静态引用ScreeningDeck，后者类型依赖`tools/screening_playground/screening_config.gd`，Web显式排除tools。此链有实际浏览器解析错误，不能归为无害未消费资源。建议由对应所有者将常驻依赖的纯配置类型移到非工具运行目录，或拆断正式脚本对工具类型的编译依赖；保持筛选规则/配置唯一来源，不临时把全部tools打进正式包。
+
+上述相关源文件与1a03cb1逐字节相同，记录于manifest；未重新导出未修改基线，因此只证明缺陷结构在base已存在，不声称已运行基线同样96条错误。不因旧基线存在问题忽略门禁，不擅自修改这些额外职责。后续需相关场景/旧资源加载及筛选/正式运行解析回归，再从明确新提交重新导出并实际浏览器复测。当前PR保持draft。
