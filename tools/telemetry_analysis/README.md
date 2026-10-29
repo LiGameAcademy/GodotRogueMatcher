@@ -29,7 +29,7 @@ godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analys
 
 根manifest记录输入路径、长度、SHA256、处理状态与分片路径。解析失败保留有效前缀和真实错误，重复/冲突与旧Reader/Report语义一致。已完整后导入旧前缀不降级局结果，但前缀自身不完整的诊断仍保留。根`bounded.complete=false`、pending/rejected等输入状态或uninspected_files表示覆盖不足；预算触顶不补零。原七表仍保留完整event_json；全局精简事实不当作原始埋点再导入。
 
-默认单run输入合计16MiB（包含重复源）、单行1MiB、全局保留事实/局摘要/输入清单序列化预算32MiB、机会事实20000条、最多4096文件；额外输入/预算诊断最多256详项，超出计入omitted_diagnostics。单行以64KiB块预检；这些是输入/保留数据预算，**不是进程RSS硬上限**。默认60秒是文件/块间检查的协作式期限，不是操作系统强杀或单次JSON/CSV操作的硬超时。可以用正整数覆盖：`--max-run-bytes=N`、`--max-line-bytes=N`、`--max-retained-bytes=N`、`--max-observation-events=N`、`--max-seconds=N`。实际预算、计量及耗时在根summary中记录。
+默认单run输入合计16MiB（包含重复源）、单行1MiB、全局保留事实/局摘要/输入及分片索引序列化预算32MiB、机会事实20000条、最多4096文件；compact-records-v1精确计精简事实和`{inputs,shards,runs,errors}`紧凑JSON的UTF-8字节，包含最终状态及数组分隔符。额外输入/预算诊断最多256详项，超出计入omitted_diagnostics。单行以64KiB块预检；这些是输入/保留数据预算，**不是进程RSS硬上限**。默认60秒是文件/块间检查的协作式期限，不是操作系统强杀或单次JSON/CSV操作的硬超时。可以用正整数覆盖：`--max-run-bytes=N`、`--max-line-bytes=N`、`--max-retained-bytes=N`、`--max-observation-events=N`、`--max-seconds=N`。实际预算、计量及耗时在根summary中记录。
 
 只有分片、manifest、summary均写入成功且无分析错误才退出0；坏记录、预算/IO失败退出1，参数格式错误退出2。写失败保留已写分片供诊断，不能据此当整次成功；输出非空拒绝覆盖。该模式不生成根目录的合并七CSV，现有model_import不能直接把此根目录当作原扁平报告；需明确选择分片或沿用原两参数入口。此批没有改规则、v46/v2协议或Excel输入，也未复现/宣称修好旧450局故障；完整旧批验收仍待原始样本及单独时段。
 

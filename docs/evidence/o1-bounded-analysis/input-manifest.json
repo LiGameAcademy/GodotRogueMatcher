@@ -1,0 +1,46 @@
+{
+	"inputs": [
+		{
+			"bytes": 1531782,
+			"path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-bounded-analysis\\..\\o1-unified-offers\\.godot\\o1-rereview\\batch\\telemetry/1000-50992-1793270448382000-4472374.jsonl",
+			"run_id": "1000-50992-1793270448382000-4472374",
+			"sha256": "40ef5ad53531adc0c6863eb2207ee35b6aab5de1c650bf882a43aa75bacbc668",
+			"status": "processed"
+		},
+		{
+			"bytes": 1130854,
+			"path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-bounded-analysis\\..\\o1-unified-offers\\.godot\\o1-rereview\\batch\\telemetry/1001-50992-1793270458223000-14313959.jsonl",
+			"run_id": "1001-50992-1793270458223000-14313959",
+			"sha256": "d830fc3985c496c3602011480e7131726df40ac0af1bd6f50efa882382a973c4",
+			"status": "processed"
+		},
+		{
+			"bytes": 1002063,
+			"path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-bounded-analysis\\..\\o1-unified-offers\\.godot\\o1-rereview\\batch\\telemetry/1002-50992-1793270464495000-20585788.jsonl",
+			"run_id": "1002-50992-1793270464495000-20585788",
+			"sha256": "52652b4c6f06b9217d84f74c272103fdf5c268301448f4e8a777dc665d93a410",
+			"status": "processed"
+		}
+	],
+	"protocol": "per-run-shards-v1",
+	"shards": [
+		{
+			"events": 418,
+			"input_bytes": 1531782,
+			"path": "runs/652877c8c4f5c27866fe6ad6c886cd86d30f40e7d647c97024e20880caaa5050",
+			"run_id": "1000-50992-1793270448382000-4472374"
+		},
+		{
+			"events": 335,
+			"input_bytes": 1130854,
+			"path": "runs/a3454c3272a946707cdd31470ae19240a20a32c1f2ef2b4d4987d81607876fc7",
+			"run_id": "1001-50992-1793270458223000-14313959"
+		},
+		{
+			"events": 304,
+			"input_bytes": 1002063,
+			"path": "runs/d0c73932dec9ce5bd3dbc0d49be7c2a6b313b3fc2cc7c2ac76e2733448883710",
+			"run_id": "1002-50992-1793270464495000-20585788"
+		}
+	]
+}
