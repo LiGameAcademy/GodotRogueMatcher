@@ -1,0 +1,199 @@
+{
+  "base": "1cc5e26d1eab9e902852b4071ce1a3d7842e7db7",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "gut": "9.6.0",
+  "dependency": "4ba6dda22ef8fad2e9864438073306adf0747c17",
+  "os": "Windows",
+  "renderer": "OpenGL Compatibility NVIDIA RTX2070",
+  "system_scaling": null,
+  "author_acceptance": null,
+  "formal_screening": null,
+  "classification": "automated/retest; raw screening_playground source does not identify human participants",
+  "samples": [
+    {
+      "label": "1280x720-low-false",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-31044-1793266325999000-8333112.jsonl",
+      "seed": "119",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v44-six-streams",
+      "rng_scheme_version": "sl-rng-v1",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    },
+    {
+      "label": "1280x720-low-true",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-31044-1793266330253000-12586321.jsonl",
+      "seed": "119",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v44-six-streams",
+      "rng_scheme_version": "sl-rng-v1",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    },
+    {
+      "label": "1024x640-low-false",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-31044-1793266333839000-16172571.jsonl",
+      "seed": "119",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v44-six-streams",
+      "rng_scheme_version": "sl-rng-v1",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    },
+    {
+      "label": "1024x640-low-true",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-31044-1793266337792000-20125707.jsonl",
+      "seed": "119",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v44-six-streams",
+      "rng_scheme_version": "sl-rng-v1",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    }
+  ],
+  "hash_convention": "SHA256 of repository bytes; UTF-8 text normalized to LF by Git, images unchanged",
+  "source_hashes": [
+    {
+      "path": "tools/screening_playground/screening_playground.gd",
+      "sha256": "85E0D0E943A68253AA055D2EAAD7A16C62F38716136E83A8061DFA15408706D3"
+    },
+    {
+      "path": "tests/integration/test_screening_return_mouse.gd",
+      "sha256": "A9610A265EC1CD7306BD2C25656167154E2706E38C6D1ADEEA2FB442F309314E"
+    }
+  ],
+  "evidence_hashes": [
+    {
+      "path": "1024x640-low-false-entry.png",
+      "sha256": "47607A102E9FBFF871BEF87B6615D787F3A3D55B28BCA5FA9083B044D32C61B1"
+    },
+    {
+      "path": "1024x640-low-false-returned.png",
+      "sha256": "9670735509A5D3FD77F7B7FAD6A3330093A7BE9AF44D1314B7377AEA0121055D"
+    },
+    {
+      "path": "1024x640-low-false-view.png",
+      "sha256": "295E126AB841A806809FC200DBD7B5A80C2BF26283D6443B2DCD3897EA151DCA"
+    },
+    {
+      "path": "1024x640-low-true-entry.png",
+      "sha256": "01FA245EEC1B2F7C9233E1A5B9A30968109F604C2175883943621CE93A8BB671"
+    },
+    {
+      "path": "1024x640-low-true-returned.png",
+      "sha256": "E0EF8CC42ECF33B82A6F833C2472106CA0CCFE7E1AAF9513DE4BC9E5294A4F36"
+    },
+    {
+      "path": "1024x640-low-true-view.png",
+      "sha256": "3E044457483544D1F61C69AF61527A0BF9A654E5A86BC61D6B89FDF2EE67BB69"
+    },
+    {
+      "path": "1024x640-three-cards.png",
+      "sha256": "08BD6E272CBD5C49E8C0DD67CF9519C526EFABE136CC75BC92B3E22C82A84A33"
+    },
+    {
+      "path": "119-31044-1793266325999000-8333112-screening.json",
+      "sha256": "5BE166FCC3EE638700F6CF0142FCBAD19C5728F353C30E253AD9A7970FB5EFBC"
+    },
+    {
+      "path": "119-31044-1793266325999000-8333112.jsonl",
+      "sha256": "FEEC5C549F09BA7664B12F3ECA919061C32B6ED369140324B2F8AA34F6F559B6"
+    },
+    {
+      "path": "119-31044-1793266330253000-12586321-screening.json",
+      "sha256": "D293EE478BDDEB11113595B7B70E56E3AD17E21D331489EC5DBEBB6F3F409368"
+    },
+    {
+      "path": "119-31044-1793266330253000-12586321.jsonl",
+      "sha256": "5AC4B309C7C8D991DC9C7F9A1473399DD23F3755233378919237E935E6018A26"
+    },
+    {
+      "path": "119-31044-1793266333839000-16172571-screening.json",
+      "sha256": "BB36B32F56AC382805A762CB92F027D661B49C57A06B4E436DFE576F0531F3E7"
+    },
+    {
+      "path": "119-31044-1793266333839000-16172571.jsonl",
+      "sha256": "EDBE530D9A8018B199E21AAC0724925222F3CC12E4DA789E694E6C0DBF63F465"
+    },
+    {
+      "path": "119-31044-1793266337792000-20125707-screening.json",
+      "sha256": "57754DDB473DFB7EF08CA97C9D3B94C5A9615F28A6188236DF5F94F5A65CAC5E"
+    },
+    {
+      "path": "119-31044-1793266337792000-20125707.jsonl",
+      "sha256": "0229836214AB64004D0FA336E6A8E6459D705CCF94A6C0EA8B6218D8BA28634A"
+    },
+    {
+      "path": "1280x720-low-false-entry.png",
+      "sha256": "5E1ACAA5D350079F880269357313384BB8B1C1EC204A2E92A083283B85FD0176"
+    },
+    {
+      "path": "1280x720-low-false-returned.png",
+      "sha256": "756437A49E4753B1848B112CAF9ABBCF5B930DDDE7E085B57DF4958D906D4ED6"
+    },
+    {
+      "path": "1280x720-low-false-view.png",
+      "sha256": "14C8DDB11EE8382125DAA8E2A404844C9010F42EB006784157E9A56A105E5A64"
+    },
+    {
+      "path": "1280x720-low-true-entry.png",
+      "sha256": "5D3760B610D181D4B35A5E093E901A59A8911868DFF9EA1896E2F31D9D65BC8E"
+    },
+    {
+      "path": "1280x720-low-true-returned.png",
+      "sha256": "77D5DE3E64707C242A0B371564CB58359C3035CEB7B01F1156897827BC0423E7"
+    },
+    {
+      "path": "1280x720-low-true-view.png",
+      "sha256": "B0D8D94ACF85D4CBC6E04A0670472B406493B8E020283ADF120FE7DB73A0F1DC"
+    },
+    {
+      "path": "1280x720-three-cards.png",
+      "sha256": "D4220B36314811CBEDC001CB33FC4049FC38F9C0BD77182C685FF2C63D4E649D"
+    },
+    {
+      "path": "gui.log",
+      "sha256": "60F727055ED4C71F7F15F6ECE526AA6A828178EB1786EFA1B1B58A0F8E02ED2E"
+    },
+    {
+      "path": "initial-gui-failure.log",
+      "sha256": "2E959664C31358FF2BB40FA8BCA9C31C0F15E8C1D8F89E4A12820FCD7868FADF"
+    },
+    {
+      "path": "regression.log",
+      "sha256": "F378272FA41827D998342FBE5840EB9CDC0E7E5DC3E3F84EBCC8CE03E2B4A822"
+    },
+    {
+      "path": "replay-cli.log",
+      "sha256": "22C4C027311E32AA96DB44CB0279467C9B3B29A64307F591341C335B7A5DD0D1"
+    },
+    {
+      "path": "report-cli.log",
+      "sha256": "B930F4633337C1FB9A9FBC851865B563F98634AD83E161519F9EA8FD2B2F3B52"
+    },
+    {
+      "path": "technical-report/observations-template.json",
+      "sha256": "3F1599E2920D0C2B0EA562B0DB26B80CCCFFD2A43F9BA4A5E43AD4FA8AADD40C"
+    },
+    {
+      "path": "technical-report/screening-report.json",
+      "sha256": "9C7C047833B98231C082E967EF2DB833C84D79DCB199B552B4C33B26E1584F6F"
+    }
+  ]
+}

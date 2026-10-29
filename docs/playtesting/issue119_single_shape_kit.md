@@ -6,9 +6,9 @@
 
 Godot打开`tools/screening_playground/screening_playground.tscn`，F6运行。第一个下拉框选配置，第二个选自由试玩或固定题1～4；更换配置、题目、重置及菜单新局都会新建样本并封存旧样本。默认进入直线基线自由试玩。准备好观察表再重置，重置完成开始计时。
 
-#192修复候选：选卡后点“查看棋盘”时，测试面板暂时隐藏，让“返回选择”完整显示并接受鼠标点击；返回后恢复面板及原选中卡。查看期间计时、记录和停止检查继续运行；需切题/重置时先返回选择。1024×640下测试面板仍覆盖“查看棋盘”按钮左部，点击其右侧露出区域进入查看；本片不宣称整套工具布局无遮挡。候选身份、自动鼠标复测和真人待测边界见[质量记录](../quality/issue192_screening_return.md)。
+#192工具布局候选：奖励弹窗打开时，测试面板缩为左上配置、题目、重置三个控件，说明和状态暂时收起；卡片、查看棋盘与确认入口保持可见可点。点“查看棋盘”时整块测试面板隐藏，鼠标点“返回选择”后恢复紧凑控件及原选中卡；弹窗关闭后恢复完整面板。两尺寸均直接点按钮中心即可，无需找露出角落。查看期间计时、记录和停止检查继续运行；需切题/重置时先返回选择。既有第一片修复记录见[历史质量记录](../quality/issue192_screening_return.md)，本轮身份与证据见[后续记录](../quality/issue192_screening_entry.md)。
 
-正式筛选准备沿既有[方案和空白观察表](issue119_screening_preparation.md)、[汇总工具](../../tools/screening_analysis/README.md)执行：主持/参与者匿名ID、至少两位非设计者、两次时段及设备/系统缩放需求均待作者安排，未发邀请。开测前登记实际提交、config_hash、seed、profile及证据目录；O1随机协议如先整合，须重验受影响路径并另建样本，不改旧A3记录。自动复测不计正式参与者，未知预测/提示次数/选择意愿/保留决定保持null；正式双形状与拟保留混合依作者后续取舍。
+正式筛选按[当次执行清单与空白表](issue119_session_checklist.md)、既有[方案](issue119_screening_preparation.md)及[汇总工具](../../tools/screening_analysis/README.md)执行：主持/参与者匿名ID、至少两位非设计者、两次时段及设备/系统缩放需求均待作者安排，未发邀请。开测前登记实际提交、config_hash、seed、profile及证据目录；O1随机协议/抽选后续如先整合，须重验受影响路径并另建样本，不改旧A3记录。自动复测不计正式参与者，未知预测/提示次数/选择意愿/保留决定保持null；正式双形状与拟保留混合依作者后续取舍。
 
 主持人先登记匿名ID、作者/未参与设计者、顺序、说明次数、提交版本与证据路径；界面和自动文件不编造参与者或预测。沿[首轮方案与空白表](issue119_screening_preparation.md)记录结果。作者先走查，再安排至少2位未参与设计者；轮换单形状顺序，混合后复测基线，学习效应另记。原约90分钟/人分两次、总约6人时是试验起点，预算不足留缺覆盖，不要求完成超预算全部任务。
 
@@ -72,7 +72,7 @@ Godot打开`tools/screening_playground/screening_playground.tscn`，F6运行。�
 
 ## 记录、恢复与证据
 
-`user://screening_records/`每样本两种文件：原始<run_id>.jsonl及封存时的<run_id>-screening.json。JSONL Header含protocol、配置Resource字段、题目/自由模式、种子、配置指纹和完整规则内容；正常命令/匹配/账本/继续义务沿现有记录。固定题初始化为screening_<key>_<task>；自由为normal。规则仍v43，新profile为screening-free-v1及screening-fixed-v1。
+`user://screening_records/`每样本两种文件：原始<run_id>.jsonl及封存时的<run_id>-screening.json。JSONL Header含protocol、配置Resource字段、题目/自由模式、种子、配置指纹和完整规则内容；正常命令/匹配/账本/继续义务沿现有记录。固定题初始化为screening_<key>_<task>；自由为normal。当前规则为run-commands-v44-six-streams，随机协议sl-rng-v1，profile仍为screening-free-v1及screening-fixed-v1。旧v43原始文件原样归档，不能用当前引擎树重算后冒称新样本。
 
 Sidecar含记录路径、配置ID、题目、停止原因、行动数与实际墙钟；participant、predictions、selection_decision初始null。主持人另填空白观察表并关联run_id，保留失败、误判、负收益、早退、疲劳、分歧及未观察，不拿自动封存替代真人观察。文件打开或写入失败会显示保存错误；出现错误的样本标证据不完整。
 
