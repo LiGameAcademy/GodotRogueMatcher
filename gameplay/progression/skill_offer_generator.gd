@@ -57,97 +57,101 @@ const CATALOG: Array[SkillDefinition] = [
 	preload("res://gameplay/progression/content/blast_dye.tres"),
 	preload("res://gameplay/progression/content/instant_color_dye.tres")]
 
+## One legal pool, weighted without replacement. Only complete groups commit three offer streams.
 var last_error: String = ""
+var config: OfferConfig = CONFIG
 var _catalog: Array[SkillDefinition] = []
 
 func _init() -> void:
 	_catalog.assign(CATALOG)
 
-## 批测或固定资格案例可显式提供只读候选定义；不修改共享目录。
 func set_catalog(catalog: Array[SkillDefinition]) -> void:
 	_catalog.assign(catalog)
 
 func catalog() -> Array[SkillDefinition]:
 	return _catalog.duplicate()
 
-## 相同待处理奖励返回已冻结候选；重建UI不消耗随机数。
 func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 	last_error = ""
 	var state: RunState = run.state
 	if state.pending_rewards <= 0 or state.is_game_over or not state.rule_error.is_empty(): return null
 	if state.rewards.active_offer != null and not replacing: return state.rewards.active_offer
-	if state.stage.enabled():
-		last_error = RescueOfferRules.CONFIG.validation_error()
-		if not last_error.is_empty(): return null
+	last_error = config.validation_error() if config != null else "missing_offer_config"
+	if not last_error.is_empty(): return null
+	var definitions: Array[SkillDefinition] = CATALOG.duplicate()
+	definitions.append_array(_catalog)
+	var build: SkillBuildSnapshot = SkillBuildSnapshot.capture(state, definitions)
 	var rewards: RewardState = state.rewards
-	var candidate_random: RandomNumberGenerator = _copy_random(rewards.candidate_random)
-	var target_random: RandomNumberGenerator = _copy_random(rewards.target_random)
-	var display_random: RandomNumberGenerator = _copy_random(rewards.display_random)
 	var offer: SkillOffer = SkillOffer.new()
 	offer.offer_id = rewards.next_offer_id
 	offer.reward_id = rewards.consumed_count + 1
-	offer.rules_version = CONFIG.rules_version
-	offer.profile_id = CONFIG.profile_id
-	if state.stage.enabled():
-		offer.rules_version = RescueOfferRules.CONFIG.rules_version
-		offer.pressure_snapshot = RescueOfferRules.pressure(state)
-		offer.rescue_multiplier = RescueOfferRules.multiplier(float(offer.pressure_snapshot.P), RescueOfferRules.CONFIG)
-	var pressure_value: float = float(offer.pressure_snapshot.get("P", -1.0))
+	offer.rules_version = config.rules_version
+	offer.profile_id = config.profile_id
+	offer.build_snapshot = build.data()
+	offer.parameter_snapshot = config.data()
+	offer.pressure_snapshot = BoardPressure.evaluate(state.rules.state.columns, state.rules.state.rows, _coordinates(state), config.occupancy_weight)
 	offer.candidate_state_before = rewards.candidate_random.state
-	var profile: Dictionary[StringName, float] = build_profile(state)
-	var normal: Array[SkillDefinition] = []
-	var fallback: Array[SkillDefinition] = []
+	var legal: Array[SkillDefinition] = []
+	var ids: Array[StringName] = []
 	for skill: SkillDefinition in _catalog:
-		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, pressure_value)
+		if skill == null or skill.skill_id.is_empty() or ids.has(skill.skill_id):
+			last_error = "null_or_duplicate_skill_definition"
+			return null
+		ids.append(skill.skill_id)
+		last_error = skill.validation_error()
+		if not last_error.is_empty(): return null
+		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, -1.0, build)
+		var explanation: Dictionary = OfferWeightRules.evaluate(skill, build, offer.reward_id, reason, config)
+		explanation["level_before"] = SkillRules.level(state, skill)
+		explanation["acquired_count"] = rewards.acquired.get(skill.skill_id, 0)
+		explanation["minimum_reward"] = skill.minimum_reward
+		explanation["maximum_level"] = skill.maximum_level
+		explanation["prerequisite"] = skill.prerequisite
+		offer.explanations[skill.skill_id] = explanation
+		offer.weights[skill.skill_id] = explanation.W
+		offer.baseline_weights[skill.skill_id] = explanation.H * explanation.B * explanation.Q
 		if not reason.is_empty():
 			offer.pool_log.append("%s: %s" % [skill.skill_id, reason])
 			continue
-		offer.baseline_weights[skill.skill_id] = weight(state, skill, profile, 0.0)
-		offer.weights[skill.skill_id] = weight(state, skill, profile, pressure_value)
-		if not skill.fallback_only and (offer.reward_id >= skill.minimum_reward or RescueOfferRules.early_allowed(state, skill, pressure_value)): normal.append(skill)
-		if skill.is_fallback_skill(): fallback.append(skill)
-	var used: Array[StringName] = []
-	var utility_used: bool = false
+		if not is_finite(float(explanation.W)) or float(explanation.W) <= 0.0:
+			last_error = "invalid_legal_weight"
+			return null
+		legal.append(skill)
+	legal.sort_custom(_by_id)
+	var candidate_random: RandomNumberGenerator = _copy_random(rewards.candidate_random)
+	var target_random: RandomNumberGenerator = _copy_random(rewards.target_random)
+	var display_random: RandomNumberGenerator = _copy_random(rewards.display_random)
+	var utility_count: int = 0
 	for slot: int in range(3):
-		var remaining: Array[SkillDefinition] = _remaining(normal, used)
-		if utility_used:
-			remaining = remaining.filter(func(skill: SkillDefinition) -> bool: return not skill.counts_as_utility_pick())
-		var pool: Array[SkillDefinition] = []
-		var pool_name: String = "normal"
-		if slot == 0 and offer.reward_id <= 2 and not _ever_started(state):
-			for skill: SkillDefinition in remaining:
-				if skill.is_starter: pool.append(skill)
-			if not pool.is_empty(): pool_name = "starter"
-		if pool.is_empty() and remaining.size() == 1: pool = remaining
-		if pool.is_empty() and remaining.size() > 1:
-			var split: float = unit_random(candidate_random)
-			offer.pool_log.append("slot=%d split=%.8f" % [slot, split])
-			var restricted: bool = split < (CONFIG.explore_probability if slot == 2 else CONFIG.related_probability)
-			if restricted:
-				pool_name = "explore" if slot == 2 else "related"
-				for skill: SkillDefinition in remaining:
-					var fits: bool = _explores(skill, profile) if slot == 2 else _related(skill, profile)
-					if fits: pool.append(skill)
-			if pool.is_empty():
-				pool = remaining
-				pool_name = "normal"
-		if pool.is_empty():
-			pool = _remaining(fallback, used)
-			pool_name = "fallback"
-		if pool.is_empty():
+		var remaining: Array[SkillDefinition] = []
+		var remaining_weights: Dictionary[StringName, float] = {}
+		var quota_excluded: Array[StringName] = []
+		var denominator: float = 0.0
+		for skill: SkillDefinition in legal:
+			if offer.generation_order.has(skill.skill_id): continue
+			if skill.counts_as_utility_pick() and config.maximum_utility_picks >= 0 and utility_count >= config.maximum_utility_picks:
+				quota_excluded.append(skill.skill_id)
+				continue
+			remaining.append(skill)
+			remaining_weights[skill.skill_id] = offer.weights[skill.skill_id]
+			denominator += offer.weights[skill.skill_id]
+		if remaining.is_empty():
+			offer.slot_log.append({"slot": slot, "weights": remaining_weights, "denominator": 0.0,
+				"sample": null, "sampled": false, "selected": null, "quota_excluded": quota_excluded})
 			break
-		pool.sort_custom(_by_id)
-		var sample: float = unit_random(candidate_random) if pool.size() > 1 else 0.0
-		var picked: SkillDefinition = _draw(pool, offer.weights, sample)
-		used.append(picked.skill_id)
-		if picked.counts_as_utility_pick(): utility_used = true
+		if not is_finite(denominator) or denominator <= 0.0:
+			last_error = "invalid_slot_denominator"
+			return null
+		var sample: float = unit_random(candidate_random) if remaining.size() > 1 else 0.0
+		var picked: SkillDefinition = _draw(remaining, remaining_weights, denominator, sample)
 		offer.choices.append(picked)
 		offer.generation_order.append(picked.skill_id)
-		offer.pool_log.append("slot=%d pool=%s sample=%.8f selected=%s" % [slot, pool_name, sample, picked.skill_id])
+		if picked.counts_as_utility_pick(): utility_count += 1
+		offer.slot_log.append({"slot": slot, "weights": remaining_weights, "denominator": denominator,
+			"sample": sample, "sampled": remaining.size() > 1, "selected": picked.skill_id, "quota_excluded": quota_excluded})
 	if offer.choices.is_empty():
 		last_error = "no_legal_candidates"
 		return null
-	# 临时三流完成全部冻结后才提交；失败不推进正式流或身份。
 	for skill: SkillDefinition in offer.choices:
 		var target: SkillTarget = SkillRules.freeze_target(state, skill, target_random)
 		last_error = RewardOfferRules.target_rejection(state, skill, target)
@@ -166,67 +170,37 @@ func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 	rewards.active_offer = offer
 	return offer
 
-func _copy_random(source: RandomNumberGenerator) -> RandomNumberGenerator:
+static func build_snapshot(state: RunState) -> SkillBuildSnapshot:
+	return SkillBuildSnapshot.capture(state, CATALOG)
+
+static func weight(state: RunState, skill: SkillDefinition, build: SkillBuildSnapshot = null) -> float:
+	var frozen: SkillBuildSnapshot = build if build != null else build_snapshot(state)
+	var reason: String = SkillRules.rejection(state, skill, AbilityResolver.DEFAULT_CONFIG, -1.0, frozen)
+	return float(OfferWeightRules.evaluate(skill, frozen, state.rewards.consumed_count + 1, reason, CONFIG).W)
+
+static func version_for_mode(_mode_id: StringName) -> String:
+	return CONFIG.rules_version
+
+static func unit_random(random: RandomNumberGenerator) -> float:
+	return float(random.randi()) / 4294967296.0
+
+static func _copy_random(source: RandomNumberGenerator) -> RandomNumberGenerator:
 	var result: RandomNumberGenerator = RandomNumberGenerator.new()
 	result.seed = source.seed
 	result.state = source.state
 	return result
 
-static func build_profile(state: RunState) -> Dictionary[StringName, float]:
-	var profile: Dictionary[StringName, float] = {}
-	for skill: SkillDefinition in CATALOG:
-		if not skill.contributes_affinity(): continue
-		var current: int = SkillRules.level(state, skill)
-		if current <= 0: continue
-		var contribution: float = 1.0 + 0.25 * mini(maxi(current - 1, 0), 2)
-		for tag: StringName in skill.tags:
-			profile[tag] = minf(3.0, profile.get(tag, 0.0) + contribution)
-	return profile
-
-static func weight(state: RunState, skill: SkillDefinition, profile: Dictionary[StringName, float], frozen_pressure: float = -1.0) -> float:
-	var affinity: float = 0.0
-	for tag: StringName in skill.tags: affinity += profile.get(tag, 0.0)
-	if not skill.tags.is_empty(): affinity /= skill.tags.size()
-	var factor: float = 1.0 + CONFIG.affinity_gain * affinity
-	var driver: bool = not state.explosion.instances.is_empty()
-	if skill.need_rule == &"restore_explosion" and profile.get(&"exp", 0.0) >= 1.0 and not driver: factor *= CONFIG.need_factor
-	if skill.need_rule == &"explosion_payoff" and driver and state.explosion.reward_level == 0 and state.explosion.blast_extra_level == 0: factor *= CONFIG.need_factor
-	if state.rewards.previous_unselected.has(skill.skill_id): factor *= CONFIG.history_factor
-	if skill.is_persistent and SkillRules.level(state, skill) > 0: factor *= CONFIG.repeat_factor
-	return skill.base_weight * clampf(factor, CONFIG.factor_min, CONFIG.factor_max) * CONFIG.rarity_factors[skill.rarity] * RescueOfferRules.factor(state, skill, frozen_pressure)
-
-static func version_for_mode(mode_id: StringName) -> String:
-	return RescueOfferRules.CONFIG.rules_version if mode_id == &"stage_challenge" else CONFIG.rules_version
-
-static func unit_random(random: RandomNumberGenerator) -> float:
-	return float(random.randi()) / 4294967296.0
-
-func _remaining(pool: Array[SkillDefinition], used: Array[StringName]) -> Array[SkillDefinition]:
-	var result: Array[SkillDefinition] = []
-	for skill: SkillDefinition in pool:
-		if not used.has(skill.skill_id): result.append(skill)
+static func _coordinates(state: RunState) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for piece: PieceState in state.rules.state.get_snapshot(): result.append(piece.coordinate)
 	return result
 
-func _ever_started(state: RunState) -> bool:
-	return state.explosion.core_pool_unlocked or state.line_clear.row_unlocked or state.line_clear.column_unlocked
-
-func _related(skill: SkillDefinition, profile: Dictionary[StringName, float]) -> bool:
-	for tag: StringName in skill.tags:
-		if profile.get(tag, 0.0) >= 1.0: return true
-	return false
-
-func _explores(skill: SkillDefinition, profile: Dictionary[StringName, float]) -> bool:
-	return (skill.tags.has(&"exp") and profile.get(&"exp", 0.0) < 1.0) or not _related(skill, profile)
-
-func _by_id(a: SkillDefinition, b: SkillDefinition) -> bool:
+static func _by_id(a: SkillDefinition, b: SkillDefinition) -> bool:
 	return String(a.skill_id) < String(b.skill_id)
 
-func _draw(pool: Array[SkillDefinition], weights: Dictionary[StringName, float], sample: float) -> SkillDefinition:
-	var total: float = 0.0
-	for skill: SkillDefinition in pool: total += weights[skill.skill_id]
-	var threshold: float = sample * total
+static func _draw(pool: Array[SkillDefinition], weights: Dictionary[StringName, float], total: float, sample: float) -> SkillDefinition:
 	var cumulative: float = 0.0
 	for skill: SkillDefinition in pool:
 		cumulative += weights[skill.skill_id]
-		if cumulative > threshold: return skill
+		if cumulative > sample * total: return skill
 	return pool.back()

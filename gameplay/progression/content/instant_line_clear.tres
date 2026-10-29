@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/clear_material_effect.gd" id="2"]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
 
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
@@ -9,22 +11,32 @@ target_policy = 0
 selector = 1
 score_cleared = true
 
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([])
+affinity = Array[StringName]([])
+invests = Array[StringName]([])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([])
+needs = Array[StringName]([])
+roles = Array[StringName]([&"instant", &"generic"])
+lifetime = "instant"
+once_per_run = false
+upgradeable = false
+repeatable = true
+utility_pick = true
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"instant_line_clear"
 title = "林道开辟"
 description = "消除一条行或列中的普通棋子并得分，触发引信等离场效果；特殊伙伴保留。"
 short_description = "消除一条行或列的普通棋。\n得分并触发效果。"
-base_weight = 3.0
 tags = Array[StringName]([&"space", &"exp"])
 is_persistent = false
-rescue_offer = true
 minimum_reward = 3
 choice_effect = SubResource("effect")
 rarity = 2
 maximum_level = 0
-is_starter = false
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
 prerequisite = &""

@@ -1,29 +1,40 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/assign_fuse_effect.gd" id="2"]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
 
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 target_policy = 0
 
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([&"blast", &"fuse"])
+affinity = Array[StringName]([&"blast", &"fuse"])
+invests = Array[StringName]([&"blast", &"fuse"])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([])
+needs = Array[StringName]([])
+roles = Array[StringName]([&"instant"])
+lifetime = "instant"
+once_per_run = false
+upgradeable = false
+repeatable = true
+utility_pick = false
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"assign_fuse"
 title = "引信赋能"
 description = "随机至多两枚未带引信普通棋子获得引信，保持原色。"
 short_description = "随机给至多2枚普通棋装引信，保留原色。"
 choice_effect = SubResource("effect")
-base_weight = 10.0
 tags = Array[StringName]([&"exp"])
-is_starter = false
 is_persistent = false
-fallback_only = false
-need_rule = &"restore_explosion"
 rarity = 0
 maximum_level = 0
 minimum_reward = 1
-requires_core = false
-requires_fuse_unlock = false
-requires_fuse = false
 prerequisite = &""

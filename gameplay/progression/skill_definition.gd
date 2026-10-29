@@ -8,21 +8,14 @@ extends Resource
 @export_multiline var short_description: String
 ## 可空的主题短句，仅供显示，不进入规则计算/配置哈希。
 @export_multiline var flavor_text: String
-@export var base_weight: float = 1.0
+@export var offer_traits: SkillOfferTraits
 @export var tags: Array[StringName] = []
-@export var is_starter: bool = false
 @export var is_persistent: bool = true
-@export var fallback_only: bool = false
-@export var need_rule: StringName
-@export var rescue_offer: bool = false
 @export var minimum_reward: int = 1
 @export var target_count: int = 3
 @export var choice_effect: ChoiceEffect
 enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
 @export var rarity: Rarity = Rarity.COMMON
-@export var requires_core: bool = false
-@export var requires_fuse_unlock: bool = false
-@export var requires_fuse: bool = false
 @export var prerequisite: StringName
 @export var maximum_level: int = 0
 ## Per-card manual activations per run; zero means this card grants no manual action.
@@ -55,23 +48,17 @@ func refill_effect(current_level: int = 0) -> RefillCountEffect:
 
 ## Fuse assign stays available after another instant utility filled a reward slot.
 func counts_as_utility_pick() -> bool:
-	return not is_persistent and not (acquisition_effect() is AssignFuseEffect)
-
-## Soft fallback pool membership for offer generation.
-func is_fallback_skill() -> bool:
-	if fallback_only or skill_id == &"precision_reward": return true
-	var effect: SkillEffect = acquisition_effect()
-	if effect is DemolitionStatEffect:
-		return (effect as DemolitionStatEffect).stat in [DemolitionStatEffect.Stat.MULTIPLIER, DemolitionStatEffect.Stat.MATCH_EXTRA]
-	return false
-
-## Instant tools skip affinity; fuse assign still feeds exp affinity when owned.
-func contributes_affinity() -> bool:
-	if acquisition_effect() is ThinMaterialEffect: return false
-	return is_persistent or acquisition_effect() is AssignFuseEffect
+	return offer_traits != null and offer_traits.utility_pick
 
 func validation_error() -> String:
-	if levels.is_empty(): return ""
+	if offer_traits == null: return "missing explicit offer traits"
+	var traits_error: String = offer_traits.validation_error()
+	if not traits_error.is_empty(): return traits_error
+	if int(rarity) < 0 or int(rarity) > 4: return "invalid rarity"
+	if minimum_reward < 1 or maximum_level < 0: return "invalid skill level or availability bounds"
+	if offer_traits.upgradeable and maximum_level == 1: return "upgradeable skill needs more than one level"
+	if maximum_level > 1 and not offer_traits.upgradeable: return "multiple levels require upgradeable policy"
+	if levels.is_empty(): return "" if choice_effect != null else "skill has no acquisition effect"
 	if skill_id.is_empty() or not is_persistent: return "leveled skills need a stable id and persistent lifetime"
 	if choice_effect != null: return "leveled skills cannot also keep the legacy choice_effect"
 	if maximum_level != levels.size(): return "level configs do not match maximum_level"

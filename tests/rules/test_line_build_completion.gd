@@ -87,49 +87,30 @@ func test_normal_match_and_instant_clear_do_not_gain_sweep_bonus() -> void:
 	assert_eq(result.score_entry.extra_score, 0)
 	assert_eq(result.score_entry.final_score, 6)
 
-func test_starter_slot_is_supply_only_until_any_supply_is_unlocked() -> void:
-	var seen: Array[StringName] = []
-	for mode: String in ["classic", "stage"]:
-		for seed_value: int in range(30):
-			var config: StageConfig = StageConfig.new() if mode == "stage" else null
-			if config != null:
-				config.targets = [10000]
-				config.pressure_intervals = [4]
-			for owned: String in ["none", "core", "row", "column", "dye"]:
-				var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value, config)
-				assert_eq(run.state.stage.enabled(), mode == "stage")
-				run.state.pending_rewards = 1
-				run.state.rewards.consumed_count = 1
-				run.state.explosion.core_pool_unlocked = owned == "core"
-				run.state.line_clear.row_unlocked = owned == "row"
-				run.state.line_clear.column_unlocked = owned == "column"
-				if owned == "dye": run.state.dye.upgrades[&"match_dye_echo"] = 1
-				var board_random: int = run.state.random.state
-				var offer: SkillOffer = SkillOfferGenerator.new().generate(run)
-				assert_not_null(offer)
-				var forced: bool = false
-				for entry: String in offer.pool_log:
-					if entry.contains("slot=0 pool=starter"): forced = true
-				assert_eq(forced, owned in ["none", "dye"])
-				if forced:
-					assert_true(offer.generation_order[0] in STARTERS)
-					if not seen.has(offer.generation_order[0]): seen.append(offer.generation_order[0])
-				assert_same(SkillOfferGenerator.new().generate(run), offer)
-				assert_eq(run.state.random.state, board_random)
-	assert_eq(seen.size(), 3)
+func test_first_slot_contains_all_legal_cards_without_supply_subpool() -> void:
+	for challenge: bool in [false, true]:
+		var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 75, StageConfig.new() if challenge else null)
+		run.state.pending_rewards = 1
+		var random: int = run.state.random.state
+		var offer: SkillOffer = SkillOfferGenerator.new().generate(run)
+		assert_not_null(offer)
+		assert_true(offer.slot_log[0].weights.has(&"score_multiplier"))
+		for id: StringName in STARTERS: assert_true(offer.slot_log[0].weights.has(id))
+		assert_same(SkillOfferGenerator.new().generate(run), offer)
+		assert_eq(run.state.random.state, random)
 
-func test_dye_keeps_six_cards_at_lower_weight_and_no_forced_exploration() -> void:
+func test_six_dye_cards_have_explicit_mechanism_and_neutral_q_with_hard_prerequisites() -> void:
 	var run: RunController = _run()
 	var count: int = 0
 	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
 		if not DYE_IDS.has(skill.skill_id): continue
 		count += 1
-		assert_eq(skill.base_weight, 3.0)
-		assert_false(skill.is_starter)
-		assert_almost_eq(SkillOfferGenerator.weight(run.state, skill, {}), 3.0 * SkillOfferGenerator.CONFIG.rarity_factors[skill.rarity], 0.0001)
+		assert_eq(skill.offer_traits.exception_multiplier, 1.0)
+		assert_true(skill.offer_traits.affinity.has(&"dye"))
+		assert_false(skill.offer_traits.affinity.has(&"match"))
+		var reason: String = SkillRules.rejection(run.state, skill, run.abilities.config)
+		if not reason.is_empty(): assert_eq(SkillOfferGenerator.weight(run.state, skill), 0.0)
 	assert_eq(count, 6)
-	assert_false(SkillOfferGenerator.new()._explores(preload("res://gameplay/progression/content/match_dye_echo.tres"), {&"match": 1.0}))
-
 func test_scored_fixture_records_and_replays_real_file() -> void:
 	var run: RunController = _run()
 	run.initialize("fixture_line_score")

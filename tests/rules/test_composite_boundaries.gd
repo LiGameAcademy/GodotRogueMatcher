@@ -123,6 +123,8 @@ func test_later_leaf_error_keeps_match_commit_but_cancels_waiting_descendants() 
 	var effect: CompositeEffect = CompositeEffect.new()
 	effect.children = [DyeMaterialEffect.new(), FailingLeaf.new()]
 	var skill: SkillDefinition = SkillDefinition.new()
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.roles = [&"generic"]
 	skill.skill_id = &"boundary_failure_fixture"
 	var ability: AbilityDefinition = AbilityDefinition.new()
 	ability.ability_id = &"boundary_acquire"

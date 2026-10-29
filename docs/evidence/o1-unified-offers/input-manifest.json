@@ -1,0 +1,36 @@
+{
+  "commit": "f23109339ce7af17e1c8365ee3f5305a388e9c72",
+  "purpose": "bounded natural bot pipeline observation; not calibration",
+  "files": [
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-unified\\frozen-batch\\telemetry\\1000-32752-1793268601397000-3585849.jsonl",
+      "bytes": 1526336,
+      "sha256": "0bbaca3701e0fe9cdeec991ca8f9d0d19f3e590b6951c92464111485d4444b06"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-unified\\frozen-batch\\telemetry\\1001-32752-1793268608983000-11172069.jsonl",
+      "bytes": 1126970,
+      "sha256": "a4bba7c132fa2e9613010191f7f92138ff9c5a31c3dd3d302b877b00eca5b281"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-unified\\frozen-batch\\telemetry\\1002-32752-1793268614148000-16338688.jsonl",
+      "bytes": 998268,
+      "sha256": "c0d83da686f354b6ee4642acc6a052fe122f0a01ddfa35d9687620b2529ee894"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-unified\\frozen-batch\\records\\1000-32752-1793268601397000-3585849.jsonl",
+      "bytes": 4037465,
+      "sha256": "283b4d958c9184ec656c9895498032eea41be3b91990f676212fb264b2f858c8"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-unified\\frozen-batch\\records\\1001-32752-1793268608983000-11172069.jsonl",
+      "bytes": 2584870,
+      "sha256": "6818911d2546238f2f86c7aa0298bfa517bd8f1caf7cc5600d1ecb754256b262"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-unified\\frozen-batch\\records\\1002-32752-1793268614148000-16338688.jsonl",
+      "bytes": 2161761,
+      "sha256": "bf4ca14dc5f93be0d91427b4309bfd6fddc1834125f6becfeb178ee947f2e5ec"
+    }
+  ]
+}

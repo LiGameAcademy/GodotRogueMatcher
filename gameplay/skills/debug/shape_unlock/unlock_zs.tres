@@ -1,17 +1,34 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=7 format=3]
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/unlock_shape_effect.gd" id="2"]
 [ext_resource type="Resource" path="res://gameplay/board/matching/zs_template.tres" id="3"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
+
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("2")
 template = ExtResource("3")
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([&"shape"])
+affinity = Array[StringName]([])
+invests = Array[StringName]([&"shape"])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([])
+needs = Array[StringName]([])
+roles = Array[StringName]([&"shape_unlock"])
+lifetime = "persistent"
+once_per_run = true
+upgradeable = false
+repeatable = false
+utility_pick = false
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"fixture_unlock_zs"
 title = "测试：解锁Z/S"
 description = "仅验收配置：本局永久解锁Z/S，立即结算已有匹配。"
 short_description = "仅测试：解锁后立即全盘检查。"
-base_weight = 1.0
 tags = Array[StringName]([&"shape"])
 choice_effect = SubResource("effect")
 maximum_level = 1

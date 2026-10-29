@@ -10,6 +10,10 @@ var rules_version: String = "offer-v0.1"
 var profile_id: StringName = &"prototype_explosion"
 var baseline_weights: Dictionary[StringName, float] = {}
 var weights: Dictionary[StringName, float] = {}
+var explanations: Dictionary[StringName, Dictionary] = {}
+var slot_log: Array[Dictionary] = []
+var build_snapshot: Dictionary = {}
+var parameter_snapshot: Dictionary = {}
 var pressure_snapshot: Dictionary = {}
 var rescue_multiplier: float = 1.0
 var pool_log: Array[String] = []
@@ -29,6 +33,10 @@ func snapshot() -> SkillOffer:
 	result.profile_id = profile_id
 	result.baseline_weights.assign(baseline_weights)
 	result.weights.assign(weights)
+	result.explanations = explanations.duplicate(true)
+	result.slot_log.assign(slot_log.duplicate(true))
+	result.build_snapshot = build_snapshot.duplicate(true)
+	result.parameter_snapshot = parameter_snapshot.duplicate(true)
 	result.pressure_snapshot = pressure_snapshot.duplicate(true)
 	result.rescue_multiplier = rescue_multiplier
 	result.pool_log.assign(pool_log)
