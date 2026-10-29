@@ -10,7 +10,7 @@ extends Resource
 @export var factor_max: float = 2.0
 ## -1 disables the quota; zero excludes utilities. No fallback bypasses this quota.
 @export var maximum_utility_picks: int = 1
-@export var rules_version: String = "offer-unified-trial-v1"
+@export var rules_version: String = "offer-unified-trial-v2"
 @export var profile_id: StringName = &"gentle_guidance_trial"
 @export var parameter_status: String = "trial_unvalidated"
 ## Diagnostic occupancy/fragmentation proxy only; contributes zero to the trial weight.

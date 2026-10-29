@@ -19,4 +19,5 @@ static func evaluate(skill: SkillDefinition, snapshot: SkillBuildSnapshot, choic
 		"mechanisms": traits.mechanisms.duplicate(), "affinity": traits.affinity.duplicate(),
 		"supplies": traits.supplies.duplicate(), "payoffs": traits.payoffs.duplicate(),
 		"needs": traits.needs.duplicate(), "roles": traits.roles.duplicate(), "lifetime": traits.lifetime,
-		"once_per_run": traits.once_per_run, "upgradeable": traits.upgradeable, "repeatable": traits.repeatable}
+		"once_per_run": traits.once_per_run, "upgradeable": traits.upgradeable, "repeatable": traits.repeatable,
+		"utility_pick": traits.utility_pick}

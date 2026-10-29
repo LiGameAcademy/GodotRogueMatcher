@@ -130,3 +130,102 @@ func test_legacy_missing_explanations_stay_unknown_and_hidden_human_offers_are_n
 		assert_null(row.conditional_selection_rate)
 		assert_null(row.legal_pool_rewards)
 		assert_null(row.eligibility_rate)
+
+func test_truncated_pool_omitted_candidate_and_forged_quota_are_rejected() -> void:
+	_fixture()
+	var original: Dictionary = _generated().payload
+	assert_eq(EXPLANATIONS.validate(original), "")
+	var truncated: Dictionary = original.duplicate(true)
+	truncated.slots.resize(1)
+	truncated.generation_order.resize(1)
+	truncated.choices = truncated.generation_order.duplicate()
+	assert_false(EXPLANATIONS.validate(truncated).is_empty(), "legal remaining candidates require more slots")
+	var omitted: Dictionary = original.duplicate(true)
+	var slot: Dictionary = omitted.slots[0]
+	for id: String in slot.weights.keys():
+		if id != slot.selected:
+			slot.weights.erase(id)
+			break
+	var ids: Array = slot.weights.keys()
+	ids.sort()
+	var before: float = 0.0
+	slot.denominator = 0.0
+	for id: String in ids:
+		if id == slot.selected: before = slot.denominator
+		slot.denominator += slot.weights[id]
+	slot.sample = (before + slot.weights[slot.selected] * 0.5) / slot.denominator
+	assert_false(EXPLANATIONS.validate(omitted).is_empty(), "self-consistent subset is not the legal pool")
+	for invalid: int in range(5):
+		var data: Dictionary = original.duplicate(true)
+		if invalid == 0: data.slots[0].quota_excluded.append(data.slots[0].selected)
+		if invalid == 1: data.slots[0].slot = "9"
+		if invalid == 2: data.slots.append(data.slots.back().duplicate(true))
+		if invalid == 3: data.explanations[data.choices[0]].weight_before_clamp += 1.0
+		if invalid == 4: data.explanations[data.choices[0]].erase("utility_pick")
+		assert_false(EXPLANATIONS.validate(data).is_empty(), str(invalid))
+
+func test_legacy_acquisition_without_reward_id_joins_its_generated_offer() -> void:
+	_fixture("human")
+	var offer: Dictionary = _generated()
+	var display_order: Array[String] = []
+	display_order.assign(offer.payload.choices)
+	assert_true(_projector.offer_presented(offer.payload.offer_id.to_int(), display_order))
+	var command: RunCommand = RandomLegalBot.new(99).choose(_run)
+	assert_true(_run.execute_command(command).accepted)
+	var events: Array[Dictionary] = _projector.events.duplicate(true)
+	for event: Dictionary in events:
+		if event.event_name != "skill_acquired": continue
+		event.payload.erase("reward_id")
+		event.reward_id = null
+		assert_eq(TelemetrySchema.validate(event), "")
+	var report: TelemetryReport = TelemetryReport.new()
+	report.add(events)
+	var summary: Dictionary = report.summary().opportunities
+	var acquired_count: int = 0
+	for row: Dictionary in summary.skills.values(): acquired_count += row.acquired
+	assert_eq(acquired_count, 1)
+	assert_eq(summary.presented_not_consumed, 0)
+	# A restored observation of the same parent reward must not double exposure or success.
+	var restored: Array[Dictionary] = events.duplicate(true)
+	for event: Dictionary in restored:
+		event.parent_run_id = event.run_id
+		event.run_id = "restored-observation"
+		event.event_id = event.run_id + ":" + event.telemetry_seq
+		assert_eq(TelemetrySchema.validate(event), "")
+	report.add(restored)
+	summary = report.summary().opportunities
+	acquired_count = 0
+	for row: Dictionary in summary.skills.values():
+		acquired_count += row.acquired
+		assert_eq(row.opportunities, 1)
+	assert_eq(acquired_count, 1)
+	assert_eq(summary.presented_not_consumed, 0)
+
+func test_v1_telemetry_is_legacy_coverage_and_v45_replay_is_explicitly_rejected() -> void:
+	_fixture()
+	var events: Array[Dictionary] = _projector.events.duplicate(true)
+	for event: Dictionary in events:
+		if event.event_name != "offer_generated": continue
+		event.payload.offer_rules_version = "offer-unified-trial-v1"
+		for row: Dictionary in event.payload.explanations.values(): row.erase("utility_pick")
+		assert_eq(TelemetrySchema.validate(event), "")
+	var legacy: TelemetryReport = TelemetryReport.new()
+	legacy.add(events)
+	assert_eq(legacy.summary().opportunities.pool_audit, {"complete_rewards": 0, "legacy_rewards": 1, "complete_rate": 0.0})
+	var current: TelemetryReport = TelemetryReport.new()
+	current.add(_projector.events)
+	assert_eq(current.summary().opportunities.pool_audit, {"complete_rewards": 1, "legacy_rewards": 0, "complete_rate": 1.0})
+	_run.recorder.finish(_run, "censored", "audit_probe")
+	var replay: RuleReplay = RuleReplay.new()
+	assert_true(replay.replay(_run.recorder.records), replay.error)
+	var altered: Array[Dictionary] = _run.recorder.records.duplicate(true)
+	for record: Dictionary in altered:
+		if record.kind != "Offer": continue
+		var id: String = record.offer.choices[0]
+		record.offer.explanations[id].utility_pick = not record.offer.explanations[id].utility_pick
+	assert_false(replay.replay(altered))
+	assert_string_contains(replay.error, "explanations")
+	altered = _run.recorder.records.duplicate(true)
+	altered[0].rules_version = "run-commands-v45-unified-offers"
+	assert_false(replay.replay(altered))
+	assert_eq(replay.error, "record_version_mismatch")

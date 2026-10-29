@@ -7,6 +7,8 @@ static func validate(data: Dictionary) -> String:
 	if not data.get("slots") is Array or data.explanations.is_empty(): return "missing_unified_offer_slots"
 	for field: String in ["related_gain", "gap_gain", "factor_min", "factor_max"]:
 		if not data.parameters.get(field) is float or not is_finite(data.parameters[field]): return "invalid_offer_parameter"
+	if data.parameters.related_gain < 0.0 or data.parameters.gap_gain < 0.0 or data.parameters.factor_min <= 0.0 or data.parameters.factor_max < data.parameters.factor_min:
+		return "invalid_offer_parameter_bounds"
 	for id: Variant in data.explanations:
 		if not id is String or not data.explanations[id] is Dictionary: return "invalid_candidate_explanation"
 		var row: Dictionary = data.explanations[id]
@@ -21,6 +23,7 @@ static func validate(data: Dictionary) -> String:
 		var before: float = 1.0 + data.parameters.related_gain * int(row.related) + data.parameters.gap_gain * int(row.fills_gap) + row.s
 		if not is_equal_approx(before, row.factor_before_clamp): return "inconsistent_additive_factor"
 		if not is_equal_approx(clampf(before, data.parameters.factor_min, data.parameters.factor_max), row.factor_after_clamp): return "inconsistent_clamped_factor"
+		if not is_equal_approx(int(row.H) * row.B * row.Q * before, row.weight_before_clamp): return "inconsistent_unclamped_weight"
 		var expected: float = int(row.H) * row.B * row.Q * row.factor_after_clamp * row.V
 		if not is_equal_approx(row.W, expected): return "inconsistent_final_weight"
 	var used: Array[String] = []
@@ -64,4 +67,45 @@ static func validate(data: Dictionary) -> String:
 	for id: Variant in data.explanations:
 		if not data.weights.get(id) is float or not is_equal_approx(data.weights[id], data.explanations[id].W):
 			return "inconsistent_unified_weights"
+	if data.get("offer_rules_version") == "offer-unified-trial-v2": return _complete_pools(data)
+	if data.get("offer_rules_version") != "offer-unified-trial-v1": return "unsupported_unified_offer_version"
 	return ""
+
+## V1 has no frozen utility facts; only V2 can certify complete quota-filtered pools.
+static func _complete_pools(data: Dictionary) -> String:
+	if not TelemetrySchema.valid_integer(data.parameters.get("maximum_utility_picks")): return "invalid_utility_quota"
+	var quota: int = data.parameters.maximum_utility_picks.to_int()
+	if quota < -1 or data.slots.is_empty() or data.slots.size() > 3: return "invalid_offer_slot_count_or_quota"
+	for row: Dictionary in data.explanations.values():
+		if not row.get("utility_pick") is bool: return "missing_frozen_utility_fact"
+		if row.s != 0.0 or row.V != 1.0: return "invalid_trial_weight_factor"
+		if row.H == "1" and row.W <= 0.0: return "invalid_legal_weight"
+	var used: Array[String] = []
+	var utility_count: int = 0
+	for index: int in range(data.slots.size()):
+		var slot: Dictionary = data.slots[index]
+		if not TelemetrySchema.valid_integer(slot.get("slot")) or slot.slot.to_int() != index: return "invalid_offer_slot_index"
+		if not slot.get("quota_excluded") is Array: return "invalid_quota_exclusions"
+		var expected: Array[String] = []
+		var excluded: Array[String] = []
+		for id: String in data.explanations:
+			var row: Dictionary = data.explanations[id]
+			if row.H != "1" or used.has(id): continue
+			if row.utility_pick and quota >= 0 and utility_count >= quota: excluded.append(id)
+			else: expected.append(id)
+		expected.sort()
+		excluded.sort()
+		var actual: Array = slot.weights.keys()
+		actual.sort()
+		var actual_excluded: Array[String] = []
+		for id: Variant in slot.quota_excluded:
+			if not id is String: return "invalid_quota_exclusions"
+			actual_excluded.append(id)
+		actual_excluded.sort()
+		if actual != expected: return "incomplete_legal_slot_pool"
+		if actual_excluded != excluded: return "inconsistent_quota_exclusions"
+		if expected.is_empty():
+			return "" if index == data.slots.size() - 1 else "slots_after_exhausted_pool"
+		used.append(slot.selected)
+		if data.explanations[slot.selected].utility_pick: utility_count += 1
+	return "" if used.size() == 3 else "truncated_offer_slots"

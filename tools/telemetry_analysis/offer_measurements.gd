@@ -6,6 +6,8 @@ static func summarize(events: Array[Dictionary], group_key: Callable, dimensions
 	var generated: Dictionary[String, Dictionary] = {}
 	var presented: Dictionary[String, bool] = {}
 	var acquired: Dictionary[String, String] = {}
+	var offer_rewards: Dictionary[String, String] = {}
+	var acquisitions: Array[Dictionary] = []
 	var rewards: Dictionary[String, Dictionary] = {}
 	var failed: int = 0
 	var replaced: int = 0
@@ -16,12 +18,20 @@ static func summarize(events: Array[Dictionary], group_key: Callable, dimensions
 		match event.event_name:
 			"offer_generated":
 				generated[offer_key] = event
-				if not rewards.has(reward_key): rewards[reward_key] = {"presented": false, "acquired": false, "human": event.source == "human"}
+				offer_rewards[offer_key] = reward_key
+				if not rewards.has(reward_key): rewards[reward_key] = {"presented": false, "acquired": false, "human": event.source == "human", "pool_audit_complete": false}
+				if data.get("offer_rules_version") == "offer-unified-trial-v2": rewards[reward_key].pool_audit_complete = true
 				if str(data.get("replaces_offer_id", "0")) != "0": replaced += 1
 			"offer_presented": presented[offer_key] = true
-			"skill_acquired": acquired[reward_key] = str(data.skill_id)
+			"skill_acquired": acquisitions.append(event)
 			"command_resolved":
 				if data.type == "choose" and not data.accepted: failed += 1
+	# Legacy acquisitions may lack reward_id; join by their actual offer before falling back.
+	for event: Dictionary in acquisitions:
+		var reward_key: String = String(group_key.call(event)) + ":" + _reward(event)
+		if _reward_id(event) == null:
+			reward_key = offer_rewards.get(event.run_id + ":" + str(event.payload.offer_id), reward_key)
+		acquired[reward_key] = str(event.payload.skill_id)
 	var skills: Dictionary = {}
 	var eligibility: Dictionary = {}
 	var seen_generated: Dictionary[String, bool] = {}
@@ -69,14 +79,21 @@ static func summarize(events: Array[Dictionary], group_key: Callable, dimensions
 		row["eligibility_rate"] = float(eligibility[key].legal_rewards) / eligibility[key].observed_rewards if eligibility.has(key) else null
 	var unseen: int = 0
 	var unconsumed: int = 0
+	var audited: int = 0
 	for row: Dictionary in rewards.values():
 		if row.human and not row.presented: unseen += 1
 		if row.presented and not row.acquired: unconsumed += 1
+		if row.pool_audit_complete: audited += 1
 	return {"skills": skills, "eligibility": eligibility, "human_generated_not_presented": unseen,
 		"presented_not_consumed": unconsumed, "failed_choices": failed, "replaced_groups": replaced,
-		"legacy_groups_without_explanations": legacy_unknown, "eligibility_rate": null, "opportunity_protocol": "parent-run-reward-v1", "eligibility_scope": "generated_pool_diagnostics"}
+		"legacy_groups_without_explanations": legacy_unknown, "eligibility_rate": null, "opportunity_protocol": "parent-run-reward-v1", "eligibility_scope": "generated_pool_diagnostics",
+		"pool_audit": {"complete_rewards": audited, "legacy_rewards": rewards.size() - audited, "complete_rate": float(audited) / rewards.size() if not rewards.is_empty() else null}}
 
 static func _reward(event: Dictionary) -> String:
 	var parent: String = str(event.get("parent_run_id")) if event.get("parent_run_id") != null else String(event.run_id)
-	var reward: Variant = event.payload.get("reward_id", event.get("reward_id"))
+	var reward: Variant = _reward_id(event)
 	return parent + ":" + (str(reward) if reward != null else "offer:" + str(event.payload.get("offer_id", "")))
+
+static func _reward_id(event: Dictionary) -> Variant:
+	var reward: Variant = event.payload.get("reward_id")
+	return reward if reward != null else event.get("reward_id")

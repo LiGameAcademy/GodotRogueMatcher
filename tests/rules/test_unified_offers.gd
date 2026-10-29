@@ -213,6 +213,25 @@ func test_utility_quota_short_group_does_not_fallback_or_repeat_and_can_be_disab
 	assert_eq(generator.generate(_run()).choices.size(), 2)
 	assert_eq(SkillOfferGenerator.CONFIG.maximum_utility_picks, 1)
 
+func test_complete_pool_audit_accepts_short_groups_and_all_configured_quotas() -> void:
+	var validator: Script = preload("res://services/telemetry/offer_explanation_schema.gd")
+	for quota: int in [-1, 0, 1, 2]:
+		var generator: SkillOfferGenerator = SkillOfferGenerator.new()
+		generator.set_catalog([_skill(&"refill_less"), _skill(&"refill_more"), _skill(&"score_multiplier")])
+		generator.config = SkillOfferGenerator.CONFIG.duplicate(true) as OfferConfig
+		generator.config.maximum_utility_picks = quota
+		var offer: SkillOffer = generator.generate(_run())
+		assert_not_null(offer, generator.last_error)
+		if offer == null: continue
+		assert_eq(offer.choices.size(), 3 if quota < 0 else mini(3, quota + 1))
+		var data: Dictionary = RunSnapshot.offer_data(offer)
+		assert_eq(validator.validate(data), "", str(quota))
+		for skill: SkillDefinition in generator.catalog():
+			assert_eq(data.explanations[String(skill.skill_id)].utility_pick, skill.counts_as_utility_pick())
+		if offer.choices.size() < 3:
+			data.slots.pop_back()
+			assert_false(validator.validate(data).is_empty(), "short groups require a proven exhausted pool")
+
 func test_invalid_policy_mapping_or_config_rejects_before_all_streams_and_identity() -> void:
 	for invalid: int in range(4):
 		var run: RunController = _run()
