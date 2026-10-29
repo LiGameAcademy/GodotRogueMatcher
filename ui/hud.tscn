@@ -230,7 +230,7 @@ clip_text = true
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 1
-text = "准备棋盘…"
+text = ""
 autowrap_mode = 2
 
 [node name="GoalProgress" parent="Margin/Rows/Footer/Bottom" instance=ExtResource("4")]

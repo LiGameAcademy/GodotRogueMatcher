@@ -43,10 +43,13 @@ var _gain_tween: Tween
 var _run: RunController
 var _selection: PieceState
 var _selection_fuse: bool = false
-var _status_source: String = "准备棋盘…"
+var _status_id: StringName = &"hud.status.preparing"
+var _status_parameters: Dictionary = {}
+var _status_messages: HudStatusMessages = HudStatusMessages.new()
 var _game_theme: GameTheme
 
 func _ready() -> void:
+	show_status(_status_id)
 	%ResumeReward.pressed.connect(reward_resume_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
 	settings_button.pressed.connect(settings_requested.emit)
@@ -94,7 +97,7 @@ func _notification(what: int) -> void:
 	score_label.text = tr("分数  %d") % displayed_score
 	if _run != null: show_run(_run)
 	show_selection(_selection, _selection_fuse)
-	show_status(_status_source)
+	show_status(_status_id, _status_parameters)
 	_show_history(history_button.button_pressed)
 
 ## Game负责将这一屏幕区域转换到棋盘的坐标系。
@@ -197,10 +200,18 @@ func show_occupancy(count: int, capacity: int = 81) -> void:
 	pressure_bar.value = count
 	pressure_bar.modulate = Color(1.0, 0.5, 0.4) if count >= capacity * 0.8 else Color.WHITE
 
-func show_status(text: String) -> void:
-	_status_source = text
-	status_label.text = tr(text)
-	status_label.tooltip_text = tr(text)
+## Retains semantic input only; language changes do not replay the operation.
+func show_status(message_id: StringName, parameters: Dictionary = {}) -> void:
+	_status_id = message_id
+	_status_parameters = parameters.duplicate(true)
+	var rendered: String = _status_messages.render(message_id, _status_parameters, TranslationServer.get_locale())
+	status_label.text = rendered
+	status_label.tooltip_text = rendered
+
+## Internal errors stay in diagnostics rather than leaking into player-facing text.
+func show_diagnostic(reason: String) -> void:
+	_status_messages.report(&"hud.status.unavailable", TranslationServer.get_locale(), reason, {})
+	show_status(&"hud.status.unavailable")
 
 func show_selection(piece: PieceState, has_fuse: bool) -> void:
 	_selection = piece

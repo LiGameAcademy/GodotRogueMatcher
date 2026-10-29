@@ -88,26 +88,26 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			_board.load_explosion_demo()
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F10:
 			if await _board.load_explosion_demo("fixture_dye"):
-				_hud.show_status("染色试玩：将第5列第7行红棋移到第5列第5行")
+				_hud.show_status("hud.status.demo_dye")
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F11:
 			if key.alt_pressed:
 				if await _board.load_explosion_demo("fixture_manual_limit"):
-					_hud.show_status("限次试玩：依次双击四枚扫线手；前三次生效，第四次保留")
+					_hud.show_status("hud.status.demo_limit")
 				return
 			var wide: bool = key.shift_pressed
 			var cross: bool = key.ctrl_pressed
 			if wide and cross:
 				if await _board.load_explosion_demo("fixture_line_score"):
-					_hud.show_status("得分试玩：双击扫线手；清2枚，基础14分+额外4分")
+					_hud.show_status("hud.status.demo_score")
 				return
 			var mode: String = "fixture_line_cross" if cross else ("fixture_line_span" if wide else "fixture_line")
 			if await _board.load_explosion_demo(mode):
-				_hud.show_status("十字连携试玩：双击左侧行扫手，观察行→列→爆破手" if cross else ("跨度试玩：双击扫线手，清连续3行或3列；边缘截断" if wide else "扫线试玩：双击行或列清除手；每条线清2枚，得14基础分"))
+				_hud.show_status("hud.status.demo_cross" if cross else ("hud.status.demo_span" if wide else "hud.status.demo_line"))
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F7:
 			_board.open_skill_demo()
 		elif key.pressed and not key.echo and key.physical_keycode == KEY_F12:
 			if await _board.load_explosion_demo("fixture_transform"):
-				_hud.show_status("转化试玩：三选一将普通棋改装，保留原色与位置；已有引信和爆破手不受影响")
+				_hud.show_status("hud.status.demo_transform")
 				var active_run: RunController = _board.run
 				_board.can_selected = false
 				await BoardRunFlow.continue_run(_board, active_run)
@@ -141,7 +141,7 @@ func _connect_run_signals() -> void:
 	_board.run_reset.connect(_card_transfer.cancel)
 	_reward_flow.resume_available.connect(_hud.set_reward_waiting)
 	_reward_flow.selection_committed.connect(_on_reward_committed)
-	_reward_flow.error_reported.connect(_hud.show_status)
+	_reward_flow.error_reported.connect(_hud.show_diagnostic)
 	_hud.reward_resume_requested.connect(request_rewards)
 	_board.feedback_requested.connect(_feedback.play)
 	_board.match_feedback_requested.connect(_feedback.play_match)
@@ -270,7 +270,7 @@ func _set_volume(volume: float, save: bool = true) -> void:
 
 func _save_preferences() -> void:
 	if persist_preferences and not preferences.save_values(CoreSystem.config_manager):
-		_hud.show_status("设置保存失败，本次仍可使用")
+		_hud.show_status("hud.status.settings_failed")
 
 func _preview_volume(volume: float) -> void:
 	_set_volume(volume, false)
@@ -289,7 +289,7 @@ func _open_settings() -> void:
 func _set_theme(theme_id: StringName, save: bool = true) -> void:
 	var preset: GameTheme = GameThemes.find(theme_id)
 	if not preset.validation_error().is_empty():
-		_hud.show_status("画面主题配置无效")
+		_hud.show_status("hud.status.theme_invalid")
 		return
 	game_theme = preset
 	preferences.theme_id = preset.theme_id
@@ -312,11 +312,11 @@ func _apply_game_theme() -> void:
 
 func _refresh_hud() -> void:
 	_hud.show_run(_board.run)
-	if _board.run.state.pending_rewards > 0: _hud.show_status("等待技能选择…")
+	if _board.run.state.pending_rewards > 0: _hud.show_status("hud.status.awaiting_skill")
 
 ## Waits for HUD presentation only; committed score is never calculated here.
 func _wait_for_score() -> bool:
-	_hud.show_status("正在累计得分…")
+	_hud.show_status("hud.status.counting_score")
 	if _board.director.skip_score_requested: _hud.finish_score_now()
 	return await _hud.wait_for_score()
 
@@ -326,7 +326,7 @@ func _request_skip() -> void:
 	var score_skipped: bool = _hud.finish_score_now()
 	if accepted or score_skipped:
 		_feedback.cancel()
-		_hud.show_status("已请求略过可跳部分，必播动作仍需完成")
+		_hud.show_status("hud.status.skip_requested")
 
 func _toggle_pause() -> void:
 	_feedback.play(&"confirm")
@@ -337,7 +337,7 @@ func _toggle_pause() -> void:
 	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
 	get_tree().paused = not get_tree().paused
 	_hud.show_pause_state(get_tree().paused)
-	_hud.show_status("已暂停" if get_tree().paused else ("请选择棋子与目标空格" if _board.can_selected else "正在结算与播放…"))
+	_hud.show_status("hud.status.paused" if get_tree().paused else ("hud.status.ready" if _board.can_selected else "hud.status.resolving"))
 	_collection.location("pause" if get_tree().paused else "board_input" if _board.can_selected else "presentation")
 
 func _update_board_layout() -> void:
@@ -381,7 +381,7 @@ func _quit(reason: String) -> void:
 
 func _on_locale_changed(_old: String, _new: String) -> void:
 	if _board.run == null: return
-	_refresh_hud()
+	_hud.show_run(_board.run)
 	_board.view.refresh_piece_details(_board.run.state.rules.state.get_snapshot(), _board.run.state.explosion, _board.run.abilities.config, _board.run.state.line_clear, _board.run.state.manual_uses_used)
 	_hud.show_pause_state(get_tree().paused)
 
@@ -390,7 +390,7 @@ func _on_game_over() -> void:
 	var active_run: RunController = _board.run
 	if not await _board.finish_presentation() or _board.run != active_run: return
 	_refresh_hud()
-	_hud.show_status(StageText.end_title(active_run.state))
+	_hud.show_status(&"hud.status.challenge_completed" if active_run.state.end_reason == &"challenge_completed" else &"hud.status.board_full")
 	if active_run.state.end_reason != &"challenge_completed": _feedback.play(&"finish")
 	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state, "can_continue": active_run.can_continue_challenge()})
 	if is_instance_valid(popup):
@@ -464,7 +464,7 @@ func _on_piece_pool_visibility_changed(open: bool) -> void:
 
 func _on_turn_started(_turn: int) -> void:
 	_refresh_hud()
-	_hud.show_status("请选择棋子与目标空格")
+	_hud.show_status("hud.status.ready")
 
 func _on_playback_busy(busy: bool) -> void:
-	if busy: _hud.show_status("正在结算与播放…")
+	if busy: _hud.show_status("hud.status.resolving")
