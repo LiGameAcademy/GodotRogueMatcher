@@ -126,5 +126,16 @@
   "display": "headless",
   "rules_version": "run-commands-v44-six-streams",
   "maximum_changed_script_lines": 445,
-  "tested_commit": "8d15bd4860d480a47d03642ca230f9a501a2fa11"
+  "tested_commit": "8d15bd4860d480a47d03642ca230f9a501a2fa11",
+  "diagnostics": {
+    "root_certificate_store": "local environment diagnostic",
+    "signal_cleanup": {
+      "stack": "addons/gut/autofree.gd:70 -> addons/gut/gut.gd:635",
+      "count": 2,
+      "status": "same historical handoff stack; not fixed in this batch; no production crash proven",
+      "test": "tests/integration/test_contact_shadow.gd:106"
+    },
+    "invalid_match_templates": "negative validation cases",
+    "float_int_warnings": 29
+  }
 }
