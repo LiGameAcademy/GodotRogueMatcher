@@ -118,5 +118,13 @@
     "exit_code": 0,
     "cli_exit_code": 0,
     "equivalence_exit_code": 0
+  },
+  "latest_combination": {
+    "base": "e3e3f978ad0ae9f0555756475c7392862c594036",
+    "tested_commit": "147af41e5d2fa5a33c0b37057d19ecf10114b98b",
+    "own_scripts_unchanged": true,
+    "cli_exit_code": 0,
+    "equivalence_exit_code": 0,
+    "scope": "class-cache import and actual three-file CLI only; no repeated unit suite"
   }
 }

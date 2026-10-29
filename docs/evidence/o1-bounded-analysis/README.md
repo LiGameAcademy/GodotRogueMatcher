@@ -11,3 +11,5 @@ bounded-cli.log与input-manifest.json：读取#211既存3份v46/v2自然局埋�
 该模式的预算是输入和紧凑序列化保留账本上限，60秒为协作式期限；不是RSS硬上限或OS强杀。根目录不是原扁平七表导入目录。详细命令、处理范围及剩余出口见docs/quality/issue87_bounded_analysis.md及工具README。后续PR留作者review。
 
 创建PR前纳入最新849d4d8（#137/Web），组合受测提交3d69183139b36e57c362cb0b672078daa1cd9dda：本批4个GDScript与25297aa逐字一致，补2脚本15/15、515断言、退出0；实际3文件CLI再次退出0，五项汇总仍与原模式完全相等。combined-regression.log、combined-cli.log和combined-equivalence.log保留结果。没有将原28项成绩标为组合树新28项全量。
+
+随后纳入e3e3f978（含#215描述），最新组合147af41e5d2fa5a33c0b37057d19ecf10114b98b；本批4个GDScript仍与25297aa一致。刷新类缓存后仅补实际3文件CLI，退出0、五项统计等价（latest-cli.log/latest-equivalence.log）；未重复无关测试，不声称最新组合新跑了15或28项。
