@@ -23,7 +23,7 @@ godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analys
 
 真人技能机会只计实际展示，机器人按生成；按分组、parent_run_id（缺失时run_id）、reward_id去重，同一奖励的原组与替代组不重复增加同一技能机会。旧记录缺reward_id时降级到offer_id。fixture、replay和不同实验独立分组。conditional_selection_rate=成功取得/机会；无机会时null。生成未展示、展示未消费、失败选择另计；重复展示与重复确认不增加取得次数。
 
-offer-unified-trial-v1增加全部候选explanations、逐槽slots、build_snapshot与parameters；七张CSV的event_json保留完整轨迹。summary中的eligibility表以observed_rewards / legal_rewards描述已生成奖励的合法池诊断，skills中的legal_pool_rewards与eligibility_rate沿用该诊断口径，不能作为真人曝光。缺解释的历史记录保持null，不回填零；opportunity_protocol=parent-run-reward-v1。相关参数仍为trial_unvalidated，小样本不用于平衡结论。
+offer-unified-trial-v2沿用全部候选explanations、逐槽slots、build_snapshot与parameters，新增冻结utility_pick，并严格核对每槽完整合法池、工具配额和耗尽终止。七张CSV的event_json保留完整轨迹。summary中的eligibility表以observed_rewards / legal_rewards描述已生成奖励的合法池诊断，skills中的legal_pool_rewards与eligibility_rate沿用该诊断口径，不能作为真人曝光。缺解释的历史记录保持null，不回填零；opportunity_protocol=parent-run-reward-v1。pool_audit独立列出complete_rewards、legacy_rewards及complete_rate（无生成奖励为null）：v1埋点仅兼容基本校验，不具备v2完整池背书。旧取得事件缺reward_id时通过实际offer关联生成奖励。相关参数仍为trial_unvalidated，小样本不用于平衡结论。
 
 基础分布采用排序后的 floor(q*(n-1)) 样本分位数，输出P10/P50/P90。小批次只能验收链路，不足以判断技能平衡或真人15分钟体验。深度H窗口、详细因果索引与线上平台接入留D2/D3。
 

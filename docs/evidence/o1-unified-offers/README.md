@@ -1,5 +1,7 @@
 # O1 统一抽选验证证据
 
+本页保留首轮v45/v1受测事实；后续#211再次复审的两项修复、当前v46/v2接口与增量结果见[rereview-2026-10-29](rereview-2026-10-29/README.md)。不得将本页旧全量成绩标为后续源码的新全量。
+
 基线：1a03cb19d7cde1570edfecbc56e1fd3bfa878407（含 #210）。引擎：Windows Godot 4.7.2.stable.official.ed1daf0bf，GUT 9.6，headless / Dummy / fixed-fps 60，隔离 APPDATA。
 
 完整回归受测提交 **59e8ef3c7267310bf2fcc26765ab13fcaae91905**：`tests/rules,tests/integration`，141 脚本，1005/1005 测试，29753 断言，退出 0。输出副本为 gut-full.log（仅去掉行末空格；原始输出留在本地 .godot/o1-unified/final.log），源文件哈希为 source-manifest.json。
