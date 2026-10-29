@@ -3,7 +3,8 @@ extends RefCounted
 
 ## 只读运行目录；不生成候选，不冻结目标，不读取抽取权重。
 static func details(run: RunController, skill: SkillDefinition) -> String:
-	var lines: PackedStringArray = [SkillChoiceText.summary(skill)]
+	var view: Dictionary[String, String] = rule_view(run, skill)
+	var lines: PackedStringArray = [view.text, view.context]
 	var requirements: PackedStringArray = []
 	if skill.offer_traits != null:
 		for need: StringName in skill.offer_traits.needs:
@@ -32,6 +33,17 @@ static func details(run: RunController, skill: SkillDefinition) -> String:
 	if reason == "技能权重必须为正数": reason = "当前不可选"
 	lines.append(TranslationServer.translate("当前资格：%s") % (TranslationServer.translate("满足条件") if reason.is_empty() else TranslationServer.translate(reason)))
 	return "\n".join(lines)
+
+## Browsing is never an offer: show owned state, or a definition without sampled targets.
+static func rule_view(run: RunController, skill: SkillDefinition) -> Dictionary[String, String]:
+	var level: int = SkillRules.level(run.state, skill)
+	var refill: RefillCountEffect = skill.refill_effect(maxi(0, level - 1))
+	var remaining: int = run.state.spawning.refill_batches.get(refill.delta, 0) if refill != null else 0
+	if skill.is_persistent and level > 0:
+		return {"text": SkillChoiceText.summary(skill, level, remaining, true), "context": SkillRuleDescription.preview("rules.context_owned", {"level": level}).text}
+	if not skill.is_persistent and level > 0 and refill != null and remaining > 0:
+		return {"text": SkillChoiceText.summary(skill, maxi(1, level), remaining, true), "context": SkillRuleDescription.preview("rules.context_active").text}
+	return {"text": SkillChoiceText.summary(skill), "context": SkillRuleDescription.preview("rules.context_definition").text}
 
 static func _capability_text(need: StringName) -> String:
 	match need:
