@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/o3-fixed-122/.godot/o3-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_o3_fixed_builds.gd
+[0m* test_immediate_five_and_prepared_six_keep_real_refill_and_pressure
+O3_FP {"immediate":55,"occupied":4,"prepared":86,"reason":"","second_accepted":true,"seed":23}
+O3_FP {"immediate":55,"occupied":4,"prepared":86,"reason":"","second_accepted":true,"seed":77}
+* test_preparation_can_close_the_only_landing_path
+* test_shipped_line_fixture_scores_same_targets_with_upgrade_and_replays
+[1m3/3 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 3
+Passing Tests         3
+Asserts              69
+Time              1.805s
+
+
+[32m---- All tests passed! ----
+[0m

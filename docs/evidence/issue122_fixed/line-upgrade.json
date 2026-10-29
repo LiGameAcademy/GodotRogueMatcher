@@ -1,0 +1,1249 @@
+{
+	"reports": [
+		{
+			"after": {
+				"error": "",
+				"next_refill": "3",
+				"occupied": "6",
+				"score": "14",
+				"spawned": "3",
+				"state": {
+					"ability_events": {
+						"active": true,
+						"dispatched": [
+							"1"
+						],
+						"next_event_id": "2"
+					},
+					"acquired": {
+						"line_manual_clear": "1"
+					},
+					"action": "2",
+					"action_refill_count": "3",
+					"challenge": {
+						"action_score": "0",
+						"awaiting_reward": false,
+						"carry_in": "0",
+						"continuing": false,
+						"enabled": false,
+						"entry_offset": "0",
+						"history": [],
+						"index": "0",
+						"root_action_id": "0",
+						"settled_root_id": "0",
+						"target_total": "0",
+						"used_actions": "0"
+					},
+					"consumed": "1",
+					"continuation": "idle",
+					"demolition": {
+						"activations": "1",
+						"core_pool": false,
+						"fuse_unlocked": false,
+						"roots": [],
+						"rule_action_id": "2",
+						"turn_action_id": "2",
+						"upgrades": {}
+					},
+					"direct_match": false,
+					"dye": {
+						"blast": false,
+						"chain": false,
+						"ids": [],
+						"marks": {},
+						"match": false,
+						"root": "-1",
+						"upgrades": {},
+						"waves": "0"
+					},
+					"end_reason": "",
+					"error": "",
+					"game_over": false,
+					"goal_bonus_score": "0",
+					"history": [],
+					"instances": [
+						{
+							"ability": "on_eliminated_line_sweep",
+							"consume_on_empty": true,
+							"event_type": "piece_eliminated",
+							"id": "2",
+							"max_triggers": "1",
+							"owner_id": "2",
+							"pending_event_id": "0",
+							"skill_instance_id": "0",
+							"trigger_count": "0",
+							"triggered": false
+						}
+					],
+					"last_command": "1",
+					"ledger": [
+						{
+							"B": "14",
+							"E": "0",
+							"G": 1.0,
+							"N": "2",
+							"ability_id": "on_eliminated_line_sweep",
+							"action_id": "2",
+							"event_id": "1",
+							"final_score": "14",
+							"reason": "line_clear",
+							"source_id": "1",
+							"targets": [
+								"3",
+								"4"
+							]
+						}
+					],
+					"levels": [
+						"0",
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"line_clear": {
+						"column": true,
+						"row": true,
+						"upgrades": {
+							"line_manual_clear": "1"
+						}
+					},
+					"manual_uses_used": {
+						"line_manual_clear": "1"
+					},
+					"milestone_level": "0",
+					"moves": "0",
+					"next_event_id": "2",
+					"next_milestone": "100",
+					"next_offer_id": "2",
+					"next_piece_id": "10",
+					"offer": {},
+					"pending": "0",
+					"pending_followups": [],
+					"pending_removals": [],
+					"phase": "1",
+					"pieces": [
+						{
+							"color": "2",
+							"content_id": "special_line_column",
+							"coordinate": [
+								"4",
+								"4"
+							],
+							"ghost": false,
+							"id": "2"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"1"
+							],
+							"ghost": false,
+							"id": "5"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"2"
+							],
+							"ghost": false,
+							"id": "6"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"1",
+								"2"
+							],
+							"ghost": false,
+							"id": "7"
+						},
+						{
+							"color": "0",
+							"content_id": "",
+							"coordinate": [
+								"5",
+								"0"
+							],
+							"ghost": false,
+							"id": "8"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"7",
+								"6"
+							],
+							"ghost": false,
+							"id": "9"
+						}
+					],
+					"previous_milestone": "0",
+					"random": [
+						{
+							"seed": "4219536039250620333",
+							"state": "-8121763694421735296"
+						},
+						{
+							"seed": "3301486353484276579",
+							"state": "5407689013170630393"
+						},
+						{
+							"seed": "5542305152434482180",
+							"state": "-9035025493840195002"
+						},
+						{
+							"seed": "2773255068505649941",
+							"state": "4151189529421561667"
+						}
+					],
+					"reward_repair_used": false,
+					"rng": {
+						"master_seed": "77",
+						"rng_scheme_version": "sl-rng-v1",
+						"streams": {
+							"effect_execution": {
+								"seed": "704294534277794641",
+								"state": "5264673811097519567"
+							},
+							"offer_candidates": {
+								"seed": "3301486353484276579",
+								"state": "5407689013170630393"
+							},
+							"offer_order": {
+								"seed": "2773255068505649941",
+								"state": "4151189529421561667"
+							},
+							"offer_targets": {
+								"seed": "5542305152434482180",
+								"state": "-9035025493840195002"
+							},
+							"spawn_content": {
+								"seed": "5179113221167504193",
+								"state": "-3992708319051824149"
+							},
+							"spawn_position": {
+								"seed": "4219536039250620333",
+								"state": "-8121763694421735296"
+							}
+						}
+					},
+					"shape_unlocks": {
+						"enabled": [],
+						"recovery_action_id": "0",
+						"recovery_attempted": false,
+						"recovery_batch_id": "0",
+						"recovery_pending": false,
+						"recovery_root": "0"
+					},
+					"skills": [
+						{
+							"abilities": [
+								{
+									"ability_id": "unlock_manual_line_clear",
+									"consume_on_empty": true,
+									"event_type": "skill_acquired",
+									"max_triggers": "0",
+									"pending_event_id": "0",
+									"skill_instance_id": "1",
+									"trigger_count": "1"
+								}
+							],
+							"instance_id": "1",
+							"level": "1",
+							"skill_id": "line_manual_clear"
+						}
+					],
+					"spawning": {
+						"color_weights": [
+							"4",
+							"4",
+							"4",
+							"4",
+							"4"
+						],
+						"content_random": {
+							"seed": "5179113221167504193",
+							"state": "-3992708319051824149"
+						},
+						"plan": [
+							{
+								"color": "0",
+								"core_candidate": false,
+								"core_color": "0",
+								"line_axis": "-1"
+							},
+							{
+								"color": "1",
+								"core_candidate": false,
+								"core_color": "1",
+								"line_axis": "-1"
+							},
+							{
+								"color": "0",
+								"core_candidate": false,
+								"core_color": "0",
+								"line_axis": "-1"
+							}
+						],
+						"plan_policy": "locked-prefix-conditional-core-v1",
+						"refill_batches": {
+							"-1": "0",
+							"1": "0"
+						}
+					},
+					"total": "14",
+					"turn": "2",
+					"unlocked": false
+				},
+				"used_actions": "0",
+				"valid_moves": "0"
+			},
+			"before": {
+				"error": "",
+				"next_refill": "3",
+				"occupied": "6",
+				"score": "0",
+				"spawned": "0",
+				"state": {
+					"ability_events": {
+						"active": true,
+						"dispatched": [],
+						"next_event_id": "1"
+					},
+					"acquired": {
+						"line_manual_clear": "1"
+					},
+					"action": "1",
+					"action_refill_count": "0",
+					"challenge": {
+						"action_score": "0",
+						"awaiting_reward": false,
+						"carry_in": "0",
+						"continuing": false,
+						"enabled": false,
+						"entry_offset": "0",
+						"history": [],
+						"index": "0",
+						"root_action_id": "0",
+						"settled_root_id": "0",
+						"target_total": "0",
+						"used_actions": "0"
+					},
+					"consumed": "1",
+					"continuation": "idle",
+					"demolition": {
+						"activations": "0",
+						"core_pool": false,
+						"fuse_unlocked": false,
+						"roots": [],
+						"rule_action_id": "1",
+						"turn_action_id": "0",
+						"upgrades": {}
+					},
+					"direct_match": false,
+					"dye": {
+						"blast": false,
+						"chain": false,
+						"ids": [],
+						"marks": {},
+						"match": false,
+						"root": "-1",
+						"upgrades": {},
+						"waves": "0"
+					},
+					"end_reason": "",
+					"error": "",
+					"game_over": false,
+					"goal_bonus_score": "0",
+					"history": [],
+					"instances": [
+						{
+							"ability": "on_eliminated_line_sweep",
+							"consume_on_empty": true,
+							"event_type": "piece_eliminated",
+							"id": "1",
+							"max_triggers": "1",
+							"owner_id": "1",
+							"pending_event_id": "0",
+							"skill_instance_id": "0",
+							"trigger_count": "0",
+							"triggered": false
+						},
+						{
+							"ability": "on_eliminated_line_sweep",
+							"consume_on_empty": true,
+							"event_type": "piece_eliminated",
+							"id": "2",
+							"max_triggers": "1",
+							"owner_id": "2",
+							"pending_event_id": "0",
+							"skill_instance_id": "0",
+							"trigger_count": "0",
+							"triggered": false
+						}
+					],
+					"last_command": "0",
+					"ledger": [],
+					"levels": [
+						"0",
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"line_clear": {
+						"column": true,
+						"row": true,
+						"upgrades": {
+							"line_manual_clear": "1"
+						}
+					},
+					"manual_uses_used": {},
+					"milestone_level": "0",
+					"moves": "0",
+					"next_event_id": "1",
+					"next_milestone": "100",
+					"next_offer_id": "2",
+					"next_piece_id": "7",
+					"offer": {},
+					"pending": "0",
+					"pending_followups": [],
+					"pending_removals": [],
+					"phase": "1",
+					"pieces": [
+						{
+							"color": "0",
+							"content_id": "special_line_row",
+							"coordinate": [
+								"0",
+								"0"
+							],
+							"ghost": false,
+							"id": "1"
+						},
+						{
+							"color": "2",
+							"content_id": "special_line_column",
+							"coordinate": [
+								"4",
+								"4"
+							],
+							"ghost": false,
+							"id": "2"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"1",
+								"0"
+							],
+							"ghost": false,
+							"id": "3"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"2",
+								"0"
+							],
+							"ghost": false,
+							"id": "4"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"1"
+							],
+							"ghost": false,
+							"id": "5"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"2"
+							],
+							"ghost": false,
+							"id": "6"
+						}
+					],
+					"previous_milestone": "0",
+					"random": [
+						{
+							"seed": "4219536039250620333",
+							"state": "887109848184212987"
+						},
+						{
+							"seed": "3301486353484276579",
+							"state": "5407689013170630393"
+						},
+						{
+							"seed": "5542305152434482180",
+							"state": "-9035025493840195002"
+						},
+						{
+							"seed": "2773255068505649941",
+							"state": "4151189529421561667"
+						}
+					],
+					"reward_repair_used": false,
+					"rng": {
+						"master_seed": "77",
+						"rng_scheme_version": "sl-rng-v1",
+						"streams": {
+							"effect_execution": {
+								"seed": "704294534277794641",
+								"state": "5264673811097519567"
+							},
+							"offer_candidates": {
+								"seed": "3301486353484276579",
+								"state": "5407689013170630393"
+							},
+							"offer_order": {
+								"seed": "2773255068505649941",
+								"state": "4151189529421561667"
+							},
+							"offer_targets": {
+								"seed": "5542305152434482180",
+								"state": "-9035025493840195002"
+							},
+							"spawn_content": {
+								"seed": "5179113221167504193",
+								"state": "-7915789729577113427"
+							},
+							"spawn_position": {
+								"seed": "4219536039250620333",
+								"state": "887109848184212987"
+							}
+						}
+					},
+					"shape_unlocks": {
+						"enabled": [],
+						"recovery_action_id": "0",
+						"recovery_attempted": false,
+						"recovery_batch_id": "0",
+						"recovery_pending": false,
+						"recovery_root": "0"
+					},
+					"skills": [
+						{
+							"abilities": [
+								{
+									"ability_id": "unlock_manual_line_clear",
+									"consume_on_empty": true,
+									"event_type": "skill_acquired",
+									"max_triggers": "0",
+									"pending_event_id": "0",
+									"skill_instance_id": "1",
+									"trigger_count": "1"
+								}
+							],
+							"instance_id": "1",
+							"level": "1",
+							"skill_id": "line_manual_clear"
+						}
+					],
+					"spawning": {
+						"color_weights": [
+							"4",
+							"4",
+							"4",
+							"4",
+							"4"
+						],
+						"content_random": {
+							"seed": "5179113221167504193",
+							"state": "-7915789729577113427"
+						},
+						"plan": [
+							{
+								"color": "1",
+								"core_candidate": false,
+								"core_color": "1",
+								"line_axis": "-1"
+							},
+							{
+								"color": "0",
+								"core_candidate": false,
+								"core_color": "0",
+								"line_axis": "-1"
+							},
+							{
+								"color": "2",
+								"core_candidate": false,
+								"core_color": "2",
+								"line_axis": "-1"
+							}
+						],
+						"plan_policy": "locked-prefix-conditional-core-v1",
+						"refill_batches": {
+							"-1": "0",
+							"1": "0"
+						}
+					},
+					"total": "0",
+					"turn": "1",
+					"unlocked": false
+				},
+				"used_actions": "0",
+				"valid_moves": "0"
+			},
+			"checked_records": "12",
+			"record_file": "line-baseline.jsonl",
+			"replay_complete": true
+		},
+		{
+			"after": {
+				"error": "",
+				"next_refill": "3",
+				"occupied": "6",
+				"score": "18",
+				"spawned": "3",
+				"state": {
+					"ability_events": {
+						"active": true,
+						"dispatched": [
+							"1"
+						],
+						"next_event_id": "2"
+					},
+					"acquired": {
+						"line_clear_score": "1",
+						"line_manual_clear": "1"
+					},
+					"action": "3",
+					"action_refill_count": "3",
+					"challenge": {
+						"action_score": "0",
+						"awaiting_reward": false,
+						"carry_in": "0",
+						"continuing": false,
+						"enabled": false,
+						"entry_offset": "0",
+						"history": [],
+						"index": "0",
+						"root_action_id": "0",
+						"settled_root_id": "0",
+						"target_total": "0",
+						"used_actions": "0"
+					},
+					"consumed": "2",
+					"continuation": "idle",
+					"demolition": {
+						"activations": "1",
+						"core_pool": false,
+						"fuse_unlocked": false,
+						"roots": [],
+						"rule_action_id": "3",
+						"turn_action_id": "3",
+						"upgrades": {}
+					},
+					"direct_match": false,
+					"dye": {
+						"blast": false,
+						"chain": false,
+						"ids": [],
+						"marks": {},
+						"match": false,
+						"root": "-1",
+						"upgrades": {},
+						"waves": "0"
+					},
+					"end_reason": "",
+					"error": "",
+					"game_over": false,
+					"goal_bonus_score": "0",
+					"history": [],
+					"instances": [
+						{
+							"ability": "on_eliminated_line_sweep",
+							"consume_on_empty": true,
+							"event_type": "piece_eliminated",
+							"id": "2",
+							"max_triggers": "1",
+							"owner_id": "2",
+							"pending_event_id": "0",
+							"skill_instance_id": "0",
+							"trigger_count": "0",
+							"triggered": false
+						}
+					],
+					"last_command": "1",
+					"ledger": [
+						{
+							"B": "14",
+							"E": "4",
+							"G": 1.0,
+							"N": "2",
+							"ability_id": "on_eliminated_line_sweep",
+							"action_id": "3",
+							"event_id": "1",
+							"final_score": "18",
+							"reason": "line_clear",
+							"source_id": "1",
+							"targets": [
+								"3",
+								"4"
+							]
+						}
+					],
+					"levels": [
+						"0",
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"line_clear": {
+						"column": true,
+						"row": true,
+						"upgrades": {
+							"line_clear_score": "1",
+							"line_manual_clear": "1"
+						}
+					},
+					"manual_uses_used": {
+						"line_manual_clear": "1"
+					},
+					"milestone_level": "0",
+					"moves": "0",
+					"next_event_id": "2",
+					"next_milestone": "100",
+					"next_offer_id": "3",
+					"next_piece_id": "10",
+					"offer": {},
+					"pending": "0",
+					"pending_followups": [],
+					"pending_removals": [],
+					"phase": "1",
+					"pieces": [
+						{
+							"color": "2",
+							"content_id": "special_line_column",
+							"coordinate": [
+								"4",
+								"4"
+							],
+							"ghost": false,
+							"id": "2"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"1"
+							],
+							"ghost": false,
+							"id": "5"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"2"
+							],
+							"ghost": false,
+							"id": "6"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"1",
+								"2"
+							],
+							"ghost": false,
+							"id": "7"
+						},
+						{
+							"color": "0",
+							"content_id": "",
+							"coordinate": [
+								"5",
+								"0"
+							],
+							"ghost": false,
+							"id": "8"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"7",
+								"6"
+							],
+							"ghost": false,
+							"id": "9"
+						}
+					],
+					"previous_milestone": "0",
+					"random": [
+						{
+							"seed": "4219536039250620333",
+							"state": "-8121763694421735296"
+						},
+						{
+							"seed": "3301486353484276579",
+							"state": "5407689013170630393"
+						},
+						{
+							"seed": "5542305152434482180",
+							"state": "-9035025493840195002"
+						},
+						{
+							"seed": "2773255068505649941",
+							"state": "4151189529421561667"
+						}
+					],
+					"reward_repair_used": false,
+					"rng": {
+						"master_seed": "77",
+						"rng_scheme_version": "sl-rng-v1",
+						"streams": {
+							"effect_execution": {
+								"seed": "704294534277794641",
+								"state": "5264673811097519567"
+							},
+							"offer_candidates": {
+								"seed": "3301486353484276579",
+								"state": "5407689013170630393"
+							},
+							"offer_order": {
+								"seed": "2773255068505649941",
+								"state": "4151189529421561667"
+							},
+							"offer_targets": {
+								"seed": "5542305152434482180",
+								"state": "-9035025493840195002"
+							},
+							"spawn_content": {
+								"seed": "5179113221167504193",
+								"state": "-3992708319051824149"
+							},
+							"spawn_position": {
+								"seed": "4219536039250620333",
+								"state": "-8121763694421735296"
+							}
+						}
+					},
+					"shape_unlocks": {
+						"enabled": [],
+						"recovery_action_id": "0",
+						"recovery_attempted": false,
+						"recovery_batch_id": "0",
+						"recovery_pending": false,
+						"recovery_root": "0"
+					},
+					"skills": [
+						{
+							"abilities": [
+								{
+									"ability_id": "unlock_manual_line_clear",
+									"consume_on_empty": true,
+									"event_type": "skill_acquired",
+									"max_triggers": "0",
+									"pending_event_id": "0",
+									"skill_instance_id": "1",
+									"trigger_count": "1"
+								}
+							],
+							"instance_id": "1",
+							"level": "1",
+							"skill_id": "line_manual_clear"
+						},
+						{
+							"abilities": [
+								{
+									"ability_id": "line_clear_score",
+									"consume_on_empty": true,
+									"event_type": "skill_acquired",
+									"max_triggers": "0",
+									"pending_event_id": "0",
+									"skill_instance_id": "2",
+									"trigger_count": "1"
+								}
+							],
+							"instance_id": "2",
+							"level": "1",
+							"skill_id": "line_clear_score"
+						}
+					],
+					"spawning": {
+						"color_weights": [
+							"4",
+							"4",
+							"4",
+							"4",
+							"4"
+						],
+						"content_random": {
+							"seed": "5179113221167504193",
+							"state": "-3992708319051824149"
+						},
+						"plan": [
+							{
+								"color": "0",
+								"core_candidate": false,
+								"core_color": "0",
+								"line_axis": "-1"
+							},
+							{
+								"color": "1",
+								"core_candidate": false,
+								"core_color": "1",
+								"line_axis": "-1"
+							},
+							{
+								"color": "0",
+								"core_candidate": false,
+								"core_color": "0",
+								"line_axis": "-1"
+							}
+						],
+						"plan_policy": "locked-prefix-conditional-core-v1",
+						"refill_batches": {
+							"-1": "0",
+							"1": "0"
+						}
+					},
+					"total": "18",
+					"turn": "2",
+					"unlocked": false
+				},
+				"used_actions": "0",
+				"valid_moves": "0"
+			},
+			"before": {
+				"error": "",
+				"next_refill": "3",
+				"occupied": "6",
+				"score": "0",
+				"spawned": "0",
+				"state": {
+					"ability_events": {
+						"active": true,
+						"dispatched": [],
+						"next_event_id": "1"
+					},
+					"acquired": {
+						"line_clear_score": "1",
+						"line_manual_clear": "1"
+					},
+					"action": "2",
+					"action_refill_count": "0",
+					"challenge": {
+						"action_score": "0",
+						"awaiting_reward": false,
+						"carry_in": "0",
+						"continuing": false,
+						"enabled": false,
+						"entry_offset": "0",
+						"history": [],
+						"index": "0",
+						"root_action_id": "0",
+						"settled_root_id": "0",
+						"target_total": "0",
+						"used_actions": "0"
+					},
+					"consumed": "2",
+					"continuation": "idle",
+					"demolition": {
+						"activations": "0",
+						"core_pool": false,
+						"fuse_unlocked": false,
+						"roots": [],
+						"rule_action_id": "2",
+						"turn_action_id": "0",
+						"upgrades": {}
+					},
+					"direct_match": false,
+					"dye": {
+						"blast": false,
+						"chain": false,
+						"ids": [],
+						"marks": {},
+						"match": false,
+						"root": "-1",
+						"upgrades": {},
+						"waves": "0"
+					},
+					"end_reason": "",
+					"error": "",
+					"game_over": false,
+					"goal_bonus_score": "0",
+					"history": [],
+					"instances": [
+						{
+							"ability": "on_eliminated_line_sweep",
+							"consume_on_empty": true,
+							"event_type": "piece_eliminated",
+							"id": "1",
+							"max_triggers": "1",
+							"owner_id": "1",
+							"pending_event_id": "0",
+							"skill_instance_id": "0",
+							"trigger_count": "0",
+							"triggered": false
+						},
+						{
+							"ability": "on_eliminated_line_sweep",
+							"consume_on_empty": true,
+							"event_type": "piece_eliminated",
+							"id": "2",
+							"max_triggers": "1",
+							"owner_id": "2",
+							"pending_event_id": "0",
+							"skill_instance_id": "0",
+							"trigger_count": "0",
+							"triggered": false
+						}
+					],
+					"last_command": "0",
+					"ledger": [],
+					"levels": [
+						"0",
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"line_clear": {
+						"column": true,
+						"row": true,
+						"upgrades": {
+							"line_clear_score": "1",
+							"line_manual_clear": "1"
+						}
+					},
+					"manual_uses_used": {},
+					"milestone_level": "0",
+					"moves": "0",
+					"next_event_id": "1",
+					"next_milestone": "100",
+					"next_offer_id": "3",
+					"next_piece_id": "7",
+					"offer": {},
+					"pending": "0",
+					"pending_followups": [],
+					"pending_removals": [],
+					"phase": "1",
+					"pieces": [
+						{
+							"color": "0",
+							"content_id": "special_line_row",
+							"coordinate": [
+								"0",
+								"0"
+							],
+							"ghost": false,
+							"id": "1"
+						},
+						{
+							"color": "2",
+							"content_id": "special_line_column",
+							"coordinate": [
+								"4",
+								"4"
+							],
+							"ghost": false,
+							"id": "2"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"1",
+								"0"
+							],
+							"ghost": false,
+							"id": "3"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"2",
+								"0"
+							],
+							"ghost": false,
+							"id": "4"
+						},
+						{
+							"color": "1",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"1"
+							],
+							"ghost": false,
+							"id": "5"
+						},
+						{
+							"color": "2",
+							"content_id": "",
+							"coordinate": [
+								"4",
+								"2"
+							],
+							"ghost": false,
+							"id": "6"
+						}
+					],
+					"previous_milestone": "0",
+					"random": [
+						{
+							"seed": "4219536039250620333",
+							"state": "887109848184212987"
+						},
+						{
+							"seed": "3301486353484276579",
+							"state": "5407689013170630393"
+						},
+						{
+							"seed": "5542305152434482180",
+							"state": "-9035025493840195002"
+						},
+						{
+							"seed": "2773255068505649941",
+							"state": "4151189529421561667"
+						}
+					],
+					"reward_repair_used": false,
+					"rng": {
+						"master_seed": "77",
+						"rng_scheme_version": "sl-rng-v1",
+						"streams": {
+							"effect_execution": {
+								"seed": "704294534277794641",
+								"state": "5264673811097519567"
+							},
+							"offer_candidates": {
+								"seed": "3301486353484276579",
+								"state": "5407689013170630393"
+							},
+							"offer_order": {
+								"seed": "2773255068505649941",
+								"state": "4151189529421561667"
+							},
+							"offer_targets": {
+								"seed": "5542305152434482180",
+								"state": "-9035025493840195002"
+							},
+							"spawn_content": {
+								"seed": "5179113221167504193",
+								"state": "-7915789729577113427"
+							},
+							"spawn_position": {
+								"seed": "4219536039250620333",
+								"state": "887109848184212987"
+							}
+						}
+					},
+					"shape_unlocks": {
+						"enabled": [],
+						"recovery_action_id": "0",
+						"recovery_attempted": false,
+						"recovery_batch_id": "0",
+						"recovery_pending": false,
+						"recovery_root": "0"
+					},
+					"skills": [
+						{
+							"abilities": [
+								{
+									"ability_id": "unlock_manual_line_clear",
+									"consume_on_empty": true,
+									"event_type": "skill_acquired",
+									"max_triggers": "0",
+									"pending_event_id": "0",
+									"skill_instance_id": "1",
+									"trigger_count": "1"
+								}
+							],
+							"instance_id": "1",
+							"level": "1",
+							"skill_id": "line_manual_clear"
+						},
+						{
+							"abilities": [
+								{
+									"ability_id": "line_clear_score",
+									"consume_on_empty": true,
+									"event_type": "skill_acquired",
+									"max_triggers": "0",
+									"pending_event_id": "0",
+									"skill_instance_id": "2",
+									"trigger_count": "1"
+								}
+							],
+							"instance_id": "2",
+							"level": "1",
+							"skill_id": "line_clear_score"
+						}
+					],
+					"spawning": {
+						"color_weights": [
+							"4",
+							"4",
+							"4",
+							"4",
+							"4"
+						],
+						"content_random": {
+							"seed": "5179113221167504193",
+							"state": "-7915789729577113427"
+						},
+						"plan": [
+							{
+								"color": "1",
+								"core_candidate": false,
+								"core_color": "1",
+								"line_axis": "-1"
+							},
+							{
+								"color": "0",
+								"core_candidate": false,
+								"core_color": "0",
+								"line_axis": "-1"
+							},
+							{
+								"color": "2",
+								"core_candidate": false,
+								"core_color": "2",
+								"line_axis": "-1"
+							}
+						],
+						"plan_policy": "locked-prefix-conditional-core-v1",
+						"refill_batches": {
+							"-1": "0",
+							"1": "0"
+						}
+					},
+					"total": "0",
+					"turn": "1",
+					"unlocked": false
+				},
+				"used_actions": "0",
+				"valid_moves": "0"
+			},
+			"checked_records": "12",
+			"record_file": "line-upgraded.jsonl",
+			"replay_complete": true
+		}
+	],
+	"source": "fixture/automated"
+}
