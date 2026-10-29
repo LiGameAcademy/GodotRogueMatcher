@@ -59,6 +59,9 @@ func test_six_long_rules_and_independent_flavor_fit_existing_popup_both_language
 						assert_true(card.get_global_rect().grow(1).encloses(card.action_label.get_global_rect()))
 						assert_lte(card.effect_label.get_global_rect().end.y, card.flavor_label.global_position.y + 1.0)
 						assert_false(card.effect_label.text.contains("rules."))
+						if card.disabled and locale == "en_US":
+							assert_string_contains(card.action_label.text, "Target no longer valid")
+							assert_eq(card.tooltip_text, "Target no longer valid")
 					if count == 3 and OS.get_environment("O4_RULE_CAPTURE") == "1":
 						var path: String = "res://.godot/o4-description-captures"
 						assert_eq(DirAccess.make_dir_recursive_absolute(path), OK)

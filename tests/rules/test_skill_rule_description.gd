@@ -131,7 +131,8 @@ func test_unsupported_missing_parameters_and_translation_return_identifiable_man
 	assert_string_contains(SkillRuleDescription.describe(other).error, "line_manual_clear")
 	var missing: SkillDefinition = _skill("score_multiplier")
 	missing.choice_effect = null
-	assert_string_contains(SkillRuleDescription.describe(missing).error, "effect missing")
+	assert_string_contains(SkillRuleDescription.describe(missing).error, "no acquisition effect")
+	assert_string_contains(SkillChoiceText.summary(missing), "[Manual rule]")
 	assert_string_contains(SkillRuleDescription._format("rules.not_installed").error, "translation missing")
 	assert_string_contains(SkillRuleDescription._format("rules.goal", {"wrong": 1}).error, "parameter missing")
 	var missing_entry: Translation = Translation.new()

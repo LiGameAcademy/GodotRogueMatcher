@@ -1,4 +1,5 @@
 "keys","en_US","zh_CN"
+"原定目标已经失效","Target no longer valid","原定目标已经失效"
 "rules.mixed_preview","Refill {before}→{after}; uses {remaining_before}→{remaining_after}; {color} weight {weight_before}→{weight_after}","补棋{before}→{after}枚，余次{remaining_before}→{remaining_after}；{color}权重{weight_before}→{weight_after}"
 "rules.mixed","Next {batches} actual refills: adjust count by {delta}; skipped refills spend no uses.\nOne random color's generation weight {weight} persists after expiry (not probability); locked previews stay.","接下来{batches}次实际补棋，数量修正{delta}枚；免补棋不扣次数。\n一种随机确定颜色的生成权重{weight}（非概率），减量到期后仍保留，锁定预告不重抽。"
 "rules.mixed_owned","Refill modifier {delta}: {remaining} actual refills remaining (zero means expired).\nOne determined color's generation weight {weight} persists after refill expiry (not probability); locked previews stay.","补棋修正{delta}枚，剩余{remaining}次实际补棋（零次已到期）。\n已确定颜色的生成权重{weight}（非概率）仍保留，锁定预告不重抽。"
