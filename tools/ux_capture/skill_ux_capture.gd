@@ -42,7 +42,7 @@ func _ready() -> void:
 		return
 	board.run.state.phase = RunState.Phase.INPUT
 	hud.show_run(board.run)
-	hud.show_status("临时技能已生效 · 下次补棋2枚 · 剩余3次")
+	hud.show_status("hud.status.capture_refill_ready")
 	await _capture("01_active_skill")
 	board.run.state.pending_rewards = 1
 	board.run.enter_rewards()
@@ -84,10 +84,10 @@ func _ready() -> void:
 				return
 		board.rebuild_view()
 		hud.show_run(board.run)
-		hud.show_status("实际补棋已消费 %d 次" % (batch + 1))
+		hud.show_status("hud.status.capture_refill_used", {"count": batch + 1})
 		if batch == 0: await _capture("06_skill_remaining_two")
 	hud.history_button.set_pressed(true)
-	hud.show_status("3次实际补棋已用完 · 技能退出当前列表 · 历史保留")
+	hud.show_status("hud.status.capture_refill_done")
 	await _capture("07_skill_consumed")
 	print("UX_CAPTURE_COMPLETE ", ProjectSettings.globalize_path(OUTPUT))
 	UIManager.close_popup()

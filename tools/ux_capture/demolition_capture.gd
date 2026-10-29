@@ -61,7 +61,7 @@ func _ready() -> void:
 	board.can_selected = true
 	board.selected_piece = board.view.get_piece(board.rules.state.get_piece_id(Vector2i(4, 4)))
 	hud.show_run(board.run)
-	hud.show_status("主动爆破已安装 · 双击核心消耗一次行动并正常补棋")
+	hud.show_status("hud.status.capture_detonate")
 	await _capture("02_build_ready")
 	board._on_piece_activated(Vector2i(4, 4))
 	await _frames(4)
@@ -74,7 +74,7 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 	hud.show_run(board.run)
-	hud.show_status("连锁与余震已结算 · 正常补棋完成 · 已安装强化保留")
+	hud.show_status("hud.status.capture_chain")
 	await _capture("04_settled")
 	print("DEMOLITION_CAPTURE_COMPLETE ", ProjectSettings.globalize_path(output_directory))
 	get_tree().quit()

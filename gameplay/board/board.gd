@@ -160,7 +160,7 @@ func refresh_ability_markers() -> void:
 ## Advances to the next reward threshold using the normal reward entry.
 func open_skill_demo() -> bool:
 	if run.state.stage.enabled():
-		operation_feedback.emit("技能调试请先切换经典无尽，或按 F6 / F10 加载独立示例")
+		operation_feedback.emit("hud.status.debug_classic_required")
 		return false
 	if not can_selected or get_tree().paused or GameManager.is_game_over:
 		return false
@@ -384,7 +384,7 @@ func _resume_buffered_input() -> void:
 	cancel_buffered_input()
 	if not can_selected or rules.state.get_piece(id) == null:
 		observation.resolve(input_id, "discarded", "piece_missing_or_busy")
-		if id != 0: operation_feedback.emit("暂存棋子已离场，操作已取消")
+		if id != 0: operation_feedback.emit("hud.status.queued_piece_missing")
 		return
 	selected_piece = view.get_piece(id)
 	if target != Vector2i(-1, -1):
@@ -398,7 +398,7 @@ func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_m
 		return
 	if not is_instance_valid(selected_piece) or selected_piece.piece_id != id or rules.state.get_piece_id(target) != 0:
 		observation.resolve(input_id, "discarded", "piece_changed_or_target_occupied")
-		operation_feedback.emit("暂存目标失效，请重新选择")
+		operation_feedback.emit("hud.status.queued_target_invalid")
 		return
 	await move_selected_piece(get_cell(target), 0.5, waiting_ms, input_id)
 
@@ -452,7 +452,8 @@ func _on_playback_failed(reason: String) -> void:
 	cancel_buffered_input("presentation_error")
 	var snapshot: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else director.recovery_snapshot
 	if not PlaybackPlanBuilder.valid_snapshot(snapshot, Vector2i(cols, rows)):
-		operation_feedback.emit("演出异常，无法恢复盘面：" + reason)
+		push_warning("Playback recovery failed: " + reason)
+		operation_feedback.emit("hud.status.playback_failed")
 		return
 	selected_piece = null
 	view.cancel_animations()
@@ -460,7 +461,7 @@ func _on_playback_failed(reason: String) -> void:
 	_compatibility_changed = false
 	_score_presentation_pending = true
 	director.confirm_recovery()
-	operation_feedback.emit("演出异常，已对齐本次结果")
+	operation_feedback.emit("hud.status.playback_aligned")
 
 func _on_cell_pressed(cell: Cell) -> void:
 	await _on_coordinate_pressed(cell.coordinate)
