@@ -70,7 +70,7 @@ func test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run(
 	skill.description = "旧完整描述"
 	assert_string_contains(SkillChoiceText.summary(skill), "[人工规则]")
 	assert_string_contains(SkillChoiceText.summary(skill), skill.description)
-	assert_string_contains(SkillRuleDescription.describe(skill).error, "outside D01-D06")
+	assert_string_contains(SkillRuleDescription.describe(skill).error, "outside supported description slice")
 	var card: SkillCard = CARD.instantiate() as SkillCard
 	add_child_autofree(card)
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 864)

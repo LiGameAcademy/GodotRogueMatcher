@@ -1,8 +1,8 @@
 class_name SkillRuleDescription
 extends RefCounted
-## Read-only D01-D06 projection. Diagnostics identify manual migration fallbacks.
+## Read-only supported-family projection. Diagnostics identify manual migration fallbacks.
 
-const IDS: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye"]
+const IDS: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye"]
 const EXPLOSION: ExplosionConfig = preload("res://gameplay/skills/content/explosion_config.tres")
 const TRANSLATIONS: Dictionary[String, Translation] = {
 	"en": preload("res://localization/skill_rules.en_US.translation"),
@@ -12,7 +12,7 @@ const TRANSLATIONS: Dictionary[String, Translation] = {
 ## A negative level denotes the catalog's configuration-only context.
 static func describe(skill: SkillDefinition, level: int = -1, remaining: int = -1, owned: bool = false) -> Dictionary[String, String]:
 	if skill == null: return _failure(null, "definition missing")
-	if not IDS.has(skill.skill_id): return _failure(skill, "outside D01-D06")
+	if not IDS.has(skill.skill_id): return _failure(skill, "outside supported description slice")
 	var error: String = skill.validation_error()
 	if not error.is_empty(): return _failure(skill, error)
 	if level == 0 or level < -1 or remaining < -1: return _failure(skill, "invalid display context")
@@ -68,9 +68,9 @@ static func _effect(effect: SkillEffect, level: int, remaining: int, owned: bool
 		return _format("rules.multiplier_owned" if owned else "rules.multiplier", {"delta": String.num(EXPLOSION.multiplier_per_level * (level if owned else 1), 3)})
 	if effect is InstallLineUpgradeEffect:
 		var line: InstallLineUpgradeEffect = effect as InstallLineUpgradeEffect
-		if line.upgrade != &"line_row_span" or line.required_axis != LineClearState.AXIS_ROW:
+		if line.required_axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN] or line.upgrade != LineClearRules.upgrade_for_axis(line.required_axis):
 			return {"text": "", "error": "unsupported line upgrade"}
-		return _format("rules.row_span", {"count": LineClearRules.line_count(level)})
+		return _format("rules.row_span" if line.required_axis == LineClearState.AXIS_ROW else "rules.column_span", {"count": LineClearRules.line_count(level)})
 	if effect is RefillCountEffect:
 		var refill: RefillCountEffect = effect as RefillCountEffect
 		if refill.delta not in [-1, 1] or refill.batches <= 0:
@@ -83,7 +83,7 @@ static func _effect(effect: SkillEffect, level: int, remaining: int, owned: bool
 		var weight: ColorWeightEffect = effect as ColorWeightEffect
 		if weight.delta == 0: return {"text": "", "error": "zero weight delta"}
 		if weight.dynamic_targets(): return {"text": "", "error": "unsupported dynamic weight"}
-		return _format("rules.weight", {"delta": "%+d" % weight.delta})
+		return _format("rules.color_weight" if ancestors.is_empty() else "rules.weight", {"delta": "%+d" % weight.delta})
 	if effect is InstallGoalBonusEffect:
 		var goal: InstallGoalBonusEffect = effect as InstallGoalBonusEffect
 		if goal.bonus_score <= 0: return {"text": "", "error": "invalid goal bonus"}
@@ -96,6 +96,8 @@ static func _effect(effect: SkillEffect, level: int, remaining: int, owned: bool
 	if effect is DyeMaterialEffect:
 		var dye: DyeMaterialEffect = effect as DyeMaterialEffect
 		if DyeRules.CONFIG.instant_targets <= 0: return {"text": "", "error": "invalid dye target count"}
+		if ancestors.is_empty() and not dye.dynamic_targets() and not dye.allow_empty_targets:
+			return _format("rules.dye_fixed_root", {"count": DyeRules.CONFIG.instant_targets})
 		var dye_text: Dictionary[String, String] = _format("rules.dye_dynamic" if dye.dynamic_targets() else "rules.dye_fixed", {"count": DyeRules.CONFIG.instant_targets})
 		if not dye_text.error.is_empty(): return dye_text
 		var empty: Dictionary[String, String] = _format("rules.empty_skip" if dye.allow_empty_targets else "rules.empty_reject")

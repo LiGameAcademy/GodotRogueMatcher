@@ -93,11 +93,11 @@ func configure_catalog(skill: SkillDefinition, run: RunController) -> void:
 	custom_minimum_size.x = 256.0
 	_catalog_run = run
 	_target = null
-	# Catalog text intentionally stays in definition context until O1's single hookup.
-	effect_label.text = SkillChoiceText.summary_rich(skill)
+	var view: Dictionary[String, String] = SkillPoolText.rule_view(run, skill)
+	effect_label.text = view.text
 	level_label.hide()
 	var details: PackedStringArray = SkillPoolText.details(run, skill).split("\n")
-	var effect_lines: int = SkillChoiceText.summary(skill).split("\n").size()
+	var effect_lines: int = view.text.split("\n").size()
 	preview_label.text = "\n".join(details.slice(effect_lines))
 	preview_label.show()
 	action_label.hide()
