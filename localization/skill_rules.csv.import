@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://csvx6saaqwpen"
+
+[deps]
+
+files=["res://localization/skill_rules.en_US.translation", "res://localization/skill_rules.zh_CN.translation"]
+
+source_file="res://localization/skill_rules.csv"
+dest_files=["res://localization/skill_rules.en_US.translation", "res://localization/skill_rules.zh_CN.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

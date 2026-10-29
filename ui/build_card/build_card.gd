@@ -30,9 +30,11 @@ func configure(skill: SkillDefinition, level: int, remaining: int, manual_remain
 	metadata_label.add_theme_color_override("font_color", SkillRarity.COLORS[skill.rarity])
 	level_label.text = "Lv.%d" % level
 	level_label.visible = skill.is_persistent
-	effect_label.text = SkillChoiceText.summary_rich(skill)
+	effect_label.text = SkillChoiceText.summary_rich(skill, maxi(1, level), remaining, true)
 	remaining_label.visible = skill.refill_effect() != null or skill.manual_use_limit > 0
 	remaining_label.text = tr("剩余 %d 次实际补棋") % remaining
+	if skill.acquisition_effect(maxi(0, level - 1)) is CompositeEffect and skill.refill_effect() != null:
+		remaining_label.text = SkillRuleDescription.preview("rules.refill_remaining", {"remaining": remaining}).text
 	if skill.manual_use_limit > 0:
 		if manual_remaining >= 0:
 			remaining_label.text = tr("主动剩余 %d / %d 次") % [manual_remaining, skill.manual_use_limit]
