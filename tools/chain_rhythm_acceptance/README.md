@@ -19,3 +19,5 @@
 `-- --capture-rhythm` 在真实渲染下采集5例×4模式共20样本到 `.godot/issue130-chain-rhythm/real_capture.json` 后退出。坏样本/摘要漂移/写盘失败退出非0。Windows使用短临时APPDATA/LOCALAPPDATA（如`%TEMP%/rogue-long130-gui`）。
 
 事件时间是表现信号派发；wall_elapsed_ms从命令到协程完成，前三例是恢复输入，异形例是奖励等待安全点，不含选卡思考时间；均非首像素/声卡延迟/GPU帧时间。fixed-fps headless可比规则，但声音去重使用真实墙钟，因此不要求每个后代都有独立cue；实际声音记录用非fixed-fps真实GUI。未调整生产时长/声音/规则。Composite例从确认命令到恢复输入计时，不计初始选卡思考；正式发牌时两个动态叶仅保存延后选择契约，到达时才抽选，内部固定目录仅供验收，不进入正式池。已覆盖嵌套改色→外层标记→两代爆破与标记边界四模式切局；更广模板组合、更多叶类型/中断点、暂停/略过完整矩阵及#131成本仍待后续。
+
+自动中断专项入口：`-s addons/gut/gut_cmdln.gd -gtest=res://tests/integration/test_composite_interruptions.gd -gexit`。无headless运行会输出8中断样本至`.godot/issue130-interruptions/real_capture.json`；仅覆盖四模式MARK边界暂停/略过，不等于完整中断矩阵。
