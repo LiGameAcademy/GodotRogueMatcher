@@ -6,9 +6,8 @@ static func details(run: RunController, skill: SkillDefinition) -> String:
 	var lines: PackedStringArray = [SkillChoiceText.summary(skill)]
 	var requirements: PackedStringArray = []
 	if skill.offer_traits != null:
-		if skill.offer_traits.needs.has(&"core_supply"): requirements.append(TranslationServer.translate("需先获得爆壳手登场"))
-		if skill.offer_traits.needs.has(&"fuse_unlocked"): requirements.append(TranslationServer.translate("需先解锁引信路线"))
-		if skill.offer_traits.needs.has(&"live_fuse"): requirements.append(TranslationServer.translate("棋盘上需要引信"))
+		for need: StringName in skill.offer_traits.needs:
+			requirements.append(_capability_text(need))
 	if not skill.prerequisite.is_empty():
 		for entry: SkillDefinition in SkillOfferGenerator.CATALOG:
 			if entry.skill_id == skill.prerequisite:
@@ -25,7 +24,22 @@ static func details(run: RunController, skill: SkillDefinition) -> String:
 	if skill.is_persistent:
 		lines.append(TranslationServer.translate("等级 %d / %s") % [SkillRules.level(run.state, skill), str(maximum) if maximum > 0 else TranslationServer.translate("可重复升级")])
 	var reason: String = SkillRules.rejection(run.state, skill, run.abilities.config)
+	if reason.begins_with("missing_required_capability:"):
+		reason = TranslationServer.translate("缺少前置升级") + " · " + _capability_text(StringName(reason.trim_prefix("missing_required_capability:")))
+	elif reason == "already_acquired_once_per_run":
+		reason = TranslationServer.translate("取得") + " 1 / 1 · " + TranslationServer.translate("当前不可选")
 	# 配置诊断不向玩家暴露抽取权重。
 	if reason == "技能权重必须为正数": reason = "当前不可选"
 	lines.append(TranslationServer.translate("当前资格：%s") % (TranslationServer.translate("满足条件") if reason.is_empty() else TranslationServer.translate(reason)))
 	return "\n".join(lines)
+
+static func _capability_text(need: StringName) -> String:
+	match need:
+		&"core_supply": return TranslationServer.translate("需先获得爆壳手登场")
+		&"fuse_unlocked": return TranslationServer.translate("需先解锁引信路线")
+		&"live_fuse": return TranslationServer.translate("棋盘上需要引信")
+		&"row_supply": return TranslationServer.translate("行清除手登场")
+		&"column_supply": return TranslationServer.translate("列清除手登场")
+		&"line_supply": return TranslationServer.translate("行清除手登场") + " / " + TranslationServer.translate("列清除手登场")
+		&"dye_engine": return TranslationServer.translate("染色接续")
+	return String(need)
