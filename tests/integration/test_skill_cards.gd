@@ -66,7 +66,9 @@ func _assert_all_cards_fit(low_effects: bool) -> void:
 func test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run() -> void:
 	var skill: SkillDefinition = SkillDefinition.new()
 	skill.description = "旧完整描述"
-	assert_eq(SkillChoiceText.summary(skill), skill.description)
+	assert_string_contains(SkillChoiceText.summary(skill), "[人工规则]")
+	assert_string_contains(SkillChoiceText.summary(skill), skill.description)
+	assert_string_contains(SkillRuleDescription.describe(skill).error, "outside D01-D06")
 	var card: SkillCard = CARD.instantiate() as SkillCard
 	add_child_autofree(card)
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 864)
@@ -93,8 +95,10 @@ func test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle() -> voi
 	var card: SkillCard = CARD.instantiate() as SkillCard
 	add_child_autofree(card)
 	card.configure(skill, target)
-	assert_eq(card.preview_label.text, "本次补棋：6 → 5 枚 · 余5次")
-	assert_string_contains(card.effect_label.text, "[b]消耗[/b]")
+	assert_eq(card.preview_label.text, "补棋6→5枚；余次2→5。")
+	assert_string_contains(card.effect_label.text, "实际补棋")
+	assert_string_contains(card.effect_label.text, "免补棋不扣次数")
+	assert_false(card.effect_label.text.contains("回合"))
 	assert_eq(card.consume_label.text, "消耗")
 	assert_string_contains(card.consume_label.tooltip_text, "免补棋不扣次数")
 	assert_false(card.level_label.visible)

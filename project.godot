@@ -47,7 +47,7 @@ theme/custom_font="res://assets/fonts/noto_sans_sc_regular.otf"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation", "res://localization/game.en_US.translation", "res://localization/game.zh_CN.translation")
+locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation", "res://localization/game.en_US.translation", "res://localization/game.zh_CN.translation", "res://localization/skill_rules.en_US.translation", "res://localization/skill_rules.zh_CN.translation")
 locale/fallback="en_US"
 
 [rendering]
