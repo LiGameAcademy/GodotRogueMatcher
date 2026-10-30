@@ -1,0 +1,23 @@
+{
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failed_invalidation": {
+		"ok": false,
+		"reason": "invalidation_commit_failed",
+		"record": {}
+	},
+	"final_marker_exists": false,
+	"mode": "prepare_pending",
+	"ok": true,
+	"pid": 41128,
+	"temporary_intent_exists": true
+}

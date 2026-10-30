@@ -18,6 +18,7 @@ var _pending: Dictionary = {}
 var _busy: bool = false
 var _completed: int = 0
 var _closing: Dictionary[String, bool] = {}
+var _rejected_primary_digest: String = ""
 
 func _init(directory: String, files: CheckpointFiles = null) -> void:
 	_directory = directory
@@ -61,6 +62,15 @@ func inspect_latest() -> Dictionary:
 	if _busy: return _failure("busy")
 	_busy = true
 	var result: Dictionary = _inspect_latest()
+	_busy = false
+	return result
+
+## Internal recovery only after the caller rejects this exact current primary payload.
+## No arbitrary generation selection; invalidation and current compatibility still win.
+func previous_after_rejection(expected_manifest: Dictionary, rejected: Dictionary) -> Dictionary:
+	if _busy: return _failure("busy")
+	_busy = true
+	var result: Dictionary = _previous_after_rejection(expected_manifest, rejected)
 	_busy = false
 	return result
 
@@ -153,6 +163,21 @@ func _inspect_latest() -> Dictionary:
 	if not error.is_empty(): return {"ok": false, "reason": error, "run_id": record.run_id}
 	return {"ok": true, "reason": "", "run_id": record.run_id, "manifest": record.manifest.duplicate(true), "generation": record.generation, "fallback": fallback}
 
+func _previous_after_rejection(expected_manifest: Dictionary, rejected: Dictionary) -> Dictionary:
+	var latest: Dictionary = _load_latest(expected_manifest)
+	if not latest.ok: return latest
+	if latest.fallback or latest.record != rejected: return _failure("recovery_primary_changed")
+	var previous: Dictionary = _read_record("previous.json")
+	if not previous.ok: return _failure("no_valid_previous:" + previous.reason)
+	var record: Dictionary = previous.record
+	if record.run_id != rejected.run_id or String(record.generation).to_int() >= String(rejected.generation).to_int():
+		return _failure("recovery_identity_or_generation_mismatch")
+	var error: String = _run_error(record.run_id)
+	if not error.is_empty(): return _failure(error)
+	if _json(record.manifest) != _json(expected_manifest): return _failure("manifest_incompatible")
+	_rejected_primary_digest = rejected.digest
+	return {"ok": true, "reason": "", "fallback": true, "recovered_write": latest.recovered_write, "record": record.duplicate(true)}
+
 func _invalidate(run_id: String, reason: String) -> Dictionary:
 	if not _valid_id(run_id) or reason not in ["restart", "terminal", "abandoned"]: return _failure("invalid_invalidation")
 	_closing[run_id] = true
@@ -182,6 +207,8 @@ func _commit_pending() -> Dictionary:
 		if found.ok and String(found.record.generation).to_int() >= _generation: return _failure("stale_disk_generation")
 		if found.reason == "schema_unsupported": return _failure(found.reason)
 		if found.reason in ["read_failed", "size_limit"]: return _failure("existing_checkpoint_unreadable")
+	if primary.ok and primary.record.digest == _rejected_primary_digest:
+		primary = {"ok": false, "reason": "rule_payload_rejected", "record": {}}
 	var staged: Dictionary = _write_verified(_path("checkpoint.tmp"), _pending, FORMAT)
 	if not staged.ok: return staged
 	for name: String in ["primary.json", "previous.json"]:
@@ -258,7 +285,9 @@ func _run_error(run_id: String) -> String:
 
 func _marker_error(run_id: String) -> String:
 	var path: String = _marker_path(run_id)
-	if not _files.exists(path): return ""
+	if not _files.exists(path):
+		# Even an incomplete intent is fail-closed; retry must durably finish the marker.
+		return "invalidation_pending" if _files.exists(path + ".tmp") else ""
 	var readback: Dictionary = _files.read_text(path)
 	if not readback.ok: return "invalidation_unreadable"
 	var decoded: Dictionary = _decode(readback.text, INVALID_FORMAT)

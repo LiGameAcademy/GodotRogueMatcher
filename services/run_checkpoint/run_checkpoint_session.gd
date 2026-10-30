@@ -43,7 +43,23 @@ func save_encoded(encoded: Dictionary) -> Dictionary:
 func load_candidate() -> Dictionary:
 	var loaded: Dictionary = _store.load_latest(_manifest)
 	if not loaded.ok: return loaded
+	var decoded: Dictionary = _decode_loaded(loaded)
+	if decoded.ok or loaded.fallback or not _recoverable_corruption(decoded.reason): return decoded
+	var previous: Dictionary = _store.previous_after_rejection(_manifest, loaded.record)
+	if not previous.ok:
+		decoded["previous_rejection"] = previous.reason
+		return decoded
+	var recovered: Dictionary = _decode_loaded(previous)
+	if not recovered.ok:
+		decoded["previous_rejection"] = recovered.reason
+		return decoded
+	recovered["primary_rejection"] = decoded.reason
+	return recovered
+
+func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	var package: Dictionary = loaded.record.payload
+	if package.has("schema") and package.schema != RunCheckpointCodec.SCHEMA:
+		return RunCheckpointCodec.failure("schema_unsupported")
 	if package.size() != 3 or package.get("schema") != RunCheckpointCodec.SCHEMA or not package.get("payload_json") is String:
 		return RunCheckpointCodec.failure("invalid_package")
 	if loaded.record.run_id != package.get("run_id"):
@@ -59,3 +75,9 @@ func load_candidate() -> Dictionary:
 	decoded["fallback"] = loaded.fallback
 	decoded["recovered_write"] = loaded.recovered_write
 	return decoded
+
+## Unknown protocols/configurations, unsupported contexts and cost limits are not corruption repair.
+static func _recoverable_corruption(reason: String) -> bool:
+	if reason.begins_with("missing_payload_field:") or reason.begins_with("rebuild_failed:seq="): return true
+	if reason in ["rebuild_failed:invalid_random_streams", "rebuild_failed:invalid_master_seed", "rebuild_failed:initial_state_mismatch", "rebuild_failed:initial_random_mismatch"]: return true
+	return reason in ["invalid_package", "invalid_payload_json", "container_identity_mismatch", "payload_identity_mismatch", "invalid_payload", "noncanonical_payload", "invalid_run_id", "invalid_master_seed", "invalid_endpoint", "endpoint_hash_mismatch", "invalid_safe_point", "prefix_sequence_mismatch", "invalid_record_sequence", "invalid_record_kind", "invalid_prefix_header", "identity_mismatch", "invalid_command", "incomplete_prefix", "endpoint_mismatch", "offer_cache_mismatch", "safe_point_mismatch"]

@@ -16,6 +16,12 @@ class FailingFiles extends CheckpointFiles:
 	func write_text(path: String, text: String) -> Error:
 		return ERR_CANT_CREATE if fail_writes else super.write_text(path, text)
 
+class MarkerFaultFiles extends CheckpointFiles:
+	var fail_commit: bool = true
+	func replace(source: String, destination: String) -> Error:
+		if fail_commit and source.get_file().begins_with("invalid-"): return ERR_CANT_CREATE
+		return super.replace(source, destination)
+
 func after_each() -> void:
 	UIManager.close_popup()
 	get_tree().paused = false
@@ -273,6 +279,13 @@ func test_pending_challenge_victory_can_continue_and_save_same_run() -> void:
 	assert_true(run.can_continue_challenge())
 	flow.terminal(run)
 	assert_true(CheckpointStore.new(directory).inspect_latest().ok)
+	flow.closing = true
+	flow.set("_exit_run", run)
+	flow.call("_save_exit")
+	await _wait(func() -> bool: return flow.prompt.is_open())
+	assert_eq(flow.last_error, "challenge_decision_pending")
+	assert_true(CheckpointStore.new(directory).inspect_latest().ok, "pending player decision must not invalidate the logical run on OS exit")
+	flow.prompt.action_requested.emit(&"cancel")
 	var continuation: ContinueChallengeCommand = ContinueChallengeCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
 	assert_true(run.execute_command(continuation).accepted)
 	assert_eq(run.advance().kind, &"offer")
@@ -310,3 +323,92 @@ func test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run() -> voi
 	await get_tree().create_timer(2.1).timeout
 	assert_eq(RunSnapshot.capture(board.run), state)
 	assert_eq(board.view._pieces.size(), board.rules.state.get_piece_count())
+
+func test_real_full_board_terminal_failure_is_visible_and_retry_finishes_durable_invalidation() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
+	run.initialize()
+	run.recorder = RunRecorder.new()
+	run.recorder.begin(run, "checkpoint_terminal_test", false)
+	var directory: String = _directory()
+	_put(run, directory)
+	var board: Board = Board.new()
+	board.run = run
+	var flow: GameCheckpointFlow = preload("res://gameplay/game_checkpoint_flow.tscn").instantiate() as GameCheckpointFlow
+	add_child_autofree(flow)
+	flow.configure(board, true, directory)
+	var files: MarkerFaultFiles = MarkerFaultFiles.new()
+	flow.set("_store", CheckpointStore.new(directory, files))
+	var bot: GreedyBot = GreedyBot.new(100007)
+	for index: int in range(2000):
+		if run.state.is_game_over or not run.state.rule_error.is_empty(): break
+		if run.state.phase == RunState.Phase.INPUT or run.state.rewards.active_offer != null:
+			var command: RunCommand = bot.choose(run)
+			if command == null: break
+			run.execute_command(command)
+		else: run.advance()
+	assert_true(run.state.is_game_over)
+	assert_eq(run.state.end_reason, &"board_full")
+	assert_false(run.can_continue_challenge())
+	flow.terminal(run)
+	assert_false(flow.saved_available)
+	assert_true(flow.prompt.is_open())
+	assert_eq(flow.prompt.get("_message"), &"checkpoint.terminal_failed")
+	assert_eq(CheckpointStore.new(directory).inspect_latest().reason, "invalidation_pending")
+	var old_locale: String = TranslationServer.get_locale()
+	TranslationServer.set_locale("en_US")
+	await get_tree().process_frame
+	assert_string_contains((flow.prompt.get_node("%Message") as Label).text, "end-of-run marker")
+	assert_string_contains(flow.prompt.leave_old.text, "older checkpoint")
+	TranslationServer.set_locale(old_locale)
+	files.fail_commit = false
+	flow.prompt.action_requested.emit(&"retry")
+	assert_false(flow.prompt.is_open())
+	assert_eq(CheckpointStore.new(directory).inspect_latest().reason, "run_invalidated")
+	board.free()
+
+func test_new_run_can_finish_persisted_pending_invalidation_after_restart() -> void:
+	var saved: RunController = _saved_run()
+	var directory: String = _directory()
+	_put(saved, directory)
+	assert_false(CheckpointStore.new(directory, MarkerFaultFiles.new()).invalidate(saved.state.run_id, "restart").ok)
+	var game: Node = await _game(directory)
+	var board: Board = game.get_node("Board") as Board
+	var old: RunController = board.run
+	var flow: GameCheckpointFlow = game.get_node("GameCheckpointFlow") as GameCheckpointFlow
+	assert_false(flow.saved_available)
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	menu.new_button.pressed.emit()
+	await _wait(func() -> bool: return flow.prompt.is_open())
+	assert_eq(flow.prompt.get("_message"), &"checkpoint.confirm_abandon")
+	assert_same(board.run, old)
+	flow.prompt.primary.pressed.emit()
+	await _wait(func() -> bool: return bool(game.get("_has_played")) and board.run != old and not flow.is_busy() and flow.get("_job") == null and not bool(flow.get("_saving")))
+	assert_true(bool(game.get("_has_played")))
+	assert_eq(CheckpointStore.new(directory).begin_run(saved.state.run_id).reason, "run_invalidated")
+	assert_true(CheckpointStore.new(directory).inspect_latest().ok)
+
+func test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot() -> void:
+	var saved: RunController = _saved_run()
+	var directory: String = _directory()
+	_put(saved, directory)
+	_put(saved, directory)
+	var record: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(directory.path_join("primary.json")))
+	var payload: Dictionary = JSON.parse_string(record.payload.payload_json)
+	payload.state_hash = "broken"
+	record.payload.payload_json = JSON.stringify(payload, "", true, true)
+	record.erase("digest")
+	record.digest = JSON.stringify(record, "", true).sha256_text()
+	var file: FileAccess = FileAccess.open(directory.path_join("primary.json"), FileAccess.WRITE)
+	file.store_string(JSON.stringify(record, "", true))
+	file.close()
+	var game: Node = await _game(directory)
+	var board: Board = game.get_node("Board") as Board
+	var old: RunController = board.run
+	var flow: GameCheckpointFlow = game.get_node("GameCheckpointFlow") as GameCheckpointFlow
+	var statuses: Array[StringName] = []
+	flow.status_changed.connect(func(message: StringName) -> void: statuses.append(message))
+	(game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu).play_button.pressed.emit()
+	await _wait(func() -> bool: return board.run != old and not flow.restoring)
+	assert_eq(RunSnapshot.capture(board.run), RunSnapshot.capture(saved))
+	assert_true(old.is_retired())
+	assert_has(statuses, &"hud.status.checkpoint_fallback")

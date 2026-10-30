@@ -1,0 +1,68 @@
+[
+  {
+    "path": "gameplay/game_checkpoint_flow.gd",
+    "sha256": "404c215d3144b00d272c481d15d88581bfcae550332ebb23b94df83f14f85f58",
+    "git_blob": "b58273bb4bf238cb714ceabf0cf22ff9c8703d32",
+    "lines": 353
+  },
+  {
+    "path": "localization/game.csv",
+    "sha256": "2ba16c21a556069b0395012012cb99dd2c588bdaf17e4cb4be503e776a85f332",
+    "git_blob": "97c36e202a4091879ffff411b489ca5d60799889",
+    "lines": null
+  },
+  {
+    "path": "localization/game.en_US.translation",
+    "sha256": "71567dd80e85b0fdcdca61e02007592d26a666b06d16fccc113b2c1deec3b800",
+    "git_blob": "1f060d0522e811a0a81d085085c170cc94299502",
+    "lines": null
+  },
+  {
+    "path": "localization/game.zh_CN.translation",
+    "sha256": "bacbf6b61a630c257c8f2ae08abdf09c34c7557f12f0da269467e40a2f254b8b",
+    "git_blob": "a92a45392c49cf1f5725824579b252163c6ebbf8",
+    "lines": null
+  },
+  {
+    "path": "services/run_checkpoint/checkpoint_store.gd",
+    "sha256": "7c81ed38cfa46dcb22d7e82852250543b763cd07f82c427f3cabeca0cf7e5eb8",
+    "git_blob": "983a742ac99f5deb3b4dd436867df3e0005b4b9e",
+    "lines": 369
+  },
+  {
+    "path": "services/run_checkpoint/run_checkpoint_session.gd",
+    "sha256": "a9c2d6abde5f1add070a8e58c676a9d4d8b000fa5b589245d358d7980f8b19f5",
+    "git_blob": "53e96c04e4d0ac9d05d5d8beecbbf42fea6316dd",
+    "lines": 83
+  },
+  {
+    "path": "tests/integration/test_desktop_checkpoint_flow.gd",
+    "sha256": "59776fbee742313861c8e93f4d3343cd3820fe5af87f14b2ade0f6ede0228369",
+    "git_blob": "6a65d9d98ca3f0414e6c0b3a9dac7e43422faf85",
+    "lines": 414
+  },
+  {
+    "path": "tests/rules/test_checkpoint_store.gd",
+    "sha256": "e6375b73cbf45c44416552312884fdd408b148055419a2ea627630bafd4dcdb4",
+    "git_blob": "fb60e4b40ef3f0a7c12a68f014db98e8a203fc13",
+    "lines": 432
+  },
+  {
+    "path": "tests/rules/test_checkpoint_recovery.gd",
+    "sha256": "36f82ff22571d56275bf160afb508f84c3b6537fde19ebdb559562c9a715c29d",
+    "git_blob": "a8bdbdf55eece207d9be1fa47e584643aba157b7",
+    "lines": 121
+  },
+  {
+    "path": "tools/checkpoint_benchmark/checkpoint_recovery_process.gd",
+    "sha256": "10162704719d756e4831d35961de5ef5a836448619ebc931e701bbf0733e3219",
+    "git_blob": "414ea207a21c5e61654d4c63a7aec0949d2e8440",
+    "lines": 134
+  },
+  {
+    "path": "ui/checkpoint_prompt/checkpoint_prompt.gd",
+    "sha256": "4a100c8b8eb4cd629fb243602d7ba1f7ec3b65517b9ea6643d05305b0066ddd1",
+    "git_blob": "c5d80eaafdbf70f5ab57671ec09b29e144d377ea",
+    "lines": 50
+  }
+]
