@@ -63,6 +63,10 @@ func configure(board: Board, requested: bool, directory: String) -> void:
 func is_busy() -> bool:
 	return restoring or closing or _transition or _terminal_in_progress or (_job != null and not _saving)
 
+## Scene observers defer duplicate HUD refreshes only during the synchronous Board takeover.
+func is_adopting() -> bool:
+	return _taking_over
+
 func arm_current() -> void:
 	if not enabled: return
 	_armed = true

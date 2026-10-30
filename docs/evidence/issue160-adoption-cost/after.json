@@ -1,0 +1,42 @@
+{
+	"author_feedback": null,
+	"board": {
+		"activate_usec": 14282,
+		"adopt_usec": 89025
+	},
+	"capture_ok": true,
+	"collection": {
+		"bind_usec": 487,
+		"configure_usec": 1080,
+		"flush_usec": 5281,
+		"resume_usec": 24118
+	},
+	"frames": 505,
+	"game": {
+		"refresh_hud_usec": 8,
+		"restored_callback_usec": 57298,
+		"suspend_collection_usec": 427
+	},
+	"kind": "instrumented_adoption_profile",
+	"maximum_gap_including_adoption_usec": 205537,
+	"normal_exit_signal": "adoption_profile_done",
+	"ok": true,
+	"old_retired": true,
+	"records": "887",
+	"renderer": "NVIDIA GeForce RTX 2070",
+	"snapshot_equal": true,
+	"view": {
+		"configure_usec": 13980,
+		"details_usec": 1229,
+		"rebuild_usec": 68169
+	},
+	"worker": {
+		"adoption_usec": 147515,
+		"elapsed_usec": 8316620,
+		"frames": 501,
+		"freeze_usec": 0,
+		"maximum_gap_usec": 17017,
+		"ok": true,
+		"resume_prepare_usec": 518186
+	}
+}

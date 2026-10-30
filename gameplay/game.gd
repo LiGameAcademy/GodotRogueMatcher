@@ -310,6 +310,7 @@ func _apply_game_theme() -> void:
 	if is_instance_valid(UIManager.current_popup): GameThemeUi.apply(UIManager.current_popup, game_theme)
 
 func _refresh_hud() -> void:
+	if _checkpoint.is_adopting(): return
 	_hud.show_run(_board.run)
 	if _board.run.state.pending_rewards > 0: _hud.show_status("hud.status.awaiting_skill")
 
@@ -443,7 +444,6 @@ func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
 	board_rules = active.state.rules
 	_hud.bind_checkpoint(active)
 	_hud.show_pause_state(false)
-	_apply_game_theme()
 	if active.state.rewards.active_offer != null: _reward_flow.present(_board, active, active.state.rewards.active_offer, true)
 
 func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
