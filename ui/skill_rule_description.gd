@@ -2,7 +2,7 @@ class_name SkillRuleDescription
 extends RefCounted
 ## Read-only supported-family projection. Diagnostics identify manual migration fallbacks.
 
-const IDS: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye", &"match_extra", &"blast_extra", &"blast_reward", &"line_clear_score"]
+const IDS: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye", &"match_extra", &"blast_extra", &"blast_reward", &"line_clear_score", &"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
 const EXPLOSION: ExplosionConfig = preload("res://gameplay/skills/content/explosion_config.tres")
 const TRANSLATIONS: Dictionary[String, Translation] = {
 	"en": preload("res://localization/skill_rules.en_US.translation"),
@@ -110,6 +110,17 @@ static func _effect(effect: SkillEffect, level: int, remaining: int, owned: bool
 		if clear.selector != ClearMaterialEffect.Selector.COLOR or clear.score_cleared:
 			return {"text": "", "error": "unsupported clear selector/scoring"}
 		return _format("rules.clear")
+	if effect is TransformMaterialEffect:
+		var transform: TransformMaterialEffect = effect as TransformMaterialEffect
+		if transform is AtomicTransformEffect or transform.dynamic_targets() or not ancestors.is_empty() or transform.count < 1 or transform.count > 3:
+			return {"text": "", "error": "unsupported transform policy/count"}
+		var key: String = ""
+		match transform.content_id:
+			&"special_demolition": key = "rules.transform_core"
+			LineClearState.CONTENT_ROW: key = "rules.transform_row"
+			LineClearState.CONTENT_COLUMN: key = "rules.transform_column"
+			_: return {"text": "", "error": "unsupported transform content"}
+		return _format(key, {"count": transform.count})
 	if effect is DyeMaterialEffect:
 		var dye: DyeMaterialEffect = effect as DyeMaterialEffect
 		if DyeRules.CONFIG.instant_targets <= 0: return {"text": "", "error": "invalid dye target count"}

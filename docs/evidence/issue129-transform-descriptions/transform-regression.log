@@ -1,0 +1,72 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-transform-review/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_transform_rule_descriptions.gd
+* test_real_resources_and_changed_counts_are_bilingual_read_only
+1/1 passed.
+
+
+res://tests/rules/test_special_conversion.gd
+* test_all_types_freeze_zero_one_two_three_and_more_without_replacement
+* test_capabilities_specials_and_ghosts_are_never_overwritten
+* test_duplicate_stale_and_newly_marked_targets_reject_atomically
+* test_conversion_instances_are_independent_and_manual_quota_is_not_refilled
+* test_converted_row_column_core_chain_uses_type_upgrades_and_single_use_instances
+* test_real_files_replay_all_three_conversion_commands
+* test_telemetry_records_transformation_without_counting_births_removals_or_score
+* test_composite_keeps_both_batches_of_transformation_results
+* test_fixed_conversion_keeps_invalidated_sources_without_resampling
+9/9 passed.
+
+
+res://tests/rules/test_dynamic_transform_preflight.gd
+* test_known_dynamic_source_capacity_rejects_before_action_or_random_commit
+* test_partial_ordinary_conversion_counts_actual_available_sources
+* test_dynamic_atomic_valid_cost_and_exact_source_budget_commit_once
+3/3 passed.
+
+
+res://tests/rules/test_skill_description_coverage.gd
+* test_audit_all_52_real_effect_roots_and_declared_levels
+* test_same_family_parameters_and_weight_lifetime_are_not_copied_or_accumulated_per_color
+2/2 passed.
+
+
+res://tests/rules/test_skill_rule_description.gd
+* test_all_six_use_configuration_in_both_languages
+* test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
+* test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
+* test_refill_parameters_repeat_remaining_zero_and_net_count_preview
+* test_goal_is_next_target_and_reads_changed_resource_value
+* test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
+* test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
+* test_nested_order_conditions_and_cycle_diagnostics
+* test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+* test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
+10/10 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               5
+Tests                25
+Passing Tests        25
+Asserts            1081
+Time              1.483s
+
+
+---- All tests passed! ----

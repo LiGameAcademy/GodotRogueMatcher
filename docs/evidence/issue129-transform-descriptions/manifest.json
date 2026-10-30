@@ -1,0 +1,63 @@
+{
+  "tested_commit": "0017aa4fba22da6c0e111c4950bb3c52dbc34ea8",
+  "base": "448cbc98211e7a737caa7d8cc0b8b6c453bc24a2",
+  "files": [
+    {
+      "path": "localization/skill_rules.csv",
+      "committed_sha256": "59508f65c589e331773c3b422be4110ab3e5fa50cfd78a9075e184cf49e22c78",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.en_US.translation",
+      "committed_sha256": "20293ce850fe89f667f5c003e6f4e02acdd89bd46db73a8eb792ad443fa0c2e6",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.zh_CN.translation",
+      "committed_sha256": "b5cb92b314ac6e925830529b5fc8228169ffee7421e68c2aef00288b073ccdad",
+      "lines": null
+    },
+    {
+      "path": "tests/integration/test_transform_rule_description_ui.gd",
+      "committed_sha256": "306a1e9bd4213226f20aea2297314c22ef972ee6c1128f5264eb2e00d8ce5e27",
+      "lines": 74
+    },
+    {
+      "path": "tests/integration/test_transform_rule_description_ui.gd.uid",
+      "committed_sha256": "6a672693d87515b50150024b7f368e6771149cc6409fbd5d0981f306d762e34f",
+      "lines": null
+    },
+    {
+      "path": "tests/rules/test_skill_description_coverage.gd",
+      "committed_sha256": "bf6dcbc8fec0765750e45a494cf5814141cd91e1d7ae332236fea4434f335b32",
+      "lines": 73
+    },
+    {
+      "path": "tests/rules/test_transform_rule_descriptions.gd",
+      "committed_sha256": "944a468fc2888fd8dd0513bdc85b621914e3e78919295d53348b9229e967cb74",
+      "lines": 35
+    },
+    {
+      "path": "tests/rules/test_transform_rule_descriptions.gd.uid",
+      "committed_sha256": "4c7c35dcefed318d2e14855ca98f87aeea18f2220b53b1d59041a288aae09b93",
+      "lines": null
+    },
+    {
+      "path": "ui/skill_rule_description.gd",
+      "committed_sha256": "2098db09dfa04e3e968e77c11a86f3122e4de1f22557821dfefbdad5d681543c",
+      "lines": 174
+    }
+  ],
+  "rules": {
+    "tests": 25,
+    "assertions": 1081,
+    "exit": 0
+  },
+  "gpu": {
+    "tests": 1,
+    "assertions": 89,
+    "exit": 0,
+    "inspected_captures": 4
+  },
+  "author_experience": null
+}
