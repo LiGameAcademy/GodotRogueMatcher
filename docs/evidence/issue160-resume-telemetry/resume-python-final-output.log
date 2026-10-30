@@ -1,0 +1,44 @@
+test_bad_segment_identity_is_diagnostic_instead_of_uncaught_grouping_error (test_resume_import.ResumeImportTests.test_bad_segment_identity_is_diagnostic_instead_of_uncaught_grouping_error) ... ok
+test_derived_csv_and_original_segments_reimport_without_conflicting_or_extra_samples (test_resume_import.ResumeImportTests.test_derived_csv_and_original_segments_reimport_without_conflicting_or_extra_samples) ... ok
+test_failed_segment_summary_stays_diagnostic_after_new_segment (test_resume_import.ResumeImportTests.test_failed_segment_summary_stays_diagnostic_after_new_segment) ... ok
+test_invalid_derived_source_cannot_fall_back_to_ingesting_the_unverified_view (test_resume_import.ResumeImportTests.test_invalid_derived_source_cannot_fall_back_to_ingesting_the_unverified_view) ... ok
+test_parent_and_resume_stage_as_two_streams_and_one_logical_run (test_resume_import.ResumeImportTests.test_parent_and_resume_stage_as_two_streams_and_one_logical_run) ... ok
+test_renamed_lineage_document_uses_schema_not_filename_for_multiple_segments (test_resume_import.ResumeImportTests.test_renamed_lineage_document_uses_schema_not_filename_for_multiple_segments) ... ok
+test_duplicate_and_complete_suffix_replace_prefix (test_model_import.ImportTests.test_duplicate_and_complete_suffix_replace_prefix) ... ok
+test_game_export_keeps_session_and_recorder_out_of_rule_samples (test_model_import.ImportTests.test_game_export_keeps_session_and_recorder_out_of_rule_samples) ... ok
+test_invalid_summary_identity_is_diagnostic (test_model_import.ImportTests.test_invalid_summary_identity_is_diagnostic) ... ok
+test_lossless_csv_and_jsonl_deduplicate (test_model_import.ImportTests.test_lossless_csv_and_jsonl_deduplicate) ... ok
+test_malformed_session_is_diagnostic_not_crash (test_model_import.ImportTests.test_malformed_session_is_diagnostic_not_crash) ... ok
+test_metadata_cannot_change_in_middle_of_run (test_model_import.ImportTests.test_metadata_cannot_change_in_middle_of_run) ... ok
+test_missing_csv_event_json_is_diagnostic (test_model_import.ImportTests.test_missing_csv_event_json_is_diagnostic) ... ok
+test_missing_input_is_not_silently_skipped (test_model_import.ImportTests.test_missing_input_is_not_silently_skipped) ... ok
+test_old_lossy_csv_is_explicit_limitation (test_model_import.ImportTests.test_old_lossy_csv_is_explicit_limitation) ... ok
+test_partial_line_is_not_success (test_model_import.ImportTests.test_partial_line_is_not_success) ... ok
+test_same_id_conflict_rejects_whole_run (test_model_import.ImportTests.test_same_id_conflict_rejects_whole_run) ... ok
+test_sequence_gap_rejects_run (test_model_import.ImportTests.test_sequence_gap_rejects_run) ... ok
+test_session_suffix_replaces_duplicate_prefix (test_model_import.ImportTests.test_session_suffix_replaces_duplicate_prefix) ... ok
+test_summary_cannot_override_events (test_model_import.ImportTests.test_summary_cannot_override_events) ... ok
+test_zip_does_not_extract_member_paths (test_model_import.ImportTests.test_zip_does_not_extract_member_paths) ... ok
+test_abandoned_stage_is_not_gameplay_failure (test_model_import.StatisticTests.test_abandoned_stage_is_not_gameplay_failure) ... ok
+test_acquisition_does_not_pollute_action_score (test_model_import.StatisticTests.test_acquisition_does_not_pollute_action_score) ... ok
+test_bootstrap_is_by_run_and_reproducible (test_model_import.StatisticTests.test_bootstrap_is_by_run_and_reproducible) ... ok
+test_corrupt_ledger_is_not_counted (test_model_import.StatisticTests.test_corrupt_ledger_is_not_counted) ... ok
+test_human_opportunity_is_unique_presented_offer (test_model_import.StatisticTests.test_human_opportunity_is_unique_presented_offer) ... ok
+test_modes_and_contexts_do_not_mix (test_model_import.StatisticTests.test_modes_and_contexts_do_not_mix) ... ok
+test_quantile_and_wilson_boundary (test_model_import.StatisticTests.test_quantile_and_wilson_boundary) ... ok
+test_repeated_bot_seed_does_not_supply_independent_clusters (test_model_import.StatisticTests.test_repeated_bot_seed_does_not_supply_independent_clusters) ... ok
+test_rule_error_prefix_cannot_become_reference (test_model_import.StatisticTests.test_rule_error_prefix_cannot_become_reference) ... ok
+test_skill_exposure_counts_only_installed_level (test_model_import.StatisticTests.test_skill_exposure_counts_only_installed_level) ... ok
+test_unknown_human_fixture_is_not_real_opportunity (test_model_import.StatisticTests.test_unknown_human_fixture_is_not_real_opportunity) ... ok
+test_unseen_catalog_skill_stays_unknown (test_model_import.StatisticTests.test_unseen_catalog_skill_stays_unknown) ... ok
+test_valid_zero_differs_from_unknown (test_model_import.StatisticTests.test_valid_zero_differs_from_unknown) ... ok
+test_artifact_plain_text_and_shared_strings_read_back (test_model_import.WorkbookValueTests.test_artifact_plain_text_and_shared_strings_read_back) ... ok
+test_formula_is_preserved_as_formula (test_model_import.WorkbookValueTests.test_formula_is_preserved_as_formula) ... ok
+test_duplicate_window_is_rejected (test_paired_statistics.PairedStatisticsTests.test_duplicate_window_is_rejected) ... ok
+test_horizons_comparators_separate_and_original_run_clusters (test_paired_statistics.PairedStatisticsTests.test_horizons_comparators_separate_and_original_run_clusters) ... ok
+test_whole_window_once_negative_and_censored_not_zero (test_paired_statistics.PairedStatisticsTests.test_whole_window_once_negative_and_censored_not_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.453s
+
+OK

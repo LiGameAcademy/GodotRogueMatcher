@@ -24,6 +24,7 @@ var _start_ms: int = Time.get_ticks_msec()
 var _interval_start: int = _start_ms
 var _interval: String = "busy"
 var times: Dictionary[String, int] = {"pause": 0, "choice": 0, "busy": 0, "input": 0, "robot_compute": 0, "buffer_wait": 0}
+var _full_precision: bool = false
 
 func begin(run: RunController, execution_source: String, save_file: bool = true, build: String = "unknown", directory: String = "user://run_records") -> void:
 	source = execution_source
@@ -59,7 +60,7 @@ func append(kind: String, payload: Dictionary) -> void:
 	if kind != "Footer": record_appended.emit(record.duplicate(true))
 	if _file != null and error.is_empty():
 		var started: int = Time.get_ticks_usec()
-		var bytes: PackedByteArray = (JSON.stringify(record, "", true) + "\n").to_utf8_buffer()
+		var bytes: PackedByteArray = (JSON.stringify(record, "", true, _full_precision) + "\n").to_utf8_buffer()
 		serialize_usec += Time.get_ticks_usec() - started
 		if _pending.size() + bytes.size() > maximum_bytes: _fail("本局记录不完整：JSONL队列超限")
 		else:
@@ -137,6 +138,31 @@ func _flush() -> void:
 
 func flush_pending() -> void:
 	_flush()
+
+## A new append-only evidence segment contains the verified prefix without emitting it again.
+func open_resume_file(directory: String, segment_id: String, resume: Dictionary) -> void:
+	if _file != null or ended or records.is_empty(): return
+	if segment_id.is_empty() or RegEx.create_from_string("^[A-Za-z0-9_-]+$").search(segment_id) == null:
+		_fail("invalid_resume_segment_id")
+		return
+	path = directory.path_join(String(records[0].run_id) + "--" + segment_id + ".jsonl")
+	if DirAccess.make_dir_recursive_absolute(directory) != OK or FileAccess.file_exists(path):
+		_fail("resume_record_path_unavailable")
+		return
+	_file = FileAccess.open(path, FileAccess.WRITE)
+	if _file == null:
+		_fail("resume_record_open_failed")
+		return
+	_full_precision = true
+	for index: int in range(records.size()):
+		var row: Dictionary = records[index]
+		if index == 0:
+			row = row.duplicate(true)
+			row.metadata["recording_resume"] = resume.duplicate(true)
+		_file.store_string(JSON.stringify(row, "", true, true) + "\n")
+	_file.flush()
+	if _file.get_error() != OK: _fail("resume_record_prefix_write_failed")
+	else: persisted_seq = records.size()
 
 ## Closes an interrupted segment without inventing abandonment, completion or a choice outcome.
 func close_interrupted() -> void:

@@ -7,6 +7,7 @@ var _store: CheckpointStore
 var _manifest: Dictionary
 var rebuild_budget_usec: int = RunCheckpointCodec.REBUILD_BUDGET_USEC
 var runtime_only: bool = false
+const PACKAGE_SCHEMA: String = "run-checkpoint-package-v2"
 
 func _init(store: CheckpointStore, compatibility: Dictionary) -> void:
 	_store = store
@@ -25,8 +26,9 @@ func save_encoded(encoded: Dictionary) -> Dictionary:
 	if not verified.ok: return verified
 	# Preserve binary64 weights exactly without changing the existing Store digest protocol.
 	var package: Dictionary = {
-		"schema": RunCheckpointCodec.SCHEMA, "run_id": encoded.payload.run_id,
+		"schema": PACKAGE_SCHEMA, "run_id": encoded.payload.run_id,
 		"payload_json": JSON.stringify(encoded.payload, "", true, true),
+		"telemetry": encoded.get("telemetry", {}).duplicate(true) if encoded.get("telemetry", {}) is Dictionary and RunCheckpointCodec.pure(encoded.get("telemetry", {})) else {"status": "invalid_trace"},
 	}
 	if JSON.stringify(package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
 		return RunCheckpointCodec.failure("package_size_limit")
@@ -58,9 +60,11 @@ func load_candidate() -> Dictionary:
 
 func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	var package: Dictionary = loaded.record.payload
-	if package.has("schema") and package.schema != RunCheckpointCodec.SCHEMA:
+	if not package.get("schema") is String: return RunCheckpointCodec.failure("invalid_package")
+	if package.schema not in [RunCheckpointCodec.SCHEMA, PACKAGE_SCHEMA]:
 		return RunCheckpointCodec.failure("schema_unsupported")
-	if package.size() != 3 or package.get("schema") != RunCheckpointCodec.SCHEMA or not package.get("payload_json") is String:
+	var expected_size: int = 4 if package.get("schema") == PACKAGE_SCHEMA else 3
+	if package.size() != expected_size or not package.get("payload_json") is String:
 		return RunCheckpointCodec.failure("invalid_package")
 	if loaded.record.run_id != package.get("run_id"):
 		return RunCheckpointCodec.failure("container_identity_mismatch")
@@ -74,6 +78,7 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	decoded["generation"] = loaded.record.generation
 	decoded["fallback"] = loaded.fallback
 	decoded["recovered_write"] = loaded.recovered_write
+	decoded["resume_context"] = {"checkpoint_id": loaded.record.run_id + ":" + loaded.record.generation + ":" + parser.data.state_hash, "generation": loaded.record.generation, "record_seq": parser.data.record_seq, "state_hash": parser.data.state_hash, "trace": package.get("telemetry", {}).duplicate(true) if package.get("telemetry", {}) is Dictionary else {"status": "invalid_trace"}}
 	return decoded
 
 ## Unknown protocols/configurations, unsupported contexts and cost limits are not corruption repair.

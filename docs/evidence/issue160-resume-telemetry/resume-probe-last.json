@@ -1,0 +1,62 @@
+{
+	"analysis_action_count": 1,
+	"branches": [
+		{
+			"discarded_event_ids": [
+				"23-30964-1793336934509000-3248465:2",
+				"23-30964-1793336934509000-3248465:3",
+				"23-30964-1793336934509000-3248465:4",
+				"23-30964-1793336934509000-3248465:5",
+				"23-30964-1793336934509000-3248465:6",
+				"23-30964-1793336934509000-3248465:7",
+				"23-30964-1793336934509000-3248465:8",
+				"23-30964-1793336934509000-3248465:9",
+				"23-30964-1793336934509000-3248465:10"
+			],
+			"ok": true,
+			"reason": "",
+			"run_id": "23-30964-1793336934509000-3248465",
+			"segments": [
+				"probe-parent-30964-2923693",
+				"s-865ebeb6c1976d1b57dd12d8"
+			]
+		}
+	],
+	"child_session": "s-865ebeb6c1976d1b57dd12d8",
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"errors": [],
+	"kind": "real_resume_telemetry_probe",
+	"ok": true,
+	"only_resume_emitted_on_attach": true,
+	"parent_file_unchanged": true,
+	"parent_session": "probe-parent-30964-2923693",
+	"pid": 30964,
+	"raw_child_actions": 1,
+	"raw_parent_actions": 1,
+	"report_directory": "D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/resume-probe-report-30964-2923693",
+	"run_id": "23-30964-1793336934509000-3248465",
+	"runs": 1,
+	"same_next_command_snapshot": true,
+	"source_directory": "D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/resume-real-probe-final-sandbox/Godot/app_userdata/技能连珠/resume-telemetry-probe/30964-2923693/telemetry",
+	"trace": {
+		"accepted_seq": "1",
+		"last_event_hash": "748eebe75cfa9d1e15241bb1fc64c3f66eec983decf9e6d2e11fcebc3fba960b",
+		"last_event_id": "23-30964-1793336934509000-3248465:1",
+		"next_rule_event_id": "1",
+		"persisted_seq": "1",
+		"record_seq": "2",
+		"run_id": "23-30964-1793336934509000-3248465",
+		"schema": "checkpoint-telemetry-v1",
+		"segment_id": "probe-parent-30964-2923693"
+	}
+}

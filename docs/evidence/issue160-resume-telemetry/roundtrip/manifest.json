@@ -1,0 +1,160 @@
+{
+  "dataset_hash": "9bd5c1364c6d33ca1196640e7fa5844e90ec867980e7ac699d83935e8a68f364",
+  "evidence_hash": "04dbaac9f7b02db060e3bcdb02309cdc549f1ac62104de036269ed81aa509351",
+  "files": [
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl",
+      "sha256": "65b5ba3c3b623e04306d9d6f90dab452ad2b997c12b3595203000e6207c16237",
+      "bytes": 75690
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv",
+      "sha256": "ba0944f9556b4da6ba79644cfa6355b557eca2efe7922fe80de59e87e1cbd176",
+      "bytes": 329869
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\inputs.csv",
+      "sha256": "7caba6295972d2d7dcf5467e0127e1fbfb73eced6159ed4b3a0118d0f420831e",
+      "bytes": 7
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\intervals.csv",
+      "sha256": "7caba6295972d2d7dcf5467e0127e1fbfb73eced6159ed4b3a0118d0f420831e",
+      "bytes": 7
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\offers.csv",
+      "sha256": "7caba6295972d2d7dcf5467e0127e1fbfb73eced6159ed4b3a0118d0f420831e",
+      "bytes": 7
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json",
+      "sha256": "3dcd9f4575324220b4e3d5558f3e6042bab6a4a208d7f563233af569decb30ff",
+      "bytes": 246941
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\runs.csv",
+      "sha256": "b1aa05ee0118fde2717ef6c168e3143744ba5adc2b551453f79d97d7bcffe2ee",
+      "bytes": 773
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\skills.csv",
+      "sha256": "7caba6295972d2d7dcf5467e0127e1fbfb73eced6159ed4b3a0118d0f420831e",
+      "bytes": 7
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\summary.json",
+      "sha256": "50ea2b09231f4fd3233ec4749f5236134f62c57055907309380c5cd45c03229e",
+      "bytes": 2170
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\turns.csv",
+      "sha256": "b811fcef5c8288a9f8e0f49d34ed9f9dbe882050ed8dc1a774eddfd7513e6ff5",
+      "bytes": 7531
+    }
+  ],
+  "diagnostics": [],
+  "rejected_runs": [],
+  "source_refs": {
+    "23-30964-1793336934509000-3248465:1": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:1",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:2",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:1"
+    ],
+    "23-30964-1793336934509000-3248465:2": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:2",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:2"
+    ],
+    "23-30964-1793336934509000-3248465:3": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:3",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:3"
+    ],
+    "23-30964-1793336934509000-3248465:4": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:4",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:4"
+    ],
+    "23-30964-1793336934509000-3248465:5": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:5",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:5"
+    ],
+    "23-30964-1793336934509000-3248465:6": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:6",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:6"
+    ],
+    "23-30964-1793336934509000-3248465:7": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:7",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:7"
+    ],
+    "23-30964-1793336934509000-3248465:8": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:8",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:8"
+    ],
+    "23-30964-1793336934509000-3248465:9": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:9",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:9"
+    ],
+    "23-30964-1793336934509000-3248465:10": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-real-probe-final-sandbox\\Godot\\app_userdata\\技能连珠\\resume-telemetry-probe\\30964-2923693\\telemetry\\23-30964-1793336934509000-3248465.jsonl:10",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:10"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:1": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:3",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:11",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:22"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:2": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:4",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:12",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:23"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:3": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:5",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:13",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:24"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:4": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:6",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:14",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:25"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:5": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:7",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:15",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:26"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:6": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:8",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:16",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:27"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:7": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:9",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:17",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:28"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:8": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:10",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:18",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:29"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:9": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:11",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:19",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:30"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:10": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\events.csv:12",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:20",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:31"
+    ],
+    "23-30964-1793336934509000-3248465:s-865ebeb6c1976d1b57dd12d8:11": [
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:21",
+      "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\execution\\o5-restore-independent-v2\\.godot\\resume-probe-report-30964-2923693\\resume_lineage.json:32"
+    ]
+  },
+  "sessions": [],
+  "recovered": {},
+  "runs": 1,
+  "segments": 2,
+  "events": 21
+}

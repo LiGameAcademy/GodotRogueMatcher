@@ -12,10 +12,10 @@ func start_save(store: CheckpointStore, encoded: Dictionary, budget_usec: int) -
 	if error != OK: _thread = null
 	return error
 
-func start_load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int) -> Error:
+func start_load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int, resume_plan: Dictionary = {}) -> Error:
 	if _thread != null: return ERR_BUSY
 	_thread = Thread.new()
-	var error: Error = _thread.start(_load.bind(store, compatibility, budget_usec))
+	var error: Error = _thread.start(_load.bind(store, compatibility, budget_usec, resume_plan.duplicate(true)))
 	if error != OK: _thread = null
 	return error
 
@@ -35,12 +35,19 @@ func _save(store: CheckpointStore, encoded: Dictionary, budget_usec: int) -> Dic
 	session.rebuild_budget_usec = budget_usec
 	return session.save_encoded(encoded)
 
-func _load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int) -> Dictionary:
+func _load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int, resume_plan: Dictionary) -> Dictionary:
 	var session: RunCheckpointSession = RunCheckpointSession.new(store, compatibility)
 	session.runtime_only = true
 	session.rebuild_budget_usec = budget_usec
 	var result: Dictionary = session.load_candidate()
 	if result.ok:
+		var preparing: int = Time.get_ticks_usec()
+		if not resume_plan.is_empty():
+			result.resume_context["prepared"] = resume_plan.duplicate(true)
+			if resume_plan.get("record_file", false):
+				var header: Dictionary = TelemetryResume.header(result.run, result.resume_context, resume_plan.collection_context, resume_plan.commit_id)
+				result.run.recorder.open_resume_file(resume_plan.record_directory, resume_plan.session_id, header.metadata.resume)
+		result["resume_prepare_usec"] = Time.get_ticks_usec() - preparing
 		var started: int = Time.get_ticks_usec()
 		var history: CheckpointHistory = CheckpointHistory.new()
 		history.prime(result.run)

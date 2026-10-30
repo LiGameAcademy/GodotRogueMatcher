@@ -1,0 +1,56 @@
+{
+	"author_feedback": null,
+	"cancel_kept_original": true,
+	"cancel_worker_still_owned": true,
+	"cancelled_job_metrics": {
+		"elapsed_usec": 7222081,
+		"frames": 422,
+		"freeze_usec": 0,
+		"maximum_gap_usec": 212972,
+		"ok": true
+	},
+	"capture_cancelled": {
+		"ok": true,
+		"path": "res://.godot/resume-gpu-cancelled.png",
+		"size": "(1280, 720)"
+	},
+	"capture_loading": {
+		"ok": true,
+		"path": "res://.godot/resume-gpu-loading.png",
+		"size": "(1280, 720)"
+	},
+	"capture_menu": {
+		"ok": true,
+		"path": "res://.godot/resume-gpu-menu.png",
+		"size": "(1280, 720)"
+	},
+	"capture_restored": {
+		"ok": true,
+		"path": "res://.godot/resume-gpu-restored.png",
+		"size": "(1280, 720)"
+	},
+	"exit_job_metrics": {
+		"elapsed_usec": 9809018,
+		"frames": 589,
+		"freeze_usec": 15593,
+		"maximum_gap_usec": 52412,
+		"ok": true
+	},
+	"input_enabled": true,
+	"kind": "instrumented_gpu_scene_probe",
+	"load_job_metrics": {
+		"adoption_usec": 297531,
+		"elapsed_usec": 7899888,
+		"frames": 476,
+		"freeze_usec": 0,
+		"maximum_gap_usec": 32672,
+		"ok": true,
+		"resume_prepare_usec": 493300
+	},
+	"normal_exit_signal": "gpu_probe_save_and_quit",
+	"old_run_retired": true,
+	"renderer": "NVIDIA GeForce RTX 2070",
+	"saved_records": "887",
+	"saved_run_id": "23-34808-1793329894817000-2553719",
+	"snapshot_equal": true
+}

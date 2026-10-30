@@ -9,12 +9,12 @@ var _sequence: int = 0
 var _closed: bool = false
 var _pending: PackedByteArray = PackedByteArray()
 
-func start(factory: TelemetryFactory) -> void:
+func start(factory: TelemetryFactory, recover_existing: bool = true) -> void:
 	var directory: String = factory.directory.path_join("sessions")
 	if DirAccess.make_dir_recursive_absolute(directory) != OK:
 		error = "session_directory_failed"
 		return
-	_recover(factory, directory)
+	if recover_existing: _recover(factory, directory)
 	path = directory.path_join(factory.session_id + ".jsonl")
 	if FileAccess.file_exists(path):
 		error = "session_already_exists"
@@ -70,7 +70,9 @@ func _recover(factory: TelemetryFactory, directory: String) -> void:
 			if row.get("event") != "run_registered": continue
 			var id: String = str(row.get("payload", {}).get("run_id", ""))
 			if not TelemetrySchema.safe_id(id): continue
-			var source: String = factory.directory.path_join(id + ".jsonl")
+			var storage_id: String = str(row.payload.get("storage_id", id))
+			if not TelemetrySchema.safe_id(storage_id): continue
+			var source: String = factory.directory.path_join(storage_id + ".jsonl")
 			var destination: String = source + ".recovered.summary.json"
 			if not FileAccess.file_exists(source) or FileAccess.file_exists(source + ".summary.json") or FileAccess.file_exists(destination): continue
 			var result: Dictionary = TelemetrySummary.recover(source)

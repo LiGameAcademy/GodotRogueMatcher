@@ -31,27 +31,60 @@ func _exit_tree() -> void:
 	finish("scene_closed")
 	if enabled: session.close("scene_closed")
 
-func configure(context: String, destination: TelemetryFactory = null) -> void:
+func configure(context: String, destination: TelemetryFactory = null, recover_existing: bool = true) -> void:
 	if enabled: return
 	session = CollectionSession.new()
 	factory = destination if destination != null else TelemetryFactory.new()
 	factory.collection_context = context
-	factory.commit_id = str(ProjectSettings.get_setting("application/config/commit_id", "unknown"))
-	if context == "editor_playtest": _identify_editor_build()
+	if recover_existing: factory.commit_id = str(ProjectSettings.get_setting("application/config/commit_id", "unknown"))
+	if recover_existing and context == "editor_playtest": _identify_editor_build()
 	factory.attached.connect(_attached)
 	enabled = true
-	session.start(factory)
+	session.start(factory, recover_existing)
 
 ## Closes the old observation segment without falsely abandoning a continued logical run.
-## Resume-segment telemetry is intentionally not installed by this desktop slice.
 func suspend_for_checkpoint() -> void:
 	if not enabled: return
 	flush()
-	for recorder: RunRecorder in factory.recorders: recorder.close_interrupted()
-	session.close("checkpoint_resume_untracked")
+	for projector: TelemetryProjector in factory.projectors:
+		projector.close_segment("checkpoint_boundary", run.recorder.records.size() if run != null and run.recorder != null else 0)
+		_past_failure = _past_failure or not projector.error.is_empty()
+	for recorder: RunRecorder in factory.recorders:
+		recorder.close_interrupted()
+		_past_failure = _past_failure or not recorder.error.is_empty()
+	session.close("checkpoint_boundary")
+	_past_failure = _past_failure or not session.error.is_empty()
 	enabled = false
 	run = null
 	status_changed.emit(save_status())
+
+func checkpoint_trace(active: RunController) -> Dictionary:
+	if not enabled or active != run or active.recorder == null or factory.projectors.is_empty(): return {}
+	return factory.projectors.back().checkpoint_trace(active.recorder.records.size(), active.state.ledger.next_event_id())
+
+## Values only; independent candidate prefix IO may be prepared by the desktop worker.
+func plan_resume(record_file: bool) -> Dictionary:
+	if not enabled or factory == null: return {}
+	return {"session_id": TelemetryFactory.new().session_id, "record_file": record_file, "record_directory": factory.record_directory, "collection_context": factory.collection_context, "commit_id": factory.commit_id}
+
+## Installs only new observation/file ownership on an already verified independent rule run.
+func resume(context: String, active: RunController, checkpoint: Dictionary, record_file: bool) -> TelemetryProjector:
+	var prepared: Dictionary = checkpoint.get("prepared", {})
+	var destination: TelemetryFactory = TelemetryFactory.new(String(prepared.get("session_id", "")))
+	var initial_collection: bool = factory == null
+	if factory != null:
+		destination.directory = factory.directory
+		destination.record_directory = factory.record_directory
+		destination.sink_factory = factory.sink_factory
+		destination.commit_id = factory.commit_id
+	if enabled: suspend_for_checkpoint()
+	configure(context, destination, initial_collection)
+	ui = ""
+	var projector: TelemetryProjector = factory.resume(active, checkpoint, record_file)
+	bind(active)
+	session.append("run_registered", {"run_id": active.state.run_id, "storage_id": active.state.run_id + "--" + factory.session_id, "context": context, "resume": projector.events[0].get("resume", {}) if not projector.events.is_empty() else {}})
+	flush()
+	return projector
 
 func bind(value: RunController) -> void:
 	run = value

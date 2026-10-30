@@ -2,6 +2,11 @@ class_name TelemetrySchema
 extends RefCounted
 
 const VERSION: String = "2"
+const RESUME_VERSION: String = "3"
+const REQUIRED_V3: Dictionary[String, Array] = {
+	"run_resumed": ["columns", "rows", "ordinary", "companions", "score", "resume"],
+	"resume_segment_closed": ["reason", "record_seq"]
+}
 const REQUIRED_V2: Dictionary[String, Array] = {
 	"paired_window_resolved": ["protocol", "pair_id", "parent_run_id", "skill_id", "control_skill_id", "level", "H", "known", "delta_score", "delta_space", "missing_reason", "branches"],
 	"action_resolved": ["complete", "action_score_delta", "q_frozen", "P_before", "P_after", "stage_before", "stage_after", "created_ids", "removed_ids"],
@@ -43,27 +48,46 @@ static func plain(value: Variant) -> bool:
 	return false
 
 static func validate(event: Dictionary) -> String:
-	if event.get("schema_version") not in ["1", VERSION]: return "unsupported_telemetry_schema"
-	if not event.get("event_name") is String or (not REQUIRED.has(event.event_name) and (event.schema_version == "1" or not REQUIRED_V2.has(event.event_name))): return "unknown_telemetry_event"
+	if event.get("schema_version") not in ["1", VERSION, RESUME_VERSION]: return "unsupported_telemetry_schema"
+	if not event.get("event_name") is String or (not REQUIRED.has(event.event_name) and (event.schema_version == "1" or not REQUIRED_V2.has(event.event_name)) and (event.schema_version != RESUME_VERSION or not REQUIRED_V3.has(event.event_name))): return "unknown_telemetry_event"
 	for key: String in ["event_id", "run_id", "session_id", "rule_version", "content_version", "offer_version", "build_id", "config_hash", "source", "initialization"]:
 		if not event.get(key) is String: return "invalid_envelope_" + key
 	if not safe_id(event.run_id) or not TelemetrySchema.valid_integer(event.get("telemetry_seq")) or event.telemetry_seq.to_int() <= 0: return "invalid_telemetry_id"
-	if event.event_id != event.run_id + ":" + event.telemetry_seq: return "invalid_event_id"
+	var prefix: String = event.run_id
+	if event.schema_version == RESUME_VERSION:
+		if not event.get("segment_id") is String or not safe_id(event.segment_id) or event.segment_id != event.session_id: return "invalid_resume_segment"
+		var resume_error: String = _resume_error(event.get("resume"), event.run_id)
+		if not resume_error.is_empty(): return resume_error
+		prefix += ":" + event.segment_id
+	if event.event_id != prefix + ":" + event.telemetry_seq: return "invalid_event_id"
 	if not TelemetrySchema.valid_integer(event.get("elapsed_ms")) or event.elapsed_ms.to_int() < 0: return "invalid_elapsed"
 	for key: String in ["action_id", "turn_index", "command_id", "experiment_id", "variant_id", "strategy_version"]:
 		if not event.has(key) or (event[key] != null and not event[key] is String): return "invalid_envelope_" + key
 	if not event.get("payload") is Dictionary or not plain(event): return "non_serializable_telemetry"
+	if event.schema_version == RESUME_VERSION and event.event_name == "run_resumed" and event.payload.get("resume") != event.resume: return "conflicting_resume_context"
 	if event.get("bot_config_hash") != null and not event.bot_config_hash is String: return "invalid_envelope_bot_config_hash"
 	if event.get("parent_run_id") != null and (not event.parent_run_id is String or not safe_id(event.parent_run_id)): return "invalid_envelope_parent_run_id"
-	if event.schema_version == VERSION:
+	if event.schema_version in [VERSION, RESUME_VERSION]:
 		for key: String in ["mode_id", "collection_context", "commit_id", "seed", "pressure_version", "collection_config_hash"]:
 			if not event.get(key) is String: return "invalid_envelope_" + key
 		for key: String in ["rule_event_id", "parent_event_id", "root_action_id", "batch_id", "stage_id", "reward_id", "offer_id"]:
 			if not event.has(key) or (event[key] != null and not event[key] is String): return "invalid_envelope_" + key
-	var required: Array = REQUIRED.get(event.event_name, REQUIRED_V2.get(event.event_name, []))
+	var required: Array = REQUIRED.get(event.event_name, REQUIRED_V2.get(event.event_name, REQUIRED_V3.get(event.event_name, [])))
 	for key: String in required:
 		if not event.payload.has(key): return "missing_payload_" + key
 	return _payload(event.event_name, event.payload)
+
+static func _resume_error(value: Variant, run_id: String) -> String:
+	if not value is Dictionary or value.get("schema") != "telemetry-resume-v1" or value.get("run_id") != run_id: return "invalid_resume_context"
+	if not value.get("lineage_known") is bool: return "invalid_resume_context"
+	for key: String in ["checkpoint_id", "parent_segment_id", "parent_last_event_id", "parent_last_event_hash", "anchor_state_hash"]:
+		if not value.get(key) is String: return "invalid_resume_" + key
+	for key: String in ["parent_telemetry_seq", "parent_persisted_seq", "record_seq", "next_rule_event_id"]:
+		if not valid_integer(value.get(key)) or value[key].to_int() < 0: return "invalid_resume_" + key
+	if value.parent_persisted_seq.to_int() > value.parent_telemetry_seq.to_int(): return "invalid_resume_high_water"
+	if value.lineage_known and (not safe_id(value.parent_segment_id) or value.parent_telemetry_seq.to_int() == 0): return "invalid_resume_parent"
+	if value.lineage_known and RegEx.create_from_string("^[0-9a-f]{64}$").search(value.parent_last_event_hash) == null: return "invalid_resume_anchor_hash"
+	return ""
 
 static func _payload(name: String, data: Dictionary) -> String:
 	var integers: PackedStringArray = []
@@ -103,7 +127,10 @@ static func _payload(name: String, data: Dictionary) -> String:
 			strings = ["ui", "category"]
 			booleans = ["root_complete"]
 			if not _pressure(data.get("pressure")) or not _stage(data.get("stage")): return "invalid_ui_observation"
-		"run_started": integers = ["columns", "rows", "ordinary", "companions", "score"]
+		"run_started", "run_resumed": integers = ["columns", "rows", "ordinary", "companions", "score"]
+		"resume_segment_closed":
+			integers = ["record_seq"]
+			strings = ["reason"]
 		"command_resolved":
 			integers = ["buffer_wait_ms", "action_before", "action_after"]
 			booleans = ["accepted", "buffered"]

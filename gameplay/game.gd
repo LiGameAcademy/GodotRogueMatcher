@@ -58,6 +58,8 @@ func _ready() -> void:
 	_checkpoint.status_changed.connect(_hud.show_status)
 	_checkpoint.status_changed.connect(func(_id: StringName) -> void: release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error))
 	_checkpoint.before_restore.connect(_suspend_collection)
+	_checkpoint.trace_provider = _collection.checkpoint_trace
+	_checkpoint.resume_plan_provider = _collection.plan_resume.bind(record_runs)
 	_checkpoint.restored.connect(_on_checkpoint_restored)
 	_checkpoint.settling_exit.connect(_prepare_checkpoint_exit)
 	_checkpoint.exit_ready.connect(_finish_quit)
@@ -71,7 +73,7 @@ func _ready() -> void:
 	_set_theme(preferences.theme_id, false)
 	if collect_telemetry and not OS.has_feature("web"):
 		_collection.configure(collection_context)
-		_board.telemetry_factory = _collection.factory
+		_board.telemetry_factory = _collection.factory if not _checkpoint.saved_available else null
 	_connect_collection_controls(release_menu.collection_controls)
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
@@ -359,10 +361,7 @@ func _set_collection_location(location: String) -> void:
 
 func _connect_collection_controls(controls: CollectionControls) -> void:
 	if controls == null: return
-	controls.folder_requested.connect(_collection.open_directory)
-	controls.export_requested.connect(_collection.export_files)
-	controls.quit_requested.connect(_quit.bind("quit_button"))
-	controls.show_status(_collection.save_status(), _collection.enabled, intercept_window_close)
+	controls.bind_collection(_collection, _quit.bind("quit_button"), intercept_window_close)
 
 func _show_collection_status(message: String) -> void:
 	release_menu.collection_controls.show_status(message, _collection.enabled, intercept_window_close)
@@ -419,7 +418,7 @@ func _on_retry_requested() -> bool:
 	board_rules = fresh_rules
 	if collect_telemetry and not OS.has_feature("web") and not _collection.enabled:
 		_collection.configure(collection_context)
-		_board.telemetry_factory = _collection.factory
+	_board.telemetry_factory = _collection.factory if collect_telemetry and not OS.has_feature("web") else null
 	await _board.retry_game(board_rules, prepared, initial)
 	_checkpoint.arm_current()
 	_apply_game_theme()
@@ -438,6 +437,9 @@ func _prepare_checkpoint_exit() -> void:
 	_hud.finish_score_now()
 
 func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
+	if collect_telemetry and not OS.has_feature("web"):
+		_board.observation.attach(_collection.resume(collection_context, active, _checkpoint.last_resume_context, record_runs), false)
+		_board.telemetry_factory = _collection.factory
 	board_rules = active.state.rules
 	_hud.bind_checkpoint(active)
 	_hud.show_pause_state(false)
