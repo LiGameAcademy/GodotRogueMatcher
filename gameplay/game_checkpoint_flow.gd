@@ -255,6 +255,7 @@ func _drain_saves() -> void:
 			_last_key = String(encoded.payload.run_id) + ":" + String(encoded.payload.record_seq)
 			saved_available = true
 			saved_mode = StringName(encoded.manifest.mode_id)
+			if not closing and not restoring and not _transition: status_changed.emit(&"hud.status.checkpoint_saved")
 		else:
 			last_error = result.reason
 			status_changed.emit(_failure_status())

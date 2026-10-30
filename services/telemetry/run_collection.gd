@@ -2,6 +2,7 @@ class_name RunCollection
 extends Node
 
 signal status_changed(message: String)
+const WEB_SUPPORT: Script = preload("res://services/telemetry/web_collection_support.gd")
 
 var factory: TelemetryFactory
 var session: CollectionSession = CollectionSession.new()
@@ -12,6 +13,19 @@ var last_export: String = ""
 var _heartbeat: float = 0.0
 var _status: String = ""
 var _past_failure: bool = false
+var _web: WEB_SUPPORT
+
+func configure_platform(context: String) -> void:
+	if not OS.has_feature("web"):
+		configure(context)
+		return
+	_web = WEB_SUPPORT.new()
+	var opened: Dictionary = await _web.open()
+	if not opened.ok: _past_failure = true
+	var destination: TelemetryFactory = TelemetryFactory.new()
+	destination.sink_factory = _web.make_sink
+	destination.commit_id = str(ProjectSettings.get_setting("application/config/commit_id", "unknown"))
+	configure(context, destination, false)
 
 func _process(delta: float) -> void:
 	if not enabled: return
@@ -33,8 +47,9 @@ func _exit_tree() -> void:
 
 func configure(context: String, destination: TelemetryFactory = null, recover_existing: bool = true) -> void:
 	if enabled: return
-	session = CollectionSession.new()
+	session = _web.make_session() if _web != null else CollectionSession.new()
 	factory = destination if destination != null else TelemetryFactory.new()
+	if _web != null: factory.sink_factory = _web.make_sink
 	factory.collection_context = context
 	if recover_existing: factory.commit_id = str(ProjectSettings.get_setting("application/config/commit_id", "unknown"))
 	if recover_existing and context == "editor_playtest": _identify_editor_build()
@@ -65,7 +80,7 @@ func checkpoint_trace(active: RunController) -> Dictionary:
 ## Values only; independent candidate prefix IO may be prepared by the desktop worker.
 func plan_resume(record_file: bool) -> Dictionary:
 	if not enabled or factory == null: return {}
-	return {"session_id": TelemetryFactory.new().session_id, "record_file": record_file, "record_directory": factory.record_directory, "collection_context": factory.collection_context, "commit_id": factory.commit_id}
+	return {"session_id": TelemetryFactory.new().session_id, "record_file": record_file and _web == null, "record_directory": factory.record_directory, "collection_context": factory.collection_context, "commit_id": factory.commit_id}
 
 ## Installs only new observation/file ownership on an already verified independent rule run.
 func resume(context: String, active: RunController, checkpoint: Dictionary, record_file: bool) -> TelemetryProjector:
@@ -80,7 +95,9 @@ func resume(context: String, active: RunController, checkpoint: Dictionary, reco
 	if enabled: suspend_for_checkpoint()
 	configure(context, destination, initial_collection)
 	ui = ""
-	var projector: TelemetryProjector = factory.resume(active, checkpoint, record_file)
+	var observed: Dictionary = _web.prepare_resume(active, checkpoint, context, destination.commit_id) if _web != null else checkpoint
+	var projector: TelemetryProjector = factory.resume(active, observed, record_file and _web == null)
+	if _web != null: _web.finish_resume()
 	bind(active)
 	session.append("run_registered", {"run_id": active.state.run_id, "storage_id": active.state.run_id + "--" + factory.session_id, "context": context, "resume": projector.events[0].get("resume", {}) if not projector.events.is_empty() else {}})
 	flush()
@@ -137,18 +154,25 @@ func close(reason: String) -> void:
 
 func save_status() -> String:
 	if not enabled: return "本次未启用自动采集"
+	if _web != null:
+		if _web.preparing_export: return "正在准备导出记录…"
+		if _web.export_ready: return "部分记录不完整；可下载已保存前缀。" if not _web.error().is_empty() else "记录已准备，点击下载记录。"
+		if not _web.error().is_empty(): return "记录不完整；游戏仍可继续"
 	if _past_failure: return "部分记录不完整；游戏仍可继续"
 	if not session.error.is_empty(): return "记录保存失败；游戏仍可继续"
+	if session.pending_persistence(): return "记录等待保存…"
 	for recorder: RunRecorder in factory.recorders:
 		if not recorder.error.is_empty(): return "记录不完整；游戏仍可继续"
 	for projector: TelemetryProjector in factory.projectors:
 		if not projector.error.is_empty(): return "记录不完整；游戏仍可继续"
-		if projector.sink is LocalJsonlSink:
-			var sink: LocalJsonlSink = projector.sink as LocalJsonlSink
-			var diagnostics: Dictionary = sink.diagnostics()
-			if not String(diagnostics.error).is_empty(): return "记录不完整；游戏仍可继续"
-			if sink.accepted_seq > sink.persisted_seq: return "记录等待保存…"
+		var diagnostics: Dictionary = projector.sink.diagnostics()
+		if not String(diagnostics.error).is_empty(): return "记录不完整；游戏仍可继续"
+		if int(diagnostics.accepted_seq) > int(diagnostics.persisted_seq): return "记录等待保存…"
+	if _web != null and _web.pending(): return "记录等待保存…"
 	return "记录已保存到本机 · 不上传"
+
+func export_label() -> String:
+	return "下载记录" if _web != null and _web.export_ready else "导出记录"
 
 func open_directory() -> void:
 	if not enabled or OS.has_feature("web"): return
@@ -156,7 +180,13 @@ func open_directory() -> void:
 	if code != OK: status_changed.emit("打开记录目录失败")
 
 func export_files() -> String:
-	if not enabled or OS.has_feature("web"): return ""
+	if not enabled: return ""
+	if _web != null:
+		if _web.export_ready:
+			last_export = _web.download()
+			status_changed.emit("已发起下载；请检查浏览器下载列表。")
+		else: _prepare_web_export.call_deferred()
+		return ""
 	flush()
 	var path: String = factory.directory.path_join("export-" + factory.session_id + "-" + str(Time.get_ticks_usec()) + ".zip")
 	var writer: ZIPPacker = ZIPPacker.new()
@@ -187,15 +217,23 @@ func export_files() -> String:
 	return path
 
 func _attached(recorder: RunRecorder, projector: TelemetryProjector) -> void:
+	if _web != null: _web.attach(recorder, projector)
 	recorder.record_appended.connect(func(row: Dictionary) -> void:
 		if row.kind != "Header": return
 		session.append("run_registered", {"run_id": row.run_id, "context": factory.collection_context})
 		session.flush()
 	)
+
 	recorder.recording_finished.connect(func(_complete: bool) -> void:
 		session.append("run_finalized", {"run_id": projector.events[0].run_id if not projector.events.is_empty() else "unknown", "summary_path": projector.summary_path, "error": projector.error})
 		session.flush()
 	)
+
+func _prepare_web_export() -> void:
+	if _web == null or _web.preparing_export: return
+	status_changed.emit("正在准备导出记录…")
+	var result: Dictionary = await _web.prepare_export()
+	status_changed.emit(save_status() if result.ok else "导出未完成；已保存的原件仍保留。")
 
 func _identify_editor_build() -> void:
 	# 本地编辑器只读自身仓库；导出包从发布配置注入commit_id，不依赖Git。

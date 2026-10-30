@@ -1,4 +1,10 @@
 key,zh_CN,en_US
+正在准备导出记录…,正在准备导出记录…,Preparing records for export…
+部分记录不完整；可下载已保存前缀。,部分记录不完整；可下载已保存前缀。,Some records are incomplete; the saved prefix can be downloaded.
+记录已准备，点击下载记录。,记录已准备，点击下载记录。,Records are ready. Click Download records.
+下载记录,下载记录,Download records
+已发起下载；请检查浏览器下载列表。,已发起下载；请检查浏览器下载列表。,Download requested. Check your browser downloads.
+导出未完成；已保存的原件仍保留。,导出未完成；已保存的原件仍保留。,Export did not finish. Saved originals are retained.
 继续选卡,继续选卡,Resume skill choice
 技能连珠,技能连珠,Skill Lines
 "技能连珠
@@ -982,6 +988,7 @@ hud.status.spawn_progress,正在补棋：{current}/{total},Spawning pieces: {cur
 hud.status.capture_refill_used,实际补棋已消费 {count} 次,Actual refill uses consumed: {count}
 hud.status.checkpoint_loading,正在恢复本局…,Restoring your run…
 hud.status.checkpoint_saving,正在保存续局…,Saving your run…
+hud.status.checkpoint_saved,上个安全点已保存。,Last safe checkpoint saved.
 hud.status.checkpoint_failed,续局保存或读取失败，请重试。,Could not save or restore your run. Please retry.
 hud.status.checkpoint_fallback,已恢复上一有效检查点。,Restored the previous valid checkpoint.
 hud.status.checkpoint_restored,已继续本局。,Run restored.

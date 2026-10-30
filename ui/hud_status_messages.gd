@@ -15,7 +15,7 @@ const IDS: Array[StringName] = [
 	&"demo_span", &"demo_line", &"demo_transform", &"capture_detonate", &"capture_chain",
 	&"capture_refill_ready", &"capture_refill_used", &"capture_refill_done", &"spawn_progress",
 	&"checkpoint_loading", &"checkpoint_saving", &"checkpoint_failed", &"checkpoint_fallback", &"checkpoint_restored",
-	&"checkpoint_waiting", &"checkpoint_reload_required",
+	&"checkpoint_waiting", &"checkpoint_reload_required", &"checkpoint_saved",
 ]
 const PARAMETER_TYPES: Dictionary = {
 	&"hud.status.spawn_progress": {"current": TYPE_INT, "total": TYPE_INT},

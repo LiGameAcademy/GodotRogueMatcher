@@ -71,8 +71,8 @@ func _ready() -> void:
 	_set_volume(preferences.volume, false)
 	# Apply the saved skin before start_game yields for initial spawn presentation.
 	_set_theme(preferences.theme_id, false)
-	if collect_telemetry and not OS.has_feature("web"):
-		_collection.configure(collection_context)
+	if collect_telemetry:
+		await _collection.configure_platform(collection_context)
 		_board.telemetry_factory = _collection.factory if not _checkpoint.saved_available else null
 	_connect_collection_controls(release_menu.collection_controls)
 	if intercept_window_close: get_tree().auto_accept_quit = false
@@ -417,9 +417,9 @@ func _on_retry_requested() -> bool:
 	_feedback.cancel()
 	UIManager.close_popup()
 	board_rules = fresh_rules
-	if collect_telemetry and not OS.has_feature("web") and not _collection.enabled:
+	if collect_telemetry and not _collection.enabled:
 		_collection.configure(collection_context)
-	_board.telemetry_factory = _collection.factory if collect_telemetry and not OS.has_feature("web") else null
+	_board.telemetry_factory = _collection.factory if collect_telemetry else null
 	await _board.retry_game(board_rules, prepared, initial)
 	_checkpoint.arm_current()
 	_apply_game_theme()
@@ -438,7 +438,7 @@ func _prepare_checkpoint_exit() -> void:
 	_hud.finish_score_now()
 
 func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
-	if collect_telemetry and not OS.has_feature("web"):
+	if collect_telemetry:
 		_board.observation.attach(_collection.resume(collection_context, active, _checkpoint.last_resume_context, record_runs), false)
 		_board.telemetry_factory = _collection.factory
 	board_rules = active.state.rules

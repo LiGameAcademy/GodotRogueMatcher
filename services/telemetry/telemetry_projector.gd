@@ -231,8 +231,10 @@ func _identity_prefix() -> String:
 func checkpoint_trace(record_seq: int, next_rule_event_id: int) -> Dictionary:
 	if _base.is_empty(): return {}
 	if not error.is_empty(): return {"status": "telemetry_failed", "reason": error}
-	var accepted: int = (sink as LocalJsonlSink).accepted_seq if sink is LocalJsonlSink else _seq
-	return {"schema": "checkpoint-telemetry-v1", "run_id": _base.run_id, "segment_id": _session_id, "accepted_seq": str(accepted), "persisted_seq": str((sink as LocalJsonlSink).persisted_seq) if sink is LocalJsonlSink else "0", "last_event_id": events[accepted - 1].event_id if accepted > 0 else "", "last_event_hash": RunSnapshot.digest(events[accepted - 1]) if accepted > 0 else "", "record_seq": str(record_seq), "next_rule_event_id": str(next_rule_event_id)}
+	var persistence: Dictionary = sink.diagnostics()
+	if not String(persistence.error).is_empty(): return {"status": "telemetry_failed", "reason": persistence.error}
+	var accepted: int = int(persistence.accepted_seq) if int(persistence.accepted_seq) >= 0 else _seq
+	return {"schema": "checkpoint-telemetry-v1", "run_id": _base.run_id, "segment_id": _session_id, "accepted_seq": str(accepted), "persisted_seq": str(persistence.persisted_seq), "last_event_id": events[accepted - 1].event_id if accepted > 0 else "", "last_event_hash": RunSnapshot.digest(events[accepted - 1]) if accepted > 0 else "", "record_seq": str(record_seq), "next_rule_event_id": str(next_rule_event_id)}
 
 ## Ends this observation file, never the logical rule run. Old v2 prefixes stay valid prefixes.
 func close_segment(reason: String, record_seq: int) -> void:
