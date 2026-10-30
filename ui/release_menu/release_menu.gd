@@ -8,6 +8,7 @@ signal skill_pool_requested
 signal settings_requested
 signal tutorial_completed
 signal language_requested(preference: String)
+signal quit_requested
 
 const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
 
@@ -17,6 +18,8 @@ var _has_game: bool = false
 var _tutorial_seen: bool = false
 var _game_over: bool = false
 var _practice_done: bool = false
+var _checkpoint_enabled: bool = false
+var _checkpoint_error: String = ""
 
 @onready var mode_button: OptionButton = %Mode
 @onready var mode_hint: Label = %ModeHint
@@ -31,10 +34,12 @@ var _practice_done: bool = false
 @onready var collection_controls: CollectionControls = %CollectionControls
 @onready var notice: Label = %Notice
 @onready var _settings_button: FeedbackButton = %SettingsButton
+@onready var _quit_button: Button = %CheckpointQuit
 
 func _ready() -> void:
 	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
 	%SettingsButton.pressed.connect(settings_requested.emit)
+	_quit_button.pressed.connect(quit_requested.emit)
 	play_button.pressed.connect(_play.bind(false))
 	new_button.pressed.connect(_play.bind(true))
 	learn_button.pressed.connect(_learn)
@@ -52,6 +57,12 @@ func set_language_preference(preference: String) -> void:
 
 func show_language_error() -> void:
 	hint.text = tr("语言设置保存失败；当前选择仍可使用。")
+
+func set_checkpoint_status(enabled: bool, error: String) -> void:
+	_checkpoint_enabled = enabled
+	_checkpoint_error = error
+	_quit_button.visible = enabled and not OS.has_feature("web")
+	_refresh_text()
 
 func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: bool = false, mode_id: StringName = &"stage_challenge") -> void:
 	_active_mode = mode_id
@@ -97,6 +108,10 @@ func _refresh_text() -> void:
 		play_button.text = tr("开始所选模式 · 新局")
 		mode_hint.text += "\n" + tr("切换模式将开始新局，重置本局棋盘与构筑。")
 	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
+	_quit_button.text = tr("checkpoint.quit")
+	if _checkpoint_enabled:
+		notice.text += "\n" + tr("checkpoint.notice")
+		if not _checkpoint_error.is_empty(): hint.text = tr("checkpoint.waiting" if _checkpoint_error == "worker_busy" else "checkpoint.load_failed")
 
 func _play(new_run: bool) -> void:
 	close()

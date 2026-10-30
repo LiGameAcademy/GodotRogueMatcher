@@ -16,7 +16,8 @@ static func continue_run(board: Board, active: RunController) -> void:
 					push_warning("Reward unavailable: " + active.state.rule_error)
 					board.operation_feedback.emit("hud.status.unavailable")
 					return
-				board.reward_requested.emit(active, step.offer)
+				board.checkpoint_reached.emit(active)
+				if not board.hold_at_checkpoint: board.reward_requested.emit(active, step.offer)
 				return
 			&"end_turn":
 				board.refresh_ability_markers()
@@ -28,6 +29,7 @@ static func continue_run(board: Board, active: RunController) -> void:
 				GameManager.turn_started.emit(active.state.turn_count)
 				if active.recorder != null: active.recorder.set_interval("input")
 				board.observation.busy(false)
+				board.checkpoint_reached.emit(active)
 				return
 			&"finished":
 				GameManager.finish_game()

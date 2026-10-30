@@ -56,6 +56,14 @@ func load_latest(expected_manifest: Dictionary) -> Dictionary:
 	_busy = false
 	return result
 
+## Discovers compatibility and identity without restoring a run or bypassing invalidation.
+func inspect_latest() -> Dictionary:
+	if _busy: return _failure("busy")
+	_busy = true
+	var result: Dictionary = _inspect_latest()
+	_busy = false
+	return result
+
 ## Durable invalidation outranks primary and previous; failed attempts close local tickets.
 func invalidate(run_id: String, reason: String) -> Dictionary:
 	if _busy: return _failure("busy")
@@ -131,6 +139,19 @@ func _load_latest(expected_manifest: Dictionary) -> Dictionary:
 	if _json(record.manifest) != _json(expected_manifest): return _failure("manifest_incompatible")
 	_generation = maxi(_generation, String(record.generation).to_int())
 	return {"ok": true, "reason": "", "fallback": fallback, "recovered_write": recovery.recovered, "record": record.duplicate(true)}
+
+func _inspect_latest() -> Dictionary:
+	var recovery: Dictionary = _recover()
+	if not recovery.ok: return recovery
+	var candidate: Dictionary = _read_record("primary.json")
+	if candidate.reason == "schema_unsupported": return _failure(candidate.reason)
+	var fallback: bool = not candidate.ok
+	if fallback: candidate = _read_record("previous.json")
+	if not candidate.ok: return _failure("no_valid_checkpoint:" + candidate.reason)
+	var record: Dictionary = candidate.record
+	var error: String = _run_error(record.run_id)
+	if not error.is_empty(): return {"ok": false, "reason": error, "run_id": record.run_id}
+	return {"ok": true, "reason": "", "run_id": record.run_id, "manifest": record.manifest.duplicate(true), "generation": record.generation, "fallback": fallback}
 
 func _invalidate(run_id: String, reason: String) -> Dictionary:
 	if not _valid_id(run_id) or reason not in ["restart", "terminal", "abandoned"]: return _failure("invalid_invalidation")

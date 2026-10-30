@@ -169,8 +169,18 @@ func show_score_burst(entry: ScoreEntry, origin: Vector2) -> void:
 	goal_progress.add_gain(entry.final_score, origin)
 
 func reset_score_effects() -> void:
+	_cancel_score()
 	goal_progress.cancel()
 	piece_pool.close()
+
+## Rebuilds committed HUD values without replaying score gains or old animation callbacks.
+func bind_checkpoint(active: RunController) -> void:
+	reset_score_effects()
+	_target_score = active.state.ledger.total
+	_set_score(float(_target_score))
+	gain_label.text = ""
+	show_run(active)
+	set_reward_waiting(active.state.rewards.active_offer != null)
 
 func show_run(run: RunController) -> void:
 	_run = run

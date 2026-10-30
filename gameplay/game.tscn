@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_background/game_background.tscn" id="12_background"]
 
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_music.tscn" id="13_music"]
+[ext_resource type="PackedScene" path="res://gameplay/game_checkpoint_flow.tscn" id="14_checkpoint"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -43,6 +44,8 @@ environment = SubResource("Environment_8cj0n")
 [node name="PlaybackSettings" parent="." instance=ExtResource("11_settings")]
 
 [node name="RunCollection" parent="." instance=ExtResource("8_collection")]
+
+[node name="GameCheckpointFlow" parent="." instance=ExtResource("14_checkpoint")]
 
 [node name="GameBackground" parent="." instance=ExtResource("12_background")]
 mouse_filter = 2
