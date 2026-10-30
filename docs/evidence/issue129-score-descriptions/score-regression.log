@@ -1,0 +1,93 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-score-independent-review/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_score_rule_descriptions.gd
+* test_definition_owned_proposed_numbers_and_unsupported_parameters
+* test_match_extra_is_per_result_in_matches_and_scored_short_clears
+* test_blast_bonuses_follow_direct_removals_and_each_descendant_not_multiplier
+* test_cross_sweep_does_not_count_source_or_blast_descendants_and_tool_is_not_sweep
+4/4 passed.
+
+
+res://tests/rules/test_skill_description_coverage.gd
+* test_audit_all_52_real_effect_roots_and_declared_levels
+* test_same_family_parameters_and_weight_lifetime_are_not_copied_or_accumulated_per_color
+2/2 passed.
+
+
+res://tests/rules/test_skill_rule_description.gd
+* test_all_six_use_configuration_in_both_languages
+* test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
+* test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
+* test_refill_parameters_repeat_remaining_zero_and_net_count_preview
+* test_goal_is_next_target_and_reads_changed_resource_value
+* test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
+* test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
+* test_nested_order_conditions_and_cycle_diagnostics
+* test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+* test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
+10/10 passed.
+
+
+res://tests/rules/test_line_clear_removal.gd
+* test_column_removed_in_horizontal_match_sweeps_column_and_chains_row
+* test_row_removed_by_clear_sweeps_specials_and_triggers_core
+* test_sweep_fuse_explosion_chain_keeps_generation_and_parent_ids
+* test_explosion_removes_sweeper_then_sweeps_from_frozen_coordinate
+* test_overlapping_sweeps_remove_and_score_each_target_once_in_source_order
+* test_empty_sweep_consumes_once_without_score_or_action_cost
+* test_budget_rejects_before_score_occupancy_or_event_mutation
+* test_held_sweep_waits_for_later_leaf_and_uses_frozen_source
+* test_shared_definition_counts_are_isolated_and_snapshot_records_sweeper
+* test_sweep_at_end_of_blast_queue_does_not_drop_aftershock
+* test_score_uses_global_multiplier_and_extra_without_five_match_upgrades
+* test_identical_fixture_results_records_and_snapshots_are_deterministic
+* test_line_arrival_budget_includes_new_innate_source_before_skill_commit
+* test_moving_sweeper_into_five_costs_only_parent_action_and_duplicate_command_is_noop
+14/14 passed.
+
+
+res://tests/rules/test_demolition_build.gd
+* test_catalog_has_42_real_distinct_effects_and_five_grades
+* test_prerequisites_and_rarity_multiply_after_clamp_once
+* test_active_core_consumes_once_and_normal_refill_still_happens
+* test_active_budget_failure_preserves_source_score_and_rng
+* test_payload_creates_immediate_chain_and_score_is_extra_only
+* test_relay_snapshot_does_not_propagate_new_source_same_turn
+* test_aftershock_once_selective_filter_and_radius_caps
+* test_relief_waits_for_complete_root_and_extends_without_double_strength
+* test_supply_uses_normal_slots_unique_and_run_state_isolated
+* test_core_drop_new_budget_preflight_preserves_entire_choice
+* test_plant_runs_after_all_match_groups_removed_once_per_root
+* test_chain_radius_only_later_fuses_and_general_rewards_are_independent
+* test_old_parent_root_survives_interleaved_skill_root
+* test_active_command_chain_settlement_and_refill_replay_all_checkpoints
+* test_rarity_styles_are_owned_by_each_card
+15/15 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               5
+Tests                45
+Passing Tests        45
+Asserts            1098
+Time              1.063s
+
+
+---- All tests passed! ----
+
