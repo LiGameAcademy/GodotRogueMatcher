@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/restore-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_run_checkpoint_codec.gd
+* test_input_payload_roundtrips_max_seed_and_isolates_object_graph
+* test_input_restore_continues_multiple_identical_commands_and_preserves_retry_cache
+* test_frozen_reward_keeps_candidates_targets_stage_plan_and_consumes_once
+* test_shape_unlock_and_empty_recovery_budget_are_reconstructed_without_bonus
+* test_unsafe_phases_closed_runs_and_unfrozen_rewards_are_rejected
+* test_held_matches_without_blasts_are_not_a_safe_checkpoint
+* test_snapshot_not_backed_by_complete_prefix_and_partial_tail_are_rejected
+* test_corruption_schema_missing_fields_and_integer_encoding_fail_without_touching_live_run
+* test_frozen_endpoint_tampering_cannot_be_hidden_by_rehashing
+* test_manifest_and_rebuild_limits_fail_explicitly
+* test_real_slot_two_generations_new_instance_and_corrupt_primary_fallback
+* test_invalidated_run_cannot_reappear_from_primary_or_backup
+* test_invalid_save_leaves_real_slot_bytes_and_source_unchanged
+* test_real_commit_failure_preserves_exact_pair_and_can_retry
+* test_malformed_frozen_targets_are_rejected_before_snapshot_traversal
+15/15 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               1
+Tests                15
+Passing Tests        15
+Asserts             180
+Time              6.803s
+
+
+---- All tests passed! ----
