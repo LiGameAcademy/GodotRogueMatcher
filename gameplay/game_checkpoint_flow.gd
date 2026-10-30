@@ -309,6 +309,7 @@ func _join_job() -> Dictionary:
 		frame_started = Time.get_ticks_usec()
 	var result: Dictionary = current.finish()
 	last_job_metrics = {"frames": frames, "maximum_gap_usec": maximum_gap, "elapsed_usec": Time.get_ticks_usec() - started, "freeze_usec": last_freeze_usec, "ok": result.ok}
+	last_job_metrics["stages"] = {"decode": result.get("timing", {}), "package": result.get("package_timing", {}), "history_prime_usec": result.get("history_prime_usec", 0)}
 	print(("CHECKPOINT_WEB_JOB " if OS.has_feature("web") else "CHECKPOINT_DESKTOP_JOB ") + JSON.stringify(last_job_metrics))
 	if _job == current: _job = null
 	if last_error == "worker_busy":

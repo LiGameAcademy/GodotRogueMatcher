@@ -103,15 +103,16 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	var unpacked: Dictionary = _unpack_loaded(loaded)
 	if not unpacked.ok: return unpacked
 	var decoded: Dictionary = RunCheckpointCodec.decode(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only)
-	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package)
+	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
 
 func _decode_loaded_sliced(loaded: Dictionary, replay_yield: Callable) -> Dictionary:
 	var unpacked: Dictionary = _unpack_loaded(loaded)
 	if not unpacked.ok: return unpacked
 	var decoded: Dictionary = await RunCheckpointCodec.decode_sliced(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
-	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package)
+	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
 
 func _unpack_loaded(loaded: Dictionary) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
 	var package: Dictionary = loaded.record.payload
 	if not package.get("schema") is String: return RunCheckpointCodec.failure("invalid_package")
 	if package.schema not in [RunCheckpointCodec.SCHEMA, DECIMAL_PACKAGE_SCHEMA, PACKAGE_SCHEMA]:
@@ -124,16 +125,18 @@ func _unpack_loaded(loaded: Dictionary) -> Dictionary:
 	var parser: JSON = JSON.new()
 	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
+	var parse_usec: int = Time.get_ticks_usec() - started
 	if package.schema == PACKAGE_SCHEMA:
 		var transported: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
 		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
 		parser.data = transported.data
 	if parser.data.get("run_id") != package.run_id:
 		return RunCheckpointCodec.failure("payload_identity_mismatch")
-	return {"ok": true, "reason": "", "payload": parser.data, "package": package}
+	return {"ok": true, "reason": "", "payload": parser.data, "package": package, "timing": {"package_parse_usec": parse_usec, "float_decode_usec": Time.get_ticks_usec() - started - parse_usec}}
 
-func _finish_loaded(loaded: Dictionary, decoded: Dictionary, payload: Dictionary, package: Dictionary) -> Dictionary:
+func _finish_loaded(loaded: Dictionary, decoded: Dictionary, payload: Dictionary, package: Dictionary, timing: Dictionary) -> Dictionary:
 	if not decoded.ok: return decoded
+	decoded["package_timing"] = timing
 	decoded["generation"] = loaded.record.generation
 	decoded["fallback"] = loaded.fallback
 	decoded["recovered_write"] = loaded.recovered_write

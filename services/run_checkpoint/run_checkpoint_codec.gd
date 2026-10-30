@@ -70,13 +70,19 @@ static func decode_sliced(payload: Variant, expected_manifest: Dictionary, budge
 	var replay: RuleReplay = RuleReplay.new()
 	var started: int = Time.get_ticks_usec()
 	if not replay.start_prefix(prepared.records): return failure("rebuild_failed:" + replay.error)
+	var initialization_usec: int = Time.get_ticks_usec() - started
+	var largest_slice_usec: int = 0
 	while true:
+		var slice_started: int = Time.get_ticks_usec()
 		var step: Dictionary = replay.step_prefix()
+		largest_slice_usec = maxi(largest_slice_usec, Time.get_ticks_usec() - slice_started)
 		if not step.ok: return failure("rebuild_failed:" + replay.error)
 		if step.done: break
 		if Time.get_ticks_usec() - prepared.started > budget_usec: return failure("rebuild_budget_exceeded")
 		await replay_yield.call()
-	return _finish_decode(payload, expected_manifest, replay.run, prepared.started, prepared.validation_usec, Time.get_ticks_usec() - started, budget_usec)
+	var result: Dictionary = _finish_decode(payload, expected_manifest, replay.run, prepared.started, prepared.validation_usec, Time.get_ticks_usec() - started, budget_usec)
+	if result.has("timing"): result.timing.merge({"initialization_usec": initialization_usec, "largest_replay_slice_usec": largest_slice_usec})
+	return result
 
 static func _prepare_decode(payload: Variant, budget_usec: int, runtime_only: bool) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
