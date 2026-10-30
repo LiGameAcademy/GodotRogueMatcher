@@ -36,6 +36,10 @@ func _profile(directory: String) -> Dictionary:
 	if not loaded.ok: return {"ok": false, "reason": loaded.reason}
 	started = Time.get_ticks_usec()
 	var payload: Dictionary = JSON.parse_string(loaded.record.payload.payload_json)
+	if loaded.record.payload.schema == RunCheckpointSession.PACKAGE_SCHEMA:
+		var transported: Dictionary = preload("res://services/run_checkpoint/checkpoint_float_transport.gd").decode(payload)
+		if not transported.ok: return {"ok": false, "reason": "invalid_payload_json"}
+		payload = transported.data
 	var payload_parse_usec: int = Time.get_ticks_usec() - started
 	var decoded: Dictionary = RunCheckpointCodec.decode(payload, metadata.manifest, 10000000)
 	if not decoded.ok: return {"ok": false, "reason": decoded.reason, "timing": decoded.get("timing")}

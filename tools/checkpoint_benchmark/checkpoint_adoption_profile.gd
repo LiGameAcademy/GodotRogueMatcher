@@ -35,7 +35,12 @@ func _run() -> void:
 	_flow = game.get_node("GameCheckpointFlow")
 	var menu: Node = game.get_node("MenuLayer/ReleaseMenu")
 	if not await _wait(func() -> bool: return bool(menu.get("visible")), 15000): return _fail("menu_timeout")
-	var payload: Dictionary = JSON.parse_string(JSON.parse_string(FileAccess.get_file_as_string("user://run_checkpoint/primary.json")).payload.payload_json)
+	var envelope: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("user://run_checkpoint/primary.json"))
+	var payload: Dictionary = JSON.parse_string(envelope.payload.payload_json)
+	if envelope.payload.schema == RunCheckpointSession.PACKAGE_SCHEMA:
+		var decoded: Dictionary = preload("res://services/run_checkpoint/checkpoint_float_transport.gd").decode(payload)
+		if not decoded.ok: return _fail("invalid_payload_json")
+		payload = decoded.data
 	var old: RunController = board.get("run") as RunController
 	for node: Node in [game, board, view, collection]: node.get("profile").clear()
 	_measure = true
