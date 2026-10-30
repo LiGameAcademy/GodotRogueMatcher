@@ -8,6 +8,7 @@ from pathlib import Path
 
 from calibration_plan import make_plan
 from report_preflight import audit, read_object
+from cohort_inventory import compare, inventory
 
 
 def main() -> int:
@@ -23,19 +24,36 @@ def main() -> int:
     audit_parser.add_argument("plan", type=Path)
     audit_parser.add_argument("reports", type=Path, nargs="+")
     audit_parser.add_argument("--output", type=Path, required=True)
+    index_parser = commands.add_parser("index")
+    index_parser.add_argument("plan", type=Path)
+    index_parser.add_argument("runs", type=Path)
+    index_parser.add_argument("--phase", choices=["smoke", "explore", "confirm"], required=True)
+    index_parser.add_argument("--variant", required=True)
+    index_parser.add_argument("--output", type=Path, required=True)
+    compare_parser = commands.add_parser("compare")
+    compare_parser.add_argument("plan", type=Path)
+    compare_parser.add_argument("inventories", type=Path, nargs="+")
+    compare_parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.command == "plan":
             result = make_plan(args.first_seed, args.smoke, args.explore, args.confirm)
         else:
             registration, plan_hash, _plan_bytes = read_object(args.plan)
-            result = audit(registration, args.reports)
+            if args.command == "audit":
+                result = audit(registration, args.reports)
+            elif args.command == "index":
+                result = inventory(registration, plan_hash, args.runs, args.phase, args.variant)
+            else:
+                result = compare(registration, plan_hash, args.inventories)
             result["plan_sha256"] = plan_hash
         encoded = json.dumps(result, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
+        if args.command in ("index", "compare") and len(encoded.encode("utf-8")) > 8 * 1024 * 1024:
+            raise ValueError("cohort output exceeds 8 MiB")
         with args.output.open("x", encoding="utf-8", newline="\n") as output:
             output.write(encoded)
         print(str(args.output))
-        return 1 if result.get("summary_preflight_valid") is False else 0
+        return 1 if any(result.get(key) is False for key in ("summary_preflight_valid", "seed_inventory_complete", "seed_pairing_complete")) else 0
     except (OSError, ValueError, RecursionError) as error:
         parser.exit(2, f"calibration preparation failed: {error}\n")
     return 2
