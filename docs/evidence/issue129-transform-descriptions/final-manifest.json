@@ -1,0 +1,45 @@
+{
+  "tested_commit": "00bbd810c7fbdd0e9fd56b88c628a0b04e596714",
+  "tests": 2,
+  "assertions": 163,
+  "exit": 0,
+  "change": "Only English permission wording and matching assertion after 0017aa4; final rules + GUI targeted rerun.",
+  "files": [
+    {
+      "path": "localization/skill_rules.csv",
+      "sha256": "1eefde8264527dab8e508ff3b3003ec50b41f385bd00a55a130a4475c2f333b7"
+    },
+    {
+      "path": "localization/skill_rules.en_US.translation",
+      "sha256": "1bd1a30648f4ebbcdc53f0ee2cff984c393382eaa15de694f0c649c0fd39e11f"
+    },
+    {
+      "path": "localization/skill_rules.zh_CN.translation",
+      "sha256": "b5cb92b314ac6e925830529b5fc8228169ffee7421e68c2aef00288b073ccdad"
+    },
+    {
+      "path": "tests/integration/test_transform_rule_description_ui.gd",
+      "sha256": "306a1e9bd4213226f20aea2297314c22ef972ee6c1128f5264eb2e00d8ce5e27"
+    },
+    {
+      "path": "tests/integration/test_transform_rule_description_ui.gd.uid",
+      "sha256": "6a672693d87515b50150024b7f368e6771149cc6409fbd5d0981f306d762e34f"
+    },
+    {
+      "path": "tests/rules/test_skill_description_coverage.gd",
+      "sha256": "bf6dcbc8fec0765750e45a494cf5814141cd91e1d7ae332236fea4434f335b32"
+    },
+    {
+      "path": "tests/rules/test_transform_rule_descriptions.gd",
+      "sha256": "56c0dfba5ef9983e80f2d543c7190b1e4b9c65289d0ce07445670fa8a08af2a5"
+    },
+    {
+      "path": "tests/rules/test_transform_rule_descriptions.gd.uid",
+      "sha256": "4c7c35dcefed318d2e14855ca98f87aeea18f2220b53b1d59041a288aae09b93"
+    },
+    {
+      "path": "ui/skill_rule_description.gd",
+      "sha256": "2098db09dfa04e3e968e77c11a86f3122e4de1f22557821dfefbdad5d681543c"
+    }
+  ]
+}

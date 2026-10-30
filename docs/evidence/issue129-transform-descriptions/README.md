@@ -15,3 +15,5 @@
 复现：初始化锁定CoreSystem子模块并editor导入后，运行GUT指定test_transform_rule_descriptions、test_special_conversion、test_dynamic_transform_preflight、test_skill_description_coverage、test_skill_rule_description；GUI指定test_transform_rule_description_ui，设置O4_TRANSFORM_CAPTURE=1可输出截图。未重复无关整库，未声称性能/主题穷举/真人体验通过。
 
 独立复审对照实际Effect/执行器，静态无阻断；最终身份另核。按B交集成核验，#129继续部分OPEN，作者读感和整体真人体验均null。覆盖19/52不代表O4整体验收。
+
+最终权限措辞修正：00bbd810c7fbdd0e9fd56b88c628a0b04e596714将英语改为“Unlocks no supply or manual use”，明确不授予而非禁止已有权限。相对0017仅英语翻译/对应断言变化，最终定向规则+真实GPU两脚本2/2、163断言、exit0。4图已刷新，英语两图重新目检无越界；最终身份见final-manifest.json，原0017成绩保持其身份，不伪记整批重跑。
