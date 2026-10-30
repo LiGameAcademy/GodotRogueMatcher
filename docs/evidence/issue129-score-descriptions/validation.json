@@ -70,8 +70,8 @@
     },
     {
       "name": "gpu.log",
-      "sha256": "566ea9e388fa5286dfeff37cf1b460d414e0ac168e35b585c0a962d03bde75f8",
-      "bytes": 1131
+      "sha256": "ee8d5ad23f8d5693fd700b0ca659b25adb69eeed84ff7ba7466dfee514a138ee",
+      "bytes": 1096
     },
     {
       "name": "gpu.log.gz",
@@ -80,8 +80,8 @@
     },
     {
       "name": "import.log",
-      "sha256": "a99b46f8bb1c9edab77bd8a871e313a6f386d94b553cfedfaac1873c4df6513d",
-      "bytes": 40518
+      "sha256": "0018f74b3aba7f230249906f8618f9bad50a881aa6cb71d1c6eb09e993312e65",
+      "bytes": 39602
     },
     {
       "name": "import.log.gz",
@@ -95,13 +95,13 @@
     },
     {
       "name": "recovery-history.md",
-      "sha256": "b10dc7e44d8d615bea18f88cee67fed7498ff5eae49f2934c50af9d5f32b46a8",
-      "bytes": 1115
+      "sha256": "549e65f35c79bd387724c3493774c8c1eafad5311d8ba2da6f686be3099a25f3",
+      "bytes": 1114
     },
     {
       "name": "score-regression.log",
-      "sha256": "420888a9c03c6426ee7d4022822cefc869782ed7c3647643a06812f4223efe52",
-      "bytes": 4237
+      "sha256": "07318bbfd75b7d74c2cd2dd31f3eb5da782e1bc42525b6badf8215556c32baf6",
+      "bytes": 4144
     },
     {
       "name": "score-regression.log.gz",
@@ -110,13 +110,13 @@
     },
     {
       "name": "source-manifest.json",
-      "sha256": "c867ac24803e74fdd80e4a4b0254293a9cd2e41a01404b8296d5e4984927cfc8",
-      "bytes": 3072
+      "sha256": "98602e1a38137bdae53f64d3d4c96ce92f08f16c70504eb2174241087aab45ff",
+      "bytes": 3006
     },
     {
       "name": "ui-regression.log",
-      "sha256": "6ac5f950ffc8177c2a117982b751c0f3d5532106a73238908f0ff47bbddf5d35",
-      "bytes": 2143
+      "sha256": "110a27be3499e79d379dec741d456972f95328f1645bd771a91ecfd287ff4f5a",
+      "bytes": 2085
     },
     {
       "name": "ui-regression.log.gz",
