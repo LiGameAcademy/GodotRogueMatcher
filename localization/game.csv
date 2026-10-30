@@ -1003,3 +1003,6 @@ checkpoint.waiting,上一项续局操作尚未结束，请稍候再试。,The pr
 checkpoint.terminal_failed,未能确认本局结束标记已保存。请重试；直接退出可能在下次启动恢复旧检查点。,The end-of-run marker could not be verified. Retry; quitting now may restore an older checkpoint next time.
 checkpoint.leave_unverified_terminal,仍然退出（旧检查点可能恢复）,Quit anyway (an older checkpoint may return)
 checkpoint.challenge_pending,请先取消退出并选择继续挑战或结束本局；也可确认退出并保留上次有效检查点。,Cancel quitting and choose whether to continue the challenge or end this run. You may also leave with the last valid checkpoint.
+hud.status.checkpoint_reload_required,续局存储已在其他页面更新或连接已关闭。请刷新页面后继续。,Checkpoint storage changed in another tab or its connection closed. Reload this page to continue.
+checkpoint.reload_required,续局槽已在其他页面更新或存储连接已关闭。本页不能覆盖它，请刷新页面。,The checkpoint changed in another tab or its storage connection closed. This page cannot overwrite it. Reload this page.
+checkpoint.web_notice,安全点会自动保存到本机浏览器且不上传。刷新或关闭页面只能回到上次确认保存的位置。请等待保存完成；私密浏览或清除网站数据可能丢失存档。,Safe checkpoints are saved in this browser without uploading. Refreshing or closing returns to the last confirmed save. Wait for saving to finish; private browsing or clearing site data may lose checkpoints.

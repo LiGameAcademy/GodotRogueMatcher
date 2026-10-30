@@ -54,7 +54,7 @@ func _ready() -> void:
 	_connect_run_signals()
 	_connect_menu_signals()
 	_connect_settings_signals()
-	_checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
+	await _checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
 	_checkpoint.status_changed.connect(_hud.show_status)
 	_checkpoint.status_changed.connect(func(_id: StringName) -> void: release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error))
 	_checkpoint.before_restore.connect(_suspend_collection)

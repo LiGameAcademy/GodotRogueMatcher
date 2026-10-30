@@ -24,6 +24,15 @@ func _init(directory: String, files: CheckpointFiles = null) -> void:
 	_directory = directory
 	_files = files if files != null else CheckpointFiles.new()
 
+## The application retains exclusive ownership until the browser adapter acknowledges IO.
+func sync() -> Dictionary:
+	if _busy: return _failure("busy")
+	_busy = true
+	var result: Dictionary = await _files.sync()
+	if not result.ok: _completed = 0
+	_busy = false
+	return result
+
 ## Requires verified invalidation before replacing another live identity.
 func begin_run(run_id: String) -> Dictionary:
 	if _busy: return _failure("busy")

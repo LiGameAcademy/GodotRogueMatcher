@@ -1,7 +1,7 @@
 class_name GameCheckpointFlow
 extends Node
 
-## Desktop application owner of one serial checkpoint worker and its explicit exit policy.
+## Application owner of one serial checkpoint job and its explicit exit policy.
 ## Rules stay in RunController; the scene parent owns sibling HUD/reward/collection wiring.
 signal status_changed(message_id: StringName)
 signal before_restore
@@ -11,6 +11,7 @@ signal exit_ready(reason: String)
 signal operation_cancelled
 
 const DESKTOP_BUDGET_USEC: int = 10000000
+const WEB_FILES: Script = preload("res://services/run_checkpoint/checkpoint_web_files.gd")
 var enabled: bool = false
 var saved_available: bool = false
 var saved_mode: StringName = &"stage_challenge"
@@ -52,16 +53,23 @@ func _exit_tree() -> void:
 
 func configure(board: Board, requested: bool, directory: String) -> void:
 	_board = board
-	enabled = requested and not OS.has_feature("web")
+	enabled = requested
 	if not enabled: return
-	_store = CheckpointStore.new(directory)
+	if OS.has_feature("web"):
+		var files: WEB_FILES = WEB_FILES.new(directory)
+		var opened: Dictionary = await files.open()
+		_store = CheckpointStore.new(directory, files)
+		if not opened.ok: last_error = opened.reason
+	else: _store = CheckpointStore.new(directory)
 	_board.keep_checkpoint_history = true
 	_board.checkpoint_reached.connect(_on_safe_point)
 	_board.run_reset.connect(_on_run_reset)
 	_refresh_metadata()
+	var synced: Dictionary = await _store.sync()
+	if not synced.ok: last_error = synced.reason
 
 func is_busy() -> bool:
-	return restoring or closing or _transition or _terminal_in_progress or (_job != null and not _saving)
+	return restoring or closing or _exit_saving or _transition or _terminal_in_progress or (_job != null and not _saving)
 
 ## Scene observers defer duplicate HUD refreshes only during the synchronous Board takeover.
 func is_adopting() -> bool:
@@ -117,7 +125,7 @@ func continue_saved() -> bool:
 	restored.emit(result.run, result.fallback)
 	last_job_metrics["resume_prepare_usec"] = result.get("resume_prepare_usec", 0)
 	last_job_metrics["adoption_usec"] = Time.get_ticks_usec() - adopting
-	print("CHECKPOINT_DESKTOP_RESTORE " + JSON.stringify(last_job_metrics))
+	print(("CHECKPOINT_WEB_RESTORE " if OS.has_feature("web") else "CHECKPOINT_DESKTOP_RESTORE ") + JSON.stringify(last_job_metrics))
 	status_changed.emit(&"hud.status.checkpoint_fallback" if result.fallback else &"hud.status.checkpoint_restored")
 	return true
 
@@ -142,12 +150,12 @@ func allow_new_run() -> bool:
 			return false
 	while metadata.ok or metadata.reason == "invalidation_pending":
 		_last_key = ""
-		var invalidated: Dictionary = _store.invalidate(metadata.run_id, "restart")
+		var invalidated: Dictionary = await _invalidate_run(metadata.run_id, "restart")
 		if invalidated.ok:
 			metadata = invalidated
 			break
 		last_error = invalidated.reason
-		prompt.open(&"checkpoint.invalidate_failed", &"invalidate_failed")
+		prompt.open(&"checkpoint.reload_required" if _needs_reload() else &"checkpoint.invalidate_failed", &"blocked" if _needs_reload() else &"invalidate_failed")
 		var answer: StringName = await prompt.action_requested
 		if answer != &"retry":
 			_transition = false
@@ -195,16 +203,18 @@ func terminal(active: RunController, accepted_end: bool = false) -> void:
 	_queued.clear()
 	_armed = false
 	while _saving or _job != null: await get_tree().process_frame
-	_terminal_in_progress = false
-	if active != _board.run: return
+	if active != _board.run:
+		_terminal_in_progress = false
+		return
 	_last_key = ""
-	var result: Dictionary = _store.invalidate(active.state.run_id, "terminal")
+	var result: Dictionary = await _invalidate_run(active.state.run_id, "terminal")
+	_terminal_in_progress = false
 	saved_available = false
 	if not result.ok:
 		_terminal_retry_run = active
 		last_error = result.reason
-		prompt.open(&"checkpoint.terminal_failed", &"terminal_failed")
-		status_changed.emit(&"hud.status.checkpoint_failed")
+		prompt.open(&"checkpoint.reload_required" if _needs_reload() else &"checkpoint.terminal_failed", &"blocked" if _needs_reload() else &"terminal_failed")
+		status_changed.emit(_failure_status())
 	else:
 		_terminal_retry_run = null
 		last_error = ""
@@ -222,7 +232,7 @@ func _on_safe_point(active: RunController) -> void:
 	if not _queued.ok:
 		last_error = _queued.reason
 		_queued.clear()
-		status_changed.emit(&"hud.status.checkpoint_failed")
+		status_changed.emit(_failure_status())
 		return
 	if not _saving and _job == null: _drain_saves()
 
@@ -237,7 +247,7 @@ func _drain_saves() -> void:
 		if _job.start_save(_store, encoded, DESKTOP_BUDGET_USEC) != OK:
 			_job = null
 			last_error = "worker_unavailable"
-			status_changed.emit(&"hud.status.checkpoint_failed")
+			status_changed.emit(_failure_status())
 			break
 		var result: Dictionary = await _join_job()
 		if result.ok:
@@ -247,7 +257,7 @@ func _drain_saves() -> void:
 			saved_mode = StringName(encoded.manifest.mode_id)
 		else:
 			last_error = result.reason
-			status_changed.emit(&"hud.status.checkpoint_failed")
+			status_changed.emit(_failure_status())
 	_saving = false
 
 func _save_exit() -> void:
@@ -261,7 +271,7 @@ func _save_exit() -> void:
 	var result: Dictionary
 	if _board.run != _exit_run: result = RunCheckpointCodec.failure("run_changed")
 	elif _exit_run.can_continue_challenge(): result = RunCheckpointCodec.failure("challenge_decision_pending")
-	elif _exit_run.state.is_game_over: result = _store.invalidate(_exit_run.state.run_id, "terminal")
+	elif _exit_run.state.is_game_over: result = await _invalidate_run(_exit_run.state.run_id, "terminal")
 	elif _last_key == _key(_exit_run) and _exit_run.recorder != null and _exit_run.recorder.records.back().get("state") == RunSnapshot.capture(_exit_run):
 		result = {"ok": true, "reason": "", "reused_validated_checkpoint": true}
 	else:
@@ -278,8 +288,13 @@ func _save_exit() -> void:
 	if result.ok: exit_ready.emit(_exit_reason)
 	else:
 		last_error = result.reason
-		prompt.open(&"checkpoint.challenge_pending" if result.reason == "challenge_decision_pending" else &"checkpoint.exit_failed", &"save_failed")
-		status_changed.emit(&"hud.status.checkpoint_failed")
+		prompt.open(&"checkpoint.reload_required" if _needs_reload() else (&"checkpoint.challenge_pending" if result.reason == "challenge_decision_pending" else &"checkpoint.exit_failed"), &"blocked" if _needs_reload() else &"save_failed")
+		status_changed.emit(_failure_status())
+
+func _invalidate_run(run_id: String, reason: String) -> Dictionary:
+	var result: Dictionary = _store.invalidate(run_id, reason)
+	var committed: Dictionary = await _store.sync()
+	return result if committed.ok else RunCheckpointCodec.failure(committed.reason)
 
 func _join_job() -> Dictionary:
 	var current: CheckpointJob = _job
@@ -294,7 +309,7 @@ func _join_job() -> Dictionary:
 		frame_started = Time.get_ticks_usec()
 	var result: Dictionary = current.finish()
 	last_job_metrics = {"frames": frames, "maximum_gap_usec": maximum_gap, "elapsed_usec": Time.get_ticks_usec() - started, "freeze_usec": last_freeze_usec, "ok": result.ok}
-	print("CHECKPOINT_DESKTOP_JOB " + JSON.stringify(last_job_metrics))
+	print(("CHECKPOINT_WEB_JOB " if OS.has_feature("web") else "CHECKPOINT_DESKTOP_JOB ") + JSON.stringify(last_job_metrics))
 	if _job == current: _job = null
 	if last_error == "worker_busy":
 		last_error = ""
@@ -342,9 +357,15 @@ func _load_failed(reason: String) -> bool:
 	last_error = reason
 	restoring = false
 	get_tree().paused = _previous_pause
-	prompt.open(&"checkpoint.load_failed", &"blocked")
-	status_changed.emit(&"hud.status.checkpoint_failed")
+	prompt.open(&"checkpoint.reload_required" if _needs_reload() else &"checkpoint.load_failed", &"blocked")
+	status_changed.emit(_failure_status())
 	return false
+
+func _needs_reload() -> bool:
+	return last_error.ends_with("web_storage_conflict") or last_error.ends_with("web_storage_not_open")
+
+func _failure_status() -> StringName:
+	return &"hud.status.checkpoint_reload_required" if _needs_reload() else &"hud.status.checkpoint_failed"
 
 func _refresh_metadata() -> void:
 	var metadata: Dictionary = _store.inspect_latest()

@@ -40,6 +40,30 @@ The desktop rebuild budget is a soft acceptance check after replay, not a preemp
 timeout or an end-to-end latency guarantee. Threaded waiting does not establish a
 bound on final scene adoption or rendering stalls.
 
-Desktop process-death checks and Web persistence are separate acceptance paths.
-This protocol description does not assert Web availability, power-loss durability,
-zero lost progress after forced termination, or support for unbounded run lengths.
+## Web backend
+
+The single-threaded Web path creates no Thread. It reconstructs frozen values on the
+main thread, then waits for an IndexedDB read/write transaction to complete before
+acknowledging the checkpoint. Synchronous reconstruction can stall a frame; the
+desktop waiting-frame measurements do not describe Web responsiveness.
+
+The database `skill-lines-checkpoints-v1` stores one `automatic` value in `state`.
+Its revision is checked inside the same transaction to reject a stale tab's overwrite.
+The payload is `checkpoint-web-files-v1`, with a map of restricted checkpoint file
+names to canonical base64 bytes. The private file set includes rollback/invalidity
+records and corrupt originals, is limited to 2048 files and 64 MiB of decoded bytes,
+and is committed atomically. It contains data only, never executable objects.
+
+A failed transaction restores the last acknowledged local file set and revokes the
+unacknowledged completed ticket. Retry must stage again. A stale revision or closed
+connection requires reload; it does not reuse the stale local slot. Opening an
+unknown, unreadable or malformed snapshot never clears or replaces it. Invalidation
+must be acknowledged before the application permits a replacement run or exit;
+cancelling the UI does not release a pending IO owner.
+
+Web telemetry collection is currently disabled. Rule persistence is independent of
+telemetry persistence and does not establish a complete Web observation parent chain.
+Desktop process-death checks and actual Web refresh/retention are separate acceptance
+paths. Browser retention depends on storage permissions and profile lifetime; private
+contexts, clearing site data and forced termination do not provide a zero-loss promise.
+No power-loss durability or support for unbounded run lengths is implied.

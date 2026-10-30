@@ -97,6 +97,7 @@ func _refresh_text() -> void:
 	if not OS.has_feature("web"):
 		version_label.text = tr("v%s · 桌面试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
 		notice.text = tr("试玩记录保存在本机，不上传。\n从下方打开目录或导出记录；Excel 分析在离线工具中完成。")
+	else: notice.text = tr("checkpoint.web_notice")
 	language.set_item_text(0, tr("语言：跟随系统"))
 	play_button.text = tr("继续本局") if _has_game else tr("开始试玩")
 	learn_button.text = tr("重看操作练习") if _tutorial_seen else tr("先试一下 · 操作练习")
@@ -110,8 +111,9 @@ func _refresh_text() -> void:
 	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
 	_quit_button.text = tr("checkpoint.quit")
 	if _checkpoint_enabled:
-		notice.text += "\n" + tr("checkpoint.notice")
-		if not _checkpoint_error.is_empty(): hint.text = tr("checkpoint.waiting" if _checkpoint_error == "worker_busy" else "checkpoint.load_failed")
+		if not OS.has_feature("web"): notice.text += "\n" + tr("checkpoint.notice")
+		if not _checkpoint_error.is_empty():
+			hint.text = tr("checkpoint.reload_required" if _checkpoint_error.ends_with("web_storage_conflict") or _checkpoint_error.ends_with("web_storage_not_open") else ("checkpoint.waiting" if _checkpoint_error == "worker_busy" else "checkpoint.load_failed"))
 
 func _play(new_run: bool) -> void:
 	close()
