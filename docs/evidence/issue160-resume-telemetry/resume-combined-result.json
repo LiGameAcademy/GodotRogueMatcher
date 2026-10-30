@@ -1,0 +1,24 @@
+{
+  "default_exit": 0,
+  "checks": {
+    "runs": true,
+    "events": true,
+    "groups": true,
+    "opportunities": true,
+    "errors": true,
+    "resume_branches": true
+  },
+  "bounded_v3_exit": 1,
+  "bounded_v3_errors": [
+    {
+      "path": "D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/resume-real-probe-final-sandbox/Godot/app_userdata/技能连珠/resume-telemetry-probe/30964-2923693/telemetry/23-30964-1793336934509000-3248465--s-865ebeb6c1976d1b57dd12d8.jsonl",
+      "reason": "invalid_telemetry_header",
+      "run_id": null
+    },
+    {
+      "reason": "incomplete_telemetry_no_complete_ending",
+      "run_id": "23-30964-1793336934509000-3248465"
+    }
+  ],
+  "bounded_complete": false
+}

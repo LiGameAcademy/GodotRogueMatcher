@@ -37,5 +37,11 @@ static func recover(path: String) -> Dictionary:
 		result.merge(final.payload, true)
 		result["end_class"] = TelemetryFacts.ending(final.payload.status)
 		result["data_integrity"] = "complete" if reader.complete else "write_failed"
+	if first.has("segment_id"):
+		result["segment_id"] = first.segment_id
+		result["resume"] = first.resume.duplicate(true)
+		if final.event_name == "resume_segment_closed" and not malformed:
+			result["end_class"] = "checkpoint_suspended"
+			result["reason"] = final.payload.reason
 	result["last_observed_utc"] = final.get("observed_at_utc")
 	return RunSnapshot.normalize(result)

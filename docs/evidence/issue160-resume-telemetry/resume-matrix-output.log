@@ -1,0 +1,101 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/resume-matrix-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_resume_telemetry.gd
+[0m* test_resume_header_has_unique_segment_event_identity_and_never_replays_run_started
+* test_checkpoint_wrapper_preserves_accepted_and_persisted_anchor_without_changing_rules
+* test_real_resume_files_preserve_originals_and_new_commands_match_without_history_emission
+* test_missing_wrapper_schema_with_replacement_key_is_rejected_and_bad_trace_does_not_block_save
+* test_lineage_reassembles_unique_chain_once_and_preserves_discarded_tail_and_source_events
+* test_ambiguous_resume_leaves_and_missing_or_bad_anchors_do_not_create_natural_samples
+* test_failed_save_keeps_old_anchor_while_later_observations_are_real_and_preserved
+* test_worker_prepares_rule_file_once_and_telemetry_io_failure_does_not_block_rules
+WARNING: resume_record_open_failed
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:124)
+       [1] open_resume_file (res://gameplay/run/recording/run_recorder.gd:154)
+       [2] _load (res://services/run_checkpoint/checkpoint_job.gd:49)
+* test_frozen_root_observation_resumes_without_duplicate_action_or_skill_events
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_telemetry.gd
+[0m* test_collecting_and_failed_sink_do_not_change_rules_or_random_streams
+WARNING: 本局分析记录不完整：test_write_failure
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:255)
+       [1] flush_pending (res://services/telemetry/telemetry_projector.gd:292)
+       [2] play (res://tools/bot_testing/bot_runner.gd:31)
+       [3] test_collecting_and_failed_sink_do_not_change_rules_or_random_streams (res://tests/rules/test_telemetry.gd:59)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_generated_without_visible_popup_is_not_human_exposure
+* test_repeated_presentation_failed_choice_and_duplicate_confirmation_are_deduplicated
+* test_bot_opportunities_use_generated_offers_without_fake_presentations
+* test_exported_csv_keeps_the_complete_event_envelope
+* test_clock_priority_focus_and_closing_total_are_exclusive
+* test_inputs_have_one_terminal_disposition_and_command_link
+* test_turn_aggregates_chain_and_generated_entities_once
+* test_local_sink_readback_precision_truncation_and_schema_rejection
+* test_core_json_strategy_works_without_autoload_and_preserves_null_error_boundary
+* test_overlapping_prefix_and_complete_files_count_one_run
+* test_experiment_variant_and_bot_configuration_are_separate_groups
+* test_active_core_turn_counts_source_removal_and_reports_action
+[1m13/13 passed.
+[0m[4m
+
+res://tests/rules/test_collection_lifecycle.gd
+[0m* test_exit_during_action_records_incomplete_root_and_unique_summary
+* test_finished_action_conserves_score_and_space_and_recovers_only_prefix
+* test_live_session_is_never_recovered_and_zip_contains_current_prefix
+* test_end_screen_session_location_does_not_rewrite_gameplay_ending
+* test_failed_directory_does_not_reject_legal_command
+WARNING: 本局分析记录不完整：telemetry_queue_limit
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:255)
+       [1] _emit (res://services/telemetry/telemetry_projector.gd:224)
+       [2] _start (res://services/telemetry/telemetry_projector.gd:126)
+       [3] observe_record (res://services/telemetry/telemetry_projector.gd:48)
+       [4] append (res://gameplay/run/recording/run_recorder.gd:60)
+       [5] begin (res://gameplay/run/recording/run_recorder.gd:39)
+       [6] test_failed_directory_does_not_reject_legal_command (res://tests/rules/test_collection_lifecycle.gd:111)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_goal_reward_score_stays_outside_completed_action_and_has_own_identity
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_collection_batches.gd
+[0m* test_local_sink_accepts_in_memory_then_persists_one_batch
+* test_pressure_snapshot_computes_real_empty_components_without_rng
+[1m2/2 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               4
+Tests                30
+Passing Tests        30
+Asserts             281
+Time              24.85s
+
+
+[32m---- All tests passed! ----
+[0m

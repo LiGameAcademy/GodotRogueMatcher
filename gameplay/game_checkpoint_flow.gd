@@ -19,6 +19,9 @@ var restoring: bool = false
 var closing: bool = false
 var last_freeze_usec: int = 0
 var last_job_metrics: Dictionary = {}
+var trace_provider: Callable
+var resume_plan_provider: Callable
+var last_resume_context: Dictionary = {}
 var _board: Board
 var _store: CheckpointStore
 var _job: CheckpointJob
@@ -84,13 +87,15 @@ func continue_saved() -> bool:
 	var policy_run: RunController = RunController.new(BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT), 0, mode.stage_config)
 	var compatibility: Dictionary = RunCheckpointCodec.manifest(policy_run)
 	_job = CheckpointJob.new()
-	if _job.start_load(_store, compatibility, DESKTOP_BUDGET_USEC) != OK:
+	var resume_plan: Dictionary = resume_plan_provider.call() if resume_plan_provider.is_valid() else {}
+	if _job.start_load(_store, compatibility, DESKTOP_BUDGET_USEC, resume_plan) != OK:
 		_job = null
 		return _load_failed("worker_unavailable")
 	var result: Dictionary = await _join_job()
 	if epoch != _epoch: return false
 	if not result.ok: return _load_failed(result.reason)
 	if result.run.initialization != "normal" or not result.run.prototype_profile.is_empty(): return _load_failed("unsupported_checkpoint_context")
+	var adopting: int = Time.get_ticks_usec()
 	before_restore.emit()
 	_taking_over = true
 	var adopted: bool = _board.adopt_checkpoint(result.run)
@@ -103,8 +108,12 @@ func continue_saved() -> bool:
 	last_error = ""
 	get_tree().paused = false
 	prompt.close()
-	_last_key = _key(result.run)
+	_last_key = ""
+	last_resume_context = result.get("resume_context", {}).duplicate(true)
 	restored.emit(result.run, result.fallback)
+	last_job_metrics["resume_prepare_usec"] = result.get("resume_prepare_usec", 0)
+	last_job_metrics["adoption_usec"] = Time.get_ticks_usec() - adopting
+	print("CHECKPOINT_DESKTOP_RESTORE " + JSON.stringify(last_job_metrics))
 	status_changed.emit(&"hud.status.checkpoint_fallback" if result.fallback else &"hud.status.checkpoint_restored")
 	return true
 
@@ -205,9 +214,7 @@ func _on_safe_point(active: RunController) -> void:
 		return
 	if not _armed or restoring or _transition or active.initialization != "normal": return
 	if _key(active) == _last_key: return
-	var started: int = Time.get_ticks_usec()
-	_queued = _history.freeze(active)
-	last_freeze_usec = Time.get_ticks_usec() - started
+	_queued = _freeze(active)
 	if not _queued.ok:
 		last_error = _queued.reason
 		_queued.clear()
@@ -254,7 +261,7 @@ func _save_exit() -> void:
 	elif _last_key == _key(_exit_run) and _exit_run.recorder != null and _exit_run.recorder.records.back().get("state") == RunSnapshot.capture(_exit_run):
 		result = {"ok": true, "reason": "", "reused_validated_checkpoint": true}
 	else:
-		var encoded: Dictionary = _history.freeze(_exit_run)
+		var encoded: Dictionary = _freeze(_exit_run)
 		if not encoded.ok: result = encoded
 		else:
 			_job = CheckpointJob.new()
@@ -351,3 +358,10 @@ func _on_run_reset() -> void:
 
 func _key(active: RunController) -> String:
 	return "" if active.recorder == null else active.state.run_id + ":" + str(active.recorder.records.size())
+
+func _freeze(active: RunController) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var encoded: Dictionary = _history.freeze(active)
+	if encoded.ok and trace_provider.is_valid(): encoded["telemetry"] = trace_provider.call(active).duplicate(true)
+	last_freeze_usec = Time.get_ticks_usec() - started
+	return encoded

@@ -21,3 +21,9 @@ func show_status(message: String, enabled: bool, can_quit: bool) -> void:
 	folder.disabled = not enabled
 	export_button.disabled = not enabled
 	quit_button.visible = can_quit
+
+func bind_collection(collection: RunCollection, request_quit: Callable, can_quit: bool) -> void:
+	folder_requested.connect(collection.open_directory)
+	export_requested.connect(collection.export_files)
+	quit_requested.connect(request_quit)
+	show_status(collection.save_status(), collection.enabled, can_quit)

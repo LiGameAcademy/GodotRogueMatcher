@@ -1,0 +1,72 @@
+{
+	"errors": [],
+	"events": 11,
+	"groups": {
+		"human/da5612a2032e344e5277d9fe15915094438ab47d75224c4a603a806406424f74/incomplete": {
+			"count": 1,
+			"dimensions": {
+				"bot_config_hash": null,
+				"build_id": "resume_probe",
+				"collection_config_hash": "ae833abf8c4f0c5085c05146bd39b969a4bb5086767817aa797046cc7f47d3d8",
+				"collection_context": "automated_integration",
+				"commit_id": "unknown",
+				"config_hash": "6467b99980a07328b1d3dae759f8a951d9e9765464786c167a9ebdec4c9ec0aa",
+				"content_version": "38cc87c17cb2607efa1590322b9954bb35963770d2f8d8e6bf098cb964c70389",
+				"experiment_id": null,
+				"initialization": "normal",
+				"mode_id": "classic_endless",
+				"offer_version": "offer-unified-trial-v2",
+				"pressure_version": "pressure-observation-v1-alpha-0.7-trial",
+				"rule_version": "run-commands-v46-unified-offer-audit",
+				"schema_version": "2",
+				"source": "human",
+				"strategy_version": null,
+				"variant_id": null
+			},
+			"moves_p10_p50_p90": [],
+			"score_p10_p50_p90": [],
+			"status": "incomplete"
+		}
+	},
+	"opportunities": {
+		"eligibility": {},
+		"eligibility_rate": null,
+		"eligibility_scope": "generated_pool_diagnostics",
+		"failed_choices": 0,
+		"human_generated_not_presented": 0,
+		"legacy_groups_without_explanations": 0,
+		"opportunity_protocol": "parent-run-reward-v1",
+		"pool_audit": {
+			"complete_rate": null,
+			"complete_rewards": 0,
+			"legacy_rewards": 0
+		},
+		"presented_not_consumed": 0,
+		"replaced_groups": 0,
+		"skills": {}
+	},
+	"resume_branches": [
+		{
+			"discarded_event_ids": [
+				"23-30964-1793336934509000-3248465:2",
+				"23-30964-1793336934509000-3248465:3",
+				"23-30964-1793336934509000-3248465:4",
+				"23-30964-1793336934509000-3248465:5",
+				"23-30964-1793336934509000-3248465:6",
+				"23-30964-1793336934509000-3248465:7",
+				"23-30964-1793336934509000-3248465:8",
+				"23-30964-1793336934509000-3248465:9",
+				"23-30964-1793336934509000-3248465:10"
+			],
+			"ok": true,
+			"reason": "",
+			"run_id": "23-30964-1793336934509000-3248465",
+			"segments": [
+				"probe-parent-30964-2923693",
+				"s-865ebeb6c1976d1b57dd12d8"
+			]
+		}
+	],
+	"runs": 1,
+	"schema": "telemetry-report-v1"
+}

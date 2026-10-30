@@ -6,8 +6,14 @@ var _game: Node
 var _flow: Node
 var _board: Node
 var _report: Dictionary = {"kind": "instrumented_gpu_scene_probe", "author_feedback": null}
+var _prefix: String = "desktop-gpu"
 
 func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--prefix="): _prefix = arg.trim_prefix("--prefix=")
+	if RegEx.create_from_string("^[a-z0-9_-]+$").search(_prefix) == null:
+		quit(2)
+		return
 	_run.call_deferred()
 
 func _run() -> void:
@@ -75,12 +81,13 @@ func _capture(label: String) -> void:
 	await process_frame
 	await RenderingServer.frame_post_draw
 	var pixels: Image = get_root().get_texture().get_image()
-	var path: String = "res://.godot/desktop-gpu-%s.png" % label
+	var path: String = "res://.godot/%s-%s.png" % [_prefix, label]
 	var error: Error = pixels.save_png(path)
 	_report["capture_" + label] = {"path": path, "ok": error == OK, "size": str(pixels.get_size())}
 
 func _on_exit_ready(reason: String) -> void:
 	_report["normal_exit_signal"] = reason
+	_report["exit_job_metrics"] = _flow.get("last_job_metrics").duplicate(true)
 	_write()
 
 func _fail(reason: String) -> void:
@@ -89,7 +96,7 @@ func _fail(reason: String) -> void:
 	quit(1)
 
 func _write() -> void:
-	var file: FileAccess = FileAccess.open("res://.godot/desktop-gpu-report.json", FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open("res://.godot/%s-report.json" % _prefix, FileAccess.WRITE)
 	file.store_string(JSON.stringify(_report, "\t", true, true))
 	file.close()
 	print("CHECKPOINT_GPU_REPORT " + JSON.stringify(_report))

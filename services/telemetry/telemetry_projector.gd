@@ -34,6 +34,7 @@ var _pressure_cache: Dictionary[String, Dictionary] = {}
 var _play_started: bool = false
 var summary_path: String = ""
 var needs_flush: bool = false
+var _muted: bool = false
 
 func _init(destination: TelemetrySink, session_id: String, timer: Callable = Callable()) -> void:
 	sink = destination
@@ -54,6 +55,26 @@ func observe_record(row: Dictionary) -> void:
 		"RuleResult": _resolved(row)
 		"Footer": _finish(row)
 
+## Reconstructs only the unfinished root observation, without publishing historical events.
+func begin_resume(header: Dictionary, records: Array[Dictionary]) -> void:
+	_muted = true
+	_start(header)
+	if _state.phase == str(RunState.Phase.REWARDS) and _state.action.to_int() > 0:
+		var start: int = -1
+		for index: int in range(records.size() - 1, 0, -1):
+			var row: Dictionary = records[index]
+			if row.kind == "CommandAttempt" and row.accepted and row.command.type in ["move", "detonate", "activate_line"]:
+				start = index
+				break
+		if start >= 0:
+			for index: int in range(start, records.size()): observe_record(records[index])
+	_muted = false
+	_complete_actions = 0
+	_last_complete_action = "0"
+	_start(header)
+	var offer: Dictionary = header.initial.get("offer", {})
+	if not offer.is_empty(): _offers[offer.offer_id] = true
+
 func set_interval(category: String) -> void:
 	if ended or _base.is_empty() or not clock.times.has(category) or category == clock.category: return
 	_emit("observation_interval_closed", clock.change(category))
@@ -65,14 +86,14 @@ func paired_window_resolved(result: Dictionary) -> void:
 func offer_presented(offer_id: int, order: Array[String]) -> bool:
 	if ended or _base.get("source") not in ["human", "fixture"] or not _offers.has(str(offer_id)): return false
 	_presentation_seq += 1
-	_emit("offer_presented", {"offer_id": str(offer_id), "presentation_id": "%s:p:%d" % [_base.run_id, _presentation_seq], "choices": order.duplicate(), "density": _density()})
+	_emit("offer_presented", {"offer_id": str(offer_id), "presentation_id": "%s:p:%d" % [_identity_prefix(), _presentation_seq], "choices": order.duplicate(), "density": _density()})
 	return true
 
 func begin_input(type: String, buffered: bool = false) -> String:
 	if ended or _base.is_empty(): return ""
 	_input_seq += 1
 	_last_input_ms = clock.elapsed()
-	var id: String = "%s:i:%d" % [_base.run_id, _input_seq]
+	var id: String = "%s:i:%d" % [_identity_prefix(), _input_seq]
 	_inputs[id] = {"input_id": id, "type": type, "buffered": buffered}
 	return id
 
@@ -93,11 +114,16 @@ func _start(header: Dictionary) -> void:
 	_base["bot_config_hash"] = null if bot_config.is_empty() else RunSnapshot.digest(bot_config)
 	_base.merge({"mode_id": header.config.mode_id, "collection_context": header.metadata.get("collection_context", "bot_batch" if header.source == "bot" else "fixture" if header.source == "fixture" else "unknown"), "commit_id": header.metadata.get("commit_id", "unknown"), "seed": header.seed, "pressure_version": TelemetryFacts.CONFIG.pressure_version, "collection_config_hash": RunSnapshot.digest(RunSnapshot.resource_fields(TelemetryFacts.CONFIG)), "rule_event_id": null, "parent_event_id": null, "root_action_id": null, "batch_id": null, "stage_id": null, "reward_id": null, "offer_id": null})
 	if header.source in ["bot", "fixture"]: _base["collection_context"] = "bot_batch" if header.source == "bot" else "fixture"
+	var resume: Dictionary = header.metadata.get("resume", {})
+	if not resume.is_empty():
+		_base.merge({"schema_version": TelemetrySchema.RESUME_VERSION, "segment_id": _session_id, "resume": resume.duplicate(true), "parent_run_id": header.run_id}, true)
 	clock = TelemetryClock.new(clock.time_source())
 	var companions: int = 0
 	for piece: Dictionary in _state.pieces:
 		if not piece.content_id.is_empty(): companions += 1
-	_emit("run_started", {"columns": header.config.columns, "rows": header.config.rows, "ordinary": _state.pieces.size() - companions, "companions": companions, "score": _state.total, "config": _config, "pressure_config": RunSnapshot.resource_fields(TelemetryFacts.CONFIG), "capabilities": {"goal_effects": true, "implemented_goal_effects": ["goal_score_bonus"], "rescue_weights": false, "unified_offer_explanations": true, "target_curve": false, "all_ability_attempts": false}, "initial_observation": observation()})
+	var started: Dictionary = {"columns": header.config.columns, "rows": header.config.rows, "ordinary": _state.pieces.size() - companions, "companions": companions, "score": _state.total, "config": _config, "pressure_config": RunSnapshot.resource_fields(TelemetryFacts.CONFIG), "capabilities": {"goal_effects": true, "implemented_goal_effects": ["goal_score_bonus"], "rescue_weights": false, "unified_offer_explanations": true, "target_curve": false, "all_ability_attempts": false}, "initial_observation": observation()}
+	if not resume.is_empty(): started["resume"] = resume.duplicate(true)
+	_emit("run_started" if resume.is_empty() else "run_resumed", started)
 
 func _resolved(row: Dictionary) -> void:
 	_state = row.after
@@ -181,12 +207,12 @@ func _density() -> float:
 	return float(_state.pieces.size()) / (_base.columns.to_int() * _base.rows.to_int())
 
 func _emit(name: String, payload: Dictionary, context: Dictionary = {}) -> void:
-	if ended or _base.is_empty(): return
+	if _muted or ended or _base.is_empty(): return
 	_seq += 1
 	var event: Dictionary = _base.duplicate()
 	event.erase("columns")
 	event.erase("rows")
-	event.merge({"event_id": _base.run_id + ":" + str(_seq), "telemetry_seq": str(_seq), "event_name": name, "elapsed_ms": str(clock.elapsed()), "payload": payload, "action_id": _state.action if _state.action.to_int() > 0 else null, "turn_index": _state.turn if _state.turn.to_int() > 0 else null}, true)
+	event.merge({"event_id": _identity_prefix() + ":" + str(_seq), "telemetry_seq": str(_seq), "event_name": name, "elapsed_ms": str(clock.elapsed()), "payload": payload, "action_id": _state.action if _state.action.to_int() > 0 else null, "turn_index": _state.turn if _state.turn.to_int() > 0 else null}, true)
 	event.merge(context, true)
 	event["observed_at_utc"] = Time.get_datetime_string_from_system(true)
 	event.payload = RunSnapshot.normalize(event.payload)
@@ -197,6 +223,34 @@ func _emit(name: String, payload: Dictionary, context: Dictionary = {}) -> void:
 	events.append(event)
 	_check((sink as LocalJsonlSink).append_validated(event) if sink is LocalJsonlSink else sink.append_event(event))
 	_last_observation_utc = Time.get_datetime_string_from_system(true)
+
+func _identity_prefix() -> String:
+	return String(_base.run_id) + (":" + String(_base.segment_id) if _base.has("segment_id") else "")
+
+## Records accepted and persisted positions independently; it does not flush or claim durability.
+func checkpoint_trace(record_seq: int, next_rule_event_id: int) -> Dictionary:
+	if _base.is_empty(): return {}
+	if not error.is_empty(): return {"status": "telemetry_failed", "reason": error}
+	var accepted: int = (sink as LocalJsonlSink).accepted_seq if sink is LocalJsonlSink else _seq
+	return {"schema": "checkpoint-telemetry-v1", "run_id": _base.run_id, "segment_id": _session_id, "accepted_seq": str(accepted), "persisted_seq": str((sink as LocalJsonlSink).persisted_seq) if sink is LocalJsonlSink else "0", "last_event_id": events[accepted - 1].event_id if accepted > 0 else "", "last_event_hash": RunSnapshot.digest(events[accepted - 1]) if accepted > 0 else "", "record_seq": str(record_seq), "next_rule_event_id": str(next_rule_event_id)}
+
+## Ends this observation file, never the logical rule run. Old v2 prefixes stay valid prefixes.
+func close_segment(reason: String, record_seq: int) -> void:
+	if ended: return
+	if _base.get("schema_version") == TelemetrySchema.RESUME_VERSION:
+		_emit("resume_segment_closed", {"reason": reason, "record_seq": str(record_seq)})
+	flush_pending()
+	ended = true
+	_check(sink.close())
+	if sink is LocalJsonlSink and not events.is_empty():
+		var local: LocalJsonlSink = sink as LocalJsonlSink
+		if not local.created: return
+		var data: Dictionary = {"summary_version": "recovered-run-summary-v2", "run_id": _base.run_id, "session_id": _session_id, "end_class": "checkpoint_suspended", "reason": reason, "data_integrity": "prefix_only", "record_complete": false, "last_persisted_seq": str(local.persisted_seq), "last_observation": observation(), "complete_actions": str(_complete_actions)}
+		data["telemetry_error"] = error
+		if not error.is_empty(): data.data_integrity = "write_failed"
+		if _base.get("schema_version") == TelemetrySchema.RESUME_VERSION: data["segment_id"] = _session_id
+		var problem: String = TelemetrySummary.write_unique(local.path + ".summary.json", data)
+		if not problem.is_empty(): _check(TelemetryWriteResult.new(TelemetryWriteResult.Status.FAILED, problem))
 
 func _check(result: TelemetryWriteResult) -> void:
 	if result.succeeded(): return

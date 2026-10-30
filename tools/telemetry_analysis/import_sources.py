@@ -18,6 +18,19 @@ STABLE_ENVELOPE = ("schema_version", "run_id", "session_id", "source", "initiali
     "strategy_version", "bot_config_hash", "experiment_id", "variant_id", "seed", "parent_run_id")
 
 
+def source_event(event: Any) -> Json:
+    """Recover the exact raw observation from a versioned derived analysis row."""
+    if not isinstance(event, dict):
+        raise ValueError("event is not an object")
+    if event.get("resume_reassembled") is not True:
+        return event
+    raw = event.get("source_event")
+    if (not isinstance(raw, dict) or raw.get("resume_reassembled") is True
+            or raw.get("event_id") != event.get("source_event_id")):
+        raise ValueError("invalid_resume_analysis_source")
+    return raw
+
+
 def canonical(value: Any) -> str:
     # Godot JSON numbers round-trip through float; integral floats equal integers.
     if isinstance(value, float) and value.is_integer():
@@ -93,6 +106,7 @@ def ingest(paths: list[Path], destination: Path) -> Json:
         inventory.append({"path": name, "sha256": hashlib.sha256(raw).hexdigest(),
                           "bytes": len(raw)})
         values: list[tuple[int, Json]] = []
+        is_lineage_document = False
         try:
             text = raw.decode("utf-8-sig")
             if name.lower().endswith(".jsonl"):
@@ -120,14 +134,29 @@ def ingest(paths: list[Path], destination: Path) -> Json:
                     if not isinstance(event, dict):
                         raise ValueError("event_json is not an object")
                     values.append((line_number, event))
-                values.sort(key=lambda item: (item[1].get("run_id", ""), int(item[1].get("telemetry_seq", "0"))))
+                views, values = values, []
+                for line, event in views:
+                    values.append((line, source_event(event)))
+                values.sort(key=lambda item: (item[1].get("run_id", ""),
+                            item[1].get("segment_id", item[1].get("session_id", "")),
+                            int(item[1].get("telemetry_seq", "0"))))
             elif name.lower().endswith(".json"):
                 summary = load_json(text)
-                if isinstance(summary, dict) and "run_id" in summary:
+                if isinstance(summary, dict) and summary.get("schema") == "telemetry-lineage-analysis-v1":
+                    is_lineage_document = True
+                    if not isinstance(summary.get("raw_events"), list):
+                        raise ValueError("invalid_resume_lineage_document")
+                    values = [(i, source_event(event)) for i, event in enumerate(summary["raw_events"], 1)]
+                    values.sort(key=lambda item: (item[1].get("run_id", ""),
+                                item[1].get("segment_id", item[1].get("session_id", "")),
+                                int(item[1].get("telemetry_seq", "0"))))
+                elif isinstance(summary, dict) and "run_id" in summary:
                     if not isinstance(summary["run_id"],str):
                         raise ValueError("invalid_summary_run_id")
                     summaries.append((name, summary))
-                continue
+                    continue
+                else:
+                    continue
             else:
                 continue  # Other six CSVs are projections, never extra observations.
         except (ValueError, TypeError, UnicodeError, csv.Error, KeyError) as error:
@@ -157,6 +186,7 @@ def ingest(paths: list[Path], destination: Path) -> Json:
             inventory[-1]["kind"] = "rule_record_evidence_not_telemetry"
             continue
         local_run: str | None = None
+        local_stream: str | None = None
         last_sequence = 0
         local_seen: set[str] = set()
         ended = False
@@ -167,23 +197,32 @@ def ingest(paths: list[Path], destination: Path) -> Json:
                 if not isinstance(run, str) or not isinstance(event_id, str):
                     raise ValueError("invalid_event_identity")
                 sequence = int(event["telemetry_seq"])
-                if local_run is not None and run != local_run and not name.lower().endswith("events.csv"):
+                segment = event.get("segment_id")
+                if event.get("schema_version") == "3" and (
+                        not isinstance(segment, str) or not segment
+                        or segment != event.get("session_id")):
+                    raise ValueError("invalid_resume_segment")
+                stream = run + ":" + segment if event.get("schema_version") == "3" else run
+                multi_stream = name.lower().endswith("events.csv") or is_lineage_document
+                if local_stream is not None and stream != local_stream and not multi_stream:
                     raise ValueError("mixed_run_file")
-                if name.lower().endswith("events.csv") and run != local_run:
+                if multi_stream and stream != local_stream:
                     local_seen, last_sequence, ended = set(), 0, False
                 if event_id not in local_seen:
                     if ended or sequence != last_sequence + 1:
                         raise ValueError("sequence_gap_or_events_after_ending")
-                    if sequence == 1 and event.get("event_name") != "run_started":
+                    initial_event = "run_resumed" if event.get("schema_version") == "3" else "run_started"
+                    if sequence == 1 and event.get("event_name") != initial_event:
                         raise ValueError("missing_run_started")
                     last_sequence = sequence
-                    ended = event.get("event_name") == "run_ended"
+                    ended = event.get("event_name") in {"run_ended", "resume_segment_closed"}
                 local_run = run
+                local_stream = stream
                 local_seen.add(event_id)
                 metadata = {key:event.get(key) for key in STABLE_ENVELOPE}
-                if run in headers and headers[run] != metadata:
+                if stream in headers and headers[stream] != metadata:
                     raise ValueError("conflicting_run_metadata")
-                headers.setdefault(run, metadata)
+                headers.setdefault(stream, metadata)
                 if event_id in events and canonical(events[event_id]) != canonical(event):
                     rejected.add(run)
                     diagnostics.append({"file": name, "run_id": run, "reason": "conflicting_event_id"})
@@ -198,6 +237,13 @@ def ingest(paths: list[Path], destination: Path) -> Json:
                 break
     for name, summary in summaries:
         run = summary["run_id"]
+        if summary.get("data_integrity") == "write_failed":
+            diagnostics.append({"file": name, "run_id": run, "reason": "telemetry_segment_write_failed",
+                                "detail": summary.get("telemetry_error", "unknown")})
+        if summary.get("segment_id") is not None:
+            continue  # Segment summaries are evidence, never additional natural run endings.
+        if any(e["run_id"] == run and e.get("schema_version") == "3" for e in events.values()):
+            continue  # The Reader's explicit ancestry, not a parent summary, selects the analysis view.
         endings = [e["payload"] for e in events.values()
                    if e["run_id"] == run and e["event_name"] == "run_ended"]
         if not endings:
@@ -215,7 +261,9 @@ def ingest(paths: list[Path], destination: Path) -> Json:
     grouped: dict[str, list[Json]] = {}
     for event in events.values():
         if event["run_id"] not in rejected:
-            grouped.setdefault(event["run_id"], []).append(event)
+            stream = (event["run_id"] + ":" + event["segment_id"]
+                      if event.get("schema_version") == "3" else event["run_id"])
+            grouped.setdefault(stream, []).append(event)
     destination.mkdir(parents=True, exist_ok=True)
     for run, rows in grouped.items():
         rows.sort(key=lambda row: int(row["telemetry_seq"]))
@@ -230,4 +278,5 @@ def ingest(paths: list[Path], destination: Path) -> Json:
             "files": inventory, "diagnostics": diagnostics,
             "rejected_runs": sorted(rejected), "source_refs": origins,
             "sessions":valid_sessions,"recovered":recovered,
-            "runs": len(grouped), "events": len(normalized)}
+            "runs": len({e["run_id"] for e in events.values() if e["run_id"] not in rejected}),
+            "segments": len(grouped), "events": len(normalized)}
