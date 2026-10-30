@@ -33,6 +33,8 @@ var _previous_pause: bool = false
 var _exit_reason: String = ""
 var _exit_run: RunController
 var _taking_over: bool = false
+var _terminal_in_progress: bool = false
+var _terminal_retry_run: RunController
 var _history: CheckpointHistory = CheckpointHistory.new()
 @onready var prompt: CheckpointPrompt = $CheckpointPrompt
 
@@ -56,7 +58,7 @@ func configure(board: Board, requested: bool, directory: String) -> void:
 	_refresh_metadata()
 
 func is_busy() -> bool:
-	return restoring or closing or _transition or (_job != null and not _saving)
+	return restoring or closing or _transition or _terminal_in_progress or (_job != null and not _saving)
 
 func arm_current() -> void:
 	if not enabled: return
@@ -117,7 +119,7 @@ func allow_new_run() -> bool:
 	_armed = false
 	while _saving: await get_tree().process_frame
 	var metadata: Dictionary = _store.inspect_latest()
-	if metadata.ok or was_armed:
+	if metadata.ok or metadata.reason == "invalidation_pending" or was_armed:
 		prompt.open(&"checkpoint.confirm_abandon", &"confirm")
 		var answer: StringName = await prompt.action_requested
 		if answer != &"confirm":
@@ -125,10 +127,12 @@ func allow_new_run() -> bool:
 			_transition = false
 			prompt.close()
 			return false
-	while metadata.ok:
+	while metadata.ok or metadata.reason == "invalidation_pending":
 		_last_key = ""
 		var invalidated: Dictionary = _store.invalidate(metadata.run_id, "restart")
-		if invalidated.ok: break
+		if invalidated.ok:
+			metadata = invalidated
+			break
 		last_error = invalidated.reason
 		prompt.open(&"checkpoint.invalidate_failed", &"invalidate_failed")
 		var answer: StringName = await prompt.action_requested
@@ -173,16 +177,26 @@ func terminal(active: RunController, accepted_end: bool = false) -> void:
 	if not enabled or active != _board.run: return
 	if not active.state.is_game_over: return
 	if active.can_continue_challenge() and not accepted_end: return
+	if _terminal_in_progress: return
+	_terminal_in_progress = true
 	_queued.clear()
 	_armed = false
 	while _saving or _job != null: await get_tree().process_frame
+	_terminal_in_progress = false
 	if active != _board.run: return
 	_last_key = ""
 	var result: Dictionary = _store.invalidate(active.state.run_id, "terminal")
+	saved_available = false
 	if not result.ok:
+		_terminal_retry_run = active
 		last_error = result.reason
+		prompt.open(&"checkpoint.terminal_failed", &"terminal_failed")
 		status_changed.emit(&"hud.status.checkpoint_failed")
-	else: saved_available = false
+	else:
+		_terminal_retry_run = null
+		last_error = ""
+		prompt.close()
+		status_changed.emit(&"hud.status.challenge_completed" if active.state.end_reason == &"challenge_completed" else &"hud.status.board_full")
 
 func _on_safe_point(active: RunController) -> void:
 	if not enabled or active != _board.run: return
@@ -235,6 +249,7 @@ func _save_exit() -> void:
 		return
 	var result: Dictionary
 	if _board.run != _exit_run: result = RunCheckpointCodec.failure("run_changed")
+	elif _exit_run.can_continue_challenge(): result = RunCheckpointCodec.failure("challenge_decision_pending")
 	elif _exit_run.state.is_game_over: result = _store.invalidate(_exit_run.state.run_id, "terminal")
 	elif _last_key == _key(_exit_run) and _exit_run.recorder != null and _exit_run.recorder.records.back().get("state") == RunSnapshot.capture(_exit_run):
 		result = {"ok": true, "reason": "", "reused_validated_checkpoint": true}
@@ -252,7 +267,7 @@ func _save_exit() -> void:
 	if result.ok: exit_ready.emit(_exit_reason)
 	else:
 		last_error = result.reason
-		prompt.open(&"checkpoint.exit_failed", &"save_failed")
+		prompt.open(&"checkpoint.challenge_pending" if result.reason == "challenge_decision_pending" else &"checkpoint.exit_failed", &"save_failed")
 		status_changed.emit(&"hud.status.checkpoint_failed")
 
 func _join_job() -> Dictionary:
@@ -296,9 +311,12 @@ func _visible_frame() -> void:
 
 func _on_prompt_action(action: StringName) -> void:
 	if _transition: return
-	if action == &"retry" and closing: _save_exit()
+	if action == &"retry" and _terminal_retry_run != null: terminal(_terminal_retry_run, true)
+	elif action == &"leave_old" and _terminal_retry_run != null: exit_ready.emit("terminal_invalidation_unverified")
+	elif action == &"retry" and closing: _save_exit()
 	elif action == &"leave_old" and closing: exit_ready.emit(_exit_reason + ":old_checkpoint_retained")
 	elif action == &"cancel":
+		_terminal_retry_run = null
 		_epoch += 1
 		closing = false
 		restoring = false
@@ -329,6 +347,7 @@ func _on_run_reset() -> void:
 	_queued.clear()
 	_last_key = ""
 	_history = CheckpointHistory.new()
+	_terminal_retry_run = null
 
 func _key(active: RunController) -> String:
 	return "" if active.recorder == null else active.state.run_id + ":" + str(active.recorder.records.size())

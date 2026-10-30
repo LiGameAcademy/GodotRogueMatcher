@@ -44,7 +44,7 @@ func is_open() -> bool:
 func _refresh() -> void:
 	_message_label.text = tr(_message)
 	primary.text = tr("checkpoint.confirm_new" if _kind == &"confirm" else "checkpoint.retry")
-	leave_old.text = tr("checkpoint.leave_old")
+	leave_old.text = tr("checkpoint.leave_unverified_terminal" if _kind == &"terminal_failed" else "checkpoint.leave_old")
 	cancel_button.text = tr("checkpoint.cancel")
-	primary.visible = _kind in [&"confirm", &"save_failed", &"invalidate_failed"]
-	leave_old.visible = _kind == &"save_failed"
+	primary.visible = _kind in [&"confirm", &"save_failed", &"invalidate_failed", &"terminal_failed"]
+	leave_old.visible = _kind in [&"save_failed", &"terminal_failed"]

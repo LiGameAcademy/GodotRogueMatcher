@@ -1000,3 +1000,6 @@ checkpoint.quit,保存并退出,Save and quit
 checkpoint.notice,退出前会保存到安全点；异常关闭只能回到上次成功保存的位置。,Quitting saves a safe checkpoint. An unexpected close returns to the last successful save.
 hud.status.checkpoint_waiting,上一项续局操作尚未结束，请稍候。,The previous checkpoint operation is still finishing. Please wait.
 checkpoint.waiting,上一项续局操作尚未结束，请稍候再试。,The previous checkpoint operation is still finishing. Please try again shortly.
+checkpoint.terminal_failed,未能确认本局结束标记已保存。请重试；直接退出可能在下次启动恢复旧检查点。,The end-of-run marker could not be verified. Retry; quitting now may restore an older checkpoint next time.
+checkpoint.leave_unverified_terminal,仍然退出（旧检查点可能恢复）,Quit anyway (an older checkpoint may return)
+checkpoint.challenge_pending,请先取消退出并选择继续挑战或结束本局；也可确认退出并保留上次有效检查点。,Cancel quitting and choose whether to continue the challenge or end this run. You may also leave with the last valid checkpoint.

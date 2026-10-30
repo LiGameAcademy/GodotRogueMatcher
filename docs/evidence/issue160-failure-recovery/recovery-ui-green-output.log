@@ -1,0 +1,120 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/recovery-ui-green-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_checkpoint_recovery.gd
+[0m* test_rule_bad_primary_recovers_previous_without_rewriting_and_next_save_keeps_verified_backup
+* test_both_rule_bad_fail_and_keep_originals
+* test_unknown_payload_schema_is_not_silently_rolled_back
+* test_manifest_mismatch_and_budget_rejection_do_not_select_previous
+* test_terminal_invalidation_overrides_rule_bad_primary_and_valid_previous
+* test_known_initial_state_and_missing_stream_corruption_recover_previous
+* test_unknown_header_rng_protocol_does_not_fall_back
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_store.gd
+[0m* test_primary_previous_frozen_values_and_64_bit_string_round_trip
+* test_stale_tickets_duplicate_commit_and_reentry
+* test_invalid_values_and_manifests_never_advance_or_write
+* test_corrupt_primary_falls_back_and_repair_preserves_original
+* test_unknown_schema_incompatible_manifest_and_both_corrupt_refuse
+* test_write_read_copy_replace_and_finish_failures_preserve_exact_old_pair
+* test_interrupted_commit_recovers_old_pair_before_loading
+* test_corrupt_journal_and_rollback_copy_fail_closed
+* test_reopen_identity_and_invalidation_override_both_generations
+* test_invalidation_failure_never_claims_success_or_reopens_old_tickets
+* test_terminal_and_corrupt_invalidation_markers_block_backup_revival
+* test_late_invalidation_error_may_have_committed_and_is_not_a_rollback
+* test_completed_old_ticket_is_rejected_after_external_invalidation
+* test_stale_owner_cannot_overwrite_a_newer_disk_generation
+* test_valid_json_checksum_damage_is_rejected_on_readback_and_load
+* test_generation_encoding_and_exhaustion_do_not_silently_normalize
+* test_real_disk_reopen_previous_and_raw_corrupt_bytes_copy
+* test_disk_read_hash_and_copy_enforce_the_same_size_limit
+* test_real_disk_commit_failure_and_interruption_restore_exact_pair
+* test_real_disk_failed_invalidation_then_verified_retry
+* test_incomplete_durable_invalidation_intent_blocks_both_generations_after_reopen
+* test_failure_before_any_intent_is_written_cannot_claim_cross_restart_invalidation
+* test_recovery_rejects_stale_primary_proof_and_other_run_previous
+[1m23/23 passed.
+[0m[4m
+
+res://tests/rules/test_run_checkpoint_codec.gd
+[0m* test_input_payload_roundtrips_max_seed_and_isolates_object_graph
+* test_input_restore_continues_multiple_identical_commands_and_preserves_retry_cache
+* test_frozen_reward_keeps_candidates_targets_stage_plan_and_consumes_once
+* test_shape_unlock_and_empty_recovery_budget_are_reconstructed_without_bonus
+* test_unsafe_phases_closed_runs_and_unfrozen_rewards_are_rejected
+* test_held_matches_without_blasts_are_not_a_safe_checkpoint
+* test_snapshot_not_backed_by_complete_prefix_and_partial_tail_are_rejected
+* test_corruption_schema_missing_fields_and_integer_encoding_fail_without_touching_live_run
+* test_frozen_endpoint_tampering_cannot_be_hidden_by_rehashing
+* test_manifest_and_rebuild_limits_fail_explicitly
+* test_real_slot_two_generations_new_instance_and_corrupt_primary_fallback
+* test_invalidated_run_cannot_reappear_from_primary_or_backup
+* test_invalid_save_leaves_real_slot_bytes_and_source_unchanged
+* test_real_commit_failure_preserves_exact_pair_and_can_retry
+* test_malformed_frozen_targets_are_rejected_before_snapshot_traversal
+* test_frozen_before_end_reopens_from_disk_and_keeps_refill_obligation
+* test_manual_use_counts_survive_a_complete_input_checkpoint
+* test_stage_frozen_offer_roundtrips_exact_float_weights_through_real_slot
+* test_bad_storage_packages_fail_without_touching_live_run_or_slot
+[1m19/19 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_job.gd
+[0m* test_frozen_save_does_not_read_a_live_run_and_load_returns_an_isolated_candidate
+* test_inspection_checks_invalidation_and_never_constructs_a_run
+* test_incremental_history_is_read_only_and_remains_independent_of_the_source
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_desktop_checkpoint_flow.gd
+[0m* test_real_continue_button_binds_input_state_and_rebuilds_without_rule_commits
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":309936,"frames":977,"freeze_usec":0,"maximum_gap_usec":11835,"ok":true}
+* test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_choose_twice
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":429699,"frames":3442,"freeze_usec":0,"maximum_gap_usec":910,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":433821,"frames":3529,"freeze_usec":0,"maximum_gap_usec":1496,"ok":true}
+* test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":159627,"frames":997,"freeze_usec":28247,"maximum_gap_usec":37457,"ok":true}
+* test_exit_save_can_be_cancelled_without_releasing_worker_ownership
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":123989,"frames":1034,"freeze_usec":0,"maximum_gap_usec":815,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":448658,"frames":3124,"freeze_usec":1492,"maximum_gap_usec":2750,"ok":true}
+* test_exit_failure_keeps_old_file_and_retry_reaches_the_exit_signal
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":121994,"frames":1028,"freeze_usec":0,"maximum_gap_usec":642,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":112005,"frames":674,"freeze_usec":0,"maximum_gap_usec":2026,"ok":false}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":155780,"frames":990,"freeze_usec":0,"maximum_gap_usec":905,"ok":true}
+* test_new_run_requires_confirmation_and_old_identity_is_invalid_before_new_save
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":159446,"frames":559,"freeze_usec":29303,"maximum_gap_usec":70971,"ok":true}
+* test_pending_challenge_victory_can_continue_and_save_same_run
+* test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":133650,"frames":737,"freeze_usec":0,"maximum_gap_usec":6698,"ok":true}
+* test_real_full_board_terminal_failure_is_visible_and_retry_finishes_durable_invalidation
+[1m9/9 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               5
+Tests                61
+Passing Tests        61
+Asserts             778
+Time              26.8s
+
+
+[32m---- All tests passed! ----
+[0m

@@ -378,10 +378,45 @@ func test_real_disk_failed_invalidation_then_verified_retry() -> void:
 	assert_true(FileAccess.file_exists(directory.path_join(marker + ".tmp")))
 	assert_false(FileAccess.file_exists(directory.path_join(marker)))
 	var after_failure: CheckpointStore = CheckpointStore.new(directory)
-	assert_true(after_failure.load_latest(MANIFEST).ok, "no verified durable marker: the last checkpoint still exists")
+	assert_eq(after_failure.load_latest(MANIFEST).reason, "invalidation_pending", "durable temporary intent blocks restart before final marker commit")
 	assert_false(after_failure.begin_run("different-new-run").ok, "new identity still requires verified old-run invalidation")
 	assert_true(disk.invalidate("disk-run", "terminal").ok)
 	assert_eq(CheckpointStore.new(directory).load_latest(MANIFEST).reason, "run_invalidated")
+
+func test_incomplete_durable_invalidation_intent_blocks_both_generations_after_reopen() -> void:
+	_seed_pair()
+	var marker: String = _path("invalid-" + "run-a".sha256_text() + ".json.tmp")
+	files.data[marker] = "interrupted-write"
+	files.data[_path("primary.json")] = "corrupt-primary"
+	var reopened: CheckpointStore = CheckpointStore.new(DIRECTORY, files)
+	assert_eq(reopened.load_latest(MANIFEST).reason, "invalidation_pending")
+	assert_eq(reopened.inspect_latest().reason, "invalidation_pending")
+	assert_false(reopened.begin_run("run-b").ok)
+	assert_true(reopened.invalidate("run-a", "terminal").ok)
+	assert_eq(CheckpointStore.new(DIRECTORY, files).load_latest(MANIFEST).reason, "run_invalidated")
+
+func test_failure_before_any_intent_is_written_cannot_claim_cross_restart_invalidation() -> void:
+	_seed_pair()
+	var marker: String = "invalid-" + "run-a".sha256_text() + ".json.tmp"
+	files.failures["write:" + marker] = 1
+	assert_false(store.invalidate("run-a", "terminal").ok)
+	assert_eq(store.load_latest(MANIFEST).reason, "invalidation_pending")
+	assert_true(CheckpointStore.new(DIRECTORY, files).load_latest(MANIFEST).ok, "no write can mean no persistent intent; caller must report failure")
+	assert_true(store.invalidate("run-a", "terminal").ok)
+	assert_eq(CheckpointStore.new(DIRECTORY, files).load_latest(MANIFEST).reason, "run_invalidated")
+
+func test_recovery_rejects_stale_primary_proof_and_other_run_previous() -> void:
+	_seed_pair()
+	var primary: Dictionary = store.load_latest(MANIFEST).record
+	_save("new-primary")
+	assert_eq(store.previous_after_rejection(MANIFEST, primary).reason, "recovery_primary_changed")
+	primary = store.load_latest(MANIFEST).record
+	var previous: Dictionary = JSON.parse_string(files.data[_path("previous.json")])
+	previous.run_id = "other-run"
+	previous.erase("digest")
+	previous.digest = JSON.stringify(previous, "", true).sha256_text()
+	files.data[_path("previous.json")] = JSON.stringify(previous, "", true)
+	assert_eq(store.previous_after_rejection(MANIFEST, primary).reason, "recovery_identity_or_generation_mismatch")
 
 func _seed_pair() -> void:
 	_save("one")
