@@ -1,7 +1,7 @@
 extends GutTest
 ## Runtime Resource audit of the shipped catalog, not a text-based estimate of support.
 
-const EXPECTED: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye", &"match_extra", &"blast_extra", &"blast_reward", &"line_clear_score"]
+const EXPECTED: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye", &"match_extra", &"blast_extra", &"blast_reward", &"line_clear_score", &"instant_core_transform", &"instant_row_transform", &"instant_column_transform"]
 var _locale: String
 
 func before_each() -> void:
@@ -29,7 +29,7 @@ func test_audit_all_52_real_effect_roots_and_declared_levels() -> void:
 			item.levels.append(entry)
 		if item.generated: generated += 1
 		records.append(item)
-	assert_eq(generated, 16)
+	assert_eq(generated, 19)
 	var file: FileAccess = FileAccess.open("res://.godot/o4-pool-coverage.json", FileAccess.WRITE)
 	assert_not_null(file)
 	if file != null:
