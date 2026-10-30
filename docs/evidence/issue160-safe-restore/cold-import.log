@@ -1,0 +1,918 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Cannot open file 'res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata'.
+   at: load (core/io/resource_format_binary.cpp:1156)
+ERROR: Failed loading resource: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading resource: res://assets/fonts/noto_sans_sc_regular.otf.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Error loading custom project font 'res://assets/fonts/noto_sans_sc_regular.otf'
+   at: initialize_theme (scene/theme/theme_db.cpp:84)
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+[   0% ] first_scan_filesystem | Started 项目初始化 (5 steps)
+[   0% ] first_scan_filesystem | 正在扫描文件结构……
+[  16% ] first_scan_filesystem | 正在加载全局类名……
+[  33% ] first_scan_filesystem | 正在校验 GDExtension……
+[  50% ] first_scan_filesystem | 正在创建自动加载脚本……
+[  66% ] first_scan_filesystem | 正在初始化插件……
+[  83% ] first_scan_filesystem | 正在启动文件扫描……
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started 正在注册全局类…… (643 steps)
+[   0% ] update_scripts_classes |
+[   0% ] update_scripts_classes |
+[   0% ] update_scripts_classes |
+[   0% ] update_scripts_classes |
+[   0% ] update_scripts_classes |
+[   0% ] update_scripts_classes |
+[   0% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   3% ] update_scripts_classes | ExampleGameStateMachine
+[   3% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   4% ] update_scripts_classes |
+[   4% ] update_scripts_classes |
+[   4% ] update_scripts_classes |
+[   4% ] update_scripts_classes | InputConfig
+[   4% ] update_scripts_classes | InputConfigAdapter
+[   4% ] update_scripts_classes | InputBuffer
+[   4% ] update_scripts_classes | InputEventProcessor
+[   5% ] update_scripts_classes | InputRecorder
+[   5% ] update_scripts_classes | InputVirtualAxis
+[   5% ] update_scripts_classes |
+[   5% ] update_scripts_classes | InputState
+[   5% ] update_scripts_classes |
+[   5% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   7% ] update_scripts_classes |
+[   7% ] update_scripts_classes |
+[   7% ] update_scripts_classes | BaseTransition
+[   7% ] update_scripts_classes | DissolveTransition
+[   7% ] update_scripts_classes | FadeTransition
+[   7% ] update_scripts_classes | SlideTransition
+[   8% ] update_scripts_classes | SceneBase
+[   8% ] update_scripts_classes |
+[   8% ] update_scripts_classes | BaseState
+[   8% ] update_scripts_classes | BaseStateMachine
+[   8% ] update_scripts_classes | CoreStateMachine
+[   8% ] update_scripts_classes |
+[   9% ] update_scripts_classes | CoreGameplayTag
+[   9% ] update_scripts_classes | GameplayTagContainer
+[   9% ] update_scripts_classes |
+[   9% ] update_scripts_classes | CoreTimer
+[   9% ] update_scripts_classes |
+[   9% ] update_scripts_classes | CompositeTriggerCondition
+[   9% ] update_scripts_classes | EventTypeTriggerCondition
+[  10% ] update_scripts_classes | StateTriggerCondition
+[  10% ] update_scripts_classes | GameplayTrigger
+[  10% ] update_scripts_classes | TriggerCondition
+[  10% ] update_scripts_classes |
+[  10% ] update_scripts_classes |
+[  10% ] update_scripts_classes | GzipCompressionStrategy
+[  11% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  12% ] update_scripts_classes | FileDirHandler
+[  12% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  22% ] update_scripts_classes |
+[  22% ] update_scripts_classes | GutErrorTracker
+[  22% ] update_scripts_classes |
+[  22% ] update_scripts_classes |
+[  22% ] update_scripts_classes | GutMain
+[  22% ] update_scripts_classes |
+[  22% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  24% ] update_scripts_classes | GutTrackedError
+[  24% ] update_scripts_classes |
+[  24% ] update_scripts_classes | GutHookScript
+[  24% ] update_scripts_classes |
+[  24% ] update_scripts_classes | GutInputFactory
+[  24% ] update_scripts_classes | GutInputSender
+[  25% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  27% ] update_scripts_classes |
+[  27% ] update_scripts_classes | GutStringUtils
+[  27% ] update_scripts_classes |
+[  27% ] update_scripts_classes |
+[  27% ] update_scripts_classes |
+[  27% ] update_scripts_classes |
+[  27% ] update_scripts_classes | GutTest
+[  28% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  28% ] update_scripts_classes | GutUtils
+[  28% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  29% ] update_scripts_classes |
+[  29% ] update_scripts_classes | Cell
+[  29% ] update_scripts_classes | BoardMatchDetector
+[  29% ] update_scripts_classes | BoardMatchHit
+[  29% ] update_scripts_classes | MatchShapeTemplate
+[  29% ] update_scripts_classes | ShapeUnlockState
+[  29% ] update_scripts_classes |
+[  30% ] update_scripts_classes | ChessPiece
+[  30% ] update_scripts_classes | NutIdleConfig
+[  30% ] update_scripts_classes | NutVisual
+[  30% ] update_scripts_classes | PieceAbilityVisual
+[  30% ] update_scripts_classes | PieceAura
+[  30% ] update_scripts_classes | PieceMarkerConfig
+[  31% ] update_scripts_classes | PieceTooltip
+[  31% ] update_scripts_classes | Board
+[  31% ] update_scripts_classes | BoardInputBuffer
+[  31% ] update_scripts_classes | BoardMatchGroup
+[  31% ] update_scripts_classes | BoardMoveResult
+[  31% ] update_scripts_classes | BoardPressure
+[  31% ] update_scripts_classes | BoardRules
+[  32% ] update_scripts_classes | BoardRunFlow
+[  32% ] update_scripts_classes | BoardState
+[  32% ] update_scripts_classes | BoardView
+[  32% ] update_scripts_classes |
+[  32% ] update_scripts_classes | PieceState
+[  32% ] update_scripts_classes | ConditionInRange
+[  33% ] update_scripts_classes | ConditionPieceColor
+[  33% ] update_scripts_classes | ConditionTiming
+[  33% ] update_scripts_classes | EffectAddScore
+[  33% ] update_scripts_classes | EffectDestroyPieces
+[  33% ] update_scripts_classes | EffectDyePiece
+[  33% ] update_scripts_classes | GameplayCondition
+[  34% ] update_scripts_classes | GameplayEffect
+[  34% ] update_scripts_classes | ItemData
+[  34% ] update_scripts_classes | ItemEffectConfig
+[  34% ] update_scripts_classes | ItemRegistry
+[  34% ] update_scripts_classes | GameAudioConfig
+[  34% ] update_scripts_classes | BoardSignalConfig
+[  34% ] update_scripts_classes | BoardSignalEffect
+[  35% ] update_scripts_classes | ExplosionVisual
+[  35% ] update_scripts_classes | BackgroundFlowConfig
+[  35% ] update_scripts_classes | GameBackground
+[  35% ] update_scripts_classes | BoardAppearance
+[  35% ] update_scripts_classes | GameTheme
+[  35% ] update_scripts_classes | GameThemes
+[  36% ] update_scripts_classes | LineClearVisual
+[  36% ] update_scripts_classes | ScoreFloat
+[  36% ] update_scripts_classes | ScoreFloatConfig
+[  36% ] update_scripts_classes | ScoreFloatLayer
+[  36% ] update_scripts_classes | BoardJuiceConfig
+[  36% ] update_scripts_classes | GameFeedback
+[  36% ] update_scripts_classes | GameMusic
+[  37% ] update_scripts_classes |
+[  37% ] update_scripts_classes | MovePathVisual
+[  37% ] update_scripts_classes | PlaybackPlanBuilder
+[  37% ] update_scripts_classes | PlayerPreferences
+[  37% ] update_scripts_classes | PresentationConfig
+[  37% ] update_scripts_classes | PresentationDirector
+[  38% ] update_scripts_classes | PresentationStep
+[  38% ] update_scripts_classes | AssignFuseEffect
+[  38% ] update_scripts_classes | AtomicTransformEffect
+[  38% ] update_scripts_classes | ChoiceEffect
+[  38% ] update_scripts_classes | ChoiceEffectContext
+[  38% ] update_scripts_classes | ChoiceEffectRequest
+[  38% ] update_scripts_classes | ClearMaterialEffect
+[  39% ] update_scripts_classes | ColorWeightEffect
+[  39% ] update_scripts_classes | DemolitionStatEffect
+[  39% ] update_scripts_classes | DyeMaterialEffect
+[  39% ] update_scripts_classes | IgniteFusesEffect
+[  39% ] update_scripts_classes | InstallDyeUpgradeEffect
+[  39% ] update_scripts_classes | InstallGoalBonusEffect
+[  40% ] update_scripts_classes | InstallLineUpgradeEffect
+[  40% ] update_scripts_classes | InstallUpgradeEffect
+[  40% ] update_scripts_classes | PercentClearEffect
+[  40% ] update_scripts_classes | RefillCountEffect
+[  40% ] update_scripts_classes | ThinMaterialEffect
+[  40% ] update_scripts_classes | TransformMaterialEffect
+[  40% ] update_scripts_classes | UnlockCoreSupplyEffect
+[  41% ] update_scripts_classes | UnlockLineSupplyEffect
+[  41% ] update_scripts_classes | UnlockShapeEffect
+[  41% ] update_scripts_classes | GoalCompletionRules
+[  41% ] update_scripts_classes | StageConfig
+[  41% ] update_scripts_classes | StageResult
+[  41% ] update_scripts_classes | StageState
+[  42% ] update_scripts_classes | CompositeSkillTarget
+[  42% ] update_scripts_classes |
+[  42% ] update_scripts_classes | OfferConfig
+[  42% ] update_scripts_classes | OfferRarityStep
+[  42% ] update_scripts_classes | OfferWeightRules
+[  42% ] update_scripts_classes | ProgressionConfig
+[  43% ] update_scripts_classes | ProgressionState
+[  43% ] update_scripts_classes | RewardOfferRules
+[  43% ] update_scripts_classes | RewardState
+[  43% ] update_scripts_classes | SkillApplyResult
+[  43% ] update_scripts_classes | SkillBuildSnapshot
+[  43% ] update_scripts_classes | SkillDefinition
+[  43% ] update_scripts_classes | SkillInstance
+[  44% ] update_scripts_classes | SkillLevelDefinition
+[  44% ] update_scripts_classes | SkillMarkResult
+[  44% ] update_scripts_classes | SkillOffer
+[  44% ] update_scripts_classes | SkillOfferGenerator
+[  44% ] update_scripts_classes | SkillOfferTraits
+[  44% ] update_scripts_classes | SkillRules
+[  45% ] update_scripts_classes | SkillTarget
+[  45% ] update_scripts_classes | ActivateLineCommand
+[  45% ] update_scripts_classes | ChooseSkillCommand
+[  45% ] update_scripts_classes | ContinueChallengeCommand
+[  45% ] update_scripts_classes | DetonateCoreCommand
+[  45% ] update_scripts_classes | MovePieceCommand
+[  45% ] update_scripts_classes | RunCommand
+[  46% ] update_scripts_classes | GameModes
+[  46% ] update_scripts_classes | GameModeDefinition
+[  46% ] update_scripts_classes | CommandCodec
+[  46% ] update_scripts_classes | RunRecorder
+[  46% ] update_scripts_classes | RunSnapshot
+[  46% ] update_scripts_classes | RuleReplay
+[  47% ] update_scripts_classes | CommandResult
+[  47% ] update_scripts_classes | EmptyBoardRecovery
+[  47% ] update_scripts_classes |
+[  47% ] update_scripts_classes | MatchResult
+[  47% ] update_scripts_classes | RunConfig
+[  47% ] update_scripts_classes | RunController
+[  47% ] update_scripts_classes | RunRandomStreams
+[  48% ] update_scripts_classes | RunState
+[  48% ] update_scripts_classes | RunStepResult
+[  48% ] update_scripts_classes | SpawnConfig
+[  48% ] update_scripts_classes | SpawnResult
+[  48% ] update_scripts_classes | SpawnState
+[  48% ] update_scripts_classes | SpawnToken
+[  49% ] update_scripts_classes | TurnResult
+[  49% ] update_scripts_classes | LegacyScoreModifiers
+[  49% ] update_scripts_classes | ScoreEntry
+[  49% ] update_scripts_classes | ScoreLedger
+[  49% ] update_scripts_classes | AlwaysAbilityCondition
+[  49% ] update_scripts_classes | RemovalCauseCondition
+[  50% ] update_scripts_classes | DemolitionDemo
+[  50% ] update_scripts_classes | DyeDemo
+[  50% ] update_scripts_classes | ExplosionDemo
+[  50% ] update_scripts_classes | LineClearDemo
+[  50% ] update_scripts_classes | MixedTemplateDemo
+[  50% ] update_scripts_classes | RingTemplateDemo
+[  50% ] update_scripts_classes | ScreeningConfig
+[  51% ] update_scripts_classes | ScreeningDeck
+[  51% ] update_scripts_classes | ShapeUnlockDemo
+[  51% ] update_scripts_classes | SquareTemplateDemo
+[  51% ] update_scripts_classes | TransformationDemo
+[  51% ] update_scripts_classes | UTemplateDemo
+[  51% ] update_scripts_classes | ZsTemplateDemo
+[  52% ] update_scripts_classes | DyeConfig
+[  52% ] update_scripts_classes | DyeRules
+[  52% ] update_scripts_classes | DyeState
+[  52% ] update_scripts_classes | DyeTrigger
+[  52% ] update_scripts_classes | CompositeEffect
+[  52% ] update_scripts_classes | ExplodeEffect
+[  52% ] update_scripts_classes | LineSweepEffect
+[  53% ] update_scripts_classes | SkillEffect
+[  53% ] update_scripts_classes | AbilityActivation
+[  53% ] update_scripts_classes | AbilityDefinition
+[  53% ] update_scripts_classes | AbilityEffectRunner
+[  53% ] update_scripts_classes | AbilityEvent
+[  53% ] update_scripts_classes | AbilityEvents
+[  54% ] update_scripts_classes | AbilityInstance
+[  54% ] update_scripts_classes | AbilityResolver
+[  54% ] update_scripts_classes | AbilityTriggerAdapter
+[  54% ] update_scripts_classes | BlastRequest
+[  54% ] update_scripts_classes | DemolitionActionState
+[  54% ] update_scripts_classes | DemolitionConfig
+[  54% ] update_scripts_classes | DemolitionRules
+[  55% ] update_scripts_classes | ExplosionConfig
+[  55% ] update_scripts_classes | ExplosionState
+[  55% ] update_scripts_classes | FusePlantTrigger
+[  55% ] update_scripts_classes | LineClearConfig
+[  55% ] update_scripts_classes | LineClearRules
+[  55% ] update_scripts_classes | LineClearState
+[  56% ] update_scripts_classes | ManualActivationRules
+[  56% ] update_scripts_classes | RemovalStrength
+[  56% ] update_scripts_classes | TutorialConfig
+[  56% ] update_scripts_classes | TutorialSession
+[  56% ] update_scripts_classes |
+[  56% ] update_scripts_classes | GameRewardFlow
+[  56% ] update_scripts_classes | CheckpointFiles
+[  57% ] update_scripts_classes | CheckpointStore
+[  57% ] update_scripts_classes | RunCheckpointCodec
+[  57% ] update_scripts_classes | RunCheckpointSession
+[  57% ] update_scripts_classes | BoardObservation
+[  57% ] update_scripts_classes | CollectionSession
+[  57% ] update_scripts_classes | LocalJsonlSink
+[  58% ] update_scripts_classes |
+[  58% ] update_scripts_classes | RunCollection
+[  58% ] update_scripts_classes | TelemetryClock
+[  58% ] update_scripts_classes | TelemetryConfig
+[  58% ] update_scripts_classes | TelemetryFactory
+[  58% ] update_scripts_classes | TelemetryFacts
+[  59% ] update_scripts_classes | TelemetryProjector
+[  59% ] update_scripts_classes | TelemetryReader
+[  59% ] update_scripts_classes | TelemetrySchema
+[  59% ] update_scripts_classes | TelemetrySink
+[  59% ] update_scripts_classes | TelemetrySummary
+[  59% ] update_scripts_classes | TelemetryTurn
+[  59% ] update_scripts_classes | TelemetryWriteResult
+[  60% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  69% ] update_scripts_classes |
+[  69% ] update_scripts_classes |
+[  69% ] update_scripts_classes |
+[  69% ] update_scripts_classes |
+[  69% ] update_scripts_classes |
+[  69% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  71% ] update_scripts_classes |
+[  71% ] update_scripts_classes |
+[  71% ] update_scripts_classes |
+[  71% ] update_scripts_classes |
+[  71% ] update_scripts_classes |
+[  71% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  73% ] update_scripts_classes |
+[  73% ] update_scripts_classes |
+[  73% ] update_scripts_classes |
+[  73% ] update_scripts_classes |
+[  73% ] update_scripts_classes |
+[  73% ] update_scripts_classes |
+[  74% ] update_scripts_classes |
+[  74% ] update_scripts_classes |
+[  74% ] update_scripts_classes |
+[  74% ] update_scripts_classes |
+[  74% ] update_scripts_classes |
+[  74% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  75% ] update_scripts_classes |
+[  76% ] update_scripts_classes |
+[  76% ] update_scripts_classes |
+[  76% ] update_scripts_classes |
+[  76% ] update_scripts_classes |
+[  76% ] update_scripts_classes |
+[  76% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  77% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  79% ] update_scripts_classes |
+[  80% ] update_scripts_classes |
+[  80% ] update_scripts_classes |
+[  80% ] update_scripts_classes |
+[  80% ] update_scripts_classes |
+[  80% ] update_scripts_classes |
+[  80% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  82% ] update_scripts_classes |
+[  82% ] update_scripts_classes |
+[  82% ] update_scripts_classes |
+[  82% ] update_scripts_classes |
+[  82% ] update_scripts_classes |
+[  82% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  85% ] update_scripts_classes |
+[  85% ] update_scripts_classes |
+[  85% ] update_scripts_classes |
+[  85% ] update_scripts_classes |
+[  85% ] update_scripts_classes |
+[  85% ] update_scripts_classes | AestheticCases
+[  86% ] update_scripts_classes |
+[  86% ] update_scripts_classes |
+[  86% ] update_scripts_classes |
+[  86% ] update_scripts_classes | BotConfig
+[  86% ] update_scripts_classes | BotRunner
+[  86% ] update_scripts_classes | GreedyBot
+[  86% ] update_scripts_classes |
+[  87% ] update_scripts_classes | PairedWindow
+[  87% ] update_scripts_classes | PressureBatchReport
+[  87% ] update_scripts_classes | RandomLegalBot
+[  87% ] update_scripts_classes | RecordViewData
+[  87% ] update_scripts_classes | ResultViewer
+[  87% ] update_scripts_classes | RuleBot
+[  88% ] update_scripts_classes | RunAnalysis
+[  88% ] update_scripts_classes |
+[  88% ] update_scripts_classes |
+[  88% ] update_scripts_classes |
+[  88% ] update_scripts_classes |
+[  88% ] update_scripts_classes |
+[  88% ] update_scripts_classes |
+[  89% ] update_scripts_classes |
+[  89% ] update_scripts_classes |
+[  89% ] update_scripts_classes |
+[  89% ] update_scripts_classes | ScreeningAnnotations
+[  89% ] update_scripts_classes | ScreeningRecordReader
+[  89% ] update_scripts_classes | ScreeningReport
+[  90% ] update_scripts_classes |
+[  90% ] update_scripts_classes | ScreeningWindow
+[  90% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  91% ] update_scripts_classes | TelemetryReport
+[  91% ] update_scripts_classes |
+[  91% ] update_scripts_classes |
+[  91% ] update_scripts_classes |
+[  91% ] update_scripts_classes |
+[  91% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  93% ] update_scripts_classes | CardTransfer
+[  94% ] update_scripts_classes | CollectionControls
+[  94% ] update_scripts_classes | FeedbackButton
+[  94% ] update_scripts_classes | UiMotionConfig
+[  94% ] update_scripts_classes | GoalProgress
+[  94% ] update_scripts_classes | GoalProgressConfig
+[  94% ] update_scripts_classes | GoalProgressText
+[  95% ] update_scripts_classes | ScoreMote
+[  95% ] update_scripts_classes | PiecePool
+[  95% ] update_scripts_classes | SpawnPoolText
+[  95% ] update_scripts_classes | PlaybackSettings
+[  95% ] update_scripts_classes | ReleaseMenu
+[  95% ] update_scripts_classes | SkillPool
+[  95% ] update_scripts_classes | SkillPoolQuery
+[  96% ] update_scripts_classes | SkillPoolText
+[  96% ] update_scripts_classes | Tutorial
+[  96% ] update_scripts_classes | ColorTargetPicker
+[  96% ] update_scripts_classes | GameThemeUi
+[  96% ] update_scripts_classes | Hud
+[  96% ] update_scripts_classes | HudDetails
+[  97% ] update_scripts_classes | HudStatusMessages
+[  97% ] update_scripts_classes |
+[  97% ] update_scripts_classes | ItemWidget
+[  97% ] update_scripts_classes | PopupGameOver
+[  97% ] update_scripts_classes | PopupLevelUp
+[  97% ] update_scripts_classes | PopupSkillChoice
+[  97% ] update_scripts_classes | ScoreTooltip
+[  98% ] update_scripts_classes | SkillCard
+[  98% ] update_scripts_classes | SkillChoiceText
+[  98% ] update_scripts_classes |
+[  98% ] update_scripts_classes | SkillMechanicIcons
+[  98% ] update_scripts_classes | SkillRarity
+[  98% ] update_scripts_classes | SkillRuleDescription
+[  99% ] update_scripts_classes |
+[  99% ] update_scripts_classes | SpawnPreview
+[  99% ] update_scripts_classes | StageText
+[  99% ] update_scripts_classes |
+[  99% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started 正在扫描动作…… (91 steps)
+[   0% ] _update_scan_actions | bgm.ogg
+[   1% ] _update_scan_actions | click.ogg
+[   2% ] _update_scan_actions | congratulations.ogg
+[   3% ] _update_scan_actions | demo.csv
+[   4% ] _update_scan_actions | AnonymousPro-Bold.ttf
+[   5% ] _update_scan_actions | AnonymousPro-BoldItalic.ttf
+[   6% ] _update_scan_actions | AnonymousPro-Italic.ttf
+[   7% ] _update_scan_actions | AnonymousPro-Regular.ttf
+[   8% ] _update_scan_actions | CourierPrime-Bold.ttf
+[   9% ] _update_scan_actions | CourierPrime-BoldItalic.ttf
+[  10% ] _update_scan_actions | CourierPrime-Italic.ttf
+[  11% ] _update_scan_actions | CourierPrime-Regular.ttf
+[  13% ] _update_scan_actions | LobsterTwo-Bold.ttf
+[  14% ] _update_scan_actions | LobsterTwo-BoldItalic.ttf
+[  15% ] _update_scan_actions | LobsterTwo-Italic.ttf
+[  16% ] _update_scan_actions | LobsterTwo-Regular.ttf
+[  17% ] _update_scan_actions | arrow.png
+[  18% ] _update_scan_actions | play.png
+[  19% ] _update_scan_actions | eyey.png
+[  20% ] _update_scan_actions | Folder.svg
+[  21% ] _update_scan_actions | green.png
+[  22% ] _update_scan_actions | GutIconV2_base.png
+[  23% ] _update_scan_actions | GutIconV2_no_shine.png
+[  25% ] _update_scan_actions | HSplitContainer.svg
+[  26% ] _update_scan_actions | red.png
+[  27% ] _update_scan_actions | Script.svg
+[  28% ] _update_scan_actions | VSplitContainer.svg
+[  29% ] _update_scan_actions | yellow.png
+[  30% ] _update_scan_actions | icon.png
+[  31% ] _update_scan_actions | source_code_pro.fnt
+[  32% ] _update_scan_actions | noto_sans_sc_regular.otf
+[  33% ] _update_scan_actions | amplifier.svg
+[  34% ] _update_scan_actions | bomb.svg
+[  35% ] _update_scan_actions | drill.svg
+[  36% ] _update_scan_actions | dye_station.svg
+[  38% ] _update_scan_actions | energy_core.svg
+[  39% ] _update_scan_actions | ether_totem.svg
+[  40% ] _update_scan_actions | prism_tower.svg
+[  41% ] _update_scan_actions | space_compressor.svg
+[  42% ] _update_scan_actions | swapper.svg
+[  43% ] _update_scan_actions | garden_background.png
+[  44% ] _update_scan_actions | sweep_arrow_right.png
+[  45% ] _update_scan_actions | eyes_attentive.png
+[  46% ] _update_scan_actions | eyes_blink_closed.png
+[  47% ] _update_scan_actions | eyes_focus.png
+[  48% ] _update_scan_actions | eyes_happy.png
+[  50% ] _update_scan_actions | eyes_idle.png
+[  51% ] _update_scan_actions | eyes_sad.png
+[  52% ] _update_scan_actions | eyes_smug.png
+[  53% ] _update_scan_actions | eyes_surprise.png
+[  54% ] _update_scan_actions | mouth_flat.png
+[  55% ] _update_scan_actions | mouth_happy.png
+[  56% ] _update_scan_actions | mouth_purse.png
+[  57% ] _update_scan_actions | mouth_round.png
+[  58% ] _update_scan_actions | mouth_smile.png
+[  59% ] _update_scan_actions | mouth_smirk.png
+[  60% ] _update_scan_actions | almond_body.png
+[  61% ] _update_scan_actions | cashew_body.png
+[  63% ] _update_scan_actions | peanut_body.png
+[  64% ] _update_scan_actions | pistachio_body.png
+[  65% ] _update_scan_actions | walnut_body.png
+[  66% ] _update_scan_actions | icon_ability_dye.svg
+[  67% ] _update_scan_actions | icon_ability_explosion.png
+[  68% ] _update_scan_actions | icon_ability_fuse.svg
+[  69% ] _update_scan_actions | icon_ability_manual_sweep.svg
+[  70% ] _update_scan_actions | icon_ability_match_bonus.svg
+[  71% ] _update_scan_actions | icon_ability_multiplier.svg
+[  72% ] _update_scan_actions | icon_ability_refill_less.svg
+[  73% ] _update_scan_actions | icon_ability_refill_more.svg
+[  75% ] _update_scan_actions | icon_ability_sweep.png
+[  76% ] _update_scan_actions | icon_chevron_down.png
+[  77% ] _update_scan_actions | icon_history.png
+[  78% ] _update_scan_actions | icon_pause.png
+[  79% ] _update_scan_actions | icon_settings.png
+[  80% ] _update_scan_actions | selection_corner_top_left.png
+[  81% ] _update_scan_actions | sfx_ability_explosion_activate.wav
+[  82% ] _update_scan_actions | sfx_ability_sweep_activate.wav
+[  83% ] _update_scan_actions | sfx_board_land.wav
+[  84% ] _update_scan_actions | sfx_board_match_var01.wav
+[  85% ] _update_scan_actions | sfx_board_match_var02.wav
+[  86% ] _update_scan_actions | sfx_board_reject.wav
+[  88% ] _update_scan_actions | sfx_board_select.wav
+[  89% ] _update_scan_actions | sfx_board_spawn.wav
+[  90% ] _update_scan_actions | sfx_ui_confirm.wav
+[  91% ] _update_scan_actions | sfx_ui_run_failure.wav
+[  92% ] _update_scan_actions | sfx_ui_skill_acquire.wav
+[  93% ] _update_scan_actions | sfx_ui_skill_offer.wav
+[  94% ] _update_scan_actions | game.csv
+[  95% ] _update_scan_actions | localization.csv
+[  96% ] _update_scan_actions | skill_rules.csv
+[  97% ] _update_scan_actions | icon.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started 正在导入或重新导入资产 (72 steps)
+[   0% ] reimport | 正在准备重新导入文件……
+[   1% ] reimport | 正在准备重新导入文件……
+[   2% ] reimport | 正在准备重新导入文件……
+[   4% ] reimport | 正在准备重新导入文件……
+[   5% ] reimport | 正在准备重新导入文件……
+[   6% ] reimport | 正在准备重新导入文件……
+[   8% ] reimport | 正在准备重新导入文件……
+[   9% ] reimport | 正在准备重新导入文件……
+[  10% ] reimport | 正在准备重新导入文件……
+[  12% ] reimport | 正在准备重新导入文件……
+[  13% ] reimport | 正在准备重新导入文件……
+[  15% ] reimport | 正在准备重新导入文件……
+[  16% ] reimport | 正在准备重新导入文件……
+[  17% ] reimport | 正在准备重新导入文件……
+[  19% ] reimport | 正在准备重新导入文件……
+[  20% ] reimport | 正在准备重新导入文件……
+[  21% ] reimport | 正在准备重新导入文件……
+[  23% ] reimport | 正在准备重新导入文件……
+[  24% ] reimport | 正在准备重新导入文件……
+[  26% ] reimport | 正在准备重新导入文件……
+[  27% ] reimport | 正在准备重新导入文件……
+[  28% ] reimport | 正在准备重新导入文件……
+[  30% ] reimport | 正在准备重新导入文件……
+[  31% ] reimport | 正在准备重新导入文件……
+[  32% ] reimport | 正在准备重新导入文件……
+[  34% ] reimport | 正在准备重新导入文件……
+[  35% ] reimport | 正在准备重新导入文件……
+[  36% ] reimport | 正在准备重新导入文件……
+[  38% ] reimport | 正在准备重新导入文件……
+[  39% ] reimport | 正在准备重新导入文件……
+[  41% ] reimport | 正在准备重新导入文件……
+[  42% ] reimport | 正在准备重新导入文件……
+[  43% ] reimport | 正在准备重新导入文件……
+[  45% ] reimport | 正在准备重新导入文件……
+[  46% ] reimport | 正在准备重新导入文件……
+[  47% ] reimport | 正在准备重新导入文件……
+[  49% ] reimport | 正在准备重新导入文件……
+[  50% ] reimport | 正在准备重新导入文件……
+[  52% ] reimport | 正在准备重新导入文件……
+[  53% ] reimport | 正在准备重新导入文件……
+[  54% ] reimport | 正在准备重新导入文件……
+[  56% ] reimport | 正在准备重新导入文件……
+[  57% ] reimport | 正在准备重新导入文件……
+[  58% ] reimport | 正在准备重新导入文件……
+[  60% ] reimport | 正在准备重新导入文件……
+[  61% ] reimport | 正在准备重新导入文件……
+[  63% ] reimport | 正在准备重新导入文件……
+[  64% ] reimport | 正在准备重新导入文件……
+[  65% ] reimport | 正在准备重新导入文件……
+[  67% ] reimport | 正在准备重新导入文件……
+[  68% ] reimport | 正在准备重新导入文件……
+[  69% ] reimport | 正在准备重新导入文件……
+[  71% ] reimport | 正在准备重新导入文件……
+[  72% ] reimport | 正在准备重新导入文件……
+[  73% ] reimport | 正在准备重新导入文件……
+[  75% ] reimport | 正在准备重新导入文件……
+[  76% ] reimport | 正在准备重新导入文件……
+[  78% ] reimport | 正在准备重新导入文件……
+[  79% ] reimport | 正在准备重新导入文件……
+[  80% ] reimport | 正在准备重新导入文件……
+[  82% ] reimport | 正在准备重新导入文件……
+[  83% ] reimport | 正在准备重新导入文件……
+[  84% ] reimport | 正在准备重新导入文件……
+[  86% ] reimport | 正在准备重新导入文件……
+[  87% ] reimport | 正在准备重新导入文件……
+[  89% ] reimport | 正在准备重新导入文件……
+[  90% ] reimport | 正在准备重新导入文件……
+[  91% ] reimport | 正在准备重新导入文件……
+[  93% ] reimport | 正在准备重新导入文件……
+[  94% ] reimport | 正在准备重新导入文件……
+[  95% ] reimport | 正在准备重新导入文件……
+[  97% ] reimport | 正在准备重新导入文件……
+[   0% ] reimport | 正在执行重新导入的前置操作……
+[   0% ] reimport | skill_rules.csv
+[   1% ] reimport | game.csv
+[   2% ] reimport | demo.csv
+[   4% ] reimport | localization.csv
+[   5% ] reimport | source_code_pro.fnt
+[   6% ] reimport | skill_rules.csv
+[   8% ] reimport | game.csv
+[   9% ] reimport | demo.csv
+[  10% ] reimport | localization.csv
+[  12% ] reimport | source_code_pro.fnt
+[  13% ] reimport | LobsterTwo-Regular.ttf
+[  15% ] reimport | LobsterTwo-Italic.ttf
+[  16% ] reimport | LobsterTwo-BoldItalic.ttf
+[  17% ] reimport | LobsterTwo-Bold.ttf
+[  19% ] reimport | CourierPrime-Regular.ttf
+[  20% ] reimport | CourierPrime-Italic.ttf
+[  21% ] reimport | CourierPrime-BoldItalic.ttf
+[  23% ] reimport | CourierPrime-Bold.ttf
+[  24% ] reimport | skill_rules.csv
+[  26% ] reimport | game.csv
+[  27% ] reimport | demo.csv
+[  28% ] reimport | skill_rules.csv
+[  30% ] reimport | game.csv
+[  31% ] reimport | demo.csv
+[  32% ] reimport | localization.csv
+[  34% ] reimport | source_code_pro.fnt
+[  35% ] reimport | LobsterTwo-Regular.ttf
+[  36% ] reimport | LobsterTwo-Italic.ttf
+[  38% ] reimport | LobsterTwo-BoldItalic.ttf
+[  39% ] reimport | LobsterTwo-Bold.ttf
+[  41% ] reimport | CourierPrime-Regular.ttf
+[  42% ] reimport | CourierPrime-Italic.ttf
+[  43% ] reimport | CourierPrime-BoldItalic.ttf
+[  45% ] reimport | CourierPrime-Bold.ttf
+[  46% ] reimport | AnonymousPro-Regular.ttf
+[  47% ] reimport | AnonymousPro-Italic.ttf
+[  49% ] reimport | AnonymousPro-BoldItalic.ttf
+[  50% ] reimport | AnonymousPro-Bold.ttf
+[  52% ] reimport | noto_sans_sc_regular.otf
+[  53% ] reimport | congratulations.ogg
+[  54% ] reimport | bgm.ogg
+[  56% ] reimport | click.ogg
+[  57% ] reimport | swapper.svg
+[  58% ] reimport | garden_background.png
+[  60% ] reimport | eyes_attentive.png
+[  61% ] reimport | eyes_focus.png
+[  63% ] reimport | eyes_happy.png
+[  64% ] reimport | eyes_sad.png
+[  65% ] reimport | eyes_smug.png
+[  67% ] reimport | eyes_surprise.png
+[  68% ] reimport | mouth_flat.png
+[  69% ] reimport | mouth_happy.png
+[  71% ] reimport | mouth_purse.png
+[  72% ] reimport | mouth_round.png
+[  73% ] reimport | mouth_smirk.png
+[  75% ] reimport | icon_chevron_down.png
+[  76% ] reimport | icon_history.png
+[  78% ] reimport | icon_pause.png
+[  79% ] reimport | icon_settings.png
+[  80% ] reimport | icon.png
+[  82% ] reimport | skill_rules.csv
+[  83% ] reimport | game.csv
+[  84% ] reimport | demo.csv
+[  86% ] reimport | localization.csv
+[  87% ] reimport | source_code_pro.fnt
+[  89% ] reimport | LobsterTwo-Regular.ttf
+[  90% ] reimport | LobsterTwo-Italic.ttf
+[  91% ] reimport | LobsterTwo-BoldItalic.ttf
+[  93% ] reimport | LobsterTwo-Bold.ttf
+[  94% ] reimport | CourierPrime-Regular.ttf
+[  95% ] reimport | CourierPrime-Italic.ttf
+[  97% ] reimport | CourierPrime-BoldItalic.ttf
+[  98% ] reimport | 正在结束资产导入……
+[ DONE ] reimport
+
+[   0% ] reimport | Started 正在导入或重新导入资产 (72 steps)
+[   0% ] reimport | 正在执行重新导入的后置操作……
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started 正在加载编辑器 (5 steps)
+[   0% ] loading_editor_layout | 正在加载编辑器布局……
+[  16% ] loading_editor_layout | 正在加载停靠面板……
+[ DONE ] loading_editor_layout

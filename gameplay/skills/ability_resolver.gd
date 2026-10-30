@@ -173,6 +173,10 @@ func resolve_removal(pieces: Array[PieceState], cause: StringName, hold_blasts: 
 	results.append_array(_resolve_blasts(queue))
 	return results
 
+## A checkpoint must not capture partial descendants, including matches without blast tickets.
+func has_pending_work() -> bool:
+	return not (_held_blasts.is_empty() and _held_matches.is_empty() and _held_plants.is_empty() and _held_dyes.is_empty())
+
 ## Drain blast tickets held during an ordered CompositeEffect.
 func flush_held_blasts() -> Array[MatchResult]:
 	if _held_blasts.is_empty() and _held_matches.is_empty(): return []

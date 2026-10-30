@@ -1,0 +1,64 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/restore-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_run_checkpoint_codec.gd
+* test_frozen_before_end_reopens_from_disk_and_keeps_refill_and_manual_uses
+    [Failed]:  [STRING_NAME(end_turn)] expected to equal [STRING_NAME(offer)]:  55
+      at line 361
+    [Failed]:  [STRING_NAME(after_end)] expected to equal [STRING_NAME(before_end)]:
+      at line 362
+    [Failed]:  unsafe_phase
+      at line 367
+    [Failed]:  no_valid_checkpoint:missing
+      at line 370
+ERROR: Couldn't open directory at path "user://checkpoint-restore-tests/35240-6847281".
+   at: get_files_at (core/io/dir_access.cpp:578)
+   GDScript backtrace (most recent call first):
+       [0] after_each (res://tests/rules/test_run_checkpoint_codec.gd:16)
+       [1] _run_test (res://addons/gut/gut.gd:629)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+0/1 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://tests/rules/test_run_checkpoint_codec.gd
+- test_frozen_before_end_reopens_from_disk_and_keeps_refill_and_manual_uses
+    [Failed]:  [STRING_NAME(end_turn)] expected to equal [STRING_NAME(offer)]:  55
+          at line 361
+    [Failed]:  [STRING_NAME(after_end)] expected to equal [STRING_NAME(before_end)]:
+          at line 362
+    [Failed]:  unsafe_phase
+          at line 367
+    [Failed]:  no_valid_checkpoint:missing
+          at line 370
+
+Totals
+------
+Scripts               1
+Tests                 1
+Passing Tests      none
+Failing Tests         1
+Asserts             1/5
+Time              0.061s
+
+
+Ran Tests matching "test_frozen_before_end"
+---- 1 failing tests ----
