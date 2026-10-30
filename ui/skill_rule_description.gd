@@ -2,7 +2,7 @@ class_name SkillRuleDescription
 extends RefCounted
 ## Read-only supported-family projection. Diagnostics identify manual migration fallbacks.
 
-const IDS: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye"]
+const IDS: Array[StringName] = [&"score_multiplier", &"line_row_span", &"refill_less", &"goal_score_bonus", &"composite_refill_color", &"composite_clear_dye", &"refill_more", &"color_weight_up", &"color_weight_down", &"line_column_span", &"instant_color_clear", &"instant_color_dye", &"match_extra", &"blast_extra", &"blast_reward", &"line_clear_score"]
 const EXPLOSION: ExplosionConfig = preload("res://gameplay/skills/content/explosion_config.tres")
 const TRANSLATIONS: Dictionary[String, Translation] = {
 	"en": preload("res://localization/skill_rules.en_US.translation"),
@@ -63,11 +63,28 @@ static func _effect(effect: SkillEffect, level: int, remaining: int, owned: bool
 			lines.append(barrier.text)
 		return {"text": "\n".join(lines), "error": ""}
 	if effect is DemolitionStatEffect:
-		if (effect as DemolitionStatEffect).stat != DemolitionStatEffect.Stat.MULTIPLIER:
-			return {"text": "", "error": "unsupported demolition stat"}
-		return _format("rules.multiplier_owned" if owned else "rules.multiplier", {"delta": String.num(EXPLOSION.multiplier_per_level * (level if owned else 1), 3)})
+		var stat: DemolitionStatEffect.Stat = (effect as DemolitionStatEffect).stat
+		if stat == DemolitionStatEffect.Stat.MULTIPLIER:
+			return _format("rules.multiplier_owned" if owned else "rules.multiplier", {"delta": String.num(EXPLOSION.multiplier_per_level * (level if owned else 1), 3)})
+		var key: String = ""
+		var delta: int = 0
+		match stat:
+			DemolitionStatEffect.Stat.MATCH_EXTRA:
+				key = "rules.match_extra"
+				delta = EXPLOSION.bonus_per_match
+			DemolitionStatEffect.Stat.BLAST_EXTRA:
+				key = "rules.blast_extra"
+				delta = EXPLOSION.bonus_per_blast
+			DemolitionStatEffect.Stat.REWARD:
+				key = "rules.blast_reward"
+				delta = EXPLOSION.reward_per_target
+			_:
+				return {"text": "", "error": "unsupported demolition stat"}
+		return _format(key, {"total": delta * level, "delta": delta})
 	if effect is InstallLineUpgradeEffect:
 		var line: InstallLineUpgradeEffect = effect as InstallLineUpgradeEffect
+		if line.upgrade == &"line_clear_score" and line.required_axis == -1:
+			return _format("rules.line_clear_score", {"total": LineClearRules.score_per_target(level), "delta": LineClearRules.score_per_target(1)})
 		if line.required_axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN] or line.upgrade != LineClearRules.upgrade_for_axis(line.required_axis):
 			return {"text": "", "error": "unsupported line upgrade"}
 		return _format("rules.row_span" if line.required_axis == LineClearState.AXIS_ROW else "rules.column_span", {"count": LineClearRules.line_count(level)})
