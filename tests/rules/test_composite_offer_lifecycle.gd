@@ -109,7 +109,7 @@ func test_preview_snapshot_and_missing_color_do_not_sample_dynamic_target() -> v
 	var cursor: int = run.state.rewards.target_random.state
 	var before: Dictionary = RunSnapshot.capture(run)
 	var preview: String = SkillChoiceText.compact_preview(skill, offer.targets[skill.skill_id].copy())
-	assert_true(preview.contains(TranslationServer.translate("目标在执行时选择")))
+	assert_true(preview.contains(SkillRuleDescription.preview("rules.dynamic_preview").text))
 	assert_true(before.offer.targets[String(skill.skill_id)].leaves[1].deferred)
 	assert_false(_choose(run, offer).success)
 	assert_eq(leaf.samples, 0)

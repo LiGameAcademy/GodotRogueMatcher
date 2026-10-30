@@ -46,7 +46,7 @@ def make_plan(first_seed: str, smoke: int = 3, explore: int = 100, confirm: int 
         "criteria": dict.fromkeys(CRITERIA),
         "criterion_units": {"minimum_meaningful_effect": None, "maximum_uncertainty": None},
         "parameter_acceptance": None,
-        "runner": {"path": "tools/bot_testing/batch_cli.gd", "parameter_override_supported": False},
+        "runner": {"path": "tools/bot_testing/batch_cli.gd", "parameter_override_supported": True},
     }
 
 
@@ -102,6 +102,8 @@ def validate_plan(plan: dict[str, Any]) -> list[str]:
     for name in ("minimum_meaningful_effect", "maximum_uncertainty"):
         if criteria[name] is not None and (not isinstance(units.get(name), str) or not units[name].strip()):
             raise ValueError("numeric criteria require explicit units")
-    if plan.get("runner") != {"path": "tools/bot_testing/batch_cli.gd", "parameter_override_supported": False}:
-        raise ValueError("runner parameter injection is not implemented by this slice")
-    return pending + ["runner_parameter_injection_unavailable", "gap_scan_selection_pending", "seed_identity_and_variant_binding_not_in_summary"]
+    runner = plan.get("runner")
+    if not isinstance(runner, dict) or set(runner) != {"path", "parameter_override_supported"} or runner.get("path") != "tools/bot_testing/batch_cli.gd" or type(runner.get("parameter_override_supported")) is not bool:
+        raise ValueError("invalid runner capability declaration")
+    execution = "runner_execution_not_performed" if runner["parameter_override_supported"] else "runner_parameter_injection_unavailable"
+    return pending + [execution, "gap_scan_selection_pending", "seed_identity_and_variant_binding_not_in_summary"]

@@ -5,19 +5,26 @@ var stage_config: StageConfig
 var last_replay_error: String = ""
 var telemetry_factory: TelemetryFactory
 var last_telemetry: TelemetryProjector
+var trial_options: OfferTrialOptions
 
 ## Preserve the existing strategy offset, wrapping explicitly at the nonnegative 63-bit boundary.
 static func strategy_seed_for(run_seed: int) -> int:
 	return run_seed + 100000 if run_seed <= 9223372036854675807 else run_seed - 9223372036854675808
 
 func play(seed_value: int, strategy_seed: int, strategy: RuleBot, save: bool = true, verify: bool = true) -> RunRecorder:
-	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value, stage_config)
+	last_replay_error = ""
+	if trial_options != null:
+		last_replay_error = trial_options.validation_error()
+		if not last_replay_error.is_empty(): return null
+	var trial_config: OfferConfig = trial_options.config if trial_options != null else null
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), seed_value, stage_config, &"", trial_config)
 	run.initialize()
 	var recorder: RunRecorder = RunRecorder.new()
 	run.recorder = recorder
 	strategy.random.seed = strategy_seed
 	if strategy is GreedyBot: strategy.version = "greedy-v1"
-	recorder.metadata = {"strategy": strategy.version, "strategy_seed": str(strategy_seed), "bot_config": RunSnapshot.resource_fields(strategy.config)}
+	recorder.metadata = {"strategy": strategy.version, "strategy_seed": str(strategy_seed), "bot_config": RunSnapshot.resource_fields(strategy.config), "collection_context": "bot_batch"}
+	if trial_options != null: recorder.metadata.merge(trial_options.metadata())
 	if telemetry_factory != null: last_telemetry = telemetry_factory.attach(recorder, run.state.run_id)
 	recorder.begin(run, "bot", save, "unknown", telemetry_factory.record_directory if telemetry_factory != null else "user://run_records")
 	if last_telemetry != null: last_telemetry.set_interval("busy")
