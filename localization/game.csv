@@ -980,3 +980,23 @@ hud.status.unavailable,状态提示暂不可用,Status message unavailable
 hud.status.playback_failed,演出异常，无法恢复盘面,Playback interrupted. Board recovery unavailable.
 hud.status.spawn_progress,正在补棋：{current}/{total},Spawning pieces: {current}/{total}
 hud.status.capture_refill_used,实际补棋已消费 {count} 次,Actual refill uses consumed: {count}
+hud.status.checkpoint_loading,正在恢复本局…,Restoring your run…
+hud.status.checkpoint_saving,正在保存续局…,Saving your run…
+hud.status.checkpoint_failed,续局保存或读取失败，请重试。,Could not save or restore your run. Please retry.
+hud.status.checkpoint_fallback,已恢复上一有效检查点。,Restored the previous valid checkpoint.
+hud.status.checkpoint_restored,已继续本局。,Run restored.
+checkpoint.working,正在处理续局…,Working on your checkpoint…
+checkpoint.loading,正在读取上次保存的本局…,Loading your saved run…
+checkpoint.settling,正在结清当前行动并保存。遇到选卡时保留原候选。,Finishing this action and saving. Pending choices will be preserved.
+checkpoint.exit_failed,本次进度未能保存。可以重试，或不保存本次进度退出。,This progress could not be saved. Retry or leave without saving this progress.
+checkpoint.load_failed,无法继续本局。存档未被覆盖，请重试。,Could not continue this run. Your checkpoint is unchanged. Please retry.
+checkpoint.confirm_abandon,开始新局将放弃当前续局进度。是否继续？,Starting a new run discards the current checkpoint. Continue?
+checkpoint.invalidate_failed,旧局失效确认失败，新局尚未开始。请重试或取消。,Could not retire the old run. The new run has not started. Retry or cancel.
+checkpoint.confirm_new,放弃并开始新局,Discard and start new run
+checkpoint.retry,重试,Retry
+checkpoint.leave_old,退出（本次进度不保存）,Leave without saving this progress
+checkpoint.cancel,取消,Cancel
+checkpoint.quit,保存并退出,Save and quit
+checkpoint.notice,退出前会保存到安全点；异常关闭只能回到上次成功保存的位置。,Quitting saves a safe checkpoint. An unexpected close returns to the last successful save.
+hud.status.checkpoint_waiting,上一项续局操作尚未结束，请稍候。,The previous checkpoint operation is still finishing. Please wait.
+checkpoint.waiting,上一项续局操作尚未结束，请稍候再试。,The previous checkpoint operation is still finishing. Please try again shortly.

@@ -7,6 +7,7 @@ extends Node2D
 signal restart_requested
 
 const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
+const DEBUG_INPUT: Script = preload("res://gameplay/debug/game_debug_input.gd")
 
 ## Delegates restart to the host; all other exports configure scene startup.
 @export var use_external_restart: bool = false
@@ -17,6 +18,8 @@ const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 @export var record_runs: bool = true
 @export var collect_telemetry: bool = true
 @export var enable_debug_fixtures: bool = true
+@export var enable_checkpoints: bool = false
+@export var checkpoint_directory: String = "user://run_checkpoint"
 
 ## Host-visible preference and fixture state; writes must precede startup or use UI actions.
 var preferences: PlayerPreferences = PlayerPreferences.new()
@@ -43,6 +46,7 @@ var _menu_owns_pause: bool = false
 @onready var _card_transfer: CardTransfer = $CardTransfer
 @onready var _skill_pool: SkillPool = $SkillPool
 @onready var _settings: PlaybackSettings = $PlaybackSettings
+@onready var _checkpoint: GameCheckpointFlow = $GameCheckpointFlow
 
 func _ready() -> void:
 	_world_environment.environment = _world_environment.environment.duplicate() as Environment
@@ -50,6 +54,14 @@ func _ready() -> void:
 	_connect_run_signals()
 	_connect_menu_signals()
 	_connect_settings_signals()
+	_checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
+	_checkpoint.status_changed.connect(_hud.show_status)
+	_checkpoint.status_changed.connect(func(_id: StringName) -> void: release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error))
+	_checkpoint.before_restore.connect(_suspend_collection)
+	_checkpoint.restored.connect(_on_checkpoint_restored)
+	_checkpoint.settling_exit.connect(_prepare_checkpoint_exit)
+	_checkpoint.exit_ready.connect(_finish_quit)
+	_checkpoint.operation_cancelled.connect(func() -> void: _hud.set_reward_waiting(_board.run.state.rewards.active_offer != null and not UIManager.current_popup is PopupSkillChoice))
 	_set_background_motion(preferences.background_motion, false)
 	_set_board_signal(preferences.board_signal, false)
 	_set_fast(preferences.fast, false)
@@ -64,9 +76,10 @@ func _ready() -> void:
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
 	await _board.start_game(board_rules, record_runs)
-	if show_start_menu: _show_menu()
+	if show_start_menu or _checkpoint.saved_available: _show_menu()
 	else:
 		_has_played = true
+		_checkpoint.arm_current()
 		if _board.observation.telemetry != null: _board.observation.telemetry.play_started()
 
 func _exit_tree() -> void:
@@ -82,37 +95,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		var playback_key: InputEventKey = event as InputEventKey
 		if playback_key.pressed and not playback_key.echo and playback_key.physical_keycode == KEY_F8:
 			_set_fast(not _fast_playback)
-	if OS.is_debug_build() and enable_debug_fixtures and event is InputEventKey:
-		var key: InputEventKey = event as InputEventKey
-		if key.pressed and not key.echo and key.physical_keycode == KEY_F6:
-			_board.load_explosion_demo()
-		elif key.pressed and not key.echo and key.physical_keycode == KEY_F10:
-			if await _board.load_explosion_demo("fixture_dye"):
-				_hud.show_status("hud.status.demo_dye")
-		elif key.pressed and not key.echo and key.physical_keycode == KEY_F11:
-			if key.alt_pressed:
-				if await _board.load_explosion_demo("fixture_manual_limit"):
-					_hud.show_status("hud.status.demo_limit")
-				return
-			var wide: bool = key.shift_pressed
-			var cross: bool = key.ctrl_pressed
-			if wide and cross:
-				if await _board.load_explosion_demo("fixture_line_score"):
-					_hud.show_status("hud.status.demo_score")
-				return
-			var mode: String = "fixture_line_cross" if cross else ("fixture_line_span" if wide else "fixture_line")
-			if await _board.load_explosion_demo(mode):
-				_hud.show_status("hud.status.demo_cross" if cross else ("hud.status.demo_span" if wide else "hud.status.demo_line"))
-		elif key.pressed and not key.echo and key.physical_keycode == KEY_F7:
-			_board.open_skill_demo()
-		elif key.pressed and not key.echo and key.physical_keycode == KEY_F12:
-			if await _board.load_explosion_demo("fixture_transform"):
-				_hud.show_status("hud.status.demo_transform")
-				var active_run: RunController = _board.run
-				_board.can_selected = false
-				await BoardRunFlow.continue_run(_board, active_run)
-				if _board.run == active_run: _board.can_selected = not active_run.state.is_game_over and active_run.state.rule_error.is_empty()
-
+	if OS.is_debug_build() and enable_debug_fixtures and not _checkpoint.is_busy():
+		await DEBUG_INPUT.handle(_board, _hud, event)
 ## Resumes an explicitly requested reward choice; closing its popup does not reopen it.
 func request_rewards() -> void:
 	var active: RunController = _board.run
@@ -162,6 +146,7 @@ func _connect_menu_signals() -> void:
 	release_menu.skill_pool_requested.connect(_open_skill_pool)
 	release_menu.mode_requested.connect(_select_mode)
 	release_menu.play_requested.connect(_play_from_menu)
+	release_menu.quit_requested.connect(_quit.bind("quit_button"))
 	release_menu.tutorial_completed.connect(_tutorial_completed)
 	release_menu.language_requested.connect(_set_language)
 	release_menu.set_language_preference(CoreSystem.localization_manager.get_preferred_locale())
@@ -194,17 +179,28 @@ func _show_menu() -> void:
 	_menu_previous_pause = get_tree().paused
 	_menu_owns_pause = true
 	get_tree().paused = true
-	release_menu.open(_has_played, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over, _board.run.state.mode_id())
+	var menu_mode: StringName = _checkpoint.saved_mode if not _has_played and _checkpoint.saved_available else _board.run.state.mode_id()
+	release_menu.open(_has_played or _checkpoint.saved_available, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over, menu_mode)
+	release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error)
 	_set_collection_location("help" if _has_played else "start_menu")
 	_collection.flush()
 
 func _play_from_menu(new_run: bool) -> void:
+	if _checkpoint.enabled and not new_run and not _has_played and (_checkpoint.saved_available or not _checkpoint.last_error.is_empty()):
+		if await _checkpoint.continue_saved():
+			_has_played = true
+			_menu_owns_pause = false
+		else: _show_menu()
+		return
 	get_tree().paused = false if new_run else _menu_previous_pause
 	_menu_owns_pause = false
-	_has_played = true
 	_hud.show_pause_state(get_tree().paused)
-	if new_run: await _on_retry_requested()
+	if new_run and not await _on_retry_requested():
+		_show_menu()
+		return
 	else: _set_collection_location("")
+	_has_played = true
+	if not new_run: _checkpoint.arm_current()
 	if _board.observation.telemetry != null: _board.observation.telemetry.play_started()
 
 func _pause_on_focus_loss() -> void:
@@ -216,6 +212,7 @@ func _tutorial_completed() -> void:
 	_save_preferences()
 
 func _end_to_menu() -> void:
+	_checkpoint.terminal(_board.run, true)
 	BoardRunFlow.finalize(_board.run, "result_to_menu")
 	UIManager.close_popup()
 	_show_menu()
@@ -374,9 +371,13 @@ func _show_collection_status(message: String) -> void:
 
 func _quit(reason: String) -> void:
 	if not intercept_window_close: return
+	_checkpoint.request_exit(reason)
+
+func _finish_quit(reason: String) -> void:
 	_board.can_selected = false
 	_board.cancel_buffered_input("window_close")
-	_collection.close(reason)
+	if _checkpoint.enabled: _suspend_collection()
+	else: _collection.close(reason)
 	get_tree().quit()
 
 func _on_locale_changed(_old: String, _new: String) -> void:
@@ -388,6 +389,7 @@ func _on_locale_changed(_old: String, _new: String) -> void:
 func _on_game_over() -> void:
 	_board.can_selected = false
 	var active_run: RunController = _board.run
+	_checkpoint.terminal(active_run)
 	if not await _board.finish_presentation() or _board.run != active_run: return
 	_refresh_hud()
 	_hud.show_status(&"hud.status.challenge_completed" if active_run.state.end_reason == &"challenge_completed" else &"hud.status.board_full")
@@ -400,21 +402,47 @@ func _on_game_over() -> void:
 		if popup is GAME_OVER_POPUP: _connect_collection_controls((popup as GAME_OVER_POPUP).collection_controls)
 	_set_collection_location("result")
 
-func _on_retry_requested() -> void:
+func _on_retry_requested() -> bool:
 	if use_external_restart:
 		restart_requested.emit()
-		return
+		return true
+	var fresh_rules: BoardRules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
+	var prepared: RunController = RunController.new(fresh_rules, randi(), _board.game_mode.stage_config)
+	var initial: RunStepResult = prepared.initialize()
+	if not prepared.state.rule_error.is_empty() or not await _checkpoint.allow_new_run(): return false
 	_settings.close()
 	_skill_pool.close()
 	_collection.finish(_restart_reason)
 	_restart_reason = "restart"
 	_feedback.cancel()
 	UIManager.close_popup()
-	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
-	await _board.retry_game(board_rules)
+	board_rules = fresh_rules
+	if collect_telemetry and not OS.has_feature("web") and not _collection.enabled:
+		_collection.configure(collection_context)
+		_board.telemetry_factory = _collection.factory
+	await _board.retry_game(board_rules, prepared, initial)
+	_checkpoint.arm_current()
 	_apply_game_theme()
 	_set_collection_location("")
 	if _board.observation.telemetry != null: _board.observation.telemetry.play_started()
+	return true
+
+func _suspend_collection() -> void:
+	_collection.suspend_for_checkpoint()
+	_board.telemetry_factory = null
+
+func _prepare_checkpoint_exit() -> void:
+	_settings.close()
+	_skill_pool.close()
+	_reward_flow.cancel()
+	_hud.finish_score_now()
+
+func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
+	board_rules = active.state.rules
+	_hud.bind_checkpoint(active)
+	_hud.show_pause_state(false)
+	_apply_game_theme()
+	if active.state.rewards.active_offer != null: _reward_flow.present(_board, active, active.state.rewards.active_offer, true)
 
 func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
 	if piece != null: _feedback.play(&"select")

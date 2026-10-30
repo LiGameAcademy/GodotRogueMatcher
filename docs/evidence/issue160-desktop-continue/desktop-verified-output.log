@@ -1,0 +1,1102 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+Loading resource: res://localization/localization.en_US.translation remapped: res://localization/localization.en_US.translation
+Completed load for: 'res://localization/localization.en_US.translation' remapped 'res://localization/localization.en_US.translation' at thread -1
+Loading resource: res://localization/localization.zh_CN.translation remapped: res://localization/localization.zh_CN.translation
+Completed load for: 'res://localization/localization.zh_CN.translation' remapped 'res://localization/localization.zh_CN.translation' at thread -1
+Loading resource: res://localization/game.en_US.translation remapped: res://localization/game.en_US.translation
+Completed load for: 'res://localization/game.en_US.translation' remapped 'res://localization/game.en_US.translation' at thread -1
+Loading resource: res://localization/game.zh_CN.translation remapped: res://localization/game.zh_CN.translation
+Completed load for: 'res://localization/game.zh_CN.translation' remapped 'res://localization/game.zh_CN.translation' at thread -1
+Loading resource: res://localization/skill_rules.en_US.translation remapped: res://localization/skill_rules.en_US.translation
+Completed load for: 'res://localization/skill_rules.en_US.translation' remapped 'res://localization/skill_rules.en_US.translation' at thread -1
+Loading resource: res://localization/skill_rules.zh_CN.translation remapped: res://localization/skill_rules.zh_CN.translation
+Completed load for: 'res://localization/skill_rules.zh_CN.translation' remapped 'res://localization/skill_rules.zh_CN.translation' at thread -1
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+Loading resource: res://assets/fonts/noto_sans_sc_regular.otf remapped: res://assets/fonts/noto_sans_sc_regular.otf
+Loading resource: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata remapped: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata
+Completed load for: 'res://assets/fonts/noto_sans_sc_regular.otf' remapped 'res://assets/fonts/noto_sans_sc_regular.otf' at thread -1
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://addons/gut/gut_cmdln.gd remapped: res://addons/gut/gut_cmdln.gd
+Completed load for: 'res://addons/gut/gut_cmdln.gd' remapped 'res://addons/gut/gut_cmdln.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/gut/version_conversion.gd remapped: res://addons/gut/version_conversion.gd
+Completed load for: 'res://addons/gut/version_conversion.gd' remapped 'res://addons/gut/version_conversion.gd' at thread -1
+Loading resource: res://addons/gut/gut_loader.gd remapped: res://addons/gut/gut_loader.gd
+Loading resource: res://addons/gut/warnings_manager.gd remapped: res://addons/gut/warnings_manager.gd
+Completed load for: 'res://addons/gut/warnings_manager.gd' remapped 'res://addons/gut/warnings_manager.gd' at thread -1
+Loading resource: res://addons/gut/utils.gd remapped: res://addons/gut/utils.gd
+Loading resource: res://addons/gut/GutScene.tscn remapped: res://addons/gut/GutScene.tscn
+Loading resource: res://addons/gut/GutScene.gd remapped: res://addons/gut/GutScene.gd
+Completed load for: 'res://addons/gut/GutScene.gd' remapped 'res://addons/gut/GutScene.gd' at thread -1
+Loading resource: res://addons/gut/gui/NormalGui.tscn remapped: res://addons/gut/gui/NormalGui.tscn
+Loading resource: res://addons/gut/gui/GutSceneTheme.tres remapped: res://addons/gut/gui/GutSceneTheme.tres
+Loading resource: res://addons/gut/fonts/AnonymousPro-Regular.ttf remapped: res://addons/gut/fonts/AnonymousPro-Regular.ttf
+Loading resource: res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata remapped: res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata
+Completed load for: 'res://addons/gut/fonts/AnonymousPro-Regular.ttf' remapped 'res://addons/gut/fonts/AnonymousPro-Regular.ttf' at thread -1
+Completed load for: 'res://addons/gut/gui/GutSceneTheme.tres' remapped 'res://addons/gut/gui/GutSceneTheme.tres' at thread -1
+Loading resource: res://addons/gut/gui/gut_gui.gd remapped: res://addons/gut/gui/gut_gui.gd
+Completed load for: 'res://addons/gut/gui/gut_gui.gd' remapped 'res://addons/gut/gui/gut_gui.gd' at thread -1
+Loading resource: res://addons/gut/fonts/CourierPrime-Regular.ttf remapped: res://addons/gut/fonts/CourierPrime-Regular.ttf
+Loading resource: res://.godot/imported/CourierPrime-Regular.ttf-3babe7e4a7a588dfc9a84c14b4f1fe23.fontdata remapped: res://.godot/imported/CourierPrime-Regular.ttf-3babe7e4a7a588dfc9a84c14b4f1fe23.fontdata
+Completed load for: 'res://addons/gut/fonts/CourierPrime-Regular.ttf' remapped 'res://addons/gut/fonts/CourierPrime-Regular.ttf' at thread -1
+Loading resource: res://addons/gut/gui/ResizeHandle.tscn remapped: res://addons/gut/gui/ResizeHandle.tscn
+Loading resource: res://addons/gut/gui/ResizeHandle.gd remapped: res://addons/gut/gui/ResizeHandle.gd
+Completed load for: 'res://addons/gut/gui/ResizeHandle.gd' remapped 'res://addons/gut/gui/ResizeHandle.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/ResizeHandle.tscn' remapped 'res://addons/gut/gui/ResizeHandle.tscn' at thread -1
+Completed load for: 'res://addons/gut/gui/NormalGui.tscn' remapped 'res://addons/gut/gui/NormalGui.tscn' at thread -1
+Loading resource: res://addons/gut/gui/MinGui.tscn remapped: res://addons/gut/gui/MinGui.tscn
+Completed load for: 'res://addons/gut/gui/MinGui.tscn' remapped 'res://addons/gut/gui/MinGui.tscn' at thread -1
+Completed load for: 'res://addons/gut/GutScene.tscn' remapped 'res://addons/gut/GutScene.tscn' at thread -1
+Loading resource: res://addons/gut/lazy_loader.gd remapped: res://addons/gut/lazy_loader.gd
+Loading resource: res://addons/gut/thing_counter.gd remapped: res://addons/gut/thing_counter.gd
+Completed load for: 'res://addons/gut/thing_counter.gd' remapped 'res://addons/gut/thing_counter.gd' at thread -1
+Completed load for: 'res://addons/gut/lazy_loader.gd' remapped 'res://addons/gut/lazy_loader.gd' at thread -1
+Loading resource: res://addons/gut/version_numbers.gd remapped: res://addons/gut/version_numbers.gd
+Completed load for: 'res://addons/gut/version_numbers.gd' remapped 'res://addons/gut/version_numbers.gd' at thread -1
+Loading resource: res://addons/gut/gui/editor_globals.gd remapped: res://addons/gut/gui/editor_globals.gd
+Loading resource: res://addons/gut/gui/gut_user_preferences.gd remapped: res://addons/gut/gui/gut_user_preferences.gd
+Completed load for: 'res://addons/gut/gui/gut_user_preferences.gd' remapped 'res://addons/gut/gui/gut_user_preferences.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/editor_globals.gd' remapped 'res://addons/gut/gui/editor_globals.gd' at thread -1
+Loading resource: res://addons/gut/gui/RunExternally.tscn remapped: res://addons/gut/gui/RunExternally.tscn
+Loading resource: res://addons/gut/gui/RunExternally.gd remapped: res://addons/gut/gui/RunExternally.gd
+Completed load for: 'res://addons/gut/gui/RunExternally.gd' remapped 'res://addons/gut/gui/RunExternally.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/RunExternally.tscn' remapped 'res://addons/gut/gui/RunExternally.tscn' at thread -1
+Loading resource: res://addons/gut/gut_fonts.gd remapped: res://addons/gut/gut_fonts.gd
+Completed load for: 'res://addons/gut/gut_fonts.gd' remapped 'res://addons/gut/gut_fonts.gd' at thread -1
+Loading resource: res://addons/gut/dynamic_gdscript.gd remapped: res://addons/gut/dynamic_gdscript.gd
+Completed load for: 'res://addons/gut/dynamic_gdscript.gd' remapped 'res://addons/gut/dynamic_gdscript.gd' at thread -1
+Completed load for: 'res://addons/gut/utils.gd' remapped 'res://addons/gut/utils.gd' at thread -1
+Loading resource: res://addons/gut/autofree.gd remapped: res://addons/gut/autofree.gd
+Completed load for: 'res://addons/gut/autofree.gd' remapped 'res://addons/gut/autofree.gd' at thread -1
+Loading resource: res://addons/gut/awaiter.gd remapped: res://addons/gut/awaiter.gd
+Completed load for: 'res://addons/gut/awaiter.gd' remapped 'res://addons/gut/awaiter.gd' at thread -1
+Loading resource: res://addons/gut/comparator.gd remapped: res://addons/gut/comparator.gd
+Completed load for: 'res://addons/gut/comparator.gd' remapped 'res://addons/gut/comparator.gd' at thread -1
+Loading resource: res://addons/gut/collected_test.gd remapped: res://addons/gut/collected_test.gd
+Completed load for: 'res://addons/gut/collected_test.gd' remapped 'res://addons/gut/collected_test.gd' at thread -1
+Loading resource: res://addons/gut/collected_script.gd remapped: res://addons/gut/collected_script.gd
+Completed load for: 'res://addons/gut/collected_script.gd' remapped 'res://addons/gut/collected_script.gd' at thread -1
+Loading resource: res://addons/gut/compare_result.gd remapped: res://addons/gut/compare_result.gd
+Completed load for: 'res://addons/gut/compare_result.gd' remapped 'res://addons/gut/compare_result.gd' at thread -1
+Loading resource: res://addons/gut/diff_formatter.gd remapped: res://addons/gut/diff_formatter.gd
+Completed load for: 'res://addons/gut/diff_formatter.gd' remapped 'res://addons/gut/diff_formatter.gd' at thread -1
+Loading resource: res://addons/gut/diff_tool.gd remapped: res://addons/gut/diff_tool.gd
+Completed load for: 'res://addons/gut/diff_tool.gd' remapped 'res://addons/gut/diff_tool.gd' at thread -1
+Loading resource: res://addons/gut/double_tools.gd remapped: res://addons/gut/double_tools.gd
+Completed load for: 'res://addons/gut/double_tools.gd' remapped 'res://addons/gut/double_tools.gd' at thread -1
+Loading resource: res://addons/gut/doubler.gd remapped: res://addons/gut/doubler.gd
+Completed load for: 'res://addons/gut/doubler.gd' remapped 'res://addons/gut/doubler.gd' at thread -1
+Loading resource: res://addons/gut/godot_singletons.gd remapped: res://addons/gut/godot_singletons.gd
+Completed load for: 'res://addons/gut/godot_singletons.gd' remapped 'res://addons/gut/godot_singletons.gd' at thread -1
+Loading resource: res://addons/gut/gut.gd remapped: res://addons/gut/gut.gd
+Completed load for: 'res://addons/gut/gut.gd' remapped 'res://addons/gut/gut.gd' at thread -1
+Loading resource: res://addons/gut/gut_config.gd remapped: res://addons/gut/gut_config.gd
+Completed load for: 'res://addons/gut/gut_config.gd' remapped 'res://addons/gut/gut_config.gd' at thread -1
+Loading resource: res://addons/gut/inner_class_registry.gd remapped: res://addons/gut/inner_class_registry.gd
+Completed load for: 'res://addons/gut/inner_class_registry.gd' remapped 'res://addons/gut/inner_class_registry.gd' at thread -1
+Loading resource: res://addons/gut/input_factory.gd remapped: res://addons/gut/input_factory.gd
+Completed load for: 'res://addons/gut/input_factory.gd' remapped 'res://addons/gut/input_factory.gd' at thread -1
+Loading resource: res://addons/gut/input_sender.gd remapped: res://addons/gut/input_sender.gd
+Completed load for: 'res://addons/gut/input_sender.gd' remapped 'res://addons/gut/input_sender.gd' at thread -1
+Loading resource: res://addons/gut/junit_xml_export.gd remapped: res://addons/gut/junit_xml_export.gd
+Completed load for: 'res://addons/gut/junit_xml_export.gd' remapped 'res://addons/gut/junit_xml_export.gd' at thread -1
+Loading resource: res://addons/gut/logger.gd remapped: res://addons/gut/logger.gd
+Completed load for: 'res://addons/gut/logger.gd' remapped 'res://addons/gut/logger.gd' at thread -1
+Loading resource: res://addons/gut/method_maker.gd remapped: res://addons/gut/method_maker.gd
+Completed load for: 'res://addons/gut/method_maker.gd' remapped 'res://addons/gut/method_maker.gd' at thread -1
+Loading resource: res://addons/gut/one_to_many.gd remapped: res://addons/gut/one_to_many.gd
+Completed load for: 'res://addons/gut/one_to_many.gd' remapped 'res://addons/gut/one_to_many.gd' at thread -1
+Loading resource: res://addons/gut/gui/option_maker.gd remapped: res://addons/gut/gui/option_maker.gd
+Completed load for: 'res://addons/gut/gui/option_maker.gd' remapped 'res://addons/gut/gui/option_maker.gd' at thread -1
+Loading resource: res://addons/gut/orphan_counter.gd remapped: res://addons/gut/orphan_counter.gd
+Completed load for: 'res://addons/gut/orphan_counter.gd' remapped 'res://addons/gut/orphan_counter.gd' at thread -1
+Loading resource: res://addons/gut/parameter_factory.gd remapped: res://addons/gut/parameter_factory.gd
+Completed load for: 'res://addons/gut/parameter_factory.gd' remapped 'res://addons/gut/parameter_factory.gd' at thread -1
+Loading resource: res://addons/gut/parameter_handler.gd remapped: res://addons/gut/parameter_handler.gd
+Completed load for: 'res://addons/gut/parameter_handler.gd' remapped 'res://addons/gut/parameter_handler.gd' at thread -1
+Loading resource: res://addons/gut/printers.gd remapped: res://addons/gut/printers.gd
+Completed load for: 'res://addons/gut/printers.gd' remapped 'res://addons/gut/printers.gd' at thread -1
+Loading resource: res://addons/gut/result_exporter.gd remapped: res://addons/gut/result_exporter.gd
+Completed load for: 'res://addons/gut/result_exporter.gd' remapped 'res://addons/gut/result_exporter.gd' at thread -1
+Loading resource: res://addons/gut/script_parser.gd remapped: res://addons/gut/script_parser.gd
+Completed load for: 'res://addons/gut/script_parser.gd' remapped 'res://addons/gut/script_parser.gd' at thread -1
+Loading resource: res://addons/gut/signal_watcher.gd remapped: res://addons/gut/signal_watcher.gd
+Completed load for: 'res://addons/gut/signal_watcher.gd' remapped 'res://addons/gut/signal_watcher.gd' at thread -1
+Loading resource: res://addons/gut/singleton_parser.gd remapped: res://addons/gut/singleton_parser.gd
+Completed load for: 'res://addons/gut/singleton_parser.gd' remapped 'res://addons/gut/singleton_parser.gd' at thread -1
+Loading resource: res://addons/gut/spy.gd remapped: res://addons/gut/spy.gd
+Completed load for: 'res://addons/gut/spy.gd' remapped 'res://addons/gut/spy.gd' at thread -1
+Loading resource: res://addons/gut/stubber.gd remapped: res://addons/gut/stubber.gd
+Completed load for: 'res://addons/gut/stubber.gd' remapped 'res://addons/gut/stubber.gd' at thread -1
+Loading resource: res://addons/gut/stub_params.gd remapped: res://addons/gut/stub_params.gd
+Completed load for: 'res://addons/gut/stub_params.gd' remapped 'res://addons/gut/stub_params.gd' at thread -1
+Loading resource: res://addons/gut/stubs.gd remapped: res://addons/gut/stubs.gd
+Completed load for: 'res://addons/gut/stubs.gd' remapped 'res://addons/gut/stubs.gd' at thread -1
+Loading resource: res://addons/gut/summary.gd remapped: res://addons/gut/summary.gd
+Completed load for: 'res://addons/gut/summary.gd' remapped 'res://addons/gut/summary.gd' at thread -1
+Loading resource: res://addons/gut/test.gd remapped: res://addons/gut/test.gd
+Completed load for: 'res://addons/gut/test.gd' remapped 'res://addons/gut/test.gd' at thread -1
+Loading resource: res://addons/gut/test_collector.gd remapped: res://addons/gut/test_collector.gd
+Completed load for: 'res://addons/gut/test_collector.gd' remapped 'res://addons/gut/test_collector.gd' at thread -1
+Completed load for: 'res://addons/gut/gut_loader.gd' remapped 'res://addons/gut/gut_loader.gd' at thread -1
+Loading resource: res://addons/godot_core_system/source/core_system.gd remapped: res://addons/godot_core_system/source/core_system.gd
+Completed load for: 'res://addons/godot_core_system/source/core_system.gd' remapped 'res://addons/godot_core_system/source/core_system.gd' at thread -1
+Loading resource: res://gameplay/run/game_manager.gd remapped: res://gameplay/run/game_manager.gd
+Loading resource: res://gameplay/progression/content/progression_config.tres remapped: res://gameplay/progression/content/progression_config.tres
+Loading resource: res://gameplay/progression/progression_config.gd remapped: res://gameplay/progression/progression_config.gd
+Completed load for: 'res://gameplay/progression/progression_config.gd' remapped 'res://gameplay/progression/progression_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/progression_config.tres' remapped 'res://gameplay/progression/content/progression_config.tres' at thread -1
+Loading resource: res://gameplay/run/run_config.tres remapped: res://gameplay/run/run_config.tres
+Loading resource: res://gameplay/run/run_config.gd remapped: res://gameplay/run/run_config.gd
+Completed load for: 'res://gameplay/run/run_config.gd' remapped 'res://gameplay/run/run_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/run_config.tres' remapped 'res://gameplay/run/run_config.tres' at thread -1
+Loading resource: res://gameplay/run/spawn_config.tres remapped: res://gameplay/run/spawn_config.tres
+Loading resource: res://gameplay/run/spawn_config.gd remapped: res://gameplay/run/spawn_config.gd
+Completed load for: 'res://gameplay/run/spawn_config.gd' remapped 'res://gameplay/run/spawn_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/spawn_config.tres' remapped 'res://gameplay/run/spawn_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/explosion_config.tres remapped: res://gameplay/skills/content/explosion_config.tres
+Loading resource: res://gameplay/skills/explosion_config.gd remapped: res://gameplay/skills/explosion_config.gd
+Completed load for: 'res://gameplay/skills/explosion_config.gd' remapped 'res://gameplay/skills/explosion_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/explosion_config.tres' remapped 'res://gameplay/skills/content/explosion_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/demolition_config.tres remapped: res://gameplay/skills/content/demolition_config.tres
+Loading resource: res://gameplay/skills/demolition_config.gd remapped: res://gameplay/skills/demolition_config.gd
+Completed load for: 'res://gameplay/skills/demolition_config.gd' remapped 'res://gameplay/skills/demolition_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/demolition_config.tres' remapped 'res://gameplay/skills/content/demolition_config.tres' at thread -1
+Loading resource: res://gameplay/skills/dye/dye_config.tres remapped: res://gameplay/skills/dye/dye_config.tres
+Loading resource: res://gameplay/skills/dye/dye_config.gd remapped: res://gameplay/skills/dye/dye_config.gd
+Completed load for: 'res://gameplay/skills/dye/dye_config.gd' remapped 'res://gameplay/skills/dye/dye_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/dye/dye_config.tres' remapped 'res://gameplay/skills/dye/dye_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_explosion.tres remapped: res://gameplay/skills/content/on_eliminated_explosion.tres
+Loading resource: res://gameplay/skills/effects/explode_effect.gd remapped: res://gameplay/skills/effects/explode_effect.gd
+Completed load for: 'res://gameplay/skills/effects/explode_effect.gd' remapped 'res://gameplay/skills/effects/explode_effect.gd' at thread -1
+Loading resource: res://gameplay/skills/conditions/removal_cause_condition.gd remapped: res://gameplay/skills/conditions/removal_cause_condition.gd
+Completed load for: 'res://gameplay/skills/conditions/removal_cause_condition.gd' remapped 'res://gameplay/skills/conditions/removal_cause_condition.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/on_eliminated_explosion.tres' remapped 'res://gameplay/skills/content/on_eliminated_explosion.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_line_sweep.tres remapped: res://gameplay/skills/content/on_eliminated_line_sweep.tres
+Completed load for: 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' remapped 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' at thread -1
+Loading resource: res://gameplay/skills/content/line_clear_config.tres remapped: res://gameplay/skills/content/line_clear_config.tres
+Loading resource: res://gameplay/skills/line_clear_config.gd remapped: res://gameplay/skills/line_clear_config.gd
+Completed load for: 'res://gameplay/skills/line_clear_config.gd' remapped 'res://gameplay/skills/line_clear_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/line_clear_config.tres' remapped 'res://gameplay/skills/content/line_clear_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/offer_config.tres remapped: res://gameplay/progression/content/offer_config.tres
+Loading resource: res://gameplay/progression/offer_config.gd remapped: res://gameplay/progression/offer_config.gd
+Completed load for: 'res://gameplay/progression/offer_config.gd' remapped 'res://gameplay/progression/offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/offer_config.tres' remapped 'res://gameplay/progression/content/offer_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_core_transform.tres remapped: res://gameplay/progression/content/instant_core_transform.tres
+Loading resource: res://gameplay/progression/effects/transform_material_effect.gd remapped: res://gameplay/progression/effects/transform_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/transform_material_effect.gd' remapped 'res://gameplay/progression/effects/transform_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_core_transform.tres' remapped 'res://gameplay/progression/content/instant_core_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_row_transform.tres remapped: res://gameplay/progression/content/instant_row_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_row_transform.tres' remapped 'res://gameplay/progression/content/instant_row_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_column_transform.tres remapped: res://gameplay/progression/content/instant_column_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_column_transform.tres' remapped 'res://gameplay/progression/content/instant_column_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_refill_color.tres remapped: res://gameplay/progression/content/composite_refill_color.tres
+Loading resource: res://gameplay/progression/effects/color_weight_effect.gd remapped: res://gameplay/progression/effects/color_weight_effect.gd
+Completed load for: 'res://gameplay/progression/effects/color_weight_effect.gd' remapped 'res://gameplay/progression/effects/color_weight_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_refill_color.tres' remapped 'res://gameplay/progression/content/composite_refill_color.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_clear_dye.tres remapped: res://gameplay/progression/content/composite_clear_dye.tres
+Loading resource: res://gameplay/progression/effects/clear_material_effect.gd remapped: res://gameplay/progression/effects/clear_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/clear_material_effect.gd' remapped 'res://gameplay/progression/effects/clear_material_effect.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/dye_material_effect.gd remapped: res://gameplay/progression/effects/dye_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/dye_material_effect.gd' remapped 'res://gameplay/progression/effects/dye_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_clear_dye.tres' remapped 'res://gameplay/progression/content/composite_clear_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/goal_score_bonus.tres remapped: res://gameplay/progression/content/goal_score_bonus.tres
+Loading resource: res://gameplay/progression/effects/install_goal_bonus_effect.gd remapped: res://gameplay/progression/effects/install_goal_bonus_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' remapped 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/goal_score_bonus.tres' remapped 'res://gameplay/progression/content/goal_score_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_drop.tres remapped: res://gameplay/progression/content/line_row_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_line_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_line_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_row_drop.tres' remapped 'res://gameplay/progression/content/line_row_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_drop.tres remapped: res://gameplay/progression/content/line_column_drop.tres
+Completed load for: 'res://gameplay/progression/content/line_column_drop.tres' remapped 'res://gameplay/progression/content/line_column_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_manual_clear.tres remapped: res://gameplay/progression/content/line_manual_clear.tres
+Loading resource: res://gameplay/progression/effects/install_line_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_line_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_manual_clear.tres' remapped 'res://gameplay/progression/content/line_manual_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_span.tres remapped: res://gameplay/progression/content/line_row_span.tres
+Completed load for: 'res://gameplay/progression/content/line_row_span.tres' remapped 'res://gameplay/progression/content/line_row_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_span.tres remapped: res://gameplay/progression/content/line_column_span.tres
+Completed load for: 'res://gameplay/progression/content/line_column_span.tres' remapped 'res://gameplay/progression/content/line_column_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_cross_upgrade.tres remapped: res://gameplay/progression/content/line_cross_upgrade.tres
+Completed load for: 'res://gameplay/progression/content/line_cross_upgrade.tres' remapped 'res://gameplay/progression/content/line_cross_upgrade.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_clear_score.tres remapped: res://gameplay/progression/content/line_clear_score.tres
+Completed load for: 'res://gameplay/progression/content/line_clear_score.tres' remapped 'res://gameplay/progression/content/line_clear_score.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_drop.tres remapped: res://gameplay/progression/content/core_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_core_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_core_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/core_drop.tres' remapped 'res://gameplay/progression/content/core_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/assign_fuse.tres remapped: res://gameplay/progression/content/assign_fuse.tres
+Loading resource: res://gameplay/progression/effects/assign_fuse_effect.gd remapped: res://gameplay/progression/effects/assign_fuse_effect.gd
+Completed load for: 'res://gameplay/progression/effects/assign_fuse_effect.gd' remapped 'res://gameplay/progression/effects/assign_fuse_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/assign_fuse.tres' remapped 'res://gameplay/progression/content/assign_fuse.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_extra.tres remapped: res://gameplay/progression/content/blast_extra.tres
+Loading resource: res://gameplay/progression/effects/demolition_stat_effect.gd remapped: res://gameplay/progression/effects/demolition_stat_effect.gd
+Completed load for: 'res://gameplay/progression/effects/demolition_stat_effect.gd' remapped 'res://gameplay/progression/effects/demolition_stat_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/blast_extra.tres' remapped 'res://gameplay/progression/content/blast_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/score_multiplier.tres remapped: res://gameplay/progression/content/score_multiplier.tres
+Completed load for: 'res://gameplay/progression/content/score_multiplier.tres' remapped 'res://gameplay/progression/content/score_multiplier.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_extra.tres remapped: res://gameplay/progression/content/match_extra.tres
+Completed load for: 'res://gameplay/progression/content/match_extra.tres' remapped 'res://gameplay/progression/content/match_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_thin.tres remapped: res://gameplay/progression/content/instant_thin.tres
+Loading resource: res://gameplay/progression/effects/thin_material_effect.gd remapped: res://gameplay/progression/effects/thin_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/thin_material_effect.gd' remapped 'res://gameplay/progression/effects/thin_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_thin.tres' remapped 'res://gameplay/progression/content/instant_thin.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_percent_clear.tres remapped: res://gameplay/progression/content/instant_percent_clear.tres
+Loading resource: res://gameplay/progression/effects/percent_clear_effect.gd remapped: res://gameplay/progression/effects/percent_clear_effect.gd
+Completed load for: 'res://gameplay/progression/effects/percent_clear_effect.gd' remapped 'res://gameplay/progression/effects/percent_clear_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_percent_clear.tres' remapped 'res://gameplay/progression/content/instant_percent_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_less.tres remapped: res://gameplay/progression/content/refill_less.tres
+Completed load for: 'res://gameplay/progression/content/refill_less.tres' remapped 'res://gameplay/progression/content/refill_less.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_more.tres remapped: res://gameplay/progression/content/refill_more.tres
+Completed load for: 'res://gameplay/progression/content/refill_more.tres' remapped 'res://gameplay/progression/content/refill_more.tres' at thread -1
+Loading resource: res://gameplay/progression/content/precision_reward.tres remapped: res://gameplay/progression/content/precision_reward.tres
+Loading resource: res://gameplay/progression/effects/install_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/precision_reward.tres' remapped 'res://gameplay/progression/content/precision_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_capacity.tres remapped: res://gameplay/progression/content/fuse_capacity.tres
+Completed load for: 'res://gameplay/progression/content/fuse_capacity.tres' remapped 'res://gameplay/progression/content/fuse_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_radius.tres remapped: res://gameplay/progression/content/blast_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_radius.tres' remapped 'res://gameplay/progression/content/blast_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_reward.tres remapped: res://gameplay/progression/content/blast_reward.tres
+Completed load for: 'res://gameplay/progression/content/blast_reward.tres' remapped 'res://gameplay/progression/content/blast_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_up.tres remapped: res://gameplay/progression/content/color_weight_up.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_up.tres' remapped 'res://gameplay/progression/content/color_weight_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_down.tres remapped: res://gameplay/progression/content/color_weight_down.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_down.tres' remapped 'res://gameplay/progression/content/color_weight_down.tres' at thread -1
+Loading resource: res://gameplay/progression/content/relay_capacity.tres remapped: res://gameplay/progression/content/relay_capacity.tres
+Completed load for: 'res://gameplay/progression/content/relay_capacity.tres' remapped 'res://gameplay/progression/content/relay_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/marked_reward.tres remapped: res://gameplay/progression/content/marked_reward.tres
+Completed load for: 'res://gameplay/progression/content/marked_reward.tres' remapped 'res://gameplay/progression/content/marked_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/longline_reward.tres remapped: res://gameplay/progression/content/longline_reward.tres
+Completed load for: 'res://gameplay/progression/content/longline_reward.tres' remapped 'res://gameplay/progression/content/longline_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_supply_up.tres remapped: res://gameplay/progression/content/core_supply_up.tres
+Completed load for: 'res://gameplay/progression/content/core_supply_up.tres' remapped 'res://gameplay/progression/content/core_supply_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_radius.tres remapped: res://gameplay/progression/content/core_radius.tres
+Completed load for: 'res://gameplay/progression/content/core_radius.tres' remapped 'res://gameplay/progression/content/core_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_clear.tres remapped: res://gameplay/progression/content/instant_color_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_clear.tres' remapped 'res://gameplay/progression/content/instant_color_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_line_clear.tres remapped: res://gameplay/progression/content/instant_line_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_line_clear.tres' remapped 'res://gameplay/progression/content/instant_line_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_relay.tres remapped: res://gameplay/progression/content/fuse_relay.tres
+Completed load for: 'res://gameplay/progression/content/fuse_relay.tres' remapped 'res://gameplay/progression/content/fuse_relay.tres' at thread -1
+Loading resource: res://gameplay/progression/content/chain_reward.tres remapped: res://gameplay/progression/content/chain_reward.tres
+Completed load for: 'res://gameplay/progression/content/chain_reward.tres' remapped 'res://gameplay/progression/content/chain_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_fuse_ignite.tres remapped: res://gameplay/progression/content/instant_fuse_ignite.tres
+Loading resource: res://gameplay/progression/effects/ignite_fuses_effect.gd remapped: res://gameplay/progression/effects/ignite_fuses_effect.gd
+Completed load for: 'res://gameplay/progression/effects/ignite_fuses_effect.gd' remapped 'res://gameplay/progression/effects/ignite_fuses_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_fuse_ignite.tres' remapped 'res://gameplay/progression/content/instant_fuse_ignite.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_manual_detonation.tres remapped: res://gameplay/progression/content/core_manual_detonation.tres
+Completed load for: 'res://gameplay/progression/content/core_manual_detonation.tres' remapped 'res://gameplay/progression/content/core_manual_detonation.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_match_plant.tres remapped: res://gameplay/progression/content/fuse_match_plant.tres
+Completed load for: 'res://gameplay/progression/content/fuse_match_plant.tres' remapped 'res://gameplay/progression/content/fuse_match_plant.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_bonus.tres remapped: res://gameplay/progression/content/blast_chain_bonus.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_bonus.tres' remapped 'res://gameplay/progression/content/blast_chain_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/selective_blast.tres remapped: res://gameplay/progression/content/selective_blast.tres
+Completed load for: 'res://gameplay/progression/content/selective_blast.tres' remapped 'res://gameplay/progression/content/selective_blast.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_fuse_payload.tres remapped: res://gameplay/progression/content/core_fuse_payload.tres
+Completed load for: 'res://gameplay/progression/content/core_fuse_payload.tres' remapped 'res://gameplay/progression/content/core_fuse_payload.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_radius.tres remapped: res://gameplay/progression/content/blast_chain_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_radius.tres' remapped 'res://gameplay/progression/content/blast_chain_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_refill_relief.tres remapped: res://gameplay/progression/content/blast_refill_relief.tres
+Completed load for: 'res://gameplay/progression/content/blast_refill_relief.tres' remapped 'res://gameplay/progression/content/blast_refill_relief.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_aftershock.tres remapped: res://gameplay/progression/content/blast_aftershock.tres
+Completed load for: 'res://gameplay/progression/content/blast_aftershock.tres' remapped 'res://gameplay/progression/content/blast_aftershock.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_dye_echo.tres remapped: res://gameplay/progression/content/match_dye_echo.tres
+Loading resource: res://gameplay/progression/effects/install_dye_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_dye_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/match_dye_echo.tres' remapped 'res://gameplay/progression/content/match_dye_echo.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_target_up.tres remapped: res://gameplay/progression/content/dye_target_up.tres
+Completed load for: 'res://gameplay/progression/content/dye_target_up.tres' remapped 'res://gameplay/progression/content/dye_target_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_chain_depth.tres remapped: res://gameplay/progression/content/dye_chain_depth.tres
+Completed load for: 'res://gameplay/progression/content/dye_chain_depth.tres' remapped 'res://gameplay/progression/content/dye_chain_depth.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_mark_reward.tres remapped: res://gameplay/progression/content/dye_mark_reward.tres
+Completed load for: 'res://gameplay/progression/content/dye_mark_reward.tres' remapped 'res://gameplay/progression/content/dye_mark_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_dye.tres remapped: res://gameplay/progression/content/blast_dye.tres
+Completed load for: 'res://gameplay/progression/content/blast_dye.tres' remapped 'res://gameplay/progression/content/blast_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_dye.tres remapped: res://gameplay/progression/content/instant_color_dye.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_dye.tres' remapped 'res://gameplay/progression/content/instant_color_dye.tres' at thread -1
+Completed load for: 'res://gameplay/run/game_manager.gd' remapped 'res://gameplay/run/game_manager.gd' at thread -1
+Loading resource: res://gameplay/board/match_system.gd remapped: res://gameplay/board/match_system.gd
+Loading resource: res://gameplay/presentation/board_juice_config.tres remapped: res://gameplay/presentation/board_juice_config.tres
+Loading resource: res://gameplay/presentation/board_juice_config.gd remapped: res://gameplay/presentation/board_juice_config.gd
+Completed load for: 'res://gameplay/presentation/board_juice_config.gd' remapped 'res://gameplay/presentation/board_juice_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/board_juice_config.tres' remapped 'res://gameplay/presentation/board_juice_config.tres' at thread -1
+Loading resource: res://assets/textures/pieces/peanut_body.png remapped: res://assets/textures/pieces/peanut_body.png
+Loading resource: res://.godot/imported/peanut_body.png-d51cde035b1a27373944b0f18e6c0063.ctex remapped: res://.godot/imported/peanut_body.png-d51cde035b1a27373944b0f18e6c0063.ctex
+Completed load for: 'res://assets/textures/pieces/peanut_body.png' remapped 'res://assets/textures/pieces/peanut_body.png' at thread -1
+Loading resource: res://assets/textures/pieces/cashew_body.png remapped: res://assets/textures/pieces/cashew_body.png
+Loading resource: res://.godot/imported/cashew_body.png-23b24971aa677cf8b3e8e35575be1923.ctex remapped: res://.godot/imported/cashew_body.png-23b24971aa677cf8b3e8e35575be1923.ctex
+Completed load for: 'res://assets/textures/pieces/cashew_body.png' remapped 'res://assets/textures/pieces/cashew_body.png' at thread -1
+Loading resource: res://assets/textures/pieces/almond_body.png remapped: res://assets/textures/pieces/almond_body.png
+Loading resource: res://.godot/imported/almond_body.png-46bdce001f9e0c762ab4fded74446525.ctex remapped: res://.godot/imported/almond_body.png-46bdce001f9e0c762ab4fded74446525.ctex
+Completed load for: 'res://assets/textures/pieces/almond_body.png' remapped 'res://assets/textures/pieces/almond_body.png' at thread -1
+Loading resource: res://assets/textures/pieces/walnut_body.png remapped: res://assets/textures/pieces/walnut_body.png
+Loading resource: res://.godot/imported/walnut_body.png-9680884c4a958a2ae6a106a9b9b6bf3a.ctex remapped: res://.godot/imported/walnut_body.png-9680884c4a958a2ae6a106a9b9b6bf3a.ctex
+Completed load for: 'res://assets/textures/pieces/walnut_body.png' remapped 'res://assets/textures/pieces/walnut_body.png' at thread -1
+Loading resource: res://assets/textures/pieces/pistachio_body.png remapped: res://assets/textures/pieces/pistachio_body.png
+Loading resource: res://.godot/imported/pistachio_body.png-40ea95cc20a31d67dd378b2d306ee96b.ctex remapped: res://.godot/imported/pistachio_body.png-40ea95cc20a31d67dd378b2d306ee96b.ctex
+Completed load for: 'res://assets/textures/pieces/pistachio_body.png' remapped 'res://assets/textures/pieces/pistachio_body.png' at thread -1
+Loading resource: res://gameplay/board/piece/piece_marker_config.tres remapped: res://gameplay/board/piece/piece_marker_config.tres
+Loading resource: res://gameplay/board/piece/piece_marker_config.gd remapped: res://gameplay/board/piece/piece_marker_config.gd
+Completed load for: 'res://gameplay/board/piece/piece_marker_config.gd' remapped 'res://gameplay/board/piece/piece_marker_config.gd' at thread -1
+Completed load for: 'res://gameplay/board/piece/piece_marker_config.tres' remapped 'res://gameplay/board/piece/piece_marker_config.tres' at thread -1
+Loading resource: res://assets/textures/faces/eyes_idle.png remapped: res://assets/textures/faces/eyes_idle.png
+Loading resource: res://.godot/imported/eyes_idle.png-95a4bc97f8db23d3ac80fa39f46bfb83.ctex remapped: res://.godot/imported/eyes_idle.png-95a4bc97f8db23d3ac80fa39f46bfb83.ctex
+Completed load for: 'res://assets/textures/faces/eyes_idle.png' remapped 'res://assets/textures/faces/eyes_idle.png' at thread -1
+Loading resource: res://assets/textures/faces/eyes_blink_closed.png remapped: res://assets/textures/faces/eyes_blink_closed.png
+Loading resource: res://.godot/imported/eyes_blink_closed.png-67cfde20f574142a9db24235654714fb.ctex remapped: res://.godot/imported/eyes_blink_closed.png-67cfde20f574142a9db24235654714fb.ctex
+Completed load for: 'res://assets/textures/faces/eyes_blink_closed.png' remapped 'res://assets/textures/faces/eyes_blink_closed.png' at thread -1
+Loading resource: res://assets/textures/faces/mouth_smile.png remapped: res://assets/textures/faces/mouth_smile.png
+Loading resource: res://.godot/imported/mouth_smile.png-827a9c360f64d227ac8426d76a42a8b4.ctex remapped: res://.godot/imported/mouth_smile.png-827a9c360f64d227ac8426d76a42a8b4.ctex
+Completed load for: 'res://assets/textures/faces/mouth_smile.png' remapped 'res://assets/textures/faces/mouth_smile.png' at thread -1
+Loading resource: res://gameplay/board/piece/nut_idle_config.tres remapped: res://gameplay/board/piece/nut_idle_config.tres
+Loading resource: res://gameplay/board/piece/nut_idle_config.gd remapped: res://gameplay/board/piece/nut_idle_config.gd
+Completed load for: 'res://gameplay/board/piece/nut_idle_config.gd' remapped 'res://gameplay/board/piece/nut_idle_config.gd' at thread -1
+Completed load for: 'res://gameplay/board/piece/nut_idle_config.tres' remapped 'res://gameplay/board/piece/nut_idle_config.tres' at thread -1
+Loading resource: res://gameplay/run/modes/stage_challenge.tres remapped: res://gameplay/run/modes/stage_challenge.tres
+Loading resource: res://gameplay/run/modes/game_mode_definition.gd remapped: res://gameplay/run/modes/game_mode_definition.gd
+Completed load for: 'res://gameplay/run/modes/game_mode_definition.gd' remapped 'res://gameplay/run/modes/game_mode_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/stages/stage_config.tres remapped: res://gameplay/progression/stages/stage_config.tres
+Completed load for: 'res://gameplay/progression/stages/stage_config.tres' remapped 'res://gameplay/progression/stages/stage_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/modes/stage_challenge.tres' remapped 'res://gameplay/run/modes/stage_challenge.tres' at thread -1
+Loading resource: res://gameplay/presentation/presentation_config.tres remapped: res://gameplay/presentation/presentation_config.tres
+Loading resource: res://gameplay/presentation/presentation_config.gd remapped: res://gameplay/presentation/presentation_config.gd
+Completed load for: 'res://gameplay/presentation/presentation_config.gd' remapped 'res://gameplay/presentation/presentation_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/presentation_config.tres' remapped 'res://gameplay/presentation/presentation_config.tres' at thread -1
+Loading resource: res://services/telemetry/telemetry_config.tres remapped: res://services/telemetry/telemetry_config.tres
+Loading resource: res://services/telemetry/telemetry_config.gd remapped: res://services/telemetry/telemetry_config.gd
+Completed load for: 'res://services/telemetry/telemetry_config.gd' remapped 'res://services/telemetry/telemetry_config.gd' at thread -1
+Completed load for: 'res://services/telemetry/telemetry_config.tres' remapped 'res://services/telemetry/telemetry_config.tres' at thread -1
+Loading resource: res://gameplay/board/cell/cell.tscn remapped: res://gameplay/board/cell/cell.tscn
+Loading resource: res://gameplay/board/cell/tile_surface.gdshader remapped: res://gameplay/board/cell/tile_surface.gdshader
+Completed load for: 'res://gameplay/board/cell/tile_surface.gdshader' remapped 'res://gameplay/board/cell/tile_surface.gdshader' at thread -1
+Completed load for: 'res://gameplay/board/cell/cell.tscn' remapped 'res://gameplay/board/cell/cell.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/chess_piece.tscn remapped: res://gameplay/board/piece/chess_piece.tscn
+Loading resource: res://gameplay/board/piece/piece_surface.gdshader remapped: res://gameplay/board/piece/piece_surface.gdshader
+Completed load for: 'res://gameplay/board/piece/piece_surface.gdshader' remapped 'res://gameplay/board/piece/piece_surface.gdshader' at thread -1
+Loading resource: res://gameplay/board/piece/piece_aura.tscn remapped: res://gameplay/board/piece/piece_aura.tscn
+Loading resource: res://assets/textures/ui/selection_corner_top_left.png remapped: res://assets/textures/ui/selection_corner_top_left.png
+Loading resource: res://.godot/imported/selection_corner_top_left.png-694d351837832bea1e564223ca523232.ctex remapped: res://.godot/imported/selection_corner_top_left.png-694d351837832bea1e564223ca523232.ctex
+Completed load for: 'res://assets/textures/ui/selection_corner_top_left.png' remapped 'res://assets/textures/ui/selection_corner_top_left.png' at thread -1
+Completed load for: 'res://gameplay/board/piece/piece_aura.tscn' remapped 'res://gameplay/board/piece/piece_aura.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/nut_visual.tscn remapped: res://gameplay/board/piece/nut_visual.tscn
+Loading resource: res://gameplay/board/piece/nut_flash.gdshader remapped: res://gameplay/board/piece/nut_flash.gdshader
+Completed load for: 'res://gameplay/board/piece/nut_flash.gdshader' remapped 'res://gameplay/board/piece/nut_flash.gdshader' at thread -1
+Completed load for: 'res://gameplay/board/piece/nut_visual.tscn' remapped 'res://gameplay/board/piece/nut_visual.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/piece_ability_visual.tscn remapped: res://gameplay/board/piece/piece_ability_visual.tscn
+Loading resource: res://gameplay/board/piece/body_outline.gdshader remapped: res://gameplay/board/piece/body_outline.gdshader
+Completed load for: 'res://gameplay/board/piece/body_outline.gdshader' remapped 'res://gameplay/board/piece/body_outline.gdshader' at thread -1
+Loading resource: res://assets/textures/board/sweep_arrow_right.png remapped: res://assets/textures/board/sweep_arrow_right.png
+Loading resource: res://.godot/imported/sweep_arrow_right.png-05825248f559371cb7b2de707bcfd8b3.ctex remapped: res://.godot/imported/sweep_arrow_right.png-05825248f559371cb7b2de707bcfd8b3.ctex
+Completed load for: 'res://assets/textures/board/sweep_arrow_right.png' remapped 'res://assets/textures/board/sweep_arrow_right.png' at thread -1
+Completed load for: 'res://gameplay/board/piece/piece_ability_visual.tscn' remapped 'res://gameplay/board/piece/piece_ability_visual.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.tscn remapped: res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.tscn
+Loading resource: res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdshader remapped: res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdshader
+Completed load for: 'res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdshader' remapped 'res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdshader' at thread -1
+Completed load for: 'res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.tscn' remapped 'res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.tscn' at thread -1
+Completed load for: 'res://gameplay/board/piece/chess_piece.tscn' remapped 'res://gameplay/board/piece/chess_piece.tscn' at thread -1
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.tscn remapped: res://gameplay/presentation/explosion_visual/explosion_visual.tscn
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.gd remapped: res://gameplay/presentation/explosion_visual/explosion_visual.gd
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_config.tres remapped: res://gameplay/presentation/score_float/score_float_config.tres
+Loading resource: res://gameplay/presentation/score_float/score_float_config.gd remapped: res://gameplay/presentation/score_float/score_float_config.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.gd' remapped 'res://gameplay/presentation/score_float/score_float_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.tres' remapped 'res://gameplay/presentation/score_float/score_float_config.tres' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float.tscn remapped: res://gameplay/presentation/score_float/score_float.tscn
+Loading resource: res://gameplay/presentation/score_float/score_float.gd remapped: res://gameplay/presentation/score_float/score_float.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float.gd' remapped 'res://gameplay/presentation/score_float/score_float.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float.tscn' remapped 'res://gameplay/presentation/score_float/score_float.tscn' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_explosion.png remapped: res://assets/textures/ui/icon_ability_explosion.png
+Loading resource: res://.godot/imported/icon_ability_explosion.png-6591407fe1134fe023eadf20e411856f.ctex remapped: res://.godot/imported/icon_ability_explosion.png-6591407fe1134fe023eadf20e411856f.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_explosion.png' remapped 'res://assets/textures/ui/icon_ability_explosion.png' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_manual_sweep.svg remapped: res://assets/textures/ui/icon_ability_manual_sweep.svg
+Loading resource: res://.godot/imported/icon_ability_manual_sweep.svg-9199242e89a195064837cb058838cc1f.ctex remapped: res://.godot/imported/icon_ability_manual_sweep.svg-9199242e89a195064837cb058838cc1f.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_manual_sweep.svg' remapped 'res://assets/textures/ui/icon_ability_manual_sweep.svg' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_sweep.png remapped: res://assets/textures/ui/icon_ability_sweep.png
+Loading resource: res://.godot/imported/icon_ability_sweep.png-f8eb273a389060307fdfe751bad0d495.ctex remapped: res://.godot/imported/icon_ability_sweep.png-f8eb273a389060307fdfe751bad0d495.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_sweep.png' remapped 'res://assets/textures/ui/icon_ability_sweep.png' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_refill_less.svg remapped: res://assets/textures/ui/icon_ability_refill_less.svg
+Loading resource: res://.godot/imported/icon_ability_refill_less.svg-0ab51611242cedeb03e7d5eb3a6c4f7e.ctex remapped: res://.godot/imported/icon_ability_refill_less.svg-0ab51611242cedeb03e7d5eb3a6c4f7e.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_refill_less.svg' remapped 'res://assets/textures/ui/icon_ability_refill_less.svg' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_refill_more.svg remapped: res://assets/textures/ui/icon_ability_refill_more.svg
+Loading resource: res://.godot/imported/icon_ability_refill_more.svg-904a6e26147fae09901177c1bde47882.ctex remapped: res://.godot/imported/icon_ability_refill_more.svg-904a6e26147fae09901177c1bde47882.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_refill_more.svg' remapped 'res://assets/textures/ui/icon_ability_refill_more.svg' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_multiplier.svg remapped: res://assets/textures/ui/icon_ability_multiplier.svg
+Loading resource: res://.godot/imported/icon_ability_multiplier.svg-ba797ea627182dde07c5d8e2d08895c7.ctex remapped: res://.godot/imported/icon_ability_multiplier.svg-ba797ea627182dde07c5d8e2d08895c7.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_multiplier.svg' remapped 'res://assets/textures/ui/icon_ability_multiplier.svg' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_dye.svg remapped: res://assets/textures/ui/icon_ability_dye.svg
+Loading resource: res://.godot/imported/icon_ability_dye.svg-cdd92a0aa8539086400c6cb7001d2546.ctex remapped: res://.godot/imported/icon_ability_dye.svg-cdd92a0aa8539086400c6cb7001d2546.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_dye.svg' remapped 'res://assets/textures/ui/icon_ability_dye.svg' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_fuse.svg remapped: res://assets/textures/ui/icon_ability_fuse.svg
+Loading resource: res://.godot/imported/icon_ability_fuse.svg-52d83c15882552e44566454e0b7c5785.ctex remapped: res://.godot/imported/icon_ability_fuse.svg-52d83c15882552e44566454e0b7c5785.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_fuse.svg' remapped 'res://assets/textures/ui/icon_ability_fuse.svg' at thread -1
+Loading resource: res://assets/textures/ui/icon_ability_match_bonus.svg remapped: res://assets/textures/ui/icon_ability_match_bonus.svg
+Loading resource: res://.godot/imported/icon_ability_match_bonus.svg-6141a166dc8dfbade217dce0cc14c946.ctex remapped: res://.godot/imported/icon_ability_match_bonus.svg-6141a166dc8dfbade217dce0cc14c946.ctex
+Completed load for: 'res://assets/textures/ui/icon_ability_match_bonus.svg' remapped 'res://assets/textures/ui/icon_ability_match_bonus.svg' at thread -1
+Completed load for: 'res://gameplay/board/match_system.gd' remapped 'res://gameplay/board/match_system.gd' at thread -1
+Loading resource: res://gameplay/progression/level_up_system.gd remapped: res://gameplay/progression/level_up_system.gd
+Completed load for: 'res://gameplay/progression/level_up_system.gd' remapped 'res://gameplay/progression/level_up_system.gd' at thread -1
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Loaded builtin CA certificates
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+Loading resource: res://addons/gut/cli/gut_cli.gd remapped: res://addons/gut/cli/gut_cli.gd
+Completed load for: 'res://addons/gut/cli/gut_cli.gd' remapped 'res://addons/gut/cli/gut_cli.gd' at thread -1
+Loading resource: res://addons/gut/cli/optparse.gd remapped: res://addons/gut/cli/optparse.gd
+Completed load for: 'res://addons/gut/cli/optparse.gd' remapped 'res://addons/gut/cli/optparse.gd' at thread -1
+Loading resource: res://addons/gut/gui/GutRunner.tscn remapped: res://addons/gut/gui/GutRunner.tscn
+Loading resource: res://addons/gut/gui/GutRunner.gd remapped: res://addons/gut/gui/GutRunner.gd
+Completed load for: 'res://addons/gut/gui/GutRunner.gd' remapped 'res://addons/gut/gui/GutRunner.gd' at thread -1
+Completed load for: 'res://addons/gut/gui/GutRunner.tscn' remapped 'res://addons/gut/gui/GutRunner.tscn' at thread -1
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/desktop-verified-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+Loading resource: res://tests/rules/test_run_checkpoint_codec.gd remapped: res://tests/rules/test_run_checkpoint_codec.gd
+Loading resource: res://gameplay/board/matching/square_template.tres remapped: res://gameplay/board/matching/square_template.tres
+Completed load for: 'res://gameplay/board/matching/square_template.tres' remapped 'res://gameplay/board/matching/square_template.tres' at thread -1
+Loading resource: res://gameplay/board/matching/ring_template.tres remapped: res://gameplay/board/matching/ring_template.tres
+Completed load for: 'res://gameplay/board/matching/ring_template.tres' remapped 'res://gameplay/board/matching/ring_template.tres' at thread -1
+Loading resource: res://gameplay/board/matching/u_template.tres remapped: res://gameplay/board/matching/u_template.tres
+Completed load for: 'res://gameplay/board/matching/u_template.tres' remapped 'res://gameplay/board/matching/u_template.tres' at thread -1
+Loading resource: res://gameplay/board/matching/zs_template.tres remapped: res://gameplay/board/matching/zs_template.tres
+Completed load for: 'res://gameplay/board/matching/zs_template.tres' remapped 'res://gameplay/board/matching/zs_template.tres' at thread -1
+Loading resource: res://tools/bot_testing/bot_config.tres remapped: res://tools/bot_testing/bot_config.tres
+Loading resource: res://tools/bot_testing/bot_config.gd remapped: res://tools/bot_testing/bot_config.gd
+Completed load for: 'res://tools/bot_testing/bot_config.gd' remapped 'res://tools/bot_testing/bot_config.gd' at thread -1
+Completed load for: 'res://tools/bot_testing/bot_config.tres' remapped 'res://tools/bot_testing/bot_config.tres' at thread -1
+Completed load for: 'res://tests/rules/test_run_checkpoint_codec.gd' remapped 'res://tests/rules/test_run_checkpoint_codec.gd' at thread -1
+Loading resource: res://tests/rules/test_checkpoint_store.gd remapped: res://tests/rules/test_checkpoint_store.gd
+Completed load for: 'res://tests/rules/test_checkpoint_store.gd' remapped 'res://tests/rules/test_checkpoint_store.gd' at thread -1
+Loading resource: res://tests/rules/test_commands_replay.gd remapped: res://tests/rules/test_commands_replay.gd
+Completed load for: 'res://tests/rules/test_commands_replay.gd' remapped 'res://tests/rules/test_commands_replay.gd' at thread -1
+Loading resource: res://tests/rules/test_run_random_streams.gd remapped: res://tests/rules/test_run_random_streams.gd
+Completed load for: 'res://tests/rules/test_run_random_streams.gd' remapped 'res://tests/rules/test_run_random_streams.gd' at thread -1
+Loading resource: res://tests/rules/test_shape_unlock_replay.gd remapped: res://tests/rules/test_shape_unlock_replay.gd
+Completed load for: 'res://tests/rules/test_shape_unlock_replay.gd' remapped 'res://tests/rules/test_shape_unlock_replay.gd' at thread -1
+Loading resource: res://tests/rules/test_checkpoint_job.gd remapped: res://tests/rules/test_checkpoint_job.gd
+Completed load for: 'res://tests/rules/test_checkpoint_job.gd' remapped 'res://tests/rules/test_checkpoint_job.gd' at thread -1
+Loading resource: res://tests/integration/test_desktop_checkpoint_flow.gd remapped: res://tests/integration/test_desktop_checkpoint_flow.gd
+Loading resource: res://gameplay/game.tscn remapped: res://gameplay/game.tscn
+Loading resource: res://gameplay/game.gd remapped: res://gameplay/game.gd
+Loading resource: res://ui/build_card/build_card.tscn remapped: res://ui/build_card/build_card.tscn
+Loading resource: res://ui/build_card/build_card.gd remapped: res://ui/build_card/build_card.gd
+Completed load for: 'res://ui/build_card/build_card.gd' remapped 'res://ui/build_card/build_card.gd' at thread -1
+Loading resource: res://ui/skill_text.tscn remapped: res://ui/skill_text.tscn
+Loading resource: res://ui/skill_text.gd remapped: res://ui/skill_text.gd
+Loading resource: res://ui/skill_details.tscn remapped: res://ui/skill_details.tscn
+Loading resource: res://ui/skill_details.gd remapped: res://ui/skill_details.gd
+Completed load for: 'res://ui/skill_details.gd' remapped 'res://ui/skill_details.gd' at thread -1
+Completed load for: 'res://ui/skill_details.tscn' remapped 'res://ui/skill_details.tscn' at thread -1
+Completed load for: 'res://ui/skill_text.gd' remapped 'res://ui/skill_text.gd' at thread -1
+Completed load for: 'res://ui/skill_text.tscn' remapped 'res://ui/skill_text.tscn' at thread -1
+Completed load for: 'res://ui/build_card/build_card.tscn' remapped 'res://ui/build_card/build_card.tscn' at thread -1
+Loading resource: res://ui/goal_progress/score_mote.tscn remapped: res://ui/goal_progress/score_mote.tscn
+Loading resource: res://ui/goal_progress/score_mote.gd remapped: res://ui/goal_progress/score_mote.gd
+Completed load for: 'res://ui/goal_progress/score_mote.gd' remapped 'res://ui/goal_progress/score_mote.gd' at thread -1
+Completed load for: 'res://ui/goal_progress/score_mote.tscn' remapped 'res://ui/goal_progress/score_mote.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress_config.tres remapped: res://ui/goal_progress/goal_progress_config.tres
+Completed load for: 'res://ui/goal_progress/goal_progress_config.tres' remapped 'res://ui/goal_progress/goal_progress_config.tres' at thread -1
+Loading resource: res://ui/feedback_button/ui_motion_config.tres remapped: res://ui/feedback_button/ui_motion_config.tres
+Loading resource: res://ui/feedback_button/ui_motion_config.gd remapped: res://ui/feedback_button/ui_motion_config.gd
+Completed load for: 'res://ui/feedback_button/ui_motion_config.gd' remapped 'res://ui/feedback_button/ui_motion_config.gd' at thread -1
+Completed load for: 'res://ui/feedback_button/ui_motion_config.tres' remapped 'res://ui/feedback_button/ui_motion_config.tres' at thread -1
+Loading resource: res://gameplay/presentation/game_theme/light_toy.tres remapped: res://gameplay/presentation/game_theme/light_toy.tres
+Loading resource: res://gameplay/presentation/game_theme/light_toy_ui.tres remapped: res://gameplay/presentation/game_theme/light_toy_ui.tres
+Completed load for: 'res://gameplay/presentation/game_theme/light_toy_ui.tres' remapped 'res://gameplay/presentation/game_theme/light_toy_ui.tres' at thread -1
+Loading resource: res://assets/textures/backgrounds/garden_background.png remapped: res://assets/textures/backgrounds/garden_background.png
+Loading resource: res://.godot/imported/garden_background.png-340988fbf4b517979b59d4d05672b5de.ctex remapped: res://.godot/imported/garden_background.png-340988fbf4b517979b59d4d05672b5de.ctex
+Completed load for: 'res://assets/textures/backgrounds/garden_background.png' remapped 'res://assets/textures/backgrounds/garden_background.png' at thread -1
+Completed load for: 'res://gameplay/presentation/game_theme/light_toy.tres' remapped 'res://gameplay/presentation/game_theme/light_toy.tres' at thread -1
+Loading resource: res://gameplay/presentation/game_theme/dark_instrument.tres remapped: res://gameplay/presentation/game_theme/dark_instrument.tres
+Loading resource: res://gameplay/presentation/game_theme/dark_instrument_ui.tres remapped: res://gameplay/presentation/game_theme/dark_instrument_ui.tres
+Completed load for: 'res://gameplay/presentation/game_theme/dark_instrument_ui.tres' remapped 'res://gameplay/presentation/game_theme/dark_instrument_ui.tres' at thread -1
+Completed load for: 'res://gameplay/presentation/game_theme/dark_instrument.tres' remapped 'res://gameplay/presentation/game_theme/dark_instrument.tres' at thread -1
+Loading resource: res://gameplay/presentation/audio/nut_audio.tres remapped: res://gameplay/presentation/audio/nut_audio.tres
+Loading resource: res://gameplay/presentation/audio/game_audio_config.gd remapped: res://gameplay/presentation/audio/game_audio_config.gd
+Completed load for: 'res://gameplay/presentation/audio/game_audio_config.gd' remapped 'res://gameplay/presentation/audio/game_audio_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/audio/nut_audio.tres' remapped 'res://gameplay/presentation/audio/nut_audio.tres' at thread -1
+Loading resource: res://gameplay/run/modes/classic_endless.tres remapped: res://gameplay/run/modes/classic_endless.tres
+Completed load for: 'res://gameplay/run/modes/classic_endless.tres' remapped 'res://gameplay/run/modes/classic_endless.tres' at thread -1
+Loading resource: res://gameplay/tutorial/tutorial_config.tres remapped: res://gameplay/tutorial/tutorial_config.tres
+Loading resource: res://gameplay/tutorial/tutorial_config.gd remapped: res://gameplay/tutorial/tutorial_config.gd
+Completed load for: 'res://gameplay/tutorial/tutorial_config.gd' remapped 'res://gameplay/tutorial/tutorial_config.gd' at thread -1
+Completed load for: 'res://gameplay/tutorial/tutorial_config.tres' remapped 'res://gameplay/tutorial/tutorial_config.tres' at thread -1
+Loading resource: res://ui/skill_card.tscn remapped: res://ui/skill_card.tscn
+Completed load for: 'res://ui/skill_card.tscn' remapped 'res://ui/skill_card.tscn' at thread -1
+Completed load for: 'res://gameplay/game.gd' remapped 'res://gameplay/game.gd' at thread -1
+Loading resource: res://ui/hud.tscn remapped: res://ui/hud.tscn
+Loading resource: res://ui/preview_theme.tres remapped: res://ui/preview_theme.tres
+Completed load for: 'res://ui/preview_theme.tres' remapped 'res://ui/preview_theme.tres' at thread -1
+Loading resource: res://ui/spawn_preview.tscn remapped: res://ui/spawn_preview.tscn
+Completed load for: 'res://ui/spawn_preview.tscn' remapped 'res://ui/spawn_preview.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress.tscn remapped: res://ui/goal_progress/goal_progress.tscn
+Loading resource: res://ui/goal_progress/progress_glow.gdshader remapped: res://ui/goal_progress/progress_glow.gdshader
+Completed load for: 'res://ui/goal_progress/progress_glow.gdshader' remapped 'res://ui/goal_progress/progress_glow.gdshader' at thread -1
+Completed load for: 'res://ui/goal_progress/goal_progress.tscn' remapped 'res://ui/goal_progress/goal_progress.tscn' at thread -1
+Loading resource: res://ui/piece_pool/piece_pool.tscn remapped: res://ui/piece_pool/piece_pool.tscn
+Completed load for: 'res://ui/piece_pool/piece_pool.tscn' remapped 'res://ui/piece_pool/piece_pool.tscn' at thread -1
+Loading resource: res://ui/build_list/build_list.tscn remapped: res://ui/build_list/build_list.tscn
+Completed load for: 'res://ui/build_list/build_list.tscn' remapped 'res://ui/build_list/build_list.tscn' at thread -1
+Loading resource: res://assets/textures/ui/icon_settings.png remapped: res://assets/textures/ui/icon_settings.png
+Loading resource: res://.godot/imported/icon_settings.png-fff936900ae5c3120f2ac2d8ca11010c.ctex remapped: res://.godot/imported/icon_settings.png-fff936900ae5c3120f2ac2d8ca11010c.ctex
+Completed load for: 'res://assets/textures/ui/icon_settings.png' remapped 'res://assets/textures/ui/icon_settings.png' at thread -1
+Loading resource: res://assets/textures/ui/icon_pause.png remapped: res://assets/textures/ui/icon_pause.png
+Loading resource: res://.godot/imported/icon_pause.png-765f3bcd7b8f04529088af516fba7510.ctex remapped: res://.godot/imported/icon_pause.png-765f3bcd7b8f04529088af516fba7510.ctex
+Completed load for: 'res://assets/textures/ui/icon_pause.png' remapped 'res://assets/textures/ui/icon_pause.png' at thread -1
+Loading resource: res://ui/feedback_button/feedback_button.tscn remapped: res://ui/feedback_button/feedback_button.tscn
+Completed load for: 'res://ui/feedback_button/feedback_button.tscn' remapped 'res://ui/feedback_button/feedback_button.tscn' at thread -1
+Completed load for: 'res://ui/hud.tscn' remapped 'res://ui/hud.tscn' at thread -1
+Loading resource: res://gameplay/board/board_view.tscn remapped: res://gameplay/board/board_view.tscn
+Loading resource: res://gameplay/presentation/move_path_visual.tscn remapped: res://gameplay/presentation/move_path_visual.tscn
+Completed load for: 'res://gameplay/presentation/move_path_visual.tscn' remapped 'res://gameplay/presentation/move_path_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_layer.tscn remapped: res://gameplay/presentation/score_float/score_float_layer.tscn
+Completed load for: 'res://gameplay/presentation/score_float/score_float_layer.tscn' remapped 'res://gameplay/presentation/score_float/score_float_layer.tscn' at thread -1
+Loading resource: res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn remapped: res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn
+Loading resource: res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader remapped: res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader
+Completed load for: 'res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader' remapped 'res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader' at thread -1
+Completed load for: 'res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn' remapped 'res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn' at thread -1
+Completed load for: 'res://gameplay/board/board_view.tscn' remapped 'res://gameplay/board/board_view.tscn' at thread -1
+Loading resource: res://gameplay/presentation/presentation_director.tscn remapped: res://gameplay/presentation/presentation_director.tscn
+Completed load for: 'res://gameplay/presentation/presentation_director.tscn' remapped 'res://gameplay/presentation/presentation_director.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_feedback.tscn remapped: res://gameplay/presentation/game_feedback.tscn
+Completed load for: 'res://gameplay/presentation/game_feedback.tscn' remapped 'res://gameplay/presentation/game_feedback.tscn' at thread -1
+Loading resource: res://ui/release_menu/release_menu.tscn remapped: res://ui/release_menu/release_menu.tscn
+Loading resource: res://ui/tutorial/tutorial.tscn remapped: res://ui/tutorial/tutorial.tscn
+Loading resource: res://ui/popup_skill_choice.tscn remapped: res://ui/popup_skill_choice.tscn
+Loading resource: res://ui/color_target_picker.tscn remapped: res://ui/color_target_picker.tscn
+Completed load for: 'res://ui/color_target_picker.tscn' remapped 'res://ui/color_target_picker.tscn' at thread -1
+Completed load for: 'res://ui/popup_skill_choice.tscn' remapped 'res://ui/popup_skill_choice.tscn' at thread -1
+Completed load for: 'res://ui/tutorial/tutorial.tscn' remapped 'res://ui/tutorial/tutorial.tscn' at thread -1
+Loading resource: res://ui/collection_controls/collection_controls.tscn remapped: res://ui/collection_controls/collection_controls.tscn
+Completed load for: 'res://ui/collection_controls/collection_controls.tscn' remapped 'res://ui/collection_controls/collection_controls.tscn' at thread -1
+Completed load for: 'res://ui/release_menu/release_menu.tscn' remapped 'res://ui/release_menu/release_menu.tscn' at thread -1
+Loading resource: res://services/telemetry/run_collection.tscn remapped: res://services/telemetry/run_collection.tscn
+Completed load for: 'res://services/telemetry/run_collection.tscn' remapped 'res://services/telemetry/run_collection.tscn' at thread -1
+Loading resource: res://ui/skill_pool/skill_pool.tscn remapped: res://ui/skill_pool/skill_pool.tscn
+Completed load for: 'res://ui/skill_pool/skill_pool.tscn' remapped 'res://ui/skill_pool/skill_pool.tscn' at thread -1
+Loading resource: res://ui/card_transfer/card_transfer.tscn remapped: res://ui/card_transfer/card_transfer.tscn
+Completed load for: 'res://ui/card_transfer/card_transfer.tscn' remapped 'res://ui/card_transfer/card_transfer.tscn' at thread -1
+Loading resource: res://ui/playback_settings/playback_settings.tscn remapped: res://ui/playback_settings/playback_settings.tscn
+Completed load for: 'res://ui/playback_settings/playback_settings.tscn' remapped 'res://ui/playback_settings/playback_settings.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_background/game_background.tscn remapped: res://gameplay/presentation/game_background/game_background.tscn
+Loading resource: res://gameplay/presentation/game_background/game_background.gdshader remapped: res://gameplay/presentation/game_background/game_background.gdshader
+Completed load for: 'res://gameplay/presentation/game_background/game_background.gdshader' remapped 'res://gameplay/presentation/game_background/game_background.gdshader' at thread -1
+Completed load for: 'res://gameplay/presentation/game_background/game_background.tscn' remapped 'res://gameplay/presentation/game_background/game_background.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_music.tscn remapped: res://gameplay/presentation/game_music.tscn
+Loading resource: res://gameplay/presentation/game_music.gd remapped: res://gameplay/presentation/game_music.gd
+Completed load for: 'res://gameplay/presentation/game_music.gd' remapped 'res://gameplay/presentation/game_music.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/game_music.tscn' remapped 'res://gameplay/presentation/game_music.tscn' at thread -1
+Loading resource: res://gameplay/game_checkpoint_flow.tscn remapped: res://gameplay/game_checkpoint_flow.tscn
+Loading resource: res://ui/checkpoint_prompt/checkpoint_prompt.tscn remapped: res://ui/checkpoint_prompt/checkpoint_prompt.tscn
+Completed load for: 'res://ui/checkpoint_prompt/checkpoint_prompt.tscn' remapped 'res://ui/checkpoint_prompt/checkpoint_prompt.tscn' at thread -1
+Completed load for: 'res://gameplay/game_checkpoint_flow.tscn' remapped 'res://gameplay/game_checkpoint_flow.tscn' at thread -1
+Completed load for: 'res://gameplay/game.tscn' remapped 'res://gameplay/game.tscn' at thread -1
+Completed load for: 'res://tests/integration/test_desktop_checkpoint_flow.gd' remapped 'res://tests/integration/test_desktop_checkpoint_flow.gd' at thread -1
+Loading resource: res://tests/integration/test_release_flow.gd remapped: res://tests/integration/test_release_flow.gd
+Completed load for: 'res://tests/integration/test_release_flow.gd' remapped 'res://tests/integration/test_release_flow.gd' at thread -1
+Loading resource: res://tests/integration/test_reward_coordination.gd remapped: res://tests/integration/test_reward_coordination.gd
+Loading resource: res://main.tscn remapped: res://main.tscn
+Loading resource: res://main.gd remapped: res://main.gd
+Completed load for: 'res://main.gd' remapped 'res://main.gd' at thread -1
+Completed load for: 'res://main.tscn' remapped 'res://main.tscn' at thread -1
+Completed load for: 'res://tests/integration/test_reward_coordination.gd' remapped 'res://tests/integration/test_reward_coordination.gd' at thread -1
+Loading resource: res://tests/integration/test_reward_presentation.gd remapped: res://tests/integration/test_reward_presentation.gd
+Completed load for: 'res://tests/integration/test_reward_presentation.gd' remapped 'res://tests/integration/test_reward_presentation.gd' at thread -1
+Loading resource: res://tests/integration/test_input_buffer.gd remapped: res://tests/integration/test_input_buffer.gd
+Completed load for: 'res://tests/integration/test_input_buffer.gd' remapped 'res://tests/integration/test_input_buffer.gd' at thread -1
+Loading resource: res://tests/integration/test_localization.gd remapped: res://tests/integration/test_localization.gd
+Completed load for: 'res://tests/integration/test_localization.gd' remapped 'res://tests/integration/test_localization.gd' at thread -1
+Loading resource: res://tests/integration/test_hud_status_flow.gd remapped: res://tests/integration/test_hud_status_flow.gd
+Completed load for: 'res://tests/integration/test_hud_status_flow.gd' remapped 'res://tests/integration/test_hud_status_flow.gd' at thread -1
+[4m
+
+res://tests/rules/test_run_checkpoint_codec.gd
+[0m* test_input_payload_roundtrips_max_seed_and_isolates_object_graph
+* test_input_restore_continues_multiple_identical_commands_and_preserves_retry_cache
+* test_frozen_reward_keeps_candidates_targets_stage_plan_and_consumes_once
+* test_shape_unlock_and_empty_recovery_budget_are_reconstructed_without_bonus
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+* test_unsafe_phases_closed_runs_and_unfrozen_rewards_are_rejected
+* test_held_matches_without_blasts_are_not_a_safe_checkpoint
+* test_snapshot_not_backed_by_complete_prefix_and_partial_tail_are_rejected
+* test_corruption_schema_missing_fields_and_integer_encoding_fail_without_touching_live_run
+* test_frozen_endpoint_tampering_cannot_be_hidden_by_rehashing
+* test_manifest_and_rebuild_limits_fail_explicitly
+* test_real_slot_two_generations_new_instance_and_corrupt_primary_fallback
+* test_invalidated_run_cannot_reappear_from_primary_or_backup
+* test_invalid_save_leaves_real_slot_bytes_and_source_unchanged
+* test_real_commit_failure_preserves_exact_pair_and_can_retry
+* test_malformed_frozen_targets_are_rejected_before_snapshot_traversal
+* test_frozen_before_end_reopens_from_disk_and_keeps_refill_obligation
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Loading resource: res://gameplay/board/matching/plus_template.tres remapped: res://gameplay/board/matching/plus_template.tres
+Completed load for: 'res://gameplay/board/matching/plus_template.tres' remapped 'res://gameplay/board/matching/plus_template.tres' at thread -1
+Loading resource: res://gameplay/board/matching/x_template.tres remapped: res://gameplay/board/matching/x_template.tres
+Completed load for: 'res://gameplay/board/matching/x_template.tres' remapped 'res://gameplay/board/matching/x_template.tres' at thread -1
+* test_manual_use_counts_survive_a_complete_input_checkpoint
+* test_stage_frozen_offer_roundtrips_exact_float_weights_through_real_slot
+* test_bad_storage_packages_fail_without_touching_live_run_or_slot
+[1m19/19 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_store.gd
+[0m* test_primary_previous_frozen_values_and_64_bit_string_round_trip
+* test_stale_tickets_duplicate_commit_and_reentry
+* test_invalid_values_and_manifests_never_advance_or_write
+* test_corrupt_primary_falls_back_and_repair_preserves_original
+* test_unknown_schema_incompatible_manifest_and_both_corrupt_refuse
+* test_write_read_copy_replace_and_finish_failures_preserve_exact_old_pair
+* test_interrupted_commit_recovers_old_pair_before_loading
+* test_corrupt_journal_and_rollback_copy_fail_closed
+* test_reopen_identity_and_invalidation_override_both_generations
+* test_invalidation_failure_never_claims_success_or_reopens_old_tickets
+* test_terminal_and_corrupt_invalidation_markers_block_backup_revival
+* test_late_invalidation_error_may_have_committed_and_is_not_a_rollback
+* test_completed_old_ticket_is_rejected_after_external_invalidation
+* test_stale_owner_cannot_overwrite_a_newer_disk_generation
+* test_valid_json_checksum_damage_is_rejected_on_readback_and_load
+* test_generation_encoding_and_exhaustion_do_not_silently_normalize
+* test_real_disk_reopen_previous_and_raw_corrupt_bytes_copy
+* test_disk_read_hash_and_copy_enforce_the_same_size_limit
+* test_real_disk_commit_failure_and_interruption_restore_exact_pair
+* test_real_disk_failed_invalidation_then_verified_retry
+[1m20/20 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_run_random_streams.gd
+[0m* test_fixed_vectors_and_creation_order
+* test_each_consumer_is_bound_to_its_named_stream_and_runs_are_independent
+* test_signed_64_bit_roundtrip_and_future_draws
+* test_invalid_protocol_or_missing_stream_is_rejected_without_touching_active_run
+* test_dynamic_execution_leaves_offer_streams_untouched
+* test_unique_position_and_color_do_not_draw_and_preview_is_read_only
+* test_replay_rejects_missing_protocol_and_stream_before_replacing_run
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_shape_unlock_replay.gd
+[0m* test_unlock_recovery_disk_replay_and_safe_prefix_keep_budget_and_acquisition
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+* test_shape_state_and_profile_tampering_are_rejected_and_v41_is_explicitly_old
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_l.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_l.tres
+Loading resource: res://gameplay/board/matching/l_template.tres remapped: res://gameplay/board/matching/l_template.tres
+Completed load for: 'res://gameplay/board/matching/l_template.tres' remapped 'res://gameplay/board/matching/l_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_l.tres' at thread -1
+Loading resource: res://gameplay/skills/debug/shape_unlock/unlock_t.tres remapped: res://gameplay/skills/debug/shape_unlock/unlock_t.tres
+Loading resource: res://gameplay/board/matching/t_template.tres remapped: res://gameplay/board/matching/t_template.tres
+Completed load for: 'res://gameplay/board/matching/t_template.tres' remapped 'res://gameplay/board/matching/t_template.tres' at thread -1
+Completed load for: 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' remapped 'res://gameplay/skills/debug/shape_unlock/unlock_t.tres' at thread -1
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_job.gd
+[0m* test_frozen_save_does_not_read_a_live_run_and_load_returns_an_isolated_candidate
+* test_inspection_checks_invalidation_and_never_constructs_a_run
+* test_incremental_history_is_read_only_and_remains_independent_of_the_source
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_desktop_checkpoint_flow.gd
+[0m* test_real_continue_button_binds_input_state_and_rebuilds_without_rule_commits
+Loading resource: res://gameplay/presentation/audio/sfx_board_spawn.wav remapped: res://gameplay/presentation/audio/sfx_board_spawn.wav
+Loading resource: res://.godot/imported/sfx_board_spawn.wav-6d0a3d391ed6af8ea9bb08f2f7a4acb5.sample remapped: res://.godot/imported/sfx_board_spawn.wav-6d0a3d391ed6af8ea9bb08f2f7a4acb5.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_board_spawn.wav' remapped 'res://gameplay/presentation/audio/sfx_board_spawn.wav' at thread -1
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":143431,"frames":1055,"freeze_usec":0,"maximum_gap_usec":3846,"ok":true}
+* test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_choose_twice
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":475260,"frames":3544,"freeze_usec":0,"maximum_gap_usec":2244,"ok":true}
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":501545,"frames":3668,"freeze_usec":0,"maximum_gap_usec":2137,"ok":true}
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_acquire.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_acquire.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_acquire.wav-492d0eaa53dff3af9d23031bb22e8eb0.sample remapped: res://.godot/imported/sfx_ui_skill_acquire.wav-492d0eaa53dff3af9d23031bb22e8eb0.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_acquire.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_acquire.wav' at thread -1
+* test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":171563,"frames":916,"freeze_usec":30251,"maximum_gap_usec":45352,"ok":true}
+* test_exit_save_can_be_cancelled_without_releasing_worker_ownership
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":129052,"frames":1070,"freeze_usec":0,"maximum_gap_usec":1139,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":451482,"frames":3110,"freeze_usec":1088,"maximum_gap_usec":2124,"ok":true}
+* test_exit_failure_keeps_old_file_and_retry_reaches_the_exit_signal
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":189135,"frames":1154,"freeze_usec":0,"maximum_gap_usec":15131,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":97820,"frames":663,"freeze_usec":0,"maximum_gap_usec":664,"ok":false}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":152948,"frames":1018,"freeze_usec":0,"maximum_gap_usec":753,"ok":true}
+* test_new_run_requires_confirmation_and_old_identity_is_invalid_before_new_save
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":149608,"frames":545,"freeze_usec":26513,"maximum_gap_usec":64060,"ok":true}
+* test_pending_challenge_victory_can_continue_and_save_same_run
+* test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run
+Loading resource: res://gameplay/presentation/audio/sfx_board_select.wav remapped: res://gameplay/presentation/audio/sfx_board_select.wav
+Loading resource: res://.godot/imported/sfx_board_select.wav-df6286fce36c7fc3d876ee0f97a8d935.sample remapped: res://.godot/imported/sfx_board_select.wav-df6286fce36c7fc3d876ee0f97a8d935.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_board_select.wav' remapped 'res://gameplay/presentation/audio/sfx_board_select.wav' at thread -1
+Loading resource: res://gameplay/presentation/audio/sfx_board_land.wav remapped: res://gameplay/presentation/audio/sfx_board_land.wav
+Loading resource: res://.godot/imported/sfx_board_land.wav-c6b4659047d9c964f7e80c47427a97be.sample remapped: res://.godot/imported/sfx_board_land.wav-c6b4659047d9c964f7e80c47427a97be.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_board_land.wav' remapped 'res://gameplay/presentation/audio/sfx_board_land.wav' at thread -1
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":125690,"frames":736,"freeze_usec":0,"maximum_gap_usec":7291,"ok":true}
+[1m8/8 passed.
+[0m[4m
+
+res://tests/integration/test_release_flow.gd
+[0m* test_all_four_lessons_use_real_commands_and_isolated_state
+* test_help_preserves_board_and_previous_pause_and_replay_can_skip
+* test_skip_during_animation_cancels_old_completion_and_allows_replay
+[33m    --- Awaiting 30 idle frames  ---
+[0m* test_tutorial_choice_occurs_after_animation_while_tree_paused
+* test_build_label_uses_application_version_and_explicit_override
+* test_switching_modes_starts_new_runs_and_preserves_mode_on_retry
+* test_challenge_hud_and_end_titles_use_stage_state
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_closing_popup_during_initialization_does_not_resume_stale_dialog
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+[1m8/8 passed.
+[0m[4m
+
+res://tests/integration/test_reward_coordination.gd
+[0m* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_popup_cannot_mutate_authoritative_frozen_targets
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_same_run_old_popup_callback_does_not_submit_again
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_two_rewards_in_normal_mode
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_two_rewards_in_fast_mode
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_two_rewards_in_low_effects_mode
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_two_rewards_in_combined_mode
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_reward_presentation.gd
+[0m* test_match_finishes_before_score_notification_and_reward_popup
+Loading resource: res://gameplay/presentation/audio/sfx_board_match_var01.wav remapped: res://gameplay/presentation/audio/sfx_board_match_var01.wav
+Loading resource: res://.godot/imported/sfx_board_match_var01.wav-1e54ceb3ba252f20aab727cbf9dd582e.sample remapped: res://.godot/imported/sfx_board_match_var01.wav-1e54ceb3ba252f20aab727cbf9dd582e.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_board_match_var01.wav' remapped 'res://gameplay/presentation/audio/sfx_board_match_var01.wav' at thread -1
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_blast_waits_for_longer_visual_before_reward_pauses_game
+Loading resource: res://gameplay/presentation/audio/sfx_ability_explosion_activate.wav remapped: res://gameplay/presentation/audio/sfx_ability_explosion_activate.wav
+Loading resource: res://.godot/imported/sfx_ability_explosion_activate.wav-31a17c7da6c7399e8718c08a854fc230.sample remapped: res://.godot/imported/sfx_ability_explosion_activate.wav-31a17c7da6c7399e8718c08a854fc230.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ability_explosion_activate.wav' remapped 'res://gameplay/presentation/audio/sfx_ability_explosion_activate.wav' at thread -1
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_core_selection_match_completes_before_next_queued_reward
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_retry_cancels_wait_without_publishing_old_score_or_opening_reward
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_input_buffer.gd
+[0m* test_selection_during_movement_survives_to_next_turn
+* test_only_latest_piece_and_one_move_are_buffered
+* test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant
+* test_retry_discards_buffered_command
+* test_reward_popup_discards_previous_board_intent
+Loading resource: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav remapped: res://gameplay/presentation/audio/sfx_ui_skill_offer.wav
+Loading resource: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample remapped: res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_skill_offer.wav' at thread -1
+* test_buffered_move_rechecks_target_occupancy
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_localization.gd
+[0m* test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run
+* test_every_skill_has_english_text_without_mutating_resources
+* test_color_picker_switch_preserves_selected_target_and_board_view
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_hud_status_flow.gd
+[0m* test_initial_english_and_all_statuses_refresh_text_and_tooltip
+* test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation
+* test_real_pause_busy_score_and_buffer_feedback_routes
+Loading resource: res://gameplay/presentation/audio/sfx_ui_confirm.wav remapped: res://gameplay/presentation/audio/sfx_ui_confirm.wav
+Loading resource: res://.godot/imported/sfx_ui_confirm.wav-d9b11d83cc7b588ea67a417ba8e690a5.sample remapped: res://.godot/imported/sfx_ui_confirm.wav-d9b11d83cc7b588ea67a417ba8e690a5.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_confirm.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_confirm.wav' at thread -1
+* test_terminal_message_retranslates_instead_of_caching_translated_text
+Loading resource: res://gameplay/presentation/audio/sfx_ui_run_failure.wav remapped: res://gameplay/presentation/audio/sfx_ui_run_failure.wav
+Loading resource: res://.godot/imported/sfx_ui_run_failure.wav-f395696bbd6adacd17ecb0aa26e9ee87.sample remapped: res://.godot/imported/sfx_ui_run_failure.wav-f395696bbd6adacd17ecb0aa26e9ee87.sample
+Completed load for: 'res://gameplay/presentation/audio/sfx_ui_run_failure.wav' remapped 'res://gameplay/presentation/audio/sfx_ui_run_failure.wav' at thread -1
+Loading resource: res://ui/popup_game_over.tscn remapped: res://ui/popup_game_over.tscn
+Completed load for: 'res://ui/popup_game_over.tscn' remapped 'res://ui/popup_game_over.tscn' at thread -1
+* test_language_service_refresh_preserves_current_message_during_reward_wait
+* test_internal_reason_never_becomes_player_text
+WARNING: HUD status: id=hud.status.unavailable locale=en_US reason=reward_presentation_failed parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:51)
+       [1] show_diagnostic (res://ui/hud.gd:223)
+       [2] test_internal_reason_never_becomes_player_text (res://tests/integration/test_hud_status_flow.gd:108)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+* test_status_accepts_tooltip_hover_without_covering_board_or_pause_button
+[1m7/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts              13
+Tests               109
+Passing Tests       109
+Asserts            2715
+Time              48.503s
+
+
+[32m---- All tests passed! ----
+[0m
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Orphan StringName: Vector2 (static: 0, total: 1)
+Orphan StringName: Vector3 (static: 0, total: 1)
+Orphan StringName: Vector4 (static: 0, total: 1)
+Orphan StringName: PackedVector4Array (static: 0, total: 1)
+Orphan StringName: RID (static: 0, total: 1)
+Orphan StringName: Color (static: 0, total: 1)
+Orphan StringName: PackedByteArray (static: 0, total: 1)
+Orphan StringName: Vector2i (static: 0, total: 1)
+Orphan StringName: Callable (static: 0, total: 1)
+Orphan StringName: Vector3i (static: 0, total: 1)
+Orphan StringName: Vector4i (static: 0, total: 1)
+Orphan StringName: PackedStringArray (static: 0, total: 1)
+Orphan StringName: Basis (static: 0, total: 1)
+Orphan StringName: int (static: 0, total: 1)
+Orphan StringName: PackedFloat32Array (static: 0, total: 1)
+Orphan StringName: Plane (static: 0, total: 1)
+Orphan StringName: PackedFloat64Array (static: 0, total: 1)
+Orphan StringName: NodePath (static: 0, total: 1)
+Orphan StringName: Signal (static: 0, total: 1)
+Orphan StringName: StringName (static: 0, total: 1)
+Orphan StringName: String (static: 0, total: 1)
+Orphan StringName: Transform2D (static: 0, total: 1)
+Orphan StringName: Transform3D (static: 0, total: 1)
+Orphan StringName: Array (static: 1, total: 2)
+Orphan StringName: Quaternion (static: 0, total: 1)
+Orphan StringName: bool (static: 0, total: 1)
+Orphan StringName: PackedColorArray (static: 0, total: 1)
+Orphan StringName: PackedVector2Array (static: 0, total: 1)
+Orphan StringName: Object (static: 1, total: 2)
+Orphan StringName: AABB (static: 0, total: 1)
+Orphan StringName: float (static: 0, total: 1)
+Orphan StringName: Dictionary (static: 1, total: 2)
+Orphan StringName: Projection (static: 0, total: 1)
+Orphan StringName: Rect2 (static: 0, total: 1)
+Orphan StringName: PackedVector3Array (static: 0, total: 1)
+Orphan StringName: PackedInt32Array (static: 0, total: 1)
+Orphan StringName: Rect2i (static: 0, total: 1)
+Orphan StringName: PackedInt64Array (static: 0, total: 1)
+StringName: 38 unclaimed string names at exit.

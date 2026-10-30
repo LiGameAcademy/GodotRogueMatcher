@@ -99,7 +99,7 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()
 	run.recorder = generated
-	generated.begin(run, String(header.get("source", "replay")), false)
+	generated.begin(run, String(header.get("source", "replay")), false, String(header.get("build", "replay")))
 	for index: int in range(1, records.size()):
 		var expected: Dictionary = records[index]
 		if not CommandCodec.valid_integer(expected.get("seq")) or expected.seq.to_int() != index + 1:

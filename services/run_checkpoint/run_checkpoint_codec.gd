@@ -24,6 +24,15 @@ static func manifest(run: RunController) -> Dictionary:
 
 ## Reads without advancing the source or adding a recorder checkpoint.
 static func encode(run: RunController) -> Dictionary:
+	var frozen: Dictionary = freeze(run)
+	if not frozen.ok: return frozen
+	if not pure(frozen.payload): return failure("noncanonical_payload")
+	if JSON.stringify(frozen.payload).to_utf8_buffer().size() > MAX_PAYLOAD_BYTES: return failure("payload_size_limit")
+	return frozen
+
+## Copies only source-owned values on the scene thread; validation remains mandatory in the worker.
+## This result is not a verified checkpoint and must never be passed directly to Store.stage.
+static func freeze(run: RunController, frozen_records: Array[Dictionary] = [], compatibility: Dictionary = {}) -> Dictionary:
 	var reason: String = safety_error(run)
 	if not reason.is_empty(): return failure(reason)
 	if run.recorder == null or run.recorder.ended: return failure("complete_prefix_required")
@@ -32,29 +41,37 @@ static func encode(run: RunController) -> Dictionary:
 	var state: Dictionary = RunSnapshot.capture(run)
 	if records.back().get("kind") != "Checkpoint" or records.back().get("state") != state:
 		return failure("endpoint_not_recorded")
+	if not frozen_records.is_empty() and frozen_records.size() != records.size(): return failure("prefix_sequence_mismatch")
 	var payload: Dictionary = {
 		"schema": SCHEMA, "run_id": run.state.run_id,
 		"master_seed": str(run.state.random_streams.master_seed),
 		"point": "input" if run.state.phase == RunState.Phase.INPUT else "frozen_reward",
 		"record_seq": str(records.size()), "state": state,
-		"state_hash": RunSnapshot.digest(state), "records": records.duplicate(true),
+		"state_hash": RunSnapshot.digest(state), "records": records.duplicate(true) if frozen_records.is_empty() else frozen_records,
 		"offer_cache": _offer_cache(run),
 	}
-	if not pure(payload): return failure("noncanonical_payload")
-	if JSON.stringify(payload).to_utf8_buffer().size() > MAX_PAYLOAD_BYTES: return failure("payload_size_limit")
-	return {"ok": true, "reason": "", "payload": payload, "manifest": manifest(run)}
+	return {"ok": true, "reason": "", "payload": payload, "manifest": manifest(run) if compatibility.is_empty() else compatibility.duplicate(true)}
 
 ## Returns a new run only on complete validation. Never retires or mutates a caller's run.
 ## The elapsed guard rejects slow results after replay; it cannot preempt a single rule call.
-static func decode(payload: Variant, expected_manifest: Dictionary, budget_usec: int = REBUILD_BUDGET_USEC) -> Dictionary:
+static func decode(payload: Variant, expected_manifest: Dictionary, budget_usec: int = REBUILD_BUDGET_USEC, runtime_only: bool = false) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
 	var reason: String = _payload_error(payload)
 	if not reason.is_empty(): return failure(reason)
+	if runtime_only:
+		var header: Dictionary = payload.records[0]
+		if header.get("initialization") != "normal": return failure("unsupported_checkpoint_context")
+		if not header.get("build") is String or header.build == "unknown": return failure("unsupported_checkpoint_context")
+		if not header.get("config") is Dictionary or header.config.has("prototype_profile") or header.config.has("prototype_match_templates"):
+			return failure("unsupported_checkpoint_context")
+	var validation_usec: int = Time.get_ticks_usec() - started
 	if budget_usec <= 0: return failure("rebuild_budget_exceeded")
 	var records: Array[Dictionary] = []
 	records.assign(payload.records)
 	var replay: RuleReplay = RuleReplay.new()
+	var replay_started: int = Time.get_ticks_usec()
 	if not replay.restore_prefix(records): return failure("rebuild_failed:" + replay.error)
+	var replay_usec: int = Time.get_ticks_usec() - replay_started
 	var run: RunController = replay.run
 	if manifest(run) != expected_manifest: return failure("manifest_incompatible")
 	if run.state.run_id != payload.run_id or str(run.state.random_streams.master_seed) != payload.master_seed:
@@ -68,9 +85,14 @@ static func decode(payload: Variant, expected_manifest: Dictionary, budget_usec:
 	var point: String = "input" if run.state.phase == RunState.Phase.INPUT else "frozen_reward"
 	if point != payload.point: return failure("safe_point_mismatch")
 	var elapsed: int = Time.get_ticks_usec() - started
-	if elapsed > budget_usec: return failure("rebuild_budget_exceeded")
+	var timing: Dictionary = {"payload_validation_usec": validation_usec, "prefix_replay_usec": replay_usec, "endpoint_validation_usec": elapsed - validation_usec - replay_usec}
+	if elapsed > budget_usec:
+		var rejected: Dictionary = failure("rebuild_budget_exceeded")
+		rejected["timing"] = timing
+		rejected["rebuild_usec"] = elapsed
+		return rejected
 	# Replay's recorder has no file or external listeners. Keep it for subsequent safe saves.
-	return {"ok": true, "reason": "", "run": run, "rebuild_usec": elapsed}
+	return {"ok": true, "reason": "", "run": run, "rebuild_usec": elapsed, "timing": timing}
 
 ## A phase enum alone is insufficient: no unresolved descendants or ability tickets may remain.
 static func safety_error(run: RunController) -> String:

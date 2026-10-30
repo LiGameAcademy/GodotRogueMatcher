@@ -5,6 +5,8 @@ extends RefCounted
 ## No scene takeover, UI, telemetry session creation, or implicit run invalidation.
 var _store: CheckpointStore
 var _manifest: Dictionary
+var rebuild_budget_usec: int = RunCheckpointCodec.REBUILD_BUDGET_USEC
+var runtime_only: bool = false
 
 func _init(store: CheckpointStore, compatibility: Dictionary) -> void:
 	_store = store
@@ -13,18 +15,22 @@ func _init(store: CheckpointStore, compatibility: Dictionary) -> void:
 ## Validate reconstruction before touching the slot. A failed save preserves the previous pair.
 func save(run: RunController) -> Dictionary:
 	var encoded: Dictionary = RunCheckpointCodec.encode(run)
+	return save_encoded(encoded)
+
+## Accepts only a main-thread frozen value; background owners never read an active run.
+func save_encoded(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
-	var verified: Dictionary = RunCheckpointCodec.decode(encoded.payload, _manifest)
+	var verified: Dictionary = RunCheckpointCodec.decode(encoded.payload, _manifest, rebuild_budget_usec, runtime_only)
 	if not verified.ok: return verified
 	# Preserve binary64 weights exactly without changing the existing Store digest protocol.
 	var package: Dictionary = {
-		"schema": RunCheckpointCodec.SCHEMA, "run_id": run.state.run_id,
+		"schema": RunCheckpointCodec.SCHEMA, "run_id": encoded.payload.run_id,
 		"payload_json": JSON.stringify(encoded.payload, "", true, true),
 	}
 	if JSON.stringify(package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
 		return RunCheckpointCodec.failure("package_size_limit")
-	var opened: Dictionary = _store.begin_run(run.state.run_id)
+	var opened: Dictionary = _store.begin_run(encoded.payload.run_id)
 	if not opened.ok: return opened
 	var ticket: int = _store.stage(package, _manifest)
 	if ticket == 0: return RunCheckpointCodec.failure("stage_rejected")
@@ -47,7 +53,7 @@ func load_candidate() -> Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
 	if parser.data.get("run_id") != package.run_id:
 		return RunCheckpointCodec.failure("payload_identity_mismatch")
-	var decoded: Dictionary = RunCheckpointCodec.decode(parser.data, _manifest)
+	var decoded: Dictionary = RunCheckpointCodec.decode(parser.data, _manifest, rebuild_budget_usec, runtime_only)
 	if not decoded.ok: return decoded
 	decoded["generation"] = loaded.record.generation
 	decoded["fallback"] = loaded.fallback

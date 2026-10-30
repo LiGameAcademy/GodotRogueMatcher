@@ -33,6 +33,7 @@ func _exit_tree() -> void:
 
 func configure(context: String, destination: TelemetryFactory = null) -> void:
 	if enabled: return
+	session = CollectionSession.new()
 	factory = destination if destination != null else TelemetryFactory.new()
 	factory.collection_context = context
 	factory.commit_id = str(ProjectSettings.get_setting("application/config/commit_id", "unknown"))
@@ -40,6 +41,17 @@ func configure(context: String, destination: TelemetryFactory = null) -> void:
 	factory.attached.connect(_attached)
 	enabled = true
 	session.start(factory)
+
+## Closes the old observation segment without falsely abandoning a continued logical run.
+## Resume-segment telemetry is intentionally not installed by this desktop slice.
+func suspend_for_checkpoint() -> void:
+	if not enabled: return
+	flush()
+	for recorder: RunRecorder in factory.recorders: recorder.close_interrupted()
+	session.close("checkpoint_resume_untracked")
+	enabled = false
+	run = null
+	status_changed.emit(save_status())
 
 func bind(value: RunController) -> void:
 	run = value

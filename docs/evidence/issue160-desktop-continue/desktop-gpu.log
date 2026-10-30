@@ -1,0 +1,10 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 2070
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":6416778,"frames":387,"freeze_usec":0,"maximum_gap_usec":18112,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":9404843,"frames":561,"freeze_usec":14200,"maximum_gap_usec":62261,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":2496487,"frames":146,"freeze_usec":26171,"maximum_gap_usec":89732,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":1111075,"frames":67,"freeze_usec":2834,"maximum_gap_usec":19929,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":226016,"frames":14,"freeze_usec":3106,"maximum_gap_usec":17068,"ok":true}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":240166,"frames":15,"freeze_usec":3484,"maximum_gap_usec":17113,"ok":true}

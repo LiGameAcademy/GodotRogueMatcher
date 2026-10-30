@@ -17,6 +17,8 @@ signal match_feedback_requested(generation: int)
 signal run_reset
 ## Hands the current run and offer to Game for popup coordination.
 signal reward_requested(active: RunController, offer: SkillOffer)
+## Announces a committed rules safe point before input or reward presentation is released.
+signal checkpoint_reached(active: RunController)
 
 @export var game_mode: GameModeDefinition = preload("res://gameplay/run/modes/stage_challenge.tres")
 @export var rows: int = 9
@@ -31,6 +33,8 @@ var telemetry_factory: TelemetryFactory
 var observation: BoardObservation = BoardObservation.new()
 ## Optional outer-session gate; does not change game rules or consume an action.
 var input_permission: Callable
+var keep_checkpoint_history: bool = false
+var hold_at_checkpoint: bool = false
 var can_selected: bool = false
 var input_buffer: BoardInputBuffer = BoardInputBuffer.new()
 var selected_piece: ChessPiece = null:
@@ -83,66 +87,78 @@ func _exit_tree() -> void:
 	if run != null: run.retire()
 
 ## Starts a fresh run with explicitly injected rules and cancels old presentation.
-func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
-	run_reset.emit()
-	cancel_buffered_input()
-	_turn_in_progress = false
-	_generation += 1
-	director.cancel()
+func start_game(board_rules: BoardRules, record_run: bool = false, prepared: RunController = null, initial: RunStepResult = null, record_source: String = "human") -> void:
+	var candidate: RunController = prepared if prepared != null else RunController.new(board_rules, randi(), game_mode.stage_config)
+	if initial == null: initial = candidate.initialize()
+	_activate_run(candidate, false)
 	var generation: int = _generation
-	can_selected = false
-	selected_piece = null
-	rules = board_rules
-	_presented_events.clear()
-	_score_presentation_pending = false
-	_compatibility_changed = false
-	view.configure(cols, rows, cell_size, grid_gap)
-	BoardRunFlow.finalize(run, "restart")
-	if run != null: run.retire()
-	run = RunController.new(rules, randi(), game_mode.stage_config)
-	GameManager.reset_game(run)
-	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。
-	UIManager.close_popup()
-	await get_tree().process_frame
-	var initial: RunStepResult = run.initialize()
-	if record_run or telemetry_factory != null:
+	if record_run or telemetry_factory != null or keep_checkpoint_history:
 		run.recorder = RunRecorder.new()
 		observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
-		run.recorder.begin(run, "human", record_run)
+		run.recorder.begin(run, record_source, record_run)
 		observation.busy(true)
+	await get_tree().process_frame
+	if generation != _generation: return
+	if initial.spawns.is_empty(): view.rebuild(rules.state.get_snapshot())
 	await present_spawns(initial.spawns)
 	if generation != _generation: return
 	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
 	observation.busy(false)
 	initialized.emit()
+	checkpoint_reached.emit(run)
 
-## Restarts with fresh rules and resumes the tree.
-func retry_game(board_rules: BoardRules) -> void:
-	BoardRunFlow.finalize(run, "restart")
-	get_tree().paused = false
-	await start_game(board_rules, true)
+## Takes over one already validated independent graph. No initialize/offer generation/score commit.
+func adopt_checkpoint(candidate: RunController) -> bool:
+	if not RunCheckpointCodec.safety_error(candidate).is_empty() or candidate == run: return false
+	_activate_run(candidate, true)
+	for entry: ScoreEntry in run.state.ledger.get_entries(): _presented_events[entry.event_id] = true
+	view.rebuild(rules.state.get_snapshot())
+	refresh_ability_markers()
+	GameManager.bind_checkpoint(run)
+	can_selected = run.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint
+	if can_selected and input_permission.is_valid(): can_selected = bool(input_permission.call(run))
+	observation.busy(false)
+	initialized.emit()
+	presentation_updated.emit()
+	return true
 
-## Loads a fixed debug board only at a stable input boundary.
-func load_explosion_demo(mode: String = "fixture_f6") -> bool:
-	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()):
-		return false
-	run_reset.emit()
-	BoardRunFlow.finalize(run, "fixture_restart")
-	cancel_buffered_input()
-	_turn_in_progress = false
+func _activate_run(candidate: RunController, restoring: bool) -> void:
 	_generation += 1
-	director.cancel()
 	can_selected = false
+	cancel_buffered_input("restore" if restoring else "restart")
+	run_reset.emit()
+	_turn_in_progress = false
+	director.cancel()
 	selected_piece = null
-	rules = BoardRules.new(BoardState.new(cols, rows), MatchSystem.MIN_MATCH_COUNT)
-	run = RunController.new(rules, 7)
-	GameManager.reset_game(run)
+	if run != null:
+		if restoring and run.recorder != null: run.recorder.close_interrupted()
+		else: BoardRunFlow.finalize(run, "restart")
+		run.retire()
+	run = candidate
+	rules = candidate.state.rules
+	cols = rules.state.columns
+	rows = rules.state.rows
 	_presented_events.clear()
 	_score_presentation_pending = false
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
-	run.initialize(mode)
+	observation.attach(null)
+	if not restoring: GameManager.reset_game(run)
+	UIManager.close_popup()
+
+## Restarts with fresh rules and resumes the tree.
+func retry_game(board_rules: BoardRules, prepared: RunController = null, initial: RunStepResult = null) -> void:
+	BoardRunFlow.finalize(run, "restart")
+	get_tree().paused = false
+	await start_game(board_rules, true, prepared, initial)
+
+## Loads a fixed debug board only at a stable input boundary.
+func load_explosion_demo(mode: String = "fixture_f6") -> bool:
+	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()): return false
+	var candidate: RunController = RunController.new(BoardRules.new(BoardState.new(cols, rows), MatchSystem.MIN_MATCH_COUNT), 7)
+	candidate.initialize(mode)
+	_activate_run(candidate, false)
 	run.recorder = RunRecorder.new()
 	observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
 	run.recorder.begin(run, "fixture")
@@ -153,7 +169,6 @@ func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	can_selected = true
 	observation.busy(false)
 	return true
-
 func refresh_ability_markers() -> void:
 	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config, run.state.line_clear, run.state.manual_uses_used)
 
@@ -176,40 +191,19 @@ func open_skill_demo() -> bool:
 
 ## Places through BoardRules and attaches the supplied visual.
 func place_piece(coordinate: Vector2i, piece: ChessPiece) -> bool:
-	var content_id: StringName = StringName(piece.item_data.id) if piece.item_data != null else &""
-	var snapshot: PieceState = rules.place_piece(coordinate, piece.piece_type, content_id, piece.is_ghost)
-	if snapshot == null:
-		return false
-	view.show_piece(snapshot, piece)
-	refresh_ability_markers()
-	if director.is_busy(): _compatibility_changed = true
-	_update_count_display()
-	return true
+	return BoardCompatibility.place(self, coordinate, piece)
 
 ## Removes through BoardRules, then updates the visual and selection.
 func remove_piece(coordinate: Vector2i, animated: bool = false) -> bool:
-	var piece_id: int = rules.state.get_piece_id(coordinate)
-	var snapshot: PieceState = rules.remove_piece(piece_id)
-	if snapshot == null:
-		return false
-	run.state.explosion.instances.erase(piece_id)
-	var piece: ChessPiece = view.get_piece(piece_id)
-	if selected_piece == piece:
-		selected_piece = null
-	view.remove_piece(snapshot, animated)
-	if director.is_busy(): _compatibility_changed = true
-	_update_count_display()
-	return true
+	return BoardCompatibility.remove(self, coordinate, animated)
 
 ## Updates rule color before refreshing its presentation.
 func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
-	var piece_id: int = rules.state.get_piece_id(coordinate)
-	if not rules.set_piece_color(piece_id, match_color):
-		return false
-	view.show_color(piece_id, match_color)
-	refresh_ability_markers()
+	return BoardCompatibility.color(self, coordinate, match_color)
+
+func compatibility_updated() -> void:
 	if director.is_busy(): _compatibility_changed = true
-	return true
+	_update_count_display()
 
 ## Rebuilds only while accepting input; rejects playback or reward reentry.
 func rebuild_view() -> bool:
@@ -286,7 +280,7 @@ func resume_run(active: RunController) -> void:
 	can_selected = false
 	await BoardRunFlow.continue_run(self, active)
 	if run != active: return
-	can_selected = active.state.phase == RunState.Phase.INPUT and not active.state.is_game_over and active.state.rule_error.is_empty()
+	can_selected = active.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint and not active.state.is_game_over and active.state.rule_error.is_empty()
 	if can_selected and input_permission.is_valid(): can_selected = bool(input_permission.call(active))
 	_turn_in_progress = false
 	if can_selected: _resume_buffered_input()

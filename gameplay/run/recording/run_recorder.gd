@@ -138,6 +138,15 @@ func _flush() -> void:
 func flush_pending() -> void:
 	_flush()
 
+## Closes an interrupted segment without inventing abandonment, completion or a choice outcome.
+func close_interrupted() -> void:
+	if ended: return
+	_flush()
+	if _file != null:
+		_file.close()
+		_file = null
+	ended = true
+
 static func pieces(values: Array[PieceState]) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for value: PieceState in values: result.append(RunSnapshot.piece(value))

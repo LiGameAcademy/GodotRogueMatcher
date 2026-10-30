@@ -144,6 +144,13 @@ theme_override_colors/font_color = Color(0.53, 0.63, 0.73, 1)
 text = "桌面浏览器试玩 · 音量 / 低特效在设置中调整\n设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。\n反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。"
 autowrap_mode = 2
 
+[node name="CheckpointQuit" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+text = "checkpoint.quit"
+
 [node name="Tutorial" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true
 visible = false
