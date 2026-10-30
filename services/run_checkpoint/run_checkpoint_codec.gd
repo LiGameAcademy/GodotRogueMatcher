@@ -55,6 +55,30 @@ static func freeze(run: RunController, frozen_records: Array[Dictionary] = [], c
 ## Returns a new run only on complete validation. Never retires or mutates a caller's run.
 ## The elapsed guard rejects slow results after replay; it cannot preempt a single rule call.
 static func decode(payload: Variant, expected_manifest: Dictionary, budget_usec: int = REBUILD_BUDGET_USEC, runtime_only: bool = false) -> Dictionary:
+	var prepared: Dictionary = _prepare_decode(payload, budget_usec, runtime_only)
+	if not prepared.ok: return prepared
+	var replay: RuleReplay = RuleReplay.new()
+	var started: int = Time.get_ticks_usec()
+	if not replay.restore_prefix(prepared.records): return failure("rebuild_failed:" + replay.error)
+	return _finish_decode(payload, expected_manifest, replay.run, prepared.started, prepared.validation_usec, Time.get_ticks_usec() - started, budget_usec)
+
+## Web-only caller supplies frame scheduling; synchronous callers keep the original API.
+static func decode_sliced(payload: Variant, expected_manifest: Dictionary, budget_usec: int, runtime_only: bool, replay_yield: Callable) -> Dictionary:
+	if not replay_yield.is_valid(): return failure("invalid_step_yield")
+	var prepared: Dictionary = _prepare_decode(payload, budget_usec, runtime_only)
+	if not prepared.ok: return prepared
+	var replay: RuleReplay = RuleReplay.new()
+	var started: int = Time.get_ticks_usec()
+	if not replay.start_prefix(prepared.records): return failure("rebuild_failed:" + replay.error)
+	while true:
+		var step: Dictionary = replay.step_prefix()
+		if not step.ok: return failure("rebuild_failed:" + replay.error)
+		if step.done: break
+		if Time.get_ticks_usec() - prepared.started > budget_usec: return failure("rebuild_budget_exceeded")
+		await replay_yield.call()
+	return _finish_decode(payload, expected_manifest, replay.run, prepared.started, prepared.validation_usec, Time.get_ticks_usec() - started, budget_usec)
+
+static func _prepare_decode(payload: Variant, budget_usec: int, runtime_only: bool) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
 	var reason: String = _payload_error(payload)
 	if not reason.is_empty(): return failure(reason)
@@ -68,11 +92,9 @@ static func decode(payload: Variant, expected_manifest: Dictionary, budget_usec:
 	if budget_usec <= 0: return failure("rebuild_budget_exceeded")
 	var records: Array[Dictionary] = []
 	records.assign(payload.records)
-	var replay: RuleReplay = RuleReplay.new()
-	var replay_started: int = Time.get_ticks_usec()
-	if not replay.restore_prefix(records): return failure("rebuild_failed:" + replay.error)
-	var replay_usec: int = Time.get_ticks_usec() - replay_started
-	var run: RunController = replay.run
+	return {"ok": true, "reason": "", "records": records, "started": started, "validation_usec": validation_usec}
+
+static func _finish_decode(payload: Dictionary, expected_manifest: Dictionary, run: RunController, started: int, validation_usec: int, replay_usec: int, budget_usec: int) -> Dictionary:
 	if manifest(run) != expected_manifest: return failure("manifest_incompatible")
 	if run.state.run_id != payload.run_id or str(run.state.random_streams.master_seed) != payload.master_seed:
 		return failure("identity_mismatch")
@@ -80,7 +102,7 @@ static func decode(payload: Variant, expected_manifest: Dictionary, budget_usec:
 	if state != payload.state or RunSnapshot.digest(state) != payload.state_hash:
 		return failure("endpoint_mismatch")
 	if _offer_cache(run) != payload.offer_cache: return failure("offer_cache_mismatch")
-	reason = safety_error(run)
+	var reason: String = safety_error(run)
 	if not reason.is_empty(): return failure(reason)
 	var point: String = "input" if run.state.phase == RunState.Phase.INPUT else "frozen_reward"
 	if point != payload.point: return failure("safe_point_mismatch")

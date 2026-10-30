@@ -22,6 +22,20 @@ func save(run: RunController) -> Dictionary:
 
 ## Accepts only a main-thread frozen value; background owners never read an active run.
 func save_encoded(encoded: Dictionary) -> Dictionary:
+	var prepared: Dictionary = _prepare_save(encoded)
+	if not prepared.ok: return prepared
+	var verified: Dictionary = RunCheckpointCodec.decode(prepared.payload, _manifest, rebuild_budget_usec, runtime_only)
+	if not verified.ok: return verified
+	return _commit_save(encoded, prepared.package, verified)
+
+func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Dictionary:
+	var prepared: Dictionary = _prepare_save(encoded)
+	if not prepared.ok: return prepared
+	var verified: Dictionary = await RunCheckpointCodec.decode_sliced(prepared.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
+	if not verified.ok: return verified
+	return _commit_save(encoded, prepared.package, verified)
+
+func _prepare_save(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
 	var transported: Dictionary = FLOAT_TRANSPORT.encode(encoded.payload)
@@ -40,8 +54,9 @@ func save_encoded(encoded: Dictionary) -> Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
 	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
 	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
-	var verified: Dictionary = RunCheckpointCodec.decode(roundtrip.data, _manifest, rebuild_budget_usec, runtime_only)
-	if not verified.ok: return verified
+	return {"ok": true, "reason": "", "package": package, "payload": roundtrip.data}
+
+func _commit_save(encoded: Dictionary, package: Dictionary, verified: Dictionary) -> Dictionary:
 	var opened: Dictionary = _store.begin_run(encoded.payload.run_id)
 	if not opened.ok: return opened
 	var ticket: int = _store.stage(package, _manifest)
@@ -68,7 +83,35 @@ func load_candidate() -> Dictionary:
 	recovered["primary_rejection"] = decoded.reason
 	return recovered
 
+func load_candidate_sliced(replay_yield: Callable) -> Dictionary:
+	var loaded: Dictionary = _store.load_latest(_manifest)
+	if not loaded.ok: return loaded
+	var decoded: Dictionary = await _decode_loaded_sliced(loaded, replay_yield)
+	if decoded.ok or loaded.fallback or not _recoverable_corruption(decoded.reason): return decoded
+	var previous: Dictionary = _store.previous_after_rejection(_manifest, loaded.record)
+	if not previous.ok:
+		decoded["previous_rejection"] = previous.reason
+		return decoded
+	var recovered: Dictionary = await _decode_loaded_sliced(previous, replay_yield)
+	if not recovered.ok:
+		decoded["previous_rejection"] = recovered.reason
+		return decoded
+	recovered["primary_rejection"] = decoded.reason
+	return recovered
+
 func _decode_loaded(loaded: Dictionary) -> Dictionary:
+	var unpacked: Dictionary = _unpack_loaded(loaded)
+	if not unpacked.ok: return unpacked
+	var decoded: Dictionary = RunCheckpointCodec.decode(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only)
+	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package)
+
+func _decode_loaded_sliced(loaded: Dictionary, replay_yield: Callable) -> Dictionary:
+	var unpacked: Dictionary = _unpack_loaded(loaded)
+	if not unpacked.ok: return unpacked
+	var decoded: Dictionary = await RunCheckpointCodec.decode_sliced(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
+	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package)
+
+func _unpack_loaded(loaded: Dictionary) -> Dictionary:
 	var package: Dictionary = loaded.record.payload
 	if not package.get("schema") is String: return RunCheckpointCodec.failure("invalid_package")
 	if package.schema not in [RunCheckpointCodec.SCHEMA, DECIMAL_PACKAGE_SCHEMA, PACKAGE_SCHEMA]:
@@ -87,12 +130,14 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 		parser.data = transported.data
 	if parser.data.get("run_id") != package.run_id:
 		return RunCheckpointCodec.failure("payload_identity_mismatch")
-	var decoded: Dictionary = RunCheckpointCodec.decode(parser.data, _manifest, rebuild_budget_usec, runtime_only)
+	return {"ok": true, "reason": "", "payload": parser.data, "package": package}
+
+func _finish_loaded(loaded: Dictionary, decoded: Dictionary, payload: Dictionary, package: Dictionary) -> Dictionary:
 	if not decoded.ok: return decoded
 	decoded["generation"] = loaded.record.generation
 	decoded["fallback"] = loaded.fallback
 	decoded["recovered_write"] = loaded.recovered_write
-	decoded["resume_context"] = {"checkpoint_id": loaded.record.run_id + ":" + loaded.record.generation + ":" + parser.data.state_hash, "generation": loaded.record.generation, "record_seq": parser.data.record_seq, "state_hash": parser.data.state_hash, "trace": package.get("telemetry", {}).duplicate(true) if package.get("telemetry", {}) is Dictionary else {"status": "invalid_trace"}}
+	decoded["resume_context"] = {"checkpoint_id": loaded.record.run_id + ":" + loaded.record.generation + ":" + payload.state_hash, "generation": loaded.record.generation, "record_seq": payload.record_seq, "state_hash": payload.state_hash, "trace": package.get("telemetry", {}).duplicate(true) if package.get("telemetry", {}) is Dictionary else {"status": "invalid_trace"}}
 	return decoded
 
 ## Unknown protocols/configurations, unsupported contexts and cost limits are not corruption repair.

@@ -51,22 +51,32 @@ func _run_web(operation: Callable, store: CheckpointStore) -> void:
 	var tree: SceneTree = Engine.get_main_loop() as SceneTree
 	await tree.process_frame
 	if DisplayServer.get_name() != "headless": await RenderingServer.frame_post_draw
-	_web_result = operation.call()
+	_web_result = await operation.call()
 	var committed: Dictionary = await store.sync()
 	if not committed.ok: _web_result = RunCheckpointCodec.failure(committed.reason)
 	_web_done = true
+
+func _yield_web() -> void:
+	var tree: SceneTree = Engine.get_main_loop() as SceneTree
+	await tree.process_frame
+	if DisplayServer.get_name() != "headless": await RenderingServer.frame_post_draw
 
 func _save(store: CheckpointStore, encoded: Dictionary, budget_usec: int) -> Dictionary:
 	var session: RunCheckpointSession = RunCheckpointSession.new(store, encoded.manifest)
 	session.runtime_only = true
 	session.rebuild_budget_usec = budget_usec
+	if not use_threads:
+		return await session.save_encoded_sliced(encoded, _yield_web)
 	return session.save_encoded(encoded)
 
 func _load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int, resume_plan: Dictionary) -> Dictionary:
 	var session: RunCheckpointSession = RunCheckpointSession.new(store, compatibility)
 	session.runtime_only = true
 	session.rebuild_budget_usec = budget_usec
-	var result: Dictionary = session.load_candidate()
+	var result: Dictionary
+	if not use_threads:
+		result = await session.load_candidate_sliced(_yield_web)
+	else: result = session.load_candidate()
 	if result.ok:
 		var preparing: int = Time.get_ticks_usec()
 		if not resume_plan.is_empty():

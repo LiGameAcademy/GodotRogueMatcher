@@ -44,8 +44,11 @@ bound on final scene adoption or rendering stalls.
 
 The single-threaded Web path creates no Thread. It reconstructs frozen values on the
 main thread, then waits for an IndexedDB read/write transaction to complete before
-acknowledging the checkpoint. Synchronous reconstruction can stall a frame; the
-desktop waiting-frame measurements do not describe Web responsiveness.
+acknowledging the checkpoint. Replay yields between bounded groups of records;
+all records and the exact endpoint still require verification before adoption or IO.
+A single rule command, initialization, JSON/float transport and file-map encoding
+remain synchronous and can stall a frame. The rebuild guard includes yield time;
+it is not a per-frame guarantee. Desktop measurements do not describe Web responsiveness.
 
 The database `skill-lines-checkpoints-v1` stores one `automatic` value in `state`.
 Its revision is checked inside the same transaction to reject a stale tab's overwrite.
