@@ -90,4 +90,5 @@ func _load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int, 
 		history.prime(result.run)
 		result["history"] = history
 		result["history_prime_usec"] = Time.get_ticks_usec() - started
+		if not use_threads: await _yield_web()
 	return result

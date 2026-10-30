@@ -67,11 +67,13 @@ static func decode_sliced(payload: Variant, expected_manifest: Dictionary, budge
 	if not replay_yield.is_valid(): return failure("invalid_step_yield")
 	var prepared: Dictionary = _prepare_decode(payload, budget_usec, runtime_only)
 	if not prepared.ok: return prepared
+	await replay_yield.call()
 	var replay: RuleReplay = RuleReplay.new()
 	var started: int = Time.get_ticks_usec()
 	if not replay.start_prefix(prepared.records): return failure("rebuild_failed:" + replay.error)
 	var initialization_usec: int = Time.get_ticks_usec() - started
 	var largest_slice_usec: int = 0
+	await replay_yield.call()
 	while true:
 		var slice_started: int = Time.get_ticks_usec()
 		var step: Dictionary = replay.step_prefix()
@@ -82,6 +84,7 @@ static func decode_sliced(payload: Variant, expected_manifest: Dictionary, budge
 		await replay_yield.call()
 	var result: Dictionary = _finish_decode(payload, expected_manifest, replay.run, prepared.started, prepared.validation_usec, Time.get_ticks_usec() - started, budget_usec)
 	if result.has("timing"): result.timing.merge({"initialization_usec": initialization_usec, "largest_replay_slice_usec": largest_slice_usec})
+	if result.ok: await replay_yield.call()
 	return result
 
 static func _prepare_decode(payload: Variant, budget_usec: int, runtime_only: bool) -> Dictionary:

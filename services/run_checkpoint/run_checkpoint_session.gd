@@ -26,14 +26,22 @@ func save_encoded(encoded: Dictionary) -> Dictionary:
 	if not prepared.ok: return prepared
 	var verified: Dictionary = RunCheckpointCodec.decode(prepared.payload, _manifest, rebuild_budget_usec, runtime_only)
 	if not verified.ok: return verified
-	return _commit_save(encoded, prepared.package, verified)
+	return _commit_save(prepared.package, verified)
 
 func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Dictionary:
+	if not replay_yield.is_valid(): return RunCheckpointCodec.failure("invalid_step_yield")
+	var started: int = Time.get_ticks_usec()
 	var prepared: Dictionary = _prepare_save(encoded)
 	if not prepared.ok: return prepared
+	var prepare_usec: int = Time.get_ticks_usec() - started
+	await replay_yield.call()
 	var verified: Dictionary = await RunCheckpointCodec.decode_sliced(prepared.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
 	if not verified.ok: return verified
-	return _commit_save(encoded, prepared.package, verified)
+	await replay_yield.call()
+	var committed: Dictionary = _commit_save(prepared.package, verified)
+	committed["timing"] = verified.get("timing", {})
+	committed["package_timing"] = {"save_prepare_usec": prepare_usec}
+	return committed
 
 func _prepare_save(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
@@ -56,8 +64,8 @@ func _prepare_save(encoded: Dictionary) -> Dictionary:
 	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
 	return {"ok": true, "reason": "", "package": package, "payload": roundtrip.data}
 
-func _commit_save(encoded: Dictionary, package: Dictionary, verified: Dictionary) -> Dictionary:
-	var opened: Dictionary = _store.begin_run(encoded.payload.run_id)
+func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
+	var opened: Dictionary = _store.begin_run(package.run_id)
 	if not opened.ok: return opened
 	var ticket: int = _store.stage(package, _manifest)
 	if ticket == 0: return RunCheckpointCodec.failure("stage_rejected")
@@ -84,6 +92,7 @@ func load_candidate() -> Dictionary:
 	return recovered
 
 func load_candidate_sliced(replay_yield: Callable) -> Dictionary:
+	if not replay_yield.is_valid(): return RunCheckpointCodec.failure("invalid_step_yield")
 	var loaded: Dictionary = _store.load_latest(_manifest)
 	if not loaded.ok: return loaded
 	var decoded: Dictionary = await _decode_loaded_sliced(loaded, replay_yield)
@@ -106,8 +115,10 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
 
 func _decode_loaded_sliced(loaded: Dictionary, replay_yield: Callable) -> Dictionary:
+	await replay_yield.call()
 	var unpacked: Dictionary = _unpack_loaded(loaded)
 	if not unpacked.ok: return unpacked
+	await replay_yield.call()
 	var decoded: Dictionary = await RunCheckpointCodec.decode_sliced(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
 	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
 
