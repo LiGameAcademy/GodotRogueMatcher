@@ -23,7 +23,7 @@ func test_real_resources_and_changed_counts_are_bilingual_read_only() -> void:
 		TranslationServer.set_locale("en_US")
 		assert_string_contains(SkillChoiceText.summary(skill), "keeping identity, place and color")
 		assert_string_contains(SkillChoiceText.summary(skill), "no replacement")
-		assert_string_contains(SkillChoiceText.summary(skill), "No supply unlock or manual use")
+		assert_string_contains(SkillChoiceText.summary(skill), "Unlocks no supply or manual use")
 		effect.target_policy = ChoiceEffect.TargetPolicy.DYNAMIC
 		assert_string_contains(SkillRuleDescription.describe(skill).error, "unsupported transform")
 		effect.target_policy = ChoiceEffect.TargetPolicy.FIXED
