@@ -84,6 +84,10 @@ func test_actual_menu_resume_has_one_logical_run_no_provisional_start_and_ready_
 	assert_eq(projector.observation().ui, "board_input")
 	assert_true(FileAccess.file_exists(board.run.recorder.path))
 	assert_eq(RunSnapshot.capture(board.run), RunSnapshot.capture(run))
+	var skin: GameTheme = _game.get("game_theme") as GameTheme
+	assert_not_null(skin)
+	assert_same((_game.get_node("UILayer/HUD") as Hud).theme, skin.ui_theme)
+	for piece: ChessPiece in board.view.get("_pieces").values(): assert_same(piece.get("_appearance"), skin.board)
 	assert_eq(FileAccess.get_sha256(original_path), original_hash)
 	collection.suspend_for_checkpoint()
 	var report: TelemetryReport = TelemetryReport.new()
