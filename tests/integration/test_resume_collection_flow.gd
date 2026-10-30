@@ -18,6 +18,19 @@ func after_each() -> void:
 	if is_instance_valid(_parent):
 		_parent.suspend_for_checkpoint()
 		_parent.free()
+	# Board replacement detaches old cells/pieces and queues them for end-of-frame deletion.
+	# Observe that lifecycle before GUT counts the detached subtrees as test-end orphans.
+	var pending: PackedInt64Array = PackedInt64Array()
+	for id: int in Node.get_orphan_node_ids():
+		var node: Node = instance_from_id(id) as Node
+		if (node is Cell or node is ChessPiece) and node.get_parent() == null and node.is_queued_for_deletion(): pending.append(id)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var remaining: int = 0
+	for id: int in pending:
+		if is_instance_id_valid(id): remaining += 1
+	print("CHECKPOINT_TEST_DEFERRED_FREE " + JSON.stringify({"queued_roots": pending.size(), "remaining_after_two_frames": remaining}))
+	assert_eq(remaining, 0, "detached board views must finish deferred deletion")
 	_remove(_directory)
 
 func _remove(directory: String) -> void:

@@ -7,7 +7,9 @@ var _store: CheckpointStore
 var _manifest: Dictionary
 var rebuild_budget_usec: int = RunCheckpointCodec.REBUILD_BUDGET_USEC
 var runtime_only: bool = false
-const PACKAGE_SCHEMA: String = "run-checkpoint-package-v2"
+const FLOAT_TRANSPORT: Script = preload("res://services/run_checkpoint/checkpoint_float_transport.gd")
+const PACKAGE_SCHEMA: String = "run-checkpoint-package-v3"
+const DECIMAL_PACKAGE_SCHEMA: String = "run-checkpoint-package-v2"
 
 func _init(store: CheckpointStore, compatibility: Dictionary) -> void:
 	_store = store
@@ -22,16 +24,24 @@ func save(run: RunController) -> Dictionary:
 func save_encoded(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
-	var verified: Dictionary = RunCheckpointCodec.decode(encoded.payload, _manifest, rebuild_budget_usec, runtime_only)
-	if not verified.ok: return verified
-	# Preserve binary64 weights exactly without changing the existing Store digest protocol.
+	var transported: Dictionary = FLOAT_TRANSPORT.encode(encoded.payload)
+	if not transported.ok: return RunCheckpointCodec.failure(transported.reason)
+	# Binary64 tags avoid relying on the JSON parser's decimal rounding.
 	var package: Dictionary = {
 		"schema": PACKAGE_SCHEMA, "run_id": encoded.payload.run_id,
-		"payload_json": JSON.stringify(encoded.payload, "", true, true),
+		"payload_json": JSON.stringify(transported.data, "", true, true),
 		"telemetry": encoded.get("telemetry", {}).duplicate(true) if encoded.get("telemetry", {}) is Dictionary and RunCheckpointCodec.pure(encoded.get("telemetry", {})) else {"status": "invalid_trace"},
 	}
 	if JSON.stringify(package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
 		return RunCheckpointCodec.failure("package_size_limit")
+	# Verify the actual encoded text through parsing and independent reconstruction before IO.
+	var parser: JSON = JSON.new()
+	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
+		return RunCheckpointCodec.failure("invalid_payload_json")
+	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
+	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+	var verified: Dictionary = RunCheckpointCodec.decode(roundtrip.data, _manifest, rebuild_budget_usec, runtime_only)
+	if not verified.ok: return verified
 	var opened: Dictionary = _store.begin_run(encoded.payload.run_id)
 	if not opened.ok: return opened
 	var ticket: int = _store.stage(package, _manifest)
@@ -61,9 +71,9 @@ func load_candidate() -> Dictionary:
 func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	var package: Dictionary = loaded.record.payload
 	if not package.get("schema") is String: return RunCheckpointCodec.failure("invalid_package")
-	if package.schema not in [RunCheckpointCodec.SCHEMA, PACKAGE_SCHEMA]:
+	if package.schema not in [RunCheckpointCodec.SCHEMA, DECIMAL_PACKAGE_SCHEMA, PACKAGE_SCHEMA]:
 		return RunCheckpointCodec.failure("schema_unsupported")
-	var expected_size: int = 4 if package.get("schema") == PACKAGE_SCHEMA else 3
+	var expected_size: int = 3 if package.schema == RunCheckpointCodec.SCHEMA else 4
 	if package.size() != expected_size or not package.get("payload_json") is String:
 		return RunCheckpointCodec.failure("invalid_package")
 	if loaded.record.run_id != package.get("run_id"):
@@ -71,6 +81,10 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 	var parser: JSON = JSON.new()
 	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
+	if package.schema == PACKAGE_SCHEMA:
+		var transported: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
+		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+		parser.data = transported.data
 	if parser.data.get("run_id") != package.run_id:
 		return RunCheckpointCodec.failure("payload_identity_mismatch")
 	var decoded: Dictionary = RunCheckpointCodec.decode(parser.data, _manifest, rebuild_budget_usec, runtime_only)
