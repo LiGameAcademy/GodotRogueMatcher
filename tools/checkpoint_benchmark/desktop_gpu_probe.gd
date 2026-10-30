@@ -29,6 +29,10 @@ func _run() -> void:
 	var original: RunController = _board.get("run") as RunController
 	var envelope: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("user://run_checkpoint/primary.json"))
 	var payload: Dictionary = JSON.parse_string(envelope.payload.payload_json)
+	if envelope.payload.schema == RunCheckpointSession.PACKAGE_SCHEMA:
+		var decoded: Dictionary = preload("res://services/run_checkpoint/checkpoint_float_transport.gd").decode(payload)
+		if not decoded.ok: return _fail("invalid_payload_json")
+		payload = decoded.data
 	_report["saved_records"] = payload.record_seq
 	_report["saved_run_id"] = payload.run_id
 	_report["renderer"] = RenderingServer.get_video_adapter_name()
