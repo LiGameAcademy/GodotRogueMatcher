@@ -11,6 +11,9 @@ signal cell_pressed(coordinate: Vector2i)
 signal piece_activated(coordinate: Vector2i)
 signal presentation_changed
 signal piece_removing(piece: ChessPiece)
+## Cosmetic consumers may stop immediately; no rule state is changed.
+signal low_effects_changed(enabled: bool)
+signal visuals_cleared()
 signal match_visualized(result: MatchResult, cells: Array[Cell])
 ## Emitted after committed fuse markers become visible; this never mutates ability state.
 signal fuses_visualized(pieces: Array[PieceState])
@@ -103,6 +106,7 @@ func set_signal_enabled(enabled: bool) -> void:
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	low_effects_changed.emit(enabled)
 	signal_effect.set_low_effects(enabled)
 	score_floats.set_low_effects(enabled)
 	for cell: Cell in _cells.values(): cell.set_low_effects(enabled)
@@ -120,6 +124,7 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	visuals_cleared.emit()
 	_deferred_fuse_ids.clear()
 	signal_effect.reset_visual()
 	move_path.clear()
@@ -325,6 +330,7 @@ func set_step_policy(policy: PresentationStep.Policy) -> void:
 
 ## 仅取消当前视图任务，唤醒旧等待；跳过权限由导演判断。
 func cancel_animations() -> void:
+	visuals_cleared.emit()
 	_deferred_fuse_ids.clear()
 	move_path.clear()
 	score_floats.clear()

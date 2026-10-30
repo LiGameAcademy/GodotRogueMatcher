@@ -18,6 +18,7 @@
 
 [ext_resource type="PackedScene" path="res://gameplay/presentation/game_music.tscn" id="13_music"]
 [ext_resource type="PackedScene" path="res://gameplay/game_checkpoint_flow.tscn" id="14_checkpoint"]
+[ext_resource type="PackedScene" path="res://gameplay/presentation/removal_sparks/removal_sparks.tscn" id="15_sparks"]
 
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
@@ -81,3 +82,6 @@ layer = 130
 [node name="CardTransfer" parent="." instance=ExtResource("10_transfer")]
 
 [node name="GameMusic" parent="." instance=ExtResource("13_music")]
+
+[node name="RemovalSparks" parent="." node_paths=PackedStringArray("source_board") instance=ExtResource("15_sparks")]
+source_board = NodePath("../Board")
