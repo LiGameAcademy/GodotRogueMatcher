@@ -1,3 +1,6 @@
 [submodule "addons/godot_core_system"]
 	path = addons/godot_core_system
 	url = https://github.com/LiGameAcademy/godot_core_system.git
+[submodule "godot_particle_graph"]
+	path = addons/godot_particle_graph
+	url = https://github.com/LiGameAcademy/godot-particle-graph.git
