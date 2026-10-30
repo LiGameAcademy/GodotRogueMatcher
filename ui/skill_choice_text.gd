@@ -26,6 +26,15 @@ static func compact_preview(skill: SkillDefinition, target: SkillTarget) -> Stri
 	var effect: SkillEffect = skill.acquisition_effect(target.level_before)
 	if effect is DemolitionStatEffect and (effect as DemolitionStatEffect).stat == DemolitionStatEffect.Stat.MULTIPLIER:
 		return SkillRuleDescription.preview("rules.multiplier_preview", {"before": String.num(target.value_before * SkillRuleDescription.EXPLOSION.multiplier_per_level, 3), "after": String.num(target.value_after * SkillRuleDescription.EXPLOSION.multiplier_per_level, 3)}).text
+	if effect is DemolitionStatEffect:
+		var delta: int = 0
+		match (effect as DemolitionStatEffect).stat:
+			DemolitionStatEffect.Stat.MATCH_EXTRA: delta = SkillRuleDescription.EXPLOSION.bonus_per_match
+			DemolitionStatEffect.Stat.BLAST_EXTRA: delta = SkillRuleDescription.EXPLOSION.bonus_per_blast
+			DemolitionStatEffect.Stat.REWARD: delta = SkillRuleDescription.EXPLOSION.reward_per_target
+		if delta > 0:
+			var key: String = "rules.score_target_preview" if (effect as DemolitionStatEffect).stat == DemolitionStatEffect.Stat.REWARD else "rules.score_event_preview"
+			return SkillRuleDescription.preview(key, {"before": target.value_before * delta, "after": target.value_after * delta}).text
 	if effect is TransformMaterialEffect:
 		var content: StringName = (effect as TransformMaterialEffect).content_id
 		var name_text: String = "爆破手" if content == &"special_demolition" else ("横扫手" if content == LineClearState.CONTENT_ROW else "列扫手")

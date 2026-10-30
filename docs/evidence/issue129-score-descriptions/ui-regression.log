@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-score-independent-review/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_score_rule_description_ui.gd
+* test_definition_current_proposed_and_max_contexts_use_real_acquisitions
+* test_three_card_offers_fit_both_languages_and_viewports_without_mutating_run
+2/2 passed.
+
+
+res://tests/integration/test_skill_pool_rule_context.gd
+* test_definition_owned_proposed_max_and_expired_contexts_do_not_fabricate_offers
+* test_real_pool_bilingual_views_keep_context_bodies_metadata_and_six_rngs_unchanged
+* test_pool_scrolling_reaches_rule_context_and_return_control_at_both_viewports
+3/3 passed.
+
+
+res://tests/integration/test_skill_cards.gd
+* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+5/5 passed.
+
+
+res://tests/integration/test_build_cards.gd
+* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+4/4 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               4
+Tests                14
+Passing Tests        14
+Asserts            3936
+Time              38.708s
+
+
+---- All tests passed! ----

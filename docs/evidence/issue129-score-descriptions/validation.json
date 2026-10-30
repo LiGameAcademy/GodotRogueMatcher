@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-30",
+  "timezone": "Asia/Hong_Kong",
+  "tested_commit": "64f468b199b96c76292dfcb0891662441ca83dcc",
+  "engine": "Godot 4.7.2 ed1daf0bf",
+  "gut": "9.6.0",
+  "gpu": "RTX2070 NVIDIA610.88 OpenGL3.3 Compatibility",
+  "results": {
+    "rules": {
+      "scripts": 5,
+      "tests": 45,
+      "passed": 45,
+      "assertions": 1098,
+      "exit": 0
+    },
+    "ui": {
+      "scripts": 4,
+      "tests": 14,
+      "passed": 14,
+      "assertions": 3936,
+      "exit": 0
+    },
+    "gpu": {
+      "scripts": 1,
+      "tests": 2,
+      "passed": 2,
+      "assertions": 243,
+      "exit": 0,
+      "captures": 8,
+      "visually_inspected": 8
+    }
+  },
+  "catalog": {
+    "total": 52,
+    "generated": 16,
+    "manual_fallback": 36
+  },
+  "author_readability": null,
+  "non_designer_experience": null,
+  "diagnostics": [
+    "Final runs: existing sandbox root certificate store error; missing optional settings uses defaults. No script/parse failures or resource-leak exit warnings.",
+    "Initial import reports missing .godot font cache before importing successfully, exit0; raw import log retained."
+  ],
+  "recovery": "Independent full single-branch remote clone; .git directory, no commondir or alternates. Old worktree results are excluded. Source recovered from preserved backups. No local cleanup performed.",
+  "artifacts": [
+    {
+      "name": "coverage.json",
+      "sha256": "2866cd65146738ac6a6607f48bcf431486d573f35ac484379f1c004d5ed99b01",
+      "bytes": 71290
+    },
+    {
+      "name": "en_US_1024_group0.png",
+      "sha256": "b2a8bb75d7d23e0e65d8f98752710db2cde374a7b167fe14bb080eeba9aa33c2",
+      "bytes": 120725
+    },
+    {
+      "name": "en_US_1024_group1.png",
+      "sha256": "a06235ed5f48447b05078e5c4e94f36abd25dc2921ac243403e0ebd34a225578",
+      "bytes": 125815
+    },
+    {
+      "name": "en_US_1280_group0.png",
+      "sha256": "e495bc91caa3428b8094490572ebe57710693e185fc0fd6f419fbc4ac219cc6e",
+      "bytes": 123450
+    },
+    {
+      "name": "en_US_1280_group1.png",
+      "sha256": "2a9a94ac62067b0558f923784ea1fcd157a0a5ee6c6a99de288e189cec61e7fc",
+      "bytes": 128763
+    },
+    {
+      "name": "gpu.log",
+      "sha256": "67769492654ddbcd789be1267f395ecc9398d47dcc9a6ce6694fe805040a6587",
+      "bytes": 1095
+    },
+    {
+      "name": "gpu.log.gz",
+      "sha256": "1e5dd38c40b887a838fbe0c57a27ed2b9d107a9dbf285d8bb2c40b1b0ca165ba",
+      "bytes": 725
+    },
+    {
+      "name": "import.log",
+      "sha256": "2991373bffbb52a727423706909b1e79e73e02e0b7b5f481a97b7b0dd8a131f2",
+      "bytes": 39601
+    },
+    {
+      "name": "import.log.gz",
+      "sha256": "62699273402ab200b861b3f561374e7eeb431c018f79e953907a446f3c74b4c7",
+      "bytes": 5187
+    },
+    {
+      "name": "README.md",
+      "sha256": "750ce7e1dabff9a678d04162210b9a01405ce5e77bfdf00a3cae3678472f8bcf",
+      "bytes": 3767
+    },
+    {
+      "name": "recovery-history.md",
+      "sha256": "549e65f35c79bd387724c3493774c8c1eafad5311d8ba2da6f686be3099a25f3",
+      "bytes": 1114
+    },
+    {
+      "name": "score-regression.log",
+      "sha256": "4e9c41363dd1a2b4c7dfccedd2332f000f6fb8a95678beee2f079ef7984bf876",
+      "bytes": 4143
+    },
+    {
+      "name": "score-regression.log.gz",
+      "sha256": "2ad5253a6ab69f26c8362012f5e5556e1aa12e80b65d1921181d3539974b50c7",
+      "bytes": 1960
+    },
+    {
+      "name": "source-manifest.json",
+      "sha256": "98602e1a38137bdae53f64d3d4c96ce92f08f16c70504eb2174241087aab45ff",
+      "bytes": 3006
+    },
+    {
+      "name": "ui-regression.log",
+      "sha256": "181b0cf8ca2b7cd1bc522afe5d443f7bef06a1b27259eede5f7dfc95056d13c2",
+      "bytes": 2084
+    },
+    {
+      "name": "ui-regression.log.gz",
+      "sha256": "691e3325e794927d5284b44fb12cccc1b50e443f74c645aa905aebfac6071055",
+      "bytes": 1102
+    },
+    {
+      "name": "zh_CN_1024_group0.png",
+      "sha256": "9f2f47eeea5e7089feb72e1794238bcdcd6042c5057304eb1f58e5ef17449833",
+      "bytes": 125938
+    },
+    {
+      "name": "zh_CN_1024_group1.png",
+      "sha256": "85dec3efdece01c47bb520f8bc7b3057ff169cfc648adabaf0c7a92b691bca2d",
+      "bytes": 131164
+    },
+    {
+      "name": "zh_CN_1280_group0.png",
+      "sha256": "0e75d29b7b2637d8094a65ede826ba093c460dde270efa92608af1d9f54a7fd8",
+      "bytes": 129097
+    },
+    {
+      "name": "zh_CN_1280_group1.png",
+      "sha256": "9784647a33a6b5d76dbafac085bd81fc8d7c670519dc38ffdc84fdca03803c53",
+      "bytes": 134216
+    }
+  ]
+}
