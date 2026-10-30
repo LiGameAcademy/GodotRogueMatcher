@@ -143,6 +143,8 @@ def _check_records(item: dict[str, Any]) -> set[str]:
         if not isinstance(group, str) or group not in item["groups"] or not isinstance(issues, list) or any(not isinstance(issue, str) for issue in issues):
             raise ValueError("invalid inventory record group or quality")
         seed_value(record.get("seed"))
+        if record.get("status") not in ("completed", "censored", "abandoned", "rule_error", "incomplete") or not isinstance(record.get("reason"), str):
+            raise ValueError("invalid inventory record endpoint")
         if not issues and (record.get("status") != "completed" or record.get("reason") not in ("board_full", "challenge_completed")):
             raise ValueError("record endpoint contradicts quality")
         ids.add(run_id)
@@ -164,6 +166,41 @@ def _check_records(item: dict[str, Any]) -> set[str]:
     return ids
 
 
+def validate_inventory(plan: dict[str, Any], plan_hash: str, item: dict[str, Any]) -> set[str]:
+    """Validate an exported inventory before comparing or linking its identities."""
+    validate_plan(plan)
+    if item.get("schema") != "random-cohort-inventory-v1" or item.get("plan_sha256") != plan_hash:
+        raise ValueError("inventory schema or plan identity mismatch")
+    phase = item.get("phase")
+    if not isinstance(phase, str) or phase not in plan["seeds"]:
+        raise ValueError("inventory has unknown phase")
+    for key in ("expected_seeds", "metadata_qualified_seeds"):
+        values = item.get(key)
+        if not isinstance(values, list) or any(not isinstance(seed, str) for seed in values):
+            raise ValueError("invalid inventory seed set")
+        if len({seed_value(seed) for seed in values}) != len(values):
+            raise ValueError("duplicate inventory seed")
+    if set(item["expected_seeds"]) != set(plan["seeds"][phase]):
+        raise ValueError("inventory does not match registered phase seeds")
+    if not isinstance(item.get("variant"), dict) or not isinstance(item["variant"].get("label"), str):
+        raise ValueError("missing declared variant label")
+    variant = item["variant"]
+    labels = {row["id"] for row in plan["related_scan"]} | {"baseline_observed"}
+    if variant["label"] not in labels or variant.get("binding_status") != "declared_not_runtime_verified" or variant.get("actual_parameters") is not None:
+        raise ValueError("unsupported variant declaration")
+    if item.get("status") != "preparation_only" or item.get("ready_to_select_parameters") is not False or item.get("parameter_acceptance") is not None:
+        raise ValueError("inventory cannot claim parameter acceptance")
+    if not isinstance(item.get("groups"), dict) or not isinstance(item.get("errors"), list) or type(item.get("seed_inventory_complete")) is not bool:
+        raise ValueError("missing inventory quality fields")
+    for key, group in item["groups"].items():
+        dimensions = group.get("dimensions") if isinstance(group, dict) else None
+        if not isinstance(dimensions, dict) or set(dimensions) != set(DIMENSIONS) or any(not isinstance(dimensions[field], str) or dimensions[field] in ("", "unknown") for field in DIMENSIONS):
+            raise ValueError("invalid cohort dimensions")
+        if key != _digest(dimensions) or dimensions["rules_version"] != RULE_VERSION or dimensions["offer_version"] != OFFER_VERSION:
+            raise ValueError("unsupported or inconsistent cohort dimensions")
+    return _check_records(item)
+
+
 def compare(plan: dict[str, Any], plan_hash: str, paths: list[Path]) -> dict[str, Any]:
     pending = validate_plan(plan)
     if not 2 <= len(paths) <= MAX_ARTIFACTS:
@@ -181,30 +218,7 @@ def compare(plan: dict[str, Any], plan_hash: str, paths: list[Path]) -> dict[str
         if digest in seen:
             continue
         seen.add(digest)
-        if item.get("schema") != "random-cohort-inventory-v1" or item.get("plan_sha256") != plan_hash:
-            raise ValueError("inventory schema or plan identity mismatch")
-        phase = item.get("phase")
-        if not isinstance(phase, str) or phase not in plan["seeds"]:
-            raise ValueError("inventory has unknown phase")
-        for key in ("expected_seeds", "metadata_qualified_seeds"):
-            values = item.get(key)
-            if not isinstance(values, list) or any(not isinstance(seed, str) for seed in values):
-                raise ValueError("invalid inventory seed set")
-            if len({seed_value(seed) for seed in values}) != len(values):
-                raise ValueError("duplicate inventory seed")
-        if set(item["expected_seeds"]) != set(plan["seeds"][phase]):
-            raise ValueError("inventory does not match registered phase seeds")
-        if not isinstance(item.get("variant"), dict) or not isinstance(item["variant"].get("label"), str):
-            raise ValueError("missing declared variant label")
-        variant = item["variant"]
-        labels = {row["id"] for row in plan["related_scan"]} | {"baseline_observed"}
-        if variant["label"] not in labels or variant.get("binding_status") != "declared_not_runtime_verified" or variant.get("actual_parameters") is not None:
-            raise ValueError("unsupported variant declaration")
-        if item.get("status") != "preparation_only" or item.get("ready_to_select_parameters") is not False or item.get("parameter_acceptance") is not None:
-            raise ValueError("inventory cannot claim parameter acceptance")
-        if not isinstance(item.get("groups"), dict) or not isinstance(item.get("errors"), list) or type(item.get("seed_inventory_complete")) is not bool:
-            raise ValueError("missing inventory quality fields")
-        current_ids = _check_records(item)
+        current_ids = validate_inventory(plan, plan_hash, item)
         overlap = overlap or bool(run_ids.intersection(current_ids))
         run_ids.update(current_ids)
         cohorts.append(item)

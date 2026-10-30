@@ -9,6 +9,7 @@ from pathlib import Path
 from calibration_plan import make_plan
 from report_preflight import audit, read_object
 from cohort_inventory import compare, inventory
+from cohort_evidence import verify
 
 
 def main() -> int:
@@ -34,6 +35,11 @@ def main() -> int:
     compare_parser.add_argument("plan", type=Path)
     compare_parser.add_argument("inventories", type=Path, nargs="+")
     compare_parser.add_argument("--output", type=Path, required=True)
+    verify_parser = commands.add_parser("verify")
+    verify_parser.add_argument("plan", type=Path)
+    verify_parser.add_argument("inventory", type=Path)
+    verify_parser.add_argument("summaries", type=Path, nargs="+")
+    verify_parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.command == "plan":
@@ -44,16 +50,19 @@ def main() -> int:
                 result = audit(registration, args.reports)
             elif args.command == "index":
                 result = inventory(registration, plan_hash, args.runs, args.phase, args.variant)
-            else:
+            elif args.command == "compare":
                 result = compare(registration, plan_hash, args.inventories)
+            else:
+                result = verify(registration, plan_hash, args.inventory, args.summaries)
             result["plan_sha256"] = plan_hash
         encoded = json.dumps(result, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
-        if args.command in ("index", "compare") and len(encoded.encode("utf-8")) > 8 * 1024 * 1024:
+        if args.command in ("index", "compare", "verify") and len(encoded.encode("utf-8")) > 8 * 1024 * 1024:
             raise ValueError("cohort output exceeds 8 MiB")
         with args.output.open("x", encoding="utf-8", newline="\n") as output:
             output.write(encoded)
         print(str(args.output))
-        return 1 if any(result.get(key) is False for key in ("summary_preflight_valid", "seed_inventory_complete", "seed_pairing_complete")) else 0
+        gates = ("summary_preflight_valid", "seed_inventory_complete", "seed_pairing_complete", "identity_link_complete")
+        return 1 if any(result.get(key) is False for key in gates) else 0
     except (OSError, ValueError, RecursionError) as error:
         parser.exit(2, f"calibration preparation failed: {error}\n")
     return 2

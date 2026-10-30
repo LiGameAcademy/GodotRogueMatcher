@@ -46,6 +46,20 @@ python tools/random_calibration/calibration_cli.py compare .godot/calibration-pr
 
 `seed_pairing_complete=true`只说明种子元数据可配对。CSV没有遥测schema/机会完整性、初始化、父局谱系或Godot引擎build；不会从应用build推导引擎版本，也不会据此放行恢复v3。始终`telemetry_coverage_verified=false`（index）、`comparison_ready=false`（compare）、独立父局数null、参数接受null。仍需另跑`audit`和原分析链；两者不会自动相连冒充实验验收。本片不计算均值差、区间或因果效果，也不生成正式批次。
 
+## 逐局产物身份关联
+
+`audit`与`index`分别退出0，不能证明它们来自同一批局或同一配置。`verify`在不解析JSONL的前提下，把一份清单与**显式传入**的既有`run-summary-v2`逐局sidecar核对：
+
+```powershell
+python tools/random_calibration/calibration_cli.py verify .godot/calibration-prep/plan.json .godot/calibration-prep/baseline-index.json run-a.jsonl.summary.json run-b.jsonl.summary.json run-c.jsonl.summary.json --output .godot/calibration-prep/identity-link.json
+```
+
+调用者需提供该清单所有run_id的sidecar；工具不自动扫描目录、不打开清单/sidecar内嵌路径，不以旧summary补造新对局证据。核对run_id、seed、source、规则/内容/抽选版本、模式、策略/配置及bot配置指纹、应用build、status/reason；要求正常bot_batch初始化、schema字符串`"2"`、自然终点、`record_complete=true`且`data_integrity=complete`。字段缺失、不匹配、fixture、恢复schema3或任何resume/segment标记、非根parent声明、写入失败或截尾均逐局保留诊断。清单自身不完整也不能被完整sidecar升级为通过。
+
+缺少清单中的局、多余局或质量不符写出报告并退出1；同run_id解析后JSON内容完全相同（允许键序/空白差别）只加artifact别名，不增加样本；同ID任何内容冲突直接退出2，不选最新文件。清单分组指纹/版本和记录派生字段矛盾、无合法ID、重复JSON键及IO/预算失败也退出2。输入每份最多8MiB，显式sidecar最多10000份，含清单累计32MiB，输出最多8MiB，输出必须不存在。
+
+`identity_link_complete=true`只证明这些导出文件的身份/质量声明一致，**不是**原始遥测读回验证，不把独立`audit`的机会覆盖关联到本清单，也不证明sidecar自报内容真实。`parent_run_id=null`仅是根局声明，不证明样本独立；engine build、实际a/d绑定、独立父局数与参数接受仍未验证。输出保持`telemetry_coverage_verified=false`、`independent_parent_runs=null`、`actual_parameters=null`和`ready_to_select_parameters=false`。保留原始日志、manifest与Reader诊断；不能用本命令替代其验证、正式采样或关闭#88。
+
 ## summary支持与输出解释
 
 仅支持`telemetry-report-v1`产物中schema 2、规则`run-commands-v46-unified-offer-audit`、抽选`offer-unified-trial-v2`的分组；需无分析错误且完整非空pool_audit覆盖。恢复遥测schema 3或含resume_branches（即使分析器已归一化成schema 2）一律标unsupported，不能当完整样本。未知版本、坏记录、bounded.complete=false、无机会和缺维度均保留拒绝原因，不给缺覆盖填0。未来v3适配必须另补来源/回退/独立父局证明，不能只扩大白名单。
@@ -54,6 +68,6 @@ source/初始化/策略/配置/版本等维度逐组原样保留；fixture、真
 
 相同字节SHA256报告记为aliases；不同报告可能重叠，**不相加局数/事件/机会**，也不合并它们的配置组。每份最多8MiB，最多64份、累计读取32MiB；重复JSON键、NaN/Infinity及指数溢出拒绝。SHA256只追踪输入身份，不是签名；预检不独立验证原始遥测、整套分片或报告生产者的完整性，应保留原分析manifest/诊断并使用已有Reader的实际结果。
 
-退出0只代表登记写出、summary契约预检有效或种子元数据清单/配对齐全；输出始终`status=preparation_only`、参数接受null，index不允许选参数，compare不允许实验比较。退出1表示已写出拒绝/缺覆盖报告；退出2表示参数、注册结构、JSON/CSV、IO或输入预算失败。即使退出0，未登记标准和执行接口缺口也不会消失，不能据此回写参数或关闭 #88。磁盘写失败的部分文件不是成功产物。
+退出0只代表登记写出、summary契约预检有效、种子元数据清单/配对齐全或逐局sidecar身份声明一致；输出始终`status=preparation_only`、参数接受null，index/verify不允许选参数，compare不允许实验比较。退出1表示已写出拒绝/缺覆盖报告；退出2表示参数、注册结构、JSON/CSV、IO或输入预算失败。即使退出0，未登记标准和执行接口缺口也不会消失，不能据此回写参数或关闭 #88。磁盘写失败的部分文件不是成功产物。
 
 测试夹具带fixture标识，仅作合成契约正反例，不算真实对局或真人观察。工具不会修改O5的恢复、采集、Reader/Report或importer，也不触及主种子RG入口。
