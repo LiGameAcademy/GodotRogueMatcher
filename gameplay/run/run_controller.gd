@@ -40,6 +40,7 @@ var _direct_match: bool = false
 var _last_payload: Dictionary = {}
 var _last_result: CommandResult
 var _retired: bool = false
+var _offer_configuration: OfferConfig
 
 ## Reports whether the owning scene has permanently closed this run.
 func is_retired() -> bool:
@@ -70,9 +71,10 @@ func report_error(reason: String) -> void:
 
 # Keep construction after these lightweight queries: moving it first breaks
 # AbilityResolver resource typing in the existing cyclic load graph (Godot 4.7.2).
-func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"") -> void:
+func _init(rules: BoardRules, run_seed: int, stage_config: StageConfig = null, profile: StringName = &"", trial_config: OfferConfig = null) -> void:
 	assert(profile in [&"", PROTOTYPE_PROFILE, PLUS_PROFILE, X_PROFILE, ZS_PROFILE, U_PROFILE, RING_PROFILE, SQUARE_PROFILE, MIXED_PROFILE, SCREENING_PROFILE, SCREENING_FIXED_PROFILE])
 	prototype_profile = profile
+	_offer_configuration = trial_config.duplicate(true) as OfferConfig if trial_config != null else SkillOfferGenerator.CONFIG
 	state = RunState.new(rules, run_seed)
 	state.stage = StageState.new(stage_config, state.ledger)
 	abilities = AbilityResolver.new(state)
@@ -252,11 +254,17 @@ func prepare_offer(record_offer: bool = true, generator: SkillOfferGenerator = n
 	enter_rewards()
 	var existing: SkillOffer = state.rewards.active_offer
 	var source: SkillOfferGenerator = generator if generator != null else SkillOfferGenerator.new()
-	if generator == null: source.set_catalog(offer_catalog())
+	if generator == null:
+		source.set_catalog(offer_catalog())
+		source.config = _offer_configuration
 	var offer: SkillOffer = RewardOfferRules.prepare(self, source)
 	if offer != null and offer != existing and recorder != null and record_offer:
 		recorder.offer(self, offer)
 	return offer
+
+## Read-only configuration used by this run, including explicitly injected batch trials.
+func offer_configuration() -> OfferConfig:
+	return _offer_configuration
 
 ## Explicit fixture profile only; production never installs test recipes.
 func offer_catalog() -> Array[SkillDefinition]:

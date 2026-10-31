@@ -8,6 +8,22 @@
 
 CLI默认阶段挑战；在`--`后的参数中加`--legacy`可运行经典无尽对照。BotRunner的程序调用默认经典规则，显式传stage_config启用挑战。阶段通过时先advance生成候选，再提交技能命令，选择完成才开启下一阶段。CLI入口仅负责Autoload安装后加载batch_job，避免GameplayTrigger提前解析CoreSystem；编译/规则错误与回放错误均不能作为正常平衡样本。
 
+## 显式关联缺项试验参数
+
+当前统一抽选为`offer-unified-trial-v2`、命令规则为`run-commands-v46-unified-offer-audit`，以下入口只用于#88未验收试验，不回写正式`.tres`。不传试验选项时保持原配置和完整指纹；要覆盖时四项必须一起显式提供，不能重复：
+
+```powershell
+& $godotExe --headless --text-driver Dummy --path . -s tools/bot_testing/batch_cli.gd -- --count=1 --seed=1000 --strategy=greedy --moves=8 --offer-a=0.5 --offer-d=0.25 --experiment=o1-smoke --variant=a_0.5 --output=.godot/trial/report --record-output=.godot/trial/records --telemetry-output=.godot/trial/telemetry
+```
+
+先按下文设置`$godotExe`，并为每批使用全新输出路径。a/d仅接受`0`（或`0.0`）、`0.25`、`0.5`；experiment/variant为1～64位ASCII字母、数字、下划线或连字符，首位之后允许点号以保留登记标签`a_0.5`。缺项、重复、未知offer选项、非网格或非法身份在创建对局/文件前拒绝。示例8行动是入口烟测，可能截尾，不是正式样本或独立性验收。先同种子扫描a、选候选后再扫描d；此命令不自动展开笛卡尔积或挑参数。
+
+本局深复制OfferConfig，默认generator、Header.config/config_hash和每次Offer参数使用同一实际配置；metadata保留experiment/variant、实际a/d、trial_unvalidated和acceptance:null。回放仅对bot来源且严格试验绑定匹配时恢复这两项；其余配置仍须与当前默认完整指纹匹配，不因自报Header放行任意字段。该绑定是回放自洽条件，不是样本真实性认证。默认旧v46配置路径不变，checkpoint仍按调用方expected manifest拒绝默认/实验互换；不会自动接受不同配置的旧槽。
+
+`BotRunner.trial_options`可用`OfferTrialOptions.from_args`显式构造；程序调用同样在创建run前校验，拒绝非a/d修改。配置按只读约定使用，不在运行中变更。离线index/compare/verify仍不会把variant标签当已验证参数事实，真实样本与参数接受须另验。本片不更改合法池、正式权重、规则版本、采集Reader/Report或Excel导入。
+
+## 基础批测与回放
+
 从实际 Godot 工程目录运行，替换以下引擎路径为本机控制台可执行文件：
 
 ```powershell

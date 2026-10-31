@@ -131,7 +131,15 @@ func _begin(records: Array[Dictionary], prefix: bool) -> bool:
 	if config.has("prototype_profile"):
 		if config.prototype_profile not in [String(RunController.PROTOTYPE_PROFILE), String(RunController.PLUS_PROFILE), String(RunController.X_PROFILE), String(RunController.ZS_PROFILE), String(RunController.U_PROFILE), String(RunController.RING_PROFILE), String(RunController.SQUARE_PROFILE), String(RunController.MIXED_PROFILE), String(RunController.SCREENING_PROFILE), String(RunController.SCREENING_FIXED_PROFILE)]: return _fail("invalid_prototype_profile")
 		profile = StringName(config.prototype_profile)
-	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config, profile)
+	if not header.get("metadata", {}) is Dictionary or not config.get("offer") is Dictionary: return _fail("configuration_mismatch")
+	var metadata: Dictionary = header.get("metadata", {})
+	var trial_config: OfferConfig = null
+	var baseline: OfferConfig = SkillOfferGenerator.CONFIG
+	if metadata.has("offer_trial") or config.offer.get("related_gain") != baseline.related_gain or config.offer.get("gap_gain") != baseline.gap_gain:
+		if header.get("source") != "bot": return _fail("invalid_offer_trial_binding")
+		trial_config = OfferConfig.restore_trial(config.offer, metadata, baseline)
+		if trial_config == null: return _fail("invalid_offer_trial_binding")
+	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config, profile, trial_config)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
