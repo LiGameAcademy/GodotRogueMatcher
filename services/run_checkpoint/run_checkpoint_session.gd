@@ -8,6 +8,7 @@ var _manifest: Dictionary
 var rebuild_budget_usec: int = RunCheckpointCodec.REBUILD_BUDGET_USEC
 var runtime_only: bool = false
 const FLOAT_TRANSPORT: Script = preload("res://services/run_checkpoint/checkpoint_float_transport.gd")
+const CHECKPOINT_JSON: Script = preload("res://services/run_checkpoint/checkpoint_json.gd")
 const PACKAGE_SCHEMA: String = "run-checkpoint-package-v3"
 const DECIMAL_PACKAGE_SCHEMA: String = "run-checkpoint-package-v2"
 
@@ -67,27 +68,30 @@ func _prepare_package_sliced(encoded: Dictionary, frame_yield: Callable) -> Dict
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
 	var started: int = Time.get_ticks_usec()
 	var transported: Dictionary = await FLOAT_TRANSPORT.encode_checkpoint_sliced(encoded.payload, frame_yield)
+	if not transported.ok: return RunCheckpointCodec.failure(transported.reason)
 	var transport_elapsed: int = Time.get_ticks_usec() - started
 	await frame_yield.call()
 	started = Time.get_ticks_usec()
-	var result: Dictionary = _build_package(encoded, transported)
+	var serialized: Dictionary = await CHECKPOINT_JSON.stringify_checkpoint(transported.data, frame_yield)
+	if not serialized.ok: return RunCheckpointCodec.failure(serialized.reason)
+	var result: Dictionary = _build_package(encoded, transported, serialized.text)
 	if not result.ok: return result
 	var serialize_usec: int = Time.get_ticks_usec() - started
 	await frame_yield.call()
 	started = Time.get_ticks_usec()
 	result = _check_package_size(result)
-	result["timing"] = {"float_encode_elapsed_usec": transport_elapsed, "largest_float_encode_slice_usec": transported.get("largest_slice_usec", 0), "package_serialize_usec": serialize_usec, "package_size_check_usec": Time.get_ticks_usec() - started}
+	result["timing"] = {"float_encode_elapsed_usec": transport_elapsed, "largest_float_encode_slice_usec": transported.get("largest_slice_usec", 0), "package_serialize_usec": serialize_usec, "largest_package_serialize_slice_usec": serialized.largest_slice_usec, "package_size_check_usec": Time.get_ticks_usec() - started}
 	return result
 
 func _package_from_transport(encoded: Dictionary, transported: Dictionary) -> Dictionary:
 	return _check_package_size(_build_package(encoded, transported))
 
-func _build_package(encoded: Dictionary, transported: Dictionary) -> Dictionary:
+func _build_package(encoded: Dictionary, transported: Dictionary, payload_json: String = "") -> Dictionary:
 	if not transported.ok: return RunCheckpointCodec.failure(transported.reason)
 	# Binary64 tags avoid relying on the JSON parser's decimal rounding.
 	var package: Dictionary = {
 		"schema": PACKAGE_SCHEMA, "run_id": encoded.payload.run_id,
-		"payload_json": JSON.stringify(transported.data, "", true, true),
+		"payload_json": JSON.stringify(transported.data, "", true, true) if payload_json.is_empty() else payload_json,
 		"telemetry": encoded.get("telemetry", {}).duplicate(true) if encoded.get("telemetry", {}) is Dictionary and RunCheckpointCodec.pure(encoded.get("telemetry", {})) else {"status": "invalid_trace"},
 	}
 	return {"ok": true, "reason": "", "package": package}

@@ -100,11 +100,11 @@ func test_sliced_commit_blocks_all_competing_operations_between_phases() -> void
 		await get_tree().process_frame
 	var committed: Dictionary = await store.commit_sliced(ticket, between)
 	assert_true(committed.ok, committed.reason)
-	assert_eq(yields[0], 5)
+	assert_eq(yields[0], 8)
 	assert_eq(store.load_latest(MANIFEST).record.payload, _payload("sliced"))
 	assert_true(store.commit(ticket).ok)
 	assert_true((await store.commit_sliced(ticket, between)).duplicate)
-	assert_eq(yields[0], 5, "an acknowledged duplicate never replays phases")
+	assert_eq(yields[0], 8, "an acknowledged duplicate never replays phases")
 
 func test_sliced_faults_preserve_exact_pair_and_release_ownership_for_retry() -> void:
 	var faults: Array[String] = ["write:checkpoint.tmp", "read:checkpoint.tmp", "copy:primary.rollback", "copy:previous.rollback", "write:transaction.tmp", "read:transaction.tmp", "replace:transaction.tmp", "write:previous.tmp", "read:previous.tmp", "replace:previous.tmp", "replace:checkpoint.tmp", "remove:transaction.json", "read:primary.json"]

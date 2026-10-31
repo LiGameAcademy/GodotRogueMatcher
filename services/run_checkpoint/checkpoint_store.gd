@@ -246,7 +246,12 @@ func _commit_pending_sliced(frame_yield: Callable) -> Dictionary:
 	var largest: int = Time.get_ticks_usec() - started
 	await frame_yield.call()
 	started = Time.get_ticks_usec()
-	var staged: Dictionary = _stage_commit_pair(pair.primary, pair.previous)
+	var staged: Dictionary = await _write_verified_sliced(_path("checkpoint.tmp"), _pending, FORMAT, frame_yield)
+	if not staged.ok: return staged
+	largest = maxi(largest, staged.largest_slice_usec)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	staged = _stage_transaction_pair(pair.primary, pair.previous)
 	if not staged.ok: return staged
 	largest = maxi(largest, Time.get_ticks_usec() - started)
 	await frame_yield.call()
@@ -284,6 +289,9 @@ func _prepare_commit_pair() -> Dictionary:
 func _stage_commit_pair(primary: Dictionary, previous: Dictionary) -> Dictionary:
 	var staged: Dictionary = _write_verified(_path("checkpoint.tmp"), _pending, FORMAT)
 	if not staged.ok: return staged
+	return _stage_transaction_pair(primary, previous)
+
+func _stage_transaction_pair(primary: Dictionary, previous: Dictionary) -> Dictionary:
 	for name: String in ["primary.json", "previous.json"]:
 		var found: Dictionary = primary if name == "primary.json" else previous
 		if found.ok or found.reason == "missing": continue
@@ -364,6 +372,22 @@ func _write_verified(path: String, record: Dictionary, format: String) -> Dictio
 	var decoded: Dictionary = _decode(readback.text, format)
 	if not decoded.ok or decoded.record != record: return _failure("temporary_verify_failed:" + path.get_file())
 	return {"ok": true, "reason": ""}
+
+## The store remains busy until all readback stages and subsequent transaction phases finish.
+func _write_verified_sliced(path: String, record: Dictionary, format: String, frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	if _files.write_text(path, _json(record)) != OK: return _failure("temporary_write_failed:" + path.get_file())
+	var largest: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var readback: Dictionary = _files.read_text(path)
+	if not readback.ok: return _failure("temporary_read_failed:" + path.get_file())
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var decoded: Dictionary = _decode(readback.text, format)
+	if not decoded.ok or decoded.record != record: return _failure("temporary_verify_failed:" + path.get_file())
+	return {"ok": true, "reason": "", "largest_slice_usec": maxi(largest, Time.get_ticks_usec() - started)}
 
 func _read_record(name: String) -> Dictionary:
 	var readback: Dictionary = _files.read_text(_path(name))
