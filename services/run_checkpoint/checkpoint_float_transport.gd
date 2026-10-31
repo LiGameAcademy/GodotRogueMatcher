@@ -42,7 +42,7 @@ static func _checkpoint_sliced(value: Dictionary, reading: bool, frame_yield: Ca
 		records.append(_convert(row, reading, status, 2))
 		if not status.ok: return {"ok": false, "reason": status.reason, "data": null}
 		count += 1
-		if count >= 4 or Time.get_ticks_usec() - started >= 2000:
+		if count >= 64 or Time.get_ticks_usec() - started >= 2000:
 			largest = maxi(largest, Time.get_ticks_usec() - started)
 			await frame_yield.call()
 			started = Time.get_ticks_usec()

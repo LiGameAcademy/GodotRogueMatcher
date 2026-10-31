@@ -256,7 +256,17 @@ func _commit_pending_sliced(frame_yield: Callable) -> Dictionary:
 	largest = maxi(largest, Time.get_ticks_usec() - started)
 	await frame_yield.call()
 	started = Time.get_ticks_usec()
-	var result: Dictionary = _verify_commit_pair(pair.primary)
+	var verified: Dictionary = _verify_primary()
+	if not verified.ok: return verified
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	verified = _verify_backup(pair.primary)
+	if not verified.ok: return verified
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var result: Dictionary = _retire_transaction()
 	result["largest_store_slice_usec"] = maxi(largest, Time.get_ticks_usec() - started)
 	return result
 
@@ -292,11 +302,24 @@ func _replace_commit_pair(primary: Dictionary) -> Dictionary:
 	return {"ok": true, "reason": ""}
 
 func _verify_commit_pair(primary: Dictionary) -> Dictionary:
+	var verified: Dictionary = _verify_primary()
+	if not verified.ok: return verified
+	verified = _verify_backup(primary)
+	if not verified.ok: return verified
+	return _retire_transaction()
+
+func _verify_primary() -> Dictionary:
 	var verified: Dictionary = _read_record("primary.json")
 	if not verified.ok or verified.record != _pending: return _failure("primary_verify_failed")
+	return {"ok": true, "reason": ""}
+
+func _verify_backup(primary: Dictionary) -> Dictionary:
 	if primary.ok:
 		var verified_backup: Dictionary = _read_record("previous.json")
 		if not verified_backup.ok or verified_backup.record != primary.record: return _failure("backup_verify_failed")
+	return {"ok": true, "reason": ""}
+
+func _retire_transaction() -> Dictionary:
 	if _files.remove(_path("transaction.json")) != OK or _files.exists(_path("transaction.json")): return _failure("transaction_finish_failed")
 	return {"ok": true, "reason": "", "duplicate": false, "generation": str(_generation)}
 

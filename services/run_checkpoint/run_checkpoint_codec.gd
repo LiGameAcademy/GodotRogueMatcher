@@ -188,11 +188,17 @@ static func _payload_error_sliced(payload: Variant, frame_yield: Callable, start
 	if not pure(body): return {"reason": "noncanonical_payload", "largest_slice_usec": Time.get_ticks_usec() - started}
 	var largest: int = Time.get_ticks_usec() - started
 	var slice_started: int = Time.get_ticks_usec()
+	# JSON object order changes no byte count. Add the omitted records member,
+	# array delimiters and separators exactly; serialize each validated row once.
+	var payload_bytes: int = JSON.stringify(body).to_utf8_buffer().size() + 13
+	var first_row: bool = true
 	var count: int = 0
 	for row: Variant in payload.records:
 		if not pure(row, 2): return {"reason": "noncanonical_payload", "largest_slice_usec": maxi(largest, Time.get_ticks_usec() - slice_started)}
+		payload_bytes += JSON.stringify(row).to_utf8_buffer().size() + (0 if first_row else 1)
+		first_row = false
 		count += 1
-		if count >= 4 or Time.get_ticks_usec() - slice_started >= 2000:
+		if count >= 64 or Time.get_ticks_usec() - slice_started >= 2000:
 			largest = maxi(largest, Time.get_ticks_usec() - slice_started)
 			await frame_yield.call()
 			if Time.get_ticks_usec() - started > budget_usec: return {"reason": "rebuild_budget_exceeded", "largest_slice_usec": largest}
@@ -201,11 +207,11 @@ static func _payload_error_sliced(payload: Variant, frame_yield: Callable, start
 	largest = maxi(largest, Time.get_ticks_usec() - slice_started)
 	await frame_yield.call()
 	slice_started = Time.get_ticks_usec()
-	var reason: String = _payload_error_after_pure(payload)
+	var reason: String = "payload_size_limit" if payload_bytes > MAX_PAYLOAD_BYTES else _payload_error_after_pure(payload, true)
 	return {"reason": reason, "largest_slice_usec": maxi(largest, Time.get_ticks_usec() - slice_started)}
 
-static func _payload_error_after_pure(payload: Dictionary) -> String:
-	if JSON.stringify(payload).to_utf8_buffer().size() > MAX_PAYLOAD_BYTES: return "payload_size_limit"
+static func _payload_error_after_pure(payload: Dictionary, size_checked: bool = false) -> String:
+	if not size_checked and JSON.stringify(payload).to_utf8_buffer().size() > MAX_PAYLOAD_BYTES: return "payload_size_limit"
 	if payload.schema != SCHEMA: return "schema_unsupported"
 	if not payload.run_id is String or payload.run_id.is_empty(): return "invalid_run_id"
 	if not CommandCodec.valid_integer(payload.master_seed) or payload.master_seed.to_int() < 0: return "invalid_master_seed"

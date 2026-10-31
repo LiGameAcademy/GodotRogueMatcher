@@ -166,3 +166,21 @@ func test_sliced_validation_rejects_the_same_malformed_prefixes_and_depths() -> 
 
 func _yield_validation_frame() -> void:
 	await get_tree().process_frame
+
+func test_sliced_size_check_matches_exact_json_limit_with_unicode_and_escapes() -> void:
+	var source: RuleReplay = RuleReplay.new()
+	assert_true(source.restore_prefix(_records()), source.error)
+	if source.run == null: return
+	var encoded: Dictionary = RunCheckpointCodec.encode(source.run)
+	var payload: Dictionary = encoded.payload
+	payload.records[10]["escaped"] = "中文\"\\\n\t".repeat(7)
+	payload.records[10]["padding"] = ""
+	var remaining: int = RunCheckpointCodec.MAX_PAYLOAD_BYTES - JSON.stringify(payload).to_utf8_buffer().size()
+	payload.records[10].padding = "x".repeat(remaining)
+	assert_eq(JSON.stringify(payload).to_utf8_buffer().size(), RunCheckpointCodec.MAX_PAYLOAD_BYTES)
+	for extra: String in ["", "x"]:
+		payload.records[10].padding += extra
+		var baseline: String = RunCheckpointCodec._payload_error(payload)
+		var checked: Dictionary = await RunCheckpointCodec._payload_error_sliced(payload, _yield_validation_frame, Time.get_ticks_usec(), 10000000)
+		assert_eq(checked.reason, baseline)
+		assert_eq(checked.reason, "" if extra.is_empty() else "payload_size_limit")

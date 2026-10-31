@@ -8,7 +8,7 @@ func test_sliced_transport_preserves_exact_bytes_and_does_not_mutate_frozen_valu
 	var value: Dictionary = {"records": [], "other": {"tiny": 5e-324}}
 	var negative_zero: float = "0000000000000080".hex_decode().decode_double(0)
 	assert_eq(1.0 / negative_zero, -INF)
-	for index: int in range(20): value.records.append({"sample": 0.9812430534511805, "zero": negative_zero, "index": str(index)})
+	for index: int in range(130): value.records.append({"sample": 0.9812430534511805, "zero": negative_zero, "index": str(index)})
 	var before: Dictionary = value.duplicate(true)
 	var frame: int = Engine.get_process_frames()
 	var packed: Dictionary = await TRANSPORT.encode_checkpoint_sliced(value, _yield_transport_frame)
