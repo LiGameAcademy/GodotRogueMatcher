@@ -31,12 +31,12 @@ func save_encoded(encoded: Dictionary) -> Dictionary:
 func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Dictionary:
 	if not replay_yield.is_valid(): return RunCheckpointCodec.failure("invalid_step_yield")
 	var started: int = Time.get_ticks_usec()
-	var prepared: Dictionary = _prepare_package(encoded)
+	var prepared: Dictionary = await _prepare_package_sliced(encoded, replay_yield)
 	if not prepared.ok: return prepared
 	var encode_usec: int = Time.get_ticks_usec() - started
 	await replay_yield.call()
 	started = Time.get_ticks_usec()
-	var roundtrip: Dictionary = _roundtrip_package(prepared.package)
+	var roundtrip: Dictionary = await _roundtrip_package_sliced(prepared.package, replay_yield)
 	if not roundtrip.ok: return roundtrip
 	var roundtrip_usec: int = Time.get_ticks_usec() - started
 	await replay_yield.call()
@@ -45,7 +45,7 @@ func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Diction
 	await replay_yield.call()
 	var committed: Dictionary = await _commit_save_sliced(prepared.package, verified, replay_yield)
 	committed["timing"] = verified.get("timing", {})
-	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec, "store": committed.get("store_timing", {})}
+	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec, "encode": prepared.get("timing", {}), "roundtrip": roundtrip.get("timing", {}), "store": committed.get("store_timing", {})}
 	return committed
 
 func _prepare_save(encoded: Dictionary) -> Dictionary:
@@ -60,6 +60,29 @@ func _prepare_package(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
 	var transported: Dictionary = FLOAT_TRANSPORT.encode(encoded.payload)
+	return _package_from_transport(encoded, transported)
+
+func _prepare_package_sliced(encoded: Dictionary, frame_yield: Callable) -> Dictionary:
+	if not encoded.ok: return encoded
+	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
+	var started: int = Time.get_ticks_usec()
+	var transported: Dictionary = await FLOAT_TRANSPORT.encode_checkpoint_sliced(encoded.payload, frame_yield)
+	var transport_elapsed: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var result: Dictionary = _build_package(encoded, transported)
+	if not result.ok: return result
+	var serialize_usec: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	result = _check_package_size(result)
+	result["timing"] = {"float_encode_elapsed_usec": transport_elapsed, "largest_float_encode_slice_usec": transported.get("largest_slice_usec", 0), "package_serialize_usec": serialize_usec, "package_size_check_usec": Time.get_ticks_usec() - started}
+	return result
+
+func _package_from_transport(encoded: Dictionary, transported: Dictionary) -> Dictionary:
+	return _check_package_size(_build_package(encoded, transported))
+
+func _build_package(encoded: Dictionary, transported: Dictionary) -> Dictionary:
 	if not transported.ok: return RunCheckpointCodec.failure(transported.reason)
 	# Binary64 tags avoid relying on the JSON parser's decimal rounding.
 	var package: Dictionary = {
@@ -67,18 +90,39 @@ func _prepare_package(encoded: Dictionary) -> Dictionary:
 		"payload_json": JSON.stringify(transported.data, "", true, true),
 		"telemetry": encoded.get("telemetry", {}).duplicate(true) if encoded.get("telemetry", {}) is Dictionary and RunCheckpointCodec.pure(encoded.get("telemetry", {})) else {"status": "invalid_trace"},
 	}
-	if JSON.stringify(package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
-		return RunCheckpointCodec.failure("package_size_limit")
 	return {"ok": true, "reason": "", "package": package}
+
+func _check_package_size(built: Dictionary) -> Dictionary:
+	if not built.ok: return built
+	if JSON.stringify(built.package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
+		return RunCheckpointCodec.failure("package_size_limit")
+	return built
 
 func _roundtrip_package(package: Dictionary) -> Dictionary:
 	# Verify the actual encoded text through parsing and independent reconstruction before IO.
+	var parsed: Dictionary = _parse_package_json(package)
+	if not parsed.ok: return parsed
+	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parsed.data)
+	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+	return roundtrip
+
+func _roundtrip_package_sliced(package: Dictionary, frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var parsed: Dictionary = _parse_package_json(package)
+	if not parsed.ok: return parsed
+	var parse_usec: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var roundtrip: Dictionary = await FLOAT_TRANSPORT.decode_checkpoint_sliced(parsed.data, frame_yield)
+	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+	roundtrip["timing"] = {"payload_parse_usec": parse_usec, "float_decode_elapsed_usec": Time.get_ticks_usec() - started, "largest_float_decode_slice_usec": roundtrip.get("largest_slice_usec", 0)}
+	return roundtrip
+
+func _parse_package_json(package: Dictionary) -> Dictionary:
 	var parser: JSON = JSON.new()
 	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
-	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
-	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
-	return roundtrip
+	return {"ok": true, "reason": "", "data": parser.data}
 
 func _commit_save_sliced(package: Dictionary, verified: Dictionary, frame_yield: Callable) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
@@ -150,13 +194,38 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 
 func _decode_loaded_sliced(loaded: Dictionary, replay_yield: Callable) -> Dictionary:
 	await replay_yield.call()
-	var unpacked: Dictionary = _unpack_loaded(loaded)
+	var unpacked: Dictionary = await _unpack_loaded_sliced(loaded, replay_yield)
 	if not unpacked.ok: return unpacked
 	await replay_yield.call()
 	var decoded: Dictionary = await RunCheckpointCodec.decode_sliced(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
 	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
 
 func _unpack_loaded(loaded: Dictionary) -> Dictionary:
+	var parsed: Dictionary = _parse_loaded(loaded)
+	if not parsed.ok: return parsed
+	var started: int = Time.get_ticks_usec()
+	var payload: Dictionary = parsed.payload
+	if parsed.package.schema == PACKAGE_SCHEMA:
+		var transported: Dictionary = FLOAT_TRANSPORT.decode(payload)
+		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+		payload = transported.data
+	return _finish_unpack(parsed.package, payload, {"package_parse_usec": parsed.parse_usec, "float_decode_usec": Time.get_ticks_usec() - started})
+
+func _unpack_loaded_sliced(loaded: Dictionary, frame_yield: Callable) -> Dictionary:
+	var parsed: Dictionary = _parse_loaded(loaded)
+	if not parsed.ok: return parsed
+	await frame_yield.call()
+	var started: int = Time.get_ticks_usec()
+	var payload: Dictionary = parsed.payload
+	var largest: int = 0
+	if parsed.package.schema == PACKAGE_SCHEMA:
+		var transported: Dictionary = await FLOAT_TRANSPORT.decode_checkpoint_sliced(payload, frame_yield)
+		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+		payload = transported.data
+		largest = transported.get("largest_slice_usec", 0)
+	return _finish_unpack(parsed.package, payload, {"package_parse_usec": parsed.parse_usec, "float_decode_usec": Time.get_ticks_usec() - started, "largest_float_decode_slice_usec": largest})
+
+func _parse_loaded(loaded: Dictionary) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
 	var package: Dictionary = loaded.record.payload
 	if not package.get("schema") is String: return RunCheckpointCodec.failure("invalid_package")
@@ -167,17 +236,14 @@ func _unpack_loaded(loaded: Dictionary) -> Dictionary:
 		return RunCheckpointCodec.failure("invalid_package")
 	if loaded.record.run_id != package.get("run_id"):
 		return RunCheckpointCodec.failure("container_identity_mismatch")
-	var parser: JSON = JSON.new()
-	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
-		return RunCheckpointCodec.failure("invalid_payload_json")
-	var parse_usec: int = Time.get_ticks_usec() - started
-	if package.schema == PACKAGE_SCHEMA:
-		var transported: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
-		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
-		parser.data = transported.data
-	if parser.data.get("run_id") != package.run_id:
+	var parsed: Dictionary = _parse_package_json(package)
+	if not parsed.ok: return parsed
+	return {"ok": true, "reason": "", "payload": parsed.data, "package": package, "parse_usec": Time.get_ticks_usec() - started}
+
+func _finish_unpack(package: Dictionary, payload: Dictionary, timing: Dictionary) -> Dictionary:
+	if payload.get("run_id") != package.run_id:
 		return RunCheckpointCodec.failure("payload_identity_mismatch")
-	return {"ok": true, "reason": "", "payload": parser.data, "package": package, "timing": {"package_parse_usec": parse_usec, "float_decode_usec": Time.get_ticks_usec() - started - parse_usec}}
+	return {"ok": true, "reason": "", "payload": payload, "package": package, "timing": timing}
 
 func _finish_loaded(loaded: Dictionary, decoded: Dictionary, payload: Dictionary, package: Dictionary, timing: Dictionary) -> Dictionary:
 	if not decoded.ok: return decoded

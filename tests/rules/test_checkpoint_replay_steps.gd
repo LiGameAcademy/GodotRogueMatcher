@@ -107,3 +107,62 @@ func _records() -> Array[Dictionary]:
 	var records: Array[Dictionary] = []
 	records.assign(JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/checkpoint_decimal_roundtrip.json")))
 	return records
+
+func test_sliced_validation_rejects_the_same_malformed_prefixes_and_depths() -> void:
+	var source: RuleReplay = RuleReplay.new()
+	assert_true(source.restore_prefix(_records()), source.error)
+	if source.run == null: return
+	var encoded: Dictionary = RunCheckpointCodec.encode(source.run)
+	assert_true(encoded.ok, encoded.reason)
+	if not encoded.ok: return
+	var cases: Array[Dictionary] = []
+	var bad: Dictionary = encoded.payload.duplicate(true)
+	var mixed: Array = []
+	for row: Dictionary in bad.records: mixed.append(row)
+	mixed[10] = "not_a_record"
+	bad.records = mixed
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.records.back().seq = "999"
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.records[10].kind = "FutureRecord"
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.schema = "future_prefix"
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.records.resize(RunCheckpointCodec.MAX_RECORDS + 1)
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.records = []
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.records = "not_an_array"
+	cases.append(bad)
+	bad = encoded.payload.duplicate(true)
+	bad.records[10]["number"] = 1
+	cases.append(bad)
+	for wraps: int in [60, 61]:
+		var leaf: Dictionary = {"value": 0.75}
+		for index: int in range(wraps): leaf = {"next": leaf}
+		bad = encoded.payload.duplicate(true)
+		bad.records[10]["extra"] = leaf
+		cases.append(bad)
+	var cycle: Dictionary = {}
+	cycle["self"] = cycle
+	bad = encoded.payload.duplicate(true)
+	bad.records[10]["extra"] = cycle
+	cases.append(bad)
+	for value: Dictionary in cases:
+		var baseline: Dictionary = RunCheckpointCodec.decode(value, encoded.manifest, 10000000)
+		var sliced: Dictionary = await RunCheckpointCodec.decode_sliced(value, encoded.manifest, 10000000, false, _yield_validation_frame)
+		assert_false(baseline.ok)
+		assert_eq(sliced.reason, baseline.reason)
+	cycle.clear()
+	var limited: Dictionary = await RunCheckpointCodec.decode_sliced(encoded.payload, encoded.manifest, 1, false, _yield_validation_frame)
+	assert_false(limited.ok)
+	assert_eq(limited.reason, "rebuild_budget_exceeded")
+
+func _yield_validation_frame() -> void:
+	await get_tree().process_frame
