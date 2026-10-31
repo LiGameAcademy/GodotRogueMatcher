@@ -185,3 +185,27 @@ func test_input_and_frozen_rewards_preserve_trial_config_and_six_stream_next_val
 			assert_eq(restored.run.state.random_streams.stream(stream_id).randi(), run.state.random_streams.stream(stream_id).randi())
 		var baseline: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 23, run.state.stage.config)
 		assert_false(RunCheckpointCodec.decode(encoded.payload, RunCheckpointCodec.manifest(baseline)).ok)
+
+## The Web rebuild must retain the same trial binding and endpoint as synchronous replay.
+func test_sliced_trial_prefix_preserves_input_and_frozen_reward_endpoints() -> void:
+	for reward: bool in [false, true]:
+		var run: RunController = _checkpoint_run(reward)
+		var encoded: Dictionary = RunCheckpointCodec.encode(run)
+		assert_true(encoded.ok, encoded.reason)
+		if not encoded.ok: continue
+		var restored: Dictionary = await RunCheckpointCodec.decode_sliced(encoded.payload, encoded.manifest, 10000000, false, _yield_frame)
+		assert_true(restored.ok, restored.reason)
+		if not restored.ok: continue
+		assert_eq(RunSnapshot.capture(restored.run), RunSnapshot.capture(run))
+		assert_eq(restored.run.offer_configuration().related_gain, 0.5)
+		assert_eq(restored.run.recorder.records[0].metadata, run.recorder.records[0].metadata)
+		for stream_id: StringName in RunRandomStreams.IDS:
+			assert_eq(restored.run.state.random_streams.stream(stream_id).randi(), run.state.random_streams.stream(stream_id).randi())
+		var unbound: Dictionary = encoded.payload.duplicate(true)
+		unbound.records[0].metadata.erase("offer_trial")
+		var rejected: Dictionary = await RunCheckpointCodec.decode_sliced(unbound, encoded.manifest, 10000000, false, _yield_frame)
+		assert_false(rejected.ok)
+		assert_eq(rejected.reason, "rebuild_failed:invalid_offer_trial_binding")
+
+func _yield_frame() -> void:
+	await get_tree().process_frame
