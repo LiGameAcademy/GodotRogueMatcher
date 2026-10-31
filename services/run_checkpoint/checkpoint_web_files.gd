@@ -22,30 +22,46 @@ func _init(directory: String, persistence: PERSISTENCE = null) -> void:
 	_persistence = persistence if persistence != null else PERSISTENCE.new()
 
 func open() -> Dictionary:
+	var started: int = Time.get_ticks_usec()
 	var result: Dictionary = await _persistence.open()
 	if not result.ok: return _failed(result.reason)
+	var timing: Dictionary = {"database_read_elapsed_usec": Time.get_ticks_usec() - started, "files": []}
+	started = Time.get_ticks_usec()
 	if result.data.to_utf8_buffer().size() > MAX_TOTAL_BYTES * 2: return _failed("web_snapshot_size_limit")
+	timing["snapshot_utf8_usec"] = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
 	var value: Variant = JSON.parse_string(result.data)
+	timing["snapshot_parse_usec"] = Time.get_ticks_usec() - started
 	if not value is Dictionary or value.size() != 2 or value.get("schema") != SCHEMA or not value.get("files") is Dictionary:
 		return _failed("web_snapshot_invalid")
 	if value.files.size() > MAX_FILES: return _failed("web_snapshot_size_limit")
 	var decoded: Dictionary[String, PackedByteArray] = {}
 	var total: int = 0
 	for name: Variant in value.files:
+		started = Time.get_ticks_usec()
 		if not name is String or _names.search(name) == null or not value.files[name] is String:
 			return _failed("web_snapshot_invalid")
 		var text: String = value.files[name]
 		if text.length() % 4 != 0 or text.length() > MAX_BYTES * 2 or _base64.search(text) == null: return _failed("web_snapshot_invalid")
+		var file_timing: Dictionary = {"name": name, "base64_validation_usec": Time.get_ticks_usec() - started}
+		started = Time.get_ticks_usec()
 		var bytes: PackedByteArray = PackedByteArray() if text.is_empty() else Marshalls.base64_to_raw(text)
+		file_timing["base64_decode_usec"] = Time.get_ticks_usec() - started
+		started = Time.get_ticks_usec()
 		if _encode_bytes(bytes) != text or bytes.size() > MAX_BYTES: return _failed("web_snapshot_invalid")
+		file_timing["canonical_encode_compare_usec"] = Time.get_ticks_usec() - started
+		file_timing["bytes"] = bytes.size()
+		timing.files.append(file_timing)
 		total += bytes.size()
 		if total > MAX_TOTAL_BYTES: return _failed("web_snapshot_size_limit")
 		decoded[name] = bytes
+	started = Time.get_ticks_usec()
 	_files = decoded
 	_durable = decoded.duplicate(true)
+	timing["snapshot_copy_usec"] = Time.get_ticks_usec() - started
 	ready = true
 	error = ""
-	return {"ok": true, "reason": ""}
+	return {"ok": true, "reason": "", "timing": timing}
 
 func sync() -> Dictionary:
 	if not ready: return _failed(error)
