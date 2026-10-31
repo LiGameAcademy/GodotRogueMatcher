@@ -3,7 +3,7 @@
   "use strict";
   const empty = JSON.stringify({ schema: "checkpoint-web-files-v1", files: {} });
   const notify = (callback, ok, reason = "", data = "") =>
-    queueMicrotask(() => callback(JSON.stringify({ ok, reason, data })));
+    queueMicrotask(() => callback(ok, reason, data));
   window.SkillLinesCheckpointStorage = {
     create() {
       let database = null;

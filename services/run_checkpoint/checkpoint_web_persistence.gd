@@ -34,14 +34,11 @@ func _request(method: String, data: String) -> Dictionary:
 	return result
 
 func _receive(arguments: Array) -> void:
-	if arguments.size() != 1 or not arguments[0] is String:
+	# Keep the opaque file-map text out of a second full JSON envelope roundtrip.
+	if arguments.size() != 3 or not arguments[0] is bool or not arguments[1] is String or not arguments[2] is String:
 		completed.emit(_failure("web_backend_response_invalid"))
 		return
-	var value: Variant = JSON.parse_string(arguments[0])
-	if not value is Dictionary or value.size() != 3 or not value.get("ok") is bool or not value.get("reason") is String or not value.get("data") is String:
-		completed.emit(_failure("web_backend_response_invalid"))
-		return
-	completed.emit(value)
+	completed.emit({"ok": arguments[0], "reason": arguments[1], "data": arguments[2]})
 
 static func _failure(reason: String) -> Dictionary:
 	return {"ok": false, "reason": reason, "data": ""}
