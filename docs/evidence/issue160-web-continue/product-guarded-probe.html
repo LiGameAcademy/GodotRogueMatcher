@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><title>O5 bounded synthetic Web cost probe</title>
+<style>body{background:#202327;color:#eee;font:15px system-ui}pre{white-space:pre-wrap}canvas{width:320px;height:180px}</style>
+<h1>O5 合成长前缀成本核对</h1><p>仅 seed23 / normal / classic，90秒采样检查、200行动、800命令，单次重建预算10秒。合成bot，非人工UI验收；实际CheckpointWebFiles/IndexedDB，并重新打开数据库读回。仅允许127.0.0.1:8918。</p>
+<button id="run">运行单场有界基准</button><button id="download" disabled>下载原始报告</button>
+<p id="status">尚未运行</p><canvas id="canvas"></canvas><pre id="progress"></pre><pre id="errors"></pre><pre id="report"></pre>
+<script src="./index.js"></script><script>
+"use strict";
+const config={"args":["--","--desktop","--long-only","--budget-us=10000000"],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":25192692,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const engine=new Engine(config);
+let reportText="";
+const status=document.getElementById("status"), progress=document.getElementById("progress"), errors=document.getElementById("errors");
+document.getElementById("run").onclick=async()=>{
+ document.getElementById("run").disabled=true; status.textContent="运行中；仅本地合成基准";
+ try { await engine.startGame({
+ onPrint(...values){const line=values.join(" ");console.log(line);
+ if(line.startsWith("CHECKPOINT_PROGRESS "))progress.textContent+=line+"\n";
+ if(line.startsWith("O5_WEB_LONG_REPORT ")){reportText=line.slice("O5_WEB_LONG_REPORT ".length);document.getElementById("download").disabled=false;try{document.getElementById("report").textContent=JSON.stringify(JSON.parse(reportText),null,2);status.textContent="已取得原始报告；完成状态见退出码与报告，不代表产品验收通过";}catch(error){document.getElementById("report").textContent=reportText;errors.textContent+="报告解析失败："+String(error)+"\n";status.textContent="报告解析失败；原始输出仍可下载，不判定通过";}}},
+ onPrintError(...values){const line=values.join(" ");console.error(line);errors.textContent+=line+"\n";},
+ onExit(code){status.textContent+="；引擎退出码="+code;}
+ });}catch(error){errors.textContent+=String(error);status.textContent="基准启动失败";}
+};
+document.getElementById("download").onclick=()=>{if(!reportText)return;const url=URL.createObjectURL(new Blob([reportText],{type:"application/json"}));const a=document.createElement("a");a.href=url;a.download="o5-synthetic-web-long-report.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+</script>

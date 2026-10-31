@@ -1,0 +1,156 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_desktop_checkpoint_flow.gd
+[0m* test_real_continue_button_binds_input_state_and_rebuilds_without_rule_commits
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":193586,"frames":30,"freeze_usec":0,"maximum_gap_usec":9631,"ok":true,"stages":{"decode":{"endpoint_validation_usec":34297,"payload_validation_usec":11755,"prefix_replay_usec":101928},"history_prime_usec":30230,"package":{"float_decode_usec":5619,"package_parse_usec":3642}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":18423,"elapsed_usec":193586,"frames":30,"freeze_usec":0,"maximum_gap_usec":9631,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{"endpoint_validation_usec":34297,"payload_validation_usec":11755,"prefix_replay_usec":101928},"history_prime_usec":30230,"package":{"float_decode_usec":5619,"package_parse_usec":3642}}}
+* test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_choose_twice
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":573016,"frames":85,"freeze_usec":0,"maximum_gap_usec":8416,"ok":true,"stages":{"decode":{"endpoint_validation_usec":45194,"payload_validation_usec":66184,"prefix_replay_usec":307427},"history_prime_usec":47430,"package":{"float_decode_usec":38832,"package_parse_usec":29050}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":56753,"elapsed_usec":573016,"frames":85,"freeze_usec":0,"maximum_gap_usec":8416,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":45194,"payload_validation_usec":66184,"prefix_replay_usec":307427},"history_prime_usec":47430,"package":{"float_decode_usec":38832,"package_parse_usec":29050}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":562471,"frames":83,"freeze_usec":0,"maximum_gap_usec":8908,"ok":true,"stages":{"decode":{"endpoint_validation_usec":44423,"payload_validation_usec":68578,"prefix_replay_usec":282703},"history_prime_usec":51726,"package":{"float_decode_usec":43583,"package_parse_usec":37308}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":166817,"elapsed_usec":562471,"frames":83,"freeze_usec":0,"maximum_gap_usec":8908,"ok":true,"resume_prepare_usec":3,"stages":{"decode":{"endpoint_validation_usec":44423,"payload_validation_usec":68578,"prefix_replay_usec":282703},"history_prime_usec":51726,"package":{"float_decode_usec":43583,"package_parse_usec":37308}}}
+* test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":214886,"frames":25,"freeze_usec":43459,"maximum_gap_usec":55721,"ok":true,"stages":{"decode":{"endpoint_validation_usec":34416,"payload_validation_usec":9491,"prefix_replay_usec":85739},"history_prime_usec":34258,"package":{"float_decode_usec":4149,"package_parse_usec":4303}}}
+* test_exit_save_can_be_cancelled_without_releasing_worker_ownership
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":165877,"frames":26,"freeze_usec":0,"maximum_gap_usec":7696,"ok":true,"stages":{"decode":{"endpoint_validation_usec":32105,"payload_validation_usec":6113,"prefix_replay_usec":79411},"history_prime_usec":33905,"package":{"float_decode_usec":6907,"package_parse_usec":2811}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":23392,"elapsed_usec":165877,"frames":26,"freeze_usec":0,"maximum_gap_usec":7696,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":32105,"payload_validation_usec":6113,"prefix_replay_usec":79411},"history_prime_usec":33905,"package":{"float_decode_usec":6907,"package_parse_usec":2811}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":501687,"frames":74,"freeze_usec":1362,"maximum_gap_usec":8496,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_exit_failure_keeps_old_file_and_retry_reaches_the_exit_signal
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":165881,"frames":26,"freeze_usec":0,"maximum_gap_usec":7658,"ok":true,"stages":{"decode":{"endpoint_validation_usec":31610,"payload_validation_usec":6390,"prefix_replay_usec":78175},"history_prime_usec":32800,"package":{"float_decode_usec":4540,"package_parse_usec":2764}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":23423,"elapsed_usec":165881,"frames":26,"freeze_usec":0,"maximum_gap_usec":7658,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":31610,"payload_validation_usec":6390,"prefix_replay_usec":78175},"history_prime_usec":32800,"package":{"float_decode_usec":4540,"package_parse_usec":2764}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":136113,"frames":21,"freeze_usec":1515,"maximum_gap_usec":7266,"ok":false,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":203494,"frames":30,"freeze_usec":3407,"maximum_gap_usec":7977,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_new_run_requires_confirmation_and_old_identity_is_invalid_before_new_save
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":227458,"frames":21,"freeze_usec":34808,"maximum_gap_usec":96679,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_pending_challenge_victory_can_continue_and_save_same_run
+* test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":179970,"frames":28,"freeze_usec":0,"maximum_gap_usec":10060,"ok":true,"stages":{"decode":{"endpoint_validation_usec":35989,"payload_validation_usec":6166,"prefix_replay_usec":80963},"history_prime_usec":39918,"package":{"float_decode_usec":5076,"package_parse_usec":4444}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":35072,"elapsed_usec":179970,"frames":28,"freeze_usec":0,"maximum_gap_usec":10060,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":35989,"payload_validation_usec":6166,"prefix_replay_usec":80963},"history_prime_usec":39918,"package":{"float_decode_usec":5076,"package_parse_usec":4444}}}
+* test_real_full_board_terminal_failure_is_visible_and_retry_finishes_durable_invalidation
+* test_new_run_can_finish_persisted_pending_invalidation_after_restart
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":270337,"frames":22,"freeze_usec":58936,"maximum_gap_usec":132881,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":193515,"frames":30,"freeze_usec":0,"maximum_gap_usec":8278,"ok":true,"stages":{"decode":{"endpoint_validation_usec":29970,"payload_validation_usec":8329,"prefix_replay_usec":72305},"history_prime_usec":35705,"package":{"float_decode_usec":3428,"package_parse_usec":2952}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":23293,"elapsed_usec":193515,"frames":30,"freeze_usec":0,"maximum_gap_usec":8278,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":29970,"payload_validation_usec":8329,"prefix_replay_usec":72305},"history_prime_usec":35705,"package":{"float_decode_usec":3428,"package_parse_usec":2952}}}
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_checkpoint_web_ownership.gd
+[0m* test_cancelled_terminal_exit_cannot_start_or_load_until_invalidation_acknowledged
+[1m1/1 passed.
+[0m[4m
+
+res://tests/integration/test_resume_collection_flow.gd
+[0m* test_actual_menu_resume_has_one_logical_run_no_provisional_start_and_ready_input_observation
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":158948,"frames":25,"freeze_usec":0,"maximum_gap_usec":7223,"ok":true,"stages":{"decode":{"endpoint_validation_usec":27231,"payload_validation_usec":6802,"prefix_replay_usec":68061},"history_prime_usec":28381,"package":{"float_decode_usec":3611,"package_parse_usec":2949}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":38682,"elapsed_usec":158948,"frames":25,"freeze_usec":0,"maximum_gap_usec":7223,"ok":true,"resume_prepare_usec":13076,"stages":{"decode":{"endpoint_validation_usec":27231,"payload_validation_usec":6802,"prefix_replay_usec":68061},"history_prime_usec":28381,"package":{"float_decode_usec":3611,"package_parse_usec":2949}}}
+CHECKPOINT_TEST_DEFERRED_FREE {"queued_roots":86,"remaining_after_two_frames":0}
+[1m1/1 passed.
+[0m[4m
+
+res://tests/rules/test_run_checkpoint_codec.gd
+[0m* test_input_payload_roundtrips_max_seed_and_isolates_object_graph
+* test_input_restore_continues_multiple_identical_commands_and_preserves_retry_cache
+* test_frozen_reward_keeps_candidates_targets_stage_plan_and_consumes_once
+* test_shape_unlock_and_empty_recovery_budget_are_reconstructed_without_bonus
+* test_unsafe_phases_closed_runs_and_unfrozen_rewards_are_rejected
+* test_held_matches_without_blasts_are_not_a_safe_checkpoint
+* test_snapshot_not_backed_by_complete_prefix_and_partial_tail_are_rejected
+* test_corruption_schema_missing_fields_and_integer_encoding_fail_without_touching_live_run
+* test_frozen_endpoint_tampering_cannot_be_hidden_by_rehashing
+* test_manifest_and_rebuild_limits_fail_explicitly
+* test_real_slot_two_generations_new_instance_and_corrupt_primary_fallback
+* test_invalidated_run_cannot_reappear_from_primary_or_backup
+* test_invalid_save_leaves_real_slot_bytes_and_source_unchanged
+* test_real_commit_failure_preserves_exact_pair_and_can_retry
+* test_malformed_frozen_targets_are_rejected_before_snapshot_traversal
+* test_frozen_before_end_reopens_from_disk_and_keeps_refill_obligation
+* test_manual_use_counts_survive_a_complete_input_checkpoint
+* test_stage_frozen_offer_roundtrips_exact_float_weights_through_real_slot
+* test_bad_storage_packages_fail_without_touching_live_run_or_slot
+[1m19/19 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_replay_steps.gd
+[0m* test_single_thread_job_yields_and_restores_without_reading_live_changes
+* test_chunked_prefix_matches_synchronous_frozen_endpoint
+* test_late_invalid_record_is_rejected_after_earlier_steps
+* test_failed_step_can_restart_but_completed_prefix_cannot_step_again
+* test_sliced_validation_rejects_the_same_malformed_prefixes_and_depths
+* test_sliced_size_check_matches_exact_json_limit_with_unicode_and_escapes
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_resume_telemetry.gd
+[0m* test_resume_header_has_unique_segment_event_identity_and_never_replays_run_started
+* test_checkpoint_wrapper_preserves_accepted_and_persisted_anchor_without_changing_rules
+* test_real_resume_files_preserve_originals_and_new_commands_match_without_history_emission
+* test_missing_wrapper_schema_with_replacement_key_is_rejected_and_bad_trace_does_not_block_save
+* test_lineage_reassembles_unique_chain_once_and_preserves_discarded_tail_and_source_events
+* test_ambiguous_resume_leaves_and_missing_or_bad_anchors_do_not_create_natural_samples
+* test_failed_save_keeps_old_anchor_while_later_observations_are_real_and_preserved
+* test_worker_prepares_rule_file_once_and_telemetry_io_failure_does_not_block_rules
+WARNING: resume_record_open_failed
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:124)
+       [1] open_resume_file (res://gameplay/run/recording/run_recorder.gd:154)
+       [2] _load (res://services/run_checkpoint/checkpoint_job.gd:94)
+WARNING: 本局分析记录不完整：cannot_open_telemetry_file
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:259)
+       [1] _emit (res://services/telemetry/telemetry_projector.gd:224)
+       [2] _start (res://services/telemetry/telemetry_projector.gd:126)
+       [3] observe_record (res://services/telemetry/telemetry_projector.gd:48)
+       [4] test_worker_prepares_rule_file_once_and_telemetry_io_failure_does_not_block_rules (res://tests/rules/test_resume_telemetry.gd:294)
+* test_frozen_root_observation_resumes_without_duplicate_action_or_skill_events
+* test_accepted_but_unpersisted_anchor_is_not_promoted_and_missing_tail_is_diagnostic
+* test_rule_bad_primary_fallback_uses_previous_telemetry_anchor_and_keeps_parent_tail
+[1m11/11 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_json.gd
+[0m* test_sliced_json_has_identical_sorted_utf8_bytes_without_mutating_values
+* test_real_package_sliced_and_sync_bytes_match_before_independent_readback
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_decimal_roundtrip.gd
+[0m* test_sliced_transport_preserves_exact_bytes_and_does_not_mutate_frozen_values
+* test_sliced_transport_keeps_depth_tag_and_cycle_rejections
+* test_frozen_offer_decimal_samples_survive_actual_file_roundtrip
+* test_float_tags_preserve_nested_values_and_signed_zero
+* test_transport_rejects_reserved_keys_nonfinite_and_invalid_tags
+* test_v3_root_float_tag_returns_structured_failure
+* test_known_v2_decimal_wrapper_still_reads_without_relaxed_validation
+* test_known_v1_wrapper_still_reads_without_relaxed_validation
+[1m8/8 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               8
+Tests                59
+Passing Tests        59
+Asserts            1362
+Time              76.82s
+
+
+[32m---- All tests passed! ----
+[0m

@@ -1,0 +1,251 @@
+{
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "platform": "Web",
+  "purpose": "synthetic_web_checkpoint_cost",
+  "samples": [
+    {
+      "actions": 67,
+      "budget_usec": 10000000,
+      "commands": 71,
+      "config_hash": "c4bc8730d99e0644c58037e76fbdf1df55658a08646503873935437acb4ce1e8",
+      "elapsed_usec": 36484900,
+      "freeze_mode": "incremental_readonly_history",
+      "game_over": true,
+      "maximum_scene_freeze_usec": 23400,
+      "measurements": [
+        {
+          "actions": 0,
+          "desktop_worker": true,
+          "endpoint_equal": true,
+          "file_bytes": 79467,
+          "load_max_frame_gap_usec": 48200,
+          "load_ok": true,
+          "load_progress_frames": 13,
+          "load_reason": "",
+          "load_rebuild_usec": 119500,
+          "load_stages": {
+            "decode": {
+              "endpoint_validation_usec": 36400,
+              "initialization_usec": 46400,
+              "largest_payload_slice_usec": 5700,
+              "largest_replay_slice_usec": 1600,
+              "payload_validation_usec": 33700,
+              "prefix_replay_usec": 49400
+            },
+            "package": {
+              "float_decode_usec": 16700,
+              "largest_float_decode_slice_usec": 2600,
+              "package_parse_usec": 1700,
+              "storage_sync": {},
+              "storage_sync_elapsed_usec": 0
+            }
+          },
+          "main_freeze_usec": 1100,
+          "ok": true,
+          "point": "input",
+          "reason": "",
+          "rebuild_usec": 121000,
+          "records": 2,
+          "save_max_frame_gap_usec": 48500,
+          "save_progress_frames": 21,
+          "save_stages": {
+            "decode": {
+              "endpoint_validation_usec": 37000,
+              "initialization_usec": 46500,
+              "largest_payload_slice_usec": 5900,
+              "largest_replay_slice_usec": 1900,
+              "payload_validation_usec": 34100,
+              "prefix_replay_usec": 49900
+            },
+            "package": {
+              "encode": {
+                "float_encode_elapsed_usec": 5400,
+                "largest_float_encode_slice_usec": 2700,
+                "package_serialize_usec": 2800,
+                "package_size_check_usec": 700
+              },
+              "roundtrip": {
+                "float_decode_elapsed_usec": 16200,
+                "largest_float_decode_slice_usec": 2800,
+                "payload_parse_usec": 2100
+              },
+              "save_encode_usec": 19500,
+              "save_prepare_usec": 44400,
+              "save_roundtrip_usec": 24900,
+              "storage_sync": {},
+              "storage_sync_elapsed_usec": 0,
+              "store": {
+                "begin_usec": 1500,
+                "largest_store_slice_usec": 7600,
+                "stage_usec": 1500
+              }
+            }
+          },
+          "save_usec": 342500,
+          "source_unchanged": true
+        },
+        {
+          "actions": 25,
+          "desktop_worker": true,
+          "endpoint_equal": true,
+          "file_bytes": 1924348,
+          "load_max_frame_gap_usec": 77100,
+          "load_ok": true,
+          "load_progress_frames": 252,
+          "load_reason": "",
+          "load_rebuild_usec": 3429300,
+          "load_stages": {
+            "decode": {
+              "endpoint_validation_usec": 38100,
+              "initialization_usec": 46600,
+              "largest_payload_slice_usec": 5300,
+              "largest_replay_slice_usec": 30900,
+              "payload_validation_usec": 1136100,
+              "prefix_replay_usec": 2255100
+            },
+            "package": {
+              "float_decode_usec": 680700,
+              "largest_float_decode_slice_usec": 4900,
+              "package_parse_usec": 37800,
+              "storage_sync": {},
+              "storage_sync_elapsed_usec": 0
+            }
+          },
+          "main_freeze_usec": 3200,
+          "ok": true,
+          "point": "input",
+          "reason": "",
+          "rebuild_usec": 3715300,
+          "records": 239,
+          "save_max_frame_gap_usec": 111500,
+          "save_progress_frames": 315,
+          "save_stages": {
+            "decode": {
+              "endpoint_validation_usec": 40200,
+              "initialization_usec": 45800,
+              "largest_payload_slice_usec": 5700,
+              "largest_replay_slice_usec": 34900,
+              "payload_validation_usec": 1119100,
+              "prefix_replay_usec": 2556000
+            },
+            "package": {
+              "encode": {
+                "float_encode_elapsed_usec": 693500,
+                "largest_float_encode_slice_usec": 3100,
+                "package_serialize_usec": 68500,
+                "package_size_check_usec": 23300
+              },
+              "roundtrip": {
+                "float_decode_elapsed_usec": 642400,
+                "largest_float_decode_slice_usec": 4600,
+                "payload_parse_usec": 36300
+              },
+              "save_encode_usec": 806900,
+              "save_prepare_usec": 1487600,
+              "save_roundtrip_usec": 680700,
+              "storage_sync": {},
+              "storage_sync_elapsed_usec": 100,
+              "store": {
+                "begin_usec": 4500,
+                "largest_store_slice_usec": 103700,
+                "stage_usec": 34800
+              }
+            }
+          },
+          "save_usec": 5503000,
+          "source_unchanged": true
+        },
+        {
+          "actions": 50,
+          "desktop_worker": true,
+          "endpoint_equal": true,
+          "file_bytes": 4748684,
+          "load_max_frame_gap_usec": 163800,
+          "load_ok": true,
+          "load_progress_frames": 645,
+          "load_reason": "",
+          "load_rebuild_usec": 9040200,
+          "load_stages": {
+            "decode": {
+              "endpoint_validation_usec": 34500,
+              "initialization_usec": 47500,
+              "largest_payload_slice_usec": 13900,
+              "largest_replay_slice_usec": 34900,
+              "payload_validation_usec": 2956700,
+              "prefix_replay_usec": 6049000
+            },
+            "package": {
+              "float_decode_usec": 1652600,
+              "largest_float_decode_slice_usec": 5000,
+              "package_parse_usec": 90600,
+              "storage_sync": {},
+              "storage_sync_elapsed_usec": 0
+            }
+          },
+          "main_freeze_usec": 4300,
+          "ok": true,
+          "point": "input",
+          "reason": "",
+          "rebuild_usec": 8428800,
+          "records": 476,
+          "save_max_frame_gap_usec": 244300,
+          "save_progress_frames": 709,
+          "save_stages": {
+            "decode": {
+              "endpoint_validation_usec": 35600,
+              "initialization_usec": 44900,
+              "largest_payload_slice_usec": 5900,
+              "largest_replay_slice_usec": 33900,
+              "payload_validation_usec": 2718700,
+              "prefix_replay_usec": 5674500
+            },
+            "package": {
+              "encode": {
+                "float_encode_elapsed_usec": 1594400,
+                "largest_float_encode_slice_usec": 4000,
+                "package_serialize_usec": 161100,
+                "package_size_check_usec": 55000
+              },
+              "roundtrip": {
+                "float_decode_elapsed_usec": 1609100,
+                "largest_float_decode_slice_usec": 5000,
+                "payload_parse_usec": 88300
+              },
+              "save_encode_usec": 1826600,
+              "save_prepare_usec": 3525600,
+              "save_roundtrip_usec": 1699000,
+              "storage_sync": {},
+              "storage_sync_elapsed_usec": 0,
+              "store": {
+                "begin_usec": 58800,
+                "largest_store_slice_usec": 241500,
+                "stage_usec": 70300
+              }
+            }
+          },
+          "save_usec": 12774000,
+          "source_unchanged": true
+        }
+      ],
+      "mode": "classic_endless",
+      "records": 627,
+      "rng": "sl-rng-v1",
+      "rule_error": "",
+      "rules": "run-commands-v46-unified-offer-audit",
+      "score": "1054",
+      "seed": "23",
+      "source": "normal_rules_greedy_bot",
+      "stop": "board_full"
+    }
+  ]
+}

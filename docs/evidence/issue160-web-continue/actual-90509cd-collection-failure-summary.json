@@ -1,0 +1,341 @@
+{
+  "row_hash": "cc032ad943da3e7384b2bc811afd78b90bdd1721d638fb4f756284020c9e7ebf",
+  "revision": 7,
+  "payload_hash": "c8a3ae24a876fefa6f33e1bd9c8142dfe5a4b7550f7d7822788da0571af1dbef",
+  "schema": "checkpoint-web-files-v1",
+  "files": [
+    "previous.json",
+    "previous.rollback",
+    "primary.json",
+    "primary.rollback"
+  ],
+  "sealed_ok": true,
+  "generation": "13",
+  "package_schema": "run-checkpoint-package-v3",
+  "run_id": "191055749-0-1793350950588000-3405400",
+  "point": "input",
+  "record_seq": "113",
+  "state_hash": "d0dbb14bc0a518a747dba70e6e4b0f36fed13f8c2ade7590fe871e520be0871c",
+  "phase": "1",
+  "action": "12",
+  "moves": "11",
+  "continuation": "idle",
+  "pending": "0",
+  "consumed": "1",
+  "rng": {
+    "master_seed": "191055749",
+    "rng_scheme_version": "sl-rng-v1",
+    "streams": {
+      "effect_execution": {
+        "seed": "7892502943832050992",
+        "state": "6773964613564168962"
+      },
+      "offer_candidates": {
+        "seed": "4300920153211973774",
+        "state": "-6463136479422982799"
+      },
+      "offer_order": {
+        "seed": "7279101750637075736",
+        "state": "-8505968075381759636"
+      },
+      "offer_targets": {
+        "seed": "5000153515030395472",
+        "state": "-6827329792794142716"
+      },
+      "spawn_content": {
+        "seed": "5676506742996021317",
+        "state": "1572300058325764187"
+      },
+      "spawn_position": {
+        "seed": "8415804414150746724",
+        "state": "4022459411318124465"
+      }
+    }
+  },
+  "pieces": [
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "6"
+      ],
+      "ghost": false,
+      "id": "5"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "8"
+      ],
+      "ghost": false,
+      "id": "7"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "0"
+      ],
+      "ghost": false,
+      "id": "9"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "1"
+      ],
+      "ghost": false,
+      "id": "10"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "6"
+      ],
+      "ghost": false,
+      "id": "11"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "6"
+      ],
+      "ghost": false,
+      "id": "12"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "5"
+      ],
+      "ghost": false,
+      "id": "13"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "6"
+      ],
+      "ghost": false,
+      "id": "15"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "3"
+      ],
+      "ghost": false,
+      "id": "17"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "2"
+      ],
+      "ghost": false,
+      "id": "19"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "0"
+      ],
+      "ghost": false,
+      "id": "20"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "4"
+      ],
+      "ghost": false,
+      "id": "21"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "2"
+      ],
+      "ghost": false,
+      "id": "22"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "1"
+      ],
+      "ghost": false,
+      "id": "23"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "2"
+      ],
+      "ghost": false,
+      "id": "24"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "1"
+      ],
+      "ghost": false,
+      "id": "25"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "5"
+      ],
+      "ghost": false,
+      "id": "26"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "6"
+      ],
+      "ghost": false,
+      "id": "27"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "7"
+      ],
+      "ghost": false,
+      "id": "28"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "3"
+      ],
+      "ghost": false,
+      "id": "30"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "2"
+      ],
+      "ghost": false,
+      "id": "31"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "1"
+      ],
+      "ghost": false,
+      "id": "32"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "8"
+      ],
+      "ghost": false,
+      "id": "33"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "1"
+      ],
+      "ghost": false,
+      "id": "34"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "1"
+      ],
+      "ghost": false,
+      "id": "35"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "5"
+      ],
+      "ghost": false,
+      "id": "36"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "6"
+      ],
+      "ghost": false,
+      "id": "37"
+    }
+  ],
+  "last_command": {
+    "buffered": false,
+    "buffered_wait_ms": "0",
+    "command_id": "14",
+    "expected_action_id": "11",
+    "piece_id": "9",
+    "run_id": "191055749-0-1793350950588000-3405400",
+    "source": "human",
+    "target": [
+      "3",
+      "0"
+    ],
+    "type": "move"
+  }
+}

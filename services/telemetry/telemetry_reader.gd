@@ -9,20 +9,30 @@ func read_file(path: String) -> Array[Dictionary]:
 	error = ""
 	complete = false
 	segment_complete = false
-	var result: Array[Dictionary] = []
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		error = "cannot_read_telemetry"
-		return result
+		return []
+	var text: String = file.get_as_text()
+	file.close()
+	return read_text(text)
+
+## Same validation for an acknowledged browser prefix; no temporary file or data rewriting.
+func read_text(text: String) -> Array[Dictionary]:
+	error = ""
+	complete = false
+	segment_complete = false
+	var result: Array[Dictionary] = []
 	var seen: Dictionary[String, String] = {}
 	var last_seq: int = 0
 	var run_id: String = ""
 	var ended_seen: bool = false
 	var segment_id: String = ""
-	while not file.eof_reached():
-		var line: String = file.get_line()
-		if line.is_empty() and file.eof_reached(): break
-		if file.eof_reached():
+	var lines: PackedStringArray = text.split("\n", true)
+	for index: int in range(lines.size()):
+		var line: String = lines[index]
+		if index == lines.size() - 1:
+			if line.is_empty(): break
 			error = "incomplete_last_line"
 			break
 		var json: JSON = JSON.new()

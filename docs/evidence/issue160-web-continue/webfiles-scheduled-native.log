@@ -1,0 +1,150 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_checkpoint_web_files.gd
+[0m* test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] _open (res://services/run_checkpoint/checkpoint_web_files.gd:40)
+       [3] open (res://tests/support/checkpoint_web_backend.gd:14)
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] _open (res://services/run_checkpoint/checkpoint_web_files.gd:44)
+       [3] open (res://tests/support/checkpoint_web_backend.gd:14)
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] _open (res://services/run_checkpoint/checkpoint_web_files.gd:48)
+       [3] open (res://tests/support/checkpoint_web_backend.gd:14)
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] _open (res://services/run_checkpoint/checkpoint_web_files.gd:72)
+       [3] open (res://tests/support/checkpoint_web_backend.gd:14)
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] _open (res://services/run_checkpoint/checkpoint_web_files.gd:72)
+       [3] open (res://tests/support/checkpoint_web_backend.gd:14)
+[31m    [Failed]:  [0m[0] expected to equal [5]:  
+      at line 27
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] sync (res://services/run_checkpoint/checkpoint_web_files.gd:97)
+       [3] test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary (res://tests/rules/test_checkpoint_web_files.gd:29)
+       [4] open (res://services/run_checkpoint/checkpoint_web_files.gd:33)
+       [5] _open (res://services/run_checkpoint/checkpoint_web_files.gd:79)
+       [6] open (res://tests/support/checkpoint_web_backend.gd:14)
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] sync (res://services/run_checkpoint/checkpoint_web_files.gd:97)
+       [3] test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary (res://tests/rules/test_checkpoint_web_files.gd:29)
+       [4] open (res://services/run_checkpoint/checkpoint_web_files.gd:33)
+       [5] _open (res://services/run_checkpoint/checkpoint_web_files.gd:79)
+       [6] open (res://tests/support/checkpoint_web_backend.gd:14)
+SCRIPT ERROR: Invalid access to property or key '_opening' on a base object of type 'Nil'.
+   at: <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/rules/test_checkpoint_web_files.gd:13)
+       [1] _yield_io (res://services/run_checkpoint/checkpoint_web_files.gd:195)
+       [2] sync (res://services/run_checkpoint/checkpoint_web_files.gd:104)
+       [3] test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary (res://tests/rules/test_checkpoint_web_files.gd:29)
+       [4] open (res://services/run_checkpoint/checkpoint_web_files.gd:33)
+       [5] _open (res://services/run_checkpoint/checkpoint_web_files.gd:79)
+       [6] open (res://tests/support/checkpoint_web_backend.gd:14)
+[31m    [Failed]:  [0m[0] expected to equal [8]:  
+      at line 30
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [2] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [3] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [5] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [6] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [7] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [8] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+      at line 31
+* test_late_noncanonical_base64_never_publishes_or_writes_a_partial_mapping
+* test_file_operations_roundtrip_and_reject_paths_outside_the_slot
+* test_failed_browser_commit_restores_exact_acknowledged_pair_and_retry_can_save
+* test_bad_unknown_or_escaping_snapshots_are_not_reset_or_overwritten
+* test_raw_corrupt_original_bytes_survive_copy_and_database_roundtrip
+* test_conflicting_writer_requires_reload_instead_of_reusing_stale_local_files
+* test_no_thread_job_waits_for_actual_commit_and_keeps_single_ownership
+* test_failed_invalidation_is_not_durable_and_retry_prevents_both_generations
+* test_failed_sync_revokes_completed_ticket_instead_of_false_duplicate_success
+[1m9/10 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_web_persistence.gd
+[0m* test_callback_keeps_opaque_text_and_explicit_failure_without_json_envelope
+* test_callback_rejects_wrong_arity_types_and_legacy_json_envelopes
+[1m2/2 passed.
+[0m[4m
+
+res://tests/integration/test_checkpoint_web_ownership.gd
+[0m* test_cancelled_terminal_exit_cannot_start_or_load_until_invalidation_acknowledged
+[1m1/1 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_checkpoint_web_files.gd
+[0m- test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary
+[31m    [Failed]:  [0m[0] expected to equal [5]:  
+          at line 27
+[31m    [Failed]:  [0m[0] expected to equal [8]:  
+          at line 30
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [2] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [3] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [4] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [5] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [6] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [7] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+    [8] <engine-2>Invalid access to property or key '_opening' on a base object of type 'Nil'.
+          at line 31
+
+Totals
+------
+Scripts               3
+Tests                13
+Passing Tests        12
+Failing Tests         1
+Asserts           136/139
+Time              4.948s
+
+
+[31m---- 1 failing tests ----
+[0m

@@ -1,0 +1,146 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:27:49.986Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:27:50.133Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:27:50.257Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:27:52.992Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":11041200,\"frames\":635,\"freeze_usec\":0,\"maximum_gap_usec\":190600,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":41000,\"initialization_usec\":55300,\"largest_payload_slice_usec\":6700,\"largest_replay_slice_usec\":40100,\"payload_validation_usec\":2852500,\"prefix_replay_usec\":5958500},\"history_prime_usec\":162400,\"package\":{\"float_decode_usec\":1716000,\"largest_float_decode_slice_usec\":5400,\"package_parse_usec\":92000,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T10:28:23.637Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":98300,\"elapsed_usec\":11041200,\"frames\":635,\"freeze_usec\":0,\"maximum_gap_usec\":190600,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":41000,\"initialization_usec\":55300,\"largest_payload_slice_usec\":6700,\"largest_replay_slice_usec\":40100,\"payload_validation_usec\":2852500,\"prefix_replay_usec\":5958500},\"history_prime_usec\":162400,\"package\":{\"float_decode_usec\":1716000,\"largest_float_decode_slice_usec\":5400,\"package_parse_usec\":92000,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T10:28:23.736Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":17416500,\"frames\":910,\"freeze_usec\":10700,\"maximum_gap_usec\":522400,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":44000,\"initialization_usec\":61900,\"largest_payload_slice_usec\":7400,\"largest_replay_slice_usec\":49300,\"payload_validation_usec\":3060700,\"prefix_replay_usec\":6825400},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":1761300,\"largest_float_encode_slice_usec\":3600,\"largest_package_serialize_slice_usec\":3400,\"package_serialize_usec\":1388800,\"package_size_check_usec\":58800},\"roundtrip\":{\"float_decode_elapsed_usec\":1755400,\"largest_float_decode_slice_usec\":5600,\"payload_parse_usec\":103100},\"save_encode_usec\":3238300,\"save_prepare_usec\":5104400,\"save_roundtrip_usec\":1866100,\"storage_sync\":{\"filemap_encode_elapsed_usec\":311100,\"filemap_encode_usec\":284600,\"largest_filemap_slice_usec\":164700},\"storage_sync_elapsed_usec\":722200,\"store\":{\"begin_usec\":213800,\"largest_store_slice_usec\":210500,\"stage_usec\":91000}}}}",
+    "timestamp": "2026-10-31T10:29:13.416Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:30:10.626Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:30:10.801Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:30:10.950Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:30:13.861Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":11179900,\"frames\":643,\"freeze_usec\":0,\"maximum_gap_usec\":185600,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":40000,\"initialization_usec\":52100,\"largest_payload_slice_usec\":6100,\"largest_replay_slice_usec\":36100,\"payload_validation_usec\":2832100,\"prefix_replay_usec\":6191400},\"history_prime_usec\":158000,\"package\":{\"float_decode_usec\":1643900,\"largest_float_decode_slice_usec\":4900,\"package_parse_usec\":91800,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T10:31:19.210Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":131000,\"elapsed_usec\":11179900,\"frames\":643,\"freeze_usec\":0,\"maximum_gap_usec\":185600,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":40000,\"initialization_usec\":52100,\"largest_payload_slice_usec\":6100,\"largest_replay_slice_usec\":36100,\"payload_validation_usec\":2832100,\"prefix_replay_usec\":6191400},\"history_prime_usec\":158000,\"package\":{\"float_decode_usec\":1643900,\"largest_float_decode_slice_usec\":4900,\"package_parse_usec\":91800,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T10:31:19.340Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":71744100,\"frames\":4181,\"freeze_usec\":9400,\"maximum_gap_usec\":603700,\"ok\":false,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":1762100,\"largest_float_encode_slice_usec\":4500,\"largest_package_serialize_slice_usec\":3700,\"package_serialize_usec\":1437400,\"package_size_check_usec\":51100},\"roundtrip\":{\"float_decode_elapsed_usec\":1846700,\"largest_float_decode_slice_usec\":5300,\"payload_parse_usec\":101500},\"save_encode_usec\":3280900,\"save_prepare_usec\":5235500,\"save_roundtrip_usec\":1954600,\"storage_sync\":{},\"storage_sync_elapsed_usec\":55181600,\"store\":{\"begin_usec\":261000,\"largest_store_slice_usec\":258400,\"stage_usec\":78600}}}}",
+    "timestamp": "2026-10-31T10:34:21.672Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:34:30.079Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:34:30.208Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:34:30.313Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:34:32.838Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":10877000,\"frames\":626,\"freeze_usec\":0,\"maximum_gap_usec\":179400,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":38500,\"initialization_usec\":49100,\"largest_payload_slice_usec\":9100,\"largest_replay_slice_usec\":34200,\"payload_validation_usec\":2867900,\"prefix_replay_usec\":5907500},\"history_prime_usec\":149000,\"package\":{\"float_decode_usec\":1599900,\"largest_float_decode_slice_usec\":5100,\"package_parse_usec\":90800,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T10:35:05.741Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":117800,\"elapsed_usec\":10877000,\"frames\":626,\"freeze_usec\":0,\"maximum_gap_usec\":179400,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":38500,\"initialization_usec\":49100,\"largest_payload_slice_usec\":9100,\"largest_replay_slice_usec\":34200,\"payload_validation_usec\":2867900,\"prefix_replay_usec\":5907500},\"history_prime_usec\":149000,\"package\":{\"float_decode_usec\":1599900,\"largest_float_decode_slice_usec\":5100,\"package_parse_usec\":90800,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T10:35:05.858Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:37:15.099Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:37:15.254Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:37:15.370Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:37:18.109Z",
+    "url": "http://127.0.0.1:8918/candidatebb/index.js"
+  }
+]

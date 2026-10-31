@@ -5,6 +5,11 @@ var error: String = ""
 var complete: bool = false
 var checked_records: int = 0
 var run: RunController
+var _records: Array[Dictionary] = []
+var _generated: RunRecorder
+var _index: int = 1
+var _prefix: bool = false
+var _active: bool = false
 
 func read_file(path: String) -> Array[Dictionary]:
 	var records: Array[Dictionary] = []
@@ -47,7 +52,44 @@ func replay(records: Array[Dictionary]) -> bool:
 func restore_prefix(records: Array[Dictionary]) -> bool:
 	return _replay(records, true)
 
+## Starts an isolated prefix rebuild; callers must not adopt run before done and ok.
+## The owner freezes records for the operation; this class never mutates the input.
+func start_prefix(records: Array[Dictionary]) -> bool:
+	return _begin(records, true)
+
+## Bounded between records, never within a rule command. No scene or rendering dependency.
+func step_prefix(maximum_records: int = 4, budget_usec: int = 2000) -> Dictionary:
+	if not _active: return {"ok": false, "done": true, "reason": "replay_not_started"}
+	if maximum_records <= 0 or budget_usec <= 0:
+		_active = false
+		_fail("invalid_step_budget")
+		return {"ok": false, "done": true, "reason": error}
+	var started: int = Time.get_ticks_usec()
+	var processed: int = 0
+	while _index < _records.size():
+		if not _advance_record(_index, _records, _generated):
+			_active = false
+			return {"ok": false, "done": true, "reason": error}
+		_index += 1
+		processed += 1
+		if processed >= maximum_records or Time.get_ticks_usec() - started >= budget_usec: break
+	if _index < _records.size(): return {"ok": true, "done": false, "reason": ""}
+	var valid: bool = _finish_replay()
+	return {"ok": valid, "done": true, "reason": error}
+
 func _replay(records: Array[Dictionary], prefix: bool) -> bool:
+	if not _begin(records, prefix): return false
+	while _index < _records.size():
+		if not _advance_record(_index, _records, _generated):
+			_active = false
+			return false
+		_index += 1
+	return _finish_replay()
+
+func _begin(records: Array[Dictionary], prefix: bool) -> bool:
+	_active = false
+	_records = []
+	_generated = null
 	error = ""
 	complete = false
 	checked_records = 0
@@ -108,49 +150,63 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	var generated: RunRecorder = RunRecorder.new()
 	run.recorder = generated
 	generated.begin(run, String(header.get("source", "replay")), false, String(header.get("build", "replay")))
-	for index: int in range(1, records.size()):
-		var expected: Dictionary = records[index]
-		if not CommandCodec.valid_integer(expected.get("seq")) or expected.seq.to_int() != index + 1:
-			return _fail("seq=%d invalid_sequence" % (index + 1))
-		if generated.records.size() <= index:
-			match expected.get("kind"):
-				"CommandAttempt":
-					if not expected.get("command") is Dictionary: return _fail("invalid_command_payload")
-					var command: RunCommand = CommandCodec.decode(expected.command)
-					if command == null: return _fail("seq=%d invalid_command" % (index + 1))
-					run.execute_command(command)
-				"Offer": run.prepare_offer()
-				"Diagnostic":
-					if not expected.get("reason") is String or expected.reason.is_empty(): return _fail("invalid_diagnostic")
-					run.report_error(expected.reason)
-				"RuleResult":
-					if expected.has("stage"): run.advance()
-					else: return _fail("seq=%d missing_command_result" % (index + 1))
-				"Footer":
-					if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
-					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"challenge_completed"]):
-						return _fail("invalid_completed_footer")
-					if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
-						return _fail("invalid_completed_footer")
-					if expected.status == "rule_error" and run.state.rule_error.is_empty(): return _fail("invalid_rule_error_footer")
-					if expected.status == "rule_error" and expected.get("reason") != run.state.rule_error: return _fail("invalid_rule_error_reason")
-					if expected.status in ["censored", "abandoned"] and run.state.is_game_over: return _fail("invalid_unfinished_footer")
-					generated.finish(run, expected.status, String(expected.get("reason", "")))
-				_: return _fail("seq=%d unsupported_or_missing_record" % (index + 1))
-		if generated.records.size() <= index: return _fail("seq=%d phase_cannot_advance" % (index + 1))
-		var actual: Dictionary = generated.records[index]
-		var expected_value: Dictionary = _without_time(expected)
-		var actual_value: Dictionary = _without_time(actual)
-		# v1首批记录没有表现路径；规则状态与事件仍逐项验证。
-		if not expected.has("move"): actual_value.erase("move")
-		if RunSnapshot.canonical(expected_value) != RunSnapshot.canonical(actual_value):
-			return _fail("seq=%d phase=%s %s" % [index + 1, RunState.Phase.keys()[run.state.phase], _difference(expected_value, actual_value, "")])
-		checked_records = index + 1
-		if expected.get("kind") == "Footer":
-			if index != records.size() - 1: return _fail("records_after_footer")
-			if not expected.get("record_complete", false): return _fail("record_write_incomplete")
-			complete = true
-	if prefix:
+	_records = records
+	_generated = generated
+	_index = 1
+	_prefix = prefix
+	_active = true
+	return true
+
+func _advance_record(index: int, records: Array[Dictionary], generated: RunRecorder) -> bool:
+	var expected: Dictionary = records[index]
+	if not CommandCodec.valid_integer(expected.get("seq")) or expected.seq.to_int() != index + 1:
+		return _fail("seq=%d invalid_sequence" % (index + 1))
+	if generated.records.size() <= index:
+		match expected.get("kind"):
+			"CommandAttempt":
+				if not expected.get("command") is Dictionary: return _fail("invalid_command_payload")
+				var command: RunCommand = CommandCodec.decode(expected.command)
+				if command == null: return _fail("seq=%d invalid_command" % (index + 1))
+				run.execute_command(command)
+			"Offer": run.prepare_offer()
+			"Diagnostic":
+				if not expected.get("reason") is String or expected.reason.is_empty(): return _fail("invalid_diagnostic")
+				run.report_error(expected.reason)
+			"RuleResult":
+				if expected.has("stage"): run.advance()
+				else: return _fail("seq=%d missing_command_result" % (index + 1))
+			"Footer":
+				if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
+				if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"challenge_completed"]):
+					return _fail("invalid_completed_footer")
+				if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
+					return _fail("invalid_completed_footer")
+				if expected.status == "rule_error" and run.state.rule_error.is_empty(): return _fail("invalid_rule_error_footer")
+				if expected.status == "rule_error" and expected.get("reason") != run.state.rule_error: return _fail("invalid_rule_error_reason")
+				if expected.status in ["censored", "abandoned"] and run.state.is_game_over: return _fail("invalid_unfinished_footer")
+				generated.finish(run, expected.status, String(expected.get("reason", "")))
+			_: return _fail("seq=%d unsupported_or_missing_record" % (index + 1))
+	if generated.records.size() <= index: return _fail("seq=%d phase_cannot_advance" % (index + 1))
+	var actual: Dictionary = generated.records[index]
+	var expected_value: Dictionary = _without_time(expected)
+	var actual_value: Dictionary = _without_time(actual)
+	# v1首批记录没有表现路径；规则状态与事件仍逐项验证。
+	if not expected.has("move"): actual_value.erase("move")
+	if RunSnapshot.canonical(expected_value) != RunSnapshot.canonical(actual_value):
+		return _fail("seq=%d phase=%s %s" % [index + 1, RunState.Phase.keys()[run.state.phase], _difference(expected_value, actual_value, "")])
+	checked_records = index + 1
+	if expected.get("kind") == "Footer":
+		if index != records.size() - 1: return _fail("records_after_footer")
+		if not expected.get("record_complete", false): return _fail("record_write_incomplete")
+		complete = true
+	return true
+
+func _finish_replay() -> bool:
+	_active = false
+	var records: Array[Dictionary] = _records
+	var generated: RunRecorder = _generated
+	var header: Dictionary = records[0]
+	if _prefix:
 		if complete or records.back().get("kind") != "Checkpoint" or generated.records.size() != records.size(): return _fail("unsafe_prefix_boundary")
 		if run.state.is_game_over or run.state.phase not in [RunState.Phase.INPUT, RunState.Phase.REWARDS]: return _fail("unsafe_prefix_phase")
 		# Header元数据不参与规则比较，但后续工具记录必须保留来源。

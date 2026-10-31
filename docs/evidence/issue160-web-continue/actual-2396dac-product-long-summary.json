@@ -1,0 +1,38 @@
+[
+  {
+    "records": 2,
+    "ok": true,
+    "source_unchanged": true,
+    "endpoint_equal": true,
+    "save_usec": 414700,
+    "save_max_frame_gap_usec": 52100,
+    "load_rebuild_usec": 120500,
+    "load_max_frame_gap_usec": 49600,
+    "durable_reopen_usec": 15900,
+    "durable_reopen_max_frame_gap_usec": 15800
+  },
+  {
+    "records": 239,
+    "ok": true,
+    "source_unchanged": true,
+    "endpoint_equal": true,
+    "save_usec": 5791100,
+    "save_max_frame_gap_usec": 67500,
+    "load_rebuild_usec": 3459300,
+    "load_max_frame_gap_usec": 76700,
+    "durable_reopen_usec": 217700,
+    "durable_reopen_max_frame_gap_usec": 209300
+  },
+  {
+    "records": 476,
+    "ok": true,
+    "source_unchanged": true,
+    "endpoint_equal": true,
+    "save_usec": 14928900,
+    "save_max_frame_gap_usec": 258500,
+    "load_rebuild_usec": 8816000,
+    "load_max_frame_gap_usec": 165300,
+    "durable_reopen_usec": 887100,
+    "durable_reopen_max_frame_gap_usec": 867300
+  }
+]

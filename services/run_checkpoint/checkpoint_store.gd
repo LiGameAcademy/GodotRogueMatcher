@@ -5,6 +5,7 @@ extends RefCounted
 ## Payloads are opaque values: the future run adapter validates safe points, versions
 ## and state invariants before constructing a fresh object graph. No rules or UI here.
 ## One synchronous owner per directory; no multi-process or absolute power-loss promise.
+const CONTAINER: Script = preload("res://services/run_checkpoint/checkpoint_container.gd")
 const FORMAT: String = "checkpoint-container-v1"
 const INVALID_FORMAT: String = "checkpoint-invalid-v1"
 const TRANSACTION_FORMAT: String = "checkpoint-transaction-v1"
@@ -23,6 +24,15 @@ var _rejected_primary_digest: String = ""
 func _init(directory: String, files: CheckpointFiles = null) -> void:
 	_directory = directory
 	_files = files if files != null else CheckpointFiles.new()
+
+## The application retains exclusive ownership until the browser adapter acknowledges IO.
+func sync() -> Dictionary:
+	if _busy: return _failure("busy")
+	_busy = true
+	var result: Dictionary = await _files.sync()
+	if not result.ok: _completed = 0
+	_busy = false
+	return result
 
 ## Requires verified invalidation before replacing another live identity.
 func begin_run(run_id: String) -> Dictionary:
@@ -46,6 +56,20 @@ func commit(ticket: int) -> Dictionary:
 	if _busy: return _failure("busy")
 	_busy = true
 	var result: Dictionary = _commit_ticket(ticket)
+	_busy = false
+	return result
+
+## Retains exclusive ownership across Web frame boundaries; sync acknowledgement is separate.
+func commit_sliced(ticket: int, frame_yield: Callable) -> Dictionary:
+	if _busy: return _failure("busy")
+	if not frame_yield.is_valid(): return _failure("invalid_step_yield")
+	_busy = true
+	var prepared: Dictionary = _prepare_ticket(ticket)
+	if not prepared.ok or prepared.get("duplicate", false):
+		_busy = false
+		return prepared
+	var result: Dictionary = await _commit_pending_sliced(frame_yield)
+	result = _finish_ticket(ticket, result)
 	_busy = false
 	return result
 
@@ -116,6 +140,11 @@ func _stage(payload: Dictionary, manifest: Dictionary) -> int:
 	return _generation
 
 func _commit_ticket(ticket: int) -> Dictionary:
+	var prepared: Dictionary = _prepare_ticket(ticket)
+	if not prepared.ok or prepared.get("duplicate", false): return prepared
+	return _finish_ticket(ticket, _commit_pending())
+
+func _prepare_ticket(ticket: int) -> Dictionary:
 	if _active_run.is_empty(): return _failure("stale_ticket")
 	var error: String = _run_error(_active_run)
 	if not error.is_empty(): return _failure(error)
@@ -124,7 +153,9 @@ func _commit_ticket(ticket: int) -> Dictionary:
 	if _pending.is_empty() or ticket != _generation or _pending.run_id != _active_run: return _failure("stale_ticket")
 	var recovery: Dictionary = _recover()
 	if not recovery.ok: return recovery
-	var result: Dictionary = _commit_pending()
+	return {"ok": true, "reason": ""}
+
+func _finish_ticket(ticket: int, result: Dictionary) -> Dictionary:
 	if not result.ok:
 		var rollback: Dictionary = _recover()
 		if not rollback.ok: result.reason += ";rollback_pending:" + String(rollback.reason)
@@ -201,6 +232,57 @@ func _invalidate(run_id: String, reason: String) -> Dictionary:
 	return result
 
 func _commit_pending() -> Dictionary:
+	var pair: Dictionary = _prepare_commit_pair()
+	if not pair.ok: return pair
+	var staged: Dictionary = _stage_commit_pair(pair.primary, pair.previous)
+	if not staged.ok: return staged
+	var replaced: Dictionary = _replace_commit_pair(pair.primary)
+	if not replaced.ok: return replaced
+	return _verify_commit_pair(pair.primary)
+
+func _commit_pending_sliced(frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var pair: Dictionary = _prepare_commit_pair()
+	if not pair.ok: return pair
+	var largest: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var staged: Dictionary = await CONTAINER.write_verified_sliced(_files, _path("checkpoint.tmp"), _pending, FORMAT, frame_yield)
+	if not staged.ok: return staged
+	largest = maxi(largest, staged.largest_slice_usec)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	staged = _stage_transaction_pair(pair.primary, pair.previous)
+	if not staged.ok: return staged
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	if pair.primary.ok:
+		var backup: Dictionary = await CONTAINER.write_verified_sliced(_files, _path("previous.tmp"), pair.primary.record, FORMAT, frame_yield)
+		if not backup.ok: return backup
+		largest = maxi(largest, backup.largest_slice_usec)
+		await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var replaced: Dictionary = _replace_staged_pair(pair.primary)
+	if not replaced.ok: return replaced
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var verified: Dictionary = _verify_primary()
+	if not verified.ok: return verified
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	verified = _verify_backup(pair.primary)
+	if not verified.ok: return verified
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var result: Dictionary = _retire_transaction()
+	result["largest_store_slice_usec"] = maxi(largest, Time.get_ticks_usec() - started)
+	return result
+
+func _prepare_commit_pair() -> Dictionary:
 	var primary: Dictionary = _read_record("primary.json")
 	var previous: Dictionary = _read_record("previous.json")
 	for found: Dictionary in [primary, previous]:
@@ -209,8 +291,14 @@ func _commit_pending() -> Dictionary:
 		if found.reason in ["read_failed", "size_limit"]: return _failure("existing_checkpoint_unreadable")
 	if primary.ok and primary.record.digest == _rejected_primary_digest:
 		primary = {"ok": false, "reason": "rule_payload_rejected", "record": {}}
+	return {"ok": true, "reason": "", "primary": primary, "previous": previous}
+
+func _stage_commit_pair(primary: Dictionary, previous: Dictionary) -> Dictionary:
 	var staged: Dictionary = _write_verified(_path("checkpoint.tmp"), _pending, FORMAT)
 	if not staged.ok: return staged
+	return _stage_transaction_pair(primary, previous)
+
+func _stage_transaction_pair(primary: Dictionary, previous: Dictionary) -> Dictionary:
 	for name: String in ["primary.json", "previous.json"]:
 		var found: Dictionary = primary if name == "primary.json" else previous
 		if found.ok or found.reason == "missing": continue
@@ -218,18 +306,45 @@ func _commit_pending() -> Dictionary:
 		if not preserved.ok: return preserved
 	var transaction: Dictionary = _start_transaction()
 	if not transaction.ok: return transaction
+	return {"ok": true, "reason": ""}
+
+func _replace_commit_pair(primary: Dictionary) -> Dictionary:
 	if primary.ok:
 		var backup: Dictionary = _write_verified(_path("previous.tmp"), primary.record, FORMAT)
 		if not backup.ok: return backup
-		if _files.replace(_path("previous.tmp"), _path("previous.json")) != OK: return _failure("backup_commit_failed")
+	return _replace_staged_pair(primary)
+
+func _replace_staged_pair(primary: Dictionary) -> Dictionary:
+	if primary.ok and _files.replace(_path("previous.tmp"), _path("previous.json")) != OK: return _failure("backup_commit_failed")
 	if _files.replace(_path("checkpoint.tmp"), _path("primary.json")) != OK: return _failure("primary_commit_failed")
+	return {"ok": true, "reason": ""}
+
+func _verify_commit_pair(primary: Dictionary) -> Dictionary:
+	var verified: Dictionary = _verify_primary()
+	if not verified.ok: return verified
+	verified = _verify_backup(primary)
+	if not verified.ok: return verified
+	return _retire_transaction()
+
+func _verify_primary() -> Dictionary:
 	var verified: Dictionary = _read_record("primary.json")
 	if not verified.ok or verified.record != _pending: return _failure("primary_verify_failed")
+	return {"ok": true, "reason": ""}
+
+func _verify_backup(primary: Dictionary) -> Dictionary:
 	if primary.ok:
 		var verified_backup: Dictionary = _read_record("previous.json")
 		if not verified_backup.ok or verified_backup.record != primary.record: return _failure("backup_verify_failed")
+	return {"ok": true, "reason": ""}
+
+func _retire_transaction() -> Dictionary:
 	if _files.remove(_path("transaction.json")) != OK or _files.exists(_path("transaction.json")): return _failure("transaction_finish_failed")
-	return {"ok": true, "reason": "", "duplicate": false, "generation": str(_generation)}
+	# Once the journal is retired, these copies no longer participate in recovery.
+	# Cleanup failure is diagnostic: the verified primary/previous pair is already committed.
+	var cleanup_pending: PackedStringArray = []
+	for name: String in ["primary.rollback", "previous.rollback"]:
+		if _files.remove(_path(name)) != OK or _files.exists(_path(name)): cleanup_pending.append(name)
+	return {"ok": true, "reason": "", "duplicate": false, "generation": str(_generation), "cleanup_pending": cleanup_pending}
 
 func _start_transaction() -> Dictionary:
 	var record: Dictionary = {"format": TRANSACTION_FORMAT, "run_id": _active_run, "generation": str(_generation), "primary_hash": "", "previous_hash": ""}
@@ -313,31 +428,7 @@ static func _seal(value: Dictionary) -> Dictionary:
 	return record
 
 static func _decode(text: String, format: String) -> Dictionary:
-	var parser: JSON = JSON.new()
-	if parser.parse(text) != OK: return _failure("malformed_json")
-	var value: Variant = parser.data
-	if not value is Dictionary: return _failure("malformed_json")
-	var record: Dictionary = value as Dictionary
-	if not record.get("format") is String: return _failure("invalid_envelope")
-	if record.format != format: return _failure("schema_unsupported")
-	if not record.get("digest") is String or not record.get("run_id") is String or not _valid_id(record.run_id): return _failure("invalid_envelope")
-	var content: Dictionary = record.duplicate(true)
-	content.erase("digest")
-	if record.digest != _json(content).sha256_text(): return _failure("checksum_mismatch")
-	if format == INVALID_FORMAT:
-		if record.size() != 4 or record.get("reason") not in ["restart", "terminal", "abandoned"]: return _failure("invalid_marker")
-	else:
-		if record.size() != 6 or not record.get("generation") is String: return _failure("invalid_envelope")
-		var generation: String = record.generation
-		if not generation.is_valid_int() or str(generation.to_int()) != generation or generation.to_int() <= 0: return _failure("invalid_generation")
-		if format == TRANSACTION_FORMAT:
-			for key: String in ["primary_hash", "previous_hash"]:
-				if not record.get(key) is String: return _failure("invalid_journal")
-				if not record[key].is_empty() and RegEx.create_from_string("^[0-9a-f]{64}$").search(record[key]) == null: return _failure("invalid_journal")
-		else:
-			if not record.get("manifest") is Dictionary or not _manifest_valid(record.manifest): return _failure("invalid_manifest")
-			if not record.get("payload") is Dictionary or not _pure(record.payload): return _failure("invalid_payload")
-	return {"ok": true, "reason": "", "record": record}
+	return CONTAINER.decode(text, format)
 
 static func _manifest_valid(value: Dictionary) -> bool:
 	if value.is_empty(): return false

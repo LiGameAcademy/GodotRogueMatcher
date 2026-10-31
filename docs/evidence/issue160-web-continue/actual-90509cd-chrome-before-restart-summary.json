@@ -1,0 +1,150 @@
+{
+  "row_hash": "370b23643c268df23b3d58e3d73769c4c77ebab8623cfe2a87b3a884d082029e",
+  "revision": 2,
+  "payload_hash": "36481cebadbd7d31bfb2ca482e38b710baedd997f17649340f98636040d48a6c",
+  "schema": "checkpoint-web-files-v1",
+  "files": [
+    "previous.json",
+    "primary.json",
+    "primary.rollback"
+  ],
+  "sealed_ok": true,
+  "generation": "2",
+  "package_schema": "run-checkpoint-package-v3",
+  "run_id": "3945234716-0-1793431457398000-3736400",
+  "point": "input",
+  "record_seq": "11",
+  "state_hash": "75def0fe9ca61e712d9f0aa3fb0cb4cf4e9b78a1c0956dc15a475655b39b2df6",
+  "phase": "1",
+  "action": "1",
+  "moves": "1",
+  "continuation": "idle",
+  "pending": "0",
+  "consumed": "0",
+  "rng": {
+    "master_seed": "3945234716",
+    "rng_scheme_version": "sl-rng-v1",
+    "streams": {
+      "effect_execution": {
+        "seed": "8030445476857855650",
+        "state": "6036599119342909964"
+      },
+      "offer_candidates": {
+        "seed": "5260673163618912399",
+        "state": "6913346254825016245"
+      },
+      "offer_order": {
+        "seed": "4723382006753055614",
+        "state": "-8920451116953696072"
+      },
+      "offer_targets": {
+        "seed": "3617651307052222971",
+        "state": "-565225201135460431"
+      },
+      "spawn_content": {
+        "seed": "3098015873260875279",
+        "state": "-4773232479004555926"
+      },
+      "spawn_position": {
+        "seed": "7709624692781084850",
+        "state": "-985157477734612860"
+      }
+    }
+  },
+  "pieces": [
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "1"
+      ],
+      "ghost": false,
+      "id": "1"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "8"
+      ],
+      "ghost": false,
+      "id": "2"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "0"
+      ],
+      "ghost": false,
+      "id": "3"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "5"
+      ],
+      "ghost": false,
+      "id": "4"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "6"
+      ],
+      "ghost": false,
+      "id": "5"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "7"
+      ],
+      "ghost": false,
+      "id": "6"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "4"
+      ],
+      "ghost": false,
+      "id": "7"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "8"
+      ],
+      "ghost": false,
+      "id": "8"
+    }
+  ],
+  "last_command": {
+    "buffered": false,
+    "buffered_wait_ms": "0",
+    "command_id": "1",
+    "expected_action_id": "0",
+    "piece_id": "3",
+    "run_id": "3945234716-0-1793431457398000-3736400",
+    "source": "human",
+    "target": [
+      "4",
+      "0"
+    ],
+    "type": "move"
+  }
+}
