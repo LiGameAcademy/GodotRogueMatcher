@@ -5,6 +5,7 @@ extends RefCounted
 ## Payloads are opaque values: the future run adapter validates safe points, versions
 ## and state invariants before constructing a fresh object graph. No rules or UI here.
 ## One synchronous owner per directory; no multi-process or absolute power-loss promise.
+const CONTAINER: Script = preload("res://services/run_checkpoint/checkpoint_container.gd")
 const FORMAT: String = "checkpoint-container-v1"
 const INVALID_FORMAT: String = "checkpoint-invalid-v1"
 const TRANSACTION_FORMAT: String = "checkpoint-transaction-v1"
@@ -246,7 +247,7 @@ func _commit_pending_sliced(frame_yield: Callable) -> Dictionary:
 	var largest: int = Time.get_ticks_usec() - started
 	await frame_yield.call()
 	started = Time.get_ticks_usec()
-	var staged: Dictionary = await _write_verified_sliced(_path("checkpoint.tmp"), _pending, FORMAT, frame_yield)
+	var staged: Dictionary = await CONTAINER.write_verified_sliced(_files, _path("checkpoint.tmp"), _pending, FORMAT, frame_yield)
 	if not staged.ok: return staged
 	largest = maxi(largest, staged.largest_slice_usec)
 	await frame_yield.call()
@@ -256,7 +257,13 @@ func _commit_pending_sliced(frame_yield: Callable) -> Dictionary:
 	largest = maxi(largest, Time.get_ticks_usec() - started)
 	await frame_yield.call()
 	started = Time.get_ticks_usec()
-	var replaced: Dictionary = _replace_commit_pair(pair.primary)
+	if pair.primary.ok:
+		var backup: Dictionary = await CONTAINER.write_verified_sliced(_files, _path("previous.tmp"), pair.primary.record, FORMAT, frame_yield)
+		if not backup.ok: return backup
+		largest = maxi(largest, backup.largest_slice_usec)
+		await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var replaced: Dictionary = _replace_staged_pair(pair.primary)
 	if not replaced.ok: return replaced
 	largest = maxi(largest, Time.get_ticks_usec() - started)
 	await frame_yield.call()
@@ -305,7 +312,10 @@ func _replace_commit_pair(primary: Dictionary) -> Dictionary:
 	if primary.ok:
 		var backup: Dictionary = _write_verified(_path("previous.tmp"), primary.record, FORMAT)
 		if not backup.ok: return backup
-		if _files.replace(_path("previous.tmp"), _path("previous.json")) != OK: return _failure("backup_commit_failed")
+	return _replace_staged_pair(primary)
+
+func _replace_staged_pair(primary: Dictionary) -> Dictionary:
+	if primary.ok and _files.replace(_path("previous.tmp"), _path("previous.json")) != OK: return _failure("backup_commit_failed")
 	if _files.replace(_path("checkpoint.tmp"), _path("primary.json")) != OK: return _failure("primary_commit_failed")
 	return {"ok": true, "reason": ""}
 
@@ -373,22 +383,6 @@ func _write_verified(path: String, record: Dictionary, format: String) -> Dictio
 	if not decoded.ok or decoded.record != record: return _failure("temporary_verify_failed:" + path.get_file())
 	return {"ok": true, "reason": ""}
 
-## The store remains busy until all readback stages and subsequent transaction phases finish.
-func _write_verified_sliced(path: String, record: Dictionary, format: String, frame_yield: Callable) -> Dictionary:
-	var started: int = Time.get_ticks_usec()
-	if _files.write_text(path, _json(record)) != OK: return _failure("temporary_write_failed:" + path.get_file())
-	var largest: int = Time.get_ticks_usec() - started
-	await frame_yield.call()
-	started = Time.get_ticks_usec()
-	var readback: Dictionary = _files.read_text(path)
-	if not readback.ok: return _failure("temporary_read_failed:" + path.get_file())
-	largest = maxi(largest, Time.get_ticks_usec() - started)
-	await frame_yield.call()
-	started = Time.get_ticks_usec()
-	var decoded: Dictionary = _decode(readback.text, format)
-	if not decoded.ok or decoded.record != record: return _failure("temporary_verify_failed:" + path.get_file())
-	return {"ok": true, "reason": "", "largest_slice_usec": maxi(largest, Time.get_ticks_usec() - started)}
-
 func _read_record(name: String) -> Dictionary:
 	var readback: Dictionary = _files.read_text(_path(name))
 	if not readback.ok: return {"ok": false, "reason": readback.reason, "record": {}}
@@ -429,31 +423,7 @@ static func _seal(value: Dictionary) -> Dictionary:
 	return record
 
 static func _decode(text: String, format: String) -> Dictionary:
-	var parser: JSON = JSON.new()
-	if parser.parse(text) != OK: return _failure("malformed_json")
-	var value: Variant = parser.data
-	if not value is Dictionary: return _failure("malformed_json")
-	var record: Dictionary = value as Dictionary
-	if not record.get("format") is String: return _failure("invalid_envelope")
-	if record.format != format: return _failure("schema_unsupported")
-	if not record.get("digest") is String or not record.get("run_id") is String or not _valid_id(record.run_id): return _failure("invalid_envelope")
-	var content: Dictionary = record.duplicate(true)
-	content.erase("digest")
-	if record.digest != _json(content).sha256_text(): return _failure("checksum_mismatch")
-	if format == INVALID_FORMAT:
-		if record.size() != 4 or record.get("reason") not in ["restart", "terminal", "abandoned"]: return _failure("invalid_marker")
-	else:
-		if record.size() != 6 or not record.get("generation") is String: return _failure("invalid_envelope")
-		var generation: String = record.generation
-		if not generation.is_valid_int() or str(generation.to_int()) != generation or generation.to_int() <= 0: return _failure("invalid_generation")
-		if format == TRANSACTION_FORMAT:
-			for key: String in ["primary_hash", "previous_hash"]:
-				if not record.get(key) is String: return _failure("invalid_journal")
-				if not record[key].is_empty() and RegEx.create_from_string("^[0-9a-f]{64}$").search(record[key]) == null: return _failure("invalid_journal")
-		else:
-			if not record.get("manifest") is Dictionary or not _manifest_valid(record.manifest): return _failure("invalid_manifest")
-			if not record.get("payload") is Dictionary or not _pure(record.payload): return _failure("invalid_payload")
-	return {"ok": true, "reason": "", "record": record}
+	return CONTAINER.decode(text, format)
 
 static func _manifest_valid(value: Dictionary) -> bool:
 	if value.is_empty(): return false

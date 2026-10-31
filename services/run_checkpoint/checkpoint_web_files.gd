@@ -36,7 +36,7 @@ func _open() -> Dictionary:
 	var started: int = Time.get_ticks_usec()
 	var result: Dictionary = await _persistence.open()
 	if not result.ok: return _failed(result.reason)
-	var timing: Dictionary = {"database_read_elapsed_usec": Time.get_ticks_usec() - started, "files": []}
+	var timing: Dictionary = {"database_read_elapsed_usec": Time.get_ticks_usec() - started, "files": [], "bridge": result.get("timing", {})}
 	await _yield_io()
 	started = Time.get_ticks_usec()
 	if result.data.to_utf8_buffer().size() > MAX_TOTAL_BYTES * 2: return _failed("web_snapshot_size_limit")
