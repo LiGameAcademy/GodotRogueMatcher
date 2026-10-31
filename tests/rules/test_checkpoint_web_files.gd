@@ -4,6 +4,50 @@ extends GutTest
 const FILES: Script = preload("res://services/run_checkpoint/checkpoint_web_files.gd")
 const BACKEND: Script = preload("res://tests/support/checkpoint_web_backend.gd")
 
+func test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary() -> void:
+	var backend: BACKEND = BACKEND.new()
+	backend.image = JSON.stringify({"schema": FILES.SCHEMA, "files": {"primary.json": "YQ==", "previous.json": "Yg=="}})
+	var files: FILES = FILES.new("user://slot", backend)
+	var phases: Array[String] = []
+	var between: Callable = func() -> void:
+		phases.append("open" if files._opening else "sync")
+		assert_eq((await files.open()).reason, "web_storage_busy")
+		assert_eq((await files.sync()).reason, "web_storage_busy")
+		assert_eq(files.write_text("user://slot/primary.json", "intruder"), ERR_UNAVAILABLE)
+		assert_eq(files.replace("user://slot/primary.json", "user://slot/previous.json"), ERR_UNAVAILABLE)
+		assert_eq(files.copy_verified("user://slot/primary.json", "user://slot/previous.json"), ERR_UNAVAILABLE)
+		assert_eq(files.remove("user://slot/primary.json"), ERR_UNAVAILABLE)
+		if files._opening:
+			assert_false(files.ready)
+			assert_eq(files.read_text("user://slot/primary.json").reason, "web_storage_busy")
+			assert_true(files._files.is_empty(), "no partially checked mapping is published")
+		await get_tree().process_frame
+	files._frame_yield = between
+	assert_true((await files.open()).ok)
+	assert_eq(phases.size(), 5)
+	assert_eq(files.write_text("user://slot/primary.json", "new"), OK)
+	assert_eq((await files.open()).reason, "web_storage_busy", "unacknowledged local files cannot be replaced by a reload")
+	assert_eq(files.read_text("user://slot/primary.json").text, "new")
+	assert_true((await files.sync()).ok)
+	assert_eq(phases.size(), 8)
+	assert_eq((JSON.parse_string(backend.image) as Dictionary).files["primary.json"], Marshalls.raw_to_base64("new".to_utf8_buffer()))
+	files._frame_yield = Callable()
+
+func test_late_noncanonical_base64_never_publishes_or_writes_a_partial_mapping() -> void:
+	for malformed: String in ["AB==", "A===", "AA==\n"]:
+		var backend: BACKEND = BACKEND.new()
+		backend.image = JSON.stringify({"schema": FILES.SCHEMA, "files": {"primary.json": "YQ==", "previous.json": malformed}})
+		var original: String = backend.image
+		var files: FILES = FILES.new("user://slot", backend, _yield_frame)
+		assert_eq((await files.open()).reason, "web_snapshot_invalid")
+		assert_false(files.ready)
+		assert_true(files._files.is_empty())
+		assert_eq(backend.image, original)
+		assert_eq(backend.writes, 0)
+
+func _yield_frame() -> void:
+	await get_tree().process_frame
+
 func _normal() -> RunController:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 23)
 	run.initialize()

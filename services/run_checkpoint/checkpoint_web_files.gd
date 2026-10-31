@@ -14,24 +14,38 @@ var _files: Dictionary[String, PackedByteArray] = {}
 var _durable: Dictionary[String, PackedByteArray] = {}
 var _dirty: bool = false
 var _syncing: bool = false
+var _opening: bool = false
+var _frame_yield: Callable
 var _base64: RegEx = RegEx.create_from_string("^[A-Za-z0-9+/]*={0,2}\\z")
 var _names: RegEx = RegEx.create_from_string("^(primary\\.json|previous\\.json|checkpoint\\.tmp|previous\\.tmp|transaction\\.(tmp|json)|primary\\.(rollback|restore)|previous\\.(rollback|restore)|invalid-[0-9a-f]{64}\\.json(\\.tmp)?|(primary|previous)\\.json\\.corrupt-[0-9a-f]{64}\\.json)$")
 
-func _init(directory: String, persistence: PERSISTENCE = null) -> void:
+func _init(directory: String, persistence: PERSISTENCE = null, frame_yield: Callable = Callable()) -> void:
 	_directory = directory.trim_suffix("/")
 	_persistence = persistence if persistence != null else PERSISTENCE.new()
+	_frame_yield = frame_yield
 
 func open() -> Dictionary:
+	if _opening or _syncing or _dirty: return _failed("web_storage_busy")
+	_opening = true
+	ready = false
+	var result: Dictionary = await _open()
+	_opening = false
+	return result
+
+func _open() -> Dictionary:
 	var started: int = Time.get_ticks_usec()
 	var result: Dictionary = await _persistence.open()
 	if not result.ok: return _failed(result.reason)
 	var timing: Dictionary = {"database_read_elapsed_usec": Time.get_ticks_usec() - started, "files": []}
+	await _yield_io()
 	started = Time.get_ticks_usec()
 	if result.data.to_utf8_buffer().size() > MAX_TOTAL_BYTES * 2: return _failed("web_snapshot_size_limit")
 	timing["snapshot_utf8_usec"] = Time.get_ticks_usec() - started
+	await _yield_io()
 	started = Time.get_ticks_usec()
 	var value: Variant = JSON.parse_string(result.data)
 	timing["snapshot_parse_usec"] = Time.get_ticks_usec() - started
+	await _yield_io()
 	if not value is Dictionary or value.size() != 2 or value.get("schema") != SCHEMA or not value.get("files") is Dictionary:
 		return _failed("web_snapshot_invalid")
 	if value.files.size() > MAX_FILES: return _failed("web_snapshot_size_limit")
@@ -55,6 +69,7 @@ func open() -> Dictionary:
 		total += bytes.size()
 		if total > MAX_TOTAL_BYTES: return _failed("web_snapshot_size_limit")
 		decoded[name] = bytes
+		await _yield_io()
 	started = Time.get_ticks_usec()
 	_files = decoded
 	_durable = decoded.duplicate(true)
@@ -64,15 +79,29 @@ func open() -> Dictionary:
 	return {"ok": true, "reason": "", "timing": timing}
 
 func sync() -> Dictionary:
+	if _opening: return _failed("web_storage_busy")
 	if not ready: return _failed(error)
 	if _syncing: return _failed("web_storage_busy")
 	if not _dirty: return {"ok": true, "reason": ""}
 	_syncing = true
-	var started: int = Time.get_ticks_usec()
+	var encoding_started: int = Time.get_ticks_usec()
+	var encode_usec: int = 0
+	var largest: int = 0
 	var encoded: Dictionary = {}
-	for name: String in _files: encoded[name] = _encode_bytes(_files[name])
+	for name: String in _files:
+		var file_started: int = Time.get_ticks_usec()
+		encoded[name] = _encode_bytes(_files[name])
+		var file_usec: int = Time.get_ticks_usec() - file_started
+		encode_usec += file_usec
+		largest = maxi(largest, file_usec)
+		await _yield_io()
+	var started: int = Time.get_ticks_usec()
 	var payload: String = JSON.stringify({"schema": SCHEMA, "files": encoded})
-	var encode_usec: int = Time.get_ticks_usec() - started
+	var serialize_usec: int = Time.get_ticks_usec() - started
+	encode_usec += serialize_usec
+	largest = maxi(largest, serialize_usec)
+	var encode_elapsed: int = Time.get_ticks_usec() - encoding_started
+	await _yield_io()
 	var result: Dictionary = await _persistence.save(payload)
 	_syncing = false
 	if not result.ok:
@@ -83,20 +112,21 @@ func sync() -> Dictionary:
 	_durable = _files.duplicate(true)
 	_dirty = false
 	error = ""
-	return {"ok": true, "reason": "", "timing": {"filemap_encode_usec": encode_usec}}
+	return {"ok": true, "reason": "", "timing": {"filemap_encode_usec": encode_usec, "filemap_encode_elapsed_usec": encode_elapsed, "largest_filemap_slice_usec": largest}}
 
 func exists(path: String) -> bool:
 	var name: String = _name(path)
-	return not name.is_empty() and (not ready or _files.has(name))
+	return not name.is_empty() and (not ready or _opening or _files.has(name))
 
 func read_text(path: String) -> Dictionary:
+	if _opening: return {"ok": false, "reason": "web_storage_busy", "text": ""}
 	if not ready: return {"ok": false, "reason": error, "text": ""}
 	var name: String = _name(path)
 	if name.is_empty() or not _files.has(name): return {"ok": false, "reason": "missing", "text": ""}
 	return {"ok": true, "reason": "", "text": _files[name].get_string_from_utf8()}
 
 func write_text(path: String, text: String) -> Error:
-	if not ready or _syncing: return ERR_UNAVAILABLE
+	if not ready or _opening or _syncing: return ERR_UNAVAILABLE
 	var name: String = _name(path)
 	if name.is_empty(): return ERR_INVALID_PARAMETER
 	var bytes: PackedByteArray = text.to_utf8_buffer()
@@ -110,7 +140,7 @@ func write_text(path: String, text: String) -> Error:
 	return OK
 
 func replace(source: String, destination: String) -> Error:
-	if not ready or _syncing: return ERR_UNAVAILABLE
+	if not ready or _opening or _syncing: return ERR_UNAVAILABLE
 	var from: String = _name(source)
 	var to: String = _name(destination)
 	if from.is_empty() or to.is_empty() or not _files.has(from): return ERR_CANT_OPEN
@@ -122,14 +152,14 @@ func replace(source: String, destination: String) -> Error:
 
 func fingerprint(path: String) -> String:
 	var name: String = _name(path)
-	if not ready or name.is_empty() or not _files.has(name): return ""
+	if not ready or _opening or name.is_empty() or not _files.has(name): return ""
 	var hash: HashingContext = HashingContext.new()
 	hash.start(HashingContext.HASH_SHA256)
 	hash.update(_files[name])
 	return hash.finish().hex_encode()
 
 func copy_verified(source: String, destination: String) -> Error:
-	if not ready or _syncing: return ERR_UNAVAILABLE
+	if not ready or _opening or _syncing: return ERR_UNAVAILABLE
 	var from: String = _name(source)
 	var to: String = _name(destination)
 	if from.is_empty() or to.is_empty() or not _files.has(from): return ERR_CANT_OPEN
@@ -142,7 +172,7 @@ func copy_verified(source: String, destination: String) -> Error:
 	return OK
 
 func remove(path: String) -> Error:
-	if not ready or _syncing: return ERR_UNAVAILABLE
+	if not ready or _opening or _syncing: return ERR_UNAVAILABLE
 	var name: String = _name(path)
 	if name.is_empty(): return ERR_INVALID_PARAMETER
 	_dirty = _files.erase(name) or _dirty
@@ -159,3 +189,11 @@ func _failed(reason: String) -> Dictionary:
 
 static func _encode_bytes(bytes: PackedByteArray) -> String:
 	return "" if bytes.is_empty() else Marshalls.raw_to_base64(bytes)
+
+func _yield_io() -> void:
+	if _frame_yield.is_valid():
+		await _frame_yield.call()
+	elif OS.has_feature("web"):
+		var tree: SceneTree = Engine.get_main_loop() as SceneTree
+		await tree.process_frame
+		if DisplayServer.get_name() != "headless": await RenderingServer.frame_post_draw
