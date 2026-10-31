@@ -16,7 +16,7 @@ function fixture() {
     },
   };
   vm.runInNewContext(source, {
-    window, queueMicrotask,
+    window, queueMicrotask, TextEncoder,
     indexedDB: { open: () => (request = {}) },
   });
   const api = window.SkillLinesCheckpointStorage.create();
@@ -55,7 +55,7 @@ function fixture() {
   assert.equal(f.api.readOpenChunk(meta.id, 1), null);
   let combined = '', index = 0;
   while (combined.length < meta.units) {
-    const chunk = f.api.readOpenChunk(meta.id, index++);
+    const chunk = new TextDecoder().decode(f.api.readOpenChunk(meta.id, index++));
     assert.ok(chunk.length > 0 && chunk.length <= 65536);
     assert.ok(!/[\uD800-\uDBFF]$/.test(chunk));
     combined += chunk;
@@ -73,7 +73,7 @@ function fixture() {
       assert.equal(edge.api.readOpenChunk(metadata.id, 0), null);
     } else {
       let output = '', sequence = 0;
-      while (output.length < text.length) output += edge.api.readOpenChunk(metadata.id, sequence++);
+      while (output.length < text.length) output += new TextDecoder().decode(edge.api.readOpenChunk(metadata.id, sequence++));
       assert.equal(output, text);
       assert.equal(edge.api.finishOpen(metadata.id, sequence), true);
     }

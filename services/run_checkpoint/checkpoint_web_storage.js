@@ -78,7 +78,7 @@
           }
           download.offset = end;
           ++download.index;
-          return chunk;
+          return new TextEncoder().encode(chunk);
         },
         finishOpen(id, index) {
           if (!download || download.id !== id || download.index !== index) return false;

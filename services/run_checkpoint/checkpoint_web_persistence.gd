@@ -38,7 +38,10 @@ func _request(method: String, data: String) -> Dictionary:
 	return result
 
 func _read_chunk(id: String, index: int) -> Variant:
-	return _api.readOpenChunk(id, index)
+	var buffer: Variant = _api.readOpenChunk(id, index)
+	if not buffer is JavaScriptObject or not JavaScriptBridge.is_js_buffer(buffer): return null
+	if buffer.byteLength > TEXT.CHUNK_UNITS * 3: return null
+	return JavaScriptBridge.js_buffer_to_packed_byte_array(buffer).get_string_from_utf8()
 
 func _finish_chunks(id: String, index: int, cancel: bool) -> bool:
 	if cancel:
