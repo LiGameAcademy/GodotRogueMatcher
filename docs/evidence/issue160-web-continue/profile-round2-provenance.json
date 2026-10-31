@@ -1,0 +1,11 @@
+{
+  "runtime_commit": "90509cd85ccffba82b0a14d2eb52c0387b5885ad",
+  "baseline_profile_commit": "a985d06",
+  "bridge_profile_commit": "e64c61f",
+  "same_primary_sha256": "f6876b21b222bc76741fdf6d05ff3a4c6e36e69d89e4698181acb3354cdcf8cf",
+  "same_previous_sha256": "ffc40724aec313f1e66847662ddebb607f9f709efa435a9521586224b6b93568",
+  "candidate_zip_sha256": "D862F5E8ECDD38B7711A262EF70E2D0EB2ADE155C8A0EBE615917885C1195F79",
+  "default_tres_diff": null,
+  "profile_scope": "three readonly opens; hashes outside elapsed/maxgap",
+  "old_profile_warning": "a985d06 diagnostic scene invalid UID fallback; retained and corrected subsequent probe scene, not production scene"
+}
