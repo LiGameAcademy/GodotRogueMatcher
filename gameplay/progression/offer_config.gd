@@ -45,6 +45,27 @@ func data() -> Dictionary:
 		"parameter_status": parameter_status, "situational_enabled": false, "history_enabled": false,
 		"startup_guarantee": false, "rescue_early_opening": false}
 
+## Restores only the registered a/d trial grid; callers must still compare the complete config hash.
+static func restore_trial(value: Variant, metadata: Variant, baseline: OfferConfig) -> OfferConfig:
+	if not value is Dictionary or not metadata is Dictionary or baseline == null: return null
+	var trial: Variant = metadata.get("offer_trial")
+	if not trial is Dictionary or trial.size() != 4: return null
+	for key: String in ["related_gain", "gap_gain"]:
+		if typeof(value.get(key)) not in [TYPE_FLOAT, TYPE_INT] or value[key] not in [0.0, 0.25, 0.5]: return null
+		if typeof(trial.get(key)) not in [TYPE_FLOAT, TYPE_INT] or trial[key] != value[key]: return null
+	if trial.get("parameter_status") != "trial_unvalidated" or not trial.has("acceptance") or trial.acceptance != null: return null
+	if not valid_trial_identity(metadata.get("experiment_id")) or not valid_trial_identity(metadata.get("variant_id")): return null
+	var result: OfferConfig = baseline.duplicate(true) as OfferConfig
+	result.related_gain = float(value.related_gain)
+	result.gap_gain = float(value.gap_gain)
+	return result if result.validation_error().is_empty() else null
+
+static func valid_trial_identity(value: Variant) -> bool:
+	if not value is String: return false
+	var pattern: RegEx = RegEx.new()
+	pattern.compile("^[A-Za-z0-9_-][A-Za-z0-9_.-]{0,63}\\z")
+	return pattern.search(value) != null
+
 static func _valid_weights(values: Array[float]) -> bool:
 	if values.size() != 5: return false
 	for value: float in values:

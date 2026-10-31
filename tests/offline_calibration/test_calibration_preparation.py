@@ -58,7 +58,7 @@ class PreparationTests(unittest.TestCase):
         self.assertEqual(len(plan["related_scan"]), 3)
         self.assertIsNone(plan["gap_scan"]["selected_a"])
         self.assertIsNone(plan["parameter_acceptance"])
-        self.assertIn("runner_parameter_injection_unavailable", validate_plan(plan))
+        self.assertIn("runner_execution_not_performed", validate_plan(plan))
         self.assertEqual(len([value for value in validate_plan(plan) if value.startswith("unregistered_criterion:")]), 4)
 
     def test_bad_registration_is_rejected_instead_of_rewriting_parameters(self) -> None:
@@ -66,7 +66,7 @@ class PreparationTests(unittest.TestCase):
             lambda p: p["seeds"]["confirm"].__setitem__(0, p["seeds"]["smoke"][0]),
             lambda p: p["related_scan"][0].__setitem__("a", False),
             lambda p: p.__setitem__("parameter_acceptance", {"a": 0.5}),
-            lambda p: p["runner"].__setitem__("parameter_override_supported", True),
+            lambda p: p["runner"].__setitem__("parameter_override_supported", "yes"),
             lambda p: p["criteria"].__setitem__("maximum_runs", True),
             lambda p: p["criteria"].__setitem__("maximum_uncertainty", 0.5),
         ]:
@@ -167,6 +167,15 @@ class PreparationTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertNotIn("Traceback", result.stderr)
         self.assertFalse(json.loads(output.read_text(encoding="utf-8"))["ready_to_select_parameters"])
+
+    def test_legacy_plan_capability_stays_unavailable_without_becoming_an_execution_fact(self) -> None:
+        legacy = make_plan("1000")
+        legacy["runner"]["parameter_override_supported"] = False
+        self.assertIn("runner_parameter_injection_unavailable", validate_plan(legacy))
+        current = make_plan("1000")
+        self.assertTrue(current["runner"]["parameter_override_supported"])
+        self.assertIn("runner_execution_not_performed", validate_plan(current))
+        self.assertIsNone(current["parameter_acceptance"])
 
 
 if __name__ == "__main__":

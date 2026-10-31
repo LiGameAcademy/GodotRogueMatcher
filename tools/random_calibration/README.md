@@ -22,7 +22,7 @@ plan默认给出3局smoke、100种子explore、150新种子confirm的**实验起
 
 先登记a=0/.25/.5、d固定.25的三组；d扫描只登记候选值和selected_a=null，等a阶段核对后再明确，不自动展开笛卡尔积或选择a。接受标准的最小有意义差异、最大不确定度、最大采样量和停止规则默认null；填写数值时须给单位。未知保持未登记，不能从报告结果临时倒填接受线。
 
-现有`tools/bot_testing/batch_cli.gd`没有OfferConfig参数覆盖接口。此片明确标记runner_parameter_injection_unavailable，不生成虚构的`--a/--d`执行命令，不用固定快照重新算权重冒充新策略完整对局。参数注入、实际分组绑定、父局谱系、区间估计和正式批次仍需单独实现/协调；尤其不要以当前配置反推旧报告的参数。
+`tools/bot_testing/batch_cli.gd`现支持显式`--offer-a/--offer-d/--experiment/--variant`，用法见[批测入口](../bot_testing/README.md#显式关联缺项试验参数)。只覆盖每局独占配置的a/d，系数仍是未验收试调网格。新plan标记接口可用，但pending保留`runner_execution_not_performed`；旧plan中的false继续表示旧能力声明，不静默升级或改写原计划。登记工具不运行引擎、不自动扫描/接受参数，也不用固定快照重算权重冒充新策略完整对局。真实样本绑定、父局谱系、区间估计和正式批次仍需验证；尤其不要以当前配置反推旧报告的参数。
 
 ## 批测种子清单与配对
 
