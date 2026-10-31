@@ -58,6 +58,20 @@ func commit(ticket: int) -> Dictionary:
 	_busy = false
 	return result
 
+## Retains exclusive ownership across Web frame boundaries; sync acknowledgement is separate.
+func commit_sliced(ticket: int, frame_yield: Callable) -> Dictionary:
+	if _busy: return _failure("busy")
+	if not frame_yield.is_valid(): return _failure("invalid_step_yield")
+	_busy = true
+	var prepared: Dictionary = _prepare_ticket(ticket)
+	if not prepared.ok or prepared.get("duplicate", false):
+		_busy = false
+		return prepared
+	var result: Dictionary = await _commit_pending_sliced(frame_yield)
+	result = _finish_ticket(ticket, result)
+	_busy = false
+	return result
+
 ## A value copy and explicit fallback/recovery flags; never restores rules or consumes RNG.
 func load_latest(expected_manifest: Dictionary) -> Dictionary:
 	if _busy: return _failure("busy")
@@ -125,6 +139,11 @@ func _stage(payload: Dictionary, manifest: Dictionary) -> int:
 	return _generation
 
 func _commit_ticket(ticket: int) -> Dictionary:
+	var prepared: Dictionary = _prepare_ticket(ticket)
+	if not prepared.ok or prepared.get("duplicate", false): return prepared
+	return _finish_ticket(ticket, _commit_pending())
+
+func _prepare_ticket(ticket: int) -> Dictionary:
 	if _active_run.is_empty(): return _failure("stale_ticket")
 	var error: String = _run_error(_active_run)
 	if not error.is_empty(): return _failure(error)
@@ -133,7 +152,9 @@ func _commit_ticket(ticket: int) -> Dictionary:
 	if _pending.is_empty() or ticket != _generation or _pending.run_id != _active_run: return _failure("stale_ticket")
 	var recovery: Dictionary = _recover()
 	if not recovery.ok: return recovery
-	var result: Dictionary = _commit_pending()
+	return {"ok": true, "reason": ""}
+
+func _finish_ticket(ticket: int, result: Dictionary) -> Dictionary:
 	if not result.ok:
 		var rollback: Dictionary = _recover()
 		if not rollback.ok: result.reason += ";rollback_pending:" + String(rollback.reason)
@@ -210,6 +231,36 @@ func _invalidate(run_id: String, reason: String) -> Dictionary:
 	return result
 
 func _commit_pending() -> Dictionary:
+	var pair: Dictionary = _prepare_commit_pair()
+	if not pair.ok: return pair
+	var staged: Dictionary = _stage_commit_pair(pair.primary, pair.previous)
+	if not staged.ok: return staged
+	var replaced: Dictionary = _replace_commit_pair(pair.primary)
+	if not replaced.ok: return replaced
+	return _verify_commit_pair(pair.primary)
+
+func _commit_pending_sliced(frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var pair: Dictionary = _prepare_commit_pair()
+	if not pair.ok: return pair
+	var largest: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var staged: Dictionary = _stage_commit_pair(pair.primary, pair.previous)
+	if not staged.ok: return staged
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var replaced: Dictionary = _replace_commit_pair(pair.primary)
+	if not replaced.ok: return replaced
+	largest = maxi(largest, Time.get_ticks_usec() - started)
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var result: Dictionary = _verify_commit_pair(pair.primary)
+	result["largest_store_slice_usec"] = maxi(largest, Time.get_ticks_usec() - started)
+	return result
+
+func _prepare_commit_pair() -> Dictionary:
 	var primary: Dictionary = _read_record("primary.json")
 	var previous: Dictionary = _read_record("previous.json")
 	for found: Dictionary in [primary, previous]:
@@ -218,6 +269,9 @@ func _commit_pending() -> Dictionary:
 		if found.reason in ["read_failed", "size_limit"]: return _failure("existing_checkpoint_unreadable")
 	if primary.ok and primary.record.digest == _rejected_primary_digest:
 		primary = {"ok": false, "reason": "rule_payload_rejected", "record": {}}
+	return {"ok": true, "reason": "", "primary": primary, "previous": previous}
+
+func _stage_commit_pair(primary: Dictionary, previous: Dictionary) -> Dictionary:
 	var staged: Dictionary = _write_verified(_path("checkpoint.tmp"), _pending, FORMAT)
 	if not staged.ok: return staged
 	for name: String in ["primary.json", "previous.json"]:
@@ -227,11 +281,17 @@ func _commit_pending() -> Dictionary:
 		if not preserved.ok: return preserved
 	var transaction: Dictionary = _start_transaction()
 	if not transaction.ok: return transaction
+	return {"ok": true, "reason": ""}
+
+func _replace_commit_pair(primary: Dictionary) -> Dictionary:
 	if primary.ok:
 		var backup: Dictionary = _write_verified(_path("previous.tmp"), primary.record, FORMAT)
 		if not backup.ok: return backup
 		if _files.replace(_path("previous.tmp"), _path("previous.json")) != OK: return _failure("backup_commit_failed")
 	if _files.replace(_path("checkpoint.tmp"), _path("primary.json")) != OK: return _failure("primary_commit_failed")
+	return {"ok": true, "reason": ""}
+
+func _verify_commit_pair(primary: Dictionary) -> Dictionary:
 	var verified: Dictionary = _read_record("primary.json")
 	if not verified.ok or verified.record != _pending: return _failure("primary_verify_failed")
 	if primary.ok:

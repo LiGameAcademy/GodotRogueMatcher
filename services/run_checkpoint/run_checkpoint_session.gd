@@ -43,7 +43,7 @@ func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Diction
 	var verified: Dictionary = await RunCheckpointCodec.decode_sliced(roundtrip.data, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
 	if not verified.ok: return verified
 	await replay_yield.call()
-	var committed: Dictionary = _commit_save(prepared.package, verified)
+	var committed: Dictionary = await _commit_save_sliced(prepared.package, verified, replay_yield)
 	committed["timing"] = verified.get("timing", {})
 	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec, "store": committed.get("store_timing", {})}
 	return committed
@@ -79,6 +79,19 @@ func _roundtrip_package(package: Dictionary) -> Dictionary:
 	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
 	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
 	return roundtrip
+
+func _commit_save_sliced(package: Dictionary, verified: Dictionary, frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var opened: Dictionary = _store.begin_run(package.run_id)
+	if not opened.ok: return opened
+	var begin_usec: int = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
+	var ticket: int = _store.stage(package, _manifest)
+	if ticket == 0: return RunCheckpointCodec.failure("stage_rejected")
+	var stage_usec: int = Time.get_ticks_usec() - started
+	var committed: Dictionary = await _store.commit_sliced(ticket, frame_yield)
+	if not committed.ok: return committed
+	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"begin_usec": begin_usec, "stage_usec": stage_usec, "largest_store_slice_usec": committed.largest_store_slice_usec}}
 
 func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
 	var started: int = Time.get_ticks_usec()

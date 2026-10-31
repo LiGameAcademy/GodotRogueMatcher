@@ -85,6 +85,46 @@ const MANIFEST: Dictionary = {"rules": "fixture-r1", "content": "fixture-c1", "c
 var files: MemoryFiles
 var store: CheckpointStore
 
+func test_sliced_commit_blocks_all_competing_operations_between_phases() -> void:
+	_seed_pair()
+	var ticket: int = store.stage(_payload("sliced"), MANIFEST)
+	var yields: Array[int] = [0]
+	var between: Callable = func() -> void:
+		yields[0] += 1
+		assert_eq(store.load_latest(MANIFEST).reason, "busy")
+		assert_eq(store.begin_run("run-b").reason, "busy")
+		assert_eq(store.invalidate("run-a", "abandoned").reason, "busy")
+		assert_eq(store.commit(ticket).reason, "busy")
+		assert_eq(store.stage(_payload("intruder"), MANIFEST), 0)
+		assert_eq((await store.sync()).reason, "busy")
+		await get_tree().process_frame
+	var committed: Dictionary = await store.commit_sliced(ticket, between)
+	assert_true(committed.ok, committed.reason)
+	assert_eq(yields[0], 3)
+	assert_eq(store.load_latest(MANIFEST).record.payload, _payload("sliced"))
+	assert_true(store.commit(ticket).ok)
+	assert_true((await store.commit_sliced(ticket, between)).duplicate)
+	assert_eq(yields[0], 3, "an acknowledged duplicate never replays phases")
+
+func test_sliced_faults_preserve_exact_pair_and_release_ownership_for_retry() -> void:
+	var faults: Array[String] = ["write:checkpoint.tmp", "read:checkpoint.tmp", "copy:primary.rollback", "copy:previous.rollback", "write:transaction.tmp", "read:transaction.tmp", "replace:transaction.tmp", "write:previous.tmp", "read:previous.tmp", "replace:previous.tmp", "replace:checkpoint.tmp", "remove:transaction.json", "read:primary.json"]
+	for fault: String in faults:
+		before_each()
+		_seed_pair()
+		var primary: String = files.data[_path("primary.json")]
+		var previous: String = files.data[_path("previous.json")]
+		files.failures[fault] = 1
+		var ticket: int = store.stage(_payload("failed"), MANIFEST)
+		var failed: Dictionary = await store.commit_sliced(ticket, _yield_frame)
+		assert_false(failed.ok, fault)
+		assert_eq(files.data[_path("primary.json")], primary, fault)
+		assert_eq(files.data[_path("previous.json")], previous, fault)
+		assert_true((await store.commit_sliced(ticket, _yield_frame)).ok, "retry: " + fault)
+		assert_eq(store.load_latest(MANIFEST).record.payload, _payload("failed"), fault)
+
+func _yield_frame() -> void:
+	await get_tree().process_frame
+
 func before_each() -> void:
 	files = MemoryFiles.new()
 	store = CheckpointStore.new(DIRECTORY, files)
