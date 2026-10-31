@@ -52,9 +52,12 @@ func sync() -> Dictionary:
 	if _syncing: return _failed("web_storage_busy")
 	if not _dirty: return {"ok": true, "reason": ""}
 	_syncing = true
+	var started: int = Time.get_ticks_usec()
 	var encoded: Dictionary = {}
 	for name: String in _files: encoded[name] = _encode_bytes(_files[name])
-	var result: Dictionary = await _persistence.save(JSON.stringify({"schema": SCHEMA, "files": encoded}))
+	var payload: String = JSON.stringify({"schema": SCHEMA, "files": encoded})
+	var encode_usec: int = Time.get_ticks_usec() - started
+	var result: Dictionary = await _persistence.save(payload)
 	_syncing = false
 	if not result.ok:
 		_files = _durable.duplicate(true)
@@ -64,7 +67,7 @@ func sync() -> Dictionary:
 	_durable = _files.duplicate(true)
 	_dirty = false
 	error = ""
-	return {"ok": true, "reason": ""}
+	return {"ok": true, "reason": "", "timing": {"filemap_encode_usec": encode_usec}}
 
 func exists(path: String) -> bool:
 	var name: String = _name(path)

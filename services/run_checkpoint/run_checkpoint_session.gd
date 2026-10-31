@@ -45,7 +45,7 @@ func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Diction
 	await replay_yield.call()
 	var committed: Dictionary = _commit_save(prepared.package, verified)
 	committed["timing"] = verified.get("timing", {})
-	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec}
+	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec, "store": committed.get("store_timing", {})}
 	return committed
 
 func _prepare_save(encoded: Dictionary) -> Dictionary:
@@ -81,13 +81,18 @@ func _roundtrip_package(package: Dictionary) -> Dictionary:
 	return roundtrip
 
 func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
 	var opened: Dictionary = _store.begin_run(package.run_id)
 	if not opened.ok: return opened
+	var begin_usec: int = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
 	var ticket: int = _store.stage(package, _manifest)
 	if ticket == 0: return RunCheckpointCodec.failure("stage_rejected")
+	var stage_usec: int = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
 	var committed: Dictionary = _store.commit(ticket)
 	if not committed.ok: return committed
-	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec}
+	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"begin_usec": begin_usec, "stage_usec": stage_usec, "commit_usec": Time.get_ticks_usec() - started}}
 
 ## Invalidation and structural fallback are checked by Store before any reconstruction.
 ## The caller receives a fully separate candidate, never a partial replacement.

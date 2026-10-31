@@ -52,8 +52,16 @@ func _run_web(operation: Callable, store: CheckpointStore) -> void:
 	await tree.process_frame
 	if DisplayServer.get_name() != "headless": await RenderingServer.frame_post_draw
 	_web_result = await operation.call()
+	await _yield_web()
+	var sync_started: int = Time.get_ticks_usec()
 	var committed: Dictionary = await store.sync()
-	if not committed.ok: _web_result = RunCheckpointCodec.failure(committed.reason)
+	var package_timing: Dictionary = _web_result.get("package_timing", {})
+	package_timing["storage_sync_elapsed_usec"] = Time.get_ticks_usec() - sync_started
+	package_timing["storage_sync"] = committed.get("timing", {})
+	_web_result["package_timing"] = package_timing
+	if not committed.ok:
+		_web_result = RunCheckpointCodec.failure(committed.reason)
+		_web_result["package_timing"] = package_timing
 	_web_done = true
 
 func _yield_web() -> void:
