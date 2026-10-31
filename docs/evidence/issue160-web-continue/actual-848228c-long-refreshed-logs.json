@@ -1,0 +1,109 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:13:58.844Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:13:59.052Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:13:59.374Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:14:02.362Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:14:55.926Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:14:56.087Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:14:56.227Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:14:58.948Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":11435800,\"frames\":654,\"freeze_usec\":0,\"maximum_gap_usec\":185700,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":38500,\"initialization_usec\":62500,\"largest_payload_slice_usec\":6700,\"largest_replay_slice_usec\":43900,\"payload_validation_usec\":2916500,\"prefix_replay_usec\":6274900},\"history_prime_usec\":153500,\"package\":{\"float_decode_usec\":1706100,\"largest_float_decode_slice_usec\":4900,\"package_parse_usec\":97100,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T10:15:40.766Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":116100,\"elapsed_usec\":11435800,\"frames\":654,\"freeze_usec\":0,\"maximum_gap_usec\":185700,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":38500,\"initialization_usec\":62500,\"largest_payload_slice_usec\":6700,\"largest_replay_slice_usec\":43900,\"payload_validation_usec\":2916500,\"prefix_replay_usec\":6274900},\"history_prime_usec\":153500,\"package\":{\"float_decode_usec\":1706100,\"largest_float_decode_slice_usec\":4900,\"package_parse_usec\":97100,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T10:15:40.881Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":16759500,\"frames\":890,\"freeze_usec\":13800,\"maximum_gap_usec\":456400,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":41400,\"initialization_usec\":54700,\"largest_payload_slice_usec\":7700,\"largest_replay_slice_usec\":39900,\"payload_validation_usec\":2933200,\"prefix_replay_usec\":6675900},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":1802400,\"largest_float_encode_slice_usec\":5200,\"largest_package_serialize_slice_usec\":7000,\"package_serialize_usec\":1286200,\"package_size_check_usec\":65500},\"roundtrip\":{\"float_decode_elapsed_usec\":1729700,\"largest_float_decode_slice_usec\":4600,\"payload_parse_usec\":109500},\"save_encode_usec\":3184800,\"save_prepare_usec\":5029200,\"save_roundtrip_usec\":1844400,\"storage_sync\":{\"filemap_encode_elapsed_usec\":274400,\"filemap_encode_usec\":252800,\"largest_filemap_slice_usec\":142300},\"storage_sync_elapsed_usec\":631000,\"store\":{\"begin_usec\":194000,\"largest_store_slice_usec\":184600,\"stage_usec\":72400}}}}",
+    "timestamp": "2026-10-31T10:16:39.295Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "error",
+    "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "timestamp": "2026-10-31T10:16:56.771Z"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:16:57.057Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:16:57.196Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:16:57.313Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:16:59.922Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":11991900,\"frames\":684,\"freeze_usec\":0,\"maximum_gap_usec\":261400,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":46100,\"initialization_usec\":58500,\"largest_payload_slice_usec\":6700,\"largest_replay_slice_usec\":49100,\"payload_validation_usec\":2914900,\"prefix_replay_usec\":6842700},\"history_prime_usec\":218000,\"package\":{\"float_decode_usec\":1623000,\"largest_float_decode_slice_usec\":5200,\"package_parse_usec\":92000,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T10:17:29.017Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":150000,\"elapsed_usec\":11991900,\"frames\":684,\"freeze_usec\":0,\"maximum_gap_usec\":261400,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":46100,\"initialization_usec\":58500,\"largest_payload_slice_usec\":6700,\"largest_replay_slice_usec\":49100,\"payload_validation_usec\":2914900,\"prefix_replay_usec\":6842700},\"history_prime_usec\":218000,\"package\":{\"float_decode_usec\":1623000,\"largest_float_decode_slice_usec\":5200,\"package_parse_usec\":92000,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T10:17:29.169Z",
+    "url": "http://127.0.0.1:8918/candidate848/index.js"
+  }
+]

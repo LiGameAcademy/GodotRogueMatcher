@@ -339,7 +339,12 @@ func _verify_backup(primary: Dictionary) -> Dictionary:
 
 func _retire_transaction() -> Dictionary:
 	if _files.remove(_path("transaction.json")) != OK or _files.exists(_path("transaction.json")): return _failure("transaction_finish_failed")
-	return {"ok": true, "reason": "", "duplicate": false, "generation": str(_generation)}
+	# Once the journal is retired, these copies no longer participate in recovery.
+	# Cleanup failure is diagnostic: the verified primary/previous pair is already committed.
+	var cleanup_pending: PackedStringArray = []
+	for name: String in ["primary.rollback", "previous.rollback"]:
+		if _files.remove(_path(name)) != OK or _files.exists(_path(name)): cleanup_pending.append(name)
+	return {"ok": true, "reason": "", "duplicate": false, "generation": str(_generation), "cleanup_pending": cleanup_pending}
 
 func _start_transaction() -> Dictionary:
 	var record: Dictionary = {"format": TRANSACTION_FORMAT, "run_id": _active_run, "generation": str(_generation), "primary_hash": "", "previous_hash": ""}

@@ -139,7 +139,7 @@ func _commit_save_sliced(package: Dictionary, verified: Dictionary, frame_yield:
 	var stage_usec: int = Time.get_ticks_usec() - started
 	var committed: Dictionary = await _store.commit_sliced(ticket, frame_yield)
 	if not committed.ok: return committed
-	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"begin_usec": begin_usec, "stage_usec": stage_usec, "largest_store_slice_usec": committed.largest_store_slice_usec}}
+	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"cleanup_pending": committed.get("cleanup_pending", PackedStringArray()), "begin_usec": begin_usec, "stage_usec": stage_usec, "largest_store_slice_usec": committed.largest_store_slice_usec}}
 
 func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
@@ -153,7 +153,7 @@ func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
 	started = Time.get_ticks_usec()
 	var committed: Dictionary = _store.commit(ticket)
 	if not committed.ok: return committed
-	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"begin_usec": begin_usec, "stage_usec": stage_usec, "commit_usec": Time.get_ticks_usec() - started}}
+	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"cleanup_pending": committed.get("cleanup_pending", PackedStringArray()), "begin_usec": begin_usec, "stage_usec": stage_usec, "commit_usec": Time.get_ticks_usec() - started}}
 
 ## Invalidation and structural fallback are checked by Store before any reconstruction.
 ## The caller receives a fully separate candidate, never a partial replacement.

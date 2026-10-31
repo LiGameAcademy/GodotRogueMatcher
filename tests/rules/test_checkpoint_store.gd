@@ -459,6 +459,24 @@ func test_recovery_rejects_stale_primary_proof_and_other_run_previous() -> void:
 	files.data[_path("previous.json")] = JSON.stringify(previous, "", true)
 	assert_eq(store.previous_after_rejection(MANIFEST, primary).reason, "recovery_identity_or_generation_mismatch")
 
+func test_retired_rollback_copies_are_removed_only_after_commit_and_cleanup_failure_keeps_pair() -> void:
+	_seed_pair()
+	assert_false(files.exists(_path("transaction.json")))
+	assert_false(files.exists(_path("primary.rollback")))
+	assert_false(files.exists(_path("previous.rollback")))
+	var old_primary: String = files.data[_path("primary.json")]
+	files.failures["remove:primary.rollback"] = 1
+	var result: Dictionary = await store.commit_sliced(store.stage(_payload("cleanup"), MANIFEST), _yield_frame)
+	assert_true(result.ok)
+	assert_eq(result.cleanup_pending, PackedStringArray(["primary.rollback"]))
+	assert_eq(files.data[_path("previous.json")], old_primary)
+	assert_eq(store.load_latest(MANIFEST).record.payload, _payload("cleanup"))
+	assert_false(files.exists(_path("transaction.json")))
+	assert_true(files.exists(_path("primary.rollback")))
+	assert_false(files.exists(_path("previous.rollback")))
+	_save("next")
+	assert_false(files.exists(_path("primary.rollback")))
+
 func _seed_pair() -> void:
 	_save("one")
 	_save("two")
