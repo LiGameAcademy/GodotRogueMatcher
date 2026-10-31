@@ -31,19 +31,32 @@ func save_encoded(encoded: Dictionary) -> Dictionary:
 func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Dictionary:
 	if not replay_yield.is_valid(): return RunCheckpointCodec.failure("invalid_step_yield")
 	var started: int = Time.get_ticks_usec()
-	var prepared: Dictionary = _prepare_save(encoded)
+	var prepared: Dictionary = _prepare_package(encoded)
 	if not prepared.ok: return prepared
-	var prepare_usec: int = Time.get_ticks_usec() - started
+	var encode_usec: int = Time.get_ticks_usec() - started
 	await replay_yield.call()
-	var verified: Dictionary = await RunCheckpointCodec.decode_sliced(prepared.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
+	started = Time.get_ticks_usec()
+	var roundtrip: Dictionary = _roundtrip_package(prepared.package)
+	if not roundtrip.ok: return roundtrip
+	var roundtrip_usec: int = Time.get_ticks_usec() - started
+	await replay_yield.call()
+	var verified: Dictionary = await RunCheckpointCodec.decode_sliced(roundtrip.data, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
 	if not verified.ok: return verified
 	await replay_yield.call()
 	var committed: Dictionary = _commit_save(prepared.package, verified)
 	committed["timing"] = verified.get("timing", {})
-	committed["package_timing"] = {"save_prepare_usec": prepare_usec}
+	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec}
 	return committed
 
 func _prepare_save(encoded: Dictionary) -> Dictionary:
+	var prepared: Dictionary = _prepare_package(encoded)
+	if not prepared.ok: return prepared
+	var roundtrip: Dictionary = _roundtrip_package(prepared.package)
+	if not roundtrip.ok: return roundtrip
+	return {"ok": true, "reason": "", "package": prepared.package, "payload": roundtrip.data}
+
+## Both entry points use identical bytes and validation; Web yields before readback verification.
+func _prepare_package(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
 	var transported: Dictionary = FLOAT_TRANSPORT.encode(encoded.payload)
@@ -56,13 +69,16 @@ func _prepare_save(encoded: Dictionary) -> Dictionary:
 	}
 	if JSON.stringify(package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
 		return RunCheckpointCodec.failure("package_size_limit")
+	return {"ok": true, "reason": "", "package": package}
+
+func _roundtrip_package(package: Dictionary) -> Dictionary:
 	# Verify the actual encoded text through parsing and independent reconstruction before IO.
 	var parser: JSON = JSON.new()
 	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
 	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
 	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
-	return {"ok": true, "reason": "", "package": package, "payload": roundtrip.data}
+	return roundtrip
 
 func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
 	var opened: Dictionary = _store.begin_run(package.run_id)
