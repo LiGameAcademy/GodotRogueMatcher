@@ -235,7 +235,7 @@ func _saved_idle() -> bool:
 func _wait(predicate: Callable) -> bool:
 	var deadline: int = Time.get_ticks_msec() + 15000
 	while not _finished and not bool(predicate.call()) and Time.get_ticks_msec() < deadline: await get_tree().process_frame
-	return bool(predicate.call())
+	return not _finished and bool(predicate.call())
 
 func _finish(ok: bool, reason: String) -> void:
 	if _finished: return
