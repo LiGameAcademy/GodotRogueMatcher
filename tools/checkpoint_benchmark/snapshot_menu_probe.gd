@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 func _run() -> void:
 	var origin: String = str(JavaScriptBridge.eval("window.location.origin", true)) if OS.has_feature("web") else ""
 	var mode: StringName = &"stage_challenge" if origin == "http://127.0.0.1:8991" else &"classic_endless"
-	if origin not in ["http://127.0.0.1:8990", "http://127.0.0.1:8991"] or OS.get_cmdline_user_args() != PackedStringArray(["--snapshot-menu-probe"]):
+	if origin not in ["http://127.0.0.1:8992", "http://127.0.0.1:8991"] or OS.get_cmdline_user_args() != PackedStringArray(["--snapshot-menu-probe"]):
 		_finish(false, "probe_origin_or_args_rejected")
 		return
 	var files: FILES = FILES.new("user://snapshot-menu-probe")
@@ -109,7 +109,8 @@ func _resume(reference: Dictionary, menu: ReleaseMenu) -> void:
 	_details["parent_known"] = _board.observation.telemetry.events[0].resume.lineage_known
 	_details["resumed_header"] = first.recorder.records[0].kind
 	var old_popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
-	var callbacks: Array[Dictionary] = old_popup.skill_selected.get_connections()
+	var callbacks: Array[Dictionary] = []
+	callbacks.assign(old_popup.skill_selected.get_connections())
 	var old_offer: SkillOffer = first.state.rewards.active_offer
 	var old_generation: int = _board.get("_generation")
 	if not await _flow.continue_saved():
@@ -126,7 +127,8 @@ func _resume(reference: Dictionary, menu: ReleaseMenu) -> void:
 	_details["old_callbacks_ignored"] = first.is_retired() and STATE.project(_board.run) == before
 	var consumed: int = _board.run.state.rewards.consumed_count
 	var current: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
-	var current_callbacks: Array[Dictionary] = current.skill_selected.get_connections()
+	var current_callbacks: Array[Dictionary] = []
+	current_callbacks.assign(current.skill_selected.get_connections())
 	var command: ChooseSkillCommand = _bot.choose(_board.run) as ChooseSkillCommand
 	if command == null:
 		_finish(false, "missing_choice_command")

@@ -132,6 +132,10 @@ func test_snapshot_segment_is_not_opening_header_and_replays_only_new_tail() -> 
 	assert_true(checked.ok, checked.reason)
 	if checked.ok:
 		assert_false(checked.whole_run_replay)
+		var persisted: Array[Dictionary] = []
+		for row: Dictionary in run.recorder.records: persisted.append(JSON.parse_string(JSON.stringify(row, "", true, true)))
+		var roundtrip: Dictionary = SEGMENT.replay(persisted, SNAPSHOT.manifest(run))
+		assert_true(roundtrip.ok, "actual JSONL representation: " + roundtrip.reason)
 		assert_eq(RESTORE.project(run), RESTORE.project(checked.run))
 	for invalid: Variant in [null, [], "bad"]:
 		var malformed: Array[Dictionary] = run.recorder.records.duplicate(true)
