@@ -41,3 +41,10 @@ func get_entries() -> Array[ScoreEntry]:
 
 func next_event_id() -> int:
 	return _next_event_id
+
+## Cold continuation retains aggregate score and identity, without replay/display history.
+func restore_checkpoint(total_score: int, next_id: int) -> bool:
+	if not _entries.is_empty() or _total != 0 or total_score < 0 or next_id < 1: return false
+	_total = total_score
+	_next_event_id = next_id
+	return true

@@ -150,7 +150,7 @@ static func safety_error(run: RunController) -> String:
 			if not _target_valid(offer.targets[skill.skill_id], {}, 0): return "invalid_frozen_target"
 	else:
 		return "unsafe_phase"
-	var state: Dictionary = RunSnapshot.capture(run)
+	var state: Dictionary = RunSnapshot.capture(run, false)
 	for instance: Dictionary in state.instances:
 		if instance.pending_event_id != "0": return "pending_ability"
 	return ""

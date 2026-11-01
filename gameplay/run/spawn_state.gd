@@ -55,6 +55,14 @@ func plan_data() -> Array[Dictionary]:
 	for token: SpawnToken in _plan: result.append(token.data())
 	return result
 
+## Cold restore accepts already validated tokens without drawing or extending a preview.
+func restore_checkpoint_plan(tokens: Array[SpawnToken]) -> bool:
+	if not _plan.is_empty(): return false
+	for token: SpawnToken in tokens:
+		if token == null: return false
+	for token: SpawnToken in tokens: _plan.append(token.copy())
+	return true
+
 func next_refill_count(config: SpawnConfig, base_count: int = -1) -> int:
 	var base: int = config.refill_count if base_count < 0 else base_count
 	return clampi(base + (1 if refill_batches[1] > 0 else 0) - (1 if refill_batches[-1] > 0 else 0), config.minimum_refill, config.maximum_refill)
