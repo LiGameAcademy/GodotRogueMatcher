@@ -1,0 +1,73 @@
+{
+  "manifest_error": "",
+  "validated_files": 22,
+  "segments": [
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-6febd39f13bbcc51318595b7.jsonl",
+      "rows": 343,
+      "first_event": "run_resumed",
+      "first_resume": {
+        "anchor_state_hash": "d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:12:d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "lineage_known": true,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "2875b30600586f32b04aed5373494dd1e75bccc637e0d6b84d5ee31e83d32f8e",
+        "parent_last_event_id": "191055749-0-1793350950588000-3405400:s-d8efc6ca1bb57d441a2bfe76:52",
+        "parent_persisted_seq": "45",
+        "parent_segment_id": "s-d8efc6ca1bb57d441a2bfe76",
+        "parent_telemetry_seq": "52",
+        "record_seq": "104",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "events": [
+        "action_resolved",
+        "command_resolved",
+        "input_resolved",
+        "observation_checkpoint",
+        "observation_interval_closed",
+        "rule_fact",
+        "run_resumed",
+        "ui_observed"
+      ],
+      "last_action_id": "12",
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-d8efc6ca1bb57d441a2bfe76.jsonl",
+      "rows": 172,
+      "first_event": "run_resumed",
+      "first_resume": {
+        "anchor_state_hash": "f253b3deefa8b8217e4203319c1b1578ea32290e03f855660cfc719502a15d54",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:11:f253b3deefa8b8217e4203319c1b1578ea32290e03f855660cfc719502a15d54",
+        "lineage_known": false,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "98",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "events": [
+        "command_resolved",
+        "input_resolved",
+        "observation_checkpoint",
+        "observation_interval_closed",
+        "offer_presented",
+        "run_resumed",
+        "skill_acquired",
+        "ui_observed"
+      ],
+      "last_action_id": "11",
+      "run_started_count": 0
+    }
+  ],
+  "event_ids_unique": true,
+  "rule_lengths": {
+    "run_records/191055749-0-1793350950588000-3405400--s-6febd39f13bbcc51318595b7.jsonl": 113,
+    "run_records/191055749-0-1793350950588000-3405400--s-d8efc6ca1bb57d441a2bfe76.jsonl": 104
+  }
+}

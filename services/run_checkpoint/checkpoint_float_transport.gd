@@ -16,6 +16,40 @@ static func decode(value: Dictionary) -> Dictionary:
 		status.merge({"ok": false, "reason": "invalid_transport_root"}, true)
 	return {"ok": status.ok, "reason": status.reason, "data": data}
 
+## The owner freezes this checkpoint graph. Partial conversion never leaves this operation.
+static func encode_checkpoint_sliced(value: Dictionary, frame_yield: Callable) -> Dictionary:
+	return await _checkpoint_sliced(value, false, frame_yield)
+
+static func decode_checkpoint_sliced(value: Dictionary, frame_yield: Callable) -> Dictionary:
+	return await _checkpoint_sliced(value, true, frame_yield)
+
+static func _checkpoint_sliced(value: Dictionary, reading: bool, frame_yield: Callable) -> Dictionary:
+	if not frame_yield.is_valid(): return {"ok": false, "reason": "invalid_step_yield", "data": null}
+	if value.has(TAG) or not value.get("records") is Array:
+		return decode(value) if reading else encode(value)
+	var body: Dictionary = value.duplicate()
+	body.erase("records")
+	var status: Dictionary = {"ok": true, "reason": ""}
+	var started: int = Time.get_ticks_usec()
+	var data: Variant = _convert(body, reading, status, 0)
+	if not status.ok: return {"ok": false, "reason": status.reason, "data": null}
+	var largest: int = Time.get_ticks_usec() - started
+	var records: Array = []
+	started = Time.get_ticks_usec()
+	var count: int = 0
+	for row: Variant in value.records:
+		# Original graph depths: root 0, records array 1, record 2.
+		records.append(_convert(row, reading, status, 2))
+		if not status.ok: return {"ok": false, "reason": status.reason, "data": null}
+		count += 1
+		if count >= 64 or Time.get_ticks_usec() - started >= 2000:
+			largest = maxi(largest, Time.get_ticks_usec() - started)
+			await frame_yield.call()
+			started = Time.get_ticks_usec()
+			count = 0
+	data["records"] = records
+	return {"ok": true, "reason": "", "data": data, "largest_slice_usec": maxi(largest, Time.get_ticks_usec() - started)}
+
 static func _convert(value: Variant, reading: bool, status: Dictionary, depth: int) -> Variant:
 	if not status.ok: return null
 	if depth > 128:

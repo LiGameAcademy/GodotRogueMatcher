@@ -5,6 +5,10 @@ extends RefCounted
 ## The store owns validation, generations and replacement order; no plugin or game state.
 const MAX_BYTES: int = 16 * 1024 * 1024
 
+## Native writes are already synchronous; browser adapters await their durable transaction.
+func sync() -> Dictionary:
+	return {"ok": true, "reason": ""}
+
 func exists(path: String) -> bool:
 	return FileAccess.file_exists(path)
 

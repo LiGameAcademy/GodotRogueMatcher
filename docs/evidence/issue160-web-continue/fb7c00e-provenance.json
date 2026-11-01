@@ -1,0 +1,8 @@
+{
+  "runtime_commit": "fb7c00e",
+  "candidate_zip_sha256": "3b4642497284c9ee5c55a2e4309b2dbb25b408631fac50476b530943f115efe9",
+  "input_fixture": "actual-2396dac-product-long-raw-slot.json",
+  "raw_slot_sha256": "fc569abf9db5cfdac25283ae601abb2c8e02464b63e839fd78fdb9a487ff604b",
+  "same_command_state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+  "scope": "strict local product: retained476 -> same walnut move ->485 ->full page refresh; rollback retirement; no O1 batch; no deploy"
+}

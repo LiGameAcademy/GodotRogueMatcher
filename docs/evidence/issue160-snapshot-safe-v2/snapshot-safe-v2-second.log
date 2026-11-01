@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_run_state_snapshot.gd
+[0m* test_snapshot_save_does_not_even_read_scoring_history
+* test_transport_rejects_a_scalar_float_tag_instead_of_a_snapshot_object
+* test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+* test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+* test_long_normal_input_snapshot_has_no_prefix_cost_and_continues_identical_commands
+SNAPSHOT_INPUT_REPORT {"load_usec":52148,"moves":45,"platform":"Windows","save_usec":73199,"scope":"native kernel/file roundtrip, not product UI or Web acceptance","snapshot_bytes":6883,"source_records_not_saved":425,"state_hash":"b4247ef52f11f8f814d3e9ea6ed5d6058171d64e8557627e5598e46adfe983af"}
+* test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+* test_unsupported_phase_and_legacy_slot_are_preserved
+[31m    [Failed]:  [0m["snapshot_unsafe_phase"] expected to equal ["snapshot_input_classic_only"]:  
+      at line 230
+* test_snapshot_payload_fallback_keeps_valid_previous_and_preserves_bad_original
+* test_failed_snapshot_write_keeps_pair_and_invalidation_still_blocks_load
+[1m8/9 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_run_state_snapshot.gd
+[0m- test_unsupported_phase_and_legacy_slot_are_preserved
+[31m    [Failed]:  [0m["snapshot_unsafe_phase"] expected to equal ["snapshot_input_classic_only"]:  
+          at line 230
+
+Totals
+------
+Scripts               1
+Tests                 9
+Passing Tests         8
+Failing Tests         1
+Asserts           307/308
+Time              7.044s
+
+
+[31m---- 1 failing tests ----
+[0m

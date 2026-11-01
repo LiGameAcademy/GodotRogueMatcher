@@ -1,0 +1,10 @@
+{
+  "runtime_commit": "bb32ba6",
+  "strict_zip_sha256": "b422672a8bbf1866ab03ae4d1e67e96c9a8fd913f13798693b3e3ff49b131852",
+  "same_slot_primary": "f6876b21b222bc76741fdf6d05ff3a4c6e36e69d89e4698181acb3354cdcf8cf",
+  "same_slot_previous": "ffc40724aec313f1e66847662ddebb607f9f709efa435a9521586224b6b93568",
+  "wasm_same_as_strict": true,
+  "diagnostic_pck_is_product": false,
+  "config_restored": true,
+  "profile_scope": "three readonly actual IndexedDB opens, fingerprinting outside elapsed/maxgap; dedicated 127.0.0.1:8918; fixed args; no sync/write"
+}

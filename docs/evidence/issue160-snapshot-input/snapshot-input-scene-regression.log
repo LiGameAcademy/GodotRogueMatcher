@@ -1,0 +1,89 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_run_state_snapshot.gd
+[0m* test_snapshot_save_does_not_even_read_scoring_history
+* test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+* test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+* test_long_normal_input_snapshot_has_no_prefix_cost_and_continues_identical_commands
+SNAPSHOT_INPUT_REPORT {"load_usec":51734,"moves":45,"platform":"Windows","save_usec":76862,"scope":"native kernel/file roundtrip, not product UI or Web acceptance","snapshot_bytes":6867,"source_records_not_saved":425,"state_hash":"b4247ef52f11f8f814d3e9ea6ed5d6058171d64e8557627e5598e46adfe983af"}
+* test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+* test_unsupported_phase_and_legacy_slot_are_preserved
+* test_snapshot_payload_fallback_keeps_valid_previous_and_preserves_bad_original
+* test_failed_snapshot_write_keeps_pair_and_invalidation_still_blocks_load
+[1m8/8 passed.
+[0m[4m
+
+res://tests/integration/test_desktop_checkpoint_flow.gd
+[0m* test_real_continue_button_binds_input_state_and_rebuilds_without_rule_commits
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":124459,"frames":20,"freeze_usec":0,"maximum_gap_usec":6997,"ok":true,"stages":{"decode":{"endpoint_validation_usec":22749,"payload_validation_usec":6126,"prefix_replay_usec":56728},"history_prime_usec":23854,"package":{"float_decode_usec":3305,"package_parse_usec":2642}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":16704,"elapsed_usec":124459,"frames":20,"freeze_usec":0,"maximum_gap_usec":6997,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":22749,"payload_validation_usec":6126,"prefix_replay_usec":56728},"history_prime_usec":23854,"package":{"float_decode_usec":3305,"package_parse_usec":2642}}}
+* test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_choose_twice
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":531583,"frames":79,"freeze_usec":0,"maximum_gap_usec":9233,"ok":true,"stages":{"decode":{"endpoint_validation_usec":40896,"payload_validation_usec":68975,"prefix_replay_usec":284778},"history_prime_usec":45600,"package":{"float_decode_usec":34490,"package_parse_usec":25571}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":49674,"elapsed_usec":531583,"frames":79,"freeze_usec":0,"maximum_gap_usec":9233,"ok":true,"resume_prepare_usec":2,"stages":{"decode":{"endpoint_validation_usec":40896,"payload_validation_usec":68975,"prefix_replay_usec":284778},"history_prime_usec":45600,"package":{"float_decode_usec":34490,"package_parse_usec":25571}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":478875,"frames":71,"freeze_usec":0,"maximum_gap_usec":7617,"ok":true,"stages":{"decode":{"endpoint_validation_usec":35235,"payload_validation_usec":66833,"prefix_replay_usec":236667},"history_prime_usec":39248,"package":{"float_decode_usec":43486,"package_parse_usec":29600}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":133309,"elapsed_usec":478875,"frames":71,"freeze_usec":0,"maximum_gap_usec":7617,"ok":true,"resume_prepare_usec":1,"stages":{"decode":{"endpoint_validation_usec":35235,"payload_validation_usec":66833,"prefix_replay_usec":236667},"history_prime_usec":39248,"package":{"float_decode_usec":43486,"package_parse_usec":29600}}}
+* test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":162237,"frames":20,"freeze_usec":28693,"maximum_gap_usec":38007,"ok":true,"stages":{"decode":{"endpoint_validation_usec":24535,"payload_validation_usec":5771,"prefix_replay_usec":56527},"history_prime_usec":25177,"package":{"float_decode_usec":3201,"package_parse_usec":2725}}}
+* test_exit_save_can_be_cancelled_without_releasing_worker_ownership
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":117517,"frames":19,"freeze_usec":0,"maximum_gap_usec":6955,"ok":true,"stages":{"decode":{"endpoint_validation_usec":23097,"payload_validation_usec":5428,"prefix_replay_usec":53877},"history_prime_usec":23600,"package":{"float_decode_usec":3909,"package_parse_usec":3243}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":17055,"elapsed_usec":117517,"frames":19,"freeze_usec":0,"maximum_gap_usec":6955,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{"endpoint_validation_usec":23097,"payload_validation_usec":5428,"prefix_replay_usec":53877},"history_prime_usec":23600,"package":{"float_decode_usec":3909,"package_parse_usec":3243}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":453607,"frames":67,"freeze_usec":1288,"maximum_gap_usec":6960,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_exit_failure_keeps_old_file_and_retry_reaches_the_exit_signal
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":131329,"frames":21,"freeze_usec":0,"maximum_gap_usec":8422,"ok":true,"stages":{"decode":{"endpoint_validation_usec":25999,"payload_validation_usec":5421,"prefix_replay_usec":61397},"history_prime_usec":25872,"package":{"float_decode_usec":3040,"package_parse_usec":2852}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":16428,"elapsed_usec":131329,"frames":21,"freeze_usec":0,"maximum_gap_usec":8422,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{"endpoint_validation_usec":25999,"payload_validation_usec":5421,"prefix_replay_usec":61397},"history_prime_usec":25872,"package":{"float_decode_usec":3040,"package_parse_usec":2852}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":122259,"frames":19,"freeze_usec":1559,"maximum_gap_usec":7017,"ok":false,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":164204,"frames":24,"freeze_usec":1278,"maximum_gap_usec":7122,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_new_run_requires_confirmation_and_old_identity_is_invalid_before_new_save
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":164959,"frames":16,"freeze_usec":24687,"maximum_gap_usec":68622,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_pending_challenge_victory_can_continue_and_save_same_run
+* test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":117651,"frames":19,"freeze_usec":0,"maximum_gap_usec":7016,"ok":true,"stages":{"decode":{"endpoint_validation_usec":21863,"payload_validation_usec":5496,"prefix_replay_usec":53929},"history_prime_usec":24011,"package":{"float_decode_usec":3127,"package_parse_usec":2489}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":16027,"elapsed_usec":117651,"frames":19,"freeze_usec":0,"maximum_gap_usec":7016,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{"endpoint_validation_usec":21863,"payload_validation_usec":5496,"prefix_replay_usec":53929},"history_prime_usec":24011,"package":{"float_decode_usec":3127,"package_parse_usec":2489}}}
+* test_real_full_board_terminal_failure_is_visible_and_retry_finishes_durable_invalidation
+* test_new_run_can_finish_persisted_pending_invalidation_after_restart
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":160968,"frames":15,"freeze_usec":25904,"maximum_gap_usec":71461,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":138294,"frames":22,"freeze_usec":0,"maximum_gap_usec":6925,"ok":true,"stages":{"decode":{"endpoint_validation_usec":23527,"payload_validation_usec":5738,"prefix_replay_usec":53421},"history_prime_usec":24718,"package":{"float_decode_usec":2874,"package_parse_usec":2523}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":17564,"elapsed_usec":138294,"frames":22,"freeze_usec":0,"maximum_gap_usec":6925,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{"endpoint_validation_usec":23527,"payload_validation_usec":5738,"prefix_replay_usec":53421},"history_prime_usec":24718,"package":{"float_decode_usec":2874,"package_parse_usec":2523}}}
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_checkpoint_web_ownership.gd
+[0m* test_cancelled_terminal_exit_cannot_start_or_load_until_invalidation_acknowledged
+[1m1/1 passed.
+[0m[4m
+
+res://tests/integration/test_resume_collection_flow.gd
+[0m* test_actual_menu_resume_has_one_logical_run_no_provisional_start_and_ready_input_observation
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":131394,"frames":21,"freeze_usec":0,"maximum_gap_usec":6985,"ok":true,"stages":{"decode":{"endpoint_validation_usec":23670,"payload_validation_usec":5764,"prefix_replay_usec":57085},"history_prime_usec":23653,"package":{"float_decode_usec":3356,"package_parse_usec":2549}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":33868,"elapsed_usec":131394,"frames":21,"freeze_usec":0,"maximum_gap_usec":6985,"ok":true,"resume_prepare_usec":5370,"stages":{"decode":{"endpoint_validation_usec":23670,"payload_validation_usec":5764,"prefix_replay_usec":57085},"history_prime_usec":23653,"package":{"float_decode_usec":3356,"package_parse_usec":2549}}}
+CHECKPOINT_TEST_DEFERRED_FREE {"queued_roots":86,"remaining_after_two_frames":0}
+[1m1/1 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               4
+Tests                21
+Passing Tests        21
+Asserts             479
+Time              46.416s
+
+
+[32m---- All tests passed! ----
+[0m

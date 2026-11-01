@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>O5 snapshot actual menu candidate</title>
+<style>body{background:#202327;color:#eee;font:15px system-ui;margin:20px}canvas{width:960px!important;height:540px!important;position:static!important}pre{white-space:pre-wrap}button{padding:8px 16px;margin-right:10px}</style>
+<h1>O5 候选快照 · 实际Game菜单跨页核对</h1><p>仅本地8994阶段模式。真实IndexedDB事务中止与提交确认丢弃；保存拒写、失效失败、取消与刷新保留旧确认点。助手测试，非真人验收。</p>
+<button id="run">运行当前页面阶段</button><button id="reload">刷新进入下一阶段</button><p id="status">尚未启动</p><canvas id="canvas"></canvas><pre id="errors"></pre><pre id="report"></pre>
+<script src="./index.js"></script><script>
+"use strict";const config={"args":["--","--snapshot-menu-probe"],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":25277444,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};const engine=new Engine(config);
+const status=document.getElementById("status"),errors=document.getElementById("errors"),report=document.getElementById("report");
+document.getElementById("reload").onclick=()=>location.reload();
+document.getElementById("run").onclick=async()=>{document.getElementById("run").disabled=true;status.textContent="运行中；Game场景保持打开，完成以报告为准";
+try{await engine.startGame({onPrint(...values){const line=values.join(" ");console.log(line);if(line.startsWith("SNAPSHOT_MENU_REPORT ")){const raw=line.slice("SNAPSHOT_MENU_REPORT ".length);try{report.textContent=JSON.stringify(JSON.parse(raw),null,2);status.textContent="已取得本阶段原始报告；Game仍打开，结果见ok/reason";}catch(error){report.textContent=raw;errors.textContent+="报告解析失败："+String(error)+"\n";}}},onPrintError(...values){const line=values.join(" ");console.error(line);errors.textContent+=line+"\n";},onExit(code){status.textContent+="；引擎退出="+code;}});}catch(error){errors.textContent+=String(error);status.textContent="启动失败";}};
+</script>

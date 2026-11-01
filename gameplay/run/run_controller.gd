@@ -61,6 +61,13 @@ func can_continue_challenge() -> bool:
 func direct_match() -> bool:
 	return _direct_match
 
+## Cold state restore rejects old command IDs rather than resurrecting cached UI results.
+func restore_checkpoint_command(last_id: int, was_direct_match: bool) -> bool:
+	if state.phase != RunState.Phase.INITIALIZING or last_command_id != 0 or last_id < 0: return false
+	last_command_id = last_id
+	_direct_match = was_direct_match
+	return true
+
 ## Records a driver failure as a rule diagnostic without inventing a board loss.
 func report_error(reason: String) -> void:
 	state.rule_error = reason

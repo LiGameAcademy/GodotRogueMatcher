@@ -1,0 +1,8 @@
+127.0.0.1 - - [01/Nov/2026 13:28:30] "GET /final/stage.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 13:28:30] "GET /final/index.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 13:28:30] code 404, message File not found
+127.0.0.1 - - [01/Nov/2026 13:28:30] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [01/Nov/2026 13:28:33] "GET /final/index.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 13:28:33] "GET /final/index.pck HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 13:28:36] "GET /final/index.audio.worklet.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Nov/2026 13:28:36] "GET /final/index.audio.position.worklet.js HTTP/1.1" 200 -

@@ -1,0 +1,36 @@
+{
+  "details": {
+    "confirmed_hash": "2453f43632436e6c0038b8e269d166fb259677957abe9cc97b3d5d2e12fccca0",
+    "confirmed_point_restored": true,
+    "mode": "stage_challenge",
+    "origin": "http://127.0.0.1:8994",
+    "phase": "refresh_after_withheld_parent_ack",
+    "real_transaction_abort": true,
+    "restore_window": {
+      "elapsed_usec": 500100,
+      "job": {
+        "adoption_usec": 293400,
+        "elapsed_usec": 68100,
+        "frames": 3,
+        "freeze_usec": 0,
+        "maximum_gap_usec": 60100,
+        "ok": true,
+        "resume_prepare_usec": 0,
+        "stages": {
+          "decode": {},
+          "history_prime_usec": 0,
+          "package": {
+            "storage_sync": {},
+            "storage_sync_elapsed_usec": 0
+          }
+        }
+      },
+      "maximum_process_frame_gap_usec": 316100,
+      "static_memory_before_bytes": 0,
+      "static_memory_peak_bytes": 0
+    }
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

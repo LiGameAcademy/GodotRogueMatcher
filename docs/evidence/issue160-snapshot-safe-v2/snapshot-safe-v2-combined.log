@@ -1,0 +1,104 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_snapshot_safe_points.gd
+[0m* test_classic_frozen_group_rng_targets_and_same_next_commands
+* test_stage_reward_preserves_original_refill_and_starts_next_once
+* test_stage_input_and_following_eight_commands_preserve_stage_attribution
+* test_rehashed_bad_offer_and_stage_fields_reject_without_rng_or_source_changes
+* test_snapshot_segment_is_not_opening_header_and_replays_only_new_tail
+* test_frozen_continuation_vectors_and_partial_groups_keep_identity_and_once_only_choice
+* test_stage_unsettled_score_materialization_counts_current_root_only
+* test_frozen_target_nested_types_and_effect_tree_mismatch_are_rejected
+* test_completed_stage_continue_reward_restores_continuing_flag_and_next_stage_once
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_snapshot_segments.gd
+[0m* test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix
+* test_missing_or_mismatched_parent_never_claims_known_or_blocks_valid_snapshot
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_run_state_snapshot.gd
+[0m* test_snapshot_save_does_not_even_read_scoring_history
+* test_transport_rejects_a_scalar_float_tag_instead_of_a_snapshot_object
+* test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+* test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+* test_long_normal_input_snapshot_has_no_prefix_cost_and_continues_identical_commands
+SNAPSHOT_INPUT_REPORT {"load_usec":48577,"moves":45,"platform":"Windows","save_usec":76131,"scope":"native kernel/file roundtrip, not product UI or Web acceptance","snapshot_bytes":6884,"source_records_not_saved":425,"state_hash":"b4247ef52f11f8f814d3e9ea6ed5d6058171d64e8557627e5598e46adfe983af"}
+* test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+* test_unsupported_phase_and_legacy_slot_are_preserved
+* test_snapshot_payload_fallback_keeps_valid_previous_and_preserves_bad_original
+* test_failed_snapshot_write_keeps_pair_and_invalidation_still_blocks_load
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:141)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:36)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_stage_challenge.gd
+[0m* test_score_shortfall_does_not_end_at_old_tenth_action
+* test_last_action_passes_only_after_tail_and_grants_one_reward
+* test_one_point_short_keeps_playing_and_does_not_grant_reward
+* test_final_stage_completes_without_card_and_total_is_not_debited
+* test_board_full_wins_over_carry_and_actual_refill_finishes_first
+* test_carry_cannot_auto_pass_next_stage_and_rewards_do_not_use_actions
+* test_instant_choice_scores_next_goal_without_consuming_action_or_auto_pass
+* test_invalid_and_duplicate_commands_preserve_stage_and_random
+* test_active_core_counts_one_action_even_with_zero_score
+* test_invalid_config_refuses_before_births_and_state_is_owned
+* test_exact_replay_and_terminal_classification_for_challenge
+* test_bot_challenge_ends_only_at_real_board_full_and_exact_replay
+* test_classic_mode_still_grants_score_rewards_without_stage_budget
+* test_bot_prepares_stage_reward_before_requesting_a_skill_command
+* test_choice_excess_counts_but_waits_for_new_action
+[1m15/15 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               5
+Tests                47
+Passing Tests        47
+Asserts            1830
+Time              26.789s
+
+
+[32m---- All tests passed! ----
+[0m

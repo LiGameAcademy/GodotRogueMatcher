@@ -43,6 +43,9 @@ func flush() -> void:
 	if _file.get_error() != OK: error = "session_flush_failed"
 	else: _pending.clear()
 
+func pending_persistence() -> bool:
+	return not _pending.is_empty()
+
 func close(reason: String) -> void:
 	if _closed: return
 	append("session_closed", {"reason": reason})

@@ -1,0 +1,108 @@
+{
+  "row_hash": "999e4d2c06e9fc40d0591d1c729943fe3c5ec23da3489db31095df57bb8a9c26",
+  "revision": 4,
+  "payload_hash": "fd61fe46a7cb5f0c5ecb29c7f7d51ffc0285cb60603ff17e6954a83f9e778e5b",
+  "schema": "checkpoint-web-files-v1",
+  "files": [
+    "invalid-f2a97e46dd0d4ea13f028738fb0db3e2164868a930bb224478811a6064e67a43.json",
+    "previous.json",
+    "previous.rollback",
+    "primary.json",
+    "primary.rollback"
+  ],
+  "sealed_ok": true,
+  "generation": "3",
+  "package_schema": "run-checkpoint-package-v3",
+  "run_id": "546405690-0-1793432192257000-738594700",
+  "point": "input",
+  "record_seq": "2",
+  "state_hash": "58db84cd5fc467fdf513eb2f9818df2a67fb92a33415b6ab80c93ade873eb4c1",
+  "phase": "1",
+  "action": "0",
+  "moves": "0",
+  "continuation": "idle",
+  "pending": "0",
+  "consumed": "0",
+  "rng": {
+    "master_seed": "546405690",
+    "rng_scheme_version": "sl-rng-v1",
+    "streams": {
+      "effect_execution": {
+        "seed": "6664439462060018762",
+        "state": "-3953996203692197740"
+      },
+      "offer_candidates": {
+        "seed": "7443574711488638297",
+        "state": "-1628830773835089609"
+      },
+      "offer_order": {
+        "seed": "3652560478526035132",
+        "state": "972850238473699998"
+      },
+      "offer_targets": {
+        "seed": "4057856315764554259",
+        "state": "7381668956435741673"
+      },
+      "spawn_content": {
+        "seed": "8929162229923455681",
+        "state": "3705526852681648519"
+      },
+      "spawn_position": {
+        "seed": "5859266056707488183",
+        "state": "1575803879264213196"
+      }
+    }
+  },
+  "pieces": [
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "8"
+      ],
+      "ghost": false,
+      "id": "1"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "6"
+      ],
+      "ghost": false,
+      "id": "2"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "2"
+      ],
+      "ghost": false,
+      "id": "3"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "3"
+      ],
+      "ghost": false,
+      "id": "4"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "3"
+      ],
+      "ghost": false,
+      "id": "5"
+    }
+  ]
+}

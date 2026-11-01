@@ -1,0 +1,58 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_checkpoint_replay_steps.gd
+[0m* test_single_thread_job_yields_and_restores_without_reading_live_changes
+* test_chunked_prefix_matches_synchronous_frozen_endpoint
+* test_late_invalid_record_is_rejected_after_earlier_steps
+* test_failed_step_can_restart_but_completed_prefix_cannot_step_again
+* test_sliced_validation_rejects_the_same_malformed_prefixes_and_depths
+* test_sliced_size_check_matches_exact_json_limit_with_unicode_and_escapes
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_decimal_roundtrip.gd
+[0m* test_sliced_transport_preserves_exact_bytes_and_does_not_mutate_frozen_values
+[31m    [Failed]:  [0m[266] expected to be > than [266]:  
+      at line 17
+* test_sliced_transport_keeps_depth_tag_and_cycle_rejections
+* test_frozen_offer_decimal_samples_survive_actual_file_roundtrip
+* test_float_tags_preserve_nested_values_and_signed_zero
+* test_transport_rejects_reserved_keys_nonfinite_and_invalid_tags
+* test_v3_root_float_tag_returns_structured_failure
+* test_known_v2_decimal_wrapper_still_reads_without_relaxed_validation
+* test_known_v1_wrapper_still_reads_without_relaxed_validation
+[1m7/8 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_checkpoint_decimal_roundtrip.gd
+[0m- test_sliced_transport_preserves_exact_bytes_and_does_not_mutate_frozen_values
+[31m    [Failed]:  [0m[266] expected to be > than [266]:  
+          at line 17
+
+Totals
+------
+Scripts               2
+Tests                14
+Passing Tests        13
+Failing Tests         1
+Asserts           779/780
+Time              8.239s
+
+
+[31m---- 1 failing tests ----
+[0m

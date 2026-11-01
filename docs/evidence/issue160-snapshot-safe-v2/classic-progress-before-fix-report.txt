@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "reason": "probe_watchdog_60_seconds",
+  "samples": [],
+  "scope": "bounded agent-only snapshot safe-points/segment/IndexedDB probe; not live menu or whole O5 acceptance"
+}

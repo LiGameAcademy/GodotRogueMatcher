@@ -1,0 +1,47 @@
+{
+  "ok": false,
+  "reason": "frozen_reward_not_reached",
+  "samples": [
+    {
+      "continuation": "idle",
+      "endpoint_equal": true,
+      "identical_next_commands": 3,
+      "load_maximum_gap_usec": 25900,
+      "load_with_fresh_open_usec": 108100,
+      "mode": "classic_endless",
+      "moves": 0,
+      "ok": true,
+      "phase": "1",
+      "reason": "",
+      "reward_id": "0",
+      "save_maximum_gap_usec": 51000,
+      "save_usec": 62900,
+      "segment_replay_ok": true,
+      "snapshot_bytes": 3727,
+      "source_records_not_saved": 2,
+      "source_unchanged": true,
+      "state_hash": "76bc134dad20d85a82ca413e12fb8a01723b06f9d05a25d060411ba384a1b2ad"
+    },
+    {
+      "continuation": "idle",
+      "endpoint_equal": true,
+      "identical_next_commands": 3,
+      "load_maximum_gap_usec": 26200,
+      "load_with_fresh_open_usec": 124000,
+      "mode": "classic_endless",
+      "moves": 45,
+      "ok": true,
+      "phase": "1",
+      "reason": "",
+      "reward_id": "0",
+      "save_maximum_gap_usec": 50700,
+      "save_usec": 100000,
+      "segment_replay_ok": true,
+      "snapshot_bytes": 6877,
+      "source_records_not_saved": 425,
+      "source_unchanged": true,
+      "state_hash": "f7ee164d41ae088be265736167d655fe828a98101d016dbd330f58195e50ca43"
+    }
+  ],
+  "scope": "bounded agent-only snapshot safe-points/segment/IndexedDB probe; not live menu or whole O5 acceptance"
+}

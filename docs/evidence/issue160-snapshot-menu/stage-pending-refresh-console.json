@@ -1,0 +1,86 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T11:40:29.888Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T11:40:30.115Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T11:40:30.413Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T11:40:33.055Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":67500,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":57000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T11:40:35.469Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":283800,\"elapsed_usec\":67500,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":57000,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T11:40:35.753Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "PENDING_REFRESH_READY {\"no_checkpoint_job\":true,\"saving\":true,\"state_hash\":\"2453f43632436e6c0038b8e269d166fb259677957abe9cc97b3d5d2e12fccca0\",\"telemetry_commit_ack_dropped\":true}",
+    "timestamp": "2026-11-01T11:40:36.132Z",
+    "url": "http://127.0.0.1:8994/probe.html?pending=1"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T11:40:55.391Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T11:40:55.591Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T11:40:55.872Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T11:40:58.485Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":63500,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":56400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T11:41:00.874Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":274600,\"elapsed_usec\":63500,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":56400,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T11:41:01.149Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"confirmed_hash\":\"2453f43632436e6c0038b8e269d166fb259677957abe9cc97b3d5d2e12fccca0\",\"confirmed_point_restored\":true,\"mode\":\"stage_challenge\",\"origin\":\"http://127.0.0.1:8994\",\"phase\":\"refresh_after_withheld_parent_ack\",\"real_transaction_abort\":true},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T11:41:01.182Z",
+    "url": "http://127.0.0.1:8994/probe.html"
+  }
+]

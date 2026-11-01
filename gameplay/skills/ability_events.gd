@@ -132,11 +132,23 @@ func close() -> void:
 	_traces.clear()
 
 ## Export dedupe and id state for rule snapshots.
-func data() -> Dictionary:
+func data(include_dispatched: bool = true) -> Dictionary:
 	var ids: Array[int] = []
-	ids.assign(_dispatched.keys())
-	ids.sort()
+	if include_dispatched:
+		ids.assign(_dispatched.keys())
+		ids.sort()
 	return {"next_event_id": _next_id, "dispatched": ids, "active": _active}
+
+## Cold restore allocates a fresh scope, so old run event objects cannot enter this dispatcher.
+func restore_checkpoint(next_id: int, dispatched: Array[int]) -> bool:
+	if _next_id != 1 or not _dispatched.is_empty() or next_id < 1: return false
+	var checked: Dictionary[int, bool] = {}
+	for id: int in dispatched:
+		if id <= 0 or id >= next_id or checked.has(id): return false
+		checked[id] = true
+	_next_id = next_id
+	_dispatched = checked
+	return true
 
 func _event_before(a: AbilityEvent, b: AbilityEvent) -> bool:
 	if a.generation != b.generation: return a.generation < b.generation

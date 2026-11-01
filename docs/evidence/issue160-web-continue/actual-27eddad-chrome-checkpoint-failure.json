@@ -1,0 +1,224 @@
+{
+  "baseline": {
+    "row_hash": "77ec6175ad87ee1b54ed862874f513e52dec3e9440e6f1c15d241ea9b0da2d8f",
+    "revision": 1,
+    "payload_hash": "8b06d73bc7ed34ebff2a0b54033e07c2b2a03a10dbba3990b6d08e35d7a2c198",
+    "schema": "checkpoint-web-files-v1",
+    "files": [
+      "primary.json"
+    ],
+    "sealed_ok": true,
+    "generation": "1",
+    "package_schema": "run-checkpoint-package-v3",
+    "run_id": "4268877321-0-1793412849911000-3895300",
+    "point": "input",
+    "record_seq": "2",
+    "state_hash": "83526cdd8e4b5c43ba7e4f7817c426421e8174379f1cda780e3c497f94453753",
+    "phase": "1",
+    "action": "0",
+    "moves": "0",
+    "continuation": "idle",
+    "pending": "0",
+    "consumed": "0",
+    "rng": {
+      "master_seed": "4268877321",
+      "rng_scheme_version": "sl-rng-v1",
+      "streams": {
+        "effect_execution": {
+          "seed": "4846869984671249732",
+          "state": "1509155639807799942"
+        },
+        "offer_candidates": {
+          "seed": "4476334820583845046",
+          "state": "-7028221581143769200"
+        },
+        "offer_order": {
+          "seed": "5794164172913129453",
+          "state": "4897965230764310843"
+        },
+        "offer_targets": {
+          "seed": "7398057484161274117",
+          "state": "7527928954830000755"
+        },
+        "spawn_content": {
+          "seed": "7508749602533401504",
+          "state": "-6448369832917631206"
+        },
+        "spawn_position": {
+          "seed": "4354962374893132110",
+          "state": "1763134112108920107"
+        }
+      }
+    },
+    "pieces": [
+      {
+        "color": "2",
+        "content_id": "",
+        "coordinate": [
+          "7",
+          "5"
+        ],
+        "ghost": false,
+        "id": "1"
+      },
+      {
+        "color": "1",
+        "content_id": "",
+        "coordinate": [
+          "1",
+          "2"
+        ],
+        "ghost": false,
+        "id": "2"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "3",
+          "6"
+        ],
+        "ghost": false,
+        "id": "3"
+      },
+      {
+        "color": "2",
+        "content_id": "",
+        "coordinate": [
+          "0",
+          "6"
+        ],
+        "ghost": false,
+        "id": "4"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "6",
+          "4"
+        ],
+        "ghost": false,
+        "id": "5"
+      }
+    ]
+  },
+  "after": {
+    "row_hash": "77ec6175ad87ee1b54ed862874f513e52dec3e9440e6f1c15d241ea9b0da2d8f",
+    "revision": 1,
+    "payload_hash": "8b06d73bc7ed34ebff2a0b54033e07c2b2a03a10dbba3990b6d08e35d7a2c198",
+    "schema": "checkpoint-web-files-v1",
+    "files": [
+      "primary.json"
+    ],
+    "sealed_ok": true,
+    "generation": "1",
+    "package_schema": "run-checkpoint-package-v3",
+    "run_id": "4268877321-0-1793412849911000-3895300",
+    "point": "input",
+    "record_seq": "2",
+    "state_hash": "83526cdd8e4b5c43ba7e4f7817c426421e8174379f1cda780e3c497f94453753",
+    "phase": "1",
+    "action": "0",
+    "moves": "0",
+    "continuation": "idle",
+    "pending": "0",
+    "consumed": "0",
+    "rng": {
+      "master_seed": "4268877321",
+      "rng_scheme_version": "sl-rng-v1",
+      "streams": {
+        "effect_execution": {
+          "seed": "4846869984671249732",
+          "state": "1509155639807799942"
+        },
+        "offer_candidates": {
+          "seed": "4476334820583845046",
+          "state": "-7028221581143769200"
+        },
+        "offer_order": {
+          "seed": "5794164172913129453",
+          "state": "4897965230764310843"
+        },
+        "offer_targets": {
+          "seed": "7398057484161274117",
+          "state": "7527928954830000755"
+        },
+        "spawn_content": {
+          "seed": "7508749602533401504",
+          "state": "-6448369832917631206"
+        },
+        "spawn_position": {
+          "seed": "4354962374893132110",
+          "state": "1763134112108920107"
+        }
+      }
+    },
+    "pieces": [
+      {
+        "color": "2",
+        "content_id": "",
+        "coordinate": [
+          "7",
+          "5"
+        ],
+        "ghost": false,
+        "id": "1"
+      },
+      {
+        "color": "1",
+        "content_id": "",
+        "coordinate": [
+          "1",
+          "2"
+        ],
+        "ghost": false,
+        "id": "2"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "3",
+          "6"
+        ],
+        "ghost": false,
+        "id": "3"
+      },
+      {
+        "color": "2",
+        "content_id": "",
+        "coordinate": [
+          "0",
+          "6"
+        ],
+        "ghost": false,
+        "id": "4"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "6",
+          "4"
+        ],
+        "ghost": false,
+        "id": "5"
+      }
+    ]
+  },
+  "logs": [
+    {
+      "level": "log",
+      "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":396300,\"frames\":12,\"freeze_usec\":24900,\"maximum_gap_usec\":100400,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":46500,\"initialization_usec\":49300,\"largest_replay_slice_usec\":1500,\"payload_validation_usec\":7000,\"prefix_replay_usec\":102600},\"history_prime_usec\":0,\"package\":{\"save_encode_usec\":5900,\"save_prepare_usec\":10500,\"save_roundtrip_usec\":4600,\"storage_sync\":{\"filemap_encode_usec\":1400},\"storage_sync_elapsed_usec\":4700,\"store\":{\"begin_usec\":100,\"largest_store_slice_usec\":3200,\"stage_usec\":1300}}}}",
+      "timestamp": "2026-10-31T02:14:57.903Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":2494400,\"frames\":16,\"freeze_usec\":2500,\"maximum_gap_usec\":1000500,\"ok\":false,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"save_encode_usec\":9200,\"save_prepare_usec\":16100,\"save_roundtrip_usec\":6900,\"storage_sync\":{},\"storage_sync_elapsed_usec\":8000,\"store\":{\"begin_usec\":2500,\"largest_store_slice_usec\":5400,\"stage_usec\":1600}}}}",
+      "timestamp": "2026-10-31T02:15:55.366Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    }
+  ]
+}

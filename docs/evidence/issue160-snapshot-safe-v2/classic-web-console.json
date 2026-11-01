@@ -1,0 +1,140 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T05:29:48.780Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T05:29:48.971Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T05:29:49.236Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T05:29:51.468Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS ready",
+    "timestamp": "2026-11-01T05:29:51.476Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:29:51.479Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:29:51.564Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS measure 1 moves=0",
+    "timestamp": "2026-11-01T05:29:51.596Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS saved true",
+    "timestamp": "2026-11-01T05:29:51.662Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:29:51.685Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:29:51.747Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS loaded true",
+    "timestamp": "2026-11-01T05:29:51.772Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS measure 3 moves=9",
+    "timestamp": "2026-11-01T05:29:52.402Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS saved true",
+    "timestamp": "2026-11-01T05:29:52.546Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:29:52.573Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:29:52.648Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS loaded true",
+    "timestamp": "2026-11-01T05:29:52.696Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS measure 1 moves=45",
+    "timestamp": "2026-11-01T05:29:53.927Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS saved true",
+    "timestamp": "2026-11-01T05:29:54.032Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:29:54.052Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:29:54.132Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS loaded true",
+    "timestamp": "2026-11-01T05:29:54.157Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_WEB_REPORT {\"ok\":true,\"reason\":\"\",\"samples\":[{\"continuation\":\"idle\",\"endpoint_equal\":true,\"identical_next_commands\":3,\"load_maximum_gap_usec\":26500,\"load_with_fresh_open_usec\":108600,\"mode\":\"classic_endless\",\"moves\":0,\"ok\":true,\"phase\":\"1\",\"reason\":\"\",\"reward_id\":\"0\",\"save_maximum_gap_usec\":51900,\"save_usec\":65900,\"segment_replay_ok\":true,\"snapshot_bytes\":3727,\"source_records_not_saved\":2,\"source_unchanged\":true,\"state_hash\":\"76bc134dad20d85a82ca413e12fb8a01723b06f9d05a25d060411ba384a1b2ad\"},{\"continuation\":\"before_end\",\"endpoint_equal\":true,\"identical_next_commands\":3,\"load_maximum_gap_usec\":49600,\"load_with_fresh_open_usec\":141300,\"mode\":\"classic_endless\",\"moves\":9,\"ok\":true,\"phase\":\"3\",\"reason\":\"\",\"reward_id\":\"1\",\"save_maximum_gap_usec\":94600,\"save_usec\":140300,\"segment_replay_ok\":true,\"snapshot_bytes\":62806,\"source_records_not_saved\":79,\"source_unchanged\":true,\"state_hash\":\"16d35bd337ab817c7f8be15cc513655c47f227971cb408dea84e559cffa4a149\"},{\"continuation\":\"idle\",\"endpoint_equal\":true,\"identical_next_commands\":3,\"load_maximum_gap_usec\":27000,\"load_with_fresh_open_usec\":123800,\"mode\":\"classic_endless\",\"moves\":45,\"ok\":true,\"phase\":\"1\",\"reason\":\"\",\"reward_id\":\"0\",\"save_maximum_gap_usec\":62100,\"save_usec\":102800,\"segment_replay_ok\":true,\"snapshot_bytes\":6877,\"source_records_not_saved\":425,\"source_unchanged\":true,\"state_hash\":\"f7ee164d41ae088be265736167d655fe828a98101d016dbd330f58195e50ca43\"}],\"scope\":\"bounded agent-only snapshot safe-points/segment/IndexedDB probe; not live menu or whole O5 acceptance\"}",
+    "timestamp": "2026-11-01T05:29:54.637Z",
+    "url": "http://127.0.0.1:8984/classic.html"
+  }
+]

@@ -1,0 +1,158 @@
+[
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":91800,\"elapsed_usec\":11058000,\"frames\":637,\"freeze_usec\":0,\"maximum_gap_usec\":178100,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":40100,\"initialization_usec\":49600,\"largest_payload_slice_usec\":6900,\"largest_replay_slice_usec\":39400,\"payload_validation_usec\":2782900,\"prefix_replay_usec\":6171500},\"history_prime_usec\":151000,\"package\":{\"float_decode_usec\":1605100,\"largest_float_decode_slice_usec\":4900,\"package_parse_usec\":86300,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T06:54:24.120Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":16417500,\"frames\":872,\"freeze_usec\":11000,\"maximum_gap_usec\":438500,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":38600,\"initialization_usec\":61400,\"largest_payload_slice_usec\":6400,\"largest_replay_slice_usec\":38600,\"payload_validation_usec\":2862200,\"prefix_replay_usec\":6442400},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":1815000,\"largest_float_encode_slice_usec\":4000,\"largest_package_serialize_slice_usec\":4100,\"package_serialize_usec\":1370700,\"package_size_check_usec\":52600},\"roundtrip\":{\"float_decode_elapsed_usec\":1759700,\"largest_float_decode_slice_usec\":5600,\"payload_parse_usec\":101500},\"save_encode_usec\":3267500,\"save_prepare_usec\":5134300,\"save_roundtrip_usec\":1866800,\"storage_sync\":{\"filemap_encode_elapsed_usec\":252800,\"filemap_encode_usec\":232500,\"largest_filemap_slice_usec\":124200},\"storage_sync_elapsed_usec\":605300,\"store\":{\"begin_usec\":189100,\"largest_store_slice_usec\":185800,\"stage_usec\":70000}}}}",
+    "timestamp": "2026-10-31T06:55:14.575Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T06:56:32.525Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T06:56:32.662Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T06:56:32.781Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T06:56:35.264Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":11445200,\"frames\":654,\"freeze_usec\":0,\"maximum_gap_usec\":252000,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":51500,\"initialization_usec\":54800,\"largest_payload_slice_usec\":5900,\"largest_replay_slice_usec\":40500,\"payload_validation_usec\":2850500,\"prefix_replay_usec\":6243300},\"history_prime_usec\":200500,\"package\":{\"float_decode_usec\":1759000,\"largest_float_decode_slice_usec\":5500,\"package_parse_usec\":94100,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T06:57:19.053Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":194100,\"elapsed_usec\":11445200,\"frames\":654,\"freeze_usec\":0,\"maximum_gap_usec\":252000,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":51500,\"initialization_usec\":54800,\"largest_payload_slice_usec\":5900,\"largest_replay_slice_usec\":40500,\"payload_validation_usec\":2850500,\"prefix_replay_usec\":6243300},\"history_prime_usec\":200500,\"package\":{\"float_decode_usec\":1759000,\"largest_float_decode_slice_usec\":5500,\"package_parse_usec\":94100,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T06:57:19.247Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T06:58:13.867Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T06:58:14.005Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T06:58:14.108Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T06:58:16.582Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T06:59:28.275Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T06:59:28.407Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T06:59:28.508Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T06:59:30.846Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":1873400,\"frames\":107,\"freeze_usec\":0,\"maximum_gap_usec\":54500,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":45700,\"initialization_usec\":50400,\"largest_payload_slice_usec\":6900,\"largest_replay_slice_usec\":31100,\"payload_validation_usec\":472200,\"prefix_replay_usec\":995200},\"history_prime_usec\":37100,\"package\":{\"float_decode_usec\":229400,\"largest_float_decode_slice_usec\":3800,\"package_parse_usec\":14600,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T07:00:19.511Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":103900,\"elapsed_usec\":1873400,\"frames\":107,\"freeze_usec\":0,\"maximum_gap_usec\":54500,\"ok\":true,\"resume_prepare_usec\":100,\"stages\":{\"decode\":{\"endpoint_validation_usec\":45700,\"initialization_usec\":50400,\"largest_payload_slice_usec\":6900,\"largest_replay_slice_usec\":31100,\"payload_validation_usec\":472200,\"prefix_replay_usec\":995200},\"history_prime_usec\":37100,\"package\":{\"float_decode_usec\":229400,\"largest_float_decode_slice_usec\":3800,\"package_parse_usec\":14600,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T07:00:19.615Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":2947600,\"frames\":163,\"freeze_usec\":5500,\"maximum_gap_usec\":97200,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":39000,\"initialization_usec\":64900,\"largest_payload_slice_usec\":6100,\"largest_replay_slice_usec\":33400,\"payload_validation_usec\":502700,\"prefix_replay_usec\":1105400},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":231400,\"largest_float_encode_slice_usec\":4300,\"largest_package_serialize_slice_usec\":2700,\"package_serialize_usec\":235300,\"package_size_check_usec\":7500},\"roundtrip\":{\"float_decode_elapsed_usec\":263000,\"largest_float_decode_slice_usec\":4800,\"payload_parse_usec\":16800},\"save_encode_usec\":500500,\"save_prepare_usec\":784200,\"save_roundtrip_usec\":283700,\"storage_sync\":{\"filemap_encode_elapsed_usec\":91800,\"filemap_encode_usec\":47700,\"largest_filemap_slice_usec\":26500},\"storage_sync_elapsed_usec\":175500,\"store\":{\"begin_usec\":41200,\"largest_store_slice_usec\":37700,\"stage_usec\":13000}}}}",
+    "timestamp": "2026-10-31T07:01:00.477Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T07:02:57.103Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T07:02:57.230Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T07:02:57.353Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T07:02:59.788Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":1941400,\"frames\":112,\"freeze_usec\":0,\"maximum_gap_usec\":52400,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":37200,\"initialization_usec\":48600,\"largest_payload_slice_usec\":5800,\"largest_replay_slice_usec\":30100,\"payload_validation_usec\":451500,\"prefix_replay_usec\":1069900},\"history_prime_usec\":38000,\"package\":{\"float_decode_usec\":246000,\"largest_float_decode_slice_usec\":4600,\"package_parse_usec\":14700,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T07:04:03.438Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":172100,\"elapsed_usec\":1941400,\"frames\":112,\"freeze_usec\":0,\"maximum_gap_usec\":52400,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":37200,\"initialization_usec\":48600,\"largest_payload_slice_usec\":5800,\"largest_replay_slice_usec\":30100,\"payload_validation_usec\":451500,\"prefix_replay_usec\":1069900},\"history_prime_usec\":38000,\"package\":{\"float_decode_usec\":246000,\"largest_float_decode_slice_usec\":4600,\"package_parse_usec\":14700,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T07:04:03.610Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":3039500,\"frames\":169,\"freeze_usec\":4600,\"maximum_gap_usec\":110700,\"ok\":false,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":274700,\"largest_float_encode_slice_usec\":3600,\"largest_package_serialize_slice_usec\":2500,\"package_serialize_usec\":236200,\"package_size_check_usec\":10000},\"roundtrip\":{\"float_decode_elapsed_usec\":273700,\"largest_float_decode_slice_usec\":4900,\"payload_parse_usec\":17500},\"save_encode_usec\":555200,\"save_prepare_usec\":851400,\"save_roundtrip_usec\":296200,\"storage_sync\":{},\"storage_sync_elapsed_usec\":149900,\"store\":{\"begin_usec\":42600,\"largest_store_slice_usec\":42700,\"stage_usec\":11900}}}}",
+    "timestamp": "2026-10-31T07:06:41.970Z",
+    "url": "http://127.0.0.1:8918/candidate905/index.js"
+  }
+]

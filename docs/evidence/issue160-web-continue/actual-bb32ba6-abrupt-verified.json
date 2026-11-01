@@ -1,0 +1,7 @@
+{
+  "same_complete_slot_summary": true,
+  "old_record_seq": "485",
+  "old_moves": "51",
+  "old_row_hash": "5870f9a1f16c47e8846316f5d60cb2ad24f1cbca7bd80a7cf3e0984cfe5f8c31",
+  "scope": "actual readwrite kept alive before put/commit; full page reload destroys context; not physical power loss"
+}

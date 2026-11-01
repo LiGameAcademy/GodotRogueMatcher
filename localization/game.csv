@@ -1,4 +1,10 @@
 key,zh_CN,en_US
+正在准备导出记录…,正在准备导出记录…,Preparing records for export…
+部分记录不完整；可下载已保存前缀。,部分记录不完整；可下载已保存前缀。,Some records are incomplete; the saved prefix can be downloaded.
+记录已准备，点击下载记录。,记录已准备，点击下载记录。,Records are ready. Click Download records.
+下载记录,下载记录,Download records
+已发起下载；请检查浏览器下载列表。,已发起下载；请检查浏览器下载列表。,Download requested. Check your browser downloads.
+导出未完成；已保存的原件仍保留。,导出未完成；已保存的原件仍保留。,Export did not finish. Saved originals are retained.
 继续选卡,继续选卡,Resume skill choice
 技能连珠,技能连珠,Skill Lines
 "技能连珠
@@ -982,6 +988,7 @@ hud.status.spawn_progress,正在补棋：{current}/{total},Spawning pieces: {cur
 hud.status.capture_refill_used,实际补棋已消费 {count} 次,Actual refill uses consumed: {count}
 hud.status.checkpoint_loading,正在恢复本局…,Restoring your run…
 hud.status.checkpoint_saving,正在保存续局…,Saving your run…
+hud.status.checkpoint_saved,上个安全点已保存。,Last safe checkpoint saved.
 hud.status.checkpoint_failed,续局保存或读取失败，请重试。,Could not save or restore your run. Please retry.
 hud.status.checkpoint_fallback,已恢复上一有效检查点。,Restored the previous valid checkpoint.
 hud.status.checkpoint_restored,已继续本局。,Run restored.
@@ -1003,3 +1010,10 @@ checkpoint.waiting,上一项续局操作尚未结束，请稍候再试。,The pr
 checkpoint.terminal_failed,未能确认本局结束标记已保存。请重试；直接退出可能在下次启动恢复旧检查点。,The end-of-run marker could not be verified. Retry; quitting now may restore an older checkpoint next time.
 checkpoint.leave_unverified_terminal,仍然退出（旧检查点可能恢复）,Quit anyway (an older checkpoint may return)
 checkpoint.challenge_pending,请先取消退出并选择继续挑战或结束本局；也可确认退出并保留上次有效检查点。,Cancel quitting and choose whether to continue the challenge or end this run. You may also leave with the last valid checkpoint.
+hud.status.checkpoint_reload_required,续局存储已在其他页面更新或连接已关闭。请刷新页面后继续。,Checkpoint storage changed in another tab or its connection closed. Reload this page to continue.
+checkpoint.reload_required,续局槽已在其他页面更新或存储连接已关闭。本页不能覆盖它，请刷新页面。,The checkpoint changed in another tab or its storage connection closed. This page cannot overwrite it. Reload this page.
+checkpoint.web_notice,"安全点自动保存到本机浏览器，不上传。
+刷新或关闭页面后，回到上次确认保存的位置。
+请等待保存完成；私密浏览或清除网站数据可能丢失存档。","Safe checkpoints are saved in this browser without uploading.
+Refreshing or closing returns to the last confirmed save.
+Wait for saving to finish. Private browsing or clearing site data may lose checkpoints."

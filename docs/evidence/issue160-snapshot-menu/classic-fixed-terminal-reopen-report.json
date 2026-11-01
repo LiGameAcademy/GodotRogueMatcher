@@ -1,0 +1,14 @@
+{
+  "details": {
+    "candidate_flag": true,
+    "continue_unavailable": true,
+    "default_flag_unchanged": true,
+    "menu_visible": true,
+    "mode": "classic_endless",
+    "origin": "http://127.0.0.1:8992",
+    "phase": "terminal_reopen_menu"
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

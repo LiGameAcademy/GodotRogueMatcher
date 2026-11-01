@@ -8,6 +8,7 @@ signal restart_requested
 
 const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 const DEBUG_INPUT: Script = preload("res://gameplay/debug/game_debug_input.gd")
+const CHECKPOINT_COLLECTION: Script = preload("res://gameplay/game_checkpoint_collection.gd")
 
 ## Delegates restart to the host; all other exports configure scene startup.
 @export var use_external_restart: bool = false
@@ -19,6 +20,8 @@ const DEBUG_INPUT: Script = preload("res://gameplay/debug/game_debug_input.gd")
 @export var collect_telemetry: bool = true
 @export var enable_debug_fixtures: bool = true
 @export var enable_checkpoints: bool = false
+## The primary application selects snapshots; isolated hosts may still exercise the legacy adapter.
+@export var use_snapshot_checkpoints: bool = false
 @export var checkpoint_directory: String = "user://run_checkpoint"
 
 ## Host-visible preference and fixture state; writes must precede startup or use UI actions.
@@ -54,12 +57,11 @@ func _ready() -> void:
 	_connect_run_signals()
 	_connect_menu_signals()
 	_connect_settings_signals()
-	_checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
+	CHECKPOINT_COLLECTION.configure(_checkpoint, _collection, use_snapshot_checkpoints, record_runs)
+	await _checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
 	_checkpoint.status_changed.connect(_hud.show_status)
 	_checkpoint.status_changed.connect(func(_id: StringName) -> void: release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error))
 	_checkpoint.before_restore.connect(_suspend_collection)
-	_checkpoint.trace_provider = _collection.checkpoint_trace
-	_checkpoint.resume_plan_provider = _collection.plan_resume.bind(record_runs)
 	_checkpoint.restored.connect(_on_checkpoint_restored)
 	_checkpoint.settling_exit.connect(_prepare_checkpoint_exit)
 	_checkpoint.exit_ready.connect(_finish_quit)
@@ -71,13 +73,13 @@ func _ready() -> void:
 	_set_volume(preferences.volume, false)
 	# Apply the saved skin before start_game yields for initial spawn presentation.
 	_set_theme(preferences.theme_id, false)
-	if collect_telemetry and not OS.has_feature("web"):
-		_collection.configure(collection_context)
+	if collect_telemetry:
+		await _collection.configure_platform(collection_context)
 		_board.telemetry_factory = _collection.factory if not _checkpoint.saved_available else null
 	_connect_collection_controls(release_menu.collection_controls)
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
-	await _board.start_game(board_rules, record_runs)
+	await _board.start_game(board_rules, record_runs and not (use_snapshot_checkpoints and _checkpoint.saved_available))
 	if show_start_menu or _checkpoint.saved_available: _show_menu()
 	else:
 		_has_played = true
@@ -417,9 +419,9 @@ func _on_retry_requested() -> bool:
 	_feedback.cancel()
 	UIManager.close_popup()
 	board_rules = fresh_rules
-	if collect_telemetry and not OS.has_feature("web") and not _collection.enabled:
+	if collect_telemetry and not _collection.enabled:
 		_collection.configure(collection_context)
-	_board.telemetry_factory = _collection.factory if collect_telemetry and not OS.has_feature("web") else null
+	_board.telemetry_factory = _collection.factory if collect_telemetry else null
 	await _board.retry_game(board_rules, prepared, initial)
 	_checkpoint.arm_current()
 	_apply_game_theme()
@@ -438,9 +440,7 @@ func _prepare_checkpoint_exit() -> void:
 	_hud.finish_score_now()
 
 func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
-	if collect_telemetry and not OS.has_feature("web"):
-		_board.observation.attach(_collection.resume(collection_context, active, _checkpoint.last_resume_context, record_runs), false)
-		_board.telemetry_factory = _collection.factory
+	CHECKPOINT_COLLECTION.resume(_board, _collection, _checkpoint, collection_context, record_runs, collect_telemetry)
 	board_rules = active.state.rules
 	_hud.bind_checkpoint(active)
 	_hud.show_pause_state(false)

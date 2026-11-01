@@ -8,6 +8,7 @@ var _manifest: Dictionary
 var rebuild_budget_usec: int = RunCheckpointCodec.REBUILD_BUDGET_USEC
 var runtime_only: bool = false
 const FLOAT_TRANSPORT: Script = preload("res://services/run_checkpoint/checkpoint_float_transport.gd")
+const CHECKPOINT_JSON: Script = preload("res://services/run_checkpoint/checkpoint_json.gd")
 const PACKAGE_SCHEMA: String = "run-checkpoint-package-v3"
 const DECIMAL_PACKAGE_SCHEMA: String = "run-checkpoint-package-v2"
 
@@ -22,33 +23,137 @@ func save(run: RunController) -> Dictionary:
 
 ## Accepts only a main-thread frozen value; background owners never read an active run.
 func save_encoded(encoded: Dictionary) -> Dictionary:
+	var prepared: Dictionary = _prepare_save(encoded)
+	if not prepared.ok: return prepared
+	var verified: Dictionary = RunCheckpointCodec.decode(prepared.payload, _manifest, rebuild_budget_usec, runtime_only)
+	if not verified.ok: return verified
+	return _commit_save(prepared.package, verified)
+
+func save_encoded_sliced(encoded: Dictionary, replay_yield: Callable) -> Dictionary:
+	if not replay_yield.is_valid(): return RunCheckpointCodec.failure("invalid_step_yield")
+	var started: int = Time.get_ticks_usec()
+	var prepared: Dictionary = await _prepare_package_sliced(encoded, replay_yield)
+	if not prepared.ok: return prepared
+	var encode_usec: int = Time.get_ticks_usec() - started
+	await replay_yield.call()
+	started = Time.get_ticks_usec()
+	var roundtrip: Dictionary = await _roundtrip_package_sliced(prepared.package, replay_yield)
+	if not roundtrip.ok: return roundtrip
+	var roundtrip_usec: int = Time.get_ticks_usec() - started
+	await replay_yield.call()
+	var verified: Dictionary = await RunCheckpointCodec.decode_sliced(roundtrip.data, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
+	if not verified.ok: return verified
+	await replay_yield.call()
+	var committed: Dictionary = await _commit_save_sliced(prepared.package, verified, replay_yield)
+	committed["timing"] = verified.get("timing", {})
+	committed["package_timing"] = {"save_prepare_usec": encode_usec + roundtrip_usec, "save_encode_usec": encode_usec, "save_roundtrip_usec": roundtrip_usec, "encode": prepared.get("timing", {}), "roundtrip": roundtrip.get("timing", {}), "store": committed.get("store_timing", {})}
+	return committed
+
+func _prepare_save(encoded: Dictionary) -> Dictionary:
+	var prepared: Dictionary = _prepare_package(encoded)
+	if not prepared.ok: return prepared
+	var roundtrip: Dictionary = _roundtrip_package(prepared.package)
+	if not roundtrip.ok: return roundtrip
+	return {"ok": true, "reason": "", "package": prepared.package, "payload": roundtrip.data}
+
+## Both entry points use identical bytes and validation; Web yields before readback verification.
+func _prepare_package(encoded: Dictionary) -> Dictionary:
 	if not encoded.ok: return encoded
 	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
 	var transported: Dictionary = FLOAT_TRANSPORT.encode(encoded.payload)
+	return _package_from_transport(encoded, transported)
+
+func _prepare_package_sliced(encoded: Dictionary, frame_yield: Callable) -> Dictionary:
+	if not encoded.ok: return encoded
+	if encoded.manifest != _manifest: return RunCheckpointCodec.failure("manifest_incompatible")
+	var started: int = Time.get_ticks_usec()
+	var transported: Dictionary = await FLOAT_TRANSPORT.encode_checkpoint_sliced(encoded.payload, frame_yield)
+	if not transported.ok: return RunCheckpointCodec.failure(transported.reason)
+	var transport_elapsed: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var serialized: Dictionary = await CHECKPOINT_JSON.stringify_checkpoint(transported.data, frame_yield)
+	if not serialized.ok: return RunCheckpointCodec.failure(serialized.reason)
+	var result: Dictionary = _build_package(encoded, transported, serialized.text)
+	if not result.ok: return result
+	var serialize_usec: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	result = _check_package_size(result)
+	result["timing"] = {"float_encode_elapsed_usec": transport_elapsed, "largest_float_encode_slice_usec": transported.get("largest_slice_usec", 0), "package_serialize_usec": serialize_usec, "largest_package_serialize_slice_usec": serialized.largest_slice_usec, "package_size_check_usec": Time.get_ticks_usec() - started}
+	return result
+
+func _package_from_transport(encoded: Dictionary, transported: Dictionary) -> Dictionary:
+	return _check_package_size(_build_package(encoded, transported))
+
+func _build_package(encoded: Dictionary, transported: Dictionary, payload_json: String = "") -> Dictionary:
 	if not transported.ok: return RunCheckpointCodec.failure(transported.reason)
 	# Binary64 tags avoid relying on the JSON parser's decimal rounding.
 	var package: Dictionary = {
 		"schema": PACKAGE_SCHEMA, "run_id": encoded.payload.run_id,
-		"payload_json": JSON.stringify(transported.data, "", true, true),
+		"payload_json": JSON.stringify(transported.data, "", true, true) if payload_json.is_empty() else payload_json,
 		"telemetry": encoded.get("telemetry", {}).duplicate(true) if encoded.get("telemetry", {}) is Dictionary and RunCheckpointCodec.pure(encoded.get("telemetry", {})) else {"status": "invalid_trace"},
 	}
-	if JSON.stringify(package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
+	return {"ok": true, "reason": "", "package": package}
+
+func _check_package_size(built: Dictionary) -> Dictionary:
+	if not built.ok: return built
+	if JSON.stringify(built.package).to_utf8_buffer().size() > CheckpointFiles.MAX_BYTES - 4096:
 		return RunCheckpointCodec.failure("package_size_limit")
+	return built
+
+func _roundtrip_package(package: Dictionary) -> Dictionary:
 	# Verify the actual encoded text through parsing and independent reconstruction before IO.
+	var parsed: Dictionary = _parse_package_json(package)
+	if not parsed.ok: return parsed
+	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parsed.data)
+	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+	return roundtrip
+
+func _roundtrip_package_sliced(package: Dictionary, frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var parsed: Dictionary = _parse_package_json(package)
+	if not parsed.ok: return parsed
+	var parse_usec: int = Time.get_ticks_usec() - started
+	await frame_yield.call()
+	started = Time.get_ticks_usec()
+	var roundtrip: Dictionary = await FLOAT_TRANSPORT.decode_checkpoint_sliced(parsed.data, frame_yield)
+	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+	roundtrip["timing"] = {"payload_parse_usec": parse_usec, "float_decode_elapsed_usec": Time.get_ticks_usec() - started, "largest_float_decode_slice_usec": roundtrip.get("largest_slice_usec", 0)}
+	return roundtrip
+
+func _parse_package_json(package: Dictionary) -> Dictionary:
 	var parser: JSON = JSON.new()
 	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
 		return RunCheckpointCodec.failure("invalid_payload_json")
-	var roundtrip: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
-	if not roundtrip.ok: return RunCheckpointCodec.failure("invalid_payload_json")
-	var verified: Dictionary = RunCheckpointCodec.decode(roundtrip.data, _manifest, rebuild_budget_usec, runtime_only)
-	if not verified.ok: return verified
-	var opened: Dictionary = _store.begin_run(encoded.payload.run_id)
+	return {"ok": true, "reason": "", "data": parser.data}
+
+func _commit_save_sliced(package: Dictionary, verified: Dictionary, frame_yield: Callable) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var opened: Dictionary = _store.begin_run(package.run_id)
 	if not opened.ok: return opened
+	var begin_usec: int = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
 	var ticket: int = _store.stage(package, _manifest)
 	if ticket == 0: return RunCheckpointCodec.failure("stage_rejected")
+	var stage_usec: int = Time.get_ticks_usec() - started
+	var committed: Dictionary = await _store.commit_sliced(ticket, frame_yield)
+	if not committed.ok: return committed
+	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"cleanup_pending": committed.get("cleanup_pending", PackedStringArray()), "begin_usec": begin_usec, "stage_usec": stage_usec, "largest_store_slice_usec": committed.largest_store_slice_usec}}
+
+func _commit_save(package: Dictionary, verified: Dictionary) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
+	var opened: Dictionary = _store.begin_run(package.run_id)
+	if not opened.ok: return opened
+	var begin_usec: int = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
+	var ticket: int = _store.stage(package, _manifest)
+	if ticket == 0: return RunCheckpointCodec.failure("stage_rejected")
+	var stage_usec: int = Time.get_ticks_usec() - started
+	started = Time.get_ticks_usec()
 	var committed: Dictionary = _store.commit(ticket)
 	if not committed.ok: return committed
-	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec}
+	return {"ok": true, "reason": "", "generation": str(ticket), "rebuild_usec": verified.rebuild_usec, "store_timing": {"cleanup_pending": committed.get("cleanup_pending", PackedStringArray()), "begin_usec": begin_usec, "stage_usec": stage_usec, "commit_usec": Time.get_ticks_usec() - started}}
 
 ## Invalidation and structural fallback are checked by Store before any reconstruction.
 ## The caller receives a fully separate candidate, never a partial replacement.
@@ -68,7 +173,64 @@ func load_candidate() -> Dictionary:
 	recovered["primary_rejection"] = decoded.reason
 	return recovered
 
+func load_candidate_sliced(replay_yield: Callable) -> Dictionary:
+	if not replay_yield.is_valid(): return RunCheckpointCodec.failure("invalid_step_yield")
+	var loaded: Dictionary = _store.load_latest(_manifest)
+	if not loaded.ok: return loaded
+	var decoded: Dictionary = await _decode_loaded_sliced(loaded, replay_yield)
+	if decoded.ok or loaded.fallback or not _recoverable_corruption(decoded.reason): return decoded
+	var previous: Dictionary = _store.previous_after_rejection(_manifest, loaded.record)
+	if not previous.ok:
+		decoded["previous_rejection"] = previous.reason
+		return decoded
+	var recovered: Dictionary = await _decode_loaded_sliced(previous, replay_yield)
+	if not recovered.ok:
+		decoded["previous_rejection"] = recovered.reason
+		return decoded
+	recovered["primary_rejection"] = decoded.reason
+	return recovered
+
 func _decode_loaded(loaded: Dictionary) -> Dictionary:
+	var unpacked: Dictionary = _unpack_loaded(loaded)
+	if not unpacked.ok: return unpacked
+	var decoded: Dictionary = RunCheckpointCodec.decode(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only)
+	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
+
+func _decode_loaded_sliced(loaded: Dictionary, replay_yield: Callable) -> Dictionary:
+	await replay_yield.call()
+	var unpacked: Dictionary = await _unpack_loaded_sliced(loaded, replay_yield)
+	if not unpacked.ok: return unpacked
+	await replay_yield.call()
+	var decoded: Dictionary = await RunCheckpointCodec.decode_sliced(unpacked.payload, _manifest, rebuild_budget_usec, runtime_only, replay_yield)
+	return _finish_loaded(loaded, decoded, unpacked.payload, unpacked.package, unpacked.timing)
+
+func _unpack_loaded(loaded: Dictionary) -> Dictionary:
+	var parsed: Dictionary = _parse_loaded(loaded)
+	if not parsed.ok: return parsed
+	var started: int = Time.get_ticks_usec()
+	var payload: Dictionary = parsed.payload
+	if parsed.package.schema == PACKAGE_SCHEMA:
+		var transported: Dictionary = FLOAT_TRANSPORT.decode(payload)
+		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+		payload = transported.data
+	return _finish_unpack(parsed.package, payload, {"package_parse_usec": parsed.parse_usec, "float_decode_usec": Time.get_ticks_usec() - started})
+
+func _unpack_loaded_sliced(loaded: Dictionary, frame_yield: Callable) -> Dictionary:
+	var parsed: Dictionary = _parse_loaded(loaded)
+	if not parsed.ok: return parsed
+	await frame_yield.call()
+	var started: int = Time.get_ticks_usec()
+	var payload: Dictionary = parsed.payload
+	var largest: int = 0
+	if parsed.package.schema == PACKAGE_SCHEMA:
+		var transported: Dictionary = await FLOAT_TRANSPORT.decode_checkpoint_sliced(payload, frame_yield)
+		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
+		payload = transported.data
+		largest = transported.get("largest_slice_usec", 0)
+	return _finish_unpack(parsed.package, payload, {"package_parse_usec": parsed.parse_usec, "float_decode_usec": Time.get_ticks_usec() - started, "largest_float_decode_slice_usec": largest})
+
+func _parse_loaded(loaded: Dictionary) -> Dictionary:
+	var started: int = Time.get_ticks_usec()
 	var package: Dictionary = loaded.record.payload
 	if not package.get("schema") is String: return RunCheckpointCodec.failure("invalid_package")
 	if package.schema not in [RunCheckpointCodec.SCHEMA, DECIMAL_PACKAGE_SCHEMA, PACKAGE_SCHEMA]:
@@ -78,21 +240,22 @@ func _decode_loaded(loaded: Dictionary) -> Dictionary:
 		return RunCheckpointCodec.failure("invalid_package")
 	if loaded.record.run_id != package.get("run_id"):
 		return RunCheckpointCodec.failure("container_identity_mismatch")
-	var parser: JSON = JSON.new()
-	if parser.parse(package.payload_json) != OK or not parser.data is Dictionary:
-		return RunCheckpointCodec.failure("invalid_payload_json")
-	if package.schema == PACKAGE_SCHEMA:
-		var transported: Dictionary = FLOAT_TRANSPORT.decode(parser.data)
-		if not transported.ok: return RunCheckpointCodec.failure("invalid_payload_json")
-		parser.data = transported.data
-	if parser.data.get("run_id") != package.run_id:
+	var parsed: Dictionary = _parse_package_json(package)
+	if not parsed.ok: return parsed
+	return {"ok": true, "reason": "", "payload": parsed.data, "package": package, "parse_usec": Time.get_ticks_usec() - started}
+
+func _finish_unpack(package: Dictionary, payload: Dictionary, timing: Dictionary) -> Dictionary:
+	if payload.get("run_id") != package.run_id:
 		return RunCheckpointCodec.failure("payload_identity_mismatch")
-	var decoded: Dictionary = RunCheckpointCodec.decode(parser.data, _manifest, rebuild_budget_usec, runtime_only)
+	return {"ok": true, "reason": "", "payload": payload, "package": package, "timing": timing}
+
+func _finish_loaded(loaded: Dictionary, decoded: Dictionary, payload: Dictionary, package: Dictionary, timing: Dictionary) -> Dictionary:
 	if not decoded.ok: return decoded
+	decoded["package_timing"] = timing
 	decoded["generation"] = loaded.record.generation
 	decoded["fallback"] = loaded.fallback
 	decoded["recovered_write"] = loaded.recovered_write
-	decoded["resume_context"] = {"checkpoint_id": loaded.record.run_id + ":" + loaded.record.generation + ":" + parser.data.state_hash, "generation": loaded.record.generation, "record_seq": parser.data.record_seq, "state_hash": parser.data.state_hash, "trace": package.get("telemetry", {}).duplicate(true) if package.get("telemetry", {}) is Dictionary else {"status": "invalid_trace"}}
+	decoded["resume_context"] = {"checkpoint_id": loaded.record.run_id + ":" + loaded.record.generation + ":" + payload.state_hash, "generation": loaded.record.generation, "record_seq": payload.record_seq, "state_hash": payload.state_hash, "trace": package.get("telemetry", {}).duplicate(true) if package.get("telemetry", {}) is Dictionary else {"status": "invalid_trace"}}
 	return decoded
 
 ## Unknown protocols/configurations, unsupported contexts and cost limits are not corruption repair.

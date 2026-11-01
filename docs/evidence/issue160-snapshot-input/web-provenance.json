@@ -1,0 +1,16 @@
+{
+  "source_commit": "260cc1cd09bbf57460d572dac190a2ad1d85fe78",
+  "date_utc": "2026-11-01T01:29:02.038Z",
+  "origin": "http://127.0.0.1:8919",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "diagnostic_scene": "res://tools/checkpoint_benchmark/snapshot_input_probe.tscn",
+  "diagnostic_override": "main_scene plus tools exclusion removed; project.godot and export_presets.cfg restored exact original bytes in finally",
+  "formal_zip_untouched": true,
+  "formal_zip_sha256": "84708EE937C43F9FD1F2DF8A05A2408662DB157803AA2CA8152E51929FFFD74B",
+  "diagnostic_pck_sha256": "8EC52CD40D8717CFBEFA907B18D26E0C117BC5D34C3DFE398A70A4A91C1D1FBF",
+  "wasm_sha256": "FC74679E3B97F76878947FCD4FBE1268CBFA6188182A2E33BBC3F5DC9BFA57D0",
+  "harness_sha256": "1F4901337E2AD989CF9A3A789BAB40EEC6F2A7E62597C22F6CC9E5F8507EA7E3",
+  "browser": "Codex in-app Chromium / WebGL2 / single-threaded",
+  "scope": "one bounded agent-only kernel/IndexedDB run; no menu or whole O5 acceptance",
+  "primary_and_backup": "same origin and same directory, 0 then45 moves; fresh adapter open each load; no DB clear"
+}

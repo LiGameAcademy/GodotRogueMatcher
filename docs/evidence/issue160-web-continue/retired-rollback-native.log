@@ -1,0 +1,83 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_checkpoint_store.gd
+[0m* test_sliced_commit_blocks_all_competing_operations_between_phases
+* test_sliced_faults_preserve_exact_pair_and_release_ownership_for_retry
+* test_primary_previous_frozen_values_and_64_bit_string_round_trip
+* test_stale_tickets_duplicate_commit_and_reentry
+* test_invalid_values_and_manifests_never_advance_or_write
+* test_corrupt_primary_falls_back_and_repair_preserves_original
+* test_unknown_schema_incompatible_manifest_and_both_corrupt_refuse
+* test_write_read_copy_replace_and_finish_failures_preserve_exact_old_pair
+* test_interrupted_commit_recovers_old_pair_before_loading
+* test_corrupt_journal_and_rollback_copy_fail_closed
+* test_reopen_identity_and_invalidation_override_both_generations
+* test_invalidation_failure_never_claims_success_or_reopens_old_tickets
+* test_terminal_and_corrupt_invalidation_markers_block_backup_revival
+* test_late_invalidation_error_may_have_committed_and_is_not_a_rollback
+* test_completed_old_ticket_is_rejected_after_external_invalidation
+* test_stale_owner_cannot_overwrite_a_newer_disk_generation
+* test_valid_json_checksum_damage_is_rejected_on_readback_and_load
+* test_generation_encoding_and_exhaustion_do_not_silently_normalize
+* test_real_disk_reopen_previous_and_raw_corrupt_bytes_copy
+* test_disk_read_hash_and_copy_enforce_the_same_size_limit
+* test_real_disk_commit_failure_and_interruption_restore_exact_pair
+* test_real_disk_failed_invalidation_then_verified_retry
+* test_incomplete_durable_invalidation_intent_blocks_both_generations_after_reopen
+* test_failure_before_any_intent_is_written_cannot_claim_cross_restart_invalidation
+* test_recovery_rejects_stale_primary_proof_and_other_run_previous
+* test_retired_rollback_copies_are_removed_only_after_commit_and_cleanup_failure_keeps_pair
+[1m26/26 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_recovery.gd
+[0m* test_rule_bad_primary_recovers_previous_without_rewriting_and_next_save_keeps_verified_backup
+* test_both_rule_bad_fail_and_keep_originals
+* test_unknown_payload_schema_is_not_silently_rolled_back
+* test_manifest_mismatch_and_budget_rejection_do_not_select_previous
+* test_terminal_invalidation_overrides_rule_bad_primary_and_valid_previous
+* test_known_initial_state_and_missing_stream_corruption_recover_previous
+* test_unknown_header_rng_protocol_does_not_fall_back
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_web_files.gd
+[0m* test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary
+* test_late_noncanonical_base64_never_publishes_or_writes_a_partial_mapping
+* test_file_operations_roundtrip_and_reject_paths_outside_the_slot
+* test_failed_browser_commit_restores_exact_acknowledged_pair_and_retry_can_save
+* test_bad_unknown_or_escaping_snapshots_are_not_reset_or_overwritten
+* test_raw_corrupt_original_bytes_survive_copy_and_database_roundtrip
+* test_conflicting_writer_requires_reload_instead_of_reusing_stale_local_files
+* test_no_thread_job_waits_for_actual_commit_and_keeps_single_ownership
+* test_failed_invalidation_is_not_durable_and_retry_prevents_both_generations
+* test_failed_sync_revokes_completed_ticket_instead_of_false_duplicate_success
+[1m10/10 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                43
+Passing Tests        43
+Asserts             771
+Time              13.504s
+
+
+[32m---- All tests passed! ----
+[0m

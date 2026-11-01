@@ -107,12 +107,13 @@ static func target_data(target: SkillTarget) -> Dictionary:
 static func random_data(random: RandomNumberGenerator) -> Dictionary:
 	return {"seed": str(random.seed), "state": str(random.state)}
 
-static func capture(run: RunController) -> Dictionary:
+static func capture(run: RunController, include_history: bool = true) -> Dictionary:
 	var state: RunState = run.state
 	var pieces: Array[Dictionary] = []
 	for current: PieceState in state.rules.state.get_snapshot(): pieces.append(piece(current))
 	var entries: Array[Dictionary] = []
-	for entry: ScoreEntry in state.ledger.get_entries(): entries.append(score(entry))
+	if include_history:
+		for entry: ScoreEntry in state.ledger.get_entries(): entries.append(score(entry))
 	var instances: Array[Dictionary] = []
 	var ids: Array[int] = []
 	ids.assign(state.explosion.instances.keys() + state.line_clear.instances.keys())
@@ -144,10 +145,10 @@ static func capture(run: RunController) -> Dictionary:
 	owned.sort_custom(func(a: SkillInstance, b: SkillInstance) -> bool: return a.instance_id < b.instance_id)
 	for instance: SkillInstance in owned: skills.append(instance.data())
 	snapshot["skills"] = normalize(skills)
-	snapshot["ability_events"] = normalize(state.ability_events.data())
+	snapshot["ability_events"] = normalize(state.ability_events.data(include_history))
 	snapshot["pending_removals"] = normalize(run.abilities.pending_removals())
 	snapshot["pending_followups"] = normalize(run.abilities.pending_followups())
-	snapshot["challenge"] = normalize(state.stage.data())
+	snapshot["challenge"] = normalize(state.stage.data(include_history))
 	snapshot["action_refill_count"] = str(run.action_refill_count)
 	snapshot["end_reason"] = String(state.end_reason)
 	snapshot["reward_repair_used"] = state.rewards.repair_used

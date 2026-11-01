@@ -1,0 +1,320 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:22:47.584Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:22:47.784Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:22:48.057Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:22:50.568Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":98700,\"frames\":5,\"freeze_usec\":22000,\"maximum_gap_usec\":41700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":4200,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":14400}}}",
+    "timestamp": "2026-11-01T10:22:52.729Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":100000,\"frames\":6,\"freeze_usec\":21200,\"maximum_gap_usec\":30700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":19200,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":36700}}}",
+    "timestamp": "2026-11-01T10:22:53.745Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":114100,\"frames\":6,\"freeze_usec\":21000,\"maximum_gap_usec\":33300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":46200,\"filemap_encode_usec\":100,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":55100}}}",
+    "timestamp": "2026-11-01T10:22:54.862Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116500,\"frames\":6,\"freeze_usec\":21300,\"maximum_gap_usec\":33700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":30300,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":48100}}}",
+    "timestamp": "2026-11-01T10:22:55.912Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":100000,\"frames\":6,\"freeze_usec\":22300,\"maximum_gap_usec\":32100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":25700,\"filemap_encode_usec\":100,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":35900}}}",
+    "timestamp": "2026-11-01T10:22:56.998Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":97200,\"frames\":6,\"freeze_usec\":21600,\"maximum_gap_usec\":31800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17600,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":35600}}}",
+    "timestamp": "2026-11-01T10:22:57.347Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":99800,\"frames\":6,\"freeze_usec\":21900,\"maximum_gap_usec\":33000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17200,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":34700}}}",
+    "timestamp": "2026-11-01T10:22:58.831Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":98800,\"frames\":6,\"freeze_usec\":21100,\"maximum_gap_usec\":37400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17800,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":32300}}}",
+    "timestamp": "2026-11-01T10:23:00.283Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":144500,\"frames\":6,\"freeze_usec\":40600,\"maximum_gap_usec\":69700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":31300,\"filemap_encode_usec\":1000,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":48800}}}",
+    "timestamp": "2026-11-01T10:23:00.816Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"default_flag_unchanged\":true,\"job_metrics\":{\"elapsed_usec\":144500,\"frames\":6,\"freeze_usec\":40600,\"maximum_gap_usec\":69700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":31300,\"filemap_encode_usec\":1000,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":48800}}},\"menu_visible\":true,\"mode\":\"stage_challenge\",\"origin\":\"http://127.0.0.1:8993\",\"phase\":\"saved_frozen_reward\",\"run_id\":\"1245361234-0-1793528571039000-3531600\",\"seed\":\"1245361234\",\"snapshot_matches_live\":true,\"snapshot_schema\":\"run-state-snapshot-safe-v2\",\"state_hash\":\"2453f43632436e6c0038b8e269d166fb259677957abe9cc97b3d5d2e12fccca0\",\"trace_known\":true,\"trace_parent_id\":\"1245361234-0-1793528571039000-3531600:132\"},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:23:00.902Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:24:26.260Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:24:26.395Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:24:26.497Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:24:28.881Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":61200,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":55200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:24:31.275Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":393800,\"elapsed_usec\":61200,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":55200,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:24:31.669Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":64700,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":58400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:24:31.860Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":393700,\"elapsed_usec\":64700,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":58400,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:24:32.254Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":733700,\"frames\":6,\"freeze_usec\":22400,\"maximum_gap_usec\":633600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":646300,\"filemap_encode_usec\":1000,\"largest_filemap_slice_usec\":500},\"storage_sync_elapsed_usec\":670200}}}",
+    "timestamp": "2026-11-01T10:24:33.309Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":112200,\"frames\":6,\"freeze_usec\":21600,\"maximum_gap_usec\":39300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":27900,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":45800}}}",
+    "timestamp": "2026-11-01T10:24:34.558Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":129000,\"frames\":7,\"freeze_usec\":21800,\"maximum_gap_usec\":33500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":41600,\"filemap_encode_usec\":100,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":71900}}}",
+    "timestamp": "2026-11-01T10:24:35.927Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":113700,\"frames\":6,\"freeze_usec\":21700,\"maximum_gap_usec\":33700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":34000,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":51100}}}",
+    "timestamp": "2026-11-01T10:24:37.010Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":112900,\"frames\":6,\"freeze_usec\":21900,\"maximum_gap_usec\":33900,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":30900,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":48700}}}",
+    "timestamp": "2026-11-01T10:24:38.160Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":109300,\"frames\":6,\"freeze_usec\":21900,\"maximum_gap_usec\":35200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":32700,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":49000}}}",
+    "timestamp": "2026-11-01T10:24:38.628Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":109700,\"frames\":6,\"freeze_usec\":21700,\"maximum_gap_usec\":36500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":30600,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":48300}}}",
+    "timestamp": "2026-11-01T10:24:40.129Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116500,\"frames\":6,\"freeze_usec\":23000,\"maximum_gap_usec\":34900,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":37200,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":47200}}}",
+    "timestamp": "2026-11-01T10:24:41.580Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":107300,\"frames\":6,\"freeze_usec\":22100,\"maximum_gap_usec\":38900,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":31500,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":47800}}}",
+    "timestamp": "2026-11-01T10:24:43.131Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116000,\"frames\":6,\"freeze_usec\":22800,\"maximum_gap_usec\":37500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":40600,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":50600}}}",
+    "timestamp": "2026-11-01T10:24:44.899Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":104000,\"frames\":6,\"freeze_usec\":22000,\"maximum_gap_usec\":38100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":39700,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":50400}}}",
+    "timestamp": "2026-11-01T10:24:45.400Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":142800,\"frames\":7,\"freeze_usec\":22500,\"maximum_gap_usec\":36500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":24500,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":60300}}}",
+    "timestamp": "2026-11-01T10:24:47.394Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116400,\"frames\":6,\"freeze_usec\":23200,\"maximum_gap_usec\":35000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":21300,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":49600}}}",
+    "timestamp": "2026-11-01T10:24:49.169Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":181600,\"frames\":7,\"freeze_usec\":22600,\"maximum_gap_usec\":72000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":26300,\"filemap_encode_usec\":1100,\"largest_filemap_slice_usec\":500},\"storage_sync_elapsed_usec\":68700}}}",
+    "timestamp": "2026-11-01T10:24:49.853Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":117200,\"frames\":6,\"freeze_usec\":22600,\"maximum_gap_usec\":49000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17300,\"filemap_encode_usec\":1200,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":34200}}}",
+    "timestamp": "2026-11-01T10:24:49.987Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":187400,\"frames\":8,\"freeze_usec\":22500,\"maximum_gap_usec\":42200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":14800,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":72700}}}",
+    "timestamp": "2026-11-01T10:24:51.276Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":182800,\"frames\":7,\"freeze_usec\":22400,\"maximum_gap_usec\":37000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":24800,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":98700}}}",
+    "timestamp": "2026-11-01T10:24:52.357Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":183100,\"frames\":8,\"freeze_usec\":22600,\"maximum_gap_usec\":42800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":11400,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":69400}}}",
+    "timestamp": "2026-11-01T10:24:53.557Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":199600,\"frames\":9,\"freeze_usec\":22900,\"maximum_gap_usec\":40100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":57500,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":118000}}}",
+    "timestamp": "2026-11-01T10:24:54.674Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":159000,\"frames\":7,\"freeze_usec\":22400,\"maximum_gap_usec\":75100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":53100,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":69300}}}",
+    "timestamp": "2026-11-01T10:24:56.109Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":203200,\"frames\":7,\"freeze_usec\":22900,\"maximum_gap_usec\":45800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":53500,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":78200}}}",
+    "timestamp": "2026-11-01T10:24:57.572Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":203800,\"frames\":8,\"freeze_usec\":22500,\"maximum_gap_usec\":46500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":22700,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":75900}}}",
+    "timestamp": "2026-11-01T10:24:58.906Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":175600,\"frames\":9,\"freeze_usec\":24300,\"maximum_gap_usec\":72000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":13200,\"filemap_encode_usec\":600,\"largest_filemap_slice_usec\":300},\"storage_sync_elapsed_usec\":84000}}}",
+    "timestamp": "2026-11-01T10:25:00.244Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":191000,\"frames\":8,\"freeze_usec\":24100,\"maximum_gap_usec\":77000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":23500,\"filemap_encode_usec\":600,\"largest_filemap_slice_usec\":300},\"storage_sync_elapsed_usec\":92400}}}",
+    "timestamp": "2026-11-01T10:25:01.929Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116500,\"frames\":6,\"freeze_usec\":24000,\"maximum_gap_usec\":42600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":49100,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":300},\"storage_sync_elapsed_usec\":57400}}}",
+    "timestamp": "2026-11-01T10:25:03.565Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"choice_consumed_once\":true,\"default_flag_unchanged\":true,\"durable_new_segment_replay\":true,\"durable_new_segment_rows\":8,\"durable_new_segment_sha256\":\"bd293f3f2247e7ba2dacd28d3f351f4a27b2695fbde145f472ceaf996db1a2ad\",\"endpoint_equal\":true,\"job_metrics\":{\"elapsed_usec\":116500,\"frames\":6,\"freeze_usec\":24000,\"maximum_gap_usec\":42600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":49100,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":300},\"storage_sync_elapsed_usec\":57400}}},\"menu_visible\":true,\"mode\":\"stage_challenge\",\"moves\":32,\"old_callbacks_ignored\":true,\"origin\":\"http://127.0.0.1:8993\",\"parent_known\":true,\"phase\":\"resumed_then_terminal\",\"provisional_projectors\":0,\"provisional_recorders\":0,\"resumed_header\":\"SnapshotHeader\",\"terminal_durable\":true,\"terminal_reason\":\"board_full\"},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:25:04.589Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:26:12.646Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:26:12.842Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:26:13.111Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:26:15.669Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"continue_unavailable\":true,\"default_flag_unchanged\":true,\"menu_visible\":true,\"mode\":\"stage_challenge\",\"origin\":\"http://127.0.0.1:8993\",\"phase\":\"terminal_reopen_menu\"},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:26:18.509Z",
+    "url": "http://127.0.0.1:8993/final/probe.html"
+  }
+]
