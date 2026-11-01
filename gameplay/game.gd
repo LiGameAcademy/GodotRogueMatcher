@@ -79,8 +79,9 @@ func _ready() -> void:
 	_connect_collection_controls(release_menu.collection_controls)
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
-	await _board.start_game(board_rules, record_runs and not (use_snapshot_checkpoints and _checkpoint.saved_available))
-	if show_start_menu or _checkpoint.saved_available: _show_menu()
+	var initial_ok: bool = await GameNewRunFlow.startup(_board, board_rules, record_runs,
+		show_start_menu or _checkpoint.saved_available)
+	if show_start_menu or _checkpoint.saved_available or not initial_ok: _show_menu()
 	else:
 		_has_played = true
 		_checkpoint.arm_current()
@@ -199,12 +200,13 @@ func _play_from_menu(new_run: bool) -> void:
 	get_tree().paused = false if new_run else _menu_previous_pause
 	_menu_owns_pause = false
 	_hud.show_pause_state(get_tree().paused)
-	if new_run and not await _on_retry_requested():
+	var start_new: bool = new_run or not _has_played
+	if start_new and not await _on_retry_requested():
 		_show_menu()
 		return
 	else: _set_collection_location("")
 	_has_played = true
-	if not new_run: _checkpoint.arm_current()
+	if not start_new: _checkpoint.arm_current()
 	if _board.observation.telemetry != null: _board.observation.telemetry.play_started()
 
 func _pause_on_focus_loss() -> void:
@@ -408,21 +410,19 @@ func _on_retry_requested() -> bool:
 	if use_external_restart:
 		restart_requested.emit()
 		return true
-	var fresh_rules: BoardRules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
-	var prepared: RunController = RunController.new(fresh_rules, randi(), _board.game_mode.stage_config)
-	var initial: RunStepResult = prepared.initialize()
-	if not prepared.state.rule_error.is_empty() or not await _checkpoint.allow_new_run(): return false
+	var prepared: Dictionary = await GameNewRunFlow.prepare(_board, _checkpoint)
+	if not prepared.ok: return false
 	_settings.close()
 	_skill_pool.close()
 	_collection.finish(_restart_reason)
 	_restart_reason = "restart"
 	_feedback.cancel()
 	UIManager.close_popup()
-	board_rules = fresh_rules
+	board_rules = prepared.run.state.rules
 	if collect_telemetry and not _collection.enabled:
 		_collection.configure(collection_context)
 	_board.telemetry_factory = _collection.factory if collect_telemetry else null
-	await _board.retry_game(board_rules, prepared, initial)
+	await _board.retry_game(board_rules, prepared.run, prepared.initial)
 	_checkpoint.arm_current()
 	_apply_game_theme()
 	_set_collection_location("")

@@ -136,6 +136,27 @@ func continue_saved() -> bool:
 	status_changed.emit(&"hud.status.checkpoint_fallback" if result.fallback else &"hud.status.checkpoint_restored")
 	return true
 
+## Reads compatible saved identity only; does not construct/restore rules or consume their streams.
+func previous_master_seed() -> int:
+	if not enabled or not use_snapshot: return -1
+	var metadata: Dictionary = _store.inspect_latest()
+	if not metadata.ok: return -1
+	var mode: GameModeDefinition = GameModes.find(StringName(metadata.manifest.get("mode_id", "")))
+	if mode == null: return -1
+	var policy: RunController = RunController.new(BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT), 0, mode.stage_config)
+	var loaded: Dictionary = _store.load_latest(SNAPSHOT.manifest(policy))
+	if not loaded.ok: return -1
+	var package: Dictionary = loaded.record.payload
+	if package.get("schema") != SNAPSHOT.PACKAGE_SCHEMA or package.get("run_id") != loaded.record.run_id or not package.get("snapshot_json") is String: return -1
+	var decoded: Dictionary = SNAPSHOT.deserialize(package.snapshot_json.to_utf8_buffer())
+	if not decoded.ok: return -1
+	var data: Dictionary = decoded.data
+	if data.get("schema") != SNAPSHOT.SCHEMA or data.get("run_id") != package.run_id or data.get("manifest") != loaded.record.manifest: return -1
+	if not data.get("state") is Dictionary or RunSnapshot.digest(data.state) != data.get("state_hash"): return -1
+	var seed: Variant = data.get("master_seed")
+	if not CommandCodec.valid_integer(seed) or String(seed).to_int() < 0 or not data.state.get("rng") is Dictionary or data.state.rng.get("master_seed") != seed: return -1
+	return String(seed).to_int()
+
 ## Prepared new-run rules must be constructed by the caller before invalidating the old identity.
 func allow_new_run() -> bool:
 	if not enabled: return true

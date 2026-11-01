@@ -1017,3 +1017,4 @@ checkpoint.web_notice,"安全点自动保存到本机浏览器，不上传。
 请等待保存完成；私密浏览或清除网站数据可能丢失存档。","Safe checkpoints are saved in this browser without uploading.
 Refreshing or closing returns to the last confirmed save.
 Wait for saving to finish. Private browsing or clearing site data may lose checkpoints."
+hud.status.new_run_failed,新局未开始，当前对局及存档未被替换。请重试。,New game did not start. Your run and checkpoint were not replaced. Retry.
