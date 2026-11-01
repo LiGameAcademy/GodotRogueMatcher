@@ -42,6 +42,18 @@ func get_entries() -> Array[ScoreEntry]:
 func next_event_id() -> int:
 	return _next_event_id
 
+func history_size() -> int:
+	return _entries.size()
+
+## Materializes only the unfinished stage action, without copying the historical ledger.
+func unsettled_stage_score(offset: int, root_id: int, reasons: Array[StringName]) -> int:
+	var result: int = 0
+	for index: int in range(offset, _entries.size()):
+		var entry: ScoreEntry = _entries[index]
+		if entry.root_action_id == root_id and entry.reason in reasons:
+			result += entry.final_score
+	return result
+
 ## Cold continuation retains aggregate score and identity, without replay/display history.
 func restore_checkpoint(total_score: int, next_id: int) -> bool:
 	if not _entries.is_empty() or _total != 0 or total_score < 0 or next_id < 1: return false

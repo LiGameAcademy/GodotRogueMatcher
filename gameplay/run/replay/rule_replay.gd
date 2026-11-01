@@ -35,6 +35,20 @@ func read_file(path: String) -> Array[Dictionary]:
 		records.append(value)
 	return records
 
+## Verifies a separately decoded snapshot segment with the existing per-record rule comparator.
+## Caller must validate its anchor before invoking; no initialize or prefix replay is performed.
+func verify_snapshot_segment(records: Array[Dictionary], active: RunController, generated: RunRecorder) -> bool:
+	error = ""
+	complete = false
+	checked_records = 0
+	if records.is_empty() or records[0].get("kind") != "SnapshotHeader" or records[0].get("schema_version") != "run-snapshot-segment-v1": return _fail("invalid_snapshot_segment")
+	if generated.records.is_empty(): return _fail("missing_segment_recorder")
+	run = active
+	for index: int in range(1, records.size()):
+		if not _advance_record(index, records, generated): return false
+	if generated.records.size() != records.size(): return _fail("segment_truncated")
+	if not complete and (records.back().get("kind") != "Checkpoint" or not run.state.rule_error.is_empty()): return _fail("segment_not_checkpoint")
+	return true
 func replay_file(path: String) -> bool:
 	var records: Array[Dictionary] = read_file(path)
 	var read_error: String = error

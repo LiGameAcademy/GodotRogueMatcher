@@ -1,8 +1,10 @@
 extends RefCounted
 
-## Explicit cold INPUT restore. No initialize, effects, offers, recorder or history replay.
-## First slice accepts normal classic runs; unsupported modes stay outside the live entry point.
+## Cold safe-point restore, including frozen offers and stages. No initialize/effects/history replay.
+## Normal runs only; prototype shapes and the live save entry point remain outside this slice.
 const V: Script = preload("res://services/run_checkpoint/snapshot_values.gd")
+const REWARDS: Script = preload("res://services/run_checkpoint/snapshot_rewards.gd")
+const STAGES: Script = preload("res://services/run_checkpoint/snapshot_stages.gd")
 const ENTITIES: Script = preload("res://services/run_checkpoint/snapshot_entities.gd")
 
 static func project(run: RunController) -> Dictionary:
@@ -12,14 +14,20 @@ static func project(run: RunController) -> Dictionary:
 	# old event objects cannot pass the scope check, so their dispatched set is history.
 	state.ability_events.dispatched = []
 	# Past scoring entries are presentation history. A new action sets its own entry cursor.
+	if run.state.stage.enabled() and run.state.stage.root_action_id != run.state.stage.settled_root_id:
+		state.challenge.action_score = str(run.state.stage.action_score + run.state.ledger.unsettled_stage_score(run.state.stage.entry_offset, run.state.stage.root_action_id, StageState.SCORE_REASONS))
 	state.challenge.entry_offset = "0"
+	if state.challenge.history.size() > 1: state.challenge.history = [state.challenge.history.back()]
+	if run.state.rewards.active_offer != null:
+		state.offer["profile_id"] = String(run.state.rewards.active_offer.profile_id)
+		state.offer["unavailable"] = RunSnapshot.normalize(run.state.rewards.active_offer.unavailable)
 	return state
 
-static func restore(state: Dictionary, seed: int, run_id: String, board: Dictionary) -> Dictionary:
+static func restore(state: Dictionary, seed: int, run_id: String, board: Dictionary, stage_config: StageConfig = null) -> Dictionary:
 	if not V.keys(board, PackedStringArray(["columns", "rows", "match_count"])): return _failure("snapshot_state_invalid")
 	if not V.integer(board.columns, 1, 64) or not V.integer(board.rows, 1, 64) or not V.integer(board.match_count, 2, 128): return _failure("snapshot_state_invalid")
 	var rules: BoardRules = BoardRules.new(BoardState.new(String(board.columns).to_int(), String(board.rows).to_int()), String(board.match_count).to_int())
-	var run: RunController = RunController.new(rules, seed)
+	var run: RunController = RunController.new(rules, seed, stage_config)
 	run.state.run_id = run_id
 	var required: PackedStringArray = PackedStringArray(project(run).keys())
 	if not V.keys(state, required): return _failure("snapshot_state_invalid")
@@ -27,11 +35,11 @@ static func restore(state: Dictionary, seed: int, run_id: String, board: Diction
 		if not state[key] is Dictionary: return _failure("snapshot_state_invalid")
 	for key: String in ["pieces", "instances", "skills", "levels", "history", "pending_removals", "pending_followups", "random"]:
 		if not state[key] is Array: return _failure("snapshot_state_invalid")
-	if state.phase != "1" or state.continuation != "idle" or state.pending != "0" or not state.offer.is_empty(): return _failure("snapshot_state_invalid")
+	if not V.integer(state.phase, 1, 3) or not state.continuation is String or not V.integer(state.pending, 0, 1000000): return _failure("snapshot_state_invalid")
 	if not state.game_over is bool or state.game_over or state.error != "" or state.end_reason != "": return _failure("snapshot_state_invalid")
 	if not state.pending_removals.is_empty() or not state.pending_followups.is_empty(): return _failure("snapshot_state_invalid")
-	if not state.demolition.get("roots") is Array or not state.demolition.roots.is_empty(): return _failure("snapshot_unsettled_roots")
-	if not state.challenge.get("enabled") is bool or state.challenge.enabled: return _failure("snapshot_state_invalid")
+	if not state.demolition.get("roots") is Array: return _failure("snapshot_unsettled_roots")
+	if not state.challenge.get("enabled") is bool: return _failure("snapshot_state_invalid")
 	var streams: RunRandomStreams = RunRandomStreams.from_data(state.rng)
 	if streams == null or streams.master_seed != seed: return _failure("snapshot_state_invalid")
 	run.state.random_streams = streams
@@ -40,6 +48,7 @@ static func restore(state: Dictionary, seed: int, run_id: String, board: Diction
 	run.state.spawning = SpawnState.new(RunController.SPAWN_CONFIG, seed, streams.stream(&"spawn_content"))
 	if not V.integer(state.last_command, 0) or not state.direct_match is bool: return _failure("snapshot_state_invalid")
 	if not run.restore_checkpoint_command(String(state.last_command).to_int(), state.direct_match): return _failure("snapshot_state_invalid")
+	run.continuation = StringName(state.continuation)
 	if not _scalars(run, state): return _failure("snapshot_scalars_invalid")
 	if not _maps(run, state): return _failure("snapshot_maps_invalid")
 	if not ENTITIES.pieces(run, state.pieces, state.next_piece_id): return _failure("snapshot_state_invalid")
@@ -49,6 +58,7 @@ static func restore(state: Dictionary, seed: int, run_id: String, board: Diction
 	if not ENTITIES.spawn_plan(run, state.spawning): return _failure("snapshot_spawning_invalid")
 	if not ENTITIES.roots(run, state.demolition.roots): return _failure("snapshot_roots_invalid")
 	if not _events(run, state.ability_events) or not _shapes(run, state.shape_unlocks): return _failure("snapshot_state_invalid")
+	if not STAGES.restore(run, state.challenge) or not REWARDS.restore(run, state.offer): return _failure("snapshot_state_invalid")
 	if not RunCheckpointCodec.safety_error(run).is_empty(): return _failure("snapshot_state_invalid")
 	# Also rejects omitted/extra nested fields and redundant RNG/definition values that disagree.
 	var restored: Dictionary = project(run)
@@ -66,10 +76,11 @@ static func _scalars(run: RunController, value: Dictionary) -> bool:
 	if not state.ledger.restore_checkpoint(String(value.total).to_int(), String(value.next_event_id).to_int()): return false
 	if not V.scalars(state.progression, value, {"milestone_level": "level", "previous_milestone": "previous_milestone", "next_milestone": "next_milestone"}): return false
 	if state.progression.level < 0 or state.progression.previous_milestone < 0 or state.progression.next_milestone <= state.progression.previous_milestone: return false
-	if not _progression(state): return false
+	if not state.stage.enabled() and not _progression(state): return false
 	if not V.scalars(state.rewards, value, {"consumed": "consumed_count", "next_offer_id": "next_offer_id", "reward_repair_used": "repair_used"}): return false
 	if state.rewards.consumed_count < 0 or state.rewards.next_offer_id < 1: return false
-	if state.rewards.consumed_count != state.progression.level or state.rewards.next_offer_id <= state.rewards.consumed_count or state.rewards.repair_used: return false
+	if not state.stage.enabled() and state.rewards.consumed_count + state.pending_rewards != state.progression.level: return false
+	if state.rewards.next_offer_id <= state.rewards.consumed_count: return false
 	if not V.scalars(run, value, {"action_refill_count": "action_refill_count"}): return false
 	if run.action_refill_count < 0 or run.action_refill_count > 1024: return false
 	var demolition: Dictionary = value.demolition

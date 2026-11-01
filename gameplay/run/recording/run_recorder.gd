@@ -34,12 +34,29 @@ func begin(run: RunController, execution_source: String, save_file: bool = true,
 			path = directory.path_join(run.state.run_id + ".jsonl")
 			if not FileAccess.file_exists(path): _file = FileAccess.open(path, FileAccess.WRITE)
 		if _file == null: _fail("本局记录不完整：无法创建JSONL文件")
-	var config: Dictionary = RunSnapshot.config(run)
-	if build == "unknown": build = str(ProjectSettings.get_setting("application/config/version", "development"))
-	append("Header", {"schema_version": SCHEMA, "run_id": run.state.run_id, "source": source, "rules_version": RunSnapshot.RULES_VERSION, "content_version": RunSnapshot.digest(config.skills), "offer_version": SkillOfferGenerator.version_for_mode(run.state.mode_id()), "build": build, "godot": Engine.get_version_info().string, "platform": OS.get_name(), "config": config, "config_hash": RunSnapshot.digest(config), "seed": str(run.state.random_streams.master_seed), "rng_scheme_version": RunRandomStreams.SCHEME_VERSION, "rng": run.state.random_streams.data(), "engine_build": Engine.get_version_info().hash, "initialization": run.initialization, "initial": RunSnapshot.capture(run), "metadata": metadata, "support": "normal_pool_and_fixture_f6"})
+	append("Header", _header(run, build))
 	checkpoint(run)
 	_flush()
 	set_interval("input")
+
+## New append-only segment starts at a verified snapshot, never a fake normal Header/prefix.
+func begin_snapshot(run: RunController, snapshot: Dictionary, segment_id: String, execution_source: String, resume: Dictionary) -> void:
+	assert(records.is_empty() and _file == null)
+	source = execution_source
+	_full_precision = true
+	metadata["resume"] = resume.duplicate(true)
+	var header: Dictionary = _header(run, Engine.get_version_info().hash)
+	header.schema_version = "run-snapshot-segment-v1"
+	header["segment_id"] = segment_id
+	header["snapshot"] = snapshot.duplicate(true)
+	append("SnapshotHeader", header)
+	checkpoint(run)
+	set_interval("input" if run.state.phase == RunState.Phase.INPUT else "choice")
+
+func _header(run: RunController, build: String) -> Dictionary:
+	var config: Dictionary = RunSnapshot.config(run)
+	if build == "unknown": build = str(ProjectSettings.get_setting("application/config/version", "development"))
+	return {"schema_version": SCHEMA, "run_id": run.state.run_id, "source": source, "rules_version": RunSnapshot.RULES_VERSION, "content_version": RunSnapshot.digest(config.skills), "offer_version": SkillOfferGenerator.version_for_mode(run.state.mode_id()), "build": build, "godot": Engine.get_version_info().string, "platform": OS.get_name(), "config": config, "config_hash": RunSnapshot.digest(config), "seed": str(run.state.random_streams.master_seed), "rng_scheme_version": RunRandomStreams.SCHEME_VERSION, "rng": run.state.random_streams.data(), "engine_build": Engine.get_version_info().hash, "initialization": run.initialization, "initial": RunSnapshot.capture(run), "metadata": metadata, "support": "normal_pool_and_fixture_f6"}
 
 func set_interval(next: String) -> void:
 	var now: int = Time.get_ticks_msec()

@@ -227,7 +227,7 @@ func test_unsupported_phase_and_legacy_slot_are_preserved() -> void:
 	assert_eq(FileAccess.get_file_as_string(directory.path_join("primary.json")), old)
 
 	run.state.phase = RunState.Phase.SPAWNING
-	assert_eq((await SNAPSHOT.save(legacy, run)).reason, "snapshot_input_classic_only")
+	assert_eq((await SNAPSHOT.save(legacy, run)).reason, "snapshot_unsafe_phase")
 	assert_eq(FileAccess.get_file_as_string(directory.path_join("primary.json")), old)
 
 func test_snapshot_payload_fallback_keeps_valid_previous_and_preserves_bad_original() -> void:

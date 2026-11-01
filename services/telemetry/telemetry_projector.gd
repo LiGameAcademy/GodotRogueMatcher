@@ -68,6 +68,9 @@ func begin_resume(header: Dictionary, records: Array[Dictionary]) -> void:
 				break
 		if start >= 0:
 			for index: int in range(start, records.size()): observe_record(records[index])
+		else:
+			# A snapshot segment has no past action inputs. Do not invent a complete root.
+			_root_incomplete = true
 	_muted = false
 	_complete_actions = 0
 	_last_complete_action = "0"
@@ -228,6 +231,13 @@ func _identity_prefix() -> String:
 	return String(_base.run_id) + (":" + String(_base.segment_id) if _base.has("segment_id") else "")
 
 ## Records accepted and persisted positions independently; it does not flush or claim durability.
+## Binds a continuation snapshot to a concrete observation row; flush is not Web durable ACK.
+func snapshot_anchor(state_hash: String) -> void:
+	if ended or _base.is_empty(): return
+	var value: Dictionary = observation(false)
+	value["snapshot_state_hash"] = state_hash
+	_emit("observation_checkpoint", value)
+	needs_flush = true
 func checkpoint_trace(record_seq: int, next_rule_event_id: int) -> Dictionary:
 	if _base.is_empty(): return {}
 	if not error.is_empty(): return {"status": "telemetry_failed", "reason": error}

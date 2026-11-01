@@ -134,7 +134,7 @@ static func _finish_decode(payload: Dictionary, expected_manifest: Dictionary, r
 static func safety_error(run: RunController) -> String:
 	if run == null or run.is_retired(): return "run_closed"
 	if run.state.is_game_over or not run.state.rule_error.is_empty(): return "run_not_resumable"
-	if not run.state.ability_events.data().active: return "events_closed"
+	if not run.state.ability_events.data(false).active: return "events_closed"
 	if run.abilities.has_pending_work(): return "pending_descendants"
 	if run.state.phase == RunState.Phase.INPUT:
 		if run.continuation != &"idle" or run.state.pending_rewards != 0 or run.state.rewards.active_offer != null:
