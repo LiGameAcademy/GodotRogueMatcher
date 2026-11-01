@@ -1,0 +1,110 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T05:27:54.696Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T05:27:54.888Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T05:27:55.166Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T05:27:57.441Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS ready",
+    "timestamp": "2026-11-01T05:27:57.449Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:27:57.452Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:27:57.527Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS measure 1 moves=0",
+    "timestamp": "2026-11-01T05:27:57.558Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS saved true",
+    "timestamp": "2026-11-01T05:27:57.622Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:27:57.644Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:27:57.707Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS loaded true",
+    "timestamp": "2026-11-01T05:27:57.731Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS measure 1 moves=45",
+    "timestamp": "2026-11-01T05:27:58.955Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS saved true",
+    "timestamp": "2026-11-01T05:27:59.056Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:27:59.077Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:27:59.158Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS loaded true",
+    "timestamp": "2026-11-01T05:27:59.182Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_WEB_REPORT {\"ok\":false,\"reason\":\"frozen_reward_not_reached\",\"samples\":[{\"continuation\":\"idle\",\"endpoint_equal\":true,\"identical_next_commands\":3,\"load_maximum_gap_usec\":25900,\"load_with_fresh_open_usec\":108100,\"mode\":\"classic_endless\",\"moves\":0,\"ok\":true,\"phase\":\"1\",\"reason\":\"\",\"reward_id\":\"0\",\"save_maximum_gap_usec\":51000,\"save_usec\":62900,\"segment_replay_ok\":true,\"snapshot_bytes\":3727,\"source_records_not_saved\":2,\"source_unchanged\":true,\"state_hash\":\"76bc134dad20d85a82ca413e12fb8a01723b06f9d05a25d060411ba384a1b2ad\"},{\"continuation\":\"idle\",\"endpoint_equal\":true,\"identical_next_commands\":3,\"load_maximum_gap_usec\":26200,\"load_with_fresh_open_usec\":124000,\"mode\":\"classic_endless\",\"moves\":45,\"ok\":true,\"phase\":\"1\",\"reason\":\"\",\"reward_id\":\"0\",\"save_maximum_gap_usec\":50700,\"save_usec\":100000,\"segment_replay_ok\":true,\"snapshot_bytes\":6877,\"source_records_not_saved\":425,\"source_unchanged\":true,\"state_hash\":\"f7ee164d41ae088be265736167d655fe828a98101d016dbd330f58195e50ca43\"}],\"scope\":\"bounded agent-only snapshot safe-points/segment/IndexedDB probe; not live menu or whole O5 acceptance\"}",
+    "timestamp": "2026-11-01T05:28:00.941Z",
+    "url": "http://127.0.0.1:8982/final/classic.html"
+  }
+]

@@ -18,7 +18,7 @@ func _run() -> void:
 	var origin: String = str(JavaScriptBridge.eval("window.location.origin", true)) if OS.has_feature("web") else ""
 	var stage_mode: bool = origin == "http://127.0.0.1:8983"
 	var arguments: PackedStringArray = PackedStringArray(["--snapshot-safe-probe", "--stage" if stage_mode else "--classic"])
-	if origin not in ["http://127.0.0.1:8982", "http://127.0.0.1:8983"] or OS.get_cmdline_user_args() != arguments:
+	if origin not in ["http://127.0.0.1:8984", "http://127.0.0.1:8983"] or OS.get_cmdline_user_args() != arguments:
 		_finish(false, "probe_origin_or_arguments_rejected")
 		return
 	print("SNAPSHOT_SAFE_PROGRESS open")
@@ -60,6 +60,18 @@ func _run() -> void:
 		if not result.ok:
 			_finish(false, result.reason)
 			return
+		if not stage_mode and target == 0:
+			if not await _seek_reward(run, bot):
+				_finish(false, "early_classic_reward_not_reached")
+				return
+			var early: Dictionary = await _measure(store, run, bot)
+			_samples.append(early)
+			if not early.ok:
+				_finish(false, early.reason)
+				return
+	if not stage_mode:
+		_finish(true, "")
+		return
 	if not await _seek_reward(run, bot):
 		_finish(false, "frozen_reward_not_reached")
 		return
@@ -164,6 +176,7 @@ func _timeout() -> void:
 	if not _finished: _finish(false, "probe_watchdog_60_seconds")
 
 func _finish(ok: bool, reason: String) -> void:
+	if _finished: return
 	_finished = true
 	print("SNAPSHOT_SAFE_WEB_REPORT " + JSON.stringify({"ok": ok, "reason": reason, "samples": _samples, "scope": "bounded agent-only snapshot safe-points/segment/IndexedDB probe; not live menu or whole O5 acceptance"}))
 	get_tree().quit(0 if ok else 2)
