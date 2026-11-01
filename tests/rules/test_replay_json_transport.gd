@@ -37,4 +37,3 @@ func test_full_precision_and_zero_values_keep_direct_semantics() -> void:
 	var replay: RuleReplay = RuleReplay.new()
 	assert_true(replay._record_matches(persisted, actual, false))
 	assert_false(replay._record_matches({"value": 0.0}, {"value": 0.000000000000001}, true))
-
