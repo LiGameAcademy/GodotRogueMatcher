@@ -13,9 +13,9 @@ func _ready() -> void:
 
 func _run() -> void:
 	var origin: String = str(JavaScriptBridge.eval("window.location.origin", true)) if OS.has_feature("web") else ""
-	var stage_mode: bool = origin == "http://127.0.0.1:8921"
+	var stage_mode: bool = origin == "http://127.0.0.1:8983"
 	var arguments: PackedStringArray = PackedStringArray(["--snapshot-safe-probe", "--stage" if stage_mode else "--classic"])
-	if origin not in ["http://127.0.0.1:8920", "http://127.0.0.1:8921"] or OS.get_cmdline_user_args() != arguments:
+	if origin not in ["http://127.0.0.1:8982", "http://127.0.0.1:8983"] or OS.get_cmdline_user_args() != arguments:
 		_finish(false, "probe_origin_or_arguments_rejected")
 		return
 	var files: WEB_FILES = WEB_FILES.new(_directory)
