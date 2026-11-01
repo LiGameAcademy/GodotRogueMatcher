@@ -2,3 +2,4 @@
 
 review_status初审指出Game509行，已按实际存档/采集协调职责抽出GameCheckpointCollection，现500行，未压行删必要注释。最终代码静态复审APPROVE：显式场景依赖，冻结值worker、固定父行ACK、epoch/队列所有权、候选默认false和受限实际Game探针无新增阻断。26项最终原生结果已完成，实际Web及最终证据仍待复核；不批准默认切换/O5收口。
 实际Web初次8990冻结保存通过，刷新实际菜单后endpoint/known父关系/零临时Recorder及projector均通过；旧回调探针读取Signal.get_connections返回普通Array，直接赋Array[Dictionary]导致脚本停步并最终watchdog整体false。原始报告/console与原生复现保留，不改标整体通过。修正两处为显式typed空数组assign；新classic origin8992保留8990分支，stage8991此前未运行。仅probe/tests/证据改变，生产内核保持3189b12。独立只读复核APPROVE。补每行JSON stringify/parse再回放的冻结新段表示层测试9/9、561断言通过；这不等同真实文件或IndexedDB验证，后者仍由实际Web承担。
+Stage8991实际Web接管、known父、零临时记录、旧回调、只消费一次与8行持久新段回放均通过，但自然终局前watchdog整体false。截图显示真实产品失焦暂停（HUD已暂停，演出等待），不归因于规则或数据损坏。测试宿主补走实际_toggle_pause，仅在非菜单/非Popup/非checkpoint模态时恢复；保持110秒界限，补超时后停止驱动检查。新stage8993保留8991原件。production services/gameplay不改，classic8992已过链不重跑。

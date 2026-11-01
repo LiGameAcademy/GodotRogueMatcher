@@ -24,12 +24,17 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if _game != null and _game.is_inside_tree() and not _finished:
 		if _board != null: _board.director.request_skip()
+		# Background browser automation may trigger the product's intentional focus-loss pause.
+		# Resume through the actual pause action, never unpause a reward/menu/modal owner.
+		if get_tree().paused and _flow != null and not _flow.is_busy() and bool(_game.get("_has_played")) and not is_instance_valid(UIManager.current_popup):
+			var menu: ReleaseMenu = _game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+			if not menu.visible: _game.call("_toggle_pause")
 		(_game.get_node("UILayer/HUD") as Hud).finish_score_now()
 
 func _run() -> void:
 	var origin: String = str(JavaScriptBridge.eval("window.location.origin", true)) if OS.has_feature("web") else ""
-	var mode: StringName = &"stage_challenge" if origin == "http://127.0.0.1:8991" else &"classic_endless"
-	if origin not in ["http://127.0.0.1:8992", "http://127.0.0.1:8991"] or OS.get_cmdline_user_args() != PackedStringArray(["--snapshot-menu-probe"]):
+	var mode: StringName = &"stage_challenge" if origin == "http://127.0.0.1:8993" else &"classic_endless"
+	if origin not in ["http://127.0.0.1:8992", "http://127.0.0.1:8993"] or OS.get_cmdline_user_args() != PackedStringArray(["--snapshot-menu-probe"]):
 		_finish(false, "probe_origin_or_args_rejected")
 		return
 	var files: FILES = FILES.new("user://snapshot-menu-probe")
@@ -161,6 +166,7 @@ func _resume(reference: Dictionary, menu: ReleaseMenu) -> void:
 
 func _drive(stop_at_reward: bool) -> bool:
 	for index: int in range(900):
+		if _finished: return false
 		if _board.run.state.is_game_over: return not stop_at_reward
 		if not _board.run.state.rule_error.is_empty():
 			_finish(false, _board.run.state.rule_error)
@@ -228,7 +234,7 @@ func _saved_idle() -> bool:
 
 func _wait(predicate: Callable) -> bool:
 	var deadline: int = Time.get_ticks_msec() + 15000
-	while not bool(predicate.call()) and Time.get_ticks_msec() < deadline: await get_tree().process_frame
+	while not _finished and not bool(predicate.call()) and Time.get_ticks_msec() < deadline: await get_tree().process_frame
 	return bool(predicate.call())
 
 func _finish(ok: bool, reason: String) -> void:
