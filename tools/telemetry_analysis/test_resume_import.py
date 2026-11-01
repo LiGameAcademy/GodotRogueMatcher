@@ -7,6 +7,7 @@ import json
 import shutil
 import unittest
 import uuid
+import zipfile
 from pathlib import Path
 
 from import_sources import canonical, ingest
@@ -58,6 +59,29 @@ class ResumeImportTests(unittest.TestCase):
             result = ingest([self.write(f"bad-{index}.jsonl", [row])], self.root / f"out-{index}")
             self.assertEqual(result["runs"], 0)
             self.assertTrue(any(item["reason"] == "invalid_resume_segment" for item in result["diagnostics"]))
+
+    def test_export_zip_snapshot_commands_do_not_reject_valid_telemetry_for_same_run(self) -> None:
+        header = {"kind": "SnapshotHeader", "schema_version": "run-snapshot-segment-v1",
+                  "run_id": "run1", "segment_id": "child-session", "seq": "1"}
+        package = self.root / "web-records.zip"
+        with zipfile.ZipFile(package, "w") as archive:
+            archive.writestr("telemetry/parent.jsonl", canonical(parent()) + "\n")
+            archive.writestr("telemetry/child.jsonl", canonical(child()) + "\n")
+            archive.writestr("run_records/run1--child-session.jsonl", canonical(header) + "\n")
+        result = ingest([package], self.root / "out")
+        self.assertEqual(result["diagnostics"], [])
+        self.assertEqual((result["runs"], result["segments"], result["events"]), (1, 2, 2))
+        self.assertEqual(result["rejected_runs"], [])
+        inventory = result["files"]
+        self.assertTrue(any(row.get("kind") == "rule_record_evidence_not_telemetry"
+                            for row in inventory))
+
+    def test_unknown_snapshot_header_schema_is_not_silently_skipped(self) -> None:
+        header = {"kind": "SnapshotHeader", "schema_version": "unknown",
+                  "run_id": "run1", "segment_id": "child-session", "seq": "1"}
+        result = ingest([self.write("unknown.jsonl", [header])], self.root / "out")
+        self.assertEqual(result["runs"], 0)
+        self.assertTrue(any(row["reason"] == "invalid_event_identity" for row in result["diagnostics"]))
 
     def test_renamed_lineage_document_uses_schema_not_filename_for_multiple_segments(self) -> None:
         path = self.root / "renamed-evidence.json"

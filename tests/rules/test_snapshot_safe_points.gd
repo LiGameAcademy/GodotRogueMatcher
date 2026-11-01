@@ -215,3 +215,46 @@ func test_completed_stage_continue_reward_restores_continuing_flag_and_next_stag
 	assert_true(run.state.stage.continuing)
 	var loaded: Dictionary = _restore(run)
 	if loaded.ok: _follow(run, loaded.run, bot, 3)
+
+func test_ro07_snapshot_before_and_after_real_offer_repair_preserves_quota_and_old_identity() -> void:
+	var run: RunController = _run()
+	assert_true(_reward(run, GreedyBot.new(100023)))
+	var core: SkillDefinition = preload("res://gameplay/progression/content/core_drop.tres")
+	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
+	generator.set_catalog([core])
+	# Restrict this controlled legal-pool vector; no production catalog/config mutation.
+	run.state.rewards.active_offer = null
+	var original: SkillOffer = run.prepare_offer(false, generator)
+	assert_not_null(original)
+	if original == null: return
+	var before_repair: Dictionary = _restore(run)
+	if not before_repair.ok: return
+	assert_not_null(run.state.rules.place_piece(original.targets[core.skill_id].coordinate, 0))
+	assert_not_null(before_repair.run.state.rules.place_piece(original.targets[core.skill_id].coordinate, 0))
+	var replacement: SkillOffer = run.prepare_offer(false, generator)
+	assert_not_null(before_repair.run.prepare_offer(false, generator))
+	assert_not_null(replacement)
+	if replacement == null: return
+	assert_eq(RESTORE.project(run), RESTORE.project(before_repair.run), "first repair after restore matches source")
+	assert_eq(replacement.replaces_offer_id, original.offer_id)
+	assert_true(run.state.rewards.repair_used)
+	var loaded: Dictionary = _restore(run)
+	if not loaded.ok: return
+	var old: ChooseSkillCommand = ChooseSkillCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
+	old.reward_id = original.reward_id
+	old.offer_id = original.offer_id
+	old.skill_id = core.skill_id
+	var before: Dictionary = RESTORE.project(loaded.run)
+	assert_false(loaded.run.execute_command(old).accepted)
+	# Rejected fresh commands still consume their sequence ID by the existing command contract.
+	assert_eq(loaded.run.last_command_id, old.command_id)
+	before.last_command = str(old.command_id)
+	assert_eq(before, RESTORE.project(loaded.run))
+	assert_not_null(loaded.run.state.rules.place_piece(replacement.targets[core.skill_id].coordinate, 1))
+	var rng: Dictionary = loaded.run.state.random_streams.data()
+	var next_id: int = loaded.run.state.rewards.next_offer_id
+	assert_null(loaded.run.prepare_offer(false, generator))
+	assert_eq(loaded.run.state.rule_error, "reward_repair_already_used")
+	assert_eq(loaded.run.state.rewards.next_offer_id, next_id)
+	assert_eq(loaded.run.state.random_streams.data(), rng)
+	assert_false(SNAPSHOT.freeze(loaded.run).ok)
