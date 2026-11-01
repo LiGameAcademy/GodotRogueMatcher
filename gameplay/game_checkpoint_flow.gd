@@ -12,6 +12,9 @@ signal operation_cancelled
 
 const DESKTOP_BUDGET_USEC: int = 10000000
 const WEB_FILES: Script = preload("res://services/run_checkpoint/checkpoint_web_files.gd")
+const SNAPSHOT: Script = preload("res://services/run_checkpoint/run_state_snapshot.gd")
+const SNAPSHOT_STATE: Script = preload("res://services/run_checkpoint/snapshot_run_restore.gd")
+var use_snapshot: bool = false
 var enabled: bool = false
 var saved_available: bool = false
 var saved_mode: StringName = &"stage_challenge"
@@ -21,6 +24,7 @@ var closing: bool = false
 var last_freeze_usec: int = 0
 var last_job_metrics: Dictionary = {}
 var trace_provider: Callable
+var trace_confirmer: Callable
 var resume_plan_provider: Callable
 var last_resume_context: Dictionary = {}
 var _board: Board
@@ -61,7 +65,7 @@ func configure(board: Board, requested: bool, directory: String) -> void:
 		_store = CheckpointStore.new(directory, files)
 		if not opened.ok: last_error = opened.reason
 	else: _store = CheckpointStore.new(directory)
-	_board.keep_checkpoint_history = true
+	_board.keep_checkpoint_history = not use_snapshot
 	_board.checkpoint_reached.connect(_on_safe_point)
 	_board.run_reset.connect(_on_run_reset)
 	_refresh_metadata()
@@ -97,7 +101,7 @@ func continue_saved() -> bool:
 	var mode: GameModeDefinition = GameModes.find(saved_mode)
 	if mode == null: return _load_failed("unsupported_mode")
 	var policy_run: RunController = RunController.new(BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT), 0, mode.stage_config)
-	var compatibility: Dictionary = RunCheckpointCodec.manifest(policy_run)
+	var compatibility: Dictionary = SNAPSHOT.manifest(policy_run) if use_snapshot else RunCheckpointCodec.manifest(policy_run)
 	_job = CheckpointJob.new()
 	var resume_plan: Dictionary = resume_plan_provider.call() if resume_plan_provider.is_valid() else {}
 	if _job.start_load(_store, compatibility, DESKTOP_BUDGET_USEC, resume_plan) != OK:
@@ -113,7 +117,7 @@ func continue_saved() -> bool:
 	var adopted: bool = _board.adopt_checkpoint(result.run)
 	_taking_over = false
 	if not adopted: return _load_failed("takeover_rejected")
-	_history = result.history
+	_history = result.get("history", CheckpointHistory.new())
 	_board.game_mode = GameModes.find(result.run.state.mode_id())
 	_armed = true
 	restoring = false
@@ -242,6 +246,9 @@ func _drain_saves() -> void:
 	while not _queued.is_empty() and not restoring and not closing and not _transition:
 		var encoded: Dictionary = _queued
 		_queued = {}
+		var epoch: int = _epoch
+		await _confirm_trace(encoded)
+		if epoch != _epoch or restoring or closing or _transition or _terminal_in_progress or not _armed: break
 		status_changed.emit(&"hud.status.checkpoint_saving")
 		_job = CheckpointJob.new()
 		if _job.start_save(_store, encoded, DESKTOP_BUDGET_USEC) != OK:
@@ -250,9 +257,10 @@ func _drain_saves() -> void:
 			status_changed.emit(_failure_status())
 			break
 		var result: Dictionary = await _join_job()
+		if epoch != _epoch or _terminal_in_progress: continue
 		if result.ok:
 			last_error = ""
-			_last_key = String(encoded.payload.run_id) + ":" + String(encoded.payload.record_seq)
+			_last_key = String(encoded.payload.run_id) + ":" + String(encoded.payload.state_hash if use_snapshot else encoded.payload.record_seq)
 			saved_available = true
 			saved_mode = StringName(encoded.manifest.mode_id)
 			if not closing and not restoring and not _transition: status_changed.emit(&"hud.status.checkpoint_saved")
@@ -264,6 +272,7 @@ func _drain_saves() -> void:
 func _save_exit() -> void:
 	if _exit_saving or not closing: return
 	_exit_saving = true
+	var epoch: int = _epoch
 	await _visible_frame()
 	while _saving: await get_tree().process_frame
 	if not closing:
@@ -273,19 +282,23 @@ func _save_exit() -> void:
 	if _board.run != _exit_run: result = RunCheckpointCodec.failure("run_changed")
 	elif _exit_run.can_continue_challenge(): result = RunCheckpointCodec.failure("challenge_decision_pending")
 	elif _exit_run.state.is_game_over: result = await _invalidate_run(_exit_run.state.run_id, "terminal")
-	elif _last_key == _key(_exit_run) and _exit_run.recorder != null and _exit_run.recorder.records.back().get("state") == RunSnapshot.capture(_exit_run):
+	elif _last_key == _key(_exit_run) and (use_snapshot or (_exit_run.recorder != null and _exit_run.recorder.records.back().get("state") == RunSnapshot.capture(_exit_run))):
 		result = {"ok": true, "reason": "", "reused_validated_checkpoint": true}
 	else:
 		var encoded: Dictionary = _freeze(_exit_run)
 		if not encoded.ok: result = encoded
 		else:
+			await _confirm_trace(encoded)
+			if epoch != _epoch or not closing:
+				_exit_saving = false
+				return
 			_job = CheckpointJob.new()
 			if _job.start_save(_store, encoded, DESKTOP_BUDGET_USEC) != OK:
 				_job = null
 				result = RunCheckpointCodec.failure("worker_unavailable")
 			else: result = await _join_job()
 	_exit_saving = false
-	if not closing: return
+	if not closing or epoch != _epoch: return
 	if result.ok: exit_ready.emit(_exit_reason)
 	else:
 		last_error = result.reason
@@ -384,11 +397,17 @@ func _on_run_reset() -> void:
 	_terminal_retry_run = null
 
 func _key(active: RunController) -> String:
+	if use_snapshot: return active.state.run_id + ":" + RunSnapshot.digest(SNAPSHOT_STATE.project(active))
 	return "" if active.recorder == null else active.state.run_id + ":" + str(active.recorder.records.size())
 
 func _freeze(active: RunController) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
-	var encoded: Dictionary = _history.freeze(active)
-	if encoded.ok and trace_provider.is_valid(): encoded["telemetry"] = trace_provider.call(active).duplicate(true)
+	var encoded: Dictionary = SNAPSHOT.freeze(active) if use_snapshot else _history.freeze(active)
+	if encoded.ok and trace_provider.is_valid():
+		encoded["telemetry"] = trace_provider.call(active, encoded.payload.state_hash).duplicate(true) if use_snapshot else trace_provider.call(active).duplicate(true)
 	last_freeze_usec = Time.get_ticks_usec() - started
 	return encoded
+
+func _confirm_trace(encoded: Dictionary) -> void:
+	if use_snapshot and trace_confirmer.is_valid():
+		encoded["telemetry"] = await trace_confirmer.call(encoded.get("telemetry", {}))

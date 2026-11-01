@@ -1,0 +1,55 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_run_state_snapshot.gd
+[0m* test_snapshot_save_does_not_even_read_scoring_history
+* test_transport_rejects_a_scalar_float_tag_instead_of_a_snapshot_object
+* test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+* test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+* test_long_normal_input_snapshot_has_no_prefix_cost_and_continues_identical_commands
+SNAPSHOT_INPUT_REPORT {"load_usec":57495,"moves":45,"platform":"Windows","save_usec":110589,"scope":"native kernel/file roundtrip, not product UI or Web acceptance","snapshot_bytes":6883,"source_records_not_saved":425,"state_hash":"b4247ef52f11f8f814d3e9ea6ed5d6058171d64e8557627e5598e46adfe983af"}
+* test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+* test_unsupported_phase_and_legacy_slot_are_preserved
+* test_snapshot_payload_fallback_keeps_valid_previous_and_preserves_bad_original
+* test_failed_snapshot_write_keeps_pair_and_invalidation_still_blocks_load
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_snapshot_segments.gd
+[0m* test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix
+* test_missing_or_mismatched_parent_never_claims_known_or_blocks_valid_snapshot
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_job.gd
+[0m* test_frozen_save_does_not_read_a_live_run_and_load_returns_an_isolated_candidate
+* test_inspection_checks_invalidation_and_never_constructs_a_run
+* test_incremental_history_is_read_only_and_remains_independent_of_the_source
+[1m3/3 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                14
+Passing Tests        14
+Asserts             368
+Time              9.301s
+
+
+[32m---- All tests passed! ----
+[0m

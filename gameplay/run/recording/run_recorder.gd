@@ -40,12 +40,12 @@ func begin(run: RunController, execution_source: String, save_file: bool = true,
 	set_interval("input")
 
 ## New append-only segment starts at a verified snapshot, never a fake normal Header/prefix.
-func begin_snapshot(run: RunController, snapshot: Dictionary, segment_id: String, execution_source: String, resume: Dictionary) -> void:
+func begin_snapshot(run: RunController, snapshot: Dictionary, segment_id: String, execution_source: String, resume: Dictionary, build: String = "") -> void:
 	assert(records.is_empty() and _file == null)
 	source = execution_source
 	_full_precision = true
 	metadata["resume"] = resume.duplicate(true)
-	var header: Dictionary = _header(run, Engine.get_version_info().hash)
+	var header: Dictionary = _header(run, Engine.get_version_info().hash if build.is_empty() else build)
 	header.schema_version = "run-snapshot-segment-v1"
 	header["segment_id"] = segment_id
 	header["snapshot"] = snapshot.duplicate(true)

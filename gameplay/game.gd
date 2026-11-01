@@ -8,6 +8,7 @@ signal restart_requested
 
 const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
 const DEBUG_INPUT: Script = preload("res://gameplay/debug/game_debug_input.gd")
+const CHECKPOINT_COLLECTION: Script = preload("res://gameplay/game_checkpoint_collection.gd")
 
 ## Delegates restart to the host; all other exports configure scene startup.
 @export var use_external_restart: bool = false
@@ -19,6 +20,8 @@ const DEBUG_INPUT: Script = preload("res://gameplay/debug/game_debug_input.gd")
 @export var collect_telemetry: bool = true
 @export var enable_debug_fixtures: bool = true
 @export var enable_checkpoints: bool = false
+## Integration candidate only; default slot policy remains unchanged until the product gate passes.
+@export var use_snapshot_checkpoints: bool = false
 @export var checkpoint_directory: String = "user://run_checkpoint"
 
 ## Host-visible preference and fixture state; writes must precede startup or use UI actions.
@@ -54,12 +57,11 @@ func _ready() -> void:
 	_connect_run_signals()
 	_connect_menu_signals()
 	_connect_settings_signals()
+	CHECKPOINT_COLLECTION.configure(_checkpoint, _collection, use_snapshot_checkpoints, record_runs)
 	await _checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
 	_checkpoint.status_changed.connect(_hud.show_status)
 	_checkpoint.status_changed.connect(func(_id: StringName) -> void: release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error))
 	_checkpoint.before_restore.connect(_suspend_collection)
-	_checkpoint.trace_provider = _collection.checkpoint_trace
-	_checkpoint.resume_plan_provider = _collection.plan_resume.bind(record_runs)
 	_checkpoint.restored.connect(_on_checkpoint_restored)
 	_checkpoint.settling_exit.connect(_prepare_checkpoint_exit)
 	_checkpoint.exit_ready.connect(_finish_quit)
@@ -77,7 +79,7 @@ func _ready() -> void:
 	_connect_collection_controls(release_menu.collection_controls)
 	if intercept_window_close: get_tree().auto_accept_quit = false
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
-	await _board.start_game(board_rules, record_runs)
+	await _board.start_game(board_rules, record_runs and not (use_snapshot_checkpoints and _checkpoint.saved_available))
 	if show_start_menu or _checkpoint.saved_available: _show_menu()
 	else:
 		_has_played = true
@@ -438,9 +440,7 @@ func _prepare_checkpoint_exit() -> void:
 	_hud.finish_score_now()
 
 func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
-	if collect_telemetry:
-		_board.observation.attach(_collection.resume(collection_context, active, _checkpoint.last_resume_context, record_runs), false)
-		_board.telemetry_factory = _collection.factory
+	CHECKPOINT_COLLECTION.resume(_board, _collection, _checkpoint, collection_context, record_runs, collect_telemetry)
 	board_rules = active.state.rules
 	_hud.bind_checkpoint(active)
 	_hud.show_pause_state(false)

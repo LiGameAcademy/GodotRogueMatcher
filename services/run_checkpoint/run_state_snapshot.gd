@@ -27,7 +27,7 @@ static func freeze(run: RunController) -> Dictionary:
 		"stage_config": {} if not run.state.stage.enabled() else RunSnapshot.resource_fields(run.state.stage.config),
 		"manifest": manifest(run), "state": state, "state_hash": RunSnapshot.digest(state),
 	}
-	return {"ok": true, "reason": "", "payload": payload}
+	return {"ok": true, "reason": "", "payload": payload, "manifest": payload.manifest}
 
 static func decode(payload: Variant, expected_manifest: Dictionary) -> Dictionary:
 	if not V.keys(payload, PackedStringArray(["schema", "run_id", "master_seed", "board", "stage_config", "manifest", "state", "state_hash"])): return _failure("invalid_snapshot")
@@ -69,6 +69,10 @@ static func deserialize(bytes: PackedByteArray) -> Dictionary:
 
 static func save(store: CheckpointStore, run: RunController, trace: Dictionary = {}) -> Dictionary:
 	var frozen: Dictionary = freeze(run)
+	return await save_frozen(store, frozen, trace)
+
+## Frozen values only: workers never read the active rule graph. Job owns Web sync when false.
+static func save_frozen(store: CheckpointStore, frozen: Dictionary, trace: Dictionary = {}, sync_storage: bool = true) -> Dictionary:
 	if not frozen.ok: return frozen
 	var encoded: Dictionary = serialize(frozen.payload)
 	if not encoded.ok: return encoded
@@ -78,14 +82,15 @@ static func save(store: CheckpointStore, run: RunController, trace: Dictionary =
 	if not checked.ok: return checked
 	var old: Dictionary = store.inspect_latest()
 	if old.ok and old.manifest.get("save_schema_version") != SCHEMA: return _failure("snapshot_slot_requires_migration")
-	var started: Dictionary = store.begin_run(run.state.run_id)
+	var started: Dictionary = store.begin_run(frozen.payload.run_id)
 	if not started.ok: return started
-	var ticket: int = store.stage({"schema": PACKAGE_SCHEMA, "run_id": run.state.run_id, "snapshot_json": encoded.bytes.get_string_from_utf8(), "trace": trace.duplicate(true) if RunCheckpointCodec.pure(trace) and JSON.stringify(trace).length() <= 2048 else {}}, frozen.payload.manifest)
+	var ticket: int = store.stage({"schema": PACKAGE_SCHEMA, "run_id": frozen.payload.run_id, "snapshot_json": encoded.bytes.get_string_from_utf8(), "trace": trace.duplicate(true) if RunCheckpointCodec.pure(trace) and JSON.stringify(trace).length() <= 2048 else {}}, frozen.payload.manifest)
 	if ticket == 0: return _failure("snapshot_stage_rejected")
 	var committed: Dictionary = store.commit(ticket)
 	if not committed.ok: return committed
-	var synced: Dictionary = await store.sync()
-	if not synced.ok: return synced
+	if sync_storage:
+		var synced: Dictionary = await store.sync()
+		if not synced.ok: return synced
 	return {"ok": true, "reason": "", "snapshot_bytes": encoded.bytes.size(), "generation": str(ticket)}
 
 static func load(store: CheckpointStore, expected_manifest: Dictionary) -> Dictionary:
@@ -116,7 +121,9 @@ static func _decode_record(record: Dictionary, expected_manifest: Dictionary) ->
 	if not transported.ok: return transported
 	if transported.data.get("run_id") != package.run_id: return _failure("snapshot_identity_mismatch")
 	var restored: Dictionary = decode(transported.data, expected_manifest)
-	if restored.ok: restored["trace"] = package.trace.duplicate(true) if package.get("trace") is Dictionary else {}
+	if restored.ok:
+		restored["trace"] = package.trace.duplicate(true) if package.get("trace") is Dictionary else {}
+		restored["resume_context"] = {"protocol": "snapshot-command-segment-v1", "checkpoint_id": record.run_id + ":" + record.generation + ":" + transported.data.state_hash, "generation": record.generation, "state_hash": transported.data.state_hash, "trace": restored.trace}
 	return restored
 
 static func _failure(reason: String) -> Dictionary:

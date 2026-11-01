@@ -5,6 +5,7 @@ const BACKEND: Script = preload("res://services/telemetry/web_telemetry_backend.
 const SINK: Script = preload("res://services/telemetry/web_telemetry_sink.gd")
 const SESSION: Script = preload("res://services/telemetry/web_collection_session.gd")
 const JOURNAL: Script = preload("res://services/telemetry/web_record_journal.gd")
+const SNAPSHOT_LINK: Script = preload("res://services/telemetry/snapshot_collection_link.gd")
 var backend: BACKEND
 var export_ready: bool = false
 var preparing_export: bool = false
@@ -37,7 +38,7 @@ func attach(recorder: RunRecorder, projector: TelemetryProjector) -> void:
 	if sink == null: return
 	var storage_id: String = sink.path.trim_prefix("telemetry/").trim_suffix(".jsonl")
 	var journal: JOURNAL = JOURNAL.new(storage_id, backend)
-	journal.seed(recorder.records, _resume)
+	journal.seed(recorder.records, recorder.metadata.get("resume", _resume))
 	recorder.record_appended.connect(journal.append)
 	_journals.append(journal)
 
@@ -51,6 +52,10 @@ func prepare_resume(run: RunController, checkpoint: Dictionary, context: String,
 
 func finish_resume() -> void:
 	_resume.clear()
+
+## files() contains only real transaction acknowledgements or the database open snapshot.
+func snapshot_parent(trace: Dictionary) -> Dictionary:
+	return SNAPSHOT_LINK.parent(trace, backend.files())
 
 func error() -> String:
 	if not backend.error.is_empty(): return backend.error

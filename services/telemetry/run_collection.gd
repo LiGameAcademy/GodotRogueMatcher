@@ -3,6 +3,8 @@ extends Node
 
 signal status_changed(message: String)
 const WEB_SUPPORT: Script = preload("res://services/telemetry/web_collection_support.gd")
+const SNAPSHOT_LINK: Script = preload("res://services/telemetry/snapshot_collection_link.gd")
+const SNAPSHOT_SEGMENT: Script = preload("res://services/run_checkpoint/snapshot_segment.gd")
 
 var factory: TelemetryFactory
 var session: CollectionSession = CollectionSession.new()
@@ -77,6 +79,19 @@ func checkpoint_trace(active: RunController) -> Dictionary:
 	if not enabled or active != run or active.recorder == null or factory.projectors.is_empty(): return {}
 	return factory.projectors.back().checkpoint_trace(active.recorder.records.size(), active.state.ledger.next_event_id())
 
+## Freezes a parent pointer at the same main-thread boundary as the rule snapshot.
+func snapshot_trace(active: RunController, state_hash: String) -> Dictionary:
+	if not enabled or active != run or active.recorder == null or factory.projectors.is_empty(): return {}
+	var projector: TelemetryProjector = factory.projectors.back()
+	projector.snapshot_anchor(state_hash)
+	flush()
+	var trace: Dictionary = checkpoint_trace(active)
+	trace["snapshot_state_hash"] = state_hash
+	return trace
+
+func confirm_snapshot_trace(trace: Dictionary) -> Dictionary:
+	return await SNAPSHOT_LINK.confirm(trace, factory.projectors) if factory != null else {}
+
 ## Values only; independent candidate prefix IO may be prepared by the desktop worker.
 func plan_resume(record_file: bool) -> Dictionary:
 	if not enabled or factory == null: return {}
@@ -95,8 +110,19 @@ func resume(context: String, active: RunController, checkpoint: Dictionary, reco
 	if enabled: suspend_for_checkpoint()
 	configure(context, destination, initial_collection)
 	ui = ""
-	var observed: Dictionary = _web.prepare_resume(active, checkpoint, context, destination.commit_id) if _web != null else checkpoint
-	var projector: TelemetryProjector = factory.resume(active, observed, record_file and _web == null)
+	var projector: TelemetryProjector
+	if checkpoint.get("protocol") == "snapshot-command-segment-v1":
+		var trace: Dictionary = checkpoint.get("trace", {})
+		var parent: Dictionary = _web.snapshot_parent(trace) if _web != null else SNAPSHOT_LINK.native_parent(trace, factory.directory)
+		var started: Dictionary = SNAPSHOT_SEGMENT.begin(active, factory.session_id, {"trace": trace, "parent_event": parent}, factory)
+		if not started.ok:
+			_past_failure = true
+			return null
+		projector = started.projector
+		if record_file and _web == null: active.recorder.open_resume_file(factory.record_directory, factory.session_id, active.recorder.metadata.resume)
+	else:
+		var observed: Dictionary = _web.prepare_resume(active, checkpoint, context, destination.commit_id) if _web != null else checkpoint
+		projector = factory.resume(active, observed, record_file and _web == null)
 	if _web != null: _web.finish_resume()
 	bind(active)
 	session.append("run_registered", {"run_id": active.state.run_id, "storage_id": active.state.run_id + "--" + factory.session_id, "context": context, "resume": projector.events[0].get("resume", {}) if not projector.events.is_empty() else {}})

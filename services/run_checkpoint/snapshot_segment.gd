@@ -38,7 +38,7 @@ static func begin(run: RunController, segment_id: String, context: Dictionary = 
 	if factory != null:
 		recorder.metadata = {"collection_context": factory.collection_context, "commit_id": factory.commit_id}
 	var execution_source: String = parent.source if known else (context.source if context.get("source") is String else "unknown")
-	recorder.begin_snapshot(run, frozen.payload, segment_id, execution_source, resume)
+	recorder.begin_snapshot(run, frozen.payload, segment_id, execution_source, resume, parent.build_id if known else str(ProjectSettings.get_setting("application/config/version", "development")))
 	run.recorder = recorder
 	var projector: TelemetryProjector = null
 	if factory != null:

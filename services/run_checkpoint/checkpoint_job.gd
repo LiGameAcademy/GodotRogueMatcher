@@ -1,6 +1,8 @@
 class_name CheckpointJob
 extends RefCounted
 
+const SNAPSHOT: Script = preload("res://services/run_checkpoint/run_state_snapshot.gd")
+
 ## One owner retains a store until joined, or until a Web transaction completes without a Thread.
 ## Frozen values enter the worker; only an independent verified candidate may return.
 var _thread: Thread
@@ -70,6 +72,8 @@ func _yield_web() -> void:
 	if DisplayServer.get_name() != "headless": await RenderingServer.frame_post_draw
 
 func _save(store: CheckpointStore, encoded: Dictionary, budget_usec: int) -> Dictionary:
+	if encoded.get("manifest", {}).get("save_schema_version") == SNAPSHOT.SCHEMA:
+		return await SNAPSHOT.save_frozen(store, encoded, encoded.get("telemetry", {}), false)
 	var session: RunCheckpointSession = RunCheckpointSession.new(store, encoded.manifest)
 	session.runtime_only = true
 	session.rebuild_budget_usec = budget_usec
@@ -78,6 +82,10 @@ func _save(store: CheckpointStore, encoded: Dictionary, budget_usec: int) -> Dic
 	return session.save_encoded(encoded)
 
 func _load(store: CheckpointStore, compatibility: Dictionary, budget_usec: int, resume_plan: Dictionary) -> Dictionary:
+	if compatibility.get("save_schema_version") == SNAPSHOT.SCHEMA:
+		var candidate: Dictionary = SNAPSHOT.load(store, compatibility)
+		if candidate.ok: candidate.resume_context["prepared"] = resume_plan.duplicate(true)
+		return candidate
 	var session: RunCheckpointSession = RunCheckpointSession.new(store, compatibility)
 	session.runtime_only = true
 	session.rebuild_budget_usec = budget_usec
