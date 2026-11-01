@@ -182,7 +182,9 @@ def ingest(paths: list[Path], destination: Path) -> Json:
             else:
                 sessions[identifier] = {"file":name,"records":rows}
             continue
-        if values and values[0][1].get("kind") == "Header":
+        if values and (values[0][1].get("kind") == "Header" or (
+                values[0][1].get("kind") == "SnapshotHeader"
+                and values[0][1].get("schema_version") == "run-snapshot-segment-v1")):
             inventory[-1]["kind"] = "rule_record_evidence_not_telemetry"
             continue
         local_run: str | None = None
