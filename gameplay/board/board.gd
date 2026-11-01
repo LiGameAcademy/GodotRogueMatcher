@@ -30,6 +30,7 @@ var cell_size: Vector2 = Vector2(64, 64)
 var rules: BoardRules
 var run: RunController
 var telemetry_factory: TelemetryFactory
+var new_run_seeds: NewRunSeedSource = NewRunSeedSource.new()
 var observation: BoardObservation = BoardObservation.new()
 ## Optional outer-session gate; does not change game rules or consume an action.
 var input_permission: Callable
@@ -88,9 +89,14 @@ func _exit_tree() -> void:
 
 ## Starts a fresh run with explicitly injected rules and cancels old presentation.
 func start_game(board_rules: BoardRules, record_run: bool = false, prepared: RunController = null, initial: RunStepResult = null, record_source: String = "human") -> void:
-	var candidate: RunController = prepared if prepared != null else RunController.new(board_rules, randi(), game_mode.stage_config)
-	if initial == null: initial = candidate.initialize()
+	var creation: Dictionary = NewRunFactory.prepare(board_rules, game_mode.stage_config, new_run_seeds, prepared, initial)
+	if not creation.ok:
+		operation_feedback.emit("hud.status.new_run_failed")
+		return
+	var candidate: RunController = creation.run
+	initial = creation.initial
 	_activate_run(candidate, false)
+	if record_source == "human": new_run_seeds.remember(candidate.state.random_streams.master_seed)
 	var generation: int = _generation
 	if record_run or telemetry_factory != null or keep_checkpoint_history:
 		run.recorder = RunRecorder.new()
@@ -112,6 +118,7 @@ func start_game(board_rules: BoardRules, record_run: bool = false, prepared: Run
 func adopt_checkpoint(candidate: RunController) -> bool:
 	if not RunCheckpointCodec.safety_error(candidate).is_empty() or candidate == run: return false
 	_activate_run(candidate, true)
+	new_run_seeds.remember(candidate.state.random_streams.master_seed)
 	for entry: ScoreEntry in run.state.ledger.get_entries(): _presented_events[entry.event_id] = true
 	view.rebuild(rules.state.get_snapshot())
 	refresh_ability_markers()
