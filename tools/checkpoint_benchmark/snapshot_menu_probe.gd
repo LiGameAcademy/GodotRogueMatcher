@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 		if _board != null: _board.director.request_skip()
 		# Background browser automation may trigger the product's intentional focus-loss pause.
 		# Resume through the actual pause action, never unpause a reward/menu/modal owner.
-		if get_tree().paused and _flow != null and not _flow.is_busy() and bool(_game.get("_has_played")) and not is_instance_valid(UIManager.current_popup):
+		if get_tree().paused and _flow != null and not _flow.is_busy() and not _flow.prompt.is_open() and bool(_game.get("_has_played")) and not is_instance_valid(UIManager.current_popup):
 			var menu: ReleaseMenu = _game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
 			if not menu.visible: _game.call("_toggle_pause")
 		(_game.get_node("UILayer/HUD") as Hud).finish_score_now()
