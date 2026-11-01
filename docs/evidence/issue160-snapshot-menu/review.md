@@ -6,3 +6,6 @@ Stage8991实际Web接管、known父、零临时记录、旧回调、只消费一
 最终独立复审review_status：APPROVE。经典/阶段六阶段报告均与文档数值、source、origin匹配；生产services/gameplay与严格Release3189b12相同。已确认known父、零临时记录、旧回调/一次消费、实际持久段回放、自然满盘失效及刷新无继续。接管同步成本304–394ms单列，Game保持打开不冒称退出0。默认切换仍受旧prefix菜单策略及本包实际Web拒写/ACK中断两项约束，O5 OPEN。未执行引擎/浏览器或改文件。
 
 最终JS独立复核web_js_review：APPROVE，逻辑不变，仅端口文字/PCK长度；classic HTML BC4BFCFA0D8300AF2490CFD42AA7D2C2C838B025E5F7B11DA4295C7EE675383C、stage HTML 335158BA69D51FF1B27070189029A1C012D4C711DE7F1A5B745F0C50C31DF2B5。经典HTML仍保留当时8991阶段文字，实际受测classic8992归属不变，最终stage8993另文件。未执行浏览器或引擎。
+2026-11-01 第四批独立复审：review_status只读审查新旧档拒绝/确认路径、main primary快照选择、真实事务abort/取消受控epoch/直接刷新报告，APPROVE，无CRITICAL/HIGH/MEDIUM/LOW。web_js_review复核精确telemetry数据库限定与PENDING_REFRESH_READY宿主导航，APPROVE；采集已提交但丢弃完成ACK，不是事务未提交。两审查者未改文件、未运行浏览器/引擎。批准默认技术候选推进，不将此称O5总体验收完成。最终完整窗口/JSheap的解释见同目录原始报告及质量文档。
+
+最终证据复核补充：review_status批准当前PR技术ready（正式clean Release入口、完整恢复窗口、不可用monitor与JSheap边界、SV适用矩阵），明确不等于关闭#160/#117。web_js_review批准最终heap可见展示，HTML SHA256 DC4D6AFDF314311E879FE50B1F311313A4B2284E3F87AE8E3D423E2D6B832E25。无新增代码问题。
