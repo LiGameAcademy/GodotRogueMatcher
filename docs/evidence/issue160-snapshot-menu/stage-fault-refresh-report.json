@@ -1,0 +1,12 @@
+{
+  "details": {
+    "confirmed_point_restored": true,
+    "mode": "stage_challenge",
+    "origin": "http://127.0.0.1:8994",
+    "phase": "refresh_after_withheld_parent_ack",
+    "real_transaction_abort": true
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}
