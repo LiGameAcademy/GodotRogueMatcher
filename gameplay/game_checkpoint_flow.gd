@@ -88,6 +88,9 @@ func arm_current() -> void:
 func continue_saved() -> bool:
 	if not enabled: return false
 	if is_busy(): return _reject_busy()
+	var metadata: Dictionary = _store.inspect_latest()
+	if use_snapshot and metadata.ok and metadata.manifest.get("save_schema_version") != SNAPSHOT.SCHEMA:
+		return _load_failed("legacy_checkpoint_unsupported")
 	restoring = true
 	_previous_pause = get_tree().paused
 	_board.can_selected = false
@@ -372,7 +375,7 @@ func _load_failed(reason: String) -> bool:
 	last_error = reason
 	restoring = false
 	get_tree().paused = _previous_pause
-	prompt.open(&"checkpoint.reload_required" if _needs_reload() else &"checkpoint.load_failed", &"blocked")
+	prompt.open(&"checkpoint.legacy_unsupported" if reason == "legacy_checkpoint_unsupported" else (&"checkpoint.reload_required" if _needs_reload() else &"checkpoint.load_failed"), &"blocked")
 	status_changed.emit(_failure_status())
 	return false
 
@@ -385,7 +388,9 @@ func _failure_status() -> StringName:
 func _refresh_metadata() -> void:
 	var metadata: Dictionary = _store.inspect_latest()
 	saved_available = metadata.ok
-	if metadata.ok: saved_mode = StringName(metadata.manifest.get("mode_id", "stage_challenge"))
+	if metadata.ok:
+		saved_mode = StringName(metadata.manifest.get("mode_id", "stage_challenge"))
+		if use_snapshot and metadata.manifest.get("save_schema_version") != SNAPSHOT.SCHEMA: last_error = "legacy_checkpoint_unsupported"
 	elif metadata.reason not in ["no_valid_checkpoint:missing", "run_invalidated"]: last_error = metadata.reason
 
 func _on_run_reset() -> void:

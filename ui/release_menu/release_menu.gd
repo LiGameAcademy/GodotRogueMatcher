@@ -114,6 +114,7 @@ func _refresh_text() -> void:
 		if not OS.has_feature("web"): notice.text += "\n" + tr("checkpoint.notice")
 		if not _checkpoint_error.is_empty():
 			hint.text = tr("checkpoint.reload_required" if _checkpoint_error.ends_with("web_storage_conflict") or _checkpoint_error.ends_with("web_storage_not_open") else ("checkpoint.waiting" if _checkpoint_error == "worker_busy" else "checkpoint.load_failed"))
+			if _checkpoint_error == "legacy_checkpoint_unsupported": hint.text = tr("checkpoint.legacy_unsupported")
 
 func _play(new_run: bool) -> void:
 	close()

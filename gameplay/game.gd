@@ -20,7 +20,7 @@ const CHECKPOINT_COLLECTION: Script = preload("res://gameplay/game_checkpoint_co
 @export var collect_telemetry: bool = true
 @export var enable_debug_fixtures: bool = true
 @export var enable_checkpoints: bool = false
-## Integration candidate only; default slot policy remains unchanged until the product gate passes.
+## The primary application selects snapshots; isolated hosts may still exercise the legacy adapter.
 @export var use_snapshot_checkpoints: bool = false
 @export var checkpoint_directory: String = "user://run_checkpoint"
 

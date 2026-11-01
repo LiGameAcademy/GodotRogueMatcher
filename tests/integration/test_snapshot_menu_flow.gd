@@ -52,6 +52,39 @@ func _wait(predicate: Callable) -> void:
 	while not bool(predicate.call()) and Time.get_ticks_msec() < deadline: await get_tree().process_frame
 	assert_true(bool(predicate.call()), "scene transition completed")
 
+func test_legacy_menu_rejects_explicitly_and_cancel_keeps_original_bytes() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 23)
+	run.initialize()
+	run.recorder = RunRecorder.new()
+	run.recorder.begin(run, "human", false)
+	var slot: String = _directory.path_join("slot")
+	var session: RunCheckpointSession = RunCheckpointSession.new(CheckpointStore.new(slot), RunCheckpointCodec.manifest(run))
+	assert_true(session.save(run).ok)
+	var path: String = slot.path_join("primary.json")
+	var original: String = FileAccess.get_sha256(path)
+	_game = GAME.instantiate()
+	_game.set("persist_preferences", false)
+	_game.set("record_runs", false)
+	_game.set("collect_telemetry", false)
+	_game.set("show_start_menu", true)
+	_game.set("enable_checkpoints", true)
+	_game.set("use_snapshot_checkpoints", true)
+	_game.set("checkpoint_directory", slot)
+	add_child(_game)
+	var menu: ReleaseMenu = _game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu
+	await _wait(func() -> bool: return menu.visible)
+	var board: Board = _game.get_node("Board") as Board
+	var provisional: RunController = board.run
+	var flow: GameCheckpointFlow = _game.get_node("GameCheckpointFlow") as GameCheckpointFlow
+	assert_eq(flow.last_error, "legacy_checkpoint_unsupported")
+	assert_false(await flow.continue_saved())
+	assert_true(flow.prompt.is_open())
+	assert_eq(flow.prompt.get("_message"), &"checkpoint.legacy_unsupported")
+	flow.prompt.cancel_button.pressed.emit()
+	assert_same(board.run, provisional)
+	assert_false(bool(_game.get("_has_played")))
+	assert_eq(FileAccess.get_sha256(path), original)
+
 func test_snapshot_menu_resume_has_known_native_parent_new_segment_and_ready_input() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 23)
 	run.initialize()

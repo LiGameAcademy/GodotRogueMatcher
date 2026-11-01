@@ -7,4 +7,5 @@ func _enter_tree() -> void:
 	if OS.has_feature("web"): game.set("record_runs", false)
 	game.set("intercept_window_close", primary)
 	game.set("enable_checkpoints", primary)
+	game.set("use_snapshot_checkpoints", primary)
 	if primary: game.set("show_start_menu", true)
