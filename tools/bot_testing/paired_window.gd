@@ -7,7 +7,7 @@ var branches: Array[RunController] = []
 var report: Dictionary = {}
 
 ## A/B消费同一真实奖励的不同合法候选；不是删除技能的伪反事实。
-func compare(prefix: Array[Dictionary], target: StringName, control: StringName, horizon: int, strategy_name: String = "greedy", strategy_seed: int = 1, command_limit: int = 3000, timeout_ms: int = 60000) -> bool:
+func compare(prefix: Array[Dictionary], target: StringName, control: StringName, horizon: int, strategy_name: String = "greedy", strategy_seed: int = 1, command_limit: int = 3000, timeout_ms: int = 60000, execution_commit: String = "unknown") -> bool:
 	error = ""
 	branches.clear()
 	report = {}
@@ -28,11 +28,16 @@ func compare(prefix: Array[Dictionary], target: StringName, control: StringName,
 		frozen[0].run_id = id
 		frozen[0].source = "fixture"
 		var metadata: Dictionary = frozen[0].get("metadata", {}).duplicate(true)
+		metadata["parent_commit_id"] = metadata.get("commit_id", "unknown")
+		metadata["commit_id"] = execution_commit
 		var strategy_version: String = "greedy-v1" if strategy_name == "greedy" else "random-legal-v1"
 		metadata.merge({"experiment_id": PROTOCOL, "variant_id": variant, "parent_run_id": parent_id, "strategy": strategy_version + "+hold-target-v1", "strategy_seed": str(strategy_seed), "bot_config": RunSnapshot.resource_fields(preload("res://tools/bot_testing/bot_config.tres")), "window_command_limit": str(command_limit), "window_timeout_ms": str(timeout_ms)}, true)
 		metadata.bot_config["window_policy"] = PROTOCOL
 		metadata.bot_config["window_command_limit"] = str(command_limit)
 		metadata.bot_config["window_timeout_ms"] = str(timeout_ms)
+		metadata["collection_context"] = "paired_window"
+		if metadata.has("offer_trial"):
+			metadata["paired_trial"] = {"parent_header": prefix[0].duplicate(true), "prefix_records": str(prefix.size()), "horizon": str(horizon), "target": String(target), "control": String(control), "reward_id": str(offer.reward_id), "offer_id": str(offer.offer_id)}
 		frozen[0].metadata = metadata
 		for row: Dictionary in frozen:
 			if row.kind == "CommandAttempt": row.command.run_id = id
@@ -52,6 +57,8 @@ func compare(prefix: Array[Dictionary], target: StringName, control: StringName,
 	var known: bool = results[0].known and results[1].known
 	report = {"protocol": PROTOCOL, "pair_id": pair_id, "parent_run_id": parent_id, "skill_id": String(target), "control_skill_id": String(control), "level_before": offer.targets[target].level_before, "level": offer.targets[target].level_after, "H": horizon, "strategy_seed": str(strategy_seed), "start_digest": RunSnapshot.digest(before), "config_hash": prefix[0].config_hash, "known": known, "delta_score": results[0].score_delta - results[1].score_delta if known else null, "delta_space": results[0].space_delta - results[1].space_delta if known else null, "missing_reason": "" if known else "externally_censored_window", "observed_prefix_delta_score": results[0].score_delta - results[1].score_delta, "observed_prefix_delta_space": results[0].space_delta - results[1].space_delta, "branches": results, "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value"}
 	report["target_trigger_count"] = null
+	report["execution_commit_id"] = execution_commit
+	report["parent_commit_id"] = prefix[0].get("metadata", {}).get("commit_id", "unknown")
 	report["target_trigger_missing_reason"] = "all_ability_attempts_not_recorded; zero score is not proof of no trigger"
 	return true
 

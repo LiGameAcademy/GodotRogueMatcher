@@ -150,7 +150,7 @@ func _begin(records: Array[Dictionary], prefix: bool) -> bool:
 	var trial_config: OfferConfig = null
 	var baseline: OfferConfig = SkillOfferGenerator.CONFIG
 	if metadata.has("offer_trial") or config.offer.get("related_gain") != baseline.related_gain or config.offer.get("gap_gain") != baseline.gap_gain:
-		if header.get("source") != "bot": return _fail("invalid_offer_trial_binding")
+		if not _valid_trial_source(records): return _fail("invalid_offer_trial_binding")
 		trial_config = OfferConfig.restore_trial(config.offer, metadata, baseline)
 		if trial_config == null: return _fail("invalid_offer_trial_binding")
 	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config, profile, trial_config)
@@ -224,6 +224,53 @@ func _record_matches(expected: Dictionary, actual: Dictionary, short_json: bool)
 	if not short_json: return false
 	var persisted: Variant = JSON.parse_string(JSON.stringify(actual, "", true))
 	return persisted is Dictionary and canonical_expected == RunSnapshot.canonical(persisted)
+
+## A trial fixture must prove its original bot prefix and the same frozen legal reward.
+## Parent source is bot, so this verification cannot recursively accept fixture ancestry.
+func _valid_trial_source(records: Array[Dictionary]) -> bool:
+	var header: Dictionary = records[0]
+	if header.get("source") == "bot": return true
+	if header.get("source") != "fixture": return false
+	var metadata: Dictionary = header.get("metadata", {})
+	var proof: Variant = metadata.get("paired_trial")
+	if not proof is Dictionary or not proof.get("parent_header") is Dictionary: return false
+	if metadata.get("experiment_id") != "legal-choice-window-v1" or metadata.get("collection_context") != "paired_window": return false
+	if metadata.get("variant_id") not in ["treatment", "control"]: return false
+	var parent_header: Dictionary = proof.parent_header
+	if parent_header.get("source") != "bot" or not parent_header.get("run_id") is String: return false
+	var parent_id: String = parent_header.run_id
+	if metadata.get("parent_run_id") != parent_id or parent_header.get("config_hash") != header.get("config_hash"): return false
+	if not parent_header.get("metadata") is Dictionary or RunSnapshot.canonical(parent_header.metadata.get("offer_trial")) != RunSnapshot.canonical(metadata.get("offer_trial")): return false
+	if metadata.get("parent_commit_id") != parent_header.metadata.get("commit_id", "unknown"): return false
+	if not CommandCodec.valid_integer(proof.get("prefix_records")) or proof.get("horizon") not in ["20", "50"]: return false
+	var count: int = proof.prefix_records.to_int()
+	if count < 2 or count > records.size(): return false
+	for key: String in ["strategy_seed", "window_command_limit", "window_timeout_ms"]:
+		if not CommandCodec.valid_integer(metadata.get(key)) or metadata[key].to_int() < 0: return false
+	if metadata.get("strategy") not in ["greedy-v1+hold-target-v1", "random-legal-v1+hold-target-v1"]: return false
+	if not metadata.get("bot_config") is Dictionary or metadata.bot_config.get("window_policy") != "legal-choice-window-v1": return false
+	if not proof.get("target") is String or not proof.get("control") is String or proof.target == proof.control: return false
+	var strategy: String = "greedy" if metadata.strategy == "greedy-v1+hold-target-v1" else "random"
+	var pair_id: String = RunSnapshot.digest(["legal-choice-window-v1", parent_id, count, proof.target, proof.control, int(proof.horizon), strategy, int(metadata.strategy_seed), int(metadata.window_command_limit), int(metadata.window_timeout_ms)]).left(24)
+	if header.run_id != parent_id + "-" + pair_id + "-" + str(metadata.variant_id): return false
+	var parent_records: Array[Dictionary] = []
+	parent_records.assign(records.slice(0, count).duplicate(true))
+	parent_records[0] = parent_header.duplicate(true)
+	for row: Dictionary in parent_records:
+		if row.get("kind") == "CommandAttempt":
+			if not row.get("command") is Dictionary: return false
+			row.command.run_id = parent_id
+	var parent: RuleReplay = RuleReplay.new()
+	if not parent.restore_prefix(parent_records): return false
+	var offer: SkillOffer = parent.run.state.rewards.active_offer
+	if offer == null or str(offer.reward_id) != proof.get("reward_id") or str(offer.offer_id) != proof.get("offer_id"): return false
+	if not offer.targets.has(StringName(proof.target)) or not offer.targets.has(StringName(proof.control)): return false
+	if records.size() > count:
+		var command: Variant = records[count].get("command")
+		if records[count].get("kind") != "CommandAttempt" or not command is Dictionary: return false
+		var selected: String = proof.target if metadata.variant_id == "treatment" else proof.control
+		if command.get("type") != "choose" or command.get("skill_id") != selected or command.get("reward_id") != proof.reward_id or command.get("offer_id") != proof.offer_id: return false
+	return true
 
 func _finish_replay() -> bool:
 	_active = false
