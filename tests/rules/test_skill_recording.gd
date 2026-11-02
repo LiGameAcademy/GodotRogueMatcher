@@ -60,6 +60,33 @@ func test_rule_result_activations_locate_consume_after_blast() -> void:
 	assert_true(trace.has("conditions"))
 	assert_true(trace.has("trigger_count_after"))
 
+func test_legacy_activation_compare_drops_additive_attempt_traces() -> void:
+	var replay: RuleReplay = RuleReplay.new()
+	var expected: Dictionary = {
+		"kind": "RuleResult",
+		"activations": [{"matched": true, "ability_id": "on_eliminated_line_sweep", "consumed": true}],
+	}
+	var actual: Dictionary = {
+		"kind": "RuleResult",
+		"activations": [
+			{"matched": true, "ability_id": "on_eliminated_line_sweep", "consumed": true, "attempt": true},
+			{"matched": false, "attempt": true, "reason": "condition_rejected", "ability_id": "other"},
+		],
+	}
+	replay._align_legacy_activation_attempts(expected, actual)
+	assert_eq(actual.activations.size(), 1)
+	assert_false(actual.activations[0].has("attempt"))
+	assert_eq(String(actual.activations[0].ability_id), "on_eliminated_line_sweep")
+	var modern: Dictionary = {
+		"kind": "RuleResult",
+		"activations": [{"matched": false, "attempt": true, "reason": "condition_rejected"}],
+	}
+	var modern_actual: Dictionary = modern.duplicate(true)
+	modern_actual.activations = [{"matched": false, "attempt": true, "reason": "condition_rejected", "extra": 1}]
+	replay._align_legacy_activation_attempts(modern, modern_actual)
+	assert_eq(modern_actual.activations.size(), 1)
+	assert_true(bool(modern_actual.activations[0].get("extra", false)))
+
 func test_replay_describe_error_covers_version_and_truncation() -> void:
 	assert_eq(RuleReplay.describe_error("record_version_mismatch"), "规则/内容/候选版本与当前构建不匹配（旧局不能跨版本精确回放）")
 	assert_eq(RuleReplay.describe_error("incomplete_record_no_footer"), "记录截断：缺少 Footer")

@@ -206,6 +206,8 @@ func _advance_record(index: int, records: Array[Dictionary], generated: RunRecor
 	var actual_value: Dictionary = _without_time(actual)
 	# v1首批记录没有表现路径；规则状态与事件仍逐项验证。
 	if not expected.has("move"): actual_value.erase("move")
+	# Attempt-denominator traces are additive; legacy parents without them still restore.
+	_align_legacy_activation_attempts(expected_value, actual_value)
 	if not _record_matches(expected_value, actual_value, records[0].get("kind") == "Header"):
 		return _fail("seq=%d phase=%s %s" % [index + 1, RunState.Phase.keys()[run.state.phase], _difference(expected_value, actual_value, "")])
 	checked_records = index + 1
@@ -292,6 +294,28 @@ func _without_time(record: Dictionary) -> Dictionary:
 	result.erase("elapsed_ms")
 	if result.get("kind") == "Footer": result.erase("times")
 	return result
+
+## Pre-attempt records omit reject traces and the attempt flag. Comparison drops those additives only when expected never used the schema; new records still compare strictly.
+func _align_legacy_activation_attempts(expected: Dictionary, actual: Dictionary) -> void:
+	if expected.get("kind") != "RuleResult":
+		return
+	if not expected.get("activations") is Array or not actual.get("activations") is Array:
+		return
+	var expected_activations: Array = expected.activations
+	for entry: Variant in expected_activations:
+		if entry is Dictionary and (entry as Dictionary).has("attempt"):
+			return
+	var filtered: Array = []
+	for entry: Variant in actual.activations:
+		if not entry is Dictionary:
+			continue
+		var row: Dictionary = (entry as Dictionary).duplicate(true)
+		row.erase("attempt")
+		var reason: String = String(row.get("reason", ""))
+		if not bool(row.get("matched", false)) and reason in ["condition_rejected", "trigger_limit_reached"]:
+			continue
+		filtered.append(row)
+	actual.activations = filtered
 
 func _difference(expected: Variant, actual: Variant, path: String) -> String:
 	if expected is Dictionary and actual is Dictionary:
