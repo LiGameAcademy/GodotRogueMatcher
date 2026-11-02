@@ -60,4 +60,10 @@ O1后续仍需 #19 离线参考曲线与作者试玩验收；首玩者理解、�
 & $godotExe --headless --path . -s tools/bot_testing/batch_cli.gd -- paired '<已有trial完整JSONL>' '<全新输出目录>' --seed=1000 --strategy=greedy --commit=<实际提交>
 ```
 
+稀疏/稀有覆盖可加 `--min-rarity=2`：前缀停在首个含该档技能的真实三选一，且只把该档及以上技能当作 treatment；对照仍是同组下一真实候选，不合成池供给。
+
+```powershell
+& $godotExe --headless --path . -s tools/bot_testing/batch_cli.gd -- paired '<trial JSONL>' '<全新输出目录>' --strategy=greedy --min-rarity=2 --commit=<实际提交>
+```
+
 一个父局的多个候选/H窗口仍只有一个父样本；本入口不会选参数、补造机会或启动150新seed复核。边界与实际单父验证见[成对试验绑定](../../docs/quality/issue88_paired_trial_binding.md)。

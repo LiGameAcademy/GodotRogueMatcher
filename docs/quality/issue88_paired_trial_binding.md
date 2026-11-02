@@ -36,3 +36,12 @@
    - 稀有选中率仍约 0.08（greedy 仍偏常用卡）；均分/p50：523/407、468/407、532/344。
    - **小样本不冻结 s**；正式默认保持 0。若继续试验，优先试调 **s=0.25** 再谈稀疏卡 H20/50，不开假装最优。
 4. **#161 一局一主种子（已合入 #240 核对）**：现实现满足作者前提；跨环境/#160 联测仍不关闭 #161。详见 [issue161_one_master_seed_audit.md](issue161_one_master_seed_audit.md)。
+
+## 稀疏技能 H20/50（s=0.25 试调父局）
+
+- CLI 增补 `--min-rarity=N`：前缀停在首个含该档真实候选的三选一，且只把该档及以上卡作 treatment（对照仍为同组下一真实候选）。
+- 父局来自 `o1-s-scan-20261102/s_0.25`（a=d=s=0.25）；20 局中 11 局含稀有(≥2)候选并成功成对，9 局无稀有合法拒绝。
+- 产出 26 对（H20/H50 各 13），**全部 known**；目标技能均 rarity≥2（如 `composite_clear_dye`、`line_column_span`、`blast_chain_radius` 等）。
+- `delta_score` 有正有负（非普适卡价）；`target_trigger_count` 本批多为 0——装上仍不等于窗口内用上，不能把 0 分当未触发已证伪。
+- 证据目录 `.godot/o1-paired-rare-s025-20261102/`。**仍非 150 新 seed、非正式区间**；不关闭 #88。
+5. **稀疏技能 H20/50（本片）**：paired CLI 增 `--min-rarity`；在 s=0.25 父批 `o1-s-scan-20261102/s_0.25` 上，11/20 父局含稀有候选并成功成对，产出 **26 对**（H20/50 各 13），全部 `known`，目标 rarity≥2。技能簇：`composite_clear_dye`×8、`line_column_span`×8，另有 `line_manual_clear` / `blast_chain_radius` / `blast_refill_relief` / `chain_reward` / `core_manual_detonation`。ΔS 有正有负（非普适卡价）；`target_trigger_count` 多数为 0（装上≠用上仍成立）。证据 `.godot/o1-paired-rare-s025-20261102/`。**不能**据此冻结 a/d/s 或勾完 150 新 seed。
