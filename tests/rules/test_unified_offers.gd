@@ -150,6 +150,45 @@ func test_fg09_no_investment_or_shape_unlock_affinity_and_hard_gate_cannot_be_re
 	assert_eq(after.related, 0)
 	assert_eq(after.fills_gap, 0)
 
+func test_shape_affinity_exception_peer_unlock_payoff_once_and_generic_untouched() -> void:
+	## #84/#89: classification Tag ≠ peer-unlock affinity; shape payoff related is 0/1 once; generics stay plain.
+	var run: RunController = _run()
+	var t: SkillDefinition = ShapeUnlockDemo.t()
+	var payoff: SkillDefinition = _shape_payoff_fixture()
+	var config: OfferConfig = SkillOfferGenerator.CONFIG
+	var empty: SkillBuildSnapshot = SkillOfferGenerator.build_snapshot(run.state)
+	assert_eq(OfferWeightRules.evaluate(t, empty, 5, "", config).related, 0)
+	assert_eq(OfferWeightRules.evaluate(payoff, empty, 5, "", config).related, 0)
+	assert_true(run.state.rules.shape_unlocks.unlock(preload("res://gameplay/board/matching/l_template.tres"), 1))
+	var after_l: SkillBuildSnapshot = SkillOfferGenerator.build_snapshot(run.state)
+	assert_true(after_l.invested.has(&"shape"))
+	var peer: Dictionary = OfferWeightRules.evaluate(t, after_l, 5, "", config)
+	assert_eq(peer.related, 0)
+	assert_eq(peer.fills_gap, 0)
+	assert_eq(peer.mechanisms.size(), 1)
+	assert_eq(peer.mechanisms[0], &"shape")
+	assert_true(peer.affinity.is_empty())
+	assert_eq(peer.roles.size(), 1)
+	assert_eq(peer.roles[0], &"shape_unlock")
+	var once: Dictionary = OfferWeightRules.evaluate(payoff, after_l, 5, "", config)
+	assert_eq(once.related, 1)
+	assert_eq(once.fills_gap, 0)
+	assert_eq(once.affinity.size(), 1)
+	assert_eq(once.affinity[0], &"shape")
+	assert_eq(_explain(run, &"score_multiplier").related, 0)
+	assert_eq(_explain(run, &"match_extra").related, 0)
+	assert_eq(_explain(run, &"precision_reward").related, 0)
+	assert_eq(_explain(run, &"longline_reward").related, 0)
+	assert_true(run.state.rules.shape_unlocks.unlock(preload("res://gameplay/board/matching/t_template.tres"), 2))
+	var after_lt: SkillBuildSnapshot = SkillOfferGenerator.build_snapshot(run.state)
+	assert_eq(after_lt.invested.count(&"shape"), 1)
+	var stacked: Dictionary = OfferWeightRules.evaluate(payoff, after_lt, 5, "", config)
+	assert_eq(stacked.related, 1)
+	assert_eq(OfferWeightRules.evaluate(t, after_lt, 5, "", config).related, 0)
+	var bad: SkillDefinition = ShapeUnlockDemo.l().duplicate(true) as SkillDefinition
+	bad.offer_traits.affinity = [&"shape"]
+	assert_eq(bad.offer_traits.validation_error(), "shape unlocks cannot claim affinity or a mechanism gap")
+
 func test_fg10_frozen_projection_does_not_count_other_candidates_or_reopen_and_isolates_runs() -> void:
 	var run: RunController = _run()
 	run.state.explosion.core_pool_unlocked = true
@@ -246,6 +285,19 @@ func test_invalid_policy_mapping_or_config_rejects_before_all_streams_and_identi
 		assert_null(generator.generate(run))
 		assert_false(generator.last_error.is_empty())
 		assert_eq(RunSnapshot.canonical(RunSnapshot.capture(run)), before)
+
+func _shape_payoff_fixture() -> SkillDefinition:
+	## Debug-only projection card; not production catalog content.
+	var skill: SkillDefinition = SkillDefinition.new()
+	skill.skill_id = &"fixture_shape_payoff"
+	skill.rarity = SkillDefinition.Rarity.UNCOMMON
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.mechanisms = [&"shape"]
+	skill.offer_traits.affinity = [&"shape"]
+	skill.offer_traits.roles = [&"payoff"]
+	skill.offer_traits.once_per_run = true
+	assert_eq(skill.offer_traits.validation_error(), "")
+	return skill
 
 func test_flat_trial_curve_and_explicit_steps_use_only_successful_choice_index() -> void:
 	var config: OfferConfig = SkillOfferGenerator.CONFIG.duplicate(true) as OfferConfig
