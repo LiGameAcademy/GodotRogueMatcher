@@ -29,7 +29,7 @@
 ## 工程进度（按作者批准顺序）
 
 1. **触发记账（已合入 #237）**：`AbilityTriggerStats` 汇总 `consumed=true` 触发；成对窗口/压力报告可记账。装上≠用上。
-2. **a 三档批测（已合入 #238 读数）**：同种子 `880100`、greedy×20、`d=0.25`、commit `ed1674c`、实验 `o1-a-scan-20261102`。三档均 20/20 `board_full`。相关槽约 0.14→0.15→0.23；相关选中约 0.15→0.19→0.19；机制重叠约 0.26→0.33→0.35。均分/p50：567/510、477/403、485/400。未见张张同族或满盘崩。**小样本不冻结最优**；试调默认 **a=0.25**，d 扫描仍不开。
+2. **a 三档批测（已合入 #238 读数）**：同种子 `880100`、greedy×20、`d=0.25`、commit `ed1674c`、实验 `o1-a-scan-20261102`。三档均 20/20 `board_full`。相关槽约 0.14→0.15→0.23；相关选中约 0.15→0.19→0.19；机制重叠约 0.26→0.33→0.35。均分/p50：567/510、477/403、485/400。未见张张同族或满盘崩。**小样本不冻结最优**；试调默认 **a=0.25**。作者 Web 试玩暂无阻塞后已开 d 扫描（见第 8 点），仍不假装 a 最优。
 3. **棋盘压力→稀有权重（接线 #239 + s 小样本）**：公式已通；默认 `situational_gain=0`。同种子 `882100` greedy×20、`a=d=0.25`、实验 `o1-s-scan-20261102`（commit `4d025a1`）：
    - s=0 / 0.25 / 0.5 均 20/20 `board_full`，回放 OK。
    - 稀有(≥2)候选槽占比约 0.120→0.129→0.143；高压(P≥40)下稀有槽约 0.143→0.159→0.183（低压约 0.10→0.11→0.11）。
@@ -40,3 +40,4 @@
 5. **稀疏技能 H20/50（已合入 #242）**：paired CLI 增 `--min-rarity`；在 s=0.25 父批 `o1-s-scan-20261102/s_0.25` 上，11/20 父局含稀有候选并成功成对，产出 **26 对**（H20/50 各 13），全部 `known`，目标 rarity≥2。技能簇：`composite_clear_dye`×8、`line_column_span`×8，另有 `line_manual_clear` / `blast_chain_radius` / `blast_refill_relief` / `chain_reward` / `core_manual_detonation`。ΔS 有正有负；当时尚无 attempt 分母，`target_trigger_count` 多为 0 不能证伪未触发。证据 `.godot/o1-paired-rare-s025-20261102/`。**不能**据此冻结 a/d/s 或勾完 150 新 seed。
 6. **attempt 分母（已合入 #243）**：`AbilityEvents` 对 `condition_rejected` / `trigger_limit_reached` 落盘 attempt 痕迹；成对窗口报告 `target_trigger_attempts` / `target_trigger_rate`；压力报告 `attempt_denominator` / `consume_rate`，coverage 含 `attempted_not_consumed`。owner/事件类型不匹配不计分母。成功完成痕迹仍以 `matched` 计 attempt，不另写冗余 `attempt` 旗标。
 7. **attempt 重读 + 旧父回放兼容（本片）**：#243 一度把 `attempt` 写入完成痕迹并新增拒绝痕迹，导致同规则版本的旧 s=0.25 父前缀回放比对失败。现：完成痕迹不再带冗余 `attempt`；回放在「期望 activations 从未使用 attempt 字段」时，比对侧丢弃实际多出的拒绝 attempt 痕迹。同批父局重跑 `.godot/o1-paired-rare-attempts-20261102b/`：仍 **11/20** 父成功、**26** 对全部 `known`。**26/26** `target_trigger_attempts=0` 且 `missing_reason=no_in_scope_attempt`（consumed 同为 0）。抽查 `composite_clear_dye`：技能能力是 `skill_acquired` 一次性装上，窗口内 activations 只有先天 `on_eliminated_line_sweep`（`skill_instance_id=0`），故装上≠窗口内再尝试；手动技亦可能被 greedy 零次使用。ΔS 仍有正有负，只能说明选择差，不能当「触发率」。正式包仍是试调 **a=0.25 / d=0.25 / s=0**；不冻结最优，不开 150 新 seed，不关闭 #88。
+8. **d 三档批测（本片）**：作者 Web 试玩「暂时没什么问题」后开扫。同种子 `881100`、greedy×20、钉 **a=0.25 / s=0**、实验 `o1-d-scan-20261102`。三档均 20/20 `board_full`、回放 OK。补缺槽占比约 0.038→0.045→0.083；补缺选中约 0.114→0.114→0.159；相关槽约 0.14→0.16→0.17。均分/p50：417/458、410/425、415/475。15/20 局三档终局代理指纹相同，说明本样本下 d 对多数轨迹影响弱。**小样本不冻结 d**；正式试调保持 **d=0.25** 与 a 并列，不勾 150 新 seed，不关闭 #88。
