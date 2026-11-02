@@ -44,6 +44,12 @@ func add(recorder: RunRecorder, projector: TelemetryProjector, replay_error: Str
 				var skill: Dictionary = _skill(group, id)
 				skill.attributed_score_events += 1
 				if skill.first_effect == null: skill.first_effect = {"run_id": header.run_id, "event_id": event.event_id}
+	var consumed: Dictionary[String, int] = AbilityTriggerStats.consumed_by_skill(recorder.records)
+	for skill_id: String in consumed:
+		var skill: Dictionary = _skill(group, skill_id)
+		skill.consumed_triggers = int(skill.get("consumed_triggers", 0)) + consumed[skill_id]
+		skill.attempt_denominator = skill.consumed_triggers
+		skill.missing_reason = ""
 	for id: int in reached:
 		var stage_key: String = str(id)
 		if not group.stages.has(stage_key): group.stages[stage_key] = {"reached": 0, "completed": 0, "board_full_unmet": 0, "censored": 0, "used_actions": []}
@@ -56,7 +62,17 @@ func add(recorder: RunRecorder, projector: TelemetryProjector, replay_error: Str
 		else: row.censored += 1
 
 func _skill(group: Dictionary, id: String) -> Dictionary:
-	if not group.skills.has(id): group.skills[id] = {"offered": 0, "selected": 0, "action_exposure": 0, "attributed_score_events": 0, "first_effect": null, "attempt_denominator": null, "missing_reason": "all_ability_attempts_not_recorded"}
+	if not group.skills.has(id):
+		group.skills[id] = {
+			"offered": 0,
+			"selected": 0,
+			"action_exposure": 0,
+			"attributed_score_events": 0,
+			"consumed_triggers": 0,
+			"first_effect": null,
+			"attempt_denominator": null,
+			"missing_reason": "no_consumed_activation_yet; condition-only rejects still uncounted",
+		}
 	return group.skills[id]
 
 func write(directory: String) -> bool:
@@ -66,12 +82,27 @@ func write(directory: String) -> bool:
 			row["actions_p50_p90"] = quantiles(row.used_actions)
 		for name: String in ["q", "P", "carry"]: group[name + "_p50_p90"] = quantiles(group[name])
 		for skill: Dictionary in group.skills.values():
-			skill["coverage"] = "not_offered" if skill.offered == 0 else "not_selected" if skill.selected == 0 else "no_attributed_score_event" if skill.attributed_score_events == 0 else "observed_attributed_score"
+			if int(skill.get("consumed_triggers", 0)) > 0:
+				skill["coverage"] = "observed_consumed_trigger"
+			elif skill.offered == 0:
+				skill["coverage"] = "not_offered"
+			elif skill.selected == 0:
+				skill["coverage"] = "not_selected"
+			elif skill.attributed_score_events == 0:
+				skill["coverage"] = "no_attributed_score_event"
+			else:
+				skill["coverage"] = "observed_attributed_score"
 	var file: FileAccess = FileAccess.open(directory.path_join("pressure_summary.json"), FileAccess.WRITE)
 	if file == null:
 		error = "cannot_write_pressure_report"
 		return false
-	file.store_string(JSON.stringify({"protocol": "pressure-batch-v1", "groups": groups, "limits": "tool limits are censored; bot observations do not measure human understanding", "first_effect_scope": "attributed score events only; non-score effects remain unmeasured"}, "\t"))
+	file.store_string(JSON.stringify({
+		"protocol": "pressure-batch-v1",
+		"groups": groups,
+		"limits": "tool limits are censored; bot observations do not measure human understanding",
+		"first_effect_scope": "attributed score events only; non-score effects remain unmeasured",
+		"trigger_count_basis": "consumed RuleResult.activations mapped by skill_instance_id; install≠use; unmatched condition checks still omitted",
+	}, "\t"))
 	file.flush()
 	return file.get_error() == OK
 

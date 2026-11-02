@@ -52,14 +52,19 @@ func compare(prefix: Array[Dictionary], target: StringName, control: StringName,
 		var accepted: CommandResult = run.execute_command(choice)
 		if not accepted.accepted: return _fail("illegal_intervention:" + accepted.reason)
 		var result: Dictionary = _continue(run, bot, target, horizon, before, command_limit, timeout_ms)
+		result["target_trigger_count"] = AbilityTriggerStats.consumed_for_skill(run.recorder.records, target)
+		result["control_trigger_count"] = AbilityTriggerStats.consumed_for_skill(run.recorder.records, control)
 		results.append(result)
 		if result.status == "rule_error": return _fail(result.reason)
 	var known: bool = results[0].known and results[1].known
 	report = {"protocol": PROTOCOL, "pair_id": pair_id, "parent_run_id": parent_id, "skill_id": String(target), "control_skill_id": String(control), "level_before": offer.targets[target].level_before, "level": offer.targets[target].level_after, "H": horizon, "strategy_seed": str(strategy_seed), "start_digest": RunSnapshot.digest(before), "config_hash": prefix[0].config_hash, "known": known, "delta_score": results[0].score_delta - results[1].score_delta if known else null, "delta_space": results[0].space_delta - results[1].space_delta if known else null, "missing_reason": "" if known else "externally_censored_window", "observed_prefix_delta_score": results[0].score_delta - results[1].score_delta, "observed_prefix_delta_space": results[0].space_delta - results[1].space_delta, "branches": results, "estimand": "choice versus named alternative, including opportunity cost; not isolated skill value"}
-	report["target_trigger_count"] = null
+	# Treatment branch: how often the chosen target skill actually fired (consumed activation).
+	report["target_trigger_count"] = results[0].target_trigger_count
+	report["control_trigger_count"] = results[1].control_trigger_count
 	report["execution_commit_id"] = execution_commit
 	report["parent_commit_id"] = prefix[0].get("metadata", {}).get("commit_id", "unknown")
-	report["target_trigger_missing_reason"] = "all_ability_attempts_not_recorded; zero score is not proof of no trigger"
+	report["target_trigger_missing_reason"] = ""
+	report["trigger_count_basis"] = "RuleResult.activations where consumed=true, mapped by skill_instance_id; install-only is not a use"
 	return true
 
 func _continue(run: RunController, bot: RuleBot, held_skill: StringName, horizon: int, before: Dictionary, command_limit: int, timeout_ms: int) -> Dictionary:
