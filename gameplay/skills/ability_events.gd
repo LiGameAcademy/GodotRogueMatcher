@@ -58,7 +58,10 @@ func dispatch(events: Array[AbilityEvent], listeners: Array[AbilityInstance]) ->
 		for instance: AbilityInstance in ordered_listeners:
 			if instance.pending_event_id != 0: continue
 			var explanation: Dictionary = AbilityTriggerAdapter.explain(instance, event)
-			if not bool(explanation.get("matched", false)): continue
+			if not bool(explanation.get("matched", false)):
+				# Owner/event mismatches are noise; only in-scope rejects count as attempts.
+				_record_reject_attempt(instance, event, explanation)
+				continue
 			var activation: AbilityActivation = AbilityActivation.new()
 			activation.instance = instance
 			activation.event = AbilityEvent.new()
@@ -100,6 +103,7 @@ func complete(activation: AbilityActivation, applied: bool, affected_count: int)
 		"cause": activation.event.cause,
 		"generation": activation.event.generation,
 		"matched": true,
+		"attempt": true,
 		"reason": String(activation.debug.get("reason", "")),
 		"conditions": activation.debug.get("conditions", []),
 		"applied": applied,
@@ -149,6 +153,31 @@ func restore_checkpoint(next_id: int, dispatched: Array[int]) -> bool:
 	_next_id = next_id
 	_dispatched = checked
 	return true
+
+## Condition/limit rejects are attempts; owner/event noise is not.
+func _record_reject_attempt(instance: AbilityInstance, event: AbilityEvent, explanation: Dictionary) -> void:
+	var reason: String = String(explanation.get("reason", ""))
+	if reason != "condition_rejected" and reason != "trigger_limit_reached":
+		return
+	_traces.append({
+		"event_id": event.event_id,
+		"parent_event_id": event.parent_event_id,
+		"owner_id": instance.owner_id,
+		"skill_instance_id": instance.skill_instance_id,
+		"ability_id": instance.definition.ability_id,
+		"source_ability_id": event.source_ability_id,
+		"cause": event.cause,
+		"generation": event.generation,
+		"matched": false,
+		"attempt": true,
+		"reason": reason,
+		"conditions": explanation.get("conditions", []),
+		"applied": false,
+		"affected_count": 0,
+		"consumed": false,
+		"consume_on_empty": instance.definition.consume_on_empty,
+		"trigger_count_after": instance.trigger_count,
+	})
 
 func _event_before(a: AbilityEvent, b: AbilityEvent) -> bool:
 	if a.generation != b.generation: return a.generation < b.generation
