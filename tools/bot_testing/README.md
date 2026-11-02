@@ -10,7 +10,7 @@ CLI默认阶段挑战；在`--`后的参数中加`--legacy`可运行经典无尽
 
 ## 显式关联缺项试验参数
 
-当前统一抽选为`offer-unified-trial-v2`、命令规则为`run-commands-v46-unified-offer-audit`，以下入口只用于#88未验收试验，不回写正式`.tres`。不传试验选项时保持原配置和完整指纹；要覆盖时四项必须一起显式提供，不能重复：
+当前统一抽选为`offer-unified-trial-v2`、命令规则为`run-commands-v46-unified-offer-audit`。0.0.3 可玩门禁默认试调 a=d=0.25、s=0，身份仍`trial_unvalidated`（见[O1降范围收口](../../docs/quality/o1_soft_closeout.md)）；以下 CLI 覆盖只用于参数试验，不回写正式`.tres`、不把结果标成正式最优。不传试验选项时保持原配置和完整指纹；要覆盖时四项必须一起显式提供，不能重复：
 
 ```powershell
 & $godotExe --headless --text-driver Dummy --path . -s tools/bot_testing/batch_cli.gd -- --count=1 --seed=1000 --strategy=greedy --moves=8 --offer-a=0.5 --offer-d=0.25 --experiment=o1-smoke --variant=a_0.5 --output=.godot/trial/report --record-output=.godot/trial/records --telemetry-output=.godot/trial/telemetry
