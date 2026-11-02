@@ -12,7 +12,9 @@
 
 这仅证明通路可用，不是6个独立父样本，不估参数效果、普适技能净价值或正式区间；触发attempt仍未知。原300局描述数据与失败/hash均保持原字节，没有新自然局、没有d扫描或150新seed复核。
 
-## #88的下一完整出口
+## #88的下一完整出口
+
+（另见降范围可玩门禁：[issue88_o1_soft_closeout.md](issue88_o1_soft_closeout.md)；不代替下列完整出口。）
 
 1. 明确首次核心取得/明显连携的操作定义、自然失败与未触发口径；工程已区分 install_effect/manual/recurring（见进度第 9 点），**明显连携**数值与最高k5/真人体验仍缺。不能把供给安装等同明显连携；attempt 分母不能单独定稿作者口径。
 2. 作者确认a阶段后冻结下一候选与接受标准的数值/单位、最大不确定度/样本上限/停止规则；需要d扫描时先按已确认顺序登记，不在本批擅自选择a或阈值。
@@ -43,3 +45,4 @@
 8. **d 三档批测（本片）**：作者 Web 试玩「暂时没什么问题」后开扫。同种子 `881100`、greedy×20、钉 **a=0.25 / s=0**、实验 `o1-d-scan-20261102`。三档均 20/20 `board_full`、回放 OK。补缺槽占比约 0.038→0.045→0.083；补缺选中约 0.114→0.114→0.159；相关槽约 0.14→0.16→0.17。均分/p50：417/458、410/425、415/475。15/20 局三档终局代理指纹相同，说明本样本下 d 对多数轨迹影响弱。**小样本不冻结 d**；正式试调保持 **d=0.25** 与 a 并列，不勾 150 新 seed，不关闭 #88。
 9. **触发/用上口径（本片）**：新增 `SkillTriggerPayoff`。目录卡分为 `install_effect`（装上即生效：leveled `skill_acquired`/`skill_upgraded` 或即时 `choice_effect`）、`manual`（`manual_use_limit>0`）、`recurring`（技能自身挂非取得事件，当前正式池几乎没有）、`unknown`。成对报告补 `target_trigger_mode`/`target_install_uses`；attempts=0 时 `missing_reason` 改为 `install_effect_not_recurring` / `manual_unused` / `no_in_scope_attempt`，不再把装上即生效误标成未触发。工程白话：**装上**=取得成功；**用上**=install 看 SkillInstance 取得计数、manual/recurring 看 activations consumed；**明显连携**仍待作者定数值口径，ΔS 不冒充连携。不关闭 #88，不勾 150 新 seed。
 10. **稀疏成对新口径重读（本片）**：在 #247 上对同一 s=0.25 父批重跑 `.godot/o1-paired-rare-payoff-20261102/`：仍 **11/20** 父、**26** 对 known。模式：**22** `install_effect` + **4** `manual`；attempts 仍全 0，但 missing 为 **22** `install_effect_not_recurring`、**4** `manual_unused`，无再误标 `no_in_scope_attempt`。leveled 装上卡（如 `composite_clear_dye`/`line_column_span`）`target_install_uses=1`×16；无 levels 的增强卡/手动解锁（`blast_chain_radius` 等）install_uses 可为 0（选择即时生效，不走 SkillInstance 计数）。ΔS 读数与 #242 同量级。证明装上≠窗口内再触发，且多数稀有卡「用上」应看装上/即时效果。不冻结 a/d/s，不勾 150 新 seed，不关闭 #88。
+11. **O1/#88 降范围收口清单（本片）**：作者同意今日目标改为「试调默认可玩 + 缺口明列 + 不宣称校准完成」。清单见 [issue88_o1_soft_closeout.md](issue88_o1_soft_closeout.md)：钉 a=d=0.25、s=0 为可玩试调；明确不跑 150 新 seed、不标正式最优；Resource 仍 `trial_unvalidated`/`acceptance=null`。是否关 #88/#84 等作者在清单第四节勾选后再执行。
