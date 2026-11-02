@@ -73,7 +73,10 @@ func test_deterministic_branches_replan_and_keep_legal_target_levels() -> void:
 	assert_true(second.compare(prefix, choices[0].skill_id, choices[1].skill_id, 20, "random", 11), second.error)
 	assert_eq(first.report, second.report)
 	assert_true(first.report.known)
-	assert_null(first.report.target_trigger_count)
+	assert_typeof(first.report.target_trigger_count, TYPE_INT)
+	assert_true(first.report.target_trigger_count >= 0)
+	assert_eq(first.report.target_trigger_missing_reason, "")
+	assert_eq(first.report.branches[0].target_trigger_count, first.report.target_trigger_count)
 	assert_eq(first.branches[0].state.rewards.acquired.get(choices[0].skill_id, 0), first.report.level)
 	assert_eq(first.branches[1].state.rewards.acquired.get(choices[0].skill_id, 0), first.report.level_before)
 	for run: RunController in first.branches:
