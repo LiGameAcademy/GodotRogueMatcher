@@ -1,6 +1,6 @@
 extends GutTest
 
-## Install≠use: only consumed RuleResult.activations count as trigger uses.
+## Install≠use: consumed counts uses; attempts include condition/limit rejects.
 
 func test_consumed_activations_map_to_skill_and_ignore_install_only() -> void:
 	var records: Array[Dictionary] = [
@@ -16,10 +16,10 @@ func test_consumed_activations_map_to_skill_and_ignore_install_only() -> void:
 		{
 			"kind": "RuleResult",
 			"activations": [
-				{"skill_instance_id": "3", "ability_id": "on_eliminated_explosion", "consumed": true, "applied": true},
-				{"skill_instance_id": "3", "ability_id": "on_eliminated_explosion", "consumed": false, "applied": false},
-				{"skill_instance_id": "4", "ability_id": "refill", "consumed": true, "applied": true},
-				{"skill_instance_id": "9", "ability_id": "ghost", "consumed": true, "applied": true},
+				{"skill_instance_id": "3", "ability_id": "on_eliminated_explosion", "matched": true, "attempt": true, "consumed": true, "applied": true},
+				{"skill_instance_id": "3", "ability_id": "on_eliminated_explosion", "matched": true, "attempt": true, "consumed": false, "applied": false},
+				{"skill_instance_id": "4", "ability_id": "refill", "matched": true, "attempt": true, "consumed": true, "applied": true},
+				{"skill_instance_id": "9", "ability_id": "ghost", "matched": true, "attempt": true, "consumed": true, "applied": true},
 			],
 		},
 	]
@@ -30,3 +30,24 @@ func test_consumed_activations_map_to_skill_and_ignore_install_only() -> void:
 	assert_eq(by_skill["blast_radius"], 1)
 	assert_eq(by_skill["refill_less"], 1)
 	assert_false(by_skill.has("ghost"))
+
+func test_attempts_include_condition_rejects_and_exclude_owner_noise() -> void:
+	var records: Array[Dictionary] = [
+		{
+			"kind": "Footer",
+			"final": {"skills": [{"instance_id": "3", "skill_id": "blast_radius", "level": 1, "abilities": []}]},
+		},
+		{
+			"kind": "RuleResult",
+			"activations": [
+				{"skill_instance_id": "3", "matched": true, "attempt": true, "consumed": true, "reason": ""},
+				{"skill_instance_id": "3", "matched": false, "attempt": true, "consumed": false, "reason": "condition_rejected"},
+				{"skill_instance_id": "3", "matched": false, "attempt": true, "consumed": false, "reason": "trigger_limit_reached"},
+				{"skill_instance_id": "3", "matched": false, "attempt": false, "consumed": false, "reason": "owner_mismatch"},
+			],
+		},
+	]
+	assert_eq(AbilityTriggerStats.attempts_for_skill(records, &"blast_radius"), 3)
+	assert_eq(AbilityTriggerStats.consumed_for_skill(records, &"blast_radius"), 1)
+	assert_eq(AbilityTriggerStats.consume_rate_for_skill(records, &"blast_radius"), 1.0 / 3.0)
+	assert_eq(AbilityTriggerStats.consume_rate_for_skill(records, &"missing"), null)

@@ -45,10 +45,12 @@ func add(recorder: RunRecorder, projector: TelemetryProjector, replay_error: Str
 				skill.attributed_score_events += 1
 				if skill.first_effect == null: skill.first_effect = {"run_id": header.run_id, "event_id": event.event_id}
 	var consumed: Dictionary[String, int] = AbilityTriggerStats.consumed_by_skill(recorder.records)
-	for skill_id: String in consumed:
+	var attempts: Dictionary[String, int] = AbilityTriggerStats.attempts_by_skill(recorder.records)
+	for skill_id: String in attempts:
 		var skill: Dictionary = _skill(group, skill_id)
-		skill.consumed_triggers = int(skill.get("consumed_triggers", 0)) + consumed[skill_id]
-		skill.attempt_denominator = skill.consumed_triggers
+		var prior_attempts: int = int(skill.attempt_denominator) if skill.attempt_denominator != null else 0
+		skill.consumed_triggers = int(skill.get("consumed_triggers", 0)) + int(consumed.get(skill_id, 0))
+		skill.attempt_denominator = prior_attempts + int(attempts[skill_id])
 		skill.missing_reason = ""
 	for id: int in reached:
 		var stage_key: String = str(id)
@@ -71,7 +73,8 @@ func _skill(group: Dictionary, id: String) -> Dictionary:
 			"consumed_triggers": 0,
 			"first_effect": null,
 			"attempt_denominator": null,
-			"missing_reason": "no_consumed_activation_yet; condition-only rejects still uncounted",
+			"consume_rate": null,
+			"missing_reason": "no_in_scope_attempt_yet",
 		}
 	return group.skills[id]
 
@@ -82,8 +85,13 @@ func write(directory: String) -> bool:
 			row["actions_p50_p90"] = quantiles(row.used_actions)
 		for name: String in ["q", "P", "carry"]: group[name + "_p50_p90"] = quantiles(group[name])
 		for skill: Dictionary in group.skills.values():
-			if int(skill.get("consumed_triggers", 0)) > 0:
+			var attempt_n: int = int(skill.get("attempt_denominator", 0) if skill.get("attempt_denominator") != null else 0)
+			var consumed_n: int = int(skill.get("consumed_triggers", 0))
+			skill["consume_rate"] = float(consumed_n) / float(attempt_n) if attempt_n > 0 else null
+			if consumed_n > 0:
 				skill["coverage"] = "observed_consumed_trigger"
+			elif attempt_n > 0:
+				skill["coverage"] = "attempted_not_consumed"
 			elif skill.offered == 0:
 				skill["coverage"] = "not_offered"
 			elif skill.selected == 0:
@@ -101,7 +109,7 @@ func write(directory: String) -> bool:
 		"groups": groups,
 		"limits": "tool limits are censored; bot observations do not measure human understanding",
 		"first_effect_scope": "attributed score events only; non-score effects remain unmeasured",
-		"trigger_count_basis": "consumed RuleResult.activations mapped by skill_instance_id; install≠use; unmatched condition checks still omitted",
+		"trigger_count_basis": "attempts=matched completes + condition_rejected/trigger_limit_reached; consumed=uses; owner/event mismatch excluded; zero consume_rate with attempts>0 means tried but unused",
 	}, "\t"))
 	file.flush()
 	return file.get_error() == OK
