@@ -51,3 +51,13 @@ A取得或升级目标技能，B保持目标原等级、取得同一三选一的
 本次运行证据见 [issue18-results.json](evidence/issue18-results.json)。回归覆盖状态/RNG/待领奖/锁定计划隔离、非法前缀与对照、完整落盘回放、重复复现、截尾null、应用前基线、长局批量刷新，以及H/对照卡/原局簇/负收益的统计分组。固定盘面和正常池分叉分别留来源。没有证明技能未触发：attempt 分母尚缺，这是显式缺失，不会被零收益掩盖。
 
 O1后续仍需 #19 离线参考曲线与作者试玩验收；首玩者理解、前三阶段选择作用、失败原因与下一局调整由真人试验收口。#18完成不自动勾完O1全部KR。
+
+## #88 a/d试验父局
+
+已绑定a/d的正常bot记录也可使用上述paired入口。分支保存可实际重放的原父前缀及冻结奖励候选证明，source仍为fixture，不放宽其它配置；父commit与窗口执行commit分列。增加`--commit=<本次实际提交>`记录执行来源，省略时为unknown。例如：
+
+```powershell
+& $godotExe --headless --path . -s tools/bot_testing/batch_cli.gd -- paired '<已有trial完整JSONL>' '<全新输出目录>' --seed=1000 --strategy=greedy --commit=<实际提交>
+```
+
+一个父局的多个候选/H窗口仍只有一个父样本；本入口不会选参数、补造机会或启动150新seed复核。边界与实际单父验证见[成对试验绑定](../../docs/quality/issue88_paired_trial_binding.md)。

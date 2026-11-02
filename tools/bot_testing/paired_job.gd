@@ -12,6 +12,7 @@ func _run() -> void:
 		return
 	var seed_value: int = 1
 	var strategy: String = "greedy"
+	var execution_commit: String = "unknown"
 	for arg: String in args:
 		if arg.begins_with("--seed="):
 			var encoded: String = arg.trim_prefix("--seed=")
@@ -21,6 +22,7 @@ func _run() -> void:
 				return
 			seed_value = encoded.to_int()
 		elif arg.begins_with("--strategy="): strategy = arg.trim_prefix("--strategy=")
+		elif arg.begins_with("--commit="): execution_commit = arg.trim_prefix("--commit=")
 	var prefix: Array[Dictionary] = []
 	if args[1] == "fixture": prefix = fixture_prefix(seed_value)
 	else:
@@ -43,7 +45,7 @@ func _run() -> void:
 		for index: int in range(choices.size()):
 			var pair: PairedWindow = PairedWindow.new()
 			var control: StringName = choices[(index + 1) % choices.size()].skill_id
-			if not pair.compare(prefix, choices[index].skill_id, control, horizon, strategy, BotRunner.strategy_seed_for(seed_value)) or not pair.write(args[2]):
+			if not pair.compare(prefix, choices[index].skill_id, control, horizon, strategy, BotRunner.strategy_seed_for(seed_value), 3000, 60000, execution_commit) or not pair.write(args[2]):
 				push_error(pair.error)
 				get_tree().quit(1)
 				return
