@@ -35,7 +35,7 @@ func test_pressure_remains_a_diagnostic_with_occupancy_and_fragmentation() -> vo
 	assert_gt(high.P, low.P)
 	assert_eq(BoardPressure.evaluate(3, 3, [], NAN), {})
 
-func test_high_pressure_does_not_waive_hard_gate_or_raise_trial_weight() -> void:
+func test_high_pressure_does_not_waive_hard_gate_or_raise_default_trial_weight() -> void:
 	var high: RunController = _run(true)
 	var low: RunController = _run(false)
 	var skill: SkillDefinition = _skill(&"instant_color_clear")
@@ -43,6 +43,7 @@ func test_high_pressure_does_not_waive_hard_gate_or_raise_trial_weight() -> void
 	assert_eq(SkillRules.rejection(low.state, skill, low.abilities.config), "尚未进入候选阶段")
 	high.state.rewards.consumed_count = 3
 	low.state.rewards.consumed_count = 3
+	assert_eq(SkillOfferGenerator.CONFIG.situational_gain, 0.0)
 	assert_eq(SkillOfferGenerator.weight(high.state, skill), SkillOfferGenerator.weight(low.state, skill))
 	var restricted: SkillDefinition = skill.duplicate(true) as SkillDefinition
 	restricted.offer_traits.needs = [&"core_supply"]
@@ -50,6 +51,24 @@ func test_high_pressure_does_not_waive_hard_gate_or_raise_trial_weight() -> void
 	restricted.offer_traits.needs.clear()
 	restricted.prerequisite = &"missing"
 	assert_eq(SkillRules.rejection(high.state, restricted, high.abilities.config), "缺少前置升级")
+
+func test_situational_gain_raises_rare_weight_with_pressure_not_common() -> void:
+	var high: RunController = _run(true)
+	var low: RunController = _run(false)
+	high.state.rewards.consumed_count = 3
+	low.state.rewards.consumed_count = 3
+	var config: OfferConfig = SkillOfferGenerator.CONFIG.duplicate(true) as OfferConfig
+	config.situational_gain = 0.5
+	var common: SkillDefinition = _skill(&"match_extra")
+	var rare: SkillDefinition = _skill(&"instant_percent_clear")
+	assert_eq(int(common.rarity), 0)
+	assert_gte(int(rare.rarity), 2)
+	assert_eq(SkillOfferGenerator.weight(high.state, common, null, config), SkillOfferGenerator.weight(low.state, common, null, config))
+	assert_gt(SkillOfferGenerator.weight(high.state, rare, null, config), SkillOfferGenerator.weight(low.state, rare, null, config))
+	var high_row: Dictionary = OfferWeightRules.evaluate(rare, SkillOfferGenerator.build_snapshot(high.state), 4, "", config, _pressure(high))
+	var low_row: Dictionary = OfferWeightRules.evaluate(rare, SkillOfferGenerator.build_snapshot(low.state), 4, "", config, _pressure(low))
+	assert_gt(float(high_row.s), float(low_row.s))
+	assert_gt(float(high_row.s), 0.0)
 
 func test_classic_and_challenge_share_formula_without_startup_or_history_factors() -> void:
 	var challenge: RunController = _run(true)

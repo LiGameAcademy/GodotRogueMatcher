@@ -101,7 +101,7 @@ func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 		last_error = skill.validation_error()
 		if not last_error.is_empty(): return null
 		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, -1.0, build)
-		var explanation: Dictionary = OfferWeightRules.evaluate(skill, build, offer.reward_id, reason, config)
+		var explanation: Dictionary = OfferWeightRules.evaluate(skill, build, offer.reward_id, reason, config, offer.pressure_snapshot)
 		explanation["level_before"] = SkillRules.level(state, skill)
 		explanation["acquired_count"] = rewards.acquired.get(skill.skill_id, 0)
 		explanation["minimum_reward"] = skill.minimum_reward
@@ -173,10 +173,12 @@ func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 static func build_snapshot(state: RunState) -> SkillBuildSnapshot:
 	return SkillBuildSnapshot.capture(state, CATALOG)
 
-static func weight(state: RunState, skill: SkillDefinition, build: SkillBuildSnapshot = null) -> float:
+static func weight(state: RunState, skill: SkillDefinition, build: SkillBuildSnapshot = null, config: OfferConfig = null) -> float:
 	var frozen: SkillBuildSnapshot = build if build != null else build_snapshot(state)
+	var active: OfferConfig = config if config != null else CONFIG
 	var reason: String = SkillRules.rejection(state, skill, AbilityResolver.DEFAULT_CONFIG, -1.0, frozen)
-	return float(OfferWeightRules.evaluate(skill, frozen, state.rewards.consumed_count + 1, reason, CONFIG).W)
+	var pressure: Dictionary = BoardPressure.evaluate(state.rules.state.columns, state.rules.state.rows, _coordinates(state), active.occupancy_weight)
+	return float(OfferWeightRules.evaluate(skill, frozen, state.rewards.consumed_count + 1, reason, active, pressure).W)
 
 static func version_for_mode(_mode_id: StringName) -> String:
 	return CONFIG.rules_version
