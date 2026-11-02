@@ -14,7 +14,7 @@
 
 ## #88的下一完整出口
 
-1. 明确首次核心取得/明显连携的操作定义、自然失败与未触发口径；当前最高k5、稀疏升级、真人体验仍缺。不能把供给安装等同已发生明显连携。attempt分母已可记账，仍不等于作者口径定稿。
+1. 明确首次核心取得/明显连携的操作定义、自然失败与未触发口径；工程已区分 install_effect/manual/recurring（见进度第 9 点），**明显连携**数值与最高k5/真人体验仍缺。不能把供给安装等同明显连携；attempt 分母不能单独定稿作者口径。
 2. 作者确认a阶段后冻结下一候选与接受标准的数值/单位、最大不确定度/样本上限/停止规则；需要d扫描时先按已确认顺序登记，不在本批擅自选择a或阈值。
 3. 在相同真实候选上补稀疏技能H20/50，按父局聚类、保留所有截尾/失败和明确对照卡；通路与小样本已有，仍非正式区间。
 4. 最终候选及接受线明确冻结后，才采150新seed并做作者试玩；逐项将a/d、稀有档曲线、s/V、配额与体验参数标为正式/试调/待测，保留高k及真人缺覆盖。未完成不关闭#88。
@@ -41,3 +41,4 @@
 6. **attempt 分母（已合入 #243）**：`AbilityEvents` 对 `condition_rejected` / `trigger_limit_reached` 落盘 attempt 痕迹；成对窗口报告 `target_trigger_attempts` / `target_trigger_rate`；压力报告 `attempt_denominator` / `consume_rate`，coverage 含 `attempted_not_consumed`。owner/事件类型不匹配不计分母。成功完成痕迹仍以 `matched` 计 attempt，不另写冗余 `attempt` 旗标。
 7. **attempt 重读 + 旧父回放兼容（本片）**：#243 一度把 `attempt` 写入完成痕迹并新增拒绝痕迹，导致同规则版本的旧 s=0.25 父前缀回放比对失败。现：完成痕迹不再带冗余 `attempt`；回放在「期望 activations 从未使用 attempt 字段」时，比对侧丢弃实际多出的拒绝 attempt 痕迹。同批父局重跑 `.godot/o1-paired-rare-attempts-20261102b/`：仍 **11/20** 父成功、**26** 对全部 `known`。**26/26** `target_trigger_attempts=0` 且 `missing_reason=no_in_scope_attempt`（consumed 同为 0）。抽查 `composite_clear_dye`：技能能力是 `skill_acquired` 一次性装上，窗口内 activations 只有先天 `on_eliminated_line_sweep`（`skill_instance_id=0`），故装上≠窗口内再尝试；手动技亦可能被 greedy 零次使用。ΔS 仍有正有负，只能说明选择差，不能当「触发率」。正式包仍是试调 **a=0.25 / d=0.25 / s=0**；不冻结最优，不开 150 新 seed，不关闭 #88。
 8. **d 三档批测（本片）**：作者 Web 试玩「暂时没什么问题」后开扫。同种子 `881100`、greedy×20、钉 **a=0.25 / s=0**、实验 `o1-d-scan-20261102`。三档均 20/20 `board_full`、回放 OK。补缺槽占比约 0.038→0.045→0.083；补缺选中约 0.114→0.114→0.159；相关槽约 0.14→0.16→0.17。均分/p50：417/458、410/425、415/475。15/20 局三档终局代理指纹相同，说明本样本下 d 对多数轨迹影响弱。**小样本不冻结 d**；正式试调保持 **d=0.25** 与 a 并列，不勾 150 新 seed，不关闭 #88。
+9. **触发/用上口径（本片）**：新增 `SkillTriggerPayoff`。目录卡分为 `install_effect`（装上即生效：leveled `skill_acquired`/`skill_upgraded` 或即时 `choice_effect`）、`manual`（`manual_use_limit>0`）、`recurring`（技能自身挂非取得事件，当前正式池几乎没有）、`unknown`。成对报告补 `target_trigger_mode`/`target_install_uses`；attempts=0 时 `missing_reason` 改为 `install_effect_not_recurring` / `manual_unused` / `no_in_scope_attempt`，不再把装上即生效误标成未触发。工程白话：**装上**=取得成功；**用上**=install 看 SkillInstance 取得计数、manual/recurring 看 activations consumed；**明显连携**仍待作者定数值口径，ΔS 不冒充连携。不关闭 #88，不勾 150 新 seed。

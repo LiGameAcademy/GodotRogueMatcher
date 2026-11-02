@@ -33,7 +33,7 @@ A取得或升级目标技能，B保持目标原等级、取得同一三选一的
 
 从**应用卡之前**计分/空间，所以即时作用进入窗口。H=20/50分别计量有效移动+主动爆破，选卡不算行动；截止点必须完成根行动，不能在补棋前截成完整H。自然满盘/末阶段结束保留真实终态和实际行动数；其后无新游戏行动，终态是已知的。超时/命令上限/无合法策略动作是外部截尾，整窗 Δ 为 null，仅另存已观察前缀差。
 
-整窗差只登记一次：`ΔS=(S_A_end-S_start)-(S_B_end-S_start)`；`ΔF=F_A_end-F_B_end`。不再另加即时/间接/延寿收益。每分支独立ID，`parent_run_id` 保留原局簇；H/技能等级/对照卡/协议/配置分别分组。同局多个分叉不算多个独立原局。0、负数、null不同；`target_trigger_attempts`/`target_trigger_rate` 区分用上与在范围尝试，attempts=0 时 rate 为 null。装上即生效（如 `skill_acquired` 一次性）或窗口内未被策略点到的手动技，会出现 attempts=0；这不等于回放坏了。旧父局若无 attempt 字段，回放比对会忽略后加的拒绝 attempt 痕迹，避免同规则版本前缀误拒。
+整窗差只登记一次：`ΔS=(S_A_end-S_start)-(S_B_end-S_start)`；`ΔF=F_A_end-F_B_end`。不再另加即时/间接/延寿收益。每分支独立ID，`parent_run_id` 保留原局簇；H/技能等级/对照卡/协议/配置分别分组。同局多个分叉不算多个独立原局。0、负数、null不同；`target_trigger_attempts`/`target_trigger_rate` 区分消除类再触发与在范围尝试，attempts=0 时 rate 为 null。`target_trigger_mode` 为 `install_effect`/`manual`/`recurring`/`unknown`；装上即生效看 `target_install_uses`（SkillInstance 取得计数），不能把 attempts=0 一律读成未用上。`target_trigger_missing_reason`：`install_effect_not_recurring`、`manual_unused`、`no_in_scope_attempt`。旧父局若无 attempt 字段，回放比对会忽略后加的拒绝 attempt 痕迹。
 
 ```powershell
 # 从完整正常局记录取首个真实候选，不覆盖原文件。

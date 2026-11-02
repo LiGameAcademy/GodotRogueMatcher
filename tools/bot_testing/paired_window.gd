@@ -57,6 +57,10 @@ func compare(prefix: Array[Dictionary], target: StringName, control: StringName,
 		result["target_trigger_attempts"] = AbilityTriggerStats.attempts_for_skill(run.recorder.records, target)
 		result["control_trigger_attempts"] = AbilityTriggerStats.attempts_for_skill(run.recorder.records, control)
 		result["target_trigger_rate"] = AbilityTriggerStats.consume_rate_for_skill(run.recorder.records, target)
+		result["target_trigger_mode"] = String(SkillTriggerPayoff.mode_for_skill(target))
+		result["control_trigger_mode"] = String(SkillTriggerPayoff.mode_for_skill(control))
+		result["target_install_uses"] = SkillTriggerPayoff.install_uses_for_skill(run.recorder.records, target)
+		result["control_install_uses"] = SkillTriggerPayoff.install_uses_for_skill(run.recorder.records, control)
 		results.append(result)
 		if result.status == "rule_error": return _fail(result.reason)
 	var known: bool = results[0].known and results[1].known
@@ -67,10 +71,14 @@ func compare(prefix: Array[Dictionary], target: StringName, control: StringName,
 	report["target_trigger_attempts"] = results[0].target_trigger_attempts
 	report["control_trigger_attempts"] = results[1].control_trigger_attempts
 	report["target_trigger_rate"] = results[0].target_trigger_rate
+	report["target_trigger_mode"] = results[0].target_trigger_mode
+	report["control_trigger_mode"] = results[1].control_trigger_mode
+	report["target_install_uses"] = results[0].target_install_uses
+	report["control_install_uses"] = results[1].control_install_uses
 	report["execution_commit_id"] = execution_commit
 	report["parent_commit_id"] = prefix[0].get("metadata", {}).get("commit_id", "unknown")
-	report["target_trigger_missing_reason"] = "" if int(results[0].target_trigger_attempts) > 0 else "no_in_scope_attempt"
-	report["trigger_count_basis"] = "consumed=uses; attempts=matched completes + condition_rejected/trigger_limit_reached; owner/event mismatch excluded; install-only is not a use"
+	report["target_trigger_missing_reason"] = SkillTriggerPayoff.window_missing_reason(branches[0].recorder.records, target)
+	report["trigger_count_basis"] = "consumed=recurring uses in activations; attempts=matched completes + condition_rejected/trigger_limit_reached; install_effect uses SkillInstance acquire counters; owner/event mismatch excluded"
 	return true
 
 func _continue(run: RunController, bot: RuleBot, held_skill: StringName, horizon: int, before: Dictionary, command_limit: int, timeout_ms: int) -> Dictionary:
