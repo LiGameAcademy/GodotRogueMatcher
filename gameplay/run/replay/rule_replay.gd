@@ -206,7 +206,7 @@ func _advance_record(index: int, records: Array[Dictionary], generated: RunRecor
 	var actual_value: Dictionary = _without_time(actual)
 	# v1首批记录没有表现路径；规则状态与事件仍逐项验证。
 	if not expected.has("move"): actual_value.erase("move")
-	if RunSnapshot.canonical(expected_value) != RunSnapshot.canonical(actual_value):
+	if not _record_matches(expected_value, actual_value, records[0].get("kind") == "Header"):
 		return _fail("seq=%d phase=%s %s" % [index + 1, RunState.Phase.keys()[run.state.phase], _difference(expected_value, actual_value, "")])
 	checked_records = index + 1
 	if expected.get("kind") == "Footer":
@@ -214,6 +214,16 @@ func _advance_record(index: int, records: Array[Dictionary], generated: RunRecor
 		if not expected.get("record_complete", false): return _fail("record_write_incomplete")
 		complete = true
 	return true
+
+## Normal v1 JSONL used short float output. Compare its exact one-write/read projection,
+## not an epsilon: serializing a parsed tiny float again can round a second time.
+## Snapshot segments use full precision and must keep the direct comparison.
+func _record_matches(expected: Dictionary, actual: Dictionary, short_json: bool) -> bool:
+	var canonical_expected: String = RunSnapshot.canonical(expected)
+	if canonical_expected == RunSnapshot.canonical(actual): return true
+	if not short_json: return false
+	var persisted: Variant = JSON.parse_string(JSON.stringify(actual, "", true))
+	return persisted is Dictionary and canonical_expected == RunSnapshot.canonical(persisted)
 
 func _finish_replay() -> bool:
 	_active = false
