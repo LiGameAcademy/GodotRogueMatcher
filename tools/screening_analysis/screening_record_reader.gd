@@ -14,9 +14,11 @@ func read(path: String) -> Dictionary:
 	var header: Dictionary = records[0]
 	if not header.get("config") is Dictionary: return _fail("missing_config")
 	if header.config.get("prototype_profile") not in [String(RunController.SCREENING_PROFILE), String(RunController.SCREENING_FIXED_PROFILE)]: return _fail("not_screening_record")
+	## Reject bad Header identity before replay so diagnostics stay precise (not configuration_mismatch).
+	if not header.get("metadata", {}) is Dictionary or not header.get("source") is String or not header.get("build") is String:
+		return _fail("invalid_metadata")
 	if not replay.replay(records): return _fail(replay.error)
 	var footer: Dictionary = records.back()
-	if not header.get("metadata", {}) is Dictionary or not header.get("source") is String or not header.get("build") is String: return _fail("invalid_metadata")
 	var metadata: Dictionary = header.get("metadata", {})
 	var fixed: bool = header.config.prototype_profile == String(RunController.SCREENING_FIXED_PROFILE)
 	var key: String = ScreeningDeck.key_of(header.initialization) if fixed else "baseline"
