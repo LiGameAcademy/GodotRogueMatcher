@@ -150,15 +150,34 @@ func test_line_deadline_and_invalid_header_are_diagnosed_without_overwriting_sou
 
 func test_actual_cli_exits_for_success_budget_failure_and_bad_options() -> void:
 	var path: String = _write("a", _events(93))
+	var bad_path: String = _write("bad", [], "not JSON")
 	var cases: Array[Dictionary] = [
 		{"name": "ok", "options": [], "exit": 0},
+		{"name": "flat", "options": [], "exit": 0},
+		{"name": "bad", "options": [], "exit": 1},
 		{"name": "budget", "options": ["--max-run-bytes=1"], "exit": 1},
 		{"name": "option", "options": ["--max-run-bytes=-1"], "exit": 2}]
 	for scenario: Dictionary in cases:
-		var args: PackedStringArray = ["--headless", "--text-driver", "Dummy", "--path", ProjectSettings.globalize_path("res://"), "-s", "tools/telemetry_analysis/analysis_cli.gd", "--", "--bounded", ProjectSettings.globalize_path(path), ProjectSettings.globalize_path(_root.path_join(scenario.name))]
+		var directory: String = _root.path_join(scenario.name)
+		var args: PackedStringArray = ["--headless", "--text-driver", "Dummy", "--path", ProjectSettings.globalize_path("res://"), "-s", "tools/telemetry_analysis/analysis_cli.gd", "--"]
+		if scenario.name != "flat": args.append("--bounded")
+		args.append(ProjectSettings.globalize_path(bad_path if scenario.name == "bad" else path))
+		args.append(ProjectSettings.globalize_path(directory))
 		for option: String in scenario.options: args.append(option)
 		var output: Array = []
 		assert_eq(OS.execute(OS.get_executable_path(), args, output, true), scenario.exit, str(output))
+		for diagnostic: String in ["SCRIPT ERROR:", "Parse Error:", "Compile Error:"]:
+			assert_false(str(output).contains(diagnostic), str(output))
+		if scenario.exit == 0:
+			var summary: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(directory.path_join("summary.json")))
+			# Compare both sides after the report's JSON transport (JSON numbers decode as floats).
+			var reference: Dictionary = JSON.parse_string(JSON.stringify(_reference([path])))
+			_equivalent(summary, reference)
+		elif scenario.name == "option":
+			assert_false(DirAccess.dir_exists_absolute(directory))
+		else:
+			var summary: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(directory.path_join("summary.json")))
+			assert_false(summary.errors.is_empty())
 
 func test_case_distinct_run_ids_and_device_names_cannot_overwrite_another_shard() -> void:
 	var original: Array[Dictionary] = _events(94)

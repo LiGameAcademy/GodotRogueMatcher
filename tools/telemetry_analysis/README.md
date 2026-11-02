@@ -6,6 +6,8 @@
 godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analysis_cli.gd -- user://telemetry user://telemetry_reports/latest
 ```
 
+入口会在Autoload就绪后加载内部分析作业，避免离线启动时的资源循环解析错误；调用方式不变。不要直接运行`analysis_job.gd`。修复范围及真实CLI验证见[启动诊断记录](../../docs/quality/issue87_analysis_startup.md)。
+
 第一个参数可为单个JSONL文件或目录，目录只读取本层 .jsonl。输出 runs、turns、offers、inputs、intervals、skills、events 七张CSV与 summary.json。嵌套字段为JSON；空值为空单元格。损坏文件保留已验证前缀，报告 errors 并返回退出码1，不把缺失终局标成完成。
 
 生成一个隔离的机器人批次再分析：
