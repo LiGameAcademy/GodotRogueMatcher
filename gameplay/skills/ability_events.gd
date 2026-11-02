@@ -103,7 +103,6 @@ func complete(activation: AbilityActivation, applied: bool, affected_count: int)
 		"cause": activation.event.cause,
 		"generation": activation.event.generation,
 		"matched": true,
-		"attempt": true,
 		"reason": String(activation.debug.get("reason", "")),
 		"conditions": activation.debug.get("conditions", []),
 		"applied": applied,
