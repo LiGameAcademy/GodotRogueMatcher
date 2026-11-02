@@ -16,7 +16,9 @@ CLI默认阶段挑战；在`--`后的参数中加`--legacy`可运行经典无尽
 & $godotExe --headless --text-driver Dummy --path . -s tools/bot_testing/batch_cli.gd -- --count=1 --seed=1000 --strategy=greedy --moves=8 --offer-a=0.5 --offer-d=0.25 --experiment=o1-smoke --variant=a_0.5 --output=.godot/trial/report --record-output=.godot/trial/records --telemetry-output=.godot/trial/telemetry
 ```
 
-先按下文设置`$godotExe`，并为每批使用全新输出路径。a/d仅接受`0`（或`0.0`）、`0.25`、`0.5`；experiment/variant为1～64位ASCII字母、数字、下划线或连字符，首位之后允许点号以保留登记标签`a_0.5`。缺项、重复、未知offer选项、非网格或非法身份在创建对局/文件前拒绝。示例8行动是入口烟测，可能截尾，不是正式样本或独立性验收。先同种子扫描a、选候选后再扫描d；此命令不自动展开笛卡尔积或挑参数。
+可选`--offer-s=0|0.25|0.5`打开压力救场项：`s = situational_gain × (P/100) × rarity_pressure_weights[rarity]`（默认曲线 common=0，越高稀有越高）。不传则保持配置默认`situational_gain=0`，权重与压力无关。
+
+先按下文设置`$godotExe`，并为每批使用全新输出路径。a/d/s仅接受`0`（或`0.0`）、`0.25`、`0.5`；experiment/variant为1～64位ASCII字母、数字、下划线或连字符，首位之后允许点号以保留登记标签`a_0.5`。缺项、重复、未知offer选项、非网格或非法身份在创建对局/文件前拒绝。示例8行动是入口烟测，可能截尾，不是正式样本或独立性验收。先同种子扫描a、选候选后再扫描d；此命令不自动展开笛卡尔积或挑参数。
 
 本局深复制OfferConfig，默认generator、Header.config/config_hash和每次Offer参数使用同一实际配置；metadata保留experiment/variant、实际a/d、trial_unvalidated和acceptance:null。回放仅对bot来源且严格试验绑定匹配时恢复这两项；其余配置仍须与当前默认完整指纹匹配，不因自报Header放行任意字段。该绑定是回放自洽条件，不是样本真实性认证。默认旧v46配置路径不变，checkpoint仍按调用方expected manifest拒绝默认/实验互换；不会自动接受不同配置的旧槽。
 

@@ -28,7 +28,7 @@
 
 ## 工程进度（按作者批准顺序）
 
-1. **触发记账（本片完成）**：`AbilityTriggerStats` 从 `RuleResult.activations`（`consumed=true`）按 `skill_instance_id` 汇总「用上」次数；`PairedWindow` 写出 `target_trigger_count`；压力报告增加 `consumed_triggers`。装上仍不等于用上；条件未命中的静默拒绝仍不记账。
-2. a 三档批测：下一步开跑。
-3. 棋盘压力→稀有权重：待 a 批测。
+1. **触发记账（已合入 #237）**：`AbilityTriggerStats` 汇总 `consumed=true` 触发；成对窗口/压力报告可记账。装上≠用上。
+2. **a 三档小样本（读数，试调默认 0.25）**：同种子 `880100` greedy×20、`d=0.25`；相关槽约 0.14→0.15→0.23，相关选中约 0.15→0.19→0.19；三档均满盘不崩。不冻结最优，不开 d。证据 `.godot/o1-a-scan-20261102/`；读数分支 `feat/88-a-scan-readout`。
+3. **棋盘压力→稀有权重（本片接线）**：`s = situational_gain × (P/100) × rarity_pressure_weights[rarity]`（默认曲线 common=0）；默认 `situational_gain=0` 权重与压力无关；批测 `--offer-s=0|0.25|0.5`。硬门禁仍不豁免。配置指纹因新字段变更（旧 d021abbb…）；未验收，不改正式默认。
 4. #161 一局一主种子：并行核对，不堵本片。

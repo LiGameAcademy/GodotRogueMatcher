@@ -76,9 +76,11 @@ static func _complete_pools(data: Dictionary) -> String:
 	if not TelemetrySchema.valid_integer(data.parameters.get("maximum_utility_picks")): return "invalid_utility_quota"
 	var quota: int = data.parameters.maximum_utility_picks.to_int()
 	if quota < -1 or data.slots.is_empty() or data.slots.size() > 3: return "invalid_offer_slot_count_or_quota"
+	var situational_enabled: bool = bool(data.parameters.get("situational_enabled", false))
 	for row: Dictionary in data.explanations.values():
 		if not row.get("utility_pick") is bool: return "missing_frozen_utility_fact"
-		if row.s != 0.0 or row.V != 1.0: return "invalid_trial_weight_factor"
+		if row.V != 1.0 or row.s < 0.0: return "invalid_trial_weight_factor"
+		if not situational_enabled and row.s != 0.0: return "invalid_trial_weight_factor"
 		if row.H == "1" and row.W <= 0.0: return "invalid_legal_weight"
 	var used: Array[String] = []
 	var utility_count: int = 0

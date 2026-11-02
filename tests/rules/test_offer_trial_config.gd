@@ -25,6 +25,11 @@ func test_trial_options_require_all_explicit_fields_and_reject_bad_values() -> v
 	assert_eq(_options("0", "0.25").config.related_gain, 0.0)
 	assert_null(_options().metadata().offer_trial.acceptance)
 	assert_eq(OfferTrialOptions.from_args(PackedStringArray(["--offer-a=0.5", "--offer-d=0.25", "--experiment=o1-smoke", "--variant=a_0.5"])).error, "")
+	var with_s: OfferTrialOptions = OfferTrialOptions.from_args(PackedStringArray(["--offer-a=0.25", "--offer-d=0.25", "--offer-s=0.5", "--experiment=o1-smoke", "--variant=s_0.5"]))
+	assert_eq(with_s.error, "")
+	assert_eq(with_s.config.situational_gain, 0.5)
+	assert_eq(with_s.metadata().offer_trial.situational_gain, 0.5)
+	assert_ne(OfferTrialOptions.from_args(PackedStringArray(["--offer-a=0.25", "--offer-d=0.25", "--offer-s=1", "--experiment=x", "--variant=y"])).error, "")
 
 func test_trial_runs_copy_configuration_without_mutating_other_runs_or_template() -> void:
 	var trial: OfferTrialOptions = _options()
@@ -44,8 +49,8 @@ func test_default_stage_config_keeps_the_archived_v46_full_fingerprint() -> void
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 1000,
 		preload("res://gameplay/progression/stages/stage_config.tres"))
 	assert_eq(RunSnapshot.config(run).offer, RunSnapshot.resource_fields(SkillOfferGenerator.CONFIG))
-	# Real v46 baseline from docs/evidence/o1-unified-offers/rereview-2026-10-29/bot-runs.csv.
-	assert_eq(RunSnapshot.digest(RunSnapshot.config(run)), "d021abbb7a3069cb7e4e35ba4be18cab987acdd3e53ca5755218ad975f385808")
+	# Schema adds situational_gain/rarity_pressure_weights (default s=0 keeps prior weights). Old evidence hash d021abbb… no longer matches.
+	assert_eq(RunSnapshot.digest(RunSnapshot.config(run)), "d01d385f7b96887c83ff23e1f8582f5a4c3d60011e54e3c243e64a273315f3b6")
 
 func test_programmatic_invalid_trial_is_rejected_before_run_creation() -> void:
 	var runner: BotRunner = BotRunner.new()
