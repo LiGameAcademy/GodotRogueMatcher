@@ -4,15 +4,17 @@ func _ready() -> void:
 	_run.call_deferred()
 
 ## 从指定真实日志的首个安全三选一，或显式标记的F6诊断盘面生成窗口。
+## Optional --min-rarity=N selects the first offer containing such a skill and only pairs that target.
 func _run() -> void:
 	var args: PackedStringArray = OS.get_cmdline_user_args()
 	if args.size() < 3:
-		push_error("Usage: -- paired <record.jsonl|fixture> <fresh output> [--seed=1] [--strategy=greedy|random]")
+		push_error("Usage: -- paired <record.jsonl|fixture> <fresh output> [--seed=1] [--strategy=greedy|random] [--min-rarity=0] [--commit=...]")
 		get_tree().quit(2)
 		return
 	var seed_value: int = 1
 	var strategy: String = "greedy"
 	var execution_commit: String = "unknown"
+	var min_rarity: int = 0
 	for arg: String in args:
 		if arg.begins_with("--seed="):
 			var encoded: String = arg.trim_prefix("--seed=")
@@ -23,6 +25,13 @@ func _run() -> void:
 			seed_value = encoded.to_int()
 		elif arg.begins_with("--strategy="): strategy = arg.trim_prefix("--strategy=")
 		elif arg.begins_with("--commit="): execution_commit = arg.trim_prefix("--commit=")
+		elif arg.begins_with("--min-rarity="):
+			var rarity_text: String = arg.trim_prefix("--min-rarity=")
+			if not rarity_text.is_valid_int() or rarity_text.to_int() < 0 or rarity_text.to_int() > 4:
+				push_error("min-rarity must be an integer 0..4")
+				get_tree().quit(2)
+				return
+			min_rarity = rarity_text.to_int()
 	var prefix: Array[Dictionary] = []
 	if args[1] == "fixture": prefix = fixture_prefix(seed_value)
 	else:
@@ -32,25 +41,75 @@ func _run() -> void:
 			push_error(replay.error)
 			get_tree().quit(1)
 			return
-		for row: Dictionary in records:
-			prefix.append(row)
-			if row.kind == "Checkpoint" and row.state.get("offer", {}).get("choices", []).size() >= 2: break
+		prefix = prefix_until_offer(records, min_rarity)
+		if prefix.is_empty():
+			push_error("No legal safe offer meeting min-rarity=" + str(min_rarity))
+			get_tree().quit(1)
+			return
 	var validator: RuleReplay = RuleReplay.new()
 	if prefix.is_empty() or not validator.restore_prefix(prefix) or validator.run.state.rewards.active_offer == null:
 		push_error("No legal safe offer: " + validator.error)
 		get_tree().quit(1)
 		return
 	var choices: Array[SkillDefinition] = validator.run.state.rewards.active_offer.choices
+	var compared: int = 0
 	for horizon: int in [20, 50]:
 		for index: int in range(choices.size()):
+			if min_rarity > 0 and int(choices[index].rarity) < min_rarity:
+				continue
 			var pair: PairedWindow = PairedWindow.new()
 			var control: StringName = choices[(index + 1) % choices.size()].skill_id
 			if not pair.compare(prefix, choices[index].skill_id, control, horizon, strategy, BotRunner.strategy_seed_for(seed_value), 3000, 60000, execution_commit) or not pair.write(args[2]):
 				push_error(pair.error)
 				get_tree().quit(1)
 				return
+			compared += 1
 			print(JSON.stringify(pair.report))
+	if compared == 0:
+		push_error("Offer had no target meeting min-rarity=" + str(min_rarity))
+		get_tree().quit(1)
+		return
 	get_tree().quit(0)
+
+## Stops at the first checkpoint offer with ≥2 choices; optional rarity filter.
+static func prefix_until_offer(records: Array[Dictionary], min_rarity: int = 0) -> Array[Dictionary]:
+	var prefix: Array[Dictionary] = []
+	for row: Dictionary in records:
+		prefix.append(row)
+		if row.get("kind") != "Checkpoint":
+			continue
+		var choices: Variant = row.get("state", {}).get("offer", {}).get("choices", [])
+		if not choices is Array or choices.size() < 2:
+			continue
+		if offer_meets_min_rarity(choices, min_rarity):
+			return prefix
+	return []
+
+static func offer_meets_min_rarity(choices: Variant, min_rarity: int) -> bool:
+	if min_rarity <= 0:
+		return true
+	if not choices is Array:
+		return false
+	for entry: Variant in choices:
+		var skill: SkillDefinition = catalog_skill(entry)
+		if skill != null and int(skill.rarity) >= min_rarity:
+			return true
+	return false
+
+static func catalog_skill(entry: Variant) -> SkillDefinition:
+	var skill_id: StringName = &""
+	if entry is SkillDefinition:
+		return entry as SkillDefinition
+	if entry is String or entry is StringName:
+		skill_id = StringName(String(entry))
+	elif entry is Dictionary and entry.has("skill_id"):
+		skill_id = StringName(str(entry.skill_id))
+	if skill_id.is_empty():
+		return null
+	for skill: SkillDefinition in SkillOfferGenerator.CATALOG:
+		if skill.skill_id == skill_id:
+			return skill
+	return null
 
 static func fixture_prefix(seed_value: int) -> Array[Dictionary]:
 	var config: StageConfig = preload("res://gameplay/progression/stages/stage_config.tres").duplicate(true) as StageConfig
