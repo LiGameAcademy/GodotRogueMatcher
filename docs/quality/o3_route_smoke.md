@@ -42,4 +42,4 @@ $env:O3_EVIDENCE_DIR = Join-Path (Get-Location) '.godot/o3-smoke-rerun'
 
 ## 出口
 
-六路线各 10 局无规则异常。不关闭 #122；不定 70%/60%；不替代自然取得探索批（最多扫 100/路线、目标 30 取得父局）。下一步另片：自然扫描与埋点缺口核定。
+六路线各 10 局无规则异常。不关闭 #122；不定 70%/60%。自然取得探索批见 [o3_route_explore.md](o3_route_explore.md)。

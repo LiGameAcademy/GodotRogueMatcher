@@ -52,7 +52,8 @@ B1/L1 试验参考窗（非正式门槛）：首次 4/8 行动、后续 10 行�
 | F-P 固定盘（seed 23/77 + 通路反例） | fixture/automated | 开放盘可合法准备六连并付真实代价；非自然成功率 |
 | L1 `line_clear_score` 成对盘 | fixture + 磁盘 RuleReplay | 同目标 +4 归因；非持续供给/自然选卡 |
 | `O3BuildRoutes` + 守卫测试 | 只读清单 | 防目录漂移；不采样 |
-| 自然扫描 / H=20 主窗 | 未开跑 | 待 O1 测量基线与工具就绪后另登记 |
+| 自然取得探索批 | 已跑（[o3_route_explore.md](o3_route_explore.md)） | 每路线 30 取得父局；非作用/成长窗 |
+| H=20 成对主窗 | 未开跑 | 另片；不与探索取得率混用 |
 | 遥测 `capabilities.all_ability_attempts` | **false**（`telemetry_projector.gd`） | 完整能力机会率与父因果采集缺口保留；缺字段不当 0 |
 | B2/L2 固定因果盘 | 已建（[o3_b2l2_fixed_chains.md](o3_b2l2_fixed_chains.md)） | 正确性分诊；非自然成型 |
 | M1/M2 固定因果盘 | 已建（[o3_m1m2_fixed_chains.md](o3_m1m2_fixed_chains.md)） | 跨系触发分诊；非自然混搭 |
@@ -75,4 +76,4 @@ $env:APPDATA = Join-Path (Get-Location) '.godot/o3-sandbox'
 
 本片交付：六路线机器入口、四指标键名、身份钉死、fixture 覆盖表、遥测缺口明示。不关闭 #122，不定正式门槛，不改生产规则/Resource/抽选参数，不宣称路线达标。
 
-每路线烟测 10 已另片落地（[o3_route_smoke.md](o3_route_smoke.md)）。下一步：自然取得探索批；埋点缺口核定后再报机会率。#34 专色与 #38 方向收益仍外置。
+每路线烟测 10 见 [o3_route_smoke.md](o3_route_smoke.md)；自然取得探索批见 [o3_route_explore.md](o3_route_explore.md)（每路线 30 父局均达）。下一步：取得后作用/持续/成长窗，或先核定埋点缺口再报机会率。#34 专色与 #38 方向收益仍外置。
