@@ -48,4 +48,4 @@ $env:O3_EVIDENCE_DIR = Join-Path (Get-Location) '.godot/o3-explore-rerun'
 
 ## 出口
 
-探索批父局样本已齐（每路线 30）。不关闭 #122；不定正式门槛；不宣称路线验收通过。下一步：在取得父局上挂首次作用/持续/成长观察窗，或先核定埋点缺口后再报机会率。
+探索批父局样本已齐（每路线 30）。不关闭 #122；不定正式门槛；不宣称路线验收通过。取得后观察窗见 [o3_route_observe.md](o3_route_observe.md)。
