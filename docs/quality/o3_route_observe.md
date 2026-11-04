@@ -71,4 +71,4 @@ $godot = 'D:/GameMaker/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_c
 
 ## 出口
 
-取得后三窗事实、完整窗早停、以及 board_full 下的齐备父局覆盖采样均已落盘。不关闭 #122；不定正式接受线。下一步：核定埋点后补 synergy/机会率，或开 H=20 成对主窗；真人片段仍外置。
+取得后三窗事实、完整窗早停、以及 board_full 下的齐备父局覆盖采样均已落盘。#122 已按 [o3_kr1_soft_closeout.md](o3_kr1_soft_closeout.md) 降范围关闭；不定正式接受线。下一步归 #123/#124：核定埋点后补 synergy/机会率，或开 H=20 成对主窗；真人片段仍外置。

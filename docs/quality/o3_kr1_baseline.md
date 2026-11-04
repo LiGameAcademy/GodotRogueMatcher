@@ -75,6 +75,8 @@ $env:APPDATA = Join-Path (Get-Location) '.godot/o3-sandbox'
 
 ## 出口与剩余
 
-本片交付：六路线机器入口、四指标键名、身份钉死、fixture 覆盖表、遥测缺口明示。不关闭 #122，不定正式门槛，不改生产规则/Resource/抽选参数，不宣称路线达标。
+本片交付：六路线机器入口、四指标键名、身份钉死、fixture 覆盖表、遥测缺口明示。不定正式门槛，不改生产规则/Resource/抽选参数，不宣称路线达标。
 
-每路线烟测 10 见 [o3_route_smoke.md](o3_route_smoke.md)；自然取得见 [o3_route_explore.md](o3_route_explore.md)；取得后窗见 [o3_route_observe.md](o3_route_observe.md)（含 `--complete-windows` / `--target-resolved`）。下一步：核定埋点后补 synergy/机会率，或开 H=20 成对主窗；真人片段仍外置。#34/#38 外置。
+2026-11-04：**#122 已按降范围可开测门禁软收**，见 [o3_kr1_soft_closeout.md](o3_kr1_soft_closeout.md)。#115 及 #123～#126 保持 open。
+
+每路线烟测 10 见 [o3_route_smoke.md](o3_route_smoke.md)；自然取得见 [o3_route_explore.md](o3_route_explore.md)；取得后窗见 [o3_route_observe.md](o3_route_observe.md)（含 `--complete-windows` / `--target-resolved`）。下一步归 #123/#124：核定埋点后补 synergy/机会率，或开 H=20 成对主窗；真人片段仍外置。#34/#38 外置。
