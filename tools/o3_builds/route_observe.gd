@@ -257,19 +257,31 @@ static func play_one(route_id: StringName, seed_value: int, move_limit: int = 12
 	windows["rule_error"] = status == "rule_error" or str(windows.get("status", "")) == "rule_error"
 	return windows
 
-static func scan_route(route_id: StringName, target: int = 30, max_scan: int = 100, start_seed: int = 13000, move_limit: int = 120, prefer_complete: bool = false) -> Dictionary:
+## target_mode: "acquired" stops after N engine parents; "resolved" keeps scanning until N triple-window parents.
+static func scan_route(route_id: StringName, target: int = 30, max_scan: int = 100, start_seed: int = 13000, move_limit: int = 120, prefer_complete: bool = false, target_mode: String = "acquired") -> Dictionary:
+	var mode: String = target_mode if target_mode in ["acquired", "resolved"] else "acquired"
+	var want_complete: bool = prefer_complete or mode == "resolved"
 	var rows: Array[Dictionary] = []
 	var acquired_rows: Array[Dictionary] = []
+	var resolved_rows: Array[Dictionary] = []
 	var failures: Array[Dictionary] = []
 	var seed_value: int = start_seed
-	while rows.size() < max_scan and acquired_rows.size() < target:
-		var report: Dictionary = play_one(route_id, seed_value, move_limit, prefer_complete)
+	while rows.size() < max_scan:
+		var filled: bool = resolved_rows.size() >= target if mode == "resolved" else acquired_rows.size() >= target
+		if filled: break
+		var report: Dictionary = play_one(route_id, seed_value, move_limit, want_complete)
 		rows.append(report)
 		if report.get("rule_error", false):
 			failures.append({"seed": report.seed, "reason": report.get("reason", report.get("stop_reason", ""))})
-		if report.get("acquired", false): acquired_rows.append(report)
+		if report.get("acquired", false):
+			acquired_rows.append(report)
+			if report.get("windows_resolved", false): resolved_rows.append(report)
 		seed_value += 1
-	var stop_reason: String = "target_reached" if acquired_rows.size() >= target else "scan_cap"
+	var reached: bool = resolved_rows.size() >= target if mode == "resolved" else acquired_rows.size() >= target
+	var stop_reason: String = "target_reached" if reached else "scan_cap"
+	# Window rates: acquired mode uses all acquired parents; resolved mode uses only triple-window parents
+	# (conditional on surviving long enough — not a natural acquirer rate).
+	var sample_rows: Array[Dictionary] = resolved_rows if mode == "resolved" else acquired_rows
 	var startup_4: int = 0
 	var startup_8: int = 0
 	var startup_denom: int = 0
@@ -278,12 +290,11 @@ static func scan_route(route_id: StringName, target: int = 30, max_scan: int = 1
 	var upgrade_offer: int = 0
 	var upgrade_take: int = 0
 	var upgrade_denom: int = 0
-	var resolved_parents: int = 0
 	var stop_counts: Dictionary = {}
 	for row: Dictionary in acquired_rows:
-		if row.get("windows_resolved", false): resolved_parents += 1
 		var stop_key: String = str(row.get("stop_reason", ""))
 		stop_counts[stop_key] = int(stop_counts.get(stop_key, 0)) + 1
+	for row: Dictionary in sample_rows:
 		var startup: Dictionary = row.get("startup", {})
 		if startup.get("window_complete", false):
 			startup_denom += 1
@@ -299,9 +310,11 @@ static func scan_route(route_id: StringName, target: int = 30, max_scan: int = 1
 			if upgrade.get("offered", false): upgrade_offer += 1
 			if upgrade.get("taken", false): upgrade_take += 1
 	return {"source": "bot/natural", "route": String(route_id), "target": target, "max_scan": max_scan,
-		"start_seed": start_seed, "move_limit": move_limit, "prefer_complete": prefer_complete,
-		"scanned": rows.size(), "acquired_parents": acquired_rows.size(),
-		"resolved_parents": resolved_parents, "coverage_gap": acquired_rows.size() < target,
+		"start_seed": start_seed, "move_limit": move_limit, "prefer_complete": want_complete,
+		"target_mode": mode, "scanned": rows.size(), "acquired_parents": acquired_rows.size(),
+		"resolved_parents": resolved_rows.size(),
+		"coverage_gap": not reached,
+		"sample_frame": "resolved_parents" if mode == "resolved" else "acquired_parents",
 		"stop_reason": stop_reason, "stop_reasons": stop_counts, "failures": failures,
 		"windows": {
 			"startup_within_4": {"hits": startup_4, "denom": startup_denom},
@@ -310,26 +323,30 @@ static func scan_route(route_id: StringName, target: int = 30, max_scan: int = 1
 			"upgrade_offered_in_3": {"hits": upgrade_offer, "denom": upgrade_denom},
 			"upgrade_taken_in_3": {"hits": upgrade_take, "denom": upgrade_denom},
 		},
-		"rows": rows, "acquired_rows": acquired_rows}
+		"rows": rows, "acquired_rows": acquired_rows, "resolved_rows": resolved_rows}
 
-static func run_batch(target: int = 30, max_scan: int = 100, start_seed: int = 13000, move_limit: int = 120, prefer_complete: bool = false) -> Dictionary:
+static func run_batch(target: int = 30, max_scan: int = 100, start_seed: int = 13000, move_limit: int = 120, prefer_complete: bool = false, target_mode: String = "acquired") -> Dictionary:
+	var mode: String = target_mode if target_mode in ["acquired", "resolved"] else "acquired"
 	var by_route: Dictionary = {}
 	var failures: Array[Dictionary] = []
 	var seed_cursor: int = start_seed
 	for route_id: StringName in O3BuildRoutes.ORDER:
-		var report: Dictionary = scan_route(route_id, target, max_scan, seed_cursor, move_limit, prefer_complete)
+		var report: Dictionary = scan_route(route_id, target, max_scan, seed_cursor, move_limit, prefer_complete, mode)
 		by_route[String(route_id)] = {
 			"scanned": report.scanned, "acquired_parents": report.acquired_parents,
 			"resolved_parents": report.resolved_parents, "coverage_gap": report.coverage_gap,
-			"stop_reason": report.stop_reason, "stop_reasons": report.stop_reasons,
-			"windows": report.windows, "failures": report.failures,
+			"sample_frame": report.sample_frame, "stop_reason": report.stop_reason,
+			"stop_reasons": report.stop_reasons, "windows": report.windows, "failures": report.failures,
 		}
 		for failure: Dictionary in report.failures:
 			failure["route"] = String(route_id)
 			failures.append(failure)
 		seed_cursor += max_scan
-	return {"source": "bot/natural", "purpose": "O3 post-acquisition observation windows",
-		"target": target, "max_scan": max_scan, "start_seed": start_seed, "move_limit": move_limit,
-		"prefer_complete": prefer_complete, "rules_version": RunSnapshot.RULES_VERSION,
-		"failures": failures, "by_route": by_route, "pass_line": null,
-		"note": "trial windows only; not formal acceptance; synergy left null pending opportunity telemetry; prefer_complete lengthens play and early-stops when windows resolve"}
+	var purpose: String = "O3 post-acquisition observation windows"
+	if mode == "resolved":
+		purpose = "O3 board_full coverage via resolved-parent sampling"
+	return {"source": "bot/natural", "purpose": purpose, "target": target, "max_scan": max_scan,
+		"start_seed": start_seed, "move_limit": move_limit, "prefer_complete": prefer_complete or mode == "resolved",
+		"target_mode": mode, "rules_version": RunSnapshot.RULES_VERSION, "failures": failures,
+		"by_route": by_route, "pass_line": null,
+		"note": "trial windows only; not formal acceptance; resolved mode rates are conditional on triple-window survival (board_full filter), not all natural acquirers; synergy left null"}

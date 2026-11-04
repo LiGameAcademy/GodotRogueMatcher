@@ -89,6 +89,24 @@ func test_complete_windows_guard_can_resolve_or_censor() -> void:
 		"upgrade": report.get("upgrade", null),
 	}), OK)
 
+func test_resolved_target_mode_samples_until_triple_window_or_cap() -> void:
+	var batch: Dictionary = O3RouteObserve.run_batch(1, 12, 15000, 80, true, "resolved")
+	assert_eq((batch.failures as Array).size(), 0, str(batch.failures))
+	assert_eq(batch.target_mode, "resolved")
+	assert_eq(batch.pass_line, null)
+	for route_id: StringName in O3BuildRoutes.ORDER:
+		var summary: Dictionary = batch.by_route[String(route_id)]
+		assert_eq(str(summary.sample_frame), "resolved_parents")
+		assert_lte(int(summary.resolved_parents), 1)
+		if int(summary.resolved_parents) >= 1:
+			assert_eq(str(summary.stop_reason), "target_reached")
+			assert_eq(int(summary.windows.upgrade_offered_in_3.denom), int(summary.resolved_parents))
+		else:
+			assert_eq(str(summary.stop_reason), "scan_cap")
+	assert_eq(F.write_evidence("route-observe-resolved-guard", {
+		"by_route": batch.by_route, "failures": batch.failures, "target_mode": batch.target_mode
+	}), OK)
+
 func test_can_early_stop_waits_for_active_offer_choice() -> void:
 	var records: Array[Dictionary] = [
 		{"kind": "SkillAcquired", "command_id": "1", "skill_id": "core_drop"},
