@@ -9,3 +9,6 @@ var movement: BoardMoveResult
 var duration: float = 0.0
 var pieces: Array[PieceState] = []
 var matches: Array[MatchResult] = []
+
+## Visible consumed preview slot, or -1 for births without a displayed source.
+var preview_slot: int = -1

@@ -8,6 +8,7 @@ These controls describe the development branch, not the currently published Web 
 - Click a reachable empty cell to move. An unreachable destination briefly changes color, plays the existing rejection cue and clears selection. Clicking an empty cell without a selection does nothing.
 - After committing, the path and destination remain visible; traversed segments fade. Local body deformation follows movement direction and recovers on landing. Long paths share one movement clock rather than waiting once per cell.
 - Fast playback shortens presentation. Low effects keeps selection, paths and destinations readable while disabling body deformation and selection breathing.
+- Normal refills and empty-board recovery consuming a visible preview fly each committed piece from its corresponding slot to its actual cell. The slot clears when that piece departs. Initial placement, skill-created pieces and births without a visible preview keep their in-place animation. Flights share the existing birth clock; reduced effects can omit flight.
 - Removals share the existing parallel shrink/fade. Blast and sweep effects and sounds explain their cause; pieces do not receive separate knockback animations.
 
 Animation strength and timing remain trial settings pending consolidated O4 acceptance. Presentation consumes committed results and does not change matching, scoring, paths or random streams.
@@ -19,3 +20,5 @@ Animation strength and timing remain trial settings pending consolidated O4 acce
 悬停棋子显示轻描边，点击后保持选中角标；再次点击自己取消，点击其他棋子切换。可达空格弱提示，悬停目标格预览合法路径。提交后路径保留并逐段淡出；不可达点击短促变色、沿用拒绝音并取消选择，无选择时点击空格不处理。
 
 棋子沿移动方向轻微形变，落定恢复；长路径使用一个总时钟。快速模式压缩表现，低特效保留必要提示并取消形变与呼吸。消除沿用同批并行缩退和现有原因特效，不增加击飞或逐枚等待。具体强度与时长仍待完整O4集中体验接受。
+
+普通补棋及消费可见预告的空盘恢复，逐枚从对应槽飞到真实落点，离槽即隐藏该槽棋子；实际颜色和身份以已提交结果为准。开局、技能造子和无可见预告的出生保持原地出现。飞入沿用既有出生时钟，低特效可省略飞行。

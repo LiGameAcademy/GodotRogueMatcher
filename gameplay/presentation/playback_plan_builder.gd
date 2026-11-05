@@ -38,13 +38,15 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 			steps.back().policy = PresentationStep.Policy.COMPLETE_REQUIRED
 	return steps
 
-static func spawns(results: Array[SpawnResult], duration: float) -> Array[PresentationStep]:
+static func spawns(results: Array[SpawnResult], duration: float, from_preview: bool = false) -> Array[PresentationStep]:
 	var steps: Array[PresentationStep] = []
-	for result: SpawnResult in results:
+	for index: int in range(results.size()):
+		var result: SpawnResult = results[index]
 		var step: PresentationStep = PresentationStep.new()
 		step.kind = PresentationStep.Kind.SPAWN
 		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		step.duration = maxf(0.0, duration)
+		step.preview_slot = index if from_preview and result.source in [&"normal", &"empty_recovery"] else -1
 		step.pieces.append(result.piece.copy())
 		steps.append(step)
 		steps.append_array(matches(result.matches))

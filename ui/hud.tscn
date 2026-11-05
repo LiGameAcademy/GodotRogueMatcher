@@ -254,3 +254,8 @@ show_percentage = false
 unique_name_in_owner = true
 layout_mode = 2
 text = "回合 0 · 移动 0"
+
+[node name="SpawnFlights" type="Node2D" parent="."]
+process_mode = 1
+unique_name_in_owner = true
+z_index = 100

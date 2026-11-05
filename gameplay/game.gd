@@ -7,6 +7,7 @@ extends Node2D
 signal restart_requested
 
 const GAME_OVER_POPUP: Script = preload("res://ui/popup_game_over.gd")
+const BOARD_PRESENTATION: Script = preload("res://gameplay/game_board_presentation.gd")
 const DEBUG_INPUT: Script = preload("res://gameplay/debug/game_debug_input.gd")
 const CHECKPOINT_COLLECTION: Script = preload("res://gameplay/game_checkpoint_collection.gd")
 
@@ -138,7 +139,7 @@ func _connect_run_signals() -> void:
 	_board.view.score_floats.score_visualized.connect(_on_score_visualized)
 	_board.goal_bonus_ready.connect(_on_goal_bonus_ready)
 	_hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
-	_board.selection_changed.connect(_on_selection_feedback)
+	BOARD_PRESENTATION.configure(_board, _hud, _feedback)
 	_board.selection_changed.connect(_hud.show_selection)
 	_board.operation_feedback.connect(_hud.show_status)
 	_collection.status_changed.connect(_show_collection_status)
@@ -445,9 +446,6 @@ func _on_checkpoint_restored(active: RunController, _fallback: bool) -> void:
 	_hud.bind_checkpoint(active)
 	_hud.show_pause_state(false)
 	if active.state.rewards.active_offer != null: _reward_flow.present(_board, active, active.state.rewards.active_offer, true)
-
-func _on_selection_feedback(piece: PieceState, _has_fuse: bool) -> void:
-	if piece != null: _feedback.play(&"select")
 
 func _on_score_visualized(entry: ScoreEntry, origin: Vector2) -> void:
 	_background.respond_to_score(entry.final_score)
