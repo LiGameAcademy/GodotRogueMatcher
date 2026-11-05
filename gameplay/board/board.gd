@@ -27,6 +27,8 @@ const INTERACTION: Script = preload("res://gameplay/board/board_interaction.gd")
 @export var cols: int = 9
 @export var grid_gap: Vector2 = Vector2(1, 1)
 ## Injected by Game to await sibling HUD presentation without finding UI nodes.
+var spawn_preview_prepare: Callable
+var spawn_origin_provider: Callable
 var score_presenter: Callable
 var cell_size: Vector2 = Vector2(64, 64)
 var rules: BoardRules
@@ -315,12 +317,8 @@ func continue_challenge() -> bool:
 	return can_selected
 
 ## Presents already committed births and their match results.
-func present_spawns(spawns: Array[SpawnResult]) -> void:
-	if not spawns.is_empty(): feedback_requested.emit(&"spawn")
-	var active_run: RunController = run
-	_submit_plan(PlaybackPlanBuilder.spawns(spawns, director.config.spawn_duration))
-	if not await finish_presentation() or run != active_run: return
-	_update_count_display()
+func present_spawns(spawns: Array[SpawnResult], from_preview: bool = false) -> void:
+	await BoardRunFlow.present_spawns(self, spawns, from_preview)
 
 ## Drops the pending click without submitting a rule action.
 func cancel_buffered_input(reason: String = "cancelled") -> void:
@@ -428,7 +426,7 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 			completed = await view.animate_move(step.movement, step.duration)
 			if completed and director.is_current(epoch, token): feedback_requested.emit(&"land")
 		PresentationStep.Kind.SPAWN:
-			for piece: PieceState in step.pieces: view.animate_spawn(piece, step.duration)
+			BoardRunFlow.present_birth(self, step)
 		PresentationStep.Kind.REMOVE:
 			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
 		PresentationStep.Kind.TRANSFORM:

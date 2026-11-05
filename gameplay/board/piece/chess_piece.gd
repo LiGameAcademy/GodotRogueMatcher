@@ -302,17 +302,18 @@ func reset() -> void:
 func initialize_item(data: ItemData) -> void:
 	item_data = data
 
-## Presents birth within the caller's existing clock; local squash adds no wait.
-func spawn_animation(duration: float = 0.3) -> Tween:
+## Presents birth within the existing clock; flight callers own scale and start visible.
+func spawn_animation(duration: float = 0.3, in_place: bool = true) -> Tween:
 	if tween != null: tween.kill()
 	var opacity: float = 0.5 if is_ghost else 1.0
 	var seconds: float = maxf(duration, 0.001)
 	var contact: float = seconds * JUICE.birth_landing_ratio
-	scale = Vector2.ONE * 0.25
-	modulate.a = 0.0
+	scale = Vector2.ONE * (0.25 if in_place else 1.0)
+	modulate.a = 0.0 if in_place else opacity
 	_set_deformation(JUICE.birth_stretch)
 	tween = create_tween().set_parallel()
-	tween.tween_property(self, "scale", Vector2.ONE, seconds).set_trans(Tween.TRANS_CUBIC if low_effects else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	if in_place:
+		tween.tween_property(self, "scale", Vector2.ONE, seconds).set_trans(Tween.TRANS_CUBIC if low_effects else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "modulate:a", opacity, seconds)
 	tween.tween_method(_set_deformation, JUICE.birth_stretch, JUICE.landing_squash, contact).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_method(_set_deformation, JUICE.landing_squash, Vector2.ONE, seconds - contact).set_delay(contact).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

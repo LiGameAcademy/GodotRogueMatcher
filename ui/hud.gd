@@ -15,6 +15,8 @@ signal piece_pool_visibility_changed(open: bool)
 signal reward_resume_requested
 
 @export var score_duration: float = 0.45
+## Visual-only birth host on the HUD canvas, below popup and menu canvases.
+@onready var spawn_flights: Node2D = %SpawnFlights
 @onready var score_label: Label = %ScoreLabel
 @onready var gain_label: Label = %GainLabel
 @onready var goal_progress: GOAL_PROGRESS = %GoalProgress

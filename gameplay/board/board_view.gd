@@ -28,6 +28,9 @@ var _dimensions: Vector2i
 var _cell_size: Vector2
 var low_effects: bool = false
 var _game_theme: GameTheme
+## Optional sibling host injected by Game; standalone views keep a local fallback.
+var spawn_flight_host: Node2D
+var _spawn_destinations: Dictionary[int, Cell] = {}
 var _interaction_enabled: bool = true
 var _selection_paths: Dictionary[Vector2i, BoardMoveResult] = {}
 
@@ -40,6 +43,7 @@ var presentation_speed: float = 1.0:
 		for animation: Tween in _presentation_tweens:
 			if animation.is_valid(): animation.set_speed_scale(1.0 if _fixed_required else presentation_speed)
 var _playback_pending: bool = false
+@onready var _spawn_flights: Node2D = %SpawnFlights
 @onready var signal_effect: BoardSignalEffect = %BoardSignalEffect
 @onready var move_path: MovePathVisual = %MovePathVisual
 @onready var score_floats: ScoreFloatLayer = %ScoreFloatLayer
@@ -127,6 +131,7 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	_spawn_destinations.clear()
 	set_selection_paths({})
 	visuals_cleared.emit()
 	_deferred_fuse_ids.clear()
@@ -343,6 +348,8 @@ func cancel_animations() -> void:
 	_presentation_tweens.clear()
 	for piece: ChessPiece in _pieces.values():
 		if is_instance_valid(piece): piece.cancel_movement()
+	for id: int in _spawn_destinations.keys():
+		_finish_spawn_flight(get_piece(id), _spawn_destinations[id], _generation)
 	for child: Node in get_children():
 		if child is ExplosionVisual or child is LineClearVisual or (child is ChessPiece and (child as ChessPiece).is_eliminating):
 			remove_child(child)
@@ -392,10 +399,21 @@ func _animations_running() -> bool:
 			_presentation_tweens.remove_at(index)
 	return not _presentation_tweens.is_empty()
 
-func animate_spawn(snapshot: PieceState, duration: float) -> void:
+func animate_spawn(snapshot: PieceState, duration: float, origin: Variant = null) -> void:
 	var piece: ChessPiece = PIECE_SCENE.instantiate() as ChessPiece
 	show_piece(snapshot, piece)
-	track_presentation(piece.spawn_animation(duration))
+	var flying: bool = origin is Transform2D and not low_effects
+	var animation: Tween = piece.spawn_animation(duration, not flying)
+	if flying:
+		var cell: Cell = get_cell(snapshot.coordinate)
+		cell.take_piece()
+		_spawn_destinations[piece.piece_id] = cell
+		var host: Node2D = spawn_flight_host if is_instance_valid(spawn_flight_host) else _spawn_flights
+		host.add_child(piece)
+		_update_spawn_flight(0.0, piece, cell, origin)
+		animation.parallel().tween_method(_update_spawn_flight.bind(piece, cell, origin), 0.0, 1.0, maxf(duration, 0.001)).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+		animation.finished.connect(_finish_spawn_flight.bind(piece, cell, _generation))
+	track_presentation(animation)
 
 ## Reuse the same node, color and cell; only the special marker changes.
 func animate_transform(snapshot: PieceState, duration: float) -> void:
@@ -448,6 +466,18 @@ func _on_cell_hover_changed(cell: Cell, hovered: bool) -> void:
 	for coordinate: Vector2i in _selection_paths[cell.coordinate].path:
 		points.append(get_cell(coordinate).position)
 	move_path.show_path(points)
+
+## Interpolates viewport transforms so resized/scaled boards land without a size jump.
+func _update_spawn_flight(progress: float, piece: ChessPiece, cell: Cell, source: Transform2D) -> void:
+	var host: Node2D = spawn_flight_host if is_instance_valid(spawn_flight_host) else _spawn_flights
+	piece.transform = host.get_global_transform_with_canvas().affine_inverse() * source.interpolate_with(cell.get_global_transform_with_canvas(), progress)
+
+func _finish_spawn_flight(piece: ChessPiece, cell: Cell, generation: int) -> void:
+	if generation != _generation or not is_instance_valid(piece): return
+	_spawn_destinations.erase(piece.piece_id)
+	piece.get_parent().remove_child(piece)
+	cell.show_piece(piece)
+	piece.transform = Transform2D.IDENTITY
 
 func _on_move_progress(index: int, path: Array[Vector2i], generation: int) -> void:
 	if generation != _generation: return
