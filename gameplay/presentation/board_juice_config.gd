@@ -21,3 +21,8 @@ extends Resource
 @export_range(0.05, 0.95) var birth_landing_ratio: float = 0.65
 ## Reuses the existing landing budget, in seconds; no extra tail is appended.
 @export var landing_seconds: float = 0.06
+
+## Trial movement ceiling in seconds, shared by short and long paths.
+@export var move_max_seconds: float = 0.20
+## Local direction-dependent deformation; hit bounds stay unchanged.
+@export var move_stretch: Vector2 = Vector2(1.10, 0.94)

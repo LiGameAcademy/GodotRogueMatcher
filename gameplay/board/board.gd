@@ -20,6 +20,8 @@ signal reward_requested(active: RunController, offer: SkillOffer)
 ## Announces a committed rules safe point before input or reward presentation is released.
 signal checkpoint_reached(active: RunController)
 
+const INTERACTION: Script = preload("res://gameplay/board/board_interaction.gd")
+
 @export var game_mode: GameModeDefinition = preload("res://gameplay/run/modes/stage_challenge.tres")
 @export var rows: int = 9
 @export var cols: int = 9
@@ -36,7 +38,10 @@ var observation: BoardObservation = BoardObservation.new()
 var input_permission: Callable
 var keep_checkpoint_history: bool = false
 var hold_at_checkpoint: bool = false
-var can_selected: bool = false
+var can_selected: bool = false:
+	set(value):
+		can_selected = value
+		if is_instance_valid(view): view.set_interaction_enabled(value)
 var input_buffer: BoardInputBuffer = BoardInputBuffer.new()
 var selected_piece: ChessPiece = null:
 	set(value):
@@ -49,6 +54,8 @@ var selected_piece: ChessPiece = null:
 			selection_changed.emit(piece, run.state.explosion.instances.has(selected_piece.piece_id))
 		else:
 			selection_changed.emit(null, false)
+		if is_instance_valid(view):
+			view.set_selection_paths(INTERACTION.selection_paths(rules, selected_piece.piece_id if is_instance_valid(selected_piece) else 0))
 
 var _generation: int = 0
 var _presented_events: Dictionary[int, bool] = {}
@@ -348,12 +355,15 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 		push_error(run.state.rule_error)
 		return false
 	if not outcome.accepted or turn == null:
-		if not outcome.accepted: feedback_requested.emit(&"reject")
+		if not outcome.accepted:
+			feedback_requested.emit(&"reject")
+			if command is MovePieceCommand: view.show_rejection((command as MovePieceCommand).target)
 		observation.busy(false)
 		selected_piece = null
 		return false
 	var generation: int = _generation
 	can_selected = false
+	selected_piece = null
 	_turn_in_progress = true
 	# 移动已经提交，演出只使用路径结果，不决定是否合法。
 	var plan: Array[PresentationStep] = []
@@ -469,18 +479,8 @@ func _on_cell_pressed(cell: Cell) -> void:
 
 func _on_piece_activated(coordinate: Vector2i) -> void:
 	if not can_selected or get_tree().paused or GameManager.is_game_over: return
-	var piece: PieceState = rules.state.get_piece(rules.state.get_piece_id(coordinate))
-	if piece == null: return
-	var command: RunCommand
-	if LineClearState.is_line_piece(piece.content_id):
-		var activate: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
-		activate.piece_id = piece.piece_id
-		command = activate
-	else:
-		var detonate: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
-		detonate.piece_id = piece.piece_id
-		command = detonate
-	await _execute_action(command, director.config.spawn_duration)
+	var command: RunCommand = INTERACTION.activation_command(run, coordinate)
+	if command != null: await _execute_action(command, director.config.spawn_duration)
 
 func _on_coordinate_pressed(coordinate: Vector2i) -> void:
 	if GameManager.is_game_over or get_tree().paused or not run.state.rule_error.is_empty():
@@ -492,8 +492,9 @@ func _on_coordinate_pressed(coordinate: Vector2i) -> void:
 		return
 	var piece_id: int = rules.state.get_piece_id(coordinate)
 	if piece_id != 0:
-		selected_piece = view.get_piece(piece_id)
-		observation.resolve(observation.input("select"), "selected", "piece_selected")
+		var cancel: bool = is_instance_valid(selected_piece) and selected_piece.piece_id == piece_id
+		selected_piece = null if cancel else view.get_piece(piece_id)
+		observation.resolve(observation.input("select"), "discarded" if cancel else "selected", "selection_cancelled" if cancel else "piece_selected")
 	elif is_instance_valid(selected_piece):
 		await move_selected_piece(get_cell(coordinate))
 	else: observation.resolve(observation.input("click"), "discarded", "no_selection")

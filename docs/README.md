@@ -3,6 +3,7 @@
 Skill Lines is a five-in-a-row roguelite preview. Start with the [English README](../README.md), [中文说明](../README.zh_CN.md), and [directory guide](../DIRECTORY.md).
 
 - [Core rules and UI regression tests](../tests/)
+- [0.0.3 development board controls / 开发版棋盘操作](board_interaction.md)
 - [Web export tool](../tools/export_web.ps1)
 - [Core System documentation](../addons/godot_core_system/docs/)
 - [Localization configuration](../localization/game.csv)
