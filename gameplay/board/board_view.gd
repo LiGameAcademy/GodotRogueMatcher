@@ -1,7 +1,7 @@
 class_name BoardView
 extends Node2D
 
-## 只保存实体ID到显示节点的映射；配置和快照由调用者显式传入。
+## Presents committed snapshots and read-only interaction hints; never mutates rules.
 const CELL_SCENE: PackedScene = preload("res://gameplay/board/cell/cell.tscn")
 const PIECE_SCENE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
 const EXPLOSION_SCENE: PackedScene = preload("res://gameplay/presentation/explosion_visual/explosion_visual.tscn")
@@ -28,6 +28,8 @@ var _dimensions: Vector2i
 var _cell_size: Vector2
 var low_effects: bool = false
 var _game_theme: GameTheme
+var _interaction_enabled: bool = true
+var _selection_paths: Dictionary[Vector2i, BoardMoveResult] = {}
 
 var _presentation_tweens: Array[Tween] = []
 var _fixed_required: bool = false
@@ -88,6 +90,7 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 			cell.low_effects = low_effects
 			cell.position = Vector2(x, y) * (cell_size + gap)
 			cell.pressed.connect(_on_cell_pressed)
+			cell.hover_changed.connect(_on_cell_hover_changed)
 			cell.activated.connect(func(clicked: Cell) -> void: piece_activated.emit(clicked.coordinate))
 			add_child(cell)
 			_cells[cell.coordinate] = cell
@@ -124,6 +127,7 @@ func get_cells() -> Array[Cell]:
 	return cells
 
 func clear_display() -> void:
+	set_selection_paths({})
 	visuals_cleared.emit()
 	_deferred_fuse_ids.clear()
 	signal_effect.reset_visual()
@@ -275,14 +279,11 @@ func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	var points: PackedVector2Array = PackedVector2Array()
 	for coordinate: Vector2i in result.path: points.append(get_cell(coordinate).position)
 	move_path.show_path(points)
-	for index: int in range(result.path.size()):
-		var coordinate: Vector2i = result.path[index]
-		piece.move_to_and_wait(get_cell(coordinate), maxf(duration / result.path.size(), 0.001))
-		track_presentation(piece.tween)
-		await piece.movement_completed
-		if generation != _generation:
-			return false
-		move_path.mark_reached(index)
+	var seconds: float = clampf(duration, 0.001, ChessPiece.JUICE.move_max_seconds)
+	piece.move_along_path(points, seconds, _on_move_progress.bind(result.path, generation))
+	track_presentation(piece.tween)
+	await piece.movement_completed
+	if generation != _generation: return false
 	track_presentation(piece.land())
 	if not await wait_for_animations() or generation != _generation: return false
 	remove_child(piece)
@@ -330,6 +331,7 @@ func set_step_policy(policy: PresentationStep.Policy) -> void:
 
 ## 仅取消当前视图任务，唤醒旧等待；跳过权限由导演判断。
 func cancel_animations() -> void:
+	set_selection_paths({})
 	visuals_cleared.emit()
 	_deferred_fuse_ids.clear()
 	move_path.clear()
@@ -417,6 +419,40 @@ func wait_for_presentation() -> bool:
 		await presentation_changed
 		if generation != _generation: return false
 	return true
+
+
+## Replaces cosmetic paths queried by the coordinator, without copying occupancy.
+func set_selection_paths(paths: Dictionary[Vector2i, BoardMoveResult]) -> void:
+	_selection_paths = paths
+	move_path.clear()
+	for cell: Cell in _cells.values():
+		cell.set_reachable(_interaction_enabled and paths.has(cell.coordinate))
+		if cell.is_hovered: _on_cell_hover_changed(cell, true)
+
+func set_interaction_enabled(enabled: bool) -> void:
+	_interaction_enabled = enabled
+	if not enabled: set_selection_paths({})
+	for cell: Cell in _cells.values():
+		if is_instance_valid(cell.piece): cell.piece.set_hovered(enabled and cell.is_hovered)
+
+func show_rejection(coordinate: Vector2i) -> void:
+	var cell: Cell = get_cell(coordinate)
+	if cell != null: cell.reject_feedback()
+
+func _on_cell_hover_changed(cell: Cell, hovered: bool) -> void:
+	if is_instance_valid(cell.piece): cell.piece.set_hovered(hovered and _interaction_enabled)
+	if not _interaction_enabled or _selection_paths.is_empty(): return
+	move_path.clear()
+	if not hovered or not _selection_paths.has(cell.coordinate): return
+	var points: PackedVector2Array = PackedVector2Array()
+	for coordinate: Vector2i in _selection_paths[cell.coordinate].path:
+		points.append(get_cell(coordinate).position)
+	move_path.show_path(points)
+
+func _on_move_progress(index: int, path: Array[Vector2i], generation: int) -> void:
+	if generation != _generation: return
+	move_path.mark_reached(index)
+	for reached: int in range(index): get_cell(path[reached]).unhighlight()
 
 func _on_cell_pressed(cell: Cell) -> void:
 	cell_pressed.emit(cell.coordinate)

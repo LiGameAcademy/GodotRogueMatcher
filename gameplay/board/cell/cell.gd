@@ -15,6 +15,7 @@ var low_effects: bool = false
 var is_path_highlighted: bool = false
 var is_hovered: bool = false
 var _selected: bool = false
+var _reachable: bool = false
 var _surface: ShaderMaterial
 var _flash: Tween
 
@@ -24,6 +25,7 @@ var piece: ChessPiece:
 
 signal pressed(cell: Cell)
 signal activated(cell: Cell)
+signal hover_changed(cell: Cell, hovered: bool)
 
 func _ready() -> void:
 	_surface = background.material.duplicate() as ShaderMaterial
@@ -71,6 +73,18 @@ func unhighlight() -> void:
 	is_path_highlighted = false
 	_refresh_style()
 
+## Marks a legal destination without changing selection or occupancy.
+func set_reachable(enabled: bool) -> void:
+	_reachable = enabled
+	_refresh_style()
+
+## Brief local rejection; remains readable with reduced effects.
+func reject_feedback() -> void:
+	if _flash != null and _flash.is_valid(): _flash.kill()
+	background.modulate = Color(1.25, 0.72, 0.72)
+	_flash = create_tween()
+	_flash.tween_property(background, "modulate", Color.WHITE, 0.16)
+
 func _refresh_style() -> void:
 	if _surface == null: return
 	var edge: Color = default_border_color
@@ -81,6 +95,9 @@ func _refresh_style() -> void:
 	elif _selected:
 		background.color = highlight_bg_color
 		edge = highlight_glow_color
+	elif _reachable:
+		background.color = default_bg_color.lerp(highlight_bg_color, 0.35)
+		edge = default_border_color.lerp(path_highlight_color, 0.5)
 	elif is_hovered:
 		background.color = hover_color
 		edge = Color("618899")
@@ -88,10 +105,12 @@ func _refresh_style() -> void:
 
 func _on_mouse_entered() -> void:
 	is_hovered = true
+	hover_changed.emit(self, true)
 	_refresh_style()
 
 func _on_mouse_exited() -> void:
 	is_hovered = false
+	hover_changed.emit(self, false)
 	_refresh_style()
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

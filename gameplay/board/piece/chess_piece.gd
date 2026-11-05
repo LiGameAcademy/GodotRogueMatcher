@@ -60,6 +60,7 @@ var _surface: ShaderMaterial
 var _ability_kind: StringName = &""
 var _appearance: BoardAppearance
 var _is_moving: bool = false
+var _hovered: bool = false
 
 @onready var _motion_visuals: Node2D = $MotionVisuals
 @onready var polygon: Polygon2D = $Polygon2D
@@ -100,6 +101,12 @@ func apply_game_theme(appearance: BoardAppearance) -> void:
 	ability_marker.add_theme_color_override("font_color", appearance.marker_color)
 	ability_marker.add_theme_color_override("font_shadow_color", appearance.marker_background)
 	update_visual()
+
+## Hover outline is local to this instance and distinct from selection corners.
+func set_hovered(enabled: bool) -> void:
+	_hovered = enabled
+	(nut_visual.material as ShaderMaterial).set_shader_parameter("hover_amount", 1.0 if enabled and not (is_selected or _is_moving or is_eliminating) else 0.0)
+	outline.visible = enabled and display_mode == DisplayMode.ICON and not is_selected
 
 ## 是否正在移动
 func is_moving() -> bool:
@@ -240,16 +247,16 @@ func deselected() -> void:
 
 ## 移动到目标格子（等待完成）
 func move_to_and_wait(target_cell: Cell, duration: float = 0.15) -> void:
-	if tween:
-		tween.kill()
+	move_along_path(PackedVector2Array([position, target_cell.position]), duration)
 
-	_set_deformation(Vector2.ONE)
+## A single clock traverses every segment, including long paths within one frame.
+func move_along_path(points: PackedVector2Array, duration: float, reached: Callable = Callable()) -> void:
+	if tween != null: tween.kill()
 	_is_moving = true
 	_refresh_idle_expression()
+	_set_deformation(Vector2.ONE)
 	tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self, "position", target_cell.position, duration)
+	tween.tween_method(_advance_path.bind(points, reached), 0.0, float(points.size() - 1), duration)
 	tween.finished.connect(_on_move_completed)
 
 ## 消除动画
@@ -275,6 +282,7 @@ func eliminate() -> void:
 func reset() -> void:
 	cancel_movement()
 	is_selected = false
+	_hovered = false
 	is_eliminating = false
 	_refresh_idle_expression()
 	scale = Vector2.ONE
@@ -370,6 +378,15 @@ func _update_shape_visual() -> void:
 		_contact_shadow.configure(NutVisual.BODIES[type_index], shadow_appearance)
 		outline.visible = false
 
+func _advance_path(progress: float, points: PackedVector2Array, reached: Callable) -> void:
+	var segment: int = mini(int(progress), points.size() - 2)
+	var fraction: float = progress - segment
+	position = points[segment].lerp(points[segment + 1], fraction)
+	var direction: Vector2 = points[segment + 1] - points[segment]
+	var stretch: Vector2 = JUICE.move_stretch if absf(direction.x) >= absf(direction.y) else Vector2(JUICE.move_stretch.y, JUICE.move_stretch.x)
+	_set_deformation(Vector2.ONE.lerp(stretch, sin(fraction * PI)))
+	if reached.is_valid(): reached.call(int(progress))
+
 func _set_deformation(value: Vector2) -> void:
 	if is_instance_valid(_motion_visuals):
 		_motion_visuals.scale = Vector2.ONE if low_effects or display_mode != DisplayMode.SHAPE else value
@@ -416,10 +433,12 @@ func _get_rarity_color() -> Color:
 
 func _refresh_idle_expression() -> void:
 	if not is_instance_valid(nut_visual): return
+	set_hovered(_hovered)
 	nut_visual.configure_idle(piece_id, display_mode == DisplayMode.SHAPE and not (low_effects or _is_moving or is_eliminating or is_selected))
 
 ## 移动完成回调
 func _on_move_completed() -> void:
+	_set_deformation(Vector2.ONE)
 	_is_moving = false
 	_refresh_idle_expression()
 	movement_completed.emit()
