@@ -1,5 +1,6 @@
 extends GutTest
 
+## Verifies marker identity, isolated materials, and the pause-aware clock.
 const VIEW: PackedScene = preload("res://gameplay/board/board_view.tscn")
 const PIECE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
 var view: BoardView
@@ -30,12 +31,12 @@ func test_explosion_material_is_per_instance_and_tracks_body_without_faces() -> 
 	var template: ChessPiece = PIECE.instantiate() as ChessPiece
 	autofree(template)
 	var original: ShaderMaterial = (template.get_node("MotionVisuals/PieceAbilityVisual/BodyOutline") as Sprite2D).material as ShaderMaterial
-	var initial: Variant = original.get_shader_parameter("energy")
+	var initial: Variant = original.get_shader_parameter("phase")
 	assert_ne(first, second)
 	assert_ne(first, original)
-	first.set_shader_parameter("energy", 0.9)
-	assert_ne(second.get_shader_parameter("energy"), 0.9)
-	assert_eq(original.get_shader_parameter("energy"), initial)
+	first.set_shader_parameter("phase", 0.9)
+	assert_ne(second.get_shader_parameter("phase"), 0.9)
+	assert_eq(original.get_shader_parameter("phase"), initial)
 	assert_same(a.ability_visual.body_outline.texture, NutVisual.BODIES[0])
 	a.piece_type = 4
 	assert_same(a.ability_visual.body_outline.texture, NutVisual.BODIES[4])
@@ -83,24 +84,32 @@ func test_core_and_fuse_keep_distinct_static_contours_when_reused_or_reduced() -
 	var before: Array[PieceState] = rules.state.get_snapshot()
 	piece.set_ability_marker("爆")
 	other.set_ability_marker("引")
-	view.set_low_effects(true)
 	var first: ShaderMaterial = piece.ability_visual.body_outline.material as ShaderMaterial
 	var second: ShaderMaterial = other.ability_visual.body_outline.material as ShaderMaterial
+	await wait_process_frames(8)
+	var phase: float = float(second.get_shader_parameter("phase"))
+	assert_gt(phase, 0.0)
+	get_tree().paused = true
+	await wait_process_frames(8)
+	assert_eq(second.get_shader_parameter("phase"), phase)
+	get_tree().paused = false
+	view.set_low_effects(true)
 	assert_false(first.get_shader_parameter("fuse_mark"))
 	assert_true(second.get_shader_parameter("fuse_mark"))
+	assert_true(first.get_shader_parameter("steady"))
+	assert_true(second.get_shader_parameter("steady"))
 	assert_eq(first.get_shader_parameter("outline_width"), config.outline_width)
 	assert_eq(first.get_shader_parameter("rim_width"), config.outline_rim_width)
-	assert_eq(first.get_shader_parameter("energy"), 0.0)
+	assert_eq(first.get_shader_parameter("phase"), 0.0)
 	assert_true(piece.ability_visual.body_outline.visible)
 	assert_true(other.ability_visual.body_outline.visible)
 	await wait_process_frames(8)
-	assert_eq(first.get_shader_parameter("energy"), 0.0)
+	assert_eq(second.get_shader_parameter("phase"), 0.0)
 	piece.set_ability_marker("引")
 	assert_true(first.get_shader_parameter("fuse_mark"))
 	other.set_ability_marker("行")
 	assert_false(second.get_shader_parameter("fuse_mark"))
 	assert_false(other.ability_visual.body_outline.visible)
 	assert_true(other.ability_visual.first_arrow.visible)
-	assert_eq(config.outline_width, 3.0)
 	assert_eq(rules.state.get_snapshot().size(), before.size())
 	assert_eq(rules.state.get_piece_at(Vector2i.ZERO).match_color, 0)

@@ -14,6 +14,8 @@ const CLOSED_EYES: Texture2D = preload("res://assets/textures/faces/eyes_blink_c
 const MOUTH: Texture2D = preload("res://assets/textures/faces/mouth_smile.png")
 const EYE_ANCHOR: Vector2 = Vector2(0.34, 0.57)
 const MOUTH_ANCHOR: Vector2 = Vector2(0.34, 0.68)
+## Board-only body extent in local pixels. Preview slots supply their own draw rectangle.
+const BOARD_BODY_SIZE: float = 52.0
 @export var idle_config: NutIdleConfig = preload("res://gameplay/board/piece/nut_idle_config.tres")
 @onready var blink_timer: Timer = $BlinkTimer
 var eyes_closed: bool = false
@@ -30,7 +32,8 @@ func _ready() -> void:
 	blink_timer.timeout.connect(_on_blink_timeout)
 
 func _draw() -> void:
-	draw_on(self, nut_type, Rect2(-32, -32, 64, 64), eyes_closed)
+	var size: Vector2 = Vector2.ONE * BOARD_BODY_SIZE
+	draw_on(self, nut_type, Rect2(-size * 0.5, size), eyes_closed)
 
 ## 显式传入显示实例ID，仅用于本节点的装饰随机，不读玩法随机流。
 func configure_idle(identity: int, enabled: bool) -> void:

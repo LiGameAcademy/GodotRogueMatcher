@@ -112,6 +112,10 @@ func set_hovered(enabled: bool) -> void:
 func is_moving() -> bool:
 	return _is_moving
 
+## Aligns the contact shadow with its current cell after placement or movement.
+func set_shadow_direction(direction: Vector2) -> void:
+	_contact_shadow.set_direction(direction)
+
 ## 标记由表现调用者根据本局能力映射传入。
 func set_ability_marker(text: String) -> void:
 	_ability_kind = StringName(text)
@@ -233,12 +237,14 @@ func selected() -> void:
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE * (1.04 if low_effects else JUICE.selected_scale), 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	aura.show_selection(_piece_color(), true, low_effects)
+	_contact_shadow.set_lifted(true)
 
 ## 取消选择动画效果
 func deselected() -> void:
 	if not is_selected: return
 	is_selected = false
 	aura.show_selection(_piece_color(), false, low_effects)
+	_contact_shadow.set_lifted(false)
 	_refresh_idle_expression()
 	if _is_moving or is_eliminating: return
 	if tween != null: tween.kill()
@@ -267,6 +273,7 @@ func eliminate() -> void:
 	_refresh_idle_expression()
 	is_selected = false
 	aura.show_selection(_piece_color(), false, low_effects)
+	_contact_shadow.set_lifted(false)
 	if tween != null: tween.kill()
 	tween = create_tween()
 	var anticipation: float = 0.0 if low_effects else JUICE.elimination_seconds * JUICE.anticipation_ratio
@@ -290,6 +297,7 @@ func reset() -> void:
 	modulate.a = 0.5 if is_ghost else 1.0
 	_set_flash(0.0)
 	aura.show_selection(_piece_color(), false, low_effects)
+	_contact_shadow.set_lifted(false)
 	if polygon:
 		polygon.modulate.a = 1.0
 	if sprite:

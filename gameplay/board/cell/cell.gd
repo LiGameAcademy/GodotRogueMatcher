@@ -11,6 +11,7 @@ class_name Cell
 @export var path_highlight_color: Color = Color("74ddcf")
 @export var hover_color: Color = Color("1c2e40")
 var coordinate: Vector2i = Vector2i.ZERO
+var _shadow_direction: Vector2 = Vector2.ZERO
 var low_effects: bool = false
 var is_path_highlighted: bool = false
 var is_hovered: bool = false
@@ -45,9 +46,15 @@ func apply_game_theme(appearance: BoardAppearance) -> void:
 	_surface.set_shader_parameter("rounding", appearance.cell_rounding)
 	_refresh_style()
 
+## Positions the cell and stores the cast direction from the board's visual light.
+func layout(at: Vector2, light: Vector2) -> void:
+	position = at
+	_shadow_direction = (at - light).normalized()
+
 func show_piece(display_piece: ChessPiece) -> void:
 	display_piece.name = "Piece"
 	add_child(display_piece)
+	display_piece.set_shadow_direction(_shadow_direction)
 
 func take_piece() -> ChessPiece:
 	var display_piece: ChessPiece = piece

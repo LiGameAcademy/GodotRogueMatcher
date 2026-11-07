@@ -87,12 +87,13 @@ func configure(columns: int, rows: int, cell_size: Vector2, gap: Vector2) -> voi
 		remove_child(cell)
 		cell.queue_free()
 	_cells.clear()
+	var light: Vector2 = Vector2((columns - 1) * _spacing.x * 0.5, -2.0 * _spacing.y)
 	for x: int in range(columns):
 		for y: int in range(rows):
 			var cell: Cell = CELL_SCENE.instantiate() as Cell
 			cell.coordinate = Vector2i(x, y)
 			cell.low_effects = low_effects
-			cell.position = Vector2(x, y) * (cell_size + gap)
+			cell.layout(Vector2(x, y) * _spacing, light)
 			cell.pressed.connect(_on_cell_pressed)
 			cell.hover_changed.connect(_on_cell_hover_changed)
 			cell.activated.connect(func(clicked: Cell) -> void: piece_activated.emit(clicked.coordinate))

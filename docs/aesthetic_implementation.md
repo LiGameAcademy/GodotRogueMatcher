@@ -125,4 +125,8 @@
 
 坚果身体的接触阴影由`gameplay/board/piece/piece_contact_shadow/`静态子场景承接，替换已隐藏的旧几何ShadowPolygon。ChessPiece向下传入身体纹理及只读BoardAppearance，不新增全局类型/管理器；material按实例复制。身体alpha与父modulate参与渲染，不投眼嘴；无动态时钟、实时灯光或后处理依赖。
 
-复用既有piece_shadow/shadow_offset，未改参数；低特效保留静态阴影，alpha0关闭，道具模式隐藏。技术结果、真实同盘对比与未观察项见`docs/quality/issue130_contact_shadow.md`，不能据此认定O4或灯光整体通过。#201/#202仍按各自PR状态验收。
+2026-10-28 切片沿用既有 piece_shadow 和 shadow_offset。技术结果与当时的对照见 `docs/quality/issue130_contact_shadow.md`。
+
+当前棋盘的投影方向背离棋盘上沿中央的视觉光源，静置偏移 8 个局部像素，选中延长到 13，移动及补棋落位后由目标格重新提供方向。独立预览沿用主题 shadow_offset，阴影颜色仍由主题控制。低特效保留静态阴影，alpha 为 0 时关闭，道具模式隐藏。
+
+棋盘上的坚果绘制范围为 52 个局部像素，预告沿用自己的绘制范围。爆破使用连续金边，引信使用四段金边，深色内沿把能力标记与花生自带的金边分开。普通模式只改变亮度并转动引信的缺口，描边宽度固定。暂停冻结该相位，低特效保留静态描边和引信缺口。
