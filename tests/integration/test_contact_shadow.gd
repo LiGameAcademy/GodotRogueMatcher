@@ -1,7 +1,8 @@
 extends GutTest
 
-## Verifies static body-alpha shadows consume theme configuration without rule writes.
+## Verifies contact shadows consume theme and cell placement without rule writes.
 const PIECE: PackedScene = preload("res://gameplay/board/piece/chess_piece.tscn")
+const VIEW: PackedScene = preload("res://gameplay/board/board_view.tscn")
 var _first: ChessPiece
 var _second: ChessPiece
 
@@ -67,6 +68,29 @@ func test_zero_alpha_is_an_explicit_off_state_and_does_not_mutate_shared_palette
 	assert_gt(GameThemes.ALL[0].board.piece_shadow.a, 0.0)
 	assert_gt(((_second.get_node("ContactShadow") as Sprite2D).material as ShaderMaterial).get_shader_parameter("shadow_color").a, 0.0)
 
+func test_board_shadow_casts_away_from_light_then_follows_the_landed_cell() -> void:
+	var view: BoardView = VIEW.instantiate() as BoardView
+	add_child_autoqfree(view)
+	view.configure(2, 1, Vector2(64, 64), Vector2.ONE)
+	var rules: BoardRules = BoardRules.new(BoardState.new(2, 1), 5)
+	var state: PieceState = rules.place_piece(Vector2i.ZERO, 0)
+	view.rebuild(rules.state.get_snapshot())
+	var piece: ChessPiece = view.get_piece(state.piece_id)
+	var shadow: Sprite2D = _shadow(piece)
+	var at_rest: Vector2 = shadow.position
+	assert_lt(at_rest.x, 0.0)
+	assert_gt(at_rest.y, 0.0)
+	piece.selected()
+	assert_gt(shadow.position.length(), at_rest.length())
+	assert_true(shadow.position.normalized().is_equal_approx(at_rest.normalized()))
+	piece.deselected()
+	assert_eq(shadow.position, at_rest)
+	var target: Vector2i = Vector2i.RIGHT
+	assert_true(await view.animate_move(rules.move_piece(state.piece_id, target), 0.01))
+	assert_gt(shadow.position.x, 0.0)
+	assert_almost_eq(shadow.position.length(), at_rest.length(), 0.001)
+	assert_same(view.get_cell(target).piece, piece)
+
 func test_item_roundtrip_hides_old_shadow_and_ghost_keeps_parent_opacity() -> void:
 	var shadow: Sprite2D = _shadow(_first)
 	if shadow == null: return
@@ -89,7 +113,7 @@ func test_real_game_theme_and_four_mode_changes_preserve_run_snapshot() -> void:
 	game.set("record_runs", false)
 	game.set("collect_telemetry", false)
 	game.set("show_start_menu", false)
-	add_child_autofree(game)
+	add_child_autoqfree(game)
 	var board: Board = game.get_node("Board") as Board
 	await board.initialized
 	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
@@ -102,5 +126,5 @@ func test_real_game_theme_and_four_mode_changes_preserve_run_snapshot() -> void:
 				assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
 				var state: PieceState = board.rules.state.get_snapshot()[0]
 				var shadow: Sprite2D = board.view.get_piece(state.piece_id).get_node("ContactShadow") as Sprite2D
-				assert_eq(shadow.position, preset.board.shadow_offset)
+				assert_almost_eq(shadow.position.length(), 8.0, 0.001)
 				assert_true(shadow.visible)
