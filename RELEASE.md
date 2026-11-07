@@ -1,8 +1,8 @@
-# Skill Lines 0.0.2 — Web Preview
+# Skill Lines 0.0.3 — Web Preview
 
-[Project / source](https://github.com/LiGameAcademy/GodotRogueMatcher) · [itch.io](https://godot-li.itch.io/roguematcher) · [中文说明](https://github.com/LiGameAcademy/GodotRogueMatcher/blob/feature/stage-challenge/README.zh_CN.md)
+[Project / source](https://github.com/LiGameAcademy/GodotRogueMatcher) · [itch.io](https://godot-li.itch.io/roguematcher) · [中文说明](https://github.com/LiGameAcademy/GodotRogueMatcher/blob/develop/0.0.3/README.zh_CN.md)
 
-This is the 0.0.2 Web preview package. See the release build manifest for source identity and SHA256.
+This is the 0.0.3 Web preview package. See the release build manifest for source identity and SHA256.
 
 ## Play
 
@@ -14,9 +14,15 @@ Build explosive and row/column-clearing chains. Manual abilities spend an action
 
 Esc pauses/resumes; F1 opens settings; F8 changes playback speed; F9 skips skippable presentation. Settings include language, sound, two themes, animated background, board signal, and low effects. Four independent tutorial exercises are available from the menu.
 
+## What's new in 0.0.3
+
+- New nut artwork, readable selection and reachable cells, movement paths, and refills that fly in from the preview slots.
+- Expanded shape and skill interactions, with clearer feedback for blasts, sweeps, and chained clears.
+- Local safe-point continuation, including a saved pending skill choice.
+
 ## 中文
 
-0.0.2 Web预览版：阶段挑战与经典无尽双模式；累计总分达标降压并三选一，未达标升压，补棋最多5枚。八阶段通关后可保留棋盘、总分与构筑继续挑战，后续每阶段目标增加1000分。
+0.0.3 Web预览版：阶段挑战与经典无尽双模式；累计总分达标降压并三选一，未达标升压，补棋最多5枚。八阶段通关后可保留棋盘、总分与构筑继续挑战，后续每阶段目标增加1000分。
 
 爆破手与行／列清除手支持升级和互相连锁；每张主动技能每局3次。技能先点选，再点击面板下方按钮确认。棋子池和技能池可查看，后者支持筛选与排序。Esc暂停／继续，F1设置，F8快放，F9略过允许跳过的演出。
 
@@ -24,9 +30,11 @@ Esc pauses/resumes; F1 opens settings; F8 changes playback speed; F9 skips skipp
 
 ## Platform and data
 
-Desktop browsers with mouse and keyboard; 1280×720 or larger recommended. Mobile touch and cross-refresh run continuation are not included. Balance remains experimental.
+Desktop browsers with mouse and keyboard. A 1280×720 viewport or larger is recommended. This preview focuses on desktop controls and uses experimental balance.
 
-Preferences and tutorial progress use local browser storage. Web disables the desktop telemetry collector and hides record-folder/export controls. Internal command recording does not provide a supported browser data download; use the desktop/editor build for playtest collection and export. There is no telemetry upload endpoint. Closing the browser is not a guaranteed final write.
+After the game confirms a safe point was saved, use **Resume Run** after a desktop restart or a browser refresh. Web saves belong to the same browser profile and site. Closing during a save can restore an earlier confirmed point. Clearing site data removes browser saves. Run records stay on the device and can be exported from the menu when available.
+
+浏览器刷新或桌面重启后，可从已保存的安全点继续本局。浏览器存档属于当前站点和浏览器配置，清除站点数据会删除存档。请等保存提示后再刷新或退出。
 
 Serve index.html through HTTP(S); opening a local file directly is unsupported. Godot 4.7.2 Compatibility, single-threaded, non-PWA. SharedArrayBuffer headers are not required.
 
