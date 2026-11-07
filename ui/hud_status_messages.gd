@@ -11,6 +11,7 @@ const IDS: Array[StringName] = [
 	&"counting_score", &"skip_requested", &"settings_failed", &"theme_invalid",
 	&"challenge_completed", &"board_full", &"piece_queued", &"move_queued",
 	&"queued_piece_missing", &"queued_target_invalid", &"playback_failed", &"playback_aligned",
+	&"move_blocked", &"activation_empty",
 	&"debug_classic_required", &"demo_dye", &"demo_limit", &"demo_score", &"demo_cross",
 	&"demo_span", &"demo_line", &"demo_transform", &"capture_detonate", &"capture_chain",
 	&"capture_refill_ready", &"capture_refill_used", &"capture_refill_done", &"spawn_progress",

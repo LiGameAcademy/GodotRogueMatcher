@@ -41,14 +41,21 @@ static func history(state: RunState) -> String:
 		if count > 0: lines.append(TranslationServer.translate("%s · %s %d 次") % [TranslationServer.translate(skill.title), TranslationServer.translate("取得") if skill.refill_effect() != null else TranslationServer.translate("已使用"), count])
 	return "\n".join(lines) if not lines.is_empty() else TranslationServer.translate("尚无使用记录")
 
+## The restored aggregate can exist without any materialized scoring detail.
+static func latest_scoring_entry(entries: Array[ScoreEntry]) -> ScoreEntry:
+	for index: int in range(entries.size() - 1, -1, -1):
+		if entries[index].final_score > 0 and entries[index].reason != &"dye": return entries[index]
+	return null
+
 static func score_details(entries: Array[ScoreEntry], show_formula: bool = false) -> String:
-	if entries.is_empty(): return TranslationServer.translate("尚未得分\n\n五枚同色连线即可消除。")
-	var action: int = entries.back().root_action_id
+	var latest: ScoreEntry = latest_scoring_entry(entries)
+	if latest == null: return TranslationServer.translate("尚未得分\n\n五枚同色连线即可消除。")
+	var action: int = latest.root_action_id
 	var lines: PackedStringArray = []
 	var total: int = 0
 	for entry: ScoreEntry in entries:
-		if entry.root_action_id != action or entry.reason == &"dye": continue
-		if entries.back().reason == &"goal_score_bonus" and entry.event_id != entries.back().event_id: continue
+		if entry.root_action_id != action or entry.final_score <= 0 or entry.reason == &"dye": continue
+		if latest.reason == &"goal_score_bonus" and entry.event_id != latest.event_id: continue
 		total += entry.final_score
 		var reason: String = TranslationServer.translate("爆炸") if entry.reason == &"explosion" else (TranslationServer.translate("连携回响") if entry.reason == &"chain_reward" else (TranslationServer.translate("印记收获") if entry.reason == &"marked_reward" else TranslationServer.translate("消除")))
 		if entry.reason == &"line_clear": reason = TranslationServer.translate("扫线")
@@ -57,7 +64,7 @@ static func score_details(entries: Array[ScoreEntry], show_formula: bool = false
 			lines.append(TranslationServer.translate("%s：%d × %.2f + %d = %d") % [reason, entry.base_score, entry.multiplier, entry.extra_score, entry.final_score])
 		else:
 			lines.append(TranslationServer.translate("%s +%d") % [reason, entry.final_score])
-	var heading: String = "目标完成奖励 +%d\n\n%s" if entries.back().reason == &"goal_score_bonus" else "最近得分行动 +%d\n\n%s"
+	var heading: String = "目标完成奖励 +%d\n\n%s" if latest.reason == &"goal_score_bonus" else "最近得分行动 +%d\n\n%s"
 	return TranslationServer.translate(heading) % [total, "\n".join(lines)]
 
 static func summary(state: RunState) -> String:

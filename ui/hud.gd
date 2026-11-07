@@ -45,6 +45,7 @@ var _gain_tween: Tween
 var _run: RunController
 var _selection: PieceState
 var _selection_fuse: bool = false
+var _selection_notice: StringName = &""
 var _status_id: StringName = &"hud.status.preparing"
 var _status_parameters: Dictionary = {}
 var _status_messages: HudStatusMessages = HudStatusMessages.new()
@@ -78,9 +79,11 @@ func set_reward_waiting(waiting: bool) -> void:
 	%ResumeReward.visible = waiting
 
 func _show_breakdown(state: RunState) -> void:
-	var entries: Array[ScoreEntry] = state.ledger.get_entries()
-	breakdown_label.text = tr("尚未得分") if entries.is_empty() else HudDetails.score_details_rich(entries, _game_theme.ui_theme if _game_theme != null else null)
-	breakdown_label.custom_minimum_size.y = 32.0 if entries.is_empty() else 82.0
+	var entries: Array[ScoreEntry] = []
+	if state.ledger.total > 0: entries = state.ledger.get_entries()
+	var has_details: bool = HudDetails.latest_scoring_entry(entries) != null
+	breakdown_label.text = HudDetails.score_details_rich(entries, _game_theme.ui_theme if _game_theme != null else null) if has_details else tr("尚未得分")
+	breakdown_label.custom_minimum_size.y = 82.0 if has_details else 32.0
 
 func _layout_content() -> void:
 	var body: HBoxContainer = $Margin/Rows/Body
@@ -98,7 +101,7 @@ func _notification(what: int) -> void:
 	settings_button.text = ""
 	score_label.text = tr("分数  %d") % displayed_score
 	if _run != null: show_run(_run)
-	show_selection(_selection, _selection_fuse)
+	_refresh_selection()
 	show_status(_status_id, _status_parameters)
 	_show_history(history_button.button_pressed)
 
@@ -225,15 +228,41 @@ func show_diagnostic(reason: String) -> void:
 	_status_messages.report(&"hud.status.unavailable", TranslationServer.get_locale(), reason, {})
 	show_status(&"hud.status.unavailable")
 
+## Replaces transient playback text after the board actually reopens input.
+func show_input_ready() -> void:
+	if _status_id in [&"hud.status.preparing", &"hud.status.resolving", &"hud.status.counting_score", &"hud.status.skip_requested", &"hud.status.piece_queued", &"hud.status.move_queued"]:
+		show_status(&"hud.status.ready")
+
+## Immediate board outcomes share the selection row so autosave status stays readable.
+func show_board_feedback(message_id: String) -> void:
+	if message_id in ["hud.status.move_blocked", "hud.status.activation_empty"]:
+		_selection_notice = StringName(message_id)
+		_refresh_selection()
+	else:
+		show_status(StringName(message_id))
+
 func show_selection(piece: PieceState, has_fuse: bool) -> void:
 	_selection = piece
 	_selection_fuse = has_fuse
+	_selection_notice = &""
+	_refresh_selection()
+
+func _refresh_selection() -> void:
+	var piece: PieceState = _selection
 	if piece == null:
-		selection_label.text = tr("未选中棋子")
-		selection_label.tooltip_text = tr("选择棋子后，再点击可到达的空格。")
+		if _selection_notice.is_empty():
+			selection_label.text = tr("未选中棋子")
+			selection_label.tooltip_text = tr("选择棋子后，再点击可到达的空格。")
+		else:
+			selection_label.text = _status_messages.render(_selection_notice, {}, TranslationServer.get_locale())
+			selection_label.tooltip_text = selection_label.text
 		return
-	var identity: String = tr("爆壳手 · 消除时爆炸") if piece.content_id == &"special_demolition" else tr("普通材料")
-	if has_fuse and piece.content_id.is_empty(): identity += tr(" · 带引信，消除时爆炸")
+	var identity: String = tr("普通材料")
+	match piece.content_id:
+		&"special_demolition": identity = tr("爆壳手 · 消除时爆炸")
+		LineClearState.CONTENT_ROW: identity = tr("行清除手")
+		LineClearState.CONTENT_COLUMN: identity = tr("列清除手")
+	if _selection_fuse and piece.content_id.is_empty(): identity += tr(" · 带引信，消除时爆炸")
 	selection_label.text = tr("%s · 格 (%d, %d)") % [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
 	selection_label.tooltip_text = selection_label.text
 

@@ -161,6 +161,7 @@ func clear_display() -> void:
 			child.queue_free()
 	for cell: Cell in _cells.values():
 		cell.unhighlight()
+		cell.clear_feedback()
 	presentation_changed.emit()
 
 ## 重建只消费快照，不改变规则或棋子ID。
@@ -246,28 +247,15 @@ func show_blast(center: Vector2i, radius: int, generation: int = 0) -> void:
 #region 结果演出
 func show_line_clear(center: Vector2i, axis: int, radius: int = 0, cross_radius: int = -1) -> void:
 	if not _cells.has(center) or axis not in [LineClearState.AXIS_ROW, LineClearState.AXIS_COLUMN]: return
-	var area: Rect2 = _line_area(center, axis, radius)
-	var second: Rect2 = _line_area(center, 1 - axis, cross_radius) if cross_radius >= 0 else Rect2()
+	var bounds: Rect2 = get_display_rect().grow(-2.0)
+	var area: Rect2 = LineClearVisual.board_area(bounds, _spacing, _dimensions, center, axis, radius)
+	var second: Rect2 = LineClearVisual.board_area(bounds, _spacing, _dimensions, center, 1 - axis, cross_radius) if cross_radius >= 0 else Rect2()
 	signal_effect.respond()
 	var visual: LineClearVisual = LINE_CLEAR_SCENE.instantiate() as LineClearVisual
 	visual.low_effects = low_effects
 	if _game_theme != null: visual.config = _game_theme.feedback
 	add_child(visual)
 	track_presentation(visual.setup(area, axis, second))
-
-func _line_area(center: Vector2i, axis: int, radius: int) -> Rect2:
-	var area: Rect2 = get_display_rect().grow(-2.0)
-	if axis == LineClearState.AXIS_ROW:
-		var minimum: int = maxi(0, center.y - maxi(0, radius))
-		var maximum: int = mini(_dimensions.y - 1, center.y + maxi(0, radius))
-		area.position.y = minimum * _spacing.y - _cell_size.y * 0.5
-		area.size.y = (maximum - minimum) * _spacing.y + _cell_size.y
-	else:
-		var minimum: int = maxi(0, center.x - maxi(0, radius))
-		var maximum: int = mini(_dimensions.x - 1, center.x + maxi(0, radius))
-		area.position.x = minimum * _spacing.x - _cell_size.x * 0.5
-		area.size.x = (maximum - minimum) * _spacing.x + _cell_size.x
-	return area
 
 func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	var generation: int = _generation
@@ -293,11 +281,13 @@ func animate_move(result: BoardMoveResult, duration: float) -> bool:
 	track_presentation(piece.land())
 	if not await wait_for_animations() or generation != _generation: return false
 	remove_child(piece)
-	get_cell(result.path.back()).show_piece(piece)
+	var destination: Cell = get_cell(result.path.back())
+	destination.show_piece(piece)
 	piece.position = Vector2.ZERO
 	move_path.clear()
 	for coordinate: Vector2i in result.path:
 		get_cell(coordinate).unhighlight()
+	destination.show_arrival()
 	return true
 
 func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
@@ -318,19 +308,28 @@ func remove_piece(piece_state: PieceState, animated: bool = false) -> void:
 	else: piece.queue_free()
 
 func animate_matches(results: Array[MatchResult]) -> void:
-	score_floats.show_results(results, _spacing, get_display_rect(), low_effects, presentation_speed)
+	var generation: int = _generation
 	for result: MatchResult in results:
 		for changed: PieceState in result.recolored:
 			show_color(changed.piece_id, changed.match_color)
 			var dyed: ChessPiece = get_piece(changed.piece_id)
 			if is_instance_valid(dyed) and not low_effects: track_presentation(dyed.land())
 		var cells: Array[Cell] = []
+		var shape_cells: Dictionary[Vector2i, bool] = {}
+		for hit: BoardMatchHit in result.hits:
+			if hit.shape_id == &"line": continue
+			for coordinate: Vector2i in hit.coordinates: shape_cells[coordinate] = true
 		for snapshot: PieceState in result.removed:
-			cells.append(get_cell(snapshot.coordinate))
+			var cell: Cell = get_cell(snapshot.coordinate)
+			cells.append(cell)
+			if is_instance_valid(cell) and is_instance_valid(get_piece(snapshot.piece_id)):
+				cell.show_match_hit(shape_cells.has(snapshot.coordinate))
 			remove_piece(snapshot, true)
 		if result.cause == &"explosion": show_blast(result.center, result.radius, result.generation)
 		elif result.cause == &"line_clear": show_line_clear(result.center, result.line_axis, result.radius, result.cross_radius)
 		match_visualized.emit(result, cells)
+		if generation != _generation: return
+	score_floats.show_results(results, _spacing, get_display_rect(), low_effects, presentation_speed)
 
 func set_step_policy(policy: PresentationStep.Policy) -> void:
 	_fixed_required = policy == PresentationStep.Policy.FIXED_REQUIRED
@@ -342,7 +341,9 @@ func cancel_animations() -> void:
 	_deferred_fuse_ids.clear()
 	move_path.clear()
 	score_floats.clear()
-	for cell: Cell in _cells.values(): cell.unhighlight()
+	for cell: Cell in _cells.values():
+		cell.unhighlight()
+		cell.clear_feedback()
 	_generation += 1
 	for animation: Tween in _presentation_tweens:
 		if animation.is_valid(): animation.kill()
@@ -405,8 +406,8 @@ func animate_spawn(snapshot: PieceState, duration: float, origin: Variant = null
 	show_piece(snapshot, piece)
 	var flying: bool = origin is Transform2D and not low_effects
 	var animation: Tween = piece.spawn_animation(duration, not flying)
+	var cell: Cell = get_cell(snapshot.coordinate)
 	if flying:
-		var cell: Cell = get_cell(snapshot.coordinate)
 		cell.take_piece()
 		_spawn_destinations[piece.piece_id] = cell
 		var host: Node2D = spawn_flight_host if is_instance_valid(spawn_flight_host) else _spawn_flights
@@ -414,6 +415,7 @@ func animate_spawn(snapshot: PieceState, duration: float, origin: Variant = null
 		_update_spawn_flight(0.0, piece, cell, origin)
 		animation.parallel().tween_method(_update_spawn_flight.bind(piece, cell, origin), 0.0, 1.0, maxf(duration, 0.001)).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		animation.finished.connect(_finish_spawn_flight.bind(piece, cell, _generation))
+	animation.finished.connect(cell.show_arrival)
 	track_presentation(animation)
 
 ## Reuse the same node, color and cell; only the special marker changes.

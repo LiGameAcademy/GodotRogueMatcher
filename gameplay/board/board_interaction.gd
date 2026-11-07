@@ -20,3 +20,10 @@ static func activation_command(run: RunController, coordinate: Vector2i) -> RunC
 	var detonate: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
 	detonate.piece_id = piece.piece_id
 	return detonate
+
+## An accepted manual blast or sweep with no targets still consumes its normal action.
+static func is_empty_activation(turn: TurnResult) -> bool:
+	if turn.move != null or turn.matches.is_empty(): return false
+	for result: MatchResult in turn.matches:
+		if result.cause not in [&"explosion", &"line_clear"] or not result.removed.is_empty(): return false
+	return true
