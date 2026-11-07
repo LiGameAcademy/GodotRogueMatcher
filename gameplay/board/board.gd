@@ -10,6 +10,8 @@ signal goal_bonus_ready(entry: ScoreEntry)
 signal selection_changed(piece: PieceState, has_fuse: bool)
 ## Reports player-facing status without finding a HUD.
 signal operation_feedback(message: String)
+## Signals that the board has reopened input after all required presentation and gates.
+signal input_ready
 ## Requests an audio cue without waiting for audio completion.
 signal feedback_requested(cue: StringName)
 ## Requests match audio for the committed cascade generation.
@@ -42,8 +44,10 @@ var keep_checkpoint_history: bool = false
 var hold_at_checkpoint: bool = false
 var can_selected: bool = false:
 	set(value):
+		var opened: bool = value and not can_selected
 		can_selected = value
 		if is_instance_valid(view): view.set_interaction_enabled(value)
+		if opened: input_ready.emit()
 var input_buffer: BoardInputBuffer = BoardInputBuffer.new()
 var selected_piece: ChessPiece = null:
 	set(value):
@@ -132,8 +136,7 @@ func adopt_checkpoint(candidate: RunController) -> bool:
 	view.rebuild(rules.state.get_snapshot())
 	refresh_ability_markers()
 	GameManager.bind_checkpoint(run)
-	can_selected = run.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint
-	if can_selected and input_permission.is_valid(): can_selected = bool(input_permission.call(run))
+	can_selected = run.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint and (not input_permission.is_valid() or bool(input_permission.call(run)))
 	observation.busy(false)
 	initialized.emit()
 	presentation_updated.emit()
@@ -296,8 +299,7 @@ func resume_run(active: RunController) -> void:
 	can_selected = false
 	await BoardRunFlow.continue_run(self, active)
 	if run != active: return
-	can_selected = active.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint and not active.state.is_game_over and active.state.rule_error.is_empty()
-	if can_selected and input_permission.is_valid(): can_selected = bool(input_permission.call(active))
+	can_selected = active.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint and not active.state.is_game_over and active.state.rule_error.is_empty() and (not input_permission.is_valid() or bool(input_permission.call(active)))
 	_turn_in_progress = false
 	if can_selected: _resume_buffered_input()
 
@@ -353,11 +355,12 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 		push_error(run.state.rule_error)
 		return false
 	if not outcome.accepted or turn == null:
+		observation.busy(false)
+		selected_piece = null
 		if not outcome.accepted:
 			feedback_requested.emit(&"reject")
 			if command is MovePieceCommand: view.show_rejection((command as MovePieceCommand).target)
-		observation.busy(false)
-		selected_piece = null
+			if outcome.reason == "NO_PATH": operation_feedback.emit("hud.status.move_blocked")
 		return false
 	var generation: int = _generation
 	can_selected = false
@@ -376,6 +379,7 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 	if generation != _generation:
 		return false
 	selected_piece = null
+	if INTERACTION.is_empty_activation(turn): operation_feedback.emit("hud.status.activation_empty")
 	await resume_run(run)
 	if generation != _generation: return false
 	if not director.error.is_empty(): return false
@@ -434,14 +438,7 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 		PresentationStep.Kind.MARK_FUSES:
 			view.show_fuse_marks(step.pieces, step.duration)
 		PresentationStep.Kind.MATCHES:
-			var cue: StringName = &"match"
-			for result: MatchResult in step.matches:
-				if result.cause == &"explosion": cue = &"blast"
-				elif result.cause == &"line_clear": cue = &"sweep"
-			if not step.matches.is_empty():
-				if cue == &"match": match_feedback_requested.emit(step.matches.front().generation)
-				else: feedback_requested.emit(cue)
-			view.animate_matches(step.matches)
+			BoardRunFlow.play_matches(self, step.matches)
 		PresentationStep.Kind.ALIGN:
 			# 旧公开写入口的额外提交只在全部步骤结束后纳入对齐。
 			var ending: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else step.pieces

@@ -386,8 +386,7 @@ func _on_prompt_action(action: StringName) -> void:
 		closing = false
 		restoring = false
 		_board.hold_at_checkpoint = false
-		_board.can_selected = _board.run.state.phase == RunState.Phase.INPUT and not _board.run.state.is_game_over
-		if _board.can_selected and _board.input_permission.is_valid(): _board.can_selected = bool(_board.input_permission.call(_board.run))
+		_board.can_selected = _board.run.state.phase == RunState.Phase.INPUT and not _board.run.state.is_game_over and (not _board.input_permission.is_valid() or bool(_board.input_permission.call(_board.run)))
 		get_tree().paused = _previous_pause
 		prompt.close()
 		operation_cancelled.emit()

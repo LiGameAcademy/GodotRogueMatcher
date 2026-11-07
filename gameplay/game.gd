@@ -141,7 +141,6 @@ func _connect_run_signals() -> void:
 	_hud.piece_pool_visibility_changed.connect(_on_piece_pool_visibility_changed)
 	BOARD_PRESENTATION.configure(_board, _hud, _feedback)
 	_board.selection_changed.connect(_hud.show_selection)
-	_board.operation_feedback.connect(_hud.show_status)
 	_collection.status_changed.connect(_show_collection_status)
 
 func _connect_menu_signals() -> void:
@@ -492,7 +491,6 @@ func _on_piece_pool_visibility_changed(open: bool) -> void:
 
 func _on_turn_started(_turn: int) -> void:
 	_refresh_hud()
-	_hud.show_status("hud.status.ready")
 
 func _on_playback_busy(busy: bool) -> void:
 	if busy: _hud.show_status("hud.status.resolving")

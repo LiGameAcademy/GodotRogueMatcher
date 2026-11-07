@@ -4,7 +4,9 @@ extends GutTest
 const VIEW: PackedScene = preload("res://gameplay/board/board_view.tscn")
 const MAIN: PackedScene = preload("res://main.tscn")
 const INTERACTION: Script = preload("res://gameplay/board/board_interaction.gd")
+const L_TEMPLATE: MatchShapeTemplate = preload("res://gameplay/board/matching/l_template.tres")
 var _board: Board
+var _hud: Hud
 
 func before_each() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -15,6 +17,7 @@ func before_each() -> void:
 	(main.get_node("Game/Board") as Board).game_mode = GameModes.CLASSIC
 	add_child_autofree(main)
 	_board = main.get_node("Game/Board") as Board
+	_hud = main.get_node("Game/UILayer/HUD") as Hud
 	await _board.initialized
 	for piece: PieceState in _board.rules.state.get_snapshot(): _board.remove_piece(piece.coordinate)
 	_place(Vector2i.ZERO)
@@ -69,8 +72,70 @@ func test_unreachable_destination_has_no_preview_and_rejection_cancels_selection
 	assert_null(_board.selected_piece)
 	assert_ne(target.background.modulate, Color.WHITE)
 	assert_eq(_board.run.state.action_id, 0)
+	assert_eq(_hud.selection_label.text, tr("hud.status.move_blocked"))
 	await wait_seconds(0.2)
 	assert_eq(target.background.modulate, Color.WHITE)
+
+func test_empty_cell_input_without_selection_has_no_flash() -> void:
+	var target: Cell = _board.get_cell(Vector2i(2, 0))
+	var press: InputEventMouseButton = InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	target._on_area_2d_input_event(_board.get_viewport(), press, 0)
+	assert_null(_board.selected_piece)
+	assert_eq(target.background.modulate, Color.WHITE)
+	assert_eq(_board.run.state.action_id, 0)
+
+func test_committed_match_lights_only_hit_cells_before_score_in_both_modes() -> void:
+	for reduced: bool in [false, true]:
+		var view: BoardView = VIEW.instantiate() as BoardView
+		add_child_autoqfree(view)
+		view.configure(6, 1, Vector2(64, 64), Vector2.ONE)
+		view.set_low_effects(reduced)
+		var rules: BoardRules = BoardRules.new(BoardState.new(6, 1), 5)
+		var run: RunController = RunController.new(rules, 130)
+		for x: int in range(6): rules.place_piece(Vector2i(x, 0), 0 if x < 5 else 1)
+		view.rebuild(rules.state.get_snapshot())
+		var results: Array[MatchResult] = run.abilities.resolve(rules.find_matches_at(Vector2i.ZERO))
+		var order: Array[String] = []
+		view.match_visualized.connect(func(_result: MatchResult, cells: Array[Cell]) -> void:
+			order.append("hit")
+			assert_eq(cells.size(), 5)
+			for cell: Cell in cells: assert_ne(cell.background.modulate, Color.WHITE))
+		view.score_floats.score_visualized.connect(func(entry: ScoreEntry, _origin: Vector2) -> void:
+			order.append("score")
+			assert_eq(entry.final_score, 50))
+		view.animate_matches(results)
+		assert_eq(order, ["hit", "score"])
+		assert_eq(view.get_cell(Vector2i(5, 0)).background.modulate, Color.WHITE)
+		view.cancel_animations()
+		assert_eq(view.get_cell(Vector2i.ZERO).background.modulate, Color.WHITE)
+		run.retire()
+
+func test_overlapping_l_and_line_show_the_frozen_shape_cells_with_one_score() -> void:
+	var view: BoardView = VIEW.instantiate() as BoardView
+	add_child_autoqfree(view)
+	view.configure(6, 4, Vector2(64, 64), Vector2.ONE)
+	view.set_low_effects(true)
+	var rules: BoardRules = BoardRules.new(BoardState.new(6, 4), 5, [L_TEMPLATE])
+	var run: RunController = RunController.new(rules, 130)
+	for x: int in range(5): rules.place_piece(Vector2i(x, 2), 0)
+	rules.place_piece(Vector2i(0, 1), 0)
+	rules.place_piece(Vector2i(0, 0), 0)
+	view.rebuild(rules.state.get_snapshot())
+	var results: Array[MatchResult] = run.abilities.resolve(rules.find_matches_at(Vector2i(0, 2)))
+	assert_eq(results.size(), 1)
+	assert_eq(results[0].removed.size(), 7)
+	assert_eq(results[0].hits.size(), 2)
+	var overlap: ShaderMaterial = view.get_cell(Vector2i(0, 2)).background.material as ShaderMaterial
+	var straight: ShaderMaterial = view.get_cell(Vector2i(4, 2)).background.material as ShaderMaterial
+	var original_edge: Color = overlap.get_shader_parameter("edge_color")
+	view.animate_matches(results)
+	assert_ne(overlap.get_shader_parameter("edge_color"), straight.get_shader_parameter("edge_color"))
+	assert_eq(view.score_floats.get_child_count(), 1)
+	view.cancel_animations()
+	assert_eq(overlap.get_shader_parameter("edge_color"), original_edge)
+	run.retire()
 
 func test_hover_material_is_instance_local_and_selected_state_has_priority() -> void:
 	var first: ChessPiece = _board.get_cell(Vector2i.ZERO).piece
@@ -133,6 +198,7 @@ func test_long_path_has_one_clock_in_all_four_modes() -> void:
 			assert_true(await view.animate_move(result, 1.0))
 			assert_lt(Time.get_ticks_msec() - started, 500, "Long paths must not wait one frame per cell")
 			assert_eq(view.get_cell(Vector2i(8, 8)).piece.piece_id, source.piece_id)
+			assert_eq(view.get_cell(Vector2i(8, 8)).background.modulate == Color.WHITE, reduced)
 			assert_eq((view.get_piece(source.piece_id).get_node("MotionVisuals") as Node2D).scale, Vector2.ONE)
 
 func test_midmove_pause_low_effects_and_cancel_leave_no_late_deformation() -> void:

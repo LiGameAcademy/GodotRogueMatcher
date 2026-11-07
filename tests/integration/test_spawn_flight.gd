@@ -94,6 +94,7 @@ func test_flight_uses_existing_birth_clock_and_returns_the_same_node_to_its_cell
 		assert_true(piece.tween.is_valid())
 		piece.tween.custom_step(0.16)
 		assert_same(_view.get_cell(result.piece.coordinate).piece, piece)
+		assert_eq(_view.get_cell(result.piece.coordinate).background.modulate == Color.WHITE, reduced)
 		assert_eq(piece.position, Vector2.ZERO)
 		assert_eq(piece.scale, Vector2.ONE)
 		assert_eq((piece.get_node("MotionVisuals") as Node2D).scale, Vector2.ONE)
@@ -110,6 +111,7 @@ func test_cancel_paused_flight_snaps_and_retry_removes_old_nodes() -> void:
 	_view.set_low_effects(true)
 	_view.cancel_animations()
 	assert_same(_view.get_cell(result.piece.coordinate).piece, piece)
+	assert_eq(_view.get_cell(result.piece.coordinate).background.modulate, Color.WHITE)
 	assert_eq(piece.position, Vector2.ZERO)
 	_view.clear_display()
 	get_tree().paused = false

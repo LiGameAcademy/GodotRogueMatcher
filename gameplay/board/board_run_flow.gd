@@ -64,3 +64,13 @@ static func present_birth(board: Board, step: PresentationStep) -> void:
 		if step.preview_slot >= 0 and board.spawn_origin_provider.is_valid():
 			origin = board.spawn_origin_provider.call(piece, step.preview_slot)
 		board.view.animate_spawn(piece, step.duration, origin)
+
+## A playback batch has one cause and generation, including legal empty ability results.
+static func play_matches(board: Board, results: Array[MatchResult]) -> void:
+	if results.is_empty(): return
+	var first: MatchResult = results.front()
+	match first.cause:
+		&"explosion": board.feedback_requested.emit(&"blast")
+		&"line_clear": board.feedback_requested.emit(&"sweep")
+		_: board.match_feedback_requested.emit(first.generation)
+	board.view.animate_matches(results)

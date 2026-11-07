@@ -24,6 +24,22 @@ func setup(area: Rect2, axis: int, second_area: Rect2 = Rect2()) -> Tween:
 	animation.finished.connect(queue_free)
 	return animation
 
+## Projects a frozen sweep axis and radius into the visible board bounds.
+static func board_area(bounds: Rect2, spacing: Vector2, dimensions: Vector2i, center: Vector2i, axis: int, radius: int) -> Rect2:
+	var area: Rect2 = bounds
+	var cell_size: Vector2 = bounds.size - Vector2(dimensions - Vector2i.ONE) * spacing
+	if axis == LineClearState.AXIS_ROW:
+		var minimum: int = maxi(0, center.y - maxi(0, radius))
+		var maximum: int = mini(dimensions.y - 1, center.y + maxi(0, radius))
+		area.position.y = minimum * spacing.y - cell_size.y * 0.5
+		area.size.y = (maximum - minimum) * spacing.y + cell_size.y
+	else:
+		var minimum: int = maxi(0, center.x - maxi(0, radius))
+		var maximum: int = mini(dimensions.x - 1, center.x + maxi(0, radius))
+		area.position.x = minimum * spacing.x - cell_size.x * 0.5
+		area.size.x = (maximum - minimum) * spacing.x + cell_size.x
+	return area
+
 func _set_progress(value: float) -> void:
 	_progress = value
 	queue_redraw()

@@ -969,6 +969,8 @@ hud.status.piece_queued,下一枚棋子已暂存,Next piece queued
 hud.status.move_queued,下一步移动已暂存，结算后验证,Next move queued; it will be validated after resolution
 hud.status.queued_piece_missing,暂存棋子已离场，操作已取消,Queued piece was removed. Input cancelled.
 hud.status.queued_target_invalid,暂存目标失效，请重新选择,Queued target is no longer valid. Choose again.
+hud.status.move_blocked,路径被挡,Path blocked
+hud.status.activation_empty,已发动但未命中,Activated. No targets hit.
 hud.status.playback_aligned,演出异常，已对齐本次结果,Playback interrupted. Board aligned to the resolved result.
 hud.status.debug_classic_required,技能调试请先切换经典无尽，或按 F6 / F10 加载独立示例,"Switch to Classic Endless for skill debugging, or use F6 / F10 for an isolated demo"
 hud.status.demo_dye,染色试玩：将第5列第7行红棋移到第5列第5行,"Dye trial: move the red piece at column 5, row 7 to column 5, row 5."
