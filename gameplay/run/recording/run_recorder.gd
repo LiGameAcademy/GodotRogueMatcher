@@ -25,6 +25,8 @@ var _interval_start: int = _start_ms
 var _interval: String = "busy"
 var times: Dictionary[String, int] = {"pause": 0, "choice": 0, "busy": 0, "input": 0, "robot_compute": 0, "buffer_wait": 0}
 var _full_precision: bool = false
+var _score_ledger: ScoreLedger
+var _score_history: Array[Dictionary] = []
 
 func begin(run: RunController, execution_source: String, save_file: bool = true, build: String = "unknown", directory: String = "user://run_records") -> void:
 	source = execution_source
@@ -56,7 +58,7 @@ func begin_snapshot(run: RunController, snapshot: Dictionary, segment_id: String
 func _header(run: RunController, build: String) -> Dictionary:
 	var config: Dictionary = RunSnapshot.config(run)
 	if build == "unknown": build = str(ProjectSettings.get_setting("application/config/version", "development"))
-	return {"schema_version": SCHEMA, "run_id": run.state.run_id, "source": source, "rules_version": RunSnapshot.RULES_VERSION, "content_version": RunSnapshot.digest(config.skills), "offer_version": SkillOfferGenerator.version_for_mode(run.state.mode_id()), "build": build, "godot": Engine.get_version_info().string, "platform": OS.get_name(), "config": config, "config_hash": RunSnapshot.digest(config), "seed": str(run.state.random_streams.master_seed), "rng_scheme_version": RunRandomStreams.SCHEME_VERSION, "rng": run.state.random_streams.data(), "engine_build": Engine.get_version_info().hash, "initialization": run.initialization, "initial": RunSnapshot.capture(run), "metadata": metadata, "support": "normal_pool_and_fixture_f6"}
+	return {"schema_version": SCHEMA, "run_id": run.state.run_id, "source": source, "rules_version": RunSnapshot.RULES_VERSION, "content_version": RunSnapshot.digest(config.skills), "offer_version": SkillOfferGenerator.version_for_mode(run.state.mode_id()), "build": build, "godot": Engine.get_version_info().string, "platform": OS.get_name(), "config": config, "config_hash": RunSnapshot.digest(config), "seed": str(run.state.random_streams.master_seed), "rng_scheme_version": RunRandomStreams.SCHEME_VERSION, "rng": run.state.random_streams.data(), "engine_build": Engine.get_version_info().hash, "initialization": run.initialization, "initial": capture_state(run), "metadata": metadata, "support": "normal_pool_and_fixture_f6"}
 
 func set_interval(next: String) -> void:
 	var now: int = Time.get_ticks_msec()
@@ -64,17 +66,33 @@ func set_interval(next: String) -> void:
 	_interval_start = now
 	_interval = next
 
+## Reuses serialized scores across all records up to the next scoring event.
+func capture_state(run: RunController) -> Dictionary:
+	var ledger: ScoreLedger = run.state.ledger
+	if _score_ledger != ledger:
+		_score_ledger = ledger
+		_score_history = []
+	if _score_history.size() != ledger.history_size() or not _score_history.is_read_only():
+		_score_history = _score_history.duplicate()
+		for entry: ScoreEntry in ledger.get_entries_since(_score_history.size()):
+			var row: Dictionary = RunSnapshot.score(entry)
+			(row.targets as Array).make_read_only()
+			row.make_read_only()
+			_score_history.append(row)
+		_score_history.make_read_only()
+	return RunSnapshot.capture(run, true, _score_history)
+
 func append(kind: String, payload: Dictionary) -> void:
 	if ended: return
 	var record: Dictionary = {}
 	for key: String in payload:
 		# 冻结快照已规范化；再递归转换会重复遍历完整账本。
-		record[key] = payload[key].duplicate(true) if key in ["before", "after", "state", "initial", "config"] else RunSnapshot.normalize(payload[key])
+		record[key] = _copy_frozen(payload[key]) if key in ["before", "after", "state", "initial", "config", "final"] else RunSnapshot.normalize(payload[key])
 	record["kind"] = kind
 	record["seq"] = str(records.size() + 1)
 	record["elapsed_ms"] = str(Time.get_ticks_msec() - _start_ms)
 	records.append(record)
-	if kind != "Footer": record_appended.emit(record.duplicate(true))
+	if kind != "Footer": record_appended.emit(_copy_record(record))
 	if _file != null and error.is_empty():
 		var started: int = Time.get_ticks_usec()
 		var bytes: PackedByteArray = (JSON.stringify(record, "", true, _full_precision) + "\n").to_utf8_buffer()
@@ -91,19 +109,19 @@ func command(run: RunController, request: RunCommand, result: CommandResult, bef
 	var events: Array[Dictionary] = []
 	if result.turn != null: events = matches(result.turn.matches)
 	var movement: Dictionary = {}
-	var after: Dictionary = RunSnapshot.capture(run)
+	var after: Dictionary = capture_state(run)
 	if result.turn != null and result.turn.move != null and result.turn.move.is_valid():
 		movement = {"piece_id": str(result.turn.move.piece_id), "path": RunSnapshot.normalize(result.turn.move.path)}
 	if result.skill != null:
 		events = matches(result.skill.matches)
 		if result.accepted:
-			append("SkillAcquired", {"command_id": str(request.command_id), "offer_id": str(result.skill.offer_id), "reward_id": str(result.skill.reward_id), "skill_id": String(result.skill.skill_id), "created": pieces(result.skill.created), "transformed": pieces(result.skill.transformed), "removed": pieces(result.skill.removed), "marked_ids": result.skill.marked_ids, "count_before": before.acquired.get(String(result.skill.skill_id), "0"), "count_after": str(run.state.rewards.acquired.get(result.skill.skill_id, 0)), "levels_before": before.levels, "levels_after": RunSnapshot.capture(run).levels})
+			append("SkillAcquired", {"command_id": str(request.command_id), "offer_id": str(result.skill.offer_id), "reward_id": str(result.skill.reward_id), "skill_id": String(result.skill.skill_id), "created": pieces(result.skill.created), "transformed": pieces(result.skill.transformed), "removed": pieces(result.skill.removed), "marked_ids": result.skill.marked_ids, "count_before": before.acquired.get(String(result.skill.skill_id), "0"), "count_after": str(run.state.rewards.acquired.get(result.skill.skill_id, 0)), "levels_before": before.levels, "levels_after": after.levels})
 	append("RuleResult", {"command_id": str(request.command_id), "skill_outcome": "" if result.skill == null else String(result.skill.outcome), "target_changes": [] if result.skill == null else RunSnapshot.normalize(result.skill.target_changes), "completed_leaves": [] if result.skill == null else result.skill.completed_leaves, "failed_leaf": "" if result.skill == null else result.skill.failed_leaf, "events": events, "activations": run.state.ability_events.take_traces(), "removed": pieces(result.turn.removed) if result.turn != null else [], "move": movement, "before": before, "after": after})
 	checkpoint(run, after)
 	needs_flush = true
 
 func step(run: RunController, result: RunStepResult) -> void:
-	var after: Dictionary = RunSnapshot.capture(run)
+	var after: Dictionary = capture_state(run)
 	var births: Array[Dictionary] = []
 	for spawn: SpawnResult in result.spawns:
 		births.append({"piece": RunSnapshot.piece(spawn.piece), "events": matches(spawn.matches), "source": String(spawn.source), "batch_id": str(spawn.batch_id)})
@@ -112,19 +130,19 @@ func step(run: RunController, result: RunStepResult) -> void:
 	needs_flush = result.kind in [&"spawn", &"input"] or needs_flush
 
 func offer(run: RunController, value: SkillOffer, refresh_reason: String = "") -> void:
-	append("Offer", {"offer": RunSnapshot.offer_data(value), "refresh_reason": refresh_reason, "random": RunSnapshot.capture(run).random})
+	append("Offer", {"offer": RunSnapshot.offer_data(value), "refresh_reason": refresh_reason, "random": RunSnapshot.capture(run, false).random})
 	checkpoint(run)
 	needs_flush = true
 
 func checkpoint(run: RunController, frozen: Dictionary = {}) -> void:
-	var state: Dictionary = RunSnapshot.capture(run) if frozen.is_empty() else frozen
+	var state: Dictionary = capture_state(run) if frozen.is_empty() else frozen
 	append("Checkpoint", {"state": state, "hash": JSON.stringify(state, "", true).sha256_text()})
 
 func finish(run: RunController, status: String, reason: String) -> void:
 	if ended: return
 	set_interval(_interval)
 	_flush()
-	append("Footer", {"status": status, "reason": reason, "score": str(run.state.ledger.total), "moves": str(run.state.valid_moves), "activations": str(run.state.activations), "actions": str(run.state.valid_moves + run.state.activations), "choices": str(run.state.rewards.consumed_count), "times": times, "source": source, "record_complete": error.is_empty(), "last_valid_seq": str(records.size()), "final": RunSnapshot.capture(run)})
+	append("Footer", {"status": status, "reason": reason, "score": str(run.state.ledger.total), "moves": str(run.state.valid_moves), "activations": str(run.state.activations), "actions": str(run.state.valid_moves + run.state.activations), "choices": str(run.state.rewards.consumed_count), "times": times, "source": source, "record_complete": error.is_empty(), "last_valid_seq": str(records.size()), "final": capture_state(run)})
 	ended = true
 	_flush()
 	if _file != null:
@@ -132,8 +150,31 @@ func finish(run: RunController, status: String, reason: String) -> void:
 		_file = null
 	# Footer给分析投影的完成标记必须包含最后一次回放文件刷新结果。
 	records.back()["record_complete"] = error.is_empty()
-	record_appended.emit(records.back().duplicate(true))
+	record_appended.emit(_copy_record(records.back()))
 	recording_finished.emit(error.is_empty())
+
+func _copy_record(record: Dictionary) -> Dictionary:
+	var copy: Dictionary = {}
+	for key: String in record:
+		var value: Variant = record[key]
+		if value is Dictionary:
+			copy[key] = _copy_frozen(value)
+		elif value is Array:
+			copy[key] = value.duplicate(true)
+		else:
+			copy[key] = value
+	return copy
+
+func _copy_frozen(value: Dictionary) -> Dictionary:
+	var history: Variant = value.get("ledger")
+	if not history is Array or not history.is_read_only():
+		return value.duplicate(true)
+	# Each shared row and its targets are frozen before publication.
+	var fields: Dictionary = value.duplicate()
+	fields.erase("ledger")
+	var copy: Dictionary = fields.duplicate(true)
+	copy["ledger"] = history
+	return copy
 
 func _fail(message: String) -> void:
 	error = message

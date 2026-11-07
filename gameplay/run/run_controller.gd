@@ -106,7 +106,7 @@ func move_piece(piece_id: int, target: Vector2i) -> TurnResult:
 	state.rule_action_id = state.action_id
 	turn_action_id = state.action_id
 	_freeze_action_refill()
-	state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
+	state.stage.begin_action(state.action_id, state.ledger.history_size())
 	state.phase = RunState.Phase.MOVING
 	result.matches = resolve_matches_at(target, false, &"direct_move")
 	state.valid_moves += 1
@@ -296,7 +296,7 @@ func execute_command(command: RunCommand) -> CommandResult:
 	var payload: Dictionary = CommandCodec.encode(command)
 	if command.command_id == last_command_id and _last_result != null and payload == _last_payload:
 		return _last_result
-	var before: Dictionary = RunSnapshot.capture(self)
+	var before: Dictionary = recorder.capture_state(self) if recorder != null else {}
 	var result: CommandResult = CommandResult.new()
 	if command.run_id != state.run_id: result.reason = "wrong_run"
 	elif command.command_id <= last_command_id or command.command_id <= 0: result.reason = "stale_command"
@@ -340,7 +340,7 @@ func execute_command(command: RunCommand) -> CommandResult:
 				state.rule_action_id = state.action_id
 				turn_action_id = state.action_id
 				_freeze_action_refill()
-				state.stage.begin_action(state.action_id, state.ledger.get_entries().size())
+				state.stage.begin_action(state.action_id, state.ledger.history_size())
 				state.activations += 1
 				state.phase = RunState.Phase.MOVING
 				result.turn = TurnResult.new()

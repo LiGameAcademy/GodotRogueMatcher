@@ -34,9 +34,13 @@ func commit(match_count: int, multiplier: float = 1.0, extra_score: int = 0, rea
 	return entry.copy()
 
 func get_entries() -> Array[ScoreEntry]:
+	return get_entries_since(0)
+
+## Returns detached entries from a zero-based offset.
+func get_entries_since(offset: int) -> Array[ScoreEntry]:
 	var result: Array[ScoreEntry] = []
-	for entry: ScoreEntry in _entries:
-		result.append(entry.copy())
+	for index: int in range(maxi(offset, 0), _entries.size()):
+		result.append(_entries[index].copy())
 	return result
 
 func next_event_id() -> int:

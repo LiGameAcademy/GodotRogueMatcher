@@ -36,6 +36,23 @@ func test_record_replay_preserves_all_safety_checkpoints() -> void:
 	assert_eq(replay.checked_records, recorder.records.size())
 	assert_eq(replay.run.state.valid_moves, 8)
 
+func test_recorded_score_history_is_frozen_and_matches_the_full_snapshot() -> void:
+	var run: RunController = _run()
+	run.state.ledger.commit(5, 1.0, 0, &"match", 1, [1, 2, 3, 4, 5])
+	run.recorder.checkpoint(run)
+	var checkpoint: Dictionary = run.recorder.records.back()
+	var previous: Array = checkpoint.state.ledger
+	var score: Dictionary = previous[0]
+	assert_true(previous.is_read_only())
+	assert_true(score.is_read_only())
+	assert_true((score.targets as Array).is_read_only())
+	assert_eq(checkpoint.state, RunSnapshot.capture(run))
+	run.state.ledger.commit(6, 1.0, 0, &"match", 2, [1, 2, 3, 4, 5, 6])
+	run.recorder.checkpoint(run)
+	assert_eq(previous.size(), 1)
+	assert_eq(RunSnapshot.digest(checkpoint.state), checkpoint.hash)
+	assert_eq(run.recorder.records.back().state, RunSnapshot.capture(run))
+
 func test_replay_rejects_changed_trigger_condition_configuration() -> void:
 	var run: RunController = _run()
 	var changed: Array[Dictionary] = run.recorder.records.duplicate(true)
