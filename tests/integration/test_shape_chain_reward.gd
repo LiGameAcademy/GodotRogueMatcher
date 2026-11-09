@@ -1,6 +1,6 @@
 extends GutTest
 
-## Checks frozen shape-chain rewards across skip, confirmation and restart boundaries.
+## Checks frozen shape-chain rewards across presentation interruptions and confirmation.
 const HOST: PackedScene = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_acceptance.tscn")
 const HOST_SCRIPT: Script = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_acceptance.gd")
 var _host: HOST_SCRIPT
@@ -35,6 +35,114 @@ func test_shape_chain_retry_before_reward_popup_opens_in_four_modes() -> void:
 
 func test_shape_chain_retry_with_selected_reward_in_four_modes() -> void:
 	await _verify_reward_restarts(true)
+
+func test_shape_chain_pause_delays_reward_until_resume_in_four_modes() -> void:
+	watch_signals(UIManager)
+	watch_signals(_host.board)
+	watch_signals(_host.board.view)
+	watch_signals(_host.board.director)
+	for fast: bool in [false, true]:
+		for low: bool in [false, true]:
+			if not await _verify_shape_chain_pause(fast, low):
+				return
+
+func _verify_shape_chain_pause(fast: bool, low: bool) -> bool:
+	var mode: String = "fast=%s low=%s" % [fast, low]
+	await _host.load_case("shape_chain")
+	_host.configure_modes(fast, low)
+	_host.play_case()
+	var normal_ready: bool = await wait_until(_shape_reward_settled, 8.0)
+	assert_true(normal_ready, mode)
+	if not normal_ready:
+		return false
+	assert_true(_host._sample_valid(_host.report), mode)
+	_assert_shape_reward_matches_offer(mode)
+	var baseline: String = RunSnapshot.digest(RunSnapshot.capture(_host.board.run))
+
+	await _host.load_case("shape_chain")
+	_host.configure_modes(fast, low)
+	var board: Board = _host.board
+	var director: PresentationDirector = board.director
+	var matches_before: int = get_signal_emit_count(board.view, "match_visualized")
+	var requests_before: int = get_signal_emit_count(board, "reward_requested")
+	var opened_before: int = get_signal_emit_count(UIManager, "popup_opened")
+	var pause_hits: Array[int] = []
+	var pause_at_sweep: Callable = func(result: MatchResult, _cells: Array[Cell]) -> void:
+		if result.cause == &"line_clear" and result.generation == 2:
+			pause_hits.append(result.generation)
+			_host.game.call("_toggle_pause")
+	board.view.match_visualized.connect(pause_at_sweep)
+	_host.play_case()
+	var paused: bool = await wait_until(func() -> bool: return not pause_hits.is_empty() and get_tree().paused, 6.0)
+	board.view.match_visualized.disconnect(pause_at_sweep)
+	assert_true(paused, mode)
+	if not paused:
+		return false
+	var steps_at_pause: int = get_signal_emit_count(director, "step_requested")
+	assert_eq(get_signal_emit_count(board.view, "match_visualized") - matches_before, 3, mode)
+	assert_eq(get_signal_emit_count(board, "reward_requested"), requests_before, mode)
+	assert_eq(get_signal_emit_count(UIManager, "popup_opened"), opened_before, mode)
+	assert_false(is_instance_valid(UIManager.current_popup) or board.can_selected, mode)
+	var sweep: LineClearVisual = null
+	for child: Node in board.view.get_children():
+		if child is LineClearVisual:
+			sweep = child as LineClearVisual
+			break
+	assert_not_null(sweep, mode)
+	var progress: float = float(sweep.get("_progress")) if sweep != null else 0.0
+	var paused_state: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	await get_tree().create_timer(0.4, true).timeout
+	assert_true(is_instance_valid(sweep), mode)
+	if is_instance_valid(sweep):
+		assert_almost_eq(float(sweep.get("_progress")), progress, 0.00001, mode)
+	assert_eq(get_signal_emit_count(director, "step_requested"), steps_at_pause, mode)
+	assert_eq(get_signal_emit_count(board.view, "match_visualized") - matches_before, 3, mode)
+	assert_eq(get_signal_emit_count(board, "reward_requested"), requests_before, mode)
+	assert_eq(get_signal_emit_count(UIManager, "popup_opened"), opened_before, mode)
+	assert_false(is_instance_valid(UIManager.current_popup) or board.can_selected, mode)
+	assert_true(_host.report.is_empty(), mode)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), paused_state, mode)
+
+	var hud: Hud = _host.game.get_node("UILayer/HUD") as Hud
+	var opened_after_chain: Array[bool] = []
+	var observe_open: Callable = func(popup: Control) -> void:
+		if popup is PopupSkillChoice:
+			opened_after_chain.append(get_signal_emit_count(board.view, "match_visualized") - matches_before == 6
+				and not director.is_busy() and not board.view.is_presenting() and hud.displayed_score == 111)
+	UIManager.popup_opened.connect(observe_open)
+	_host.game.call("_toggle_pause")
+	assert_false(get_tree().paused, mode)
+	var resumed: bool = await wait_until(_shape_reward_settled, 8.0)
+	assert_true(resumed, mode)
+	if not resumed:
+		UIManager.popup_opened.disconnect(observe_open)
+		return false
+	assert_true(_host._sample_valid(_host.report), mode)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	_assert_shape_reward_matches_offer(mode)
+	assert_eq(board.run.state.pending_rewards, 1, mode)
+	assert_eq(board.run.state.rewards.consumed_count, 0, mode)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline, mode)
+	await get_tree().create_timer(0.4, true).timeout
+	UIManager.popup_opened.disconnect(observe_open)
+	assert_eq(opened_after_chain, [true], mode)
+	assert_same(UIManager.current_popup, popup, mode)
+	assert_true(get_tree().paused and not board.can_selected, mode)
+	assert_eq(get_signal_emit_count(board.view, "match_visualized") - matches_before, 6, mode)
+	assert_eq(get_signal_emit_count(board, "reward_requested") - requests_before, 1, mode)
+	assert_eq(get_signal_emit_count(UIManager, "popup_opened") - opened_before, 1, mode)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), baseline, mode)
+	return true
+
+func _shape_reward_settled() -> bool:
+	return not _host.report.is_empty() and _reward_popup_ready()
+
+func _assert_shape_reward_matches_offer(mode: String) -> void:
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	var offer: SkillOffer = _host.board.run.state.rewards.active_offer
+	assert_not_null(offer, mode)
+	if offer != null:
+		_assert_popup_offer(popup, offer, mode)
 
 func _verify_reward_restarts(opened: bool) -> void:
 	# The acceptance fixture usually handles restart by reloading the same case.
