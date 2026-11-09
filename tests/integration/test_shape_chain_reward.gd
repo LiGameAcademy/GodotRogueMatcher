@@ -1,6 +1,6 @@
 extends GutTest
 
-## Checks that skipping a shape chain preserves its frozen reward and commits a choice once.
+## Checks frozen shape-chain rewards across skip, confirmation and restart boundaries.
 const HOST: PackedScene = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_acceptance.tscn")
 const HOST_SCRIPT: Script = preload("res://tools/chain_rhythm_acceptance/chain_rhythm_acceptance.gd")
 var _host: HOST_SCRIPT
@@ -29,6 +29,150 @@ func test_shape_chain_skip_preserves_reward_and_consumes_once_in_four_modes() ->
 			assert_false(normal.is_empty(), mode)
 			assert_false(skipped.is_empty(), mode)
 			assert_eq(skipped, normal, mode)
+
+func test_shape_chain_retry_before_reward_popup_opens_in_four_modes() -> void:
+	await _verify_reward_restarts(false)
+
+func test_shape_chain_retry_with_selected_reward_in_four_modes() -> void:
+	await _verify_reward_restarts(true)
+
+func _verify_reward_restarts(opened: bool) -> void:
+	# The acceptance fixture usually handles restart by reloading the same case.
+	_host.game.set("use_external_restart", false)
+	var flow: GameRewardFlow = _host.game.get("_reward_flow") as GameRewardFlow
+	watch_signals(UIManager)
+	watch_signals(flow)
+	for fast: bool in [false, true]:
+		for low: bool in [false, true]:
+			if not await _verify_reward_restart(fast, low, opened, flow):
+				return
+
+func _verify_reward_restart(fast: bool, low: bool, opened: bool, flow: GameRewardFlow) -> bool:
+	var mode: String = "fast=%s low=%s opened=%s" % [fast, low, opened]
+	await _host.load_case("shape_chain")
+	_host.configure_modes(fast, low)
+	var old_run: RunController = _host.board.run
+	var opened_before: int = get_signal_emit_count(UIManager, "popup_opened")
+	var committed_before: int = get_signal_emit_count(flow, "selection_committed")
+	var results: Array[bool] = []
+	var pending: Array[PopupSkillChoice] = []
+	var on_popup_inserted: Callable = func(child: Node) -> void:
+		if child is PopupSkillChoice and pending.is_empty():
+			var popup: PopupSkillChoice = child as PopupSkillChoice
+			pending.append(popup)
+			# The manager assigns current_popup after add_child, then awaits process_frame.
+			_restart_at_reward.call_deferred(old_run, popup, false, flow, results, mode)
+	if not opened:
+		UIManager.child_entered_tree.connect(on_popup_inserted)
+	_host.play_case()
+	if opened:
+		var ready: bool = await wait_until(_reward_popup_ready, 8.0)
+		assert_true(ready, mode)
+		if not ready:
+			return false
+		_restart_at_reward(old_run, UIManager.current_popup as PopupSkillChoice, true, flow, results, mode)
+	var completed: bool = await wait_until(func() -> bool: return not results.is_empty(), 8.0)
+	if not opened:
+		UIManager.child_entered_tree.disconnect(on_popup_inserted)
+	assert_true(completed, mode)
+	if not completed:
+		return false
+	assert_eq(results, [true], mode)
+	assert_eq(get_signal_emit_count(UIManager, "popup_opened") - opened_before, 1 if opened else 0, mode)
+	assert_eq(get_signal_emit_count(flow, "selection_committed"), committed_before, mode)
+	return results == [true]
+
+func _restart_at_reward(old_run: RunController, popup: PopupSkillChoice, opened: bool, flow: GameRewardFlow, results: Array[bool], mode: String) -> void:
+	if not is_instance_valid(_host):
+		return
+	var game: Node2D = _host.game
+	var board: Board = _host.board
+	assert_same(board.run, old_run, mode)
+	if board.run != old_run:
+		results.append(false)
+		return
+	assert_same(UIManager.current_popup, popup, mode)
+	assert_eq(old_run.state.ledger.total, 111, mode)
+	assert_eq(old_run.state.pending_rewards, 1, mode)
+	assert_eq(old_run.state.rewards.consumed_count, 0, mode)
+	assert_false(board.can_selected, mode)
+	var offer: SkillOffer = old_run.state.rewards.active_offer
+	assert_not_null(offer, mode)
+	if offer == null or not is_instance_valid(popup):
+		results.append(false)
+		return
+	var old_command: int = old_run.last_command_id
+	var confirm: Callable
+	var skill_id: StringName = &""
+	if opened:
+		assert_true(get_tree().paused, mode)
+		var index: int = _first_available_choice(offer)
+		assert_gte(index, 0, mode)
+		if index < 0:
+			results.append(false)
+			return
+		skill_id = offer.choices[index].skill_id
+		(popup.options.get_child(index) as Button).pressed.emit()
+		assert_false(popup.confirm_button.disabled, mode)
+		confirm = _confirmation_callback(popup, flow)
+		assert_true(confirm.is_valid(), mode)
+	else:
+		assert_null(popup.offer, mode)
+		assert_false(get_tree().paused, mode)
+		assert_true(popup.skill_selected.get_connections().is_empty(), mode)
+	var replay_old: Callable = func() -> void:
+		game.call("_on_reward_requested", old_run, offer)
+		if confirm.is_valid(): confirm.call(offer.offer_id, skill_id)
+	var director: PresentationDirector = board.director
+	var during_spawn: Array[bool] = []
+	var replay_on_spawn: Callable = func(step: PresentationStep, epoch: int, token: int) -> void:
+		if step.kind != PresentationStep.Kind.SPAWN or not during_spawn.is_empty():
+			return
+		var current: RunController = board.run
+		assert_ne(current.state.run_id, old_run.state.run_id, mode)
+		assert_false(board.can_selected, mode)
+		var before: String = RunSnapshot.digest(RunSnapshot.capture(current))
+		replay_old.call()
+		assert_eq(RunSnapshot.digest(RunSnapshot.capture(current)), before, mode)
+		during_spawn.append(director.is_current(epoch, token) and not board.can_selected and not get_tree().paused)
+	director.step_requested.connect(replay_on_spawn)
+	var restarted: bool = bool(await game.call("_on_retry_requested"))
+	if is_instance_valid(director) and director.step_requested.is_connected(replay_on_spawn):
+		director.step_requested.disconnect(replay_on_spawn)
+	if not is_instance_valid(_host) or _host.game != game:
+		return
+	assert_true(restarted, mode)
+	if not restarted:
+		results.append(false)
+		return
+	assert_eq(during_spawn, [true], mode)
+	var fresh: RunController = board.run
+	var initial: String = RunSnapshot.digest(RunSnapshot.capture(fresh))
+	replay_old.call()
+	# The caller is already using the GUT awaiter to wait for this coroutine.
+	for _frame: int in range(8):
+		await get_tree().process_frame
+		if not is_instance_valid(_host) or _host.game != game:
+			return
+	assert_false(is_instance_valid(popup), mode)
+	assert_same(board.run, fresh, mode)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(fresh)), initial, mode)
+	assert_eq(old_run.last_command_id, old_command, mode)
+	assert_eq(old_run.state.rewards.consumed_count, 0, mode)
+	assert_eq(fresh.state.action_id, 0, mode)
+	assert_eq(fresh.state.ledger.total, 0, mode)
+	assert_eq((game.get_node("UILayer/HUD") as Hud).displayed_score, 0, mode)
+	assert_eq(fresh.state.pending_rewards, 0, mode)
+	assert_eq(fresh.state.rewards.consumed_count, 0, mode)
+	assert_true(fresh.state.rewards.acquired.is_empty(), mode)
+	assert_null(fresh.state.rewards.active_offer, mode)
+	assert_false(is_instance_valid(UIManager.current_popup) or get_tree().paused, mode)
+	assert_true(board.can_selected and not board.director.is_busy(), mode)
+	var first: PieceState = board.rules.state.get_snapshot().front()
+	await board._on_coordinate_pressed(first.coordinate)
+	assert_not_null(board.selected_piece, mode)
+	assert_same(board.selected_piece, board.view.get_piece(first.piece_id), mode)
+	results.append(true)
 
 func _play_and_choose(fast: bool, low: bool, skip_chain: bool, mode: String) -> Dictionary:
 	await _host.load_case("shape_chain")
@@ -128,12 +272,7 @@ func _assert_popup_offer(popup: PopupSkillChoice, expected: SkillOffer, mode: St
 
 func _confirm_once(board: Board, active: RunController, popup: PopupSkillChoice, skill_id: StringName, mode: String) -> String:
 	var flow: GameRewardFlow = _host.game.get("_reward_flow") as GameRewardFlow
-	var original_callback: Callable
-	for connection: Dictionary in popup.skill_selected.get_connections():
-		var callback: Callable = connection.callable
-		if callback.get_object() == flow and callback.get_method() == &"_choose":
-			original_callback = callback
-			break
+	var original_callback: Callable = _confirmation_callback(popup, flow)
 	assert_true(original_callback.is_valid(), mode)
 	if not original_callback.is_valid():
 		return ""
@@ -169,6 +308,13 @@ func _confirm_once(board: Board, active: RunController, popup: PopupSkillChoice,
 	assert_false(board.director.skip_score_requested, mode)
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(active)), final, mode)
 	return final
+
+func _confirmation_callback(popup: PopupSkillChoice, flow: GameRewardFlow) -> Callable:
+	for connection: Dictionary in popup.skill_selected.get_connections():
+		var callback: Callable = connection.callable
+		if callback.get_object() == flow and callback.get_method() == &"_choose":
+			return callback
+	return Callable()
 
 func _first_available_choice(offer: SkillOffer) -> int:
 	for index: int in range(offer.choices.size()):
