@@ -181,8 +181,17 @@ func test_lost_movement_completion_times_out_and_recovers_without_rule_replay() 
 	assert_true(board.load_explosion_demo())
 	board.director.config = board.director.config.duplicate() as PresentationConfig
 	board.director.config.step_timeout_seconds = 0.1
+	# The accepted move clears selection, so retain the moving view before submitting it.
+	var moving: ChessPiece = board.get_cell(Vector2i(5, 5)).piece
+	assert_not_null(moving)
+	if moving == null:
+		return
 	_start_move(0.05)
-	board.selected_piece.tween.kill()
+	var motion: Tween = moving.tween
+	assert_true(motion != null and motion.is_running())
+	if motion == null or not motion.is_running():
+		return
+	motion.kill()
 	assert_false(board.can_selected)
 	await GameManager.turn_started
 	await wait_process_frames(2)
