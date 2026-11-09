@@ -124,6 +124,11 @@ func test_pause_freezes_chain_without_dispatching_children_or_opening_input() ->
 	assert_true(_host.report.input_restored)
 	assert_eq((_host.report.errors as Array).size(), 0)
 
+func test_pause_freezes_sweep_before_blast_in_four_modes() -> void:
+	for fast: bool in [false, true]:
+		for low: bool in [false, true]:
+			await _verify_sweep_pause(fast, low)
+
 func test_reload_during_chain_retires_old_wait_and_cannot_write_next_sample() -> void:
 	await _host.load_case("blast_row")
 	_reload_once = true
@@ -162,6 +167,73 @@ func test_capture_validation_rejects_bad_samples_and_write_failure_is_reported()
 	assert_true(FileAccess.file_exists("user://chain_rhythm_write_test.json"))
 	DirAccess.remove_absolute("user://chain_rhythm_write_test.json")
 
+func _verify_sweep_pause(fast: bool, low: bool) -> void:
+	var mode: String = "fast=%s low=%s" % [fast, low]
+	await _host.load_case("row_blast")
+	_host.configure_modes(fast, low)
+	_host.play_case()
+	var baseline_finished: bool = await wait_until(func() -> bool: return not _host.report.is_empty(), 6.0)
+	assert_true(baseline_finished, mode)
+	if not baseline_finished:
+		return
+	assert_true(_host._sample_valid(_host.report), mode)
+	var baseline: String = str(_host.report.rules_digest)
+	await _host.load_case("row_blast")
+	_host.configure_modes(fast, low)
+	_host.board.view.match_visualized.connect(_pause_at_sweep, CONNECT_ONE_SHOT)
+	_host.play_case()
+	var paused: bool = await wait_until(func() -> bool: return get_tree().paused, 4.0)
+	assert_true(paused, mode)
+	if not paused:
+		if _host.board.view.match_visualized.is_connected(_pause_at_sweep):
+			_host.board.view.match_visualized.disconnect(_pause_at_sweep)
+		return
+	var events: Array = (_host.get("_events") as Array).duplicate(true)
+	assert_eq(events.size(), 1, mode)
+	if not events.is_empty():
+		assert_eq(events[0].cause, "line_clear", mode)
+	var snapshot: String = RunSnapshot.digest(RunSnapshot.capture(_host.board.run))
+	var sweep: LineClearVisual = null
+	for child: Node in _host.board.view.get_children():
+		if child is LineClearVisual:
+			sweep = child as LineClearVisual
+			break
+	assert_not_null(sweep, mode)
+	var paused_progress: float = 0.0
+	var completed_progress: Array[float] = []
+	if sweep != null:
+		paused_progress = float(sweep.get("_progress"))
+		sweep.tree_exiting.connect(func() -> void: completed_progress.append(float(sweep.get("_progress"))), CONNECT_ONE_SHOT)
+	assert_false(_host.board.can_selected, mode)
+	await get_tree().create_timer(0.4, true).timeout
+	assert_true(is_instance_valid(sweep), mode)
+	if is_instance_valid(sweep):
+		assert_almost_eq(float(sweep.get("_progress")), paused_progress, 0.00001, mode)
+	assert_true(completed_progress.is_empty(), mode)
+	assert_eq(_host.get("_events"), events, mode)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(_host.board.run)), snapshot, mode)
+	assert_false(_host.board.can_selected, mode)
+	_host.game.call("_toggle_pause")
+	assert_false(get_tree().paused, mode)
+	var finished: bool = await wait_until(func() -> bool: return not _host.report.is_empty(), 6.0)
+	assert_true(finished, mode)
+	if not finished:
+		return
+	assert_eq(completed_progress.size(), 1, mode)
+	if not completed_progress.is_empty():
+		assert_almost_eq(completed_progress[0], 1.0, 0.00001, mode)
+	var sample: Dictionary = _host.report
+	assert_true(_host._sample_valid(sample), mode)
+	assert_eq(str(sample.rules_digest), baseline, mode)
+	assert_eq(int(sample.score), 16, mode)
+	assert_eq(int(sample.visualized_score), 16, mode)
+	assert_true(sample.input_restored, mode)
+	assert_eq(int(sample.live_effects), 0, mode)
+	var causes: Array[String] = []
+	for event: Dictionary in sample.events:
+		causes.append(str(event.cause))
+	assert_eq(causes, ["line_clear", "explosion"], mode)
+
 func _verify_case(key: String, score: int, expected: Array[StringName]) -> void:
 	var baseline: String = ""
 	for fast: bool in [false, true]:
@@ -193,6 +265,10 @@ func _verify_case(key: String, score: int, expected: Array[StringName]) -> void:
 			assert_eq(causes, expected)
 			if baseline.is_empty(): baseline = str(result.rules_digest)
 			else: assert_eq(str(result.rules_digest), baseline)
+
+func _pause_at_sweep(result: MatchResult, _cells: Array[Cell]) -> void:
+	if result.cause == &"line_clear":
+		_host.game.call("_toggle_pause")
 
 func _pause_at_source(result: MatchResult, _cells: Array[Cell]) -> void:
 	if _pause_once and result.cause == &"explosion":
