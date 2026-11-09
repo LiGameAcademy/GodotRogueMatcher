@@ -263,8 +263,11 @@ func _refresh_selection() -> void:
 		LineClearState.CONTENT_ROW: identity = tr("行清除手")
 		LineClearState.CONTENT_COLUMN: identity = tr("列清除手")
 	if _selection_fuse and piece.content_id.is_empty(): identity += tr(" · 带引信，消除时爆炸")
-	selection_label.text = tr("%s · 格 (%d, %d)") % [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
-	selection_label.tooltip_text = selection_label.text
+	var selection_format: String = tr("%s · 格 (%d, %d)")
+	var values: Array = [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
+	selection_label.tooltip_text = selection_format % values
+	# Wrap the description without splitting the cell coordinate.
+	selection_label.text = selection_format.replace(" (%d, %d)", "\u00a0(%d,\u00a0%d)") % values
 
 func _show_history(expanded: bool) -> void:
 	history_label.visible = expanded
