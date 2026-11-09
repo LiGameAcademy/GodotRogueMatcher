@@ -223,8 +223,9 @@ text = "继续选卡"
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 0)
+mouse_filter = 1
 text = "未选中棋子"
-clip_text = true
+autowrap_mode = 3
 
 [node name="StatusLabel" type="Label" parent="Margin/Rows/Body/Left/Content"]
 unique_name_in_owner = true
