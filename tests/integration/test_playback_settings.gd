@@ -26,6 +26,11 @@ func after_each() -> void:
 	await wait_process_frames(2)
 
 func test_settings_restore_running_paused_and_menu_states_without_rule_changes() -> void:
+	# Board initialization can finish before the game switches the menu to Continue.
+	var can_continue: bool = await wait_until(func() -> bool: return bool(game.get("_has_played")), 5.0)
+	assert_true(can_continue, "The current run must be ready to continue.")
+	if not can_continue:
+		return
 	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
 	var hud: Hud = game.get_node("UILayer/HUD") as Hud
 	for paused: bool in [false, true]:
