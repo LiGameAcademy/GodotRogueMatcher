@@ -17,6 +17,10 @@ var _active: Array[VisualParticles2D] = []
 var _low_effects: bool = false
 
 func _ready() -> void:
+	# On Web the first GPU burst can block the frame while the driver links its programs.
+	# The board already presents hit cells, piece flashes and score feedback.
+	if OS.has_feature("web"):
+		return
 	for index: int in range(capacity):
 		var particle: VisualParticles2D = PARTICLE_SCENE.instantiate() as VisualParticles2D
 		particle.name = "Burst%d" % index
