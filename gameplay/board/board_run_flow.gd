@@ -16,7 +16,18 @@ static func continue_run(board: Board, active: RunController) -> void:
 					push_warning("Reward unavailable: " + active.state.rule_error)
 					board.operation_feedback.emit("hud.status.unavailable")
 					return
+				# Web uses one thread: give the board a frame between preparing the offer,
+				# freezing its checkpoint, and building the reward popup.
+				if OS.has_feature("web"):
+					await board.get_tree().process_frame
+					if not is_instance_valid(board) or not _same_offer(board, active, step.offer): return
 				board.checkpoint_reached.emit(active)
+				if OS.has_feature("web") and not board.hold_at_checkpoint:
+					await board.get_tree().process_frame
+					if not is_instance_valid(board) or not _same_offer(board, active, step.offer): return
+				while not board.hold_at_checkpoint and board.get_tree().paused:
+					await board.get_tree().process_frame
+					if not is_instance_valid(board) or not _same_offer(board, active, step.offer): return
 				if not board.hold_at_checkpoint: board.reward_requested.emit(active, step.offer)
 				return
 			&"end_turn":
@@ -40,6 +51,9 @@ static func continue_run(board: Board, active: RunController) -> void:
 			&"error":
 				if active.recorder != null: active.recorder.finish(active, "rule_error", active.state.rule_error)
 				return
+
+static func _same_offer(board: Board, active: RunController, offer: SkillOffer) -> bool:
+	return board.is_inside_tree() and board.run == active and not active.is_retired() and active.state.rewards.active_offer == offer
 
 ## A pending victory becomes completed only when the player ends it; active continuation is abandoned on exit.
 static func finalize(run: RunController, reason: String) -> void:

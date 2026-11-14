@@ -15,17 +15,19 @@ static func manifest(run: RunController) -> Dictionary:
 	value.save_schema_version = SCHEMA
 	return value
 
-static func freeze(run: RunController) -> Dictionary:
+## The automatic-save caller may supply the projection and hash it just read to deduplicate.
+static func freeze(run: RunController, state: Dictionary = {}, state_hash: String = "") -> Dictionary:
 	if run == null or run.initialization != "normal" or not run.prototype_profile.is_empty(): return _failure("snapshot_normal_run_required")
 	if run.state.phase not in [RunState.Phase.INPUT, RunState.Phase.REWARDS]: return _failure("snapshot_unsafe_phase")
 	var reason: String = RunCheckpointCodec.safety_error(run)
 	if not reason.is_empty(): return _failure(reason)
-	var state: Dictionary = RESTORE.project(run)
+	if state.is_empty(): state = RESTORE.project(run)
+	if state_hash.is_empty(): state_hash = RunSnapshot.digest(state)
 	var payload: Dictionary = {
 		"schema": SCHEMA, "run_id": run.state.run_id, "master_seed": str(run.state.random_streams.master_seed),
 		"board": {"columns": str(run.state.rules.state.columns), "rows": str(run.state.rules.state.rows), "match_count": str(run.state.rules.minimum_match_count)},
 		"stage_config": {} if not run.state.stage.enabled() else RunSnapshot.resource_fields(run.state.stage.config),
-		"manifest": manifest(run), "state": state, "state_hash": RunSnapshot.digest(state),
+		"manifest": manifest(run), "state": state, "state_hash": state_hash,
 	}
 	return {"ok": true, "reason": "", "payload": payload, "manifest": payload.manifest}
 

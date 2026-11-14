@@ -91,6 +91,8 @@ func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 	offer.parameter_snapshot = config.data()
 	offer.pressure_snapshot = BoardPressure.evaluate(state.rules.state.columns, state.rules.state.rows, _coordinates(state), config.occupancy_weight)
 	offer.candidate_state_before = rewards.candidate_random.state
+	# All candidates inspect the same detached state before any target is drawn.
+	var context: ChoiceEffectContext = SkillRules.effect_context(state)
 	var legal: Array[SkillDefinition] = []
 	var ids: Array[StringName] = []
 	for skill: SkillDefinition in _catalog:
@@ -100,7 +102,7 @@ func generate(run: RunController, replacing: bool = false) -> SkillOffer:
 		ids.append(skill.skill_id)
 		last_error = skill.validation_error()
 		if not last_error.is_empty(): return null
-		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, -1.0, build)
+		var reason: String = SkillRules.rejection(state, skill, run.abilities.config, -1.0, build, context)
 		var explanation: Dictionary = OfferWeightRules.evaluate(skill, build, offer.reward_id, reason, config, offer.pressure_snapshot)
 		explanation["level_before"] = SkillRules.level(state, skill)
 		explanation["acquired_count"] = rewards.acquired.get(skill.skill_id, 0)

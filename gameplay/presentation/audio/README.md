@@ -1,6 +1,6 @@
 # 坚果音效接入 · 2026-10-26
 
-当前GameFeedback正常播放通过插件AudioManager的SFX池，暂停时的提示声使用场景自有SFX播放器，覆盖本目录十二个CC0 WAV。来源/哈希/处理链在manifest.json，原料在Godot忽略的sources/，许可在LICENSE.md、NOTICE.md、licenses/。音效资产与项目代码分开许可。旧select/match/blast/reward/finish.tres保留为历史原型，当前配置不再引用。
+当前GameFeedback正常播放通过插件AudioManager的SFX池，暂停时的提示声使用场景自有SFX播放器，覆盖本目录十四个CC0 WAV。来源/哈希/处理链在manifest.json，原料在Godot忽略的sources/，许可在LICENSE.md、NOTICE.md、licenses/。音效资产与项目代码分开许可。旧select/match/blast/reward/finish.tres保留为历史原型，当前配置不再引用。
 
 nut_audio.tres是声音路径、消除变体、四档音高、70ms同类去重、最大六声音效和0.65播放增益的权威配置。音效不调用规则，不加入演出完成屏障；快速/低特效不改变声音时长和播放增益。消除两变体按表现计数交替，不消耗规则随机流；按已经冻结的MatchResult.generation取[1,1.03,1.06,1.09]并封顶，不无限升高。
 

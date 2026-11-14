@@ -427,6 +427,7 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 	view.set_step_policy(step.policy)
 	match step.kind:
 		PresentationStep.Kind.MOVE:
+			if step.duration >= 0.12: feedback_requested.emit(&"move")
 			completed = await view.animate_move(step.movement, step.duration)
 			if completed and director.is_current(epoch, token): feedback_requested.emit(&"land")
 		PresentationStep.Kind.SPAWN:

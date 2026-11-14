@@ -89,7 +89,7 @@ func test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_d
 	target.level_after = 1
 	card.configure(skill, target)
 	assert_false(card.consume_label.visible, "mixed card is not consumed as a whole")
-	assert_string_contains(card.effect_label.text, "3 actual refills")
+	assert_string_contains(card.effect_label.get_parsed_text(), "3 actual refills")
 	var build: PanelContainer = BUILD.instantiate() as PanelContainer
 	add_child_autofree(build)
 	build.call("configure", skill, 1, 0)

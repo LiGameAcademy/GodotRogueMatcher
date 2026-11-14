@@ -255,8 +255,11 @@ func _on_safe_point(active: RunController) -> void:
 		_save_exit()
 		return
 	if not _armed or restoring or _transition or active.initialization != "normal": return
-	if _key(active) == _last_key: return
-	_queued = _freeze(active)
+	var state: Dictionary = SNAPSHOT_STATE.project(active) if use_snapshot else {}
+	var state_hash: String = RunSnapshot.digest(state) if use_snapshot else ""
+	var current_key: String = active.state.run_id + ":" + state_hash if use_snapshot else _key(active)
+	if current_key == _last_key: return
+	_queued = _freeze(active, state, state_hash)
 	if not _queued.ok:
 		last_error = _queued.reason
 		_queued.clear()
@@ -425,9 +428,9 @@ func _key(active: RunController) -> String:
 	if use_snapshot: return active.state.run_id + ":" + RunSnapshot.digest(SNAPSHOT_STATE.project(active))
 	return "" if active.recorder == null else active.state.run_id + ":" + str(active.recorder.records.size())
 
-func _freeze(active: RunController) -> Dictionary:
+func _freeze(active: RunController, state: Dictionary = {}, state_hash: String = "") -> Dictionary:
 	var started: int = Time.get_ticks_usec()
-	var encoded: Dictionary = SNAPSHOT.freeze(active) if use_snapshot else _history.freeze(active)
+	var encoded: Dictionary = SNAPSHOT.freeze(active, state, state_hash) if use_snapshot else _history.freeze(active)
 	if encoded.ok and trace_provider.is_valid():
 		encoded["telemetry"] = trace_provider.call(active, encoded.payload.state_hash).duplicate(true) if use_snapshot else trace_provider.call(active).duplicate(true)
 	last_freeze_usec = Time.get_ticks_usec() - started

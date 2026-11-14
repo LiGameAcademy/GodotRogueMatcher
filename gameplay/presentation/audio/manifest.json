@@ -454,6 +454,52 @@
       "modification_reuse": true,
       "ai_input": "未上传；本交付不依赖AI服务",
       "status": "已接入；定向技术回归通过，实机听感待作者验收"
+    },
+    {
+      "file": "sfx_board_move.wav",
+      "candidate_id": "move_swish",
+      "sha256": "07cf0a106bf50048f426b690d6cacf625866da68ff8a0aa66f8d5467388c97a9",
+      "seconds": 0.145,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "artisticdude",
+      "source_page": "https://opengameart.org/content/swishes-sound-pack",
+      "editing_chain": [
+        {
+          "source_layers": [
+            {
+              "file": "sources/source/swishes/swishes/swish-9.wav",
+              "sha256": "123883f006ce55feecbff11eea5f87c4493df4399989983037144570a23723c1"
+            }
+          ],
+          "filter_graph": "highpass=f=300,lowpass=f=3300,volume=-18dB,afade=t=in:d=0.006,afade=t=out:st=0.11:d=0.035; trim at 0.145s"
+        }
+      ]
+    },
+    {
+      "file": "sfx_ui_card_click.wav",
+      "candidate_id": "card_click",
+      "sha256": "52f00636fd44a538a0cacb410d8c8eec3bb069d9782517e068304b79f2de601e",
+      "seconds": 0.0071,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "source_page": "https://kenney.nl/assets/interface-sounds",
+      "editing_chain": [
+        {
+          "source_layers": [
+            {
+              "file": "sources/source/interface/Audio/click_003.ogg",
+              "sha256": "2fa929138bc3a0f432696588f66eac94b8f6d463905ec8808c6461ce4b054292"
+            }
+          ],
+          "filter_graph": "highpass=f=200,lowpass=f=4200,volume=-12dB,afade=t=in:d=0.002"
+        }
+      ]
     }
   ],
   "combo_pitch": {

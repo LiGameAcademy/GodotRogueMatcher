@@ -3,6 +3,8 @@ extends Control
 
 signal skill_selected(offer_id: int, skill_id: StringName)
 signal color_skill_selected(offer_id: int, skill_id: StringName, color: int)
+## Click feedback for a valid option, independent of reward submission.
+signal option_clicked
 signal skill_pool_requested
 signal settings_requested
 signal card_acquired(skill: SkillDefinition, target: SkillTarget, source: Rect2)
@@ -166,6 +168,7 @@ func set_unavailable(reasons: Dictionary[StringName, String]) -> void:
 func _select(index: int) -> void:
 	if _submitted or offer == null or viewing_board or selection_paused or index < 0 or index >= offer.choices.size(): return
 	if offer.unavailable.has(offer.choices[index].skill_id): return
+	if _target_index != index: option_clicked.emit()
 	_target_index = index
 	_error = ""
 	var skill: SkillDefinition = offer.choices[index]

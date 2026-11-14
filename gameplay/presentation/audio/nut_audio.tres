@@ -6,6 +6,8 @@
 script = ExtResource("1")
 cue_paths = Dictionary[StringName, String]({
 &"select": "res://gameplay/presentation/audio/sfx_board_select.wav",
+&"move": "res://gameplay/presentation/audio/sfx_board_move.wav",
+&"card_click": "res://gameplay/presentation/audio/sfx_ui_card_click.wav",
 &"land": "res://gameplay/presentation/audio/sfx_board_land.wav",
 &"reject": "res://gameplay/presentation/audio/sfx_board_reject.wav",
 &"spawn": "res://gameplay/presentation/audio/sfx_board_spawn.wav",

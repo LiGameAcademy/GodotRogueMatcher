@@ -65,7 +65,7 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
 	return context
 
-static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, _frozen_pressure: float = -1.0, build: SkillBuildSnapshot = null) -> String:
+static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, _frozen_pressure: float = -1.0, build: SkillBuildSnapshot = null, offer_context: ChoiceEffectContext = null) -> String:
 	var definition_error: String = skill.validation_error()
 	if not definition_error.is_empty(): return definition_error
 	if state.is_game_over or not state.rule_error.is_empty():
@@ -94,10 +94,10 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 	if effect is DemolitionStatEffect:
 		var capped: String = _demolition_stat_cap(state, config, effect as DemolitionStatEffect)
 		if not capped.is_empty(): return capped
-	if effect is ChoiceEffect:
-		return (effect as ChoiceEffect).rejection(effect_context(state))
-	if effect is CompositeEffect:
-		return (effect as CompositeEffect).rejection(effect_context(state))
+	if effect is ChoiceEffect or effect is CompositeEffect:
+		var context: ChoiceEffectContext = offer_context if offer_context != null else effect_context(state)
+		if effect is ChoiceEffect: return (effect as ChoiceEffect).rejection(context)
+		return (effect as CompositeEffect).rejection(context)
 	return "unsupported skill effect"
 
 static func apply(run: RunController, offer_id: int, skill_id: StringName, selected_color: int = -1) -> SkillApplyResult:
