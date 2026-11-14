@@ -149,6 +149,34 @@ func test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_cho
 	await _wait(func() -> bool: return board.run.state.rewards.consumed_count == epoch_before + 1)
 	assert_eq(board.run.state.rewards.consumed_count, epoch_before + 1)
 
+func test_pause_at_reward_checkpoint_defers_popup_until_resume() -> void:
+	var frozen: RunController = _saved_run(true)
+	var game: Node = await _game(_directory())
+	var board: Board = game.get_node("Board") as Board
+	game.get_node("MenuLayer/ReleaseMenu").hide()
+	get_tree().paused = false
+	assert_true(board.adopt_checkpoint(frozen))
+	var captured: SkillOffer = frozen.state.rewards.active_offer
+	var broadcasts: Array[int] = []
+	board.reward_requested.connect(func(_active: RunController, offer: SkillOffer) -> void:
+		broadcasts.append(offer.offer_id)
+	)
+	board.checkpoint_reached.connect(func(_active: RunController) -> void:
+		get_tree().paused = true
+	, CONNECT_ONE_SHOT)
+	board.resume_run(frozen)
+	await wait_process_frames(4)
+	assert_true(get_tree().paused)
+	assert_false(board.can_selected)
+	assert_eq(broadcasts.size(), 0)
+	assert_null(UIManager.current_popup)
+	get_tree().paused = false
+	await _wait(_choice_ready)
+	assert_eq(broadcasts, [captured.offer_id])
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_eq(popup.offer.offer_id, captured.offer_id)
+	assert_eq(frozen.state.rewards.consumed_count, 0)
+
 func test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry() -> void:
 	var saved: RunController = _saved_run()
 	var directory: String = _directory()

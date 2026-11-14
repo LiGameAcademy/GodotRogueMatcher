@@ -25,6 +25,9 @@ static func continue_run(board: Board, active: RunController) -> void:
 				if OS.has_feature("web") and not board.hold_at_checkpoint:
 					await board.get_tree().process_frame
 					if not _same_offer(board, active, step.offer): return
+				while not board.hold_at_checkpoint and board.get_tree().paused:
+					await board.get_tree().process_frame
+					if not _same_offer(board, active, step.offer): return
 				if not board.hold_at_checkpoint: board.reward_requested.emit(active, step.offer)
 				return
 			&"end_turn":

@@ -1022,9 +1022,9 @@ Wait for saving to finish. Private browsing or clearing site data may lose check
 hud.status.new_run_failed,新局未开始，当前对局及存档未被替换。请重试。,New game did not start. Your run and checkpoint were not replaced. Retry.
 
 "立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
-被移除时爆破周围棋子；场上最多一枚。","立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
-被移除时爆破周围棋子；场上最多一枚。","Immediately place one 【Blast Core】 in an empty cell and add this type to the piece pool for this run.
-It blasts nearby pieces when removed. At most one may be on the board."
+被移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。","立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
+被移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。","Immediately place one 【Blast Core】 in an empty cell and add this type to the piece pool for this run.
+Blasts nearby pieces when removed. Refills add none while a Blast Core is on the board."
 "立即在空格放入一枚【行】棋子，并将这类棋加入本局棋子池。
 【行】棋被消除时扫清所在行。","立即在空格放入一枚【行】棋子，并将这类棋加入本局棋子池。
 【行】棋被消除时扫清所在行。","Immediately place one 【Row Sweeper】 in an empty cell and add this type to the piece pool for this run.
@@ -1034,13 +1034,13 @@ When removed, it sweeps its row."
 【列】棋被消除时扫清所在列。","Immediately place one 【Column Sweeper】 in an empty cell and add this type to the piece pool for this run.
 When removed, it sweeps its column."
 skill.keyword.0,【爆壳手】,【Blast Core】
-skill.keyword_hint.0,移除时爆破周围棋子。场上最多一枚。,Explodes around its cell when removed. At most one may be on the board.
+skill.keyword_hint.0,移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。,Explodes around its cell when removed. Refills add none while a Blast Core is on the board.
 skill.keyword.1,【行】,【Row Sweeper】
 skill.keyword_hint.1,被消除时扫清所在行。,Sweeps its row when removed.
 skill.keyword.2,【列】,【Column Sweeper】
 skill.keyword_hint.2,被消除时扫清所在列。,Sweeps its column when removed.
 skill.keyword.3,爆壳手,Blast Core
-skill.keyword_hint.3,移除时爆破周围棋子。场上最多一枚。,Explodes around its cell when removed. At most one may be on the board.
+skill.keyword_hint.3,移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。,Explodes around its cell when removed. Refills add none while a Blast Core is on the board.
 skill.keyword.4,爆破手,blast core
 skill.keyword_hint.4,特殊棋，移除时爆破周围棋子。,A special piece that blasts nearby pieces when removed.
 skill.keyword.5,横扫手,row sweeper
