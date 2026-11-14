@@ -20,6 +20,8 @@
 [ext_resource type="PackedScene" path="res://gameplay/game_checkpoint_flow.tscn" id="14_checkpoint"]
 [ext_resource type="PackedScene" path="res://gameplay/presentation/removal_sparks/removal_sparks.tscn" id="15_sparks"]
 
+[ext_resource type="PackedScene" path="res://gameplay/debug/frame_overlay/frame_overlay.tscn" id="16_frame_overlay"]
+
 [sub_resource type="Environment" id="Environment_8cj0n"]
 ambient_light_source = 2
 ambient_light_color = Color(0.4845292, 0.4845292, 0.58383155, 1)
@@ -85,3 +87,5 @@ layer = 130
 
 [node name="RemovalSparks" parent="." node_paths=PackedStringArray("source_board") instance=ExtResource("15_sparks")]
 source_board = NodePath("../Board")
+
+[node name="FrameOverlay" parent="." instance=ExtResource("16_frame_overlay")]

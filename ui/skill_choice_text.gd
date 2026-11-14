@@ -1,6 +1,9 @@
 class_name SkillChoiceText
 extends RefCounted
+
+## Formats player-facing rule copy and the matching localized glossary explanation.
 const TAG_LABELS: Dictionary[StringName, String] = {&"exp": "爆破", &"dye": "染色", &"generation": "生成", &"match": "连珠", &"mult": "倍率", &"space": "空间", &"goal": "目标", &"extra": "额外分"}
+const GLOSSARY_SIZE: int = 25
 const CONSUME_HINT: String = "每次实际补棋扣1次，次数用完后失效；免补棋不扣次数。"
 
 ## 卡面消费已冻结目标，不自行抽取或改变规则。
@@ -8,10 +11,24 @@ static func summary(skill: SkillDefinition, level: int = -1, remaining: int = -1
 	return SkillRuleDescription.describe(skill, level, remaining, owned).text
 
 static func summary_rich(skill: SkillDefinition, level: int = -1, remaining: int = -1, owned: bool = false) -> String:
-	var text: String = summary(skill, level, remaining, owned)
-	if skill.refill_effect() != null:
-		text = text.replace(TranslationServer.translate("消耗（正文）"), '[hint="%s"][b]%s[/b][/hint]' % [TranslationServer.translate(CONSUME_HINT), TranslationServer.translate("消耗（正文）")])
-	return text
+	return glossary(summary(skill, level, remaining, owned)).text
+
+## Returns formatted text and one hover definition for the card, chosen by keyword priority.
+static func glossary(text: String) -> Dictionary[String, String]:
+	for index: int in range(GLOSSARY_SIZE):
+		var word: String = TranslationServer.translate("skill.keyword.%d" % index)
+		var regex: RegEx = RegEx.new()
+		var latin: bool = index >= 3 and not TranslationServer.get_locale().begins_with("zh")
+		var pattern: String = word if not latin else "(?i)\\b(?:%s)\\w*\\b" % word
+		if regex.compile(pattern) != OK: continue
+		var occurrence: RegExMatch = regex.search(text)
+		if occurrence == null: continue
+		var before: String = text.substr(0, occurrence.get_start()).replace("[", "[lb]")
+		var keyword: String = occurrence.get_string().replace("[", "[lb]")
+		var after: String = text.substr(occurrence.get_end()).replace("[", "[lb]")
+		var hint: String = TranslationServer.translate("skill.keyword_hint.%d" % index)
+		return {"text": before + "[b]" + keyword + "[/b]" + after, "hint": hint}
+	return {"text": text.replace("[", "[lb]"), "hint": ""}
 
 static func tags(skill: SkillDefinition) -> String:
 	var labels: PackedStringArray = []

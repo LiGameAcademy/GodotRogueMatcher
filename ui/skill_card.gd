@@ -77,7 +77,7 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	title_label.text = tr(skill.title)
 	level_label.text = SkillChoiceText.level_text(skill, target)
 	level_label.visible = not level_label.text.is_empty()
-	effect_label.text = SkillChoiceText.summary_rich(skill, maxi(1, target.level_after))
+	_set_rule(SkillChoiceText.summary(skill, maxi(1, target.level_after)))
 	flavor_label.text = tr(skill.flavor_text) if not skill.flavor_text.is_empty() else ""
 	flavor_label.visible = not flavor_label.text.is_empty()
 	preview_label.text = SkillChoiceText.compact_preview(skill, target)
@@ -94,7 +94,7 @@ func configure_catalog(skill: SkillDefinition, run: RunController) -> void:
 	_catalog_run = run
 	_target = null
 	var view: Dictionary[String, String] = SkillPoolText.rule_view(run, skill)
-	effect_label.text = view.text
+	_set_rule(view.text)
 	level_label.hide()
 	var details: PackedStringArray = SkillPoolText.details(run, skill).split("\n")
 	var effect_lines: int = view.text.split("\n").size()
@@ -127,6 +127,11 @@ func set_unavailable(reason: String) -> void:
 	tooltip_text = tr(reason)
 	_refresh_action()
 	_update_feedback()
+
+func _set_rule(text: String) -> void:
+	var copy: Dictionary[String, String] = SkillChoiceText.glossary(text)
+	effect_label.text = copy.text
+	effect_label.tooltip_text = copy.hint
 
 func _refresh_action() -> void:
 	if _catalog_run != null: return

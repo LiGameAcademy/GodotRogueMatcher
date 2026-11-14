@@ -51,6 +51,7 @@ func present(board: Board, active: RunController, offer: SkillOffer, resume: boo
 	_tree = board.get_tree()
 	_owns_pause = true
 	_tree.paused = true
+	popup.option_clicked.connect(board.feedback_requested.emit.bind(&"card_click"))
 	popup.skill_selected.connect(_choose.bind(epoch, active, offer.reward_id))
 	popup.color_skill_selected.connect(_choose_color.bind(epoch, active, offer.reward_id))
 	popup.closed.connect(_closed.bind(epoch))

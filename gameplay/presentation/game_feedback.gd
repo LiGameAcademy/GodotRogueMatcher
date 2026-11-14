@@ -65,7 +65,7 @@ func _play(cue: StringName, generation: int) -> void:
 		_original_modes[player] = player.process_mode
 		_original_pitch[player] = player.pitch_scale
 	player.pitch_scale = pitch
-	player.process_mode = Node.PROCESS_MODE_ALWAYS if cue in [&"reward", &"acquire", &"finish", &"confirm"] else Node.PROCESS_MODE_PAUSABLE
+	player.process_mode = Node.PROCESS_MODE_ALWAYS if cue in [&"reward", &"acquire", &"finish", &"confirm", &"card_click"] else Node.PROCESS_MODE_PAUSABLE
 	if _paused_players.has(player): player.play()
 	if not _players.has(player): _players.append(player)
 	var finished: Callable = _on_sound_finished.bind(player)

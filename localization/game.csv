@@ -1020,3 +1020,66 @@ checkpoint.web_notice,"安全点自动保存到本机浏览器，不上传。
 Refreshing or closing returns to the last confirmed save.
 Wait for saving to finish. Private browsing or clearing site data may lose checkpoints."
 hud.status.new_run_failed,新局未开始，当前对局及存档未被替换。请重试。,New game did not start. Your run and checkpoint were not replaced. Retry.
+
+"立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
+被移除时爆破周围棋子；场上最多一枚。","立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
+被移除时爆破周围棋子；场上最多一枚。","Immediately place one 【Blast Core】 in an empty cell and add this type to the piece pool for this run.
+It blasts nearby pieces when removed. At most one may be on the board."
+"立即在空格放入一枚【行】棋子，并将这类棋加入本局棋子池。
+【行】棋被消除时扫清所在行。","立即在空格放入一枚【行】棋子，并将这类棋加入本局棋子池。
+【行】棋被消除时扫清所在行。","Immediately place one 【Row Sweeper】 in an empty cell and add this type to the piece pool for this run.
+When removed, it sweeps its row."
+"立即在空格放入一枚【列】棋子，并将这类棋加入本局棋子池。
+【列】棋被消除时扫清所在列。","立即在空格放入一枚【列】棋子，并将这类棋加入本局棋子池。
+【列】棋被消除时扫清所在列。","Immediately place one 【Column Sweeper】 in an empty cell and add this type to the piece pool for this run.
+When removed, it sweeps its column."
+skill.keyword.0,【爆壳手】,【Blast Core】
+skill.keyword_hint.0,移除时爆破周围棋子。场上最多一枚。,Explodes around its cell when removed. At most one may be on the board.
+skill.keyword.1,【行】,【Row Sweeper】
+skill.keyword_hint.1,被消除时扫清所在行。,Sweeps its row when removed.
+skill.keyword.2,【列】,【Column Sweeper】
+skill.keyword_hint.2,被消除时扫清所在列。,Sweeps its column when removed.
+skill.keyword.3,爆壳手,Blast Core
+skill.keyword_hint.3,移除时爆破周围棋子。场上最多一枚。,Explodes around its cell when removed. At most one may be on the board.
+skill.keyword.4,爆破手,blast core
+skill.keyword_hint.4,特殊棋，移除时爆破周围棋子。,A special piece that blasts nearby pieces when removed.
+skill.keyword.5,横扫手,row sweeper
+skill.keyword_hint.5,特殊棋，移除时扫清所在行。,A special piece that sweeps its row when removed.
+skill.keyword.6,列扫手,column sweeper
+skill.keyword_hint.6,特殊棋，移除时扫清所在列。,A special piece that sweeps its column when removed.
+skill.keyword.7,引信,fuse
+skill.keyword_hint.7,带引信的普通棋被移除时会引发爆破。,Removing an ordinary piece with a fuse triggers a blast.
+skill.keyword.8,冻结,frozen
+skill.keyword_hint.8,候选生成时已确定，结算时沿用该信息。,Set when the offer is generated and carried into resolution.
+skill.keyword.9,额外得分,extra points
+skill.keyword_hint.9,额外得分独立于匹配基础分倍率。,Extra points are independent of the base match multiplier.
+skill.keyword.10,基础分倍率,base-score multiplier|score multiplier
+skill.keyword_hint.10,倍率只调整匹配基础分。,This multiplier applies to base match points.
+skill.keyword.11,染色,recolor|dye|dyed
+skill.keyword_hint.11,改变棋子的颜色，可能形成新的匹配。,Changes a piece's color and can form a new match.
+skill.keyword.12,棋子池,piece pool
+skill.keyword_hint.12,决定本局后续补棋可以出现的棋子。,Determines which pieces can appear in future refills this run.
+skill.keyword.13,生成权重,generation weight
+skill.keyword_hint.13,相对权重越高，往后补棋越容易抽到该颜色。,A higher relative weight makes that color more likely in future refills.
+skill.keyword.14,补棋,refill
+skill.keyword_hint.14,盘面按当前预告补上新棋。,Adds pieces from the current preview to the board.
+skill.keyword.15,扫线,sweep
+skill.keyword_hint.15,清除对应行、列或交叉范围内的棋子。,"Removes pieces in the affected row, column or cross."
+skill.keyword.16,爆破,blast
+skill.keyword_hint.16,移除爆破范围内的棋子，可能引发后续爆破。,Removes pieces within its area and may trigger follow-up blasts.
+skill.keyword.17,阶段目标,stage target
+skill.keyword_hint.17,累计分数达到要求时完成该阶段目标。,Reach the required total score to meet the stage target.
+skill.keyword.18,普通棋,ordinary piece
+skill.keyword_hint.18,普通棋按颜色参加匹配，部分技能另有限制。,Ordinary pieces match by color. Some skills apply additional restrictions.
+skill.keyword.19,行扫|列扫,sweep
+skill.keyword_hint.19,扫清所在行或列。范围升级后也会影响邻近行或列。,Clears the source row or column. Range upgrades can also reach adjacent rows or columns.
+skill.keyword.20,命中爆炸|爆炸,blast
+skill.keyword_hint.20,爆炸会移除范围内的棋子。仅实际移除棋子才算命中。,A blast removes pieces within its area. It counts as a hit when it removes a piece.
+skill.keyword.21,染过色,dyed
+skill.keyword_hint.21,已被技能改变颜色的棋子。,A piece whose color has been changed by a skill.
+skill.keyword.22,不吃倍率,not multiplied
+skill.keyword_hint.22,此加分直接计入得分，不乘基础分倍率。,This bonus adds directly to the score and bypasses the base-score multiplier.
+skill.keyword.23,余震,aftershock
+skill.keyword_hint.23,首次符合条件的核心爆炸结束后，在原位置追加的爆炸。,An extra blast at the original cell after the first eligible core explosion resolves.
+skill.keyword.24,五连|消除,exactly 5|five-piece match|5-piece match|clear
+skill.keyword_hint.24,消除指将符合条件的棋子移出棋盘。技能会注明适用的结算条件。,A clear removes the affected pieces from the board. Each skill states what qualifies.
