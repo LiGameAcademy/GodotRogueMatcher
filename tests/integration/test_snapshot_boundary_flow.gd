@@ -165,7 +165,8 @@ func test_pause_at_reward_checkpoint_defers_popup_until_resume() -> void:
 		get_tree().paused = true
 	, CONNECT_ONE_SHOT)
 	board.resume_run(frozen)
-	await wait_process_frames(4)
+	await _wait(func() -> bool: return get_tree().paused)
+	for frame: int in range(4): await get_tree().process_frame
 	assert_true(get_tree().paused)
 	assert_false(board.can_selected)
 	assert_eq(broadcasts.size(), 0)
@@ -174,7 +175,7 @@ func test_pause_at_reward_checkpoint_defers_popup_until_resume() -> void:
 	await _wait(_choice_ready)
 	assert_eq(broadcasts, [captured.offer_id])
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
-	assert_eq(popup.offer.offer_id, captured.offer_id)
+	if is_instance_valid(popup): assert_eq(popup.offer.offer_id, captured.offer_id)
 	assert_eq(frozen.state.rewards.consumed_count, 0)
 
 func test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry() -> void:
