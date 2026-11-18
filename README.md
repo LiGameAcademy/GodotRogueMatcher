@@ -1,12 +1,22 @@
 # Skill Lines
 
-[Play in your browser](https://godot-li.itch.io/roguematcher) · [中文说明](README.zh_CN.md) · [0.0.2 release](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.2)
+[Play in your browser](https://godot-li.itch.io/roguematcher) · [中文说明](README.zh_CN.md) · [0.0.3 Web Preview](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.3)
 
-![Skill Lines promotional cover](docs/preview/cover.png)
+![Skill Lines promotional cover](docs/preview/cover_en.png)
 
-**Five-in-a-row meets roguelite builds.** Move geometric pieces across a 9×9 board, line up five or more of the same color, and draft skills as your score grows. Keep space open, build explosive combinations, and see how long your board survives.
+**Five-in-a-row meets roguelite builds.** Move expressive nut pieces across a 9×9 board, line up five or more of the same color, and draft skills as your score grows. Keep space open, build explosive combinations, and see how long your board survives.
 
 An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy**. Human-directed design, implementation, testing, and iteration with Cursor and OpenAI Codex / ChatGPT are part of the learning process.
+
+## 0.0.3 Web Preview
+
+These English-language gameplay captures show the nut board, a five-in-a-row match triggering the Row Sweeper, and a three-card skill choice.
+
+![Nut board](docs/preview/release_0_0_3/01_nut_board.png)
+
+![Five-in-a-row triggering the Row Sweeper](docs/preview/release_0_0_3/02_five_in_a_row_chain.png)
+
+![Three-card skill choice](docs/preview/release_0_0_3/03_skill_choice.png)
 
 ## In the 0.0.1 Web preview
 
@@ -17,14 +27,9 @@ An open-source **AI-assisted vibe-coding tutorial project** by **Li Game Academy
 - Four independent tutorial exercises, help, pause, and end-of-run summary.
 - English and Simplified Chinese. Choose **Language** on the start / pause menu; the preference is saved locally.
 
-![English gameplay](docs/preview/gameplay-en.jpg)
-![English skill choice](docs/preview/skills-en.jpg)
-
-![中文界面](docs/preview/language-zh.jpg)
-
 ## 0.0.2 Web preview
 
-Version **0.0.2** adds the features below. Screenshots above show the earlier 0.0.1 preview; see [current visual evidence](docs/o3_acceptance.md).
+Version **0.0.2** adds the features below. See the [0.0.2 visual playtest notes](docs/o3_acceptance.md).
 
 - Choose **Stage challenge** (default) or **Classic endless** on the start menu. Changing mode starts a new run; retry retains the mode.
 - Stage targets use cumulative total score, including instant skill rewards. Unmet targets increase refills from 3 to **at most 5**, including skill modifiers. Passing resets pressure and offers three skills; board, score, and build carry over. Each stage requires one new valid action. A full board takes priority; there is no hard action deadline.
