@@ -1,5 +1,7 @@
 extends GutTest
 
+const FIXTURE: Script = preload("res://tests/support/checkpoint_decimal_fixture.gd")
+
 var _directory: String = ""
 
 func after_each() -> void:
@@ -104,9 +106,7 @@ func test_failed_step_can_restart_but_completed_prefix_cannot_step_again() -> vo
 	assert_false(replay.complete)
 
 func _records() -> Array[Dictionary]:
-	var records: Array[Dictionary] = []
-	records.assign(JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/checkpoint_decimal_roundtrip.json")))
-	return records
+	return FIXTURE.current_records()
 
 func test_sliced_validation_rejects_the_same_malformed_prefixes_and_depths() -> void:
 	var source: RuleReplay = RuleReplay.new()
