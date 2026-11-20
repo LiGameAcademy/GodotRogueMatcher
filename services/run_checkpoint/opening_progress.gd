@@ -35,7 +35,9 @@ func _read(text: String) -> bool:
 		unlocked = true
 		completed = true
 		return true
-	var value: Variant = JSON.parse_string(text)
+	var parser: JSON = JSON.new()
+	if parser.parse(text) != OK: return false
+	var value: Variant = parser.data
 	if not value is Dictionary or value.get("schema") != "opening-progress-v2": return false
 	if not value.get("settled") is String or not value.get("row") is bool: return false
 	if value.settled != "" and not CheckpointStore._valid_id(value.settled): return false
