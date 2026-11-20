@@ -138,6 +138,7 @@ toggle_mode = true
 vertical_icon_alignment = 0
 icon_alignment = 1
 theme_override_constants/icon_max_width = 42
+texture_filter = 4
 
 [node name="Scout" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
@@ -146,6 +147,7 @@ toggle_mode = true
 vertical_icon_alignment = 0
 icon_alignment = 1
 theme_override_constants/icon_max_width = 42
+texture_filter = 4
 
 [node name="Dyer" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
@@ -154,6 +156,7 @@ toggle_mode = true
 vertical_icon_alignment = 0
 icon_alignment = 1
 theme_override_constants/icon_max_width = 42
+texture_filter = 4
 
 [node name="Bomber" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
@@ -162,6 +165,7 @@ toggle_mode = true
 vertical_icon_alignment = 0
 icon_alignment = 1
 theme_override_constants/icon_max_width = 42
+texture_filter = 4
 
 [node name="Card" type="VBoxContainer" parent="Center/Panel/Margin/Content/Characters/Body"]
 size_flags_horizontal = 3

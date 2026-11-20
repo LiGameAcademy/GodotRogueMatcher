@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=12 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
 
+[ext_resource type="PackedScene" path="res://ui/preparation_room/role_portrait.tscn" id="role_portrait"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://ui/spawn_preview.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://ui/goal_progress/goal_progress.tscn" id="4"]
@@ -66,12 +67,12 @@ theme_override_constants/separation = 16
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="Margin/Rows/Header/Top"]
+[node name="CurrentRole" parent="Margin/Rows/Header/Top" instance=ExtResource("role_portrait")]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(90, 0)
-text = "技能连珠 · 试玩"
-theme_override_font_sizes/font_size = 20
+custom_minimum_size = Vector2(48, 48)
+size_flags_vertical = 4
+mouse_filter = 1
 
 [node name="ScoreFrame" type="PanelContainer" parent="Margin/Rows/Header/Top"]
 layout_mode = 2

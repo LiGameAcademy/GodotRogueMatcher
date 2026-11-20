@@ -1,9 +1,9 @@
 extends TextureRect
 
+## Displays the same character illustration wherever a run identity is shown.
 const ROLE: Script = preload("res://gameplay/openings/opening_role.gd")
-@onready var _insignia: TextureRect = $Insignia
 
 func display(role: ROLE) -> void:
 	texture = role.portrait
-	_insignia.texture = role.badge
-	_insignia.visible = role.badge != null
+	tooltip_text = tr("role." + str(role.id))
+	accessibility_name = tooltip_text

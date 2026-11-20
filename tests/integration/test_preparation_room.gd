@@ -103,6 +103,7 @@ func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 	var identity: String = game.get_node("Board").run.state.run_id
 	assert_eq(GameFlow.machine.current, GameFlow.Page.PLAY)
 	assert_eq(game.get_node("Board").run.opening_id, &"standard")
+	assert_eq(game.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"standard").portrait)
 	assert_false(game.release_menu.visible)
 	await _until(func() -> bool: return not game.get_node("GameCheckpointFlow")._saving)
 	game.free()
@@ -210,6 +211,7 @@ func test_best_400_previews_locked_dyer_and_durable_unlock_starts_bomber() -> vo
 		return
 	var board: Board = get_tree().current_scene.get_node("Board")
 	assert_eq(board.run.opening_id, &"bomber")
+	assert_eq(get_tree().current_scene.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"bomber").portrait)
 	assert_eq(board.run.state.rewards.acquired.get(&"core_drop"), 1)
 	assert_eq(board.run.state.rewards.acquired.get(&"core_manual_detonation"), 1)
 
@@ -270,6 +272,7 @@ func test_cancel_preserves_role_resume_uses_old_run_and_confirm_starts_scout() -
 	var game: Node = get_tree().current_scene
 	assert_eq(game.get_node("Board").run.state.run_id, old.state.run_id)
 	assert_eq(game.get_node("Board").run.opening_id, &"standard")
+	assert_eq(game.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"standard").portrait)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	game._play_from_menu(true)

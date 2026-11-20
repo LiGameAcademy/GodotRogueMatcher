@@ -4,5 +4,4 @@ extends Resource
 @export var id: StringName
 @export var threshold: int
 @export var portrait: Texture2D
-@export var badge: Texture2D
 @export var skills: Array[SkillDefinition] = []

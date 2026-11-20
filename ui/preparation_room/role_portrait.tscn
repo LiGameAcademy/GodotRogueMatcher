@@ -1,8 +1,5 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_ability_sweep.png" id="sweep"]
-[ext_resource type="Texture2D" path="res://assets/textures/faces/eyes_attentive.png" id="eyes"]
-[ext_resource type="Texture2D" path="res://assets/textures/faces/mouth_smirk.png" id="mouth"]
 [ext_resource type="Script" path="res://ui/preparation_room/role_portrait.gd" id="script"]
 
 [node name="RolePortrait" type="TextureRect"]
@@ -11,42 +8,4 @@ custom_minimum_size = Vector2(90, 84)
 size_flags_horizontal = 4
 expand_mode = 1
 stretch_mode = 5
-
-[node name="EyePair" type="TextureRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -35.0
-offset_right = 36.0
-offset_bottom = 37.0
-texture = ExtResource("eyes")
-expand_mode = 1
-stretch_mode = 5
-mouse_filter = 2
-
-[node name="Mouth" type="TextureRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = 0.0
-offset_right = 18.0
-offset_bottom = 36.0
-texture = ExtResource("mouth")
-expand_mode = 1
-stretch_mode = 5
-mouse_filter = 2
-
-[node name="Insignia" type="TextureRect" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-texture = ExtResource("sweep")
-expand_mode = 1
-stretch_mode = 5
+texture_filter = 4
