@@ -1,12 +1,22 @@
-# 技能连珠 · Skill Lines
+# 坚果连珠 · Skill Lines
 
-[浏览器试玩](https://godot-li.itch.io/roguematcher) · [English](README.md) · [0.0.2 预览版本](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.2)
+[浏览器试玩](https://godot-li.itch.io/roguematcher) · [English](README.md) · [0.0.3 Web 预览版](https://github.com/LiGameAcademy/GodotRogueMatcher/releases/tag/0.0.3)
 
-![技能连珠宣传封面](docs/preview/cover.png)
+![坚果连珠宣传封面](docs/preview/cover_zh_cn.png)
 
-**五子连珠 + 肉鸽技能构筑。** 在 9×9 棋盘上移动几何棋子，组成同色五连获得分数，在技能三选一中逐步形成自己的爆破构筑，尽量维持棋盘空间。
+**五子连珠 + 肉鸽技能构筑。** 在 9×9 棋盘上移动坚果棋子，组成同色五连获得分数，在技能三选一中逐步形成自己的爆破构筑，尽量维持棋盘空间。
 
 这是老李游戏学院的 **AI 辅助 Vibe Coding 开源教程项目**。玩法设计由人主导，开发过程中使用 Cursor 与 OpenAI Codex / ChatGPT 完成实现、审查、测试和迭代。我们会把这种协作方式本身作为教程的一部分。
+
+## 0.0.3 Web 预览版
+
+以下是英文版实机截图，依次展示坚果棋盘、五连触发行清除手和技能三选一。
+
+![坚果棋盘](docs/preview/release_0_0_3/01_nut_board.png)
+
+![五连触发行清除手](docs/preview/release_0_0_3/02_five_in_a_row_chain.png)
+
+![技能三选一](docs/preview/release_0_0_3/03_skill_choice.png)
 
 ## 0.0.1 已实现
 
@@ -17,14 +27,9 @@
 - 四步独立新手练习、帮助、暂停与本局结算。
 - 英文／简体中文／跟随系统切换，入口位于开始或暂停菜单，设置保存在本机。
 
-![实际游戏画面](docs/preview/gameplay-en.jpg)
-![技能选择](docs/preview/skills-en.jpg)
-
-![中文界面](docs/preview/language-zh.jpg)
-
 ## 0.0.2 Web预览版
 
-**0.0.2** 新增以下功能。上方旧截图保留为0.0.1历史画面；新版画面参见 [O3 验收](docs/o3_acceptance.md)。
+**0.0.2** 新增以下功能。旧版画面见 [O3 验收](docs/o3_acceptance.md)。
 
 - 开始菜单选择默认的**阶段挑战**或**经典无尽**；切换模式开始新局，重试保留模式。
 - 底部显示累计总分／目标总分，选卡即时得分也推进目标。未达标持续升压，补棋从3枚升至**最多5枚，含技能修正**；达标恢复压力并三选一，保留棋盘、总分和构筑。每阶段至少一次新有效行动，满盘优先，没有硬行动死亡线。
