@@ -17,12 +17,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="技能连珠"
 config/icon="res://icon.png"
 config/version="0.0.3"
-run/main_scene="res://main.tscn"
+run/main_scene="res://gameplay/flow/game_boot.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
 
 CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
+GameFlow="*res://gameplay/flow/game_flow.gd"
 GameManager="*res://gameplay/run/game_manager.gd"
 MatchSystem="*res://gameplay/board/match_system.gd"
 LevelUpSystem="*res://gameplay/progression/level_up_system.gd"

@@ -66,7 +66,7 @@ func _ready() -> void:
 	_checkpoint.restored.connect(_on_checkpoint_restored)
 	_checkpoint.settling_exit.connect(_prepare_checkpoint_exit)
 	_checkpoint.exit_ready.connect(_finish_quit)
-	_checkpoint.operation_cancelled.connect(func() -> void: _hud.set_reward_waiting(_board.run.state.rewards.active_offer != null and not UIManager.current_popup is PopupSkillChoice))
+	_checkpoint.operation_cancelled.connect(func() -> void: _hud.set_reward_waiting(_board.run != null and _board.run.state.rewards.active_offer != null and not UIManager.current_popup is PopupSkillChoice))
 	_set_background_motion(preferences.background_motion, false)
 	_set_board_signal(preferences.board_signal, false)
 	_set_fast(preferences.fast, false)
@@ -79,6 +79,9 @@ func _ready() -> void:
 		_board.telemetry_factory = _collection.factory if not _checkpoint.saved_available else null
 	_connect_collection_controls(release_menu.collection_controls)
 	if intercept_window_close: get_tree().auto_accept_quit = false
+	await _start_session()
+
+func _start_session() -> void:
 	board_rules = BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT)
 	var initial_ok: bool = await GameNewRunFlow.startup(_board, board_rules, record_runs,
 		show_start_menu or _checkpoint.saved_available)
@@ -115,7 +118,7 @@ func _connect_run_signals() -> void:
 	GameManager.game_overed.connect(_on_game_over)
 	GameManager.score_changed.connect(_hud.show_score)
 	GameManager.piece_count_changed.connect(_hud.show_occupancy)
-	GameManager.turn_started.connect(_on_turn_started)
+	GameManager.turn_started.connect(_refresh_hud.unbind(1))
 	_board.initialized.connect(_refresh_hud)
 	_board.initialized.connect(func() -> void: _collection.bind(_board.run))
 	_board.initialized.connect(_update_board_layout)
@@ -492,9 +495,6 @@ func _on_skill_pool_view_changed(open: bool) -> void:
 
 func _on_piece_pool_visibility_changed(open: bool) -> void:
 	_set_collection_location("piece_pool" if open else "")
-
-func _on_turn_started(_turn: int) -> void:
-	_refresh_hud()
 
 func _on_playback_busy(busy: bool) -> void:
 	if busy: _hud.show_status("hud.status.resolving")

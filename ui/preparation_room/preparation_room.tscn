@@ -1,0 +1,255 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/preparation_room/preparation_room.gd" id="script"]
+[ext_resource type="Theme" path="res://ui/preview_theme.tres" id="theme"]
+[ext_resource type="Texture2D" path="res://assets/textures/backgrounds/garden_background.png" id="garden"]
+[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_ability_sweep.png" id="sweep"]
+[ext_resource type="Texture2D" path="res://assets/textures/faces/eyes_attentive.png" id="eyes"]
+[ext_resource type="Texture2D" path="res://assets/textures/faces/mouth_smirk.png" id="mouth"]
+[ext_resource type="PackedScene" path="res://gameplay/game_checkpoint_flow.tscn" id="slot"]
+[ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="pool"]
+[ext_resource type="PackedScene" path="res://ui/playback_settings/playback_settings.tscn" id="settings"]
+[ext_resource type="PackedScene" path="res://ui/tutorial/tutorial.tscn" id="practice"]
+[ext_resource type="PackedScene" path="res://services/telemetry/run_collection.tscn" id="collection"]
+[ext_resource type="PackedScene" path="res://ui/collection_controls/collection_controls.tscn" id="records"]
+
+[node name="PreparationRoom" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("theme")
+script = ExtResource("script")
+
+[node name="Garden" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("garden")
+expand_mode = 1
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="Shade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.035, 0.07, 0.09, 0.72)
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(720, 0)
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_bottom = 22
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin"]
+theme_override_constants/separation = 10
+
+[node name="Home" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+visible = false
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content/Home"]
+unique_name_in_owner = true
+text = "room.title"
+theme_override_font_sizes/font_size = 36
+
+[node name="Continue" type="Button" parent="Center/Panel/Margin/Content/Home"]
+unique_name_in_owner = true
+text = "继续本局"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Launch" type="HBoxContainer" parent="Center/Panel/Margin/Content/Home"]
+
+
+[node name="Mode" type="OptionButton" parent="Center/Panel/Margin/Content/Home/Launch"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 44)
+
+[node name="New" type="Button" parent="Center/Panel/Margin/Content/Home/Launch"]
+unique_name_in_owner = true
+text = "开始新一局"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Tools" type="HBoxContainer" parent="Center/Panel/Margin/Content/Home"]
+
+
+[node name="Practice" type="Button" parent="Center/Panel/Margin/Content/Home/Tools"]
+unique_name_in_owner = true
+text = "重看操作练习"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Pool" type="Button" parent="Center/Panel/Margin/Content/Home/Tools"]
+unique_name_in_owner = true
+text = "查看技能池"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Settings" type="Button" parent="Center/Panel/Margin/Content/Home/Tools"]
+unique_name_in_owner = true
+text = "设置与操作"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Language" type="OptionButton" parent="Center/Panel/Margin/Content/Home"]
+unique_name_in_owner = true
+item_count = 3
+popup/item_0/text = "语言：跟随系统"
+popup/item_1/text = "English"
+popup/item_2/text = "简体中文"
+
+[node name="Records" instance=ExtResource("records") parent="Center/Panel/Margin/Content/Home"]
+unique_name_in_owner = true
+
+
+[node name="Characters" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+visible = false
+theme_override_constants/separation = 12
+
+[node name="SelectTitle" type="Label" parent="Center/Panel/Margin/Content/Characters"]
+unique_name_in_owner = true
+text = "room.choose"
+theme_override_font_sizes/font_size = 32
+
+[node name="Choices" type="HBoxContainer" parent="Center/Panel/Margin/Content/Characters"]
+
+
+[node name="Standard" type="Button" parent="Center/Panel/Margin/Content/Characters/Choices"]
+unique_name_in_owner = true
+text = "opening.standard"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="Scout" type="Button" parent="Center/Panel/Margin/Content/Characters/Choices"]
+unique_name_in_owner = true
+text = "room.scout"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+toggle_mode = true
+
+[node name="Card" type="HBoxContainer" parent="Center/Panel/Margin/Content/Characters"]
+theme_override_constants/separation = 24
+
+[node name="Portrait" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(138, 150)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EyePair" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card/Portrait"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -35.0
+offset_right = 36.0
+offset_bottom = 37.0
+texture = ExtResource("eyes")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="Mouth" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card/Portrait"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = 0.0
+offset_right = 18.0
+offset_bottom = 36.0
+texture = ExtResource("mouth")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="Insignia" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card/Portrait"]
+unique_name_in_owner = true
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -54.0
+texture = ExtResource("sweep")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Details" type="VBoxContainer" parent="Center/Panel/Margin/Content/Characters/Card"]
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Role" type="Label" parent="Center/Panel/Margin/Content/Characters/Card/Details"]
+unique_name_in_owner = true
+text = ""
+theme_override_font_sizes/font_size = 28
+
+[node name="Skill" type="Label" parent="Center/Panel/Margin/Content/Characters/Card/Details"]
+unique_name_in_owner = true
+text = ""
+theme_override_font_sizes/font_size = 18
+
+[node name="Description" type="Label" parent="Center/Panel/Margin/Content/Characters/Card/Details"]
+unique_name_in_owner = true
+autowrap_mode = 2
+
+[node name="Requirement" type="Label" parent="Center/Panel/Margin/Content/Characters"]
+unique_name_in_owner = true
+theme_override_colors/font_color = Color(1, 0.79, 0.44, 1)
+
+[node name="Actions" type="HBoxContainer" parent="Center/Panel/Margin/Content/Characters"]
+
+
+[node name="Back" type="Button" parent="Center/Panel/Margin/Content/Characters/Actions"]
+unique_name_in_owner = true
+text = "opening.back"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Depart" type="Button" parent="Center/Panel/Margin/Content/Characters/Actions"]
+unique_name_in_owner = true
+text = "opening.start"
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+
+[node name="Status" type="Label" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+autowrap_mode = 2
+
+[node name="Slot" instance=ExtResource("slot") parent="."]
+
+
+[node name="SkillPool" instance=ExtResource("pool") parent="."]
+
+
+[node name="PlaybackSettings" instance=ExtResource("settings") parent="."]
+
+
+[node name="RunCollection" instance=ExtResource("collection") parent="."]
+
+
+[node name="Tutorial" instance=ExtResource("practice") parent="."]
+visible = false
+
+[node name="Confirm" type="ConfirmationDialog" parent="."]
+title = "checkpoint.confirm_new"
+ok_button_text = "checkpoint.confirm_new"
+cancel_button_text = "checkpoint.cancel"

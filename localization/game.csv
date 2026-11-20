@@ -1083,6 +1083,21 @@ skill.keyword.23,余震,aftershock
 skill.keyword_hint.23,首次符合条件的核心爆炸结束后，在原位置追加的爆炸。,An extra blast at the original cell after the first eligible core explosion resolves.
 skill.keyword.24,五连|消除,exactly 5|five-piece match|5-piece match|clear
 skill.keyword_hint.24,消除指将符合条件的棋子移出棋盘。技能会注明适用的结算条件。,A clear removes the affected pieces from the board. Each skill states what qualifies.
+flow.retry,未能读取或保存开局进度，请重试。,Could not access game progress. Please retry.
+room.stage,第 %d 阶段,Stage %d
+room.title,坚果连珠 · 准备室,Nut Match · Ready Room
+room.choose,阶段挑战 · 选择角色,Stage Challenge · Choose a character
+room.resume,继续本局 · %s,Continue · %s
+room.scout,巡线员,Line Scout
+room.scout_locked,巡线员 · 未解锁,Line Scout · Locked
+room.skill,初始技能 · 行清除手登场,Starting skill · Row Sweeper
+room.standard_skill,标准起盘,Standard board
+room.standard_desc,从首次三选一决定这局的构筑方向。,Choose your build at the first skill draft.
+room.depart,用「%s」开始,Start with %s
+room.replace,要用新局替换已有的「%s」存档吗？,Replace your saved %s run with a new game?
+room.start_failed,新局未能保存。请返回准备室重试。,Could not save the new run. Return to the Ready Room to retry.
+room.scene_failed,未能进入对局。请再次出发。,Could not enter the game. Try again.
+room.return_failed,准备室加载失败。关闭提示后重试。,Could not load the Ready Room. Dismiss to retry.
 opening.title,新开阶段挑战,New Stage Challenge
 opening.start,开始挑战,Start Challenge
 opening.back,返回,Back
@@ -1090,8 +1105,8 @@ opening.standard,标准开局,Standard Opening
 opening.row,行扫开局,Row Sweep Opening
 opening.requirements,通过第1阶段并正常结束同一局即可解锁。,Clear stage 1 and finish that run normally to unlock.
 opening.description,开局获得一枚行清除手，之后可随机补给。被消除时扫清所在行。,Start with one Row Sweeper and unlock random refills. It clears its row when matched.
-opening.unlocked,已解锁行扫开局,Row Sweep Opening unlocked
-opening.where,返回开始页并选择「开始新一局」即可选用。,Return to the start screen and choose New Game to use it.
+opening.unlocked,巡线员加入了,Line Scout unlocked
+opening.where,回准备室开始新的阶段挑战即可选择巡线员。,Choose Line Scout when starting a new Stage Challenge in the Ready Room.
 opening.available,可选开局 · 标准、行扫,Available openings · Standard and Row Sweep
 opening.locked,行扫开局 · 锁定,Row Sweep Opening · Locked
 opening.save_failed,行扫开局尚未保存。可以重试保存。,Row Sweep Opening has not been saved. You can retry.

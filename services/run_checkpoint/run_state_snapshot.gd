@@ -74,7 +74,7 @@ static func save(store: CheckpointStore, run: RunController, trace: Dictionary =
 	return await save_frozen(store, frozen, trace)
 
 ## Frozen values only: workers never read the active rule graph. Job owns Web sync when false.
-static func save_frozen(store: CheckpointStore, frozen: Dictionary, trace: Dictionary = {}, sync_storage: bool = true) -> Dictionary:
+static func save_frozen(store: CheckpointStore, frozen: Dictionary, trace: Dictionary = {}, sync_storage: bool = true, replace_id: String = "") -> Dictionary:
 	if not frozen.ok: return frozen
 	var encoded: Dictionary = serialize(frozen.payload)
 	if not encoded.ok: return encoded
@@ -83,10 +83,16 @@ static func save_frozen(store: CheckpointStore, frozen: Dictionary, trace: Dicti
 	var checked: Dictionary = decode(roundtrip.data, frozen.payload.manifest)
 	if not checked.ok: return checked
 	var old: Dictionary = store.inspect_latest()
+	var package: Dictionary = {"schema": PACKAGE_SCHEMA, "run_id": frozen.payload.run_id, "snapshot_json": encoded.bytes.get_string_from_utf8(), "trace": trace.duplicate(true) if RunCheckpointCodec.pure(trace) and JSON.stringify(trace).length() <= 2048 else {}}
+	if not replace_id.is_empty():
+		var replaced: Dictionary = store.replace_run(replace_id, frozen.payload.run_id, package, frozen.payload.manifest)
+		if not replaced.ok: return replaced
+		return await store.sync() if sync_storage else replaced
 	if old.ok and old.manifest.get("save_schema_version") != SCHEMA: return _failure("snapshot_slot_requires_migration")
+	if old.ok and old.run_id != frozen.payload.run_id: return _failure("previous_run_requires_invalidation")
 	var started: Dictionary = store.begin_run(frozen.payload.run_id)
 	if not started.ok: return started
-	var ticket: int = store.stage({"schema": PACKAGE_SCHEMA, "run_id": frozen.payload.run_id, "snapshot_json": encoded.bytes.get_string_from_utf8(), "trace": trace.duplicate(true) if RunCheckpointCodec.pure(trace) and JSON.stringify(trace).length() <= 2048 else {}}, frozen.payload.manifest)
+	var ticket: int = store.stage(package, frozen.payload.manifest)
 	if ticket == 0: return _failure("snapshot_stage_rejected")
 	var committed: Dictionary = store.commit(ticket)
 	if not committed.ok: return committed
@@ -94,6 +100,25 @@ static func save_frozen(store: CheckpointStore, frozen: Dictionary, trace: Dicti
 		var synced: Dictionary = await store.sync()
 		if not synced.ok: return synced
 	return {"ok": true, "reason": "", "snapshot_bytes": encoded.bytes.size(), "generation": str(ticket)}
+
+## Reads the verified summary and seed without restoring rules or consuming randomness.
+static func read_summary(store: CheckpointStore, compatibility: Dictionary) -> Dictionary:
+	var loaded: Dictionary = store.load_latest(compatibility)
+	if not loaded.ok: return {}
+	var package: Dictionary = loaded.record.payload
+	if package.get("schema") != PACKAGE_SCHEMA or package.get("run_id") != loaded.record.run_id or not package.get("snapshot_json") is String: return {}
+	var decoded: Dictionary = deserialize(package.snapshot_json.to_utf8_buffer())
+	if not decoded.ok: return {}
+	var data: Dictionary = decoded.data
+	if data.get("schema") != SCHEMA or data.get("run_id") != package.run_id or data.get("manifest") != loaded.record.manifest: return {}
+	if not data.get("state") is Dictionary or RunSnapshot.digest(data.state) != data.get("state_hash"): return {}
+	var seed: Variant = data.get("master_seed")
+	if not CommandCodec.valid_integer(seed) or String(seed).to_int() < 0 or not data.state.get("rng") is Dictionary or data.state.rng.get("master_seed") != seed: return {}
+	var challenge: Variant = data.state.get("challenge")
+	var stage: int = 0
+	if challenge is Dictionary and challenge.get("enabled") == true and CommandCodec.valid_integer(challenge.get("index")):
+		stage = String(challenge.index).to_int() + 1
+	return {"seed": String(seed).to_int(), "opening": data.state.get("opening_id", "standard"), "stage": stage}
 
 static func load(store: CheckpointStore, expected_manifest: Dictionary) -> Dictionary:
 	var loaded: Dictionary = store.load_latest(expected_manifest)

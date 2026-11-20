@@ -98,6 +98,35 @@ func previous_after_rejection(expected_manifest: Dictionary, rejected: Dictionar
 	_busy = false
 	return result
 
+## Commits the verified first checkpoint into both slots under the existing rollback journal.
+## Only the exact run confirmed by the player may be replaced.
+func replace_run(expected: String, run_id: String, payload: Dictionary, manifest: Dictionary) -> Dictionary:
+	if _busy: return _failure("busy")
+	var latest: Dictionary = inspect_latest()
+	if (not latest.ok and latest.reason != "invalidation_pending") or latest.get("run_id") != expected or run_id == expected or not _valid_id(run_id):
+		return _failure("replacement_identity_changed")
+	_busy = true
+	var primary: Dictionary = _read_record("primary.json")
+	var previous: Dictionary = _read_record("previous.json")
+	for record: Dictionary in [primary, previous]:
+		if record.ok: _generation = maxi(_generation, String(record.record.generation).to_int())
+	_active_run = run_id
+	var ticket: int = _stage(payload, manifest)
+	var result: Dictionary = _failure("snapshot_stage_rejected")
+	if ticket > 0:
+		var pair: Dictionary = _prepare_commit_pair()
+		result = pair
+		if result.ok: result = _stage_commit_pair(pair.primary, pair.previous)
+		var first: Dictionary = {"ok": true, "record": _pending}
+		if result.ok: result = _replace_commit_pair(first)
+		if result.ok: result = _verify_commit_pair(first)
+		result = _finish_ticket(ticket, result)
+	if not result.ok:
+		_active_run = ""
+		_pending.clear()
+	_busy = false
+	return result
+
 ## Durable invalidation outranks primary and previous; failed attempts close local tickets.
 func invalidate(run_id: String, reason: String) -> Dictionary:
 	if _busy: return _failure("busy")
@@ -187,8 +216,11 @@ func _inspect_latest() -> Dictionary:
 	var candidate: Dictionary = _read_record("primary.json")
 	if candidate.reason == "schema_unsupported": return _failure(candidate.reason)
 	var fallback: bool = not candidate.ok
+	var primary_reason: String = candidate.reason
 	if fallback: candidate = _read_record("previous.json")
-	if not candidate.ok: return _failure("no_valid_checkpoint:" + candidate.reason)
+	if not candidate.ok:
+		var reason: String = primary_reason if candidate.reason == "missing" else String(candidate.reason)
+		return _failure("no_valid_checkpoint:" + reason)
 	var record: Dictionary = candidate.record
 	var error: String = _run_error(record.run_id)
 	if not error.is_empty(): return {"ok": false, "reason": error, "run_id": record.run_id}
