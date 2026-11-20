@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://gameplay/game.tscn" id="game"]
+[ext_resource type="Script" path="res://gameplay/room_session.gd" id="script"]
+
+[node name="RoomSession" instance=ExtResource("game")]
+script = ExtResource("script")

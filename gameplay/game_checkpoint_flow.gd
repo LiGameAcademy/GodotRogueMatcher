@@ -66,20 +66,36 @@ func configure(board: Board, requested: bool, directory: String) -> void:
 	_board = board
 	enabled = requested
 	if not enabled: return
+	_board.keep_checkpoint_history = not use_snapshot
+	_board.checkpoint_reached.connect(_on_safe_point)
+	_board.run_reset.connect(_on_run_reset)
+	await inspect_slot(directory)
+
+## Loads slot metadata and permanent progress without constructing a Board.
+func inspect_slot(directory: String) -> void:
 	if OS.has_feature("web"):
 		var files: WEB_FILES = WEB_FILES.new(directory)
 		var opened: Dictionary = await files.open()
 		_store = CheckpointStore.new(directory, files)
 		if not opened.ok: last_error = opened.reason
 	else: _store = CheckpointStore.new(directory)
-	_board.keep_checkpoint_history = not use_snapshot
-	_board.checkpoint_reached.connect(_on_safe_point)
-	_board.run_reset.connect(_on_run_reset)
 	_refresh_metadata()
 	var synced: Dictionary = await _store.sync()
 	if not synced.ok: last_error = synced.reason
 	var progress_error: String = await opening_progress.load_progress(directory)
 	if not progress_error.is_empty(): push_warning(progress_error)
+
+func saved_summary() -> Dictionary:
+	var metadata: Dictionary = _store.inspect_latest()
+	if not metadata.ok: return {"run_id": metadata.run_id} if metadata.reason == "invalidation_pending" else {}
+	var summary: Dictionary = SNAPSHOT.read_summary(_store, metadata.manifest)
+	summary["run_id"] = metadata.run_id
+	return summary
+
+func commit_opening(active: RunController, expected: String) -> Dictionary:
+	if not last_error.is_empty() and (expected.is_empty() or last_error not in ["legacy_checkpoint_unsupported", "invalidation_pending"]):
+		return RunCheckpointCodec.failure(last_error)
+	return await SNAPSHOT.save_frozen(_store, SNAPSHOT.freeze(active), {}, true, expected)
 
 func is_busy() -> bool:
 	return restoring or closing or _exit_saving or _transition or _terminal_in_progress or (_job != null and not _saving)
@@ -153,18 +169,7 @@ func previous_master_seed() -> int:
 	var mode: GameModeDefinition = GameModes.find(StringName(metadata.manifest.get("mode_id", "")))
 	if mode == null: return -1
 	var policy: RunController = RunController.new(BoardRules.new(BoardState.new(_board.cols, _board.rows), MatchSystem.MIN_MATCH_COUNT), 0, mode.stage_config)
-	var loaded: Dictionary = _store.load_latest(SNAPSHOT.manifest(policy))
-	if not loaded.ok: return -1
-	var package: Dictionary = loaded.record.payload
-	if package.get("schema") != SNAPSHOT.PACKAGE_SCHEMA or package.get("run_id") != loaded.record.run_id or not package.get("snapshot_json") is String: return -1
-	var decoded: Dictionary = SNAPSHOT.deserialize(package.snapshot_json.to_utf8_buffer())
-	if not decoded.ok: return -1
-	var data: Dictionary = decoded.data
-	if data.get("schema") != SNAPSHOT.SCHEMA or data.get("run_id") != package.run_id or data.get("manifest") != loaded.record.manifest: return -1
-	if not data.get("state") is Dictionary or RunSnapshot.digest(data.state) != data.get("state_hash"): return -1
-	var seed: Variant = data.get("master_seed")
-	if not CommandCodec.valid_integer(seed) or String(seed).to_int() < 0 or not data.state.get("rng") is Dictionary or data.state.rng.get("master_seed") != seed: return -1
-	return String(seed).to_int()
+	return SNAPSHOT.read_summary(_store, SNAPSHOT.manifest(policy)).get("seed", -1)
 
 ## Prepared new-run rules must be constructed by the caller before invalidating the old identity.
 func allow_new_run() -> bool:
@@ -411,6 +416,10 @@ func _on_prompt_action(action: StringName) -> void:
 		_epoch += 1
 		closing = false
 		restoring = false
+		if _board == null or _board.run == null:
+			prompt.close()
+			operation_cancelled.emit()
+			return
 		_board.hold_at_checkpoint = false
 		_board.can_selected = _board.run.state.phase == RunState.Phase.INPUT and not _board.run.state.is_game_over and (not _board.input_permission.is_valid() or bool(_board.input_permission.call(_board.run)))
 		get_tree().paused = _previous_pause
