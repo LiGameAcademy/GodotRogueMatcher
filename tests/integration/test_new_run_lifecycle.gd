@@ -21,7 +21,7 @@ func before_each() -> void:
 func after_each() -> void:
 	get_tree().paused = false
 	UIManager.close_popup()
-	if is_instance_valid(_game): _game.free()
+	if is_instance_valid(_game): _game.queue_free()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_remove(_directory)
