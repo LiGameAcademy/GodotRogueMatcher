@@ -1083,6 +1083,7 @@ skill.keyword.23,余震,aftershock
 skill.keyword_hint.23,首次符合条件的核心爆炸结束后，在原位置追加的爆炸。,An extra blast at the original cell after the first eligible core explosion resolves.
 skill.keyword.24,五连|消除,exactly 5|five-piece match|5-piece match|clear
 skill.keyword_hint.24,消除指将符合条件的棋子移出棋盘。技能会注明适用的结算条件。,A clear removes the affected pieces from the board. Each skill states what qualifies.
+flow.retry,未能读取或保存开局进度，请重试。,Could not access game progress. Please retry.
 room.stage,第 %d 阶段,Stage %d
 room.title,坚果连珠 · 准备室,Nut Match · Ready Room
 room.choose,阶段挑战 · 选择角色,Stage Challenge · Choose a character

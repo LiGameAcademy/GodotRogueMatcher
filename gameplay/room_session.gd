@@ -8,11 +8,10 @@ var _returning: bool = false
 var _select_on_return: bool = false
 
 func _ready() -> void:
+	_checkpoint.track_visits = true
 	_hud.hide()
 	if not _request.is_empty():
 		await CoreSystem.scene_manager.scene_loading_finished
-		await get_tree().process_frame
-		await get_tree().process_frame
 	await super._ready()
 
 func init_state(data: Dictionary) -> void:
@@ -75,6 +74,15 @@ func _opening_failed() -> void:
 	await _checkpoint.prompt.action_requested
 	_return_to_room()
 
+func _on_game_over() -> void:
+	if not GameFlow.show_result(): return
+	await super._on_game_over()
+
+func _continue_challenge() -> void:
+	if not _board.run.can_continue_challenge(): return
+	GameFlow.continue_challenge()
+	await super._continue_challenge()
+
 func _end_to_menu() -> void:
 	var seen: bool = _checkpoint.opening_progress.unlocked
 	await _checkpoint.terminal(_board.run, true)
@@ -109,7 +117,9 @@ func _return_to_room() -> void:
 	if _returning: return
 	_returning = true
 	var mode_id: StringName = _board.game_mode.mode_id if _board.run != null else StringName(_request.get("mode", "stage_challenge"))
-	CoreSystem.scene_manager.change_scene_async(PREPARATION_ROOM, {"select": _select_on_return, "mode": mode_id, "opening": _request.get("opening", "standard"), "directory": checkpoint_directory})
+	if not GameFlow.travel(GameFlow.Page.ROOM, {"select": _select_on_return, "mode": mode_id, "opening": _request.get("opening", "standard"), "directory": checkpoint_directory}):
+		_returning = false
+		return
 	if _returning:
 		UIManager.close_popup()
 		get_tree().paused = false

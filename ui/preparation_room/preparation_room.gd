@@ -32,10 +32,7 @@ func _ready() -> void:
 	_home.hide()
 	_characters.hide()
 	if not _entry.is_empty():
-		# CoreSystem releases the switch guard one frame after its finished signal.
 		await CoreSystem.scene_manager.scene_loading_finished
-		await get_tree().process_frame
-		await get_tree().process_frame
 	_preferences.load_values(CoreSystem.config_manager)
 	%Continue.pressed.connect(_launch.bind(true))
 	%New.pressed.connect(_new_game)
@@ -147,7 +144,7 @@ func _launch(resume: bool) -> void:
 	_departing = true
 	var data: Dictionary = {"action": "continue" if resume else "new", "directory": checkpoint_directory}
 	if not resume: data.merge({"mode": mode, "opening": opening, "replace": _saved.get("run_id", "")})
-	CoreSystem.scene_manager.change_scene_async(SESSION, data)
+	if not GameFlow.travel(GameFlow.Page.PLAY, data): _failed(SESSION, "busy")
 
 func _failed(path: String, _reason: String) -> void:
 	if path != SESSION: return

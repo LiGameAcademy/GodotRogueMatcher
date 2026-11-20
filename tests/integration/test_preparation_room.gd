@@ -18,6 +18,7 @@ class BrokenReplacement extends CheckpointFiles:
 		return super.replace(source, destination)
 
 func before_each() -> void:
+	GameFlow.machine = CoreStateMachine.new(GameFlow.Page.BOOT, [0, 1, 2, 3], GameFlow._allowed)
 	_host = get_tree().current_scene
 	_directory = "user://room-regression/%d-%d" % [OS.get_process_id(), Time.get_ticks_usec()]
 
@@ -34,10 +35,12 @@ func after_each() -> void:
 		DirAccess.remove_absolute(_directory)
 
 func _room() -> Control:
-	var room: Control = ROOM.instantiate()
-	room.set("checkpoint_directory", _directory)
-	get_tree().root.add_child(room)
-	get_tree().current_scene = room
+	var placeholder: Node = Node.new()
+	get_tree().root.add_child(placeholder)
+	get_tree().current_scene = placeholder
+	GameFlow.travel(GameFlow.Page.ROOM, {"directory": _directory})
+	await _until(func() -> bool: return _at(ROOM_PATH))
+	var room: Control = get_tree().current_scene
 	await _until(func() -> bool: return room.get("_loaded"))
 	return room
 
@@ -76,9 +79,43 @@ func test_replacement_rollback_keeps_old_identity_and_retry_replaces_both_slots(
 	var backup: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(_directory.path_join("previous.json")))
 	assert_eq(backup.run_id, next.state.run_id)
 
+func _boot() -> void:
+	var boot: Node = preload("res://gameplay/flow/game_boot.tscn").instantiate()
+	boot.checkpoint_directory = _directory
+	get_tree().root.add_child(boot)
+	get_tree().current_scene = boot
+
+func test_unreadable_primary_is_not_a_fresh_profile() -> void:
+	var files: CheckpointFiles = CheckpointFiles.new()
+	assert_eq(files.write_text(_directory.path_join("primary.json"), "broken"), OK)
+	_boot()
+	await get_tree().process_frame
+	assert_true(get_tree().current_scene.get_node("Slot").prompt.is_open())
+	assert_eq(GameFlow.machine.current, GameFlow.Page.BOOT)
+	assert_false(FileAccess.file_exists(_directory.path_join("opening_progress.json")))
+
+func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
+	_boot()
+	if not await _until(_playing):
+		fail_test("Fresh profile did not start playing")
+		return
+	var game: Node = get_tree().current_scene
+	var identity: String = game.get_node("Board").run.state.run_id
+	assert_eq(GameFlow.machine.current, GameFlow.Page.PLAY)
+	assert_eq(game.get_node("Board").run.opening_id, &"standard")
+	assert_false(game.release_menu.visible)
+	await _until(func() -> bool: return not game.get_node("GameCheckpointFlow")._saving)
+	game.free()
+	GameFlow.machine = CoreStateMachine.new(GameFlow.Page.BOOT, [0, 1, 2, 3], GameFlow._allowed)
+	_boot()
+	if not await _until(_playing):
+		fail_test("Interrupted first run did not resume")
+		return
+	assert_eq(get_tree().current_scene.get_node("Board").run.state.run_id, identity)
+
 func test_locked_role_and_real_new_game_result_return() -> void:
 	var room: Control = await _room()
-	assert_eq(ProjectSettings.get_setting("application/run/main_scene"), ROOM_PATH)
+	assert_eq(ProjectSettings.get_setting("application/run/main_scene"), "res://gameplay/flow/game_boot.tscn")
 	assert_null(room.find_child("Board", true, false))
 	assert_false(room.get_node("%Continue").visible)
 	room.get_node("%Settings").pressed.emit()

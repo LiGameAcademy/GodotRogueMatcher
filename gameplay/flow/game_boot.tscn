@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://gameplay/flow/game_boot.gd" id="script"]
+[ext_resource type="PackedScene" path="res://gameplay/game_checkpoint_flow.tscn" id="slot"]
+
+[node name="GameBoot" type="Node"]
+script = ExtResource("script")
+
+[node name="Slot" parent="." instance=ExtResource("slot")]

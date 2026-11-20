@@ -216,8 +216,11 @@ func _inspect_latest() -> Dictionary:
 	var candidate: Dictionary = _read_record("primary.json")
 	if candidate.reason == "schema_unsupported": return _failure(candidate.reason)
 	var fallback: bool = not candidate.ok
+	var primary_reason: String = candidate.reason
 	if fallback: candidate = _read_record("previous.json")
-	if not candidate.ok: return _failure("no_valid_checkpoint:" + candidate.reason)
+	if not candidate.ok:
+		var reason: String = primary_reason if candidate.reason == "missing" else String(candidate.reason)
+		return _failure("no_valid_checkpoint:" + reason)
 	var record: Dictionary = candidate.record
 	var error: String = _run_error(record.run_id)
 	if not error.is_empty(): return {"ok": false, "reason": error, "run_id": record.run_id}

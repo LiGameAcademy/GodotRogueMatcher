@@ -23,6 +23,8 @@ var _settled_run: RunController
 var use_snapshot: bool = false
 var enabled: bool = false
 var saved_available: bool = false
+var known_closed_slot: bool = false
+var track_visits: bool = false
 var saved_mode: StringName = &"stage_challenge"
 var last_error: String = ""
 var restoring: bool = false
@@ -83,7 +85,7 @@ func inspect_slot(directory: String) -> void:
 	var synced: Dictionary = await _store.sync()
 	if not synced.ok: last_error = synced.reason
 	var progress_error: String = await opening_progress.load_progress(directory)
-	if not progress_error.is_empty(): push_warning(progress_error)
+	if not progress_error.is_empty(): last_error = progress_error
 
 func saved_summary() -> Dictionary:
 	var metadata: Dictionary = _store.inspect_latest()
@@ -353,11 +355,12 @@ func _save_exit() -> void:
 
 func _settle_terminal(active: RunController) -> Dictionary:
 	if active != _board.run: return RunCheckpointCodec.failure("run_changed")
-	if OPENING_PROGRESS.eligible(active) and not opening_progress.unlocked:
-		var error: String = await opening_progress.grant()
+	var new_unlock: bool = OPENING_PROGRESS.eligible(active) and not opening_progress.unlocked
+	if track_visits or new_unlock:
+		var error: String = await opening_progress.finish_visit(active.state.run_id, new_unlock) if track_visits else await opening_progress.grant()
 		if not error.is_empty(): return RunCheckpointCodec.failure(error if error.begins_with("opening_progress_") else "opening_progress_" + error)
 		if active != _board.run: return RunCheckpointCodec.failure("run_changed")
-		opening_unlocked_run = active.state.run_id
+		if new_unlock: opening_unlocked_run = active.state.run_id
 	return await _invalidate_run(active.state.run_id, "terminal")
 
 func _invalidate_run(run_id: String, reason: String) -> Dictionary:
@@ -442,6 +445,7 @@ func _failure_status() -> StringName:
 
 func _refresh_metadata() -> void:
 	var metadata: Dictionary = _store.inspect_latest()
+	known_closed_slot = metadata.get("reason") == "run_invalidated"
 	saved_available = metadata.ok
 	if metadata.ok:
 		saved_mode = StringName(metadata.manifest.get("mode_id", "stage_challenge"))
