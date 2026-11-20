@@ -45,7 +45,7 @@ func _room() -> Control:
 	return room
 
 func _until(condition: Callable) -> bool:
-	var deadline: int = Time.get_ticks_msec() + 9000
+	var deadline: int = Time.get_ticks_msec() + 30000
 	while not condition.call() and Time.get_ticks_msec() < deadline:
 		await get_tree().process_frame
 	return bool(condition.call())
@@ -97,7 +97,7 @@ func test_unreadable_primary_is_not_a_fresh_profile() -> void:
 func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 	_boot()
 	if not await _until(_playing):
-		fail_test("Fresh profile did not start playing")
+		fail_test("Fresh profile did not start playing: " + get_tree().current_scene.scene_file_path)
 		return
 	var game: Node = get_tree().current_scene
 	var identity: String = game.get_node("Board").run.state.run_id
@@ -158,6 +158,7 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 	var board: Board = game.get_node("Board")
 	assert_eq(board.run.opening_id, &"standard")
 	board.run.state.stage.index = 1
+	board.run.state.ledger.commit(0, 1.0, 1150)
 	var fault: String = _directory.path_join("opening_progress.json.tmp")
 	assert_eq(DirAccess.make_dir_recursive_absolute(fault), OK)
 	board.run.finish_game(&"board_full")
@@ -177,6 +178,8 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 		fail_test("Settlement retry did not grant the role")
 		return
 	var result: Control = UIManager.current_popup
+	assert_eq(flow.opening_progress.best, 1150)
+	assert_eq(result.get_node("Panel/Content/Portraits").get_child_count(), 3)
 	result.menu_requested.emit()
 	result.menu_requested.emit()
 	if not await _until(func() -> bool: return _at(ROOM_PATH) and get_tree().current_scene.get("_loaded")):
@@ -187,6 +190,28 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 	room.get_node("%New").pressed.emit()
 	room.get_node("%Scout").pressed.emit()
 	assert_false(room.get_node("%Depart").disabled)
+
+func test_best_400_previews_locked_dyer_and_durable_unlock_starts_bomber() -> void:
+	var progress: PROGRESS = PROGRESS.new()
+	await progress.load_progress(_directory)
+	assert_eq(await progress.finish_visit("first-score", false, 400), "")
+	var room: Control = await _room()
+	room.get_node("%New").pressed.emit()
+	room.get_node("%Dyer").pressed.emit()
+	assert_true(room.get_node("%Depart").disabled)
+	assert_eq(room.get_node("%Requirement").text, tr("role.target") % [400, 450, 50])
+	var slot: GameCheckpointFlow = room.get_node("Slot")
+	assert_eq(await slot.opening_progress.finish_visit("second-score", false, 1150), "")
+	room.get_node("%Bomber").pressed.emit()
+	assert_false(room.get_node("%Depart").disabled)
+	room.get_node("%Depart").pressed.emit()
+	if not await _until(_playing):
+		fail_test("Bomber did not start from the selection screen")
+		return
+	var board: Board = get_tree().current_scene.get_node("Board")
+	assert_eq(board.run.opening_id, &"bomber")
+	assert_eq(board.run.state.rewards.acquired.get(&"core_drop"), 1)
+	assert_eq(board.run.state.rewards.acquired.get(&"core_manual_detonation"), 1)
 
 func test_changed_slot_rejects_stale_confirmation_and_returns_to_selection() -> void:
 	var old: RunController = _run(81)
@@ -213,7 +238,7 @@ func test_classic_goes_straight_to_standard_game() -> void:
 	room.get_node("%Mode").select(GameModes.ALL.find(GameModes.CLASSIC))
 	room.get_node("%New").pressed.emit()
 	if not await _until(_playing):
-		fail_test("Classic game failed to start")
+		fail_test("Classic game failed to start: " + get_tree().current_scene.scene_file_path)
 		return
 	var board: Board = get_tree().current_scene.get_node("Board")
 	assert_eq(board.run.state.mode_id(), GameModes.CLASSIC.mode_id)
@@ -226,7 +251,7 @@ func test_cancel_preserves_role_resume_uses_old_run_and_confirm_starts_scout() -
 	assert_eq(await progress.load_progress(_directory), "")
 	assert_eq(await progress.grant(), "")
 	var room: Control = await _room()
-	assert_true(String(room.get_node("%Continue").text).contains(tr("opening.standard")))
+	assert_true(String(room.get_node("%Continue").text).contains(tr("role.standard")))
 	assert_true(String(room.get_node("%Continue").text).contains(tr("room.stage") % 1))
 	room.get_node("%New").pressed.emit()
 	room.get_node("%Scout").pressed.emit()

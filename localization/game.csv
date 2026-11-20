@@ -1110,3 +1110,19 @@ opening.where,回准备室开始新的阶段挑战即可选择巡线员。,Choos
 opening.available,可选开局 · 标准、行扫,Available openings · Standard and Row Sweep
 opening.locked,行扫开局 · 锁定,Row Sweep Opening · Locked
 opening.save_failed,行扫开局尚未保存。可以重试保存。,Row Sweep Opening has not been saved. You can retry.
+role.standard,新手园丁,Rookie Gardener
+role.row_sweep,巡线员,Line Scout
+role.dyer,调色师,Colorist
+role.bomber,爆破员,Demolitionist
+role.lock,尚未解锁,Locked
+role.best,个人最佳 %d 分,Personal best %d
+role.target,个人最佳 %d／%d · 还差 %d 分,Personal best %d / %d · %d to go
+role.first_stage,或通过首关并正常结算,Or finish a run after clearing stage one
+role.demo.standard,观察同色棋 → 连成五枚 → 选择首张技能牌,Line up five matching pieces and choose your first skill
+role.demo.row_sweep,行清除手参与消除 → 扫掉同一行的棋子,Match the line scout to sweep its row
+role.demo.dyer,五连 → 邻棋染色 → 寻找下一条连线,Match five to recolor a neighbor and look for the next line
+role.demo.bomber,爆壳手就位 → 花一次行动主动引爆,Spend an action to detonate the starting explosive
+role.joined,%s 加入了,%s joined
+role.next,下一位 · %s,Next · %s
+role.where,新角色可在准备室选用。,Choose your new characters in the Ready Room.
+role.enter_room,进入准备室,Enter Ready Room

@@ -38,7 +38,7 @@ func _start_session() -> void:
 		return
 	var mode: GameModeDefinition = GameModes.find(StringName(_request.get("mode", "")))
 	var opening: StringName = StringName(_request.get("opening", ""))
-	if _request.get("action") != "new" or mode == null or opening not in [&"standard", &"row_sweep"] or (opening == &"row_sweep" and (not _checkpoint.opening_progress.unlocked or mode.mode_id != &"stage_challenge")):
+	if _request.get("action") != "new" or mode == null or not _checkpoint.opening_progress.available(opening) or (opening != &"standard" and mode.mode_id != &"stage_challenge"):
 		await _opening_failed()
 		return
 	_board.game_mode = mode
@@ -87,7 +87,7 @@ func _continue_challenge() -> void:
 func _end_to_menu() -> void:
 	if _confirming_result or _returning or GameFlow.machine.current != GameFlow.Page.RESULT: return
 	_confirming_result = true
-	var seen: bool = _checkpoint.opening_progress.unlocked
+	var seen: bool = _checkpoint.opening_unlocked_run == _board.run.state.run_id
 	await _checkpoint.terminal(_board.run, true)
 	_confirming_result = false
 	if not GameNewRunFlow.result_can_close(_checkpoint, _board.run, seen, UIManager.current_popup): return

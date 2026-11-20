@@ -370,10 +370,12 @@ func _settle_terminal(active: RunController) -> Dictionary:
 	if active != _board.run: return RunCheckpointCodec.failure("run_changed")
 	var new_unlock: bool = OPENING_PROGRESS.eligible(active) and not opening_progress.unlocked
 	if track_visits or new_unlock:
-		var error: String = await opening_progress.finish_visit(active.state.run_id, new_unlock) if track_visits else await opening_progress.grant()
+		var valid_score: bool = active.initialization == "normal" and active.prototype_profile.is_empty() and active.state.stage.enabled() and active.state.rule_error.is_empty() and active.state.end_reason in [&"board_full", &"challenge_completed"]
+		var points: int = active.state.ledger.total if valid_score else 0
+		var error: String = await opening_progress.finish_visit(active.state.run_id, new_unlock and valid_score, points) if track_visits else await opening_progress.grant()
 		if not error.is_empty(): return RunCheckpointCodec.failure(error if error.begins_with("opening_progress_") else "opening_progress_" + error)
 		if active != _board.run: return RunCheckpointCodec.failure("run_changed")
-		if new_unlock: opening_unlocked_run = active.state.run_id
+		if (track_visits and not opening_progress.joined.is_empty()) or (not track_visits and new_unlock): opening_unlocked_run = active.state.run_id
 	return await _invalidate_run(active.state.run_id, "terminal")
 
 func _invalidate_run(run_id: String, reason: String) -> Dictionary:

@@ -221,7 +221,7 @@ func _tutorial_completed() -> void:
 	_save_preferences()
 
 func _end_to_menu() -> void:
-	var already_unlocked: bool = _checkpoint.opening_progress.unlocked
+	var already_unlocked: bool = _checkpoint.opening_unlocked_run == _board.run.state.run_id
 	await _checkpoint.terminal(_board.run, true)
 	if not GameNewRunFlow.result_can_close(_checkpoint, _board.run, already_unlocked, UIManager.current_popup): return
 	BoardRunFlow.finalize(_board.run, "result_to_menu")

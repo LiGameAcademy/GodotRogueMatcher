@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://gameplay/openings/opening_role.gd" id="role"]
+[ext_resource type="Texture2D" path="res://assets/textures/pieces/peanut_body.png" id="portrait"]
+[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_ability_explosion.png" id="badge"]
+[ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="def"]
+[ext_resource type="Resource" path="res://gameplay/progression/content/core_drop.tres" id="core_drop"]
+[ext_resource type="Resource" path="res://gameplay/progression/content/core_manual_detonation.tres" id="core_manual_detonation"]
+
+[resource]
+script = ExtResource("role")
+id = &"bomber"
+threshold = 1150
+portrait = ExtResource("portrait")
+badge = ExtResource("badge")
+skills = Array[ExtResource("def")]([ExtResource("core_drop"), ExtResource("core_manual_detonation")])

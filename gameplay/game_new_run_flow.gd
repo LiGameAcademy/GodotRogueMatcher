@@ -3,8 +3,10 @@ extends RefCounted
 
 static func refresh_entry(checkpoint: GameCheckpointFlow, menu: Control, popup: Control, run: RunController) -> void:
 	menu.set_checkpoint_status(checkpoint.enabled, checkpoint.last_error, checkpoint.opening_progress.unlocked)
+	if run != null and popup is PopupGameOver and checkpoint.track_visits and checkpoint.opening_progress.settled_run == run.state.run_id and run.state.stage.enabled():
+		popup.show_progress(checkpoint.opening_progress)
 	if run != null and popup is PopupGameOver and checkpoint.opening_unlocked_run == run.state.run_id:
-		popup.show_opening_unlock()
+		popup.show_opening_unlock(checkpoint.opening_progress.joined)
 
 ## Coordinates provisional menu presentation and prepared new-run/invalidation ordering.
 static func startup(board: Board, rules: BoardRules, record_run: bool, provisional: bool) -> bool:
@@ -53,12 +55,14 @@ static func result_data(checkpoint: GameCheckpointFlow, run: RunController, scor
 		"summary": HudDetails.summary(run.state),
 		"run_state": run.state,
 		"can_continue": run.can_continue_challenge(),
+		"progress": checkpoint.opening_progress if checkpoint.track_visits and checkpoint.opening_progress.settled_run == run.state.run_id and run.state.stage.enabled() else null,
+		"joined": checkpoint.opening_progress.joined,
 		"opening_unlocked": checkpoint.opening_unlocked_run == run.state.run_id,
 	}
 
 static func result_can_close(checkpoint: GameCheckpointFlow, run: RunController, already_unlocked: bool, popup: Control) -> bool:
 	if not checkpoint.last_error.is_empty(): return false
 	if not already_unlocked and checkpoint.opening_unlocked_run == run.state.run_id and popup is PopupGameOver:
-		popup.show_opening_unlock()
+		popup.show_opening_unlock(checkpoint.opening_progress.joined)
 		return false
 	return true

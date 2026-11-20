@@ -1,6 +1,10 @@
 class_name PopupGameOver
 extends Control
 
+const PORTRAIT: PackedScene = preload("res://ui/preparation_room/role_portrait.tscn")
+const PROGRESS: Script = preload("res://services/run_checkpoint/opening_progress.gd")
+const ROLE: Script = preload("res://gameplay/openings/opening_role.gd")
+
 signal continue_requested
 signal retry_requested
 signal menu_requested
@@ -37,12 +41,35 @@ func initialize(data: Dictionary = {}) -> void:
 		completion_label.text = tr("已完成全部 %d 个阶段。") % _run_state.stage.config.targets.size()
 	if continue_button.visible: continue_button.grab_focus()
 	else: retry_button.grab_focus()
-	if data.get("opening_unlocked", false): show_opening_unlock()
+	if data.get("progress") != null: show_progress(data.progress)
+	if data.get("opening_unlocked", false): show_opening_unlock(data.joined)
 	elif continue_button.visible: retry_button.hide()
 
-func show_opening_unlock() -> void:
+func show_progress(progress: PROGRESS) -> void:
+	var best_label: Label = $Panel/Content/PersonalBest
+	best_label.text = tr("role.best") % progress.best
+	var role: ROLE = progress.next_locked()
+	if role != null:
+		best_label.text = tr("role.next") % tr("role." + str(role.id)) + "\n" + tr("role.target") % [progress.best, role.threshold, role.threshold - progress.best]
+	best_label.show()
+
+func show_opening_unlock(joined: Array[StringName]) -> void:
 	var banner: Label = $Panel/Content/OpeningUnlock
-	banner.text = tr("opening.unlocked") + "\n" + tr("opening.where")
+	if banner.visible: return
+	var ids: Array[StringName] = joined.duplicate()
+	if ids.is_empty(): ids.append(&"row_sweep")
+	for id: StringName in ids:
+		var role: ROLE = RunController.ROLES.find(id)
+		var card: VBoxContainer = VBoxContainer.new()
+		var face: TextureRect = PORTRAIT.instantiate()
+		var name_label: Label = Label.new()
+		name_label.text = tr("role.joined") % tr("role." + str(id))
+		card.add_child(face)
+		card.add_child(name_label)
+		$Panel/Content/Portraits.add_child(card)
+		face.display(role)
+	banner.text = tr("role.where")
+	($Panel/Content/MenuButton as Button).text = tr("role.enter_room")
 	banner.show()
 	continue_button.hide()
 	retry_button.hide()

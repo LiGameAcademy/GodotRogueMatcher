@@ -31,8 +31,8 @@ static func restore(state: Dictionary, seed: int, run_id: String, board: Diction
 	var run: RunController = RunController.new(rules, seed, stage_config)
 	run.state.run_id = run_id
 	if state.has("opening_id"):
-		if state.opening_id != "row_sweep" or not run.state.stage.enabled(): return _failure("snapshot_opening_invalid")
-		run.opening_id = &"row_sweep"
+		if not state.opening_id is String or RunController.ROLES.find(state.opening_id) == null or state.opening_id == "standard" or not run.state.stage.enabled(): return _failure("snapshot_opening_invalid")
+		run.opening_id = StringName(state.opening_id)
 	var required: PackedStringArray = PackedStringArray(project(run).keys())
 	if not V.keys(state, required): return _failure("snapshot_state_invalid")
 	for key: String in ["spawning", "demolition", "line_clear", "dye", "challenge", "ability_events", "shape_unlocks", "acquired", "manual_uses_used", "offer"]:

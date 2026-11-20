@@ -2,8 +2,7 @@ extends Control
 
 ## Owns the home and character selection views. No playable run is created here.
 const SESSION: String = "res://gameplay/room_session.tscn"
-const STANDARD: Texture2D = preload("res://assets/textures/pieces/walnut_body.png")
-const SCOUT: Texture2D = preload("res://assets/textures/pieces/almond_body.png")
+const ROLE: Script = preload("res://gameplay/openings/opening_role.gd")
 const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
 
 @export var checkpoint_directory: String = "user://run_checkpoint"
@@ -13,6 +12,7 @@ var _saved: Dictionary = {}
 var _loaded: bool = false
 var _departing: bool = false
 var _preferences: PlayerPreferences = PlayerPreferences.new()
+@onready var _cards: Dictionary[StringName, Button] = {&"standard": %Standard, &"row_sweep": %Scout, &"dyer": %Dyer, &"bomber": %Bomber}
 @onready var _home: Control = %Home
 @onready var _characters: Control = %Characters
 @onready var _mode: OptionButton = %Mode
@@ -36,8 +36,8 @@ func _ready() -> void:
 	_preferences.load_values(CoreSystem.config_manager)
 	%Continue.pressed.connect(_launch.bind(true))
 	%New.pressed.connect(_new_game)
-	%Standard.pressed.connect(_choose.bind(&"standard"))
-	%Scout.pressed.connect(_choose.bind(&"row_sweep"))
+	for id: StringName in _cards:
+		_cards[id].pressed.connect(_choose.bind(id))
 	%Depart.pressed.connect(_ask_to_depart)
 	%Back.pressed.connect(_show_home)
 	%Practice.pressed.connect(_practice)
@@ -91,8 +91,7 @@ func _show_characters() -> void:
 
 func _restore_focus() -> void:
 	if _characters.visible:
-		if _selected == &"row_sweep": %Scout.grab_focus()
-		else: %Standard.grab_focus()
+		_cards[_selected].grab_focus()
 	elif _slot.saved_available: %Continue.grab_focus()
 	else: %New.grab_focus()
 
@@ -102,9 +101,8 @@ func _new_game() -> void:
 	else: _ask_to_depart()
 
 func _choose(opening: StringName) -> void:
-	_selected = opening
-	%Scout.set_pressed_no_signal(opening == &"row_sweep")
-	%Standard.set_pressed_no_signal(opening == &"standard")
+	_selected = opening if _cards.has(opening) else &"standard"
+	for id: StringName in _cards: _cards[id].set_pressed_no_signal(id == _selected)
 	_refresh()
 	_restore_focus()
 
@@ -115,18 +113,29 @@ func _refresh() -> void:
 		var saved: GameModeDefinition = GameModes.find(_slot.saved_mode)
 		var details: PackedStringArray = [tr(saved.title) if saved != null else tr("继续本局")]
 		if _saved.get("stage", 0) > 0: details.append(tr("room.stage") % _saved.stage)
-		if _saved.has("opening"): details.append(tr("room.scout" if _saved.opening == "row_sweep" else "opening.standard"))
+		if _saved.has("opening"): details.append(tr("role." + str(_saved.opening)))
 		%Continue.text = tr("room.resume") % " · ".join(details)
-	var scout: bool = _selected == &"row_sweep"
-	%Portrait.texture = SCOUT if scout else STANDARD
-	%Insignia.visible = scout
-	%Role.text = tr("room.scout" if scout else "opening.standard")
-	%Scout.text = tr("room.scout" if _slot.opening_progress.unlocked else "room.scout_locked")
-	%Skill.text = tr("room.skill" if scout else "room.standard_skill")
-	%Description.text = tr("opening.description" if scout else "room.standard_desc")
-	%Requirement.text = tr("opening.requirements") if scout and not _slot.opening_progress.unlocked else ""
-	%Depart.disabled = _departing or (scout and not _slot.opening_progress.unlocked)
-	%Depart.text = tr("room.depart") % %Role.text
+	for role: ROLE in RunController.ROLES.ALL:
+		var button: Button = _cards[role.id]
+		button.icon = role.portrait
+		button.text = tr("role." + str(role.id))
+		if not _slot.opening_progress.available(role.id): button.text += "\n" + tr("role.lock")
+	var selected: ROLE = RunController.ROLES.find(_selected)
+	var owned: bool = _slot.opening_progress.available(_selected)
+	%Diagram.preview(_selected)
+	%Portrait.display(selected)
+	%Role.text = tr("role." + str(_selected))
+	var skills: PackedStringArray = []
+	for skill: SkillDefinition in selected.skills: skills.append(tr(skill.title))
+	%Skill.text = tr("room.standard_skill") if skills.is_empty() else " + ".join(skills)
+	%Description.text = tr("role.demo." + str(_selected))
+	%Requirement.text = tr("role.best") % _slot.opening_progress.best if owned else tr("role.target") % [_slot.opening_progress.best, selected.threshold, selected.threshold - _slot.opening_progress.best]
+	var next: ROLE = _slot.opening_progress.next_locked()
+	if owned and next != null:
+		%Requirement.text = tr("role.next") % tr("role." + str(next.id)) + " · " + tr("role.target") % [_slot.opening_progress.best, next.threshold, next.threshold - _slot.opening_progress.best]
+	if not owned and _selected == &"row_sweep": %Requirement.text += " · " + tr("role.first_stage")
+	%Depart.disabled = _departing or not owned
+	%Depart.text = tr("room.depart") % %Role.text if owned else tr("role.lock")
 
 func _ask_to_depart() -> void:
 	if _departing: return
@@ -140,7 +149,7 @@ func _launch(resume: bool) -> void:
 	if _departing or not _loaded: return
 	var mode: StringName = GameModes.ALL[_mode.selected].mode_id
 	var opening: StringName = _selected if mode == &"stage_challenge" else &"standard"
-	if not resume and opening == &"row_sweep" and not _slot.opening_progress.unlocked: return
+	if not resume and not _slot.opening_progress.available(opening): return
 	_departing = true
 	var data: Dictionary = {"action": "continue" if resume else "new", "directory": checkpoint_directory}
 	if not resume: data.merge({"mode": mode, "opening": opening, "replace": _saved.get("run_id", "")})

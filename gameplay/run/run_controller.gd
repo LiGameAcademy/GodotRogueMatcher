@@ -32,6 +32,7 @@ var recorder: RunRecorder
 var continuation: StringName = &"idle"
 var last_command_id: int = 0
 var initialization: String = "normal"
+const ROLES: Script = preload("res://gameplay/openings/opening_roles.gd")
 var opening_id: StringName = &"standard"
 var turn_action_id: int = 0
 var action_refill_count: int = 0
@@ -224,7 +225,7 @@ func initialize(mode: String = "normal", opening: StringName = &"standard") -> R
 	initialization = mode
 	var result: RunStepResult = RunStepResult.new()
 	result.kind = &"initial"
-	if opening != &"standard" and (opening != &"row_sweep" or mode != "normal" or not state.stage.enabled()):
+	if opening != &"standard" and (ROLES.find(opening) == null or mode != "normal" or not state.stage.enabled()):
 		report_error("unsupported_opening")
 		return result
 	opening_id = opening
@@ -240,16 +241,17 @@ func initialize(mode: String = "normal", opening: StringName = &"standard") -> R
 		demo.populate(self, mode)
 	elif mode == "normal":
 		result.spawns = spawn_batch(CONFIG.initial_piece_count)
-		if opening == &"row_sweep":
-			var grant: SkillApplyResult = SkillRules.grant_opening(self, preload("res://gameplay/progression/content/line_row_drop.tres"))
+		for skill: SkillDefinition in ROLES.find(opening).skills:
+			var grant: SkillApplyResult = SkillRules.grant_opening(self, skill)
 			if not grant.success:
 				report_error(grant.error)
 				return result
-			var sweeper: SpawnResult = SpawnResult.new()
-			sweeper.piece = grant.created[0]
-			sweeper.matches = grant.matches
-			sweeper.source = &"row_sweep"
-			result.spawns.append(sweeper)
+			for piece: PieceState in grant.created:
+				var spawn: SpawnResult = SpawnResult.new()
+				spawn.piece = piece
+				spawn.matches = grant.matches
+				spawn.source = opening
+				result.spawns.append(spawn)
 	elif mode == "fixture_f6": ExplosionDemo.populate(self)
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
 	elif mode == "fixture_dye": DyeDemo.populate(self)
