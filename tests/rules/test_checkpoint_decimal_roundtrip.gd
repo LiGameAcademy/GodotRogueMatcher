@@ -2,6 +2,7 @@ extends GutTest
 
 ## Real normal-play prefix that exposed binary64 loss through the JSON parser.
 const TRANSPORT: Script = preload("res://services/run_checkpoint/checkpoint_float_transport.gd")
+const FIXTURE: Script = preload("res://tests/support/checkpoint_decimal_fixture.gd")
 var _directory: String
 
 func test_sliced_transport_preserves_exact_bytes_and_does_not_mutate_frozen_values() -> void:
@@ -76,13 +77,19 @@ func after_each() -> void:
 	_directory = ""
 
 func test_frozen_offer_decimal_samples_survive_actual_file_roundtrip() -> void:
-	var records: Array[Dictionary] = []
-	records.assign(JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/checkpoint_decimal_roundtrip.json")))
 	var replay: RuleReplay = RuleReplay.new()
-	assert_true(replay.restore_prefix(records), replay.error)
+	assert_true(replay.restore_prefix(FIXTURE.current_records()), replay.error)
 	if not replay.error.is_empty(): return
 	var run: RunController = replay.run
+	assert_eq(run.state.valid_moves, 7)
 	assert_eq(run.state.phase, RunState.Phase.REWARDS)
+	var offer: SkillOffer = run.state.rewards.active_offer
+	assert_not_null(offer)
+	if offer == null: return
+	# The 4.7.2 decimal roundtrip loses one binary64 unit on this draw.
+	var expected: PackedByteArray = "000000d55766ef3f".hex_decode()
+	var sample: float = offer.slot_log[1].sample
+	assert_eq(PackedFloat64Array([sample]).to_byte_array(), expected)
 	var before: Dictionary = RunSnapshot.capture(run)
 	_directory = "user://checkpoint-decimal-tests/%d-%d" % [OS.get_process_id(), Time.get_ticks_usec()]
 	var compatibility: Dictionary = RunCheckpointCodec.manifest(run)
@@ -95,7 +102,21 @@ func test_frozen_offer_decimal_samples_survive_actual_file_roundtrip() -> void:
 	assert_true(restored.ok, restored.reason)
 	if restored.ok:
 		assert_eq(RunSnapshot.capture(restored.run), before)
+		var reopened_offer: SkillOffer = restored.run.state.rewards.active_offer
+		assert_not_null(reopened_offer)
+		if reopened_offer == null: return
+		assert_eq(PackedFloat64Array([reopened_offer.slot_log[1].sample]).to_byte_array(), expected)
 		assert_false(restored.fallback)
+
+func test_archived_prefix_and_its_stale_configuration_hash_are_rejected() -> void:
+	var archived: Array[Dictionary] = FIXTURE.archived_records()
+	var replay: RuleReplay = RuleReplay.new()
+	assert_false(replay.restore_prefix(archived))
+	# A native header reaches the configuration check even on a different platform.
+	var current: Array[Dictionary] = FIXTURE.current_records()
+	current[0].config_hash = archived[0].config_hash
+	assert_false(replay.restore_prefix(current))
+	assert_eq(replay.error, "configuration_mismatch")
 
 func test_float_tags_preserve_nested_values_and_signed_zero() -> void:
 	var packed: Dictionary = TRANSPORT.encode({"nested": [{"sample": 0.9812430534511805, "zero": -0.0}], "tiny": 5e-324, "large": 1.7976931348623157e308})

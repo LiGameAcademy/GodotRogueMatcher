@@ -2,6 +2,7 @@ extends GutTest
 
 const CHECKPOINT_JSON: Script = preload("res://services/run_checkpoint/checkpoint_json.gd")
 const TRANSPORT: Script = preload("res://services/run_checkpoint/checkpoint_float_transport.gd")
+const FIXTURE: Script = preload("res://tests/support/checkpoint_decimal_fixture.gd")
 
 func test_sliced_json_has_identical_sorted_utf8_bytes_without_mutating_values() -> void:
 	var value: Dictionary = {"中文": "\n\t\r\b\f\"\\", "records": [], "a": {"z": 0.1, "a": null}, "Z": true}
@@ -21,11 +22,9 @@ func test_sliced_json_has_identical_sorted_utf8_bytes_without_mutating_values() 
 	assert_eq((await CHECKPOINT_JSON.stringify_checkpoint(value, Callable())).reason, "invalid_step_yield")
 
 func test_real_package_sliced_and_sync_bytes_match_before_independent_readback() -> void:
-	var records: Array[Dictionary] = []
-	records.assign(JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/checkpoint_decimal_roundtrip.json")))
 	var replay: RuleReplay = RuleReplay.new()
-	assert_true(replay.restore_prefix(records), replay.error)
-	if replay.run == null: return
+	assert_true(replay.restore_prefix(FIXTURE.current_records()), replay.error)
+	if not replay.error.is_empty(): return
 	var encoded: Dictionary = RunCheckpointCodec.encode(replay.run)
 	var session: RunCheckpointSession = RunCheckpointSession.new(CheckpointStore.new("memory://json-only"), encoded.manifest)
 	var baseline: Dictionary = session._prepare_package(encoded)
