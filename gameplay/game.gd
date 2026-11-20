@@ -61,7 +61,7 @@ func _ready() -> void:
 	CHECKPOINT_COLLECTION.configure(_checkpoint, _collection, use_snapshot_checkpoints, record_runs)
 	await _checkpoint.configure(_board, enable_checkpoints, checkpoint_directory)
 	_checkpoint.status_changed.connect(_hud.show_status)
-	_checkpoint.status_changed.connect(func(_id: StringName) -> void: release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error))
+	_checkpoint.status_changed.connect(func(_id: StringName) -> void: GameNewRunFlow.refresh_entry(_checkpoint, release_menu, UIManager.current_popup, _board.run))
 	_checkpoint.before_restore.connect(_suspend_collection)
 	_checkpoint.restored.connect(_on_checkpoint_restored)
 	_checkpoint.settling_exit.connect(_prepare_checkpoint_exit)
@@ -186,7 +186,7 @@ func _show_menu() -> void:
 	get_tree().paused = true
 	var menu_mode: StringName = _checkpoint.saved_mode if not _has_played and _checkpoint.saved_available else _board.run.state.mode_id()
 	release_menu.open(_has_played or _checkpoint.saved_available, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over, menu_mode)
-	release_menu.set_checkpoint_status(enable_checkpoints, _checkpoint.last_error)
+	GameNewRunFlow.refresh_entry(_checkpoint, release_menu, UIManager.current_popup, _board.run)
 	_set_collection_location("help" if _has_played else "start_menu")
 	_collection.flush()
 
@@ -218,7 +218,9 @@ func _tutorial_completed() -> void:
 	_save_preferences()
 
 func _end_to_menu() -> void:
-	_checkpoint.terminal(_board.run, true)
+	var already_unlocked: bool = _checkpoint.opening_progress.unlocked
+	await _checkpoint.terminal(_board.run, true)
+	if not GameNewRunFlow.result_can_close(_checkpoint, _board.run, already_unlocked, UIManager.current_popup): return
 	BoardRunFlow.finalize(_board.run, "result_to_menu")
 	UIManager.close_popup()
 	_show_menu()
@@ -393,12 +395,12 @@ func _on_locale_changed(_old: String, _new: String) -> void:
 func _on_game_over() -> void:
 	_board.can_selected = false
 	var active_run: RunController = _board.run
-	_checkpoint.terminal(active_run)
+	await _checkpoint.terminal(active_run)
 	if not await _board.finish_presentation() or _board.run != active_run: return
 	_refresh_hud()
 	_hud.show_status(&"hud.status.challenge_completed" if active_run.state.end_reason == &"challenge_completed" else &"hud.status.board_full")
 	if active_run.state.end_reason != &"challenge_completed": _feedback.play(&"finish")
-	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state, "can_continue": active_run.can_continue_challenge()})
+	var popup: Control = await UIManager.open_popup("popup_game_over", GameNewRunFlow.result_data(_checkpoint, active_run, GameManager.score))
 	if is_instance_valid(popup):
 		popup.retry_requested.connect(_on_retry_requested)
 		popup.continue_requested.connect(_continue_challenge)
@@ -410,8 +412,10 @@ func _on_retry_requested() -> bool:
 	if use_external_restart:
 		restart_requested.emit()
 		return true
-	var prepared: Dictionary = await GameNewRunFlow.prepare(_board, _checkpoint)
-	if not prepared.ok: return false
+	var prepared: Dictionary = await GameNewRunFlow.prepare(_board, _checkpoint, show_start_menu)
+	if not prepared.ok:
+		if UIManager.current_popup is PopupGameOver: UIManager.current_popup.retry_button.disabled = false
+		return false
 	_settings.close()
 	_skill_pool.close()
 	_collection.finish(_restart_reason)

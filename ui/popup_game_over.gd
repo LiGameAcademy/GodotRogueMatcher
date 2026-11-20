@@ -37,6 +37,16 @@ func initialize(data: Dictionary = {}) -> void:
 		completion_label.text = tr("已完成全部 %d 个阶段。") % _run_state.stage.config.targets.size()
 	if continue_button.visible: continue_button.grab_focus()
 	else: retry_button.grab_focus()
+	if data.get("opening_unlocked", false): show_opening_unlock()
+	elif continue_button.visible: retry_button.hide()
+
+func show_opening_unlock() -> void:
+	var banner: Label = $Panel/Content/OpeningUnlock
+	banner.text = tr("opening.unlocked") + "\n" + tr("opening.where")
+	banner.show()
+	continue_button.hide()
+	retry_button.hide()
+	($Panel/Content/MenuButton as Button).grab_focus()
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return

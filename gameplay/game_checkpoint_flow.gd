@@ -14,6 +14,12 @@ const DESKTOP_BUDGET_USEC: int = 10000000
 const WEB_FILES: Script = preload("res://services/run_checkpoint/checkpoint_web_files.gd")
 const SNAPSHOT: Script = preload("res://services/run_checkpoint/run_state_snapshot.gd")
 const SNAPSHOT_STATE: Script = preload("res://services/run_checkpoint/snapshot_run_restore.gd")
+const OPENING_PROGRESS: Script = preload("res://services/run_checkpoint/opening_progress.gd")
+var opening_progress: OPENING_PROGRESS = OPENING_PROGRESS.new()
+var opening_unlocked_run: String = ""
+## True only when the most recent new-run request was declined at the abandon prompt.
+var abandon_cancelled: bool = false
+var _settled_run: RunController
 var use_snapshot: bool = false
 var enabled: bool = false
 var saved_available: bool = false
@@ -71,6 +77,8 @@ func configure(board: Board, requested: bool, directory: String) -> void:
 	_refresh_metadata()
 	var synced: Dictionary = await _store.sync()
 	if not synced.ok: last_error = synced.reason
+	var progress_error: String = await opening_progress.load_progress(directory)
+	if not progress_error.is_empty(): push_warning(progress_error)
 
 func is_busy() -> bool:
 	return restoring or closing or _exit_saving or _transition or _terminal_in_progress or (_job != null and not _saving)
@@ -159,6 +167,7 @@ func previous_master_seed() -> int:
 
 ## Prepared new-run rules must be constructed by the caller before invalidating the old identity.
 func allow_new_run() -> bool:
+	abandon_cancelled = false
 	if not enabled: return true
 	if is_busy(): return _reject_busy()
 	_previous_pause = get_tree().paused
@@ -172,6 +181,7 @@ func allow_new_run() -> bool:
 		prompt.open(&"checkpoint.confirm_abandon", &"confirm")
 		var answer: StringName = await prompt.action_requested
 		if answer != &"confirm":
+			abandon_cancelled = true
 			_armed = was_armed
 			_transition = false
 			prompt.close()
@@ -226,7 +236,8 @@ func terminal(active: RunController, accepted_end: bool = false) -> void:
 	if not enabled or active != _board.run: return
 	if not active.state.is_game_over: return
 	if active.can_continue_challenge() and not accepted_end: return
-	if _terminal_in_progress: return
+	while _terminal_in_progress: await get_tree().process_frame
+	if active != _board.run or _settled_run == active: return
 	_terminal_in_progress = true
 	_queued.clear()
 	_armed = false
@@ -235,15 +246,17 @@ func terminal(active: RunController, accepted_end: bool = false) -> void:
 		_terminal_in_progress = false
 		return
 	_last_key = ""
-	var result: Dictionary = await _invalidate_run(active.state.run_id, "terminal")
+	var result: Dictionary = await _settle_terminal(active)
 	_terminal_in_progress = false
-	saved_available = false
+	if result.ok or not String(result.reason).begins_with("opening_progress_"): saved_available = false
 	if not result.ok:
 		_terminal_retry_run = active
 		last_error = result.reason
-		prompt.open(&"checkpoint.reload_required" if _needs_reload() else &"checkpoint.terminal_failed", &"blocked" if _needs_reload() else &"terminal_failed")
+		var message: StringName = &"opening.save_failed" if last_error.begins_with("opening_progress_") else &"checkpoint.terminal_failed"
+		prompt.open(&"checkpoint.reload_required" if _needs_reload() else message, &"blocked" if _needs_reload() else &"terminal_failed")
 		status_changed.emit(_failure_status())
 	else:
+		_settled_run = active
 		_terminal_retry_run = null
 		last_error = ""
 		prompt.close()
@@ -308,7 +321,7 @@ func _save_exit() -> void:
 	var result: Dictionary
 	if _board.run != _exit_run: result = RunCheckpointCodec.failure("run_changed")
 	elif _exit_run.can_continue_challenge(): result = RunCheckpointCodec.failure("challenge_decision_pending")
-	elif _exit_run.state.is_game_over: result = await _invalidate_run(_exit_run.state.run_id, "terminal")
+	elif _exit_run.state.is_game_over: result = await _settle_terminal(_exit_run)
 	elif _last_key == _key(_exit_run) and (use_snapshot or (_exit_run.recorder != null and _exit_run.recorder.records.back().get("state") == RunSnapshot.capture(_exit_run))):
 		result = {"ok": true, "reason": "", "reused_validated_checkpoint": true}
 	else:
@@ -331,6 +344,15 @@ func _save_exit() -> void:
 		last_error = result.reason
 		prompt.open(&"checkpoint.reload_required" if _needs_reload() else (&"checkpoint.challenge_pending" if result.reason == "challenge_decision_pending" else &"checkpoint.exit_failed"), &"blocked" if _needs_reload() else &"save_failed")
 		status_changed.emit(_failure_status())
+
+func _settle_terminal(active: RunController) -> Dictionary:
+	if active != _board.run: return RunCheckpointCodec.failure("run_changed")
+	if OPENING_PROGRESS.eligible(active) and not opening_progress.unlocked:
+		var error: String = await opening_progress.grant()
+		if not error.is_empty(): return RunCheckpointCodec.failure(error if error.begins_with("opening_progress_") else "opening_progress_" + error)
+		if active != _board.run: return RunCheckpointCodec.failure("run_changed")
+		opening_unlocked_run = active.state.run_id
+	return await _invalidate_run(active.state.run_id, "terminal")
 
 func _invalidate_run(run_id: String, reason: String) -> Dictionary:
 	var result: Dictionary = _store.invalidate(run_id, reason)
@@ -417,6 +439,7 @@ func _refresh_metadata() -> void:
 	elif metadata.reason not in ["no_valid_checkpoint:missing", "run_invalidated"]: last_error = metadata.reason
 
 func _on_run_reset() -> void:
+	_settled_run = null
 	if not _taking_over: _epoch += 1
 	_armed = false
 	_queued.clear()

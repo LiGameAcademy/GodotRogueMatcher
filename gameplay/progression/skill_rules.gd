@@ -142,13 +142,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 		state.phase = RunState.Phase.ERROR
 		return result
 	result.matches.append_array(DemolitionRules.settle(state, state.rule_action_id))
-	if not skill.levels.is_empty():
-		var instance: SkillInstance = state.skill_instances.get(skill_id)
-		if instance == null:
-			instance = SkillInstance.new(skill, offer.reward_id)
-			state.skill_instances[skill_id] = instance
-		instance.commit_next_level()
-	rewards.acquired[skill_id] = rewards.acquired.get(skill_id, 0) + 1
+	_register_acquisition(state, skill, offer.reward_id)
 	rewards.previous_unselected.clear()
 	for choice: SkillDefinition in offer.choices:
 		if choice.skill_id != skill_id: rewards.previous_unselected.append(choice.skill_id)
@@ -163,6 +157,35 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	result.skill_id = skill_id
 	rewards.applications.append(result)
 	return result
+
+## Grants the opening acquisition before the first turn, without consuming a reward.
+static func grant_opening(run: RunController, skill: SkillDefinition) -> SkillApplyResult:
+	var result: SkillApplyResult = SkillApplyResult.new()
+	var state: RunState = run.state
+	result.error = rejection(state, skill, run.abilities.config)
+	if not result.error.is_empty(): return result
+	var effect: SkillEffect = skill.acquisition_effect(0)
+	var targets: SkillTarget = freeze_target(state, skill)
+	if effect == null or targets == null:
+		result.error = "Invalid opening skill"
+		return result
+	result.error = AbilityEffectRunner.preflight(run, effect, targets)
+	if not result.error.is_empty(): return result
+	result.error = AbilityEffectRunner.apply_skill_effect(run, effect, targets, result)
+	if not result.error.is_empty(): return result
+	_register_acquisition(state, skill, 0)
+	result.success = true
+	return result
+
+static func _register_acquisition(state: RunState, skill: SkillDefinition, instance_id: int) -> void:
+	var skill_id: StringName = skill.skill_id
+	if not skill.levels.is_empty():
+		var instance: SkillInstance = state.skill_instances.get(skill_id)
+		if instance == null:
+			instance = SkillInstance.new(skill, instance_id)
+			state.skill_instances[skill_id] = instance
+		instance.commit_next_level()
+	state.rewards.acquired[skill_id] = state.rewards.acquired.get(skill_id, 0) + 1
 
 static func _demolition_stat_level(state: RunState, stat: DemolitionStatEffect.Stat) -> int:
 	match stat:

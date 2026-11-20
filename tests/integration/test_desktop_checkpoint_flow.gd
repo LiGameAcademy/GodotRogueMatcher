@@ -2,6 +2,7 @@ extends GutTest
 
 ## Real scene/menu/worker integration; delayed IO below is only a sequencing pressure fixture.
 const GAME: PackedScene = preload("res://gameplay/game.tscn")
+const OPENING_PROGRESS: Script = preload("res://services/run_checkpoint/opening_progress.gd")
 var _games: Array[Node] = []
 var _directories: Array[String] = []
 var _frozen_prefix: Array[Dictionary] = []
@@ -61,7 +62,7 @@ func _saved_run(frozen: bool = false) -> RunController:
 		assert_not_null(run.state.rewards.active_offer, "normal gameplay must reach the frozen reward fixture")
 	return run
 
-func _game(directory: String) -> Node:
+func _game(directory: String, snapshot_mode: bool = false) -> Node:
 	var game: Node = GAME.instantiate()
 	game.set("persist_preferences", false)
 	game.set("record_runs", false)
@@ -69,11 +70,95 @@ func _game(directory: String) -> Node:
 	game.set("enable_debug_fixtures", false)
 	game.set("show_start_menu", true)
 	game.set("enable_checkpoints", true)
+	game.set("use_snapshot_checkpoints", snapshot_mode)
 	game.set("checkpoint_directory", directory)
 	_games.append(game)
 	add_child(game)
 	await _wait(func() -> bool: return (game.get_node("MenuLayer/ReleaseMenu") as ReleaseMenu).visible)
 	return game
+
+func test_opening_dialog_cancel_keeps_saved_run_and_continue_restores_it() -> void:
+	var directory: String = _directory()
+	var snapshot: Script = preload("res://services/run_checkpoint/run_state_snapshot.gd")
+	var original: RunController = _saved_run()
+	var saved: Dictionary = await snapshot.save(CheckpointStore.new(directory), original)
+	assert_true(saved.ok, saved.reason)
+	var authorization: OPENING_PROGRESS = OPENING_PROGRESS.new()
+	assert_eq(await authorization.load_progress(directory), "")
+	assert_eq(await authorization.grant(), "")
+	var game: Node = await _game(directory, true)
+	var checkpoint: GameCheckpointFlow = game.get_node("GameCheckpointFlow")
+	var board: Board = game.get_node("Board")
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu")
+	menu.mode_button.select(1)
+	menu.new_button.pressed.emit()
+	var dialog: ConfirmationDialog = checkpoint.get_node_or_null("OpeningChoice")
+	assert_not_null(dialog)
+	if dialog == null: return
+	var row: CheckBox = dialog.get_node("Options/RowSweep")
+	assert_false(row.disabled)
+	row.button_pressed = true
+	dialog.confirmed.emit()
+	assert_true(checkpoint.prompt.is_open())
+	checkpoint.prompt.action_requested.emit(&"cancel")
+	await _wait(func() -> bool: return dialog.visible)
+	assert_true(row.button_pressed)
+	assert_true(CheckpointStore.new(directory).inspect_latest().ok)
+	dialog.canceled.emit()
+	await _wait(func() -> bool: return menu.visible)
+	assert_true(CheckpointStore.new(directory).inspect_latest().ok)
+	menu.play_button.pressed.emit()
+	await _wait(func() -> bool: return board.run.state.run_id == original.state.run_id)
+	assert_eq(board.run.opening_id, &"standard")
+
+func test_normal_terminal_unlock_is_available_from_new_game_menu() -> void:
+	var directory: String = _directory()
+	var game: Node = await _game(directory, true)
+	var checkpoint: GameCheckpointFlow = game.get_node("GameCheckpointFlow")
+	var board: Board = game.get_node("Board")
+	var menu: ReleaseMenu = game.get_node("MenuLayer/ReleaseMenu")
+	menu.mode_button.select(1)
+	menu.play_button.pressed.emit()
+	var standard: ConfirmationDialog = checkpoint.get_node_or_null("OpeningChoice")
+	assert_not_null(standard)
+	if standard == null: return
+	assert_true((standard.get_node("Options/RowSweep") as CheckBox).disabled)
+	standard.confirmed.emit()
+	await _wait(func() -> bool: return board.can_selected and board.run.state.stage.enabled())
+	await _wait(func() -> bool: return checkpoint.saved_available and not checkpoint.get("_saving"))
+	var past: RunController = board.run
+	var blocked_write: String = directory.path_join("opening_progress.json.tmp")
+	assert_eq(DirAccess.make_dir_absolute(blocked_write), OK)
+	past.state.stage.index = 1
+	past.finish_game()
+	await game.call("_on_game_over")
+	var result: PopupGameOver = UIManager.current_popup as PopupGameOver
+	assert_not_null(result)
+	if result == null: return
+	assert_false(checkpoint.opening_progress.unlocked)
+	assert_false(result.get_node("Panel/Content/OpeningUnlock").visible)
+	assert_eq(checkpoint.last_error, "opening_progress_write_failed")
+	assert_true(CheckpointStore.new(directory).inspect_latest().ok)
+	assert_eq(DirAccess.remove_absolute(blocked_write), OK)
+	checkpoint.prompt.action_requested.emit(&"retry")
+	await _wait(func() -> bool: return checkpoint.opening_progress.unlocked and not checkpoint.prompt.is_open())
+	assert_eq(CheckpointStore.new(directory).inspect_latest().reason, "run_invalidated")
+	assert_true(result.get_node("Panel/Content/OpeningUnlock").visible)
+	assert_true(checkpoint.opening_progress.unlocked)
+	result.menu_requested.emit()
+	await _wait(func() -> bool: return menu.visible)
+	menu.new_button.pressed.emit()
+	var next: ConfirmationDialog = checkpoint.get_node_or_null("OpeningChoice")
+	assert_not_null(next)
+	if next == null: return
+	var row: CheckBox = next.get_node("Options/RowSweep")
+	assert_false(row.disabled)
+	row.button_pressed = true
+	next.confirmed.emit()
+	await _wait(func() -> bool: return board.run != past and board.can_selected)
+	assert_eq(board.run.opening_id, &"row_sweep")
+	assert_true(board.run.state.line_clear.row_unlocked)
+	await _wait(func() -> bool: return checkpoint.saved_available and not checkpoint.get("_saving"))
 
 func _wait(predicate: Callable, timeout_ms: int = 10000) -> void:
 	var deadline: int = Time.get_ticks_msec() + timeout_ms

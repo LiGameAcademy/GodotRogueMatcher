@@ -20,6 +20,7 @@ var _game_over: bool = false
 var _practice_done: bool = false
 var _checkpoint_enabled: bool = false
 var _checkpoint_error: String = ""
+var _opening_available: bool = false
 
 @onready var mode_button: OptionButton = %Mode
 @onready var mode_hint: Label = %ModeHint
@@ -58,9 +59,10 @@ func set_language_preference(preference: String) -> void:
 func show_language_error() -> void:
 	hint.text = tr("语言设置保存失败；当前选择仍可使用。")
 
-func set_checkpoint_status(enabled: bool, error: String) -> void:
+func set_checkpoint_status(enabled: bool, error: String, opening_available: bool = false) -> void:
 	_checkpoint_enabled = enabled
 	_checkpoint_error = error
+	_opening_available = opening_available
 	_quit_button.visible = enabled and not OS.has_feature("web")
 	_refresh_text()
 
@@ -105,7 +107,9 @@ func _refresh_text() -> void:
 	for index: int in range(GameModes.ALL.size()): mode_button.set_item_text(index, tr(GameModes.ALL[index].title))
 	var selected: GameModeDefinition = GameModes.ALL[mode_button.selected]
 	mode_hint.text = tr(selected.description)
-	if selected.mode_id != _active_mode:
+	if _checkpoint_enabled and selected.mode_id == &"stage_challenge":
+		mode_hint.text += "\n" + tr("opening.available" if _opening_available else "opening.locked")
+	if selected.mode_id != _active_mode and not _checkpoint_enabled:
 		play_button.text = tr("开始所选模式 · 新局")
 		mode_hint.text += "\n" + tr("切换模式将开始新局，重置本局棋盘与构筑。")
 	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
@@ -119,6 +123,9 @@ func _refresh_text() -> void:
 func _play(new_run: bool) -> void:
 	close()
 	var selected: StringName = GameModes.ALL[mode_button.selected].mode_id
+	if _checkpoint_enabled and _has_game and not new_run:
+		play_requested.emit(false)
+		return
 	mode_requested.emit(selected)
 	play_requested.emit(new_run or selected != _active_mode)
 

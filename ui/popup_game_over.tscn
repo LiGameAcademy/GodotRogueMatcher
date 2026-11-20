@@ -70,6 +70,12 @@ text = "再来一局"
 layout_mode = 2
 horizontal_alignment = 1
 
+[node name="OpeningUnlock" type="Label" parent="Panel/Content"]
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="MenuButton" type="Button" parent="Panel/Content"]
 layout_mode = 2
 text = "返回开始页"
