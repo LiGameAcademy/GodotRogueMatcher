@@ -32,6 +32,7 @@ var recorder: RunRecorder
 var continuation: StringName = &"idle"
 var last_command_id: int = 0
 var initialization: String = "normal"
+var opening_id: StringName = &"standard"
 var turn_action_id: int = 0
 var action_refill_count: int = 0
 var prototype_profile: StringName = &""
@@ -219,10 +220,14 @@ func check_space_after_spawning() -> void:
 		finish_game()
 
 ## Initializes rule state and returns committed births for presentation or headless drivers.
-func initialize(mode: String = "normal") -> RunStepResult:
+func initialize(mode: String = "normal", opening: StringName = &"standard") -> RunStepResult:
 	initialization = mode
 	var result: RunStepResult = RunStepResult.new()
 	result.kind = &"initial"
+	if opening != &"standard" and (opening != &"row_sweep" or mode != "normal" or not state.stage.enabled()):
+		report_error("unsupported_opening")
+		return result
+	opening_id = opening
 	if state.stage.enabled() and not state.stage.config.validation_error().is_empty():
 		report_error(state.stage.config.validation_error())
 		return result
@@ -233,7 +238,18 @@ func initialize(mode: String = "normal") -> RunStepResult:
 	elif (mode in SHAPE_INITIALIZATIONS and prototype_profile == PROTOTYPE_PROFILE) or (mode in PLUS_INITIALIZATIONS and prototype_profile == PLUS_PROFILE) or (mode in X_INITIALIZATIONS and prototype_profile == X_PROFILE) or (mode in ZS_INITIALIZATIONS and prototype_profile == ZS_PROFILE) or (mode in U_INITIALIZATIONS and prototype_profile == U_PROFILE) or (mode in RING_INITIALIZATIONS and prototype_profile == RING_PROFILE) or (mode in SQUARE_INITIALIZATIONS and prototype_profile == SQUARE_PROFILE):
 		var demo: Script = load("res://gameplay/skills/debug/shape_unlock_demo.gd") as Script
 		demo.populate(self, mode)
-	elif mode == "normal": result.spawns = spawn_batch(CONFIG.initial_piece_count)
+	elif mode == "normal":
+		result.spawns = spawn_batch(CONFIG.initial_piece_count)
+		if opening == &"row_sweep":
+			var grant: SkillApplyResult = SkillRules.grant_opening(self, preload("res://gameplay/progression/content/line_row_drop.tres"))
+			if not grant.success:
+				report_error(grant.error)
+				return result
+			var sweeper: SpawnResult = SpawnResult.new()
+			sweeper.piece = grant.created[0]
+			sweeper.matches = grant.matches
+			sweeper.source = &"row_sweep"
+			result.spawns.append(sweeper)
 	elif mode == "fixture_f6": ExplosionDemo.populate(self)
 	elif mode == "fixture_demolition": DemolitionDemo.populate(self)
 	elif mode == "fixture_dye": DyeDemo.populate(self)

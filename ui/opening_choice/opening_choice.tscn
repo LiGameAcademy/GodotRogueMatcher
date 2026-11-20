@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/opening_choice/opening_choice.gd" id="1"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_opening"]
+
+[node name="OpeningChoice" type="ConfirmationDialog"]
+process_mode = 3
+visible = false
+transient = true
+exclusive = true
+title = "opening.title"
+initial_position = 2
+size = Vector2i(360, 180)
+ok_button_text = "opening.start"
+cancel_button_text = "opening.back"
+script = ExtResource("1")
+
+[node name="Options" type="VBoxContainer" parent="."]
+
+[node name="Standard" type="CheckBox" parent="Options"]
+button_pressed = true
+button_group = SubResource("ButtonGroup_opening")
+text = "opening.standard"
+
+[node name="RowSweep" type="CheckBox" parent="Options"]
+button_group = SubResource("ButtonGroup_opening")
+text = "opening.row"
+
+[node name="Details" type="Label" parent="Options"]
+custom_minimum_size = Vector2(280, 0)
+autowrap_mode = 2

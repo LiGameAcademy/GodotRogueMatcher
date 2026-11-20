@@ -1,11 +1,11 @@
-/* One automatic slot per origin. Only transaction completion acknowledges persistence. */
+/* Independent slots per origin. Only transaction completion acknowledges persistence. */
 (() => {
   "use strict";
   const empty = JSON.stringify({ schema: "checkpoint-web-files-v1", files: {} });
   const notify = (callback, ok, reason = "", data = "") =>
     queueMicrotask(() => callback(ok, reason, data));
   window.SkillLinesCheckpointStorage = {
-    create() {
+    create(slot = "automatic") {
       let database = null;
       let revision = 0;
       let writing = false;
@@ -35,7 +35,7 @@
               database.onversionchange = () => { database.close(); database = null; download = null; };
               try {
                 const transaction = database.transaction("state", "readonly");
-                const get = transaction.objectStore("state").get("automatic");
+                const get = transaction.objectStore("state").get(slot);
                 let payload = empty;
                 let problem = "";
                 get.onsuccess = () => {
@@ -99,7 +99,7 @@
           try {
             const transaction = database.transaction("state", "readwrite");
             const store = transaction.objectStore("state");
-            const get = store.get("automatic");
+            const get = store.get(slot);
             get.onsuccess = () => {
               const row = get.result;
               const current = row === undefined ? 0 : (valid(row) ? row.revision : -1);
@@ -108,7 +108,7 @@
                 transaction.abort();
                 return;
               }
-              store.put({ revision: expected + 1, payload }, "automatic");
+              store.put({ revision: expected + 1, payload }, slot);
             };
             transaction.oncomplete = () => {
               revision = expected + 1;

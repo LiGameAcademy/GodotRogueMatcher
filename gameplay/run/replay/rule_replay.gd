@@ -158,7 +158,10 @@ func _begin(records: Array[Dictionary], prefix: bool) -> bool:
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
 	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"] + RunController.SHAPE_INITIALIZATIONS + RunController.PLUS_INITIALIZATIONS + RunController.X_INITIALIZATIONS + RunController.ZS_INITIALIZATIONS + RunController.U_INITIALIZATIONS + RunController.RING_INITIALIZATIONS + RunController.SQUARE_INITIALIZATIONS + MixedTemplateDemo.MODES + ScreeningDeck.modes(): return _fail("unsupported_initialization")
-	run.initialize(header.initialization)
+	var opening: Variant = header.get("opening_id", "standard")
+	if not opening is String: return _fail("unsupported_initialization")
+	run.initialize(header.initialization, StringName(opening))
+	if not run.state.rule_error.is_empty(): return _fail("unsupported_initialization")
 	if RunSnapshot.canonical(run.state.random_streams.data()) != RunSnapshot.canonical(header.rng): return _fail("initial_random_mismatch")
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()

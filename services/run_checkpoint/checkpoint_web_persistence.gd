@@ -8,6 +8,7 @@ const TEXT: Script = preload("res://services/run_checkpoint/checkpoint_bridge_te
 var _api: JavaScriptObject
 var _callback: JavaScriptObject
 var _busy: bool = false
+var slot: String = "automatic"
 
 func open() -> Dictionary:
 	if not OS.has_feature("web"): return _failure("web_backend_required")
@@ -16,7 +17,7 @@ func open() -> Dictionary:
 	JavaScriptBridge.eval(source, true)
 	var entry: JavaScriptObject = JavaScriptBridge.get_interface("SkillLinesCheckpointStorage")
 	if entry == null: return _failure("web_backend_missing")
-	_api = entry.create()
+	_api = entry.create(slot)
 	return await _request("open", "")
 
 func save(data: String) -> Dictionary:

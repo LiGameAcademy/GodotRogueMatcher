@@ -9,6 +9,7 @@ const ENTITIES: Script = preload("res://services/run_checkpoint/snapshot_entitie
 
 static func project(run: RunController) -> Dictionary:
 	var state: Dictionary = RunSnapshot.capture(run, false)
+	if run.opening_id != &"standard": state["opening_id"] = String(run.opening_id)
 	state.erase("ledger")
 	# A cold dispatcher has a new scope. Only its next ID crosses the process boundary;
 	# old event objects cannot pass the scope check, so their dispatched set is history.
@@ -29,6 +30,9 @@ static func restore(state: Dictionary, seed: int, run_id: String, board: Diction
 	var rules: BoardRules = BoardRules.new(BoardState.new(String(board.columns).to_int(), String(board.rows).to_int()), String(board.match_count).to_int())
 	var run: RunController = RunController.new(rules, seed, stage_config)
 	run.state.run_id = run_id
+	if state.has("opening_id"):
+		if state.opening_id != "row_sweep" or not run.state.stage.enabled(): return _failure("snapshot_opening_invalid")
+		run.opening_id = &"row_sweep"
 	var required: PackedStringArray = PackedStringArray(project(run).keys())
 	if not V.keys(state, required): return _failure("snapshot_state_invalid")
 	for key: String in ["spawning", "demolition", "line_clear", "dye", "challenge", "ability_events", "shape_unlocks", "acquired", "manual_uses_used", "offer"]:
