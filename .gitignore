@@ -7,3 +7,7 @@ production/
 # Local agent / MCP configuration
 .mcp.json
 .cursor/
+
+# Optional privately supplied music; never commit audio or import sidecars.
+/local_audio/*
+!/local_audio/README.md

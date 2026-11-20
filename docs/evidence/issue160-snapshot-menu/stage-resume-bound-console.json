@@ -1,0 +1,278 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:12:53.158Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:12:53.379Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:12:53.675Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:12:56.534Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":99200,\"frames\":5,\"freeze_usec\":26600,\"maximum_gap_usec\":37700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":7000,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":17600}}}",
+    "timestamp": "2026-11-01T10:12:58.859Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":115800,\"frames\":6,\"freeze_usec\":32400,\"maximum_gap_usec\":47300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":19200,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":37300}}}",
+    "timestamp": "2026-11-01T10:13:00.045Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":149100,\"frames\":6,\"freeze_usec\":29400,\"maximum_gap_usec\":63100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":16500,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":32700}}}",
+    "timestamp": "2026-11-01T10:13:01.135Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":132600,\"frames\":6,\"freeze_usec\":29900,\"maximum_gap_usec\":58400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":14200,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":32100}}}",
+    "timestamp": "2026-11-01T10:13:02.193Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":142300,\"frames\":7,\"freeze_usec\":27000,\"maximum_gap_usec\":45400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":40300,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":59500}}}",
+    "timestamp": "2026-11-01T10:13:03.382Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":281900,\"frames\":6,\"freeze_usec\":29400,\"maximum_gap_usec\":161800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":179500,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":195700}}}",
+    "timestamp": "2026-11-01T10:13:04.009Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":108700,\"frames\":6,\"freeze_usec\":27300,\"maximum_gap_usec\":52000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":21000,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":32700}}}",
+    "timestamp": "2026-11-01T10:13:06.122Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":132000,\"frames\":7,\"freeze_usec\":24100,\"maximum_gap_usec\":38500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17900,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":50000}}}",
+    "timestamp": "2026-11-01T10:13:07.786Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":151000,\"frames\":6,\"freeze_usec\":48900,\"maximum_gap_usec\":82600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17600,\"filemap_encode_usec\":1300,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":43400}}}",
+    "timestamp": "2026-11-01T10:13:08.268Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"default_flag_unchanged\":true,\"job_metrics\":{\"elapsed_usec\":151000,\"frames\":6,\"freeze_usec\":48900,\"maximum_gap_usec\":82600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17600,\"filemap_encode_usec\":1300,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":43400}}},\"menu_visible\":true,\"mode\":\"stage_challenge\",\"origin\":\"http://127.0.0.1:8991\",\"phase\":\"saved_frozen_reward\",\"run_id\":\"1245361234-0-1793527977133000-4062300\",\"seed\":\"1245361234\",\"snapshot_matches_live\":true,\"snapshot_schema\":\"run-state-snapshot-safe-v2\",\"state_hash\":\"2453f43632436e6c0038b8e269d166fb259677957abe9cc97b3d5d2e12fccca0\",\"trace_known\":true,\"trace_parent_id\":\"1245361234-0-1793527977133000-4062300:134\"},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:13:08.371Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:14:13.664Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:14:13.931Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:14:14.292Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:14:17.121Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":70900,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":59400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-11-01T10:14:19.635Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":422200,\"elapsed_usec\":70900,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":59400,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-11-01T10:14:20.058Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":65100,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":58900,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:14:20.271Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":379900,\"elapsed_usec\":65100,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":58900,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:14:20.652Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":702800,\"frames\":7,\"freeze_usec\":23900,\"maximum_gap_usec\":588100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":22100,\"filemap_encode_usec\":1200,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":631000}}}",
+    "timestamp": "2026-11-01T10:14:21.684Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":117000,\"frames\":6,\"freeze_usec\":24700,\"maximum_gap_usec\":45000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":26200,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":40100}}}",
+    "timestamp": "2026-11-01T10:14:22.955Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":142000,\"frames\":7,\"freeze_usec\":26600,\"maximum_gap_usec\":41300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":46300,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":61000}}}",
+    "timestamp": "2026-11-01T10:14:24.357Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":112900,\"frames\":6,\"freeze_usec\":22400,\"maximum_gap_usec\":38500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":27500,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":44400}}}",
+    "timestamp": "2026-11-01T10:14:25.407Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":109800,\"frames\":6,\"freeze_usec\":24000,\"maximum_gap_usec\":40800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":26500,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":51400}}}",
+    "timestamp": "2026-11-01T10:14:26.614Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":108700,\"frames\":6,\"freeze_usec\":23300,\"maximum_gap_usec\":38700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":28900,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":46700}}}",
+    "timestamp": "2026-11-01T10:14:27.074Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116500,\"frames\":6,\"freeze_usec\":22600,\"maximum_gap_usec\":37500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":33400,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":45400}}}",
+    "timestamp": "2026-11-01T10:14:28.610Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":122700,\"frames\":7,\"freeze_usec\":22500,\"maximum_gap_usec\":37800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":32900,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":66200}}}",
+    "timestamp": "2026-11-01T10:14:30.110Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":105100,\"frames\":6,\"freeze_usec\":23200,\"maximum_gap_usec\":35500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":34100,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":52300}}}",
+    "timestamp": "2026-11-01T10:14:31.995Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":115700,\"frames\":6,\"freeze_usec\":25100,\"maximum_gap_usec\":38100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":24700,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":49600}}}",
+    "timestamp": "2026-11-01T10:14:33.430Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":150400,\"frames\":7,\"freeze_usec\":23900,\"maximum_gap_usec\":41600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":33700,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":69000}}}",
+    "timestamp": "2026-11-01T10:14:33.948Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":106700,\"frames\":6,\"freeze_usec\":25800,\"maximum_gap_usec\":40800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":37900,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":50700}}}",
+    "timestamp": "2026-11-01T10:14:35.921Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":150800,\"frames\":7,\"freeze_usec\":34400,\"maximum_gap_usec\":42300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":27000,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":64300}}}",
+    "timestamp": "2026-11-01T10:14:37.758Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":219200,\"frames\":8,\"freeze_usec\":27900,\"maximum_gap_usec\":112400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":22900,\"filemap_encode_usec\":1300,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":85500}}}",
+    "timestamp": "2026-11-01T10:14:38.540Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":133000,\"frames\":6,\"freeze_usec\":27900,\"maximum_gap_usec\":52200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":30800,\"filemap_encode_usec\":1200,\"largest_filemap_slice_usec\":500},\"storage_sync_elapsed_usec\":47700}}}",
+    "timestamp": "2026-11-01T10:14:38.688Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":219300,\"frames\":9,\"freeze_usec\":30400,\"maximum_gap_usec\":75300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":12300,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":86700}}}",
+    "timestamp": "2026-11-01T10:14:40.064Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":179400,\"frames\":8,\"freeze_usec\":26100,\"maximum_gap_usec\":45700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":53100,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":101500}}}",
+    "timestamp": "2026-11-01T10:14:41.154Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":181300,\"frames\":8,\"freeze_usec\":22700,\"maximum_gap_usec\":43300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":13600,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":69900}}}",
+    "timestamp": "2026-11-01T10:14:42.270Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":228600,\"frames\":8,\"freeze_usec\":26600,\"maximum_gap_usec\":94300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":15500,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":84600}}}",
+    "timestamp": "2026-11-01T10:14:43.475Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":486800,\"frames\":9,\"freeze_usec\":27900,\"maximum_gap_usec\":116200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":113900,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":269900}}}",
+    "timestamp": "2026-11-01T10:14:45.395Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":241300,\"frames\":6,\"freeze_usec\":33200,\"maximum_gap_usec\":92200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":54900,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":116600}}}",
+    "timestamp": "2026-11-01T10:14:46.534Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":179200,\"frames\":7,\"freeze_usec\":34600,\"maximum_gap_usec\":44900,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":24600,\"filemap_encode_usec\":500,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":80100}}}",
+    "timestamp": "2026-11-01T10:14:47.885Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":245300,\"frames\":9,\"freeze_usec\":31600,\"maximum_gap_usec\":96700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":18700,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":124700}}}",
+    "timestamp": "2026-11-01T10:14:49.333Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"choice_consumed_once\":true,\"default_flag_unchanged\":true,\"durable_new_segment_replay\":true,\"durable_new_segment_rows\":8,\"durable_new_segment_sha256\":\"d843a298f2651f3406e95021d8217726d4617fc6d39181292d95142f055d410c\",\"endpoint_equal\":true,\"menu_visible\":true,\"mode\":\"stage_challenge\",\"old_callbacks_ignored\":true,\"origin\":\"http://127.0.0.1:8991\",\"parent_known\":true,\"provisional_projectors\":0,\"provisional_recorders\":0,\"resumed_header\":\"SnapshotHeader\"},\"ok\":false,\"reason\":\"probe_watchdog_110s\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:16:09.577Z",
+    "url": "http://127.0.0.1:8991/fixed/probe.html"
+  }
+]

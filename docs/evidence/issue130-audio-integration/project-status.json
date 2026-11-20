@@ -1,0 +1,9 @@
+{
+  "project": "https://github.com/orgs/LiGameAcademy/projects/1",
+  "issue": 130,
+  "before": "待开发",
+  "after": "开发中",
+  "verified": true,
+  "reason": "作者音效提交已整合，补实际暂停隔离和真实四模式技术验证；其余声音层次/灯光/形变/UI动画仍未验收",
+  "issue_closed": false
+}

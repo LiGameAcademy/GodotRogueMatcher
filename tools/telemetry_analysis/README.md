@@ -6,6 +6,8 @@
 godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analysis_cli.gd -- user://telemetry user://telemetry_reports/latest
 ```
 
+入口会在Autoload就绪后加载内部分析作业，避免离线启动时的资源循环解析错误；调用方式不变。不要直接运行`analysis_job.gd`。修复范围及真实CLI验证见[启动诊断记录](../../docs/quality/issue87_analysis_startup.md)。
+
 第一个参数可为单个JSONL文件或目录，目录只读取本层 .jsonl。输出 runs、turns、offers、inputs、intervals、skills、events 七张CSV与 summary.json。嵌套字段为JSON；空值为空单元格。损坏文件保留已验证前缀，报告 errors 并返回退出码1，不把缺失终局标成完成。
 
 生成一个隔离的机器人批次再分析：
@@ -17,11 +19,29 @@ godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analys
 
 正常机器人批次默认采集到 user://telemetry；隔离目录用于避免混入此前测试/试玩。回放文件仍落盘读回验证。重复运行使用新的run_id，不覆盖旧样本；只分析本次批次时指定新的目录。
 
+## #87 有界分片分析
+
+多局输入可显式使用新模式，输出必须为不存在或空目录：
+
+```powershell
+godot --headless --text-driver Dummy --path . -s tools/telemetry_analysis/analysis_cli.gd -- --bounded user://telemetry_d1 user://bounded_reports/d1
+```
+
+按run_id合并同局重复文件/前缀，一次只保留一个run的完整事件，导出`runs/<小写run_id摘要>/`内的原七表及单局summary，随后释放原事件。目录摘要避免Windows大小写及设备名覆盖；原run_id保留在manifest。根summary汇总分布、机会和质量；全局只保留局摘要及原机会聚合器所需的精简事实，跨分片同父奖励去重口径与旧模式一致。分片局摘要只描述局部，不能直接相加代替根机会统计。
+
+根manifest记录输入路径、长度、SHA256、处理状态与分片路径。解析失败保留有效前缀和真实错误，重复/冲突与旧Reader/Report语义一致。已完整后导入旧前缀不降级局结果，但前缀自身不完整的诊断仍保留。根`bounded.complete=false`、pending/rejected等输入状态或uninspected_files表示覆盖不足；预算触顶不补零。原七表仍保留完整event_json；全局精简事实不当作原始埋点再导入。
+
+默认单run输入合计16MiB（包含重复源）、单行1MiB、全局保留事实/局摘要/输入及分片索引序列化预算32MiB、机会事实20000条、最多4096文件；compact-records-v1精确计精简事实和`{inputs,shards,runs,errors}`紧凑JSON的UTF-8字节，包含最终状态及数组分隔符。额外输入/预算诊断最多256详项，超出计入omitted_diagnostics。单行以64KiB块预检；这些是输入/保留数据预算，**不是进程RSS硬上限**。默认60秒是文件/块间检查的协作式期限，不是操作系统强杀或单次JSON/CSV操作的硬超时。可以用正整数覆盖：`--max-run-bytes=N`、`--max-line-bytes=N`、`--max-retained-bytes=N`、`--max-observation-events=N`、`--max-seconds=N`。实际预算、计量及耗时在根summary中记录。
+
+只有分片、manifest、summary均写入成功且无分析错误才退出0；坏记录、预算/IO失败退出1，参数格式错误退出2。写失败保留已写分片供诊断，不能据此当整次成功；输出非空拒绝覆盖。该模式不生成根目录的合并七CSV，现有model_import不能直接把此根目录当作原扁平报告；需明确选择分片或沿用原两参数入口。此批没有改规则、v46/v2协议或Excel输入，也未复现/宣称修好旧450局故障；完整旧批验收仍待原始样本及单独时段。
+
 报告按 source、initialization、schema/rule/content/offer/build版本、游戏config_hash、strategy_version、bot_config_hash、experiment_id、variant_id 分组，局结果再按结束status区分。分组键包含维度摘要，每组输出完整 dimensions。bot_config_hash包括实际策略配置，不能把不同搜索参数混成同组。build未由启动者提供时为unknown，不能用它识别不同二进制。
 
 事件按event_id去重，冲突内容报错；每个run_id只有一条局汇总行，完整文件可补全旧前缀，旧前缀不能降级已完整终局，冲突元数据拒绝合并。重复数据源的诊断仍保留在 errors。
 
-真人技能机会分母是已实际展示的唯一offer，机器人分母是已生成的唯一offer；fixture、replay和不同实验独立分组。conditional_selection_rate=成功取得/机会；无机会时null。生成未展示、展示未消费、失败选择另计；重复展示与重复确认不增加取得次数。尚未采集合法过滤全过程，资格率为null。
+真人技能机会只计实际展示，机器人按生成；按分组、parent_run_id（缺失时run_id）、reward_id去重，同一奖励的原组与替代组不重复增加同一技能机会。旧记录缺reward_id时降级到offer_id。fixture、replay和不同实验独立分组。conditional_selection_rate=成功取得/机会；无机会时null。生成未展示、展示未消费、失败选择另计；重复展示与重复确认不增加取得次数。
+
+offer-unified-trial-v2沿用全部候选explanations、逐槽slots、build_snapshot与parameters，新增冻结utility_pick，并严格核对每槽完整合法池、工具配额和耗尽终止。七张CSV的event_json保留完整轨迹。summary中的eligibility表以observed_rewards / legal_rewards描述已生成奖励的合法池诊断，skills中的legal_pool_rewards与eligibility_rate沿用该诊断口径，不能作为真人曝光。缺解释的历史记录保持null，不回填零；opportunity_protocol=parent-run-reward-v1。pool_audit独立列出complete_rewards、legacy_rewards及complete_rate（无生成奖励为null）：v1埋点仅兼容基本校验，不具备v2完整池背书。旧取得事件缺reward_id时通过实际offer关联生成奖励。相关参数仍为trial_unvalidated，小样本不用于平衡结论。
 
 基础分布采用排序后的 floor(q*(n-1)) 样本分位数，输出P10/P50/P90。小批次只能验收链路，不足以判断技能平衡或真人15分钟体验。深度H窗口、详细因果索引与线上平台接入留D2/D3。
 

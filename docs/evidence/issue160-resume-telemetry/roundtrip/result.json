@@ -1,0 +1,19 @@
+{
+  "kind": "real_report_original_duplicate_roundtrip",
+  "ok": true,
+  "logical_runs": 1,
+  "segments": 2,
+  "raw_unique_events": 21,
+  "canonical_events": 11,
+  "checks": {
+    "runs": true,
+    "events": true,
+    "groups": true,
+    "opportunities": true,
+    "errors": true,
+    "resume_branches": true
+  },
+  "reader_exit": 0,
+  "analyzer_runs": 1,
+  "candidate_metrics": 0
+}

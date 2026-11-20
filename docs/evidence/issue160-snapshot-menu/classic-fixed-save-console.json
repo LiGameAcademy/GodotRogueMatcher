@@ -1,0 +1,86 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:09:54.877Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:09:55.077Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:09:55.350Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:09:57.915Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":98700,\"frames\":6,\"freeze_usec\":22400,\"maximum_gap_usec\":28100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":5300,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":41300}}}",
+    "timestamp": "2026-11-01T10:10:00.064Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":99700,\"frames\":6,\"freeze_usec\":21400,\"maximum_gap_usec\":32000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17200,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":34700}}}",
+    "timestamp": "2026-11-01T10:10:01.098Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":114900,\"frames\":7,\"freeze_usec\":22900,\"maximum_gap_usec\":31300,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":18300,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":56700}}}",
+    "timestamp": "2026-11-01T10:10:02.199Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":172000,\"frames\":9,\"freeze_usec\":26200,\"maximum_gap_usec\":40800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":26200,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":98100}}}",
+    "timestamp": "2026-11-01T10:10:03.381Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":117600,\"frames\":7,\"freeze_usec\":26400,\"maximum_gap_usec\":32700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":17400,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":59600}}}",
+    "timestamp": "2026-11-01T10:10:04.370Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":112100,\"frames\":6,\"freeze_usec\":24700,\"maximum_gap_usec\":36400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":30200,\"filemap_encode_usec\":100,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":49000}}}",
+    "timestamp": "2026-11-01T10:10:04.750Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":102000,\"frames\":6,\"freeze_usec\":21600,\"maximum_gap_usec\":33100,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":19700,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":35500}}}",
+    "timestamp": "2026-11-01T10:10:05.920Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":114700,\"frames\":6,\"freeze_usec\":21900,\"maximum_gap_usec\":31700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":42500,\"filemap_encode_usec\":100,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":52400}}}",
+    "timestamp": "2026-11-01T10:10:07.068Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":149700,\"frames\":6,\"freeze_usec\":46000,\"maximum_gap_usec\":77400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":28600,\"filemap_encode_usec\":1200,\"largest_filemap_slice_usec\":700},\"storage_sync_elapsed_usec\":43000}}}",
+    "timestamp": "2026-11-01T10:10:07.620Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"default_flag_unchanged\":true,\"job_metrics\":{\"elapsed_usec\":149700,\"frames\":6,\"freeze_usec\":46000,\"maximum_gap_usec\":77400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":28600,\"filemap_encode_usec\":1200,\"largest_filemap_slice_usec\":700},\"storage_sync_elapsed_usec\":43000}}},\"menu_visible\":true,\"mode\":\"classic_endless\",\"origin\":\"http://127.0.0.1:8992\",\"phase\":\"saved_frozen_reward\",\"run_id\":\"1245361234-0-1793527798383000-3582800\",\"seed\":\"1245361234\",\"snapshot_matches_live\":true,\"snapshot_schema\":\"run-state-snapshot-safe-v2\",\"state_hash\":\"170a9981f05284c7666e789d7e6bce8b34ebf3a69adb14f2fe4779b3d1d5cf87\",\"trace_known\":true,\"trace_parent_id\":\"1245361234-0-1793527798383000-3582800:126\"},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:10:07.718Z",
+    "url": "http://127.0.0.1:8992/probe.html"
+  }
+]

@@ -1,0 +1,48 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue134/boundary-final-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_legacy_item_isolation.gd
+[0m* test_local_score_config_does_not_write_current_game
+效果 [add_score] 应用：增加 60 分
+* test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+* test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+* test_legacy_dispatchers_are_not_installed_or_subscribed
+* test_local_catalog_instances_do_not_share_mutable_effect_config
+* test_retained_timing_values_only_control_explicit_local_invocation
+效果 [add_score] 应用：增加 50 分
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_refill_lifecycle.gd
+[0m* test_finite_refill_modifier_is_consumed_once_per_actual_batch
+* test_retry_during_birth_cannot_continue_old_run_or_unlock_new_input
+[33m    --- Awaiting signal initialized or 3.0s  ---
+[0m[33m    --- Awaiting 30 idle frames  ---
+[0m[1m2/2 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               2
+Tests                 8
+Passing Tests         8
+Asserts              49
+Time              0.892s
+
+
+[32m---- All tests passed! ----
+[0m

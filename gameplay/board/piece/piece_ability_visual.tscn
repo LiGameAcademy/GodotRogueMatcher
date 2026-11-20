@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://gameplay/board/piece/piece_ability_visual.gd" id="1"]
+[ext_resource type="Shader" path="res://gameplay/board/piece/body_outline.gdshader" id="2"]
+[ext_resource type="Texture2D" path="res://assets/textures/board/sweep_arrow_right.png" id="3"]
+
+[sub_resource type="ShaderMaterial" id="Outline"]
+shader = ExtResource("2")
+
+[sub_resource type="AtlasTexture" id="Arrow"]
+atlas = ExtResource("3")
+region = Rect2(418, 286, 443, 682)
+filter_clip = true
+
+[node name="PieceAbilityVisual" type="Node2D"]
+visible = false
+texture_filter = 4
+script = ExtResource("1")
+
+[node name="BodyOutline" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("Outline")
+
+[node name="FirstArrow" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture = SubResource("Arrow")
+
+[node name="SecondArrow" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture = SubResource("Arrow")

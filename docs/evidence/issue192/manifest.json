@@ -1,0 +1,158 @@
+{
+  "base": "9589563051f845e2c710f9522f4deed76307a265",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "gut": "9.6.0",
+  "dependency": "4ba6dda22ef8fad2e9864438073306adf0747c17",
+  "operating_system": "Windows",
+  "display_backend": "OpenGL Compatibility NVIDIA RTX2070",
+  "system_scaling": null,
+  "author_acceptance": null,
+  "formal_screening": null,
+  "samples": [
+    {
+      "label": "1280x720-low-false",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-2348-1793263042889000-8223761.jsonl",
+      "seed": "119",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v43-shape-identity-order",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    },
+    {
+      "label": "1280x720-low-true",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-2348-1793263047126000-12460557.jsonl",
+      "seed": "119",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v43-shape-identity-order",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    },
+    {
+      "label": "1024x640-low-false",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-2348-1793263050745000-16080000.jsonl",
+      "seed": "119",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v43-shape-identity-order",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    },
+    {
+      "label": "1024x640-low-true",
+      "classification": "automated/retest",
+      "participant": null,
+      "record": "119-2348-1793263054749000-20083840.jsonl",
+      "seed": "119",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "initialization": "screening_t_overlap",
+      "rules_version": "run-commands-v43-shape-identity-order",
+      "footer_status": "censored",
+      "score": "126",
+      "choices": "1"
+    }
+  ],
+  "source_hashes": [
+    {
+      "path": "tools/screening_playground/screening_playground.gd",
+      "sha256": "CA0BB78F632A2A6EF1E92734A255CCDEAAA768071A3ABA2E85E92950CC0DD530"
+    },
+    {
+      "path": "tests/integration/test_screening_return_mouse.gd",
+      "sha256": "4EA3FEB6BA61DF98117B73037148891CA69AAA6130B26CF8D05F09E2AB78E254"
+    }
+  ],
+  "evidence_hashes": [
+    {
+      "path": "1024x640-low-false-returned.png",
+      "sha256": "3867A7E950A3B70D8E38A2359764EB0E358BBD63A6D07DE9D2F65E8AFEE08B5C"
+    },
+    {
+      "path": "1024x640-low-false-view.png",
+      "sha256": "462AFF132C52928AE39DE3F7BCB1A5806D3717F0555ACC99ED2BE7970DD461C8"
+    },
+    {
+      "path": "1024x640-low-true-returned.png",
+      "sha256": "B04BCA2A72FF0CF704B5CAF78A634C63886DC8DA1EDA899446DA7F160A3584AD"
+    },
+    {
+      "path": "1024x640-low-true-view.png",
+      "sha256": "A9C875ACBCC8ED233097D56ED9AF00893B0E3937EA3634F046E3B2D2142DDCCA"
+    },
+    {
+      "path": "119-2348-1793263042889000-8223761-screening.json",
+      "sha256": "8B7B34C7CAB5409C0A4FCC90B5E42EF929A0F04E05C165572D4D829F64516C97"
+    },
+    {
+      "path": "119-2348-1793263042889000-8223761.jsonl",
+      "sha256": "10D4ED96CD43D6E56298BF40342A08CCC5CC83388F8171A39A9612ADA84692A9"
+    },
+    {
+      "path": "119-2348-1793263047126000-12460557-screening.json",
+      "sha256": "0FC67AA29551200D2E7BB724ED905664F792F3CA9405AEECC80C8ABC9B7B0AFB"
+    },
+    {
+      "path": "119-2348-1793263047126000-12460557.jsonl",
+      "sha256": "6C6C5998557D9F433EF4849FF3094FF4EC049E78323BEB415D84DAD13F30602F"
+    },
+    {
+      "path": "119-2348-1793263050745000-16080000-screening.json",
+      "sha256": "1DBE31C3A05918ABBFD524B44E75A09258A1D5A856A8656D7F804D723414F753"
+    },
+    {
+      "path": "119-2348-1793263050745000-16080000.jsonl",
+      "sha256": "3E06F76B8F6FA171749592E603682AE7E67DB8D3421862C3D9EC91363923440E"
+    },
+    {
+      "path": "119-2348-1793263054749000-20083840-screening.json",
+      "sha256": "98B5CE86328A4C93D3DFADDF93C895955E177902812BD7F1307CA39A6EC39B6C"
+    },
+    {
+      "path": "119-2348-1793263054749000-20083840.jsonl",
+      "sha256": "2D362C4F98748E885BB383742DCF464324F303C33A44DF35F8D02C1C21706DBF"
+    },
+    {
+      "path": "1280x720-low-false-returned.png",
+      "sha256": "2F9E36B19CA2877CB6DCC2376100464B5A85696D53ED75A18C2C6F0DA55F3D49"
+    },
+    {
+      "path": "1280x720-low-false-view.png",
+      "sha256": "9AC6F2772E0CBC6F359038CF51312CD6C53C7DBFF6AF9160879ED3BB2CBA15A9"
+    },
+    {
+      "path": "1280x720-low-true-returned.png",
+      "sha256": "94B2CA8202D1E54F79511CFA9A922682E178CE272528512FD070C810AFB2D3E4"
+    },
+    {
+      "path": "1280x720-low-true-view.png",
+      "sha256": "90ABF8ABA141D5E3703D9D31D57AB96465A716A1FFB063F8AE260246E78B033B"
+    },
+    {
+      "path": "gui.log",
+      "sha256": "EDE1D9335BC9475EADA5F432B29244A0DDC22518477877CA99A5CA6499FC7508"
+    },
+    {
+      "path": "initial-gui-failure.log",
+      "sha256": "1C6513E5CC90AFFE31C7FBA6FB96A6F9604985D224D4B0DADE0EC358A8F9C3F8"
+    },
+    {
+      "path": "initial-headless-failure.log",
+      "sha256": "B1EC8C6B423A2803B1DEBB00CDC54A823127C91003228B3B102D81F508E648FB"
+    },
+    {
+      "path": "regression.log",
+      "sha256": "738DE0C364306138D45D338EB8E1A8BC85F4FAE78DA8AEBAD9BA088885363633"
+    }
+  ],
+  "hash_convention": "SHA256 of repository bytes; UTF-8 text normalized to LF by Git, images unchanged"
+}

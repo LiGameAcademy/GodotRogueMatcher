@@ -1,19 +1,22 @@
-[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=5 format=3 uid="uid://ether_totem_effect"]
+[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=8 format=3 uid="uid://ether_totem_effect"]
 
 [ext_resource type="Script" path="res://gameplay/items/item_effect_config.gd" id="1_config"]
 [ext_resource type="Script" path="res://gameplay/items/conditions/condition_timing.gd" id="2_timing"]
 [ext_resource type="Script" path="res://gameplay/items/conditions/condition_piece_color.gd" id="3_color"]
 [ext_resource type="Script" path="res://gameplay/items/effects/effect_add_score.gd" id="4_score"]
 
-[sub_resource type="ConditionTiming" id="ConditionTiming_1"]
+[sub_resource type="Resource" id="ConditionTiming_1"]
+script = ExtResource("2_timing")
 condition_id = "timing"
 timing = 3
 
-[sub_resource type="ConditionPieceColor" id="ConditionPieceColor_1"]
+[sub_resource type="Resource" id="ConditionPieceColor_1"]
+script = ExtResource("3_color")
 condition_id = "piece_color"
 target_color = 0
 
-[sub_resource type="EffectAddScore" id="EffectAddScore_1"]
+[sub_resource type="Resource" id="EffectAddScore_1"]
+script = ExtResource("4_score")
 effect_id = "add_score"
 score_multiplier = 0.5
 fixed_bonus = 0

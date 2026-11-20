@@ -1,0 +1,143 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Theme" path="res://gameplay/presentation/game_theme/light_toy_ui.tres" id="1"]
+[ext_resource type="FontFile" path="res://assets/fonts/noto_sans_sc_regular.otf" id="2"]
+
+[node name="UiComponents" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1")
+theme_override_fonts/font = ExtResource("2")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.941176, 0.901961, 0.858824, 1)
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 32
+
+[node name="Rows" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Margin/Rows"]
+layout_mode = 2
+text = "UI 组件 · Godot 实际渲染 / v01"
+theme_override_font_sizes/font_size = 28
+
+[node name="Note" type="Label" parent="Margin/Rows"]
+layout_mode = 2
+text = "米白面板 · 暖金主操作 · 清晰禁用文字 · 棋盘槽位见主界面实机图"
+
+[node name="Buttons" type="HBoxContainer" parent="Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Secondary" type="Button" parent="Margin/Rows/Buttons"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 58)
+text = "次操作"
+disabled = false
+
+[node name="SecondaryDisabled" type="Button" parent="Margin/Rows/Buttons"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 58)
+text = "不可用：条件未满足"
+disabled = true
+
+[node name="Primary" type="Button" parent="Margin/Rows/Buttons"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 58)
+text = "确认选择"
+disabled = false
+theme_type_variation = &"PrimaryButton"
+
+[node name="PrimaryDisabled" type="Button" parent="Margin/Rows/Buttons"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 58)
+text = "不可用：尚未选择"
+disabled = true
+theme_type_variation = &"PrimaryButton"
+
+[node name="PanelTitle" type="Label" parent="Margin/Rows"]
+layout_mode = 2
+text = "面板与提示信息 / 文案独立渲染"
+
+[node name="Panels" type="HBoxContainer" parent="Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Main" type="PanelContainer" parent="Margin/Rows/Panels"]
+layout_mode = 2
+custom_minimum_size = Vector2(540, 120)
+
+[node name="Content" type="VBoxContainer" parent="Margin/Rows/Panels/Main"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Margin/Rows/Panels/Main/Content"]
+layout_mode = 2
+text = "主面板"
+
+[node name="Body" type="Label" parent="Margin/Rows/Panels/Main/Content"]
+layout_mode = 2
+text = "界面信息使用深梅紫正文。"
+
+[node name="Tooltip" type="PanelContainer" parent="Margin/Rows/Panels"]
+layout_mode = 2
+custom_minimum_size = Vector2(540, 120)
+
+[node name="Content" type="VBoxContainer" parent="Margin/Rows/Panels/Tooltip"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Margin/Rows/Panels/Tooltip/Content"]
+layout_mode = 2
+text = "提示内容"
+
+[node name="Body" type="Label" parent="Margin/Rows/Panels/Tooltip/Content"]
+layout_mode = 2
+text = "禁用原因仍应清楚可读。"
+
+[node name="ProgressTitle" type="Label" parent="Margin/Rows"]
+layout_mode = 2
+text = "目标进度 / 0% · 60% · 100%"
+
+[node name="Progress" type="HBoxContainer" parent="Margin/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Empty" type="ProgressBar" parent="Margin/Rows/Progress"]
+layout_mode = 2
+custom_minimum_size = Vector2(350, 28)
+value = 0
+show_percentage = false
+
+[node name="Partial" type="ProgressBar" parent="Margin/Rows/Progress"]
+layout_mode = 2
+custom_minimum_size = Vector2(350, 28)
+value = 60
+show_percentage = false
+
+[node name="Full" type="ProgressBar" parent="Margin/Rows/Progress"]
+layout_mode = 2
+custom_minimum_size = Vector2(350, 28)
+value = 100
+show_percentage = false
+
+[node name="Footer" type="Label" parent="Margin/Rows"]
+layout_mode = 2
+text = "本页为原生 Theme 检视场景；未把生成参考板切成运行贴图。"

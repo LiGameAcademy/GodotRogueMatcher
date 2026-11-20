@@ -111,7 +111,10 @@ func start_next() -> void:
 	used_actions = 0
 	awaiting_reward = false
 
-func data() -> Dictionary:
+func data(include_history: bool = true) -> Dictionary:
 	var results: Array[Dictionary] = []
-	for result: StageResult in history: results.append(result.data())
+	if include_history:
+		for result: StageResult in history: results.append(result.data())
+	elif not history.is_empty():
+		results.append(history.back().data())
 	return {"enabled": enabled(), "continuing": continuing, "target_total": target_total() if enabled() and config.validation_error().is_empty() else 0, "index": index, "carry_in": carry_in, "action_score": action_score, "used_actions": used_actions, "awaiting_reward": awaiting_reward, "root_action_id": root_action_id, "settled_root_id": settled_root_id, "entry_offset": entry_offset, "history": results}

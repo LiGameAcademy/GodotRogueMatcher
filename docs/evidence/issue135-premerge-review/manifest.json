@@ -1,0 +1,47 @@
+[
+  {
+    "file": "final-engine.log",
+    "bytes": 143069,
+    "sha256": "80c3b7a8bb173cc26e056cc49d67d3cdfe8789c1d890f3602174f3e40ffb3a44"
+  },
+  {
+    "file": "final-full.log",
+    "bytes": 149831,
+    "sha256": "15936d65e7ab35f9cfe69ad4145bd6f4171cb6e0a8eccfc278645e9e714b8a66"
+  },
+  {
+    "file": "final-import.log",
+    "bytes": 77893,
+    "sha256": "fcfdfd724001bb106ee2b681814590e275f5d0d4290f021fc8a70bdfeff4bf0a"
+  },
+  {
+    "file": "golden-replay.log",
+    "bytes": 38192,
+    "sha256": "0f2df0cee24f45d2da61bd4abeb35de142d4c25d083f7ac6b1d9bd77bf9072ee"
+  },
+  {
+    "file": "line-counts.json",
+    "bytes": 3705,
+    "sha256": "7bb3195758a34ebb77db8a1b966a41ecbe4cf454dfaeba8fc7547c249d30c480"
+  },
+  {
+    "file": "parent-target.log",
+    "bytes": 54813,
+    "sha256": "238691ccd05ab1cee0f9089c34e2dbed25d8d531b630790bd39989f912f85cd0"
+  },
+  {
+    "file": "red.log",
+    "bytes": 140616,
+    "sha256": "772467785a51f5de04000a588d73fba3feec14673dead649454a975f010b6c7a"
+  },
+  {
+    "file": "script-results.json",
+    "bytes": 9535,
+    "sha256": "27aefa6e6c1d165ffaa5361c5cb7715869128c404f21b6586563e39e4f8e4256"
+  },
+  {
+    "file": "summary.json",
+    "bytes": 192,
+    "sha256": "2be2a43d7b090eb5ffbd59146e34aa5e556bad33284d067c6f67ddbef889ef02"
+  }
+]

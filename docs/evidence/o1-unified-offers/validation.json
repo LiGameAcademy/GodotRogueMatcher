@@ -1,0 +1,57 @@
+{
+  "full_regression_commit": "59e8ef3c7267310bf2fcc26765ab13fcaae91905",
+  "ui_increment_commit": "5f996b2dc83bacd0f9ff5ecaa7915c62d66b3421",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "platform": "Windows",
+  "full": {
+    "scripts": 141,
+    "tests": 1005,
+    "passing": 1005,
+    "assertions": 29753,
+    "float_int_warnings": 29,
+    "exit_code": 0,
+    "started": "2026-10-29T18:13:33.2399981+08:00",
+    "ended": "2026-10-29T18:21:44.1045157+08:00"
+  },
+  "ui_increment": {
+    "scripts": 4,
+    "tests": 34,
+    "passing": 34,
+    "assertions": 5965,
+    "exit_code": 0,
+    "files": [
+      {
+        "path": "ui/skill_pool/skill_pool_text.gd",
+        "sha256": "3c5aa1f300673499a00d0991d6a74d9447c7430fbeb96936cf768ef20c21f4df"
+      },
+      {
+        "path": "tests/integration/test_skill_pool.gd",
+        "sha256": "19916c4e97d7d5633d7cf6be4c8e0e803e3528cb7996f9b4b4a2f8c4584a39af"
+      }
+    ]
+  },
+  "review": "authorized read-only reviewer APPROVE after both findings fixed",
+  "batch": {
+    "commit": "f23109339ce7af17e1c8365ee3f5305a388e9c72",
+    "strategy": "greedy-v1",
+    "seeds": [
+      1000,
+      1001,
+      1002
+    ],
+    "move_cap": 60,
+    "replays_ok": 3,
+    "reward_choices": 7,
+    "analysis_errors": 0,
+    "duplicate_files": 2,
+    "duplicate_runs": 1,
+    "duplicate_acquired": 3,
+    "damaged_exit_code": 1
+  },
+  "limitations": [
+    "trial parameters uncalibrated",
+    "not a reproduction of prior 450-run fault",
+    "no human observations",
+    "full restoration #160 not accepted"
+  ]
+}

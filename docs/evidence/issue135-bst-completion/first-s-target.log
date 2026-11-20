@@ -1,0 +1,120 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/s-import-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_followup_strength.gd
+[0m* test_match_plant_freezes_configuration_at_trigger
+* test_match_dye_freezes_target_count_before_later_upgrade
+* test_match_dye_eligibility_is_not_granted_or_revoked_retroactively
+* test_match_dye_freezes_wave_limit_and_keeps_shared_usage
+* test_s08_pending_projection_is_detached_and_retirement_records_interruption
+* test_s08_dye_trace_keeps_frozen_count_and_actual_surviving_target
+* test_match_plant_eligibility_freezes_but_targets_remain_live
+* test_s08_recorded_dye_command_replays_disk_and_restores_prefix_repeatedly
+[31m    [Failed]:  [0munsafe_prefix_phase
+      at line 132
+[31m    [Failed]:  [0munsafe_prefix_phase
+      at line 132
+[1m7/8 passed.
+[0m[4m
+
+res://tests/rules/test_trigger_strength.gd
+[0m* test_s01_radius_upgrade_does_not_change_queued_blast
+* test_s02_upgrade_before_trigger_affects_new_blast
+* test_s03_reward_and_fixed_bonus_freeze_at_trigger
+* test_s04_removed_target_is_not_paid_or_revived
+* test_s05_new_target_is_selected_at_execution
+* test_s06_descendant_samples_its_own_new_strength
+* test_s08_config_mutation_and_other_run_do_not_change_queued_strength
+* test_line_band_and_score_coefficients_freeze_but_targets_remain_live
+* test_target_mark_is_live_but_mark_reward_coefficient_is_frozen
+* test_source_filter_is_frozen_not_retroactively_installed
+* test_s07_nested_composite_preserves_trigger_order
+* test_snapshot_and_record_distinguish_strength_from_actual_targets
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_dye_rules.gd
+[0m* test_echo_completes_second_line_and_scores_mark_once
+* test_new_line_allows_second_wave_but_shared_budget_stops_third
+* test_recolor_preserves_fuse_and_identity_without_direct_score
+* test_no_surviving_target_leaves_only_first_match
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[MatchResult]".
+   at: DyeTrigger.execute (res://gameplay/skills/dye/dye_trigger.gd:28)
+   GDScript backtrace (most recent call first):
+       [0] execute (res://gameplay/skills/dye/dye_trigger.gd:28)
+       [1] resolve (res://gameplay/skills/ability_resolver.gd:124)
+       [2] _resolve_groups (res://gameplay/run/run_controller.gd:175)
+       [3] resolve_matches_at (res://gameplay/run/run_controller.gd:77)
+       [4] move_piece (res://gameplay/run/run_controller.gd:71)
+       [5] execute_command (res://gameplay/run/run_controller.gd:249)
+       [6] _move (res://tests/rules/test_dye_rules.gd:12)
+       [7] test_no_surviving_target_leaves_only_first_match (res://tests/rules/test_dye_rules.gd:58)
+       [8] _run_test (res://addons/gut/gut.gd:615)
+       [9] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Trying to assign an array of type "Array" to a variable of type "Array[MatchResult]".
+      at line -1
+* test_dye_state_is_owned_per_run_and_stale_instant_targets_reject
+* test_fixture_records_replay_rule_and_presentation_events
+* test_non_match_removal_does_not_consume_later_spawn_match_opportunity
+* test_dye_bonus_is_not_paid_on_explosion_removal
+* test_blast_bridge_dyes_surviving_edge_material_and_shares_wave_limit
+[1m8/9 passed.
+[0m[4m
+
+res://tests/rules/test_demolition_build.gd
+[0m* test_catalog_has_42_real_distinct_effects_and_five_grades
+* test_prerequisites_and_rarity_multiply_after_clamp_once
+* test_active_core_consumes_once_and_normal_refill_still_happens
+* test_active_budget_failure_preserves_source_score_and_rng
+* test_payload_creates_immediate_chain_and_score_is_extra_only
+* test_relay_snapshot_does_not_propagate_new_source_same_turn
+* test_aftershock_once_selective_filter_and_radius_caps
+* test_relief_waits_for_complete_root_and_extends_without_double_strength
+* test_supply_uses_normal_slots_unique_and_run_state_isolated
+* test_core_drop_new_budget_preflight_preserves_entire_choice
+* test_plant_runs_after_all_match_groups_removed_once_per_root
+* test_chain_radius_only_later_fuses_and_general_rewards_are_independent
+* test_old_parent_root_survives_interleaved_skill_root
+* test_active_command_chain_settlement_and_refill_replay_all_checkpoints
+* test_rarity_styles_are_owned_by_each_card
+[1m15/15 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_followup_strength.gd
+[0m- test_s08_recorded_dye_command_replays_disk_and_restores_prefix_repeatedly
+[31m    [Failed]:  [0munsafe_prefix_phase
+          at line 132
+[31m    [Failed]:  [0munsafe_prefix_phase
+          at line 132
+[4m
+res://tests/rules/test_dye_rules.gd
+[0m- test_no_surviving_target_leaves_only_first_match
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Trying to assign an array of type "Array" to a variable of type "Array[MatchResult]".
+          at line -1
+
+Totals
+------
+Scripts               4
+Tests                44
+Passing Tests        42
+Failing Tests         2
+Asserts           393/396
+Time              0.633s
+
+
+[31m---- 2 failing tests ----
+[0m

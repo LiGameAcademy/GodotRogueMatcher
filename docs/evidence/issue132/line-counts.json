@@ -1,0 +1,78 @@
+[
+  {
+    "path": "gameplay/board/board.gd",
+    "physical_lines": 489
+  },
+  {
+    "path": "gameplay/board/board_run_flow.gd",
+    "physical_lines": 40
+  },
+  {
+    "path": "gameplay/board/spawn_manager.gd",
+    "physical_lines": 39
+  },
+  {
+    "path": "gameplay/board/match_system.gd",
+    "physical_lines": 18
+  },
+  {
+    "path": "gameplay/run/run_controller.gd",
+    "physical_lines": 349
+  },
+  {
+    "path": "gameplay/run/run_state.gd",
+    "physical_lines": 77
+  },
+  {
+    "path": "gameplay/run/game_manager.gd",
+    "physical_lines": 73
+  },
+  {
+    "path": "gameplay/progression/level_up_system.gd",
+    "physical_lines": 255
+  },
+  {
+    "path": "gameplay/progression/skill_rules.gd",
+    "physical_lines": 175
+  },
+  {
+    "path": "gameplay/progression/skill_offer_generator.gd",
+    "physical_lines": 203
+  },
+  {
+    "path": "gameplay/skills/ability_effect_runner.gd",
+    "physical_lines": 240
+  },
+  {
+    "path": "gameplay/skills/ability_resolver.gd",
+    "physical_lines": 329
+  },
+  {
+    "path": "gameplay/items/item_registry.gd",
+    "physical_lines": 130
+  },
+  {
+    "path": "gameplay/items/item_placer.gd",
+    "physical_lines": 106
+  },
+  {
+    "path": "gameplay/items/item_effect_system.gd",
+    "physical_lines": 186
+  },
+  {
+    "path": "gameplay/game.gd",
+    "physical_lines": 414
+  },
+  {
+    "path": "ui/ui_manager.gd",
+    "physical_lines": 64
+  },
+  {
+    "path": "ui/popup_skill_choice.gd",
+    "physical_lines": 212
+  },
+  {
+    "path": "tests/test_core_loop.gd",
+    "physical_lines": 447
+  }
+]

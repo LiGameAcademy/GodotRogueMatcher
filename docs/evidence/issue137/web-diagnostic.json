@@ -1,0 +1,40 @@
+{
+  "source_commit": "db7d2872c6251c753ffff96cb0c8ad6bdc7860c0",
+  "status": "rejected_export_diagnostic_only",
+  "preset": "Web / Release / single-threaded",
+  "unchanged_from_base": {
+    "ui/item_widget.tscn": true,
+    "ui/popup_level_up.tscn": true,
+    "export_presets.cfg": true,
+    "gameplay/skills/debug/screening_deck.gd": true,
+    "tools/screening_playground/screening_config.gd": true,
+    "gameplay/run/run_controller.gd": true,
+    "data/item/effects/amplifier_effect.tres": true,
+    "data/item/effects/bomb_effect.tres": true,
+    "data/item/effects/drill_effect.tres": true,
+    "data/item/effects/dye_station_effect.tres": true,
+    "data/item/effects/energy_core_effect.tres": true,
+    "data/item/effects/ether_totem_effect.tres": true,
+    "data/item/effects/prism_tower_effect.tres": true,
+    "data/item/effects/space_compressor_effect.tres": true,
+    "data/item/effects/swapper_effect.tres": true
+  },
+  "artifacts": {
+    "index.html": {
+      "bytes": 5444,
+      "sha256": "1f498cd8003496fc3ed1bd81fd2f69479e6d317b9d331bf090ddcafafed5ea45"
+    },
+    "index.js": {
+      "bytes": 279815,
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba"
+    },
+    "index.pck": {
+      "bytes": 24575012,
+      "sha256": "6b96fc9be1c8bec94f67208fbe7ca31206634c449a8f2048927b767d4cdcd742"
+    },
+    "index.wasm": {
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    }
+  }
+}

@@ -83,6 +83,39 @@ func test_prototype_layout_leaves_board_click_area_clear() -> void:
 	assert_eq(hud.build_list.horizontal_scroll_mode, ScrollContainer.SCROLL_MODE_DISABLED)
 	assert_true(hud.breakdown_label.scroll_active)
 
+func test_narrow_selection_keeps_mechanism_and_coordinate_visible() -> void:
+	var window: Window = get_window()
+	var previous_size: Vector2i = window.size
+	var previous_scale: Vector2i = window.content_scale_size
+	var previous_locale: String = TranslationServer.get_locale()
+	window.size = Vector2i(1024, 640)
+	window.content_scale_size = Vector2i(1024, 640)
+	var piece: PieceState = PieceState.new()
+	piece.coordinate = Vector2i(8, 8)
+	var label: Label = hud.selection_label
+	assert_eq(label.autowrap_mode, TextServer.AUTOWRAP_WORD_SMART)
+	for locale: String in ["en_US", "zh_CN"]:
+		TranslationServer.set_locale(locale)
+		for has_fuse: bool in [false, true]:
+			piece.content_id = &"" if has_fuse else &"special_demolition"
+			hud.show_selection(piece, has_fuse)
+			await wait_process_frames(4)
+			assert_string_contains(label.tooltip_text, "(9, 9)")
+			assert_string_contains(label.text, "(9,\u00a09)")
+			assert_eq(label.text.replace("\u00a0", " "), label.tooltip_text)
+			if DisplayServer.get_name() == "headless":
+				continue
+			var coordinate_start: int = label.text.rfind("(")
+			var coordinate_bounds: Rect2 = label.get_character_bounds(coordinate_start)
+			var bounds: Rect2 = label.get_character_bounds(label.text.length() - 1)
+			assert_true(bounds.has_area(), locale)
+			assert_true(Rect2(Vector2.ZERO, label.size).grow(1.0).encloses(bounds), locale)
+			assert_eq(coordinate_bounds.position.y, bounds.position.y, locale)
+			assert_eq(label.get_visible_line_count(), label.get_line_count())
+	TranslationServer.set_locale(previous_locale)
+	window.size = previous_size
+	window.content_scale_size = previous_scale
+
 func test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 91)
 	run.initialize()

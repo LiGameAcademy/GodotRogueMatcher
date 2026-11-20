@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-pool-user/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_skill_description_coverage.gd
+* test_audit_all_52_real_effect_roots_and_declared_levels
+* test_same_family_parameters_and_weight_lifetime_are_not_copied_or_accumulated_per_color
+2/2 passed.
+
+
+res://tests/integration/test_skill_pool_rule_context.gd
+* test_definition_owned_proposed_max_and_expired_contexts_do_not_fabricate_offers
+    [Failed]:  [0] expected to equal [1]:
+      at line 45
+    [Failed]:  Expected 'Definition only; no offered level or targets are promised.' to contain 'Lv.1', match_case=true
+      at line 46
+* test_real_pool_bilingual_views_keep_context_bodies_metadata_and_six_rngs_unchanged
+1/2 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://tests/integration/test_skill_pool_rule_context.gd
+- test_definition_owned_proposed_max_and_expired_contexts_do_not_fabricate_offers
+    [Failed]:  [0] expected to equal [1]:
+          at line 45
+    [Failed]:  Expected 'Definition only; no offered level or targets are promised.' to contain 'Lv.1', match_case=true
+          at line 46
+
+Totals
+------
+Scripts               2
+Tests                 4
+Passing Tests         3
+Failing Tests         1
+Asserts           720/722
+Time              3.287s
+
+
+---- 1 failing tests ----

@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><title>O5 snapshot measured report</title>
+<style>body{background:#202327;color:#eee;font:16px system-ui;max-width:1120px;margin:24px auto}table{border-collapse:collapse;width:100%}th,td{border:1px solid #62686e;padding:12px;text-align:left}pre{white-space:pre-wrap;font-size:12px}h1{font-size:26px}.pass{color:#8de4ba}</style>
+<h1>O5 当前状态快照：实际 Web 内核核对</h1>
+<p>2026-11-01 · source 260cc1c · Godot 4.7.2 / Chromium / IndexedDB</p>
+<p class="pass">报告 ok=true，退出码 0。源状态未修改；恢复端点一致；每个测点随后 3 条相同操作一致。</p>
+<table><tr><th>移动次数</th><th>未保存历史条数</th><th>快照字节</th><th>保存</th><th>重开并加载</th><th>保存最大帧间隔</th></tr><tr><td>0</td><td>2</td><td>3,711 B</td><td>100.6 ms</td><td>107.0 ms</td><td>54.7 ms</td></tr><tr><td>45</td><td>425</td><td>6,861 B</td><td>88.7 ms</td><td>125.4 ms</td><td>50.7 ms</td></tr></table>
+<p>仅单场助手探针、经典 INPUT 安全点。正式游戏入口尚未切换；阶段、冻结选卡和采集续段仍待完成。O5 保持 OPEN。</p>
+<p>此页为已保存原始报告的静态展示；原始报告与控制台、退出状态另存证据目录。</p><details><summary>原始报告</summary><pre>{
+  &quot;ok&quot;: true,
+  &quot;reason&quot;: &quot;&quot;,
+  &quot;samples&quot;: [
+    {
+      &quot;endpoint_equal&quot;: true,
+      &quot;identical_next_commands&quot;: 3,
+      &quot;load_maximum_gap_usec&quot;: 24700,
+      &quot;load_with_fresh_open_usec&quot;: 107000,
+      &quot;moves&quot;: 0,
+      &quot;ok&quot;: true,
+      &quot;reason&quot;: &quot;&quot;,
+      &quot;save_maximum_gap_usec&quot;: 54700,
+      &quot;save_usec&quot;: 100600,
+      &quot;snapshot_bytes&quot;: 3711,
+      &quot;source_records_not_saved&quot;: 2,
+      &quot;source_unchanged&quot;: true,
+      &quot;state_hash&quot;: &quot;76bc134dad20d85a82ca413e12fb8a01723b06f9d05a25d060411ba384a1b2ad&quot;
+    },
+    {
+      &quot;endpoint_equal&quot;: true,
+      &quot;identical_next_commands&quot;: 3,
+      &quot;load_maximum_gap_usec&quot;: 27000,
+      &quot;load_with_fresh_open_usec&quot;: 125400,
+      &quot;moves&quot;: 45,
+      &quot;ok&quot;: true,
+      &quot;reason&quot;: &quot;&quot;,
+      &quot;save_maximum_gap_usec&quot;: 50700,
+      &quot;save_usec&quot;: 88700,
+      &quot;snapshot_bytes&quot;: 6861,
+      &quot;source_records_not_saved&quot;: 425,
+      &quot;source_unchanged&quot;: true,
+      &quot;state_hash&quot;: &quot;f7ee164d41ae088be265736167d655fe828a98101d016dbd330f58195e50ca43&quot;
+    }
+  ],
+  &quot;scope&quot;: &quot;bounded agent-only snapshot kernel/IndexedDB probe; not live menu or whole O5 acceptance&quot;
+}
+</pre></details>

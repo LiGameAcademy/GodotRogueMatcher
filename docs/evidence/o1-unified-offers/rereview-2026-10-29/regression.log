@@ -1,0 +1,308 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/o1-unified-offers/.godot/o1-rereview/frozen-userdata/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_offer_measurements.gd
+[0m* test_real_offer_explanation_schema_csv_and_command_replay_are_consistent
+* test_corrupt_binary_factors_weights_or_denominators_are_explicit_schema_errors
+* test_synthetic_replacement_trace_counts_one_reward_and_does_not_call_it_a_refusal
+* test_legacy_missing_explanations_stay_unknown_and_hidden_human_offers_are_not_exposures
+* test_truncated_pool_omitted_candidate_and_forged_quota_are_rejected
+* test_legacy_acquisition_without_reward_id_joins_its_generated_offer
+* test_v1_telemetry_is_legacy_coverage_and_v45_replay_is_explicitly_rejected
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_unified_offers.gd
+[0m* test_all_actual_definitions_have_explicit_valid_traits_and_default_q
+* test_fg01_persistent_supply_without_carrier_only_missing_first_payoff_is_boosted
+* test_fg02_first_real_payoff_closes_both_blast_payoff_candidates_but_upgrade_stays_legal
+* test_fg03_real_instant_conversion_keeps_investment_after_departure_without_permanent_prerequisite
+* test_fg04_relay_needs_stock_persistent_seed_channel_is_a_gap_but_assign_is_not
+* test_fg05_line_supply_without_carrier_and_real_first_line_payoff
+* test_fg06_axis_extension_is_not_missing_supply_and_instant_history_is
+* test_fg07_mixed_routes_keep_independent_first_payoff_gaps_and_generic_does_not_close_them
+* test_fg08_synthetic_registered_bridge_caps_related_and_gap_at_one
+* test_fg09_no_investment_or_shape_unlock_affinity_and_hard_gate_cannot_be_rescued
+* test_fg10_frozen_projection_does_not_count_other_candidates_or_reopen_and_isolates_runs
+* test_slot_denominators_ascii_order_and_strict_cumulative_selection_are_recomputable
+* test_utility_quota_short_group_does_not_fallback_or_repeat_and_can_be_disabled
+* test_complete_pool_audit_accepts_short_groups_and_all_configured_quotas
+* test_invalid_policy_mapping_or_config_rejects_before_all_streams_and_identity
+* test_flat_trial_curve_and_explicit_steps_use_only_successful_choice_index
+[1m16/16 passed.
+[0m[4m
+
+res://tests/rules/test_telemetry.gd
+[0m* test_collecting_and_failed_sink_do_not_change_rules_or_random_streams
+WARNING: 本局分析记录不完整：test_write_failure
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] flush_pending (res://services/telemetry/telemetry_projector.gd:240)
+       [2] play (res://tools/bot_testing/bot_runner.gd:31)
+       [3] test_collecting_and_failed_sink_do_not_change_rules_or_random_streams (res://tests/rules/test_telemetry.gd:59)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_generated_without_visible_popup_is_not_human_exposure
+* test_repeated_presentation_failed_choice_and_duplicate_confirmation_are_deduplicated
+* test_bot_opportunities_use_generated_offers_without_fake_presentations
+* test_exported_csv_keeps_the_complete_event_envelope
+* test_clock_priority_focus_and_closing_total_are_exclusive
+* test_inputs_have_one_terminal_disposition_and_command_link
+* test_turn_aggregates_chain_and_generated_entities_once
+* test_local_sink_readback_precision_truncation_and_schema_rejection
+* test_core_json_strategy_works_without_autoload_and_preserves_null_error_boundary
+* test_overlapping_prefix_and_complete_files_count_one_run
+* test_experiment_variant_and_bot_configuration_are_separate_groups
+* test_active_core_turn_counts_source_removal_and_reports_action
+[1m13/13 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_run_random_streams.gd
+[0m* test_fixed_vectors_and_creation_order
+* test_each_consumer_is_bound_to_its_named_stream_and_runs_are_independent
+* test_signed_64_bit_roundtrip_and_future_draws
+* test_invalid_protocol_or_missing_stream_is_rejected_without_touching_active_run
+* test_dynamic_execution_leaves_offer_streams_untouched
+* test_unique_position_and_color_do_not_draw_and_preview_is_read_only
+* test_replay_rejects_missing_protocol_and_stream_before_replacing_run
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_composite_offer_lifecycle.gd
+[0m* test_formal_offer_does_not_sample_dynamic_subtree_and_choice_samples_each_once
+* test_each_declared_dynamic_selector_samples_from_post_clear_board_once
+* test_preview_snapshot_and_missing_color_do_not_sample_dynamic_target
+* test_b03_b04_formal_offer_fixed_invalid_target_skip_and_strict_error
+* test_partial_fixed_targets_revalidate_and_bad_color_is_not_swallowed
+* test_skip_policy_does_not_erase_budget_rejection
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_reward_waiting_rules.gd
+[0m* test_partial_invalid_offer_keeps_identity_targets_and_random_without_replacement
+* test_all_invalid_offer_rebuilds_same_reward_once_without_consuming_it
+* test_nested_popup_snapshot_isolates_every_target_collection
+* test_second_complete_invalidation_stops_without_new_offer_or_repair
+* test_failed_freeze_keeps_all_formal_streams_identity_and_reward
+* test_one_and_two_card_groups_are_complete_but_zero_pool_is_an_error
+* test_successful_choose_duplicate_keeps_result_and_consumes_once
+* test_command_cannot_acquire_candidate_with_outdated_frozen_level
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_offers.gd
+[0m* test_pressure_remains_a_diagnostic_with_occupancy_and_fragmentation
+* test_high_pressure_does_not_waive_hard_gate_or_raise_trial_weight
+* test_classic_and_challenge_share_formula_without_startup_or_history_factors
+* test_offer_diagnostic_and_explanations_freeze_until_next_successful_choice
+* test_finished_run_and_invalid_trial_config_never_advance_random_or_identity
+* test_high_pressure_groups_keep_distinct_legal_choices_and_one_utility
+* test_offer_record_emits_explanations_actual_slot_denominators_and_neutral_pressure
+* test_challenge_record_replays_offers_with_current_config
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_skill_recording.gd
+[0m* test_snapshot_ability_instances_expose_debug_links
+* test_explain_matches_adapter_and_records_condition_rejection
+* test_rule_result_activations_locate_consume_after_blast
+* test_replay_describe_error_covers_version_and_truncation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_ability_composite_effects.gd
+[0m* test_leaf2_reads_state_after_leaf1_commit
+* test_clear_then_dye_defers_descendant_blasts_until_composite_done
+* test_fixed_target_reject_fails_before_mutating
+* test_fixed_target_skip_drops_invalid_ids
+* test_composite_validation_rejects_cycle_depth_and_empty
+* test_acceptance_skill_uses_generic_apply_without_skill_id_branch
+* test_single_leaf_core_drop_still_applies_through_runner
+* test_composite_clear_color_picker_reads_clear_leaf_groups
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_plus_template_flow.gd
+[0m* test_direct_plus_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_plus_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_plus_match_finishes_remaining_locked_tokens
+* test_batch_dye_plus_and_straight_line_score_final_union_once
+* test_real_plus_unlock_immediately_scans_and_does_not_enable_l
+* test_real_plus_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_plus_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+* test_fixture_profiles_keep_old_catalog_and_production_separate
+* test_unknown_profile_and_cross_profile_initialization_are_rejected
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_ring_template_flow.gd
+[0m* test_direct_ring_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_ring_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_ring_match_finishes_remaining_locked_tokens
+* test_batch_dye_ring_and_straight_line_score_final_union_once
+* test_real_ring_unlock_immediately_scans_and_does_not_enable_u
+* test_real_ring_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_ring_and_u_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+* test_fixture_profiles_keep_old_catalog_and_production_separate
+* test_unknown_profile_and_cross_profile_initialization_are_rejected
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_square_template_flow.gd
+[0m* test_direct_square_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_square_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_square_match_finishes_remaining_locked_tokens
+* test_batch_dye_square_and_straight_line_score_final_union_once
+* test_real_square_unlock_immediately_scans_and_does_not_enable_ring
+* test_real_square_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_square_and_ring_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+* test_fixture_profiles_keep_old_catalog_and_production_separate
+* test_unknown_profile_and_cross_profile_initialization_are_rejected
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_t_template_flow.gd
+[0m* test_direct_t_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_t_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_t_match_finishes_remaining_locked_tokens
+* test_batch_dye_t_and_straight_line_score_final_union_once
+* test_real_t_unlock_immediately_scans_and_does_not_enable_l
+* test_real_t_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_u_template_flow.gd
+[0m* test_direct_u_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_u_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_u_match_finishes_remaining_locked_tokens
+* test_batch_dye_u_and_straight_line_score_final_union_once
+* test_real_u_unlock_immediately_scans_and_does_not_enable_l
+* test_real_u_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_u_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+* test_fixture_profiles_keep_old_catalog_and_production_separate
+* test_unknown_profile_and_cross_profile_initialization_are_rejected
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_x_template_flow.gd
+[0m* test_direct_x_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_x_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_x_match_finishes_remaining_locked_tokens
+* test_batch_dye_x_and_straight_line_score_final_union_once
+* test_real_x_unlock_immediately_scans_and_does_not_enable_l
+* test_real_x_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_x_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+* test_fixture_profiles_keep_old_catalog_and_production_separate
+* test_unknown_profile_and_cross_profile_initialization_are_rejected
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_zs_template_flow.gd
+[0m* test_direct_zs_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_zs_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_zs_match_finishes_remaining_locked_tokens
+* test_batch_dye_zs_and_straight_line_score_final_union_once
+* test_real_zs_unlock_immediately_scans_and_does_not_enable_l
+* test_real_zs_full_clear_uses_one_recovery_and_disk_replays_current_protocol
+* test_zs_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+* test_both_real_unlock_orders_record_the_same_sorted_shape_identities
+* test_fixture_profiles_keep_old_catalog_and_production_separate
+* test_unknown_profile_and_cross_profile_initialization_are_rejected
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_screening_report_reader.gd
+[0m* test_current_synthetic_ui_record_has_deduplicated_nine_cells_and_unknown_human_fields
+* test_six_bot_windows_preserve_current_results_and_observed_zeroes
+* test_wrong_task_records_births_separately_from_matches
+* test_incomplete_tampered_and_non_screening_records_are_not_scored_as_zero
+* test_sidecar_conflicts_and_invalid_metadata_are_explicit_errors
+* test_shortened_ui_windows_are_not_claimed_as_formal_fifteen_or_eight_minutes
+* test_identical_copies_are_counted_once_and_conflicting_ids_quarantine_all_copies
+* test_event_projections_do_not_double_count_shared_entities_or_repeated_event_ids
+* test_writer_preserves_inputs_existing_output_and_does_not_retain_high_scores
+* test_replayable_missing_or_modified_geometry_cannot_impersonate_a_versioned_config
+* test_historical_v43_evidence_is_preserved_and_not_replayed_as_current
+[1m11/11 passed.
+[0m[4m
+
+res://tests/rules/test_screening_annotations.gd
+[0m* test_blank_template_preserves_null_for_all_unobserved_values
+* test_partial_results_and_explicit_false_are_not_filled_or_promoted
+* test_four_unique_once_explained_tasks_yield_only_a_diagnostic_three_of_four
+* test_repeated_tasks_unknown_explanations_and_retest_or_version_changes_never_pool
+* test_invalid_types_unknown_ids_and_duplicate_observations_are_rejected
+* test_automation_cannot_be_relabelled_as_observed_human
+* test_manual_decision_requires_scope_reason_confirmation_and_existing_evidence
+* test_report_build_does_not_mutate_original_or_invent_people_from_notes
+* test_conflicting_duplicate_human_rows_and_decisions_are_quarantined
+* test_decisions_need_observed_evidence_except_explicit_insufficient
+* test_markdown_includes_observation_reason_and_evidence_as_escaped_text
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_screening_report_cli.gd
+[0m* test_actual_cli_writes_report_and_blank_template_without_modifying_sources
+* test_actual_cli_keeps_valid_records_and_reports_damaged_input_with_nonzero_exit
+* test_actual_cli_rejects_empty_or_malformed_manual_input_instead_of_silently_ignoring_it
+* test_actual_cli_rejects_unknown_human_ids_and_empty_directories
+[1m4/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts              20
+Tests               183
+Passing Tests       183
+Asserts            3525
+Time              87.178s
+
+
+[32m---- All tests passed! ----
+[0m

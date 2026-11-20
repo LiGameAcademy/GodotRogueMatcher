@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tools/piece_motion_preview/piece_motion_preview.gd" id="1"]
+[ext_resource type="PackedScene" path="res://gameplay/game.tscn" id="2"]
+
+[node name="PieceMotionPreview" type="Node"]
+process_mode = 3
+script = ExtResource("1")
+
+[node name="Game" parent="." instance=ExtResource("2")]
+show_start_menu = false
+persist_preferences = false
+record_runs = false
+collect_telemetry = false

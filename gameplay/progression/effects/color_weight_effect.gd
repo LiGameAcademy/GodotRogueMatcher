@@ -10,7 +10,7 @@ func rejection(context: ChoiceEffectContext) -> String:
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> SkillTarget:
 	var colors: Array[int] = _eligible(context)
 	var target: SkillTarget = SkillTarget.new()
-	target.color = colors[random.randi_range(0, colors.size() - 1)]
+	target.color = colors[(random.randi_range(0, colors.size() - 1) if colors.size() > 1 else 0)]
 	target.value_before = context.color_weights[target.color]
 	target.value_after = target.value_before + delta
 	return target

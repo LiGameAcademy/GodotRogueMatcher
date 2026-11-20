@@ -1,0 +1,3 @@
+Built-in image_gen, 2026-10-26. Reference: assets/textures/pieces/walnut_body.png.
+Initial: Square cozy nut match puzzle game icon, large walnut, thick deep plum outline, honey brown cel shading, cream background, small green three-dot connection accent; no text.
+Final edit: Make walnut more cartoon-like, warm and friendly. Two large dark round eyes with tiny cream highlights and one clear smiling mouth. Face readable at 32px. Simplify shell grooves to broad cel-shaded shapes, soft round proportions. Keep warm honey-brown walnut, thick deep plum outline, cream background and small green three-piece connection accent underneath. No arms, legs, text or extra props. Square desktop game icon, polished cozy playful style.

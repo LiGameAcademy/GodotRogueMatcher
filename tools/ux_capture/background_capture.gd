@@ -35,7 +35,7 @@ func _ready() -> void:
 		board.get_cell(Vector2i(2, 4)).highlight()
 		board.get_cell(Vector2i(3, 4)).highlight_path()
 	get_tree().paused = false
-	var background: GameBackground = game.get_node("ColorRect") as GameBackground
+	var background: GameBackground = game.get_node("GameBackground") as GameBackground
 	if OS.get_cmdline_user_args().has("--demo"):
 		await _demo(game, background)
 		get_tree().quit()

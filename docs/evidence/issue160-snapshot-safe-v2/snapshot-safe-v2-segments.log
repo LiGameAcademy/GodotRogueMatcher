@@ -1,0 +1,78 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_snapshot_segments.gd
+[0m* test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix
+WARNING: resume_record_path_unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:141)
+       [1] open_resume_file (res://gameplay/run/recording/run_recorder.gd:167)
+       [2] test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix (res://tests/rules/test_snapshot_segments.gd:55)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [5] test_scripts (res://addons/gut/gut.gd:1030)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0m[0] expected to equal [2]:  only snapshot header/checkpoint; no old record prefix
+      at line 58
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[Dictionary]')
+   at: test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix (res://tests/rules/test_snapshot_segments.gd:59)
+   GDScript backtrace (most recent call first):
+       [0] test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix (res://tests/rules/test_snapshot_segments.gd:59)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '0' (on base: 'Array[Dictionary]')
+      at line -1
+* test_missing_or_mismatched_parent_never_claims_known_or_blocks_valid_snapshot
+ERROR: Couldn't open directory at path "user://snapshot-segment-tests-19036-3286166".
+   at: get_files_at (core/io/dir_access.cpp:578)
+   GDScript backtrace (most recent call first):
+       [0] after_each (res://tests/rules/test_snapshot_segments.gd:16)
+       [1] _run_test (res://addons/gut/gut.gd:629)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[1m1/2 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_snapshot_segments.gd
+[0m- test_real_persisted_parent_anchor_and_new_segment_lineage_without_rule_prefix
+[31m    [Failed]:  [0m[0] expected to equal [2]:  only snapshot header/checkpoint; no old record prefix
+          at line 58
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '0' (on base: 'Array[Dictionary]')
+          at line -1
+
+Totals
+------
+Scripts               1
+Tests                 2
+Passing Tests         1
+Failing Tests         1
+Asserts           17/19
+Time              0.857s
+
+
+[31m---- 1 failing tests ----
+[0m

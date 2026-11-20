@@ -25,3 +25,4 @@ var reward_level: int = 0
 var multiplier_level: int = 0
 var match_extra_level: int = 0
 var blast_extra_level: int = 0
+var unlocked_shapes: Array[StringName] = []

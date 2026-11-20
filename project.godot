@@ -15,7 +15,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="技能连珠"
-config/version="0.0.2"
+config/icon="res://icon.png"
+config/version="0.0.3"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
@@ -24,18 +25,18 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
 GameManager="*res://gameplay/run/game_manager.gd"
 MatchSystem="*res://gameplay/board/match_system.gd"
-SpawnManager="*res://gameplay/board/spawn_manager.gd"
 LevelUpSystem="*res://gameplay/progression/level_up_system.gd"
-ItemPlacer="*res://gameplay/items/item_placer.gd"
-ItemEffectSystem="*res://gameplay/items/item_effect_system.gd"
 UIManager="*res://ui/ui_manager.gd"
-ItemRegistry="*res://gameplay/items/item_registry.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_particle_graph/plugin.cfg")
 
 [godot_core_system]
 
@@ -50,7 +51,7 @@ theme/custom_font="res://assets/fonts/noto_sans_sc_regular.otf"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation", "res://localization/game.en_US.translation", "res://localization/game.zh_CN.translation")
+locale/translations=PackedStringArray("res://localization/localization.en_US.translation", "res://localization/localization.zh_CN.translation", "res://localization/game.en_US.translation", "res://localization/game.zh_CN.translation", "res://localization/skill_rules.en_US.translation", "res://localization/skill_rules.zh_CN.translation")
 locale/fallback="en_US"
 
 [rendering]

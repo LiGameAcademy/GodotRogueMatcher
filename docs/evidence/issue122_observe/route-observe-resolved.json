@@ -1,0 +1,224 @@
+{
+	"by_route": {
+		"B1": {
+			"acquired_parents": "137",
+			"coverage_gap": true,
+			"failures": [],
+			"resolved_parents": "9",
+			"sample_frame": "resolved_parents",
+			"scanned": "300",
+			"stop_reason": "scan_cap",
+			"stop_reasons": {
+				"board_full": "128",
+				"windows_resolved": "9"
+			},
+			"windows": {
+				"startup_within_4": {
+					"denom": "9",
+					"hits": "2"
+				},
+				"startup_within_8": {
+					"denom": "9",
+					"hits": "5"
+				},
+				"sustain_within_10": {
+					"denom": "8",
+					"hits": "1"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "9",
+					"hits": "6"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "9",
+					"hits": "5"
+				}
+			}
+		},
+		"B2": {
+			"acquired_parents": "78",
+			"coverage_gap": false,
+			"failures": [],
+			"resolved_parents": "10",
+			"sample_frame": "resolved_parents",
+			"scanned": "119",
+			"stop_reason": "target_reached",
+			"stop_reasons": {
+				"board_full": "68",
+				"windows_resolved": "10"
+			},
+			"windows": {
+				"startup_within_4": {
+					"denom": "10",
+					"hits": "0"
+				},
+				"startup_within_8": {
+					"denom": "10",
+					"hits": "2"
+				},
+				"sustain_within_10": {
+					"denom": "9",
+					"hits": "3"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "10",
+					"hits": "5"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "10",
+					"hits": "0"
+				}
+			}
+		},
+		"L1": {
+			"acquired_parents": "38",
+			"coverage_gap": false,
+			"failures": [],
+			"resolved_parents": "10",
+			"sample_frame": "resolved_parents",
+			"scanned": "87",
+			"stop_reason": "target_reached",
+			"stop_reasons": {
+				"board_full": "28",
+				"windows_resolved": "10"
+			},
+			"windows": {
+				"startup_within_4": {
+					"denom": "10",
+					"hits": "0"
+				},
+				"startup_within_8": {
+					"denom": "10",
+					"hits": "1"
+				},
+				"sustain_within_10": {
+					"denom": "10",
+					"hits": "8"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "10",
+					"hits": "5"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "10",
+					"hits": "1"
+				}
+			}
+		},
+		"L2": {
+			"acquired_parents": "44",
+			"coverage_gap": false,
+			"failures": [],
+			"resolved_parents": "10",
+			"sample_frame": "resolved_parents",
+			"scanned": "123",
+			"stop_reason": "target_reached",
+			"stop_reasons": {
+				"board_full": "34",
+				"windows_resolved": "10"
+			},
+			"windows": {
+				"startup_within_4": {
+					"denom": "10",
+					"hits": "0"
+				},
+				"startup_within_8": {
+					"denom": "10",
+					"hits": "1"
+				},
+				"sustain_within_10": {
+					"denom": "10",
+					"hits": "5"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "10",
+					"hits": "9"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "10",
+					"hits": "0"
+				}
+			}
+		},
+		"M1": {
+			"acquired_parents": "95",
+			"coverage_gap": false,
+			"failures": [],
+			"resolved_parents": "10",
+			"sample_frame": "resolved_parents",
+			"scanned": "124",
+			"stop_reason": "target_reached",
+			"stop_reasons": {
+				"board_full": "85",
+				"windows_resolved": "10"
+			},
+			"windows": {
+				"startup_within_4": {
+					"denom": "10",
+					"hits": "1"
+				},
+				"startup_within_8": {
+					"denom": "10",
+					"hits": "3"
+				},
+				"sustain_within_10": {
+					"denom": "10",
+					"hits": "7"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "10",
+					"hits": "7"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "10",
+					"hits": "2"
+				}
+			}
+		},
+		"M2": {
+			"acquired_parents": "66",
+			"coverage_gap": false,
+			"failures": [],
+			"resolved_parents": "10",
+			"sample_frame": "resolved_parents",
+			"scanned": "78",
+			"stop_reason": "target_reached",
+			"stop_reasons": {
+				"board_full": "56",
+				"windows_resolved": "10"
+			},
+			"windows": {
+				"startup_within_4": {
+					"denom": "10",
+					"hits": "1"
+				},
+				"startup_within_8": {
+					"denom": "10",
+					"hits": "2"
+				},
+				"sustain_within_10": {
+					"denom": "10",
+					"hits": "4"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "10",
+					"hits": "2"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "10",
+					"hits": "2"
+				}
+			}
+		}
+	},
+	"failures": [],
+	"max_scan": "300",
+	"move_limit": "240",
+	"note": "trial windows only; not formal acceptance; resolved mode rates are conditional on triple-window survival (board_full filter), not all natural acquirers; synergy left null",
+	"pass_line": null,
+	"prefer_complete": true,
+	"purpose": "O3 board_full coverage via resolved-parent sampling",
+	"start_seed": "13000",
+	"target": "10",
+	"target_mode": "resolved"
+}

@@ -1,0 +1,18 @@
+{
+  "revision": 17,
+  "raw_bytes": 12811517,
+  "payload_utf8_bytes": 12811475,
+  "raw_sha256": "fc569abf9db5cfdac25283ae601abb2c8e02464b63e839fd78fdb9a487ff604b",
+  "files": {
+    "previous.json": {
+      "bytes": 4748748,
+      "sha256": "f6876b21b222bc76741fdf6d05ff3a4c6e36e69d89e4698181acb3354cdcf8cf"
+    },
+    "primary.json": {
+      "bytes": 4859795,
+      "sha256": "43eed433c8bf589fbc5f68c3664bb11ce66e91a9892961dd62d9ef06badb8e93"
+    }
+  },
+  "retired_rollback_files_absent": true,
+  "source": "actual browser download, not reconstructed slot"
+}

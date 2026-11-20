@@ -1,0 +1,39 @@
+{
+  "details": {
+    "candidate_flag": true,
+    "default_flag_unchanged": true,
+    "job_metrics": {
+      "elapsed_usec": 180200,
+      "frames": 6,
+      "freeze_usec": 53500,
+      "maximum_gap_usec": 100000,
+      "ok": true,
+      "stages": {
+        "decode": {},
+        "history_prime_usec": 0,
+        "package": {
+          "storage_sync": {
+            "filemap_encode_elapsed_usec": 27500,
+            "filemap_encode_usec": 1300,
+            "largest_filemap_slice_usec": 600
+          },
+          "storage_sync_elapsed_usec": 46700
+        }
+      }
+    },
+    "menu_visible": true,
+    "mode": "classic_endless",
+    "origin": "http://127.0.0.1:8990",
+    "phase": "saved_frozen_reward",
+    "run_id": "1245361234-0-1793527322125000-5150700",
+    "seed": "1245361234",
+    "snapshot_matches_live": true,
+    "snapshot_schema": "run-state-snapshot-safe-v2",
+    "state_hash": "170a9981f05284c7666e789d7e6bce8b34ebf3a69adb14f2fe4779b3d1d5cf87",
+    "trace_known": true,
+    "trace_parent_id": "1245361234-0-1793527322125000-5150700:126"
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

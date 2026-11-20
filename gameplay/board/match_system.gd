@@ -11,8 +11,5 @@ func check_for_elimination(board: Board, target_cell: Cell) -> Array[Cell]:
 			cells.append(board.get_cell(board.rules.state.get_piece(piece_id).coordinate))
 	return cells
 
-func check_and_eliminate(board: Board, target_cell: Cell) -> void:
-	board.present_matches(board.run.resolve_matches_at(target_cell.coordinate))
-
 func calculate_score(match_count: int) -> int:
 	return ScoreLedger.calculate_base(match_count)

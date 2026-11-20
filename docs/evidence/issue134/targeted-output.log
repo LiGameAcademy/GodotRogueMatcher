@@ -1,0 +1,99 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue134/targeted-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_legacy_item_isolation.gd
+[0m* test_local_score_config_does_not_write_current_game
+效果 [add_score] 应用：增加 60 分
+* test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+* test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+* test_legacy_dispatchers_are_not_installed_or_subscribed
+[1m4/4 passed.
+[0m[4m
+
+res://tests/test_core_loop.gd
+[0m* test_occupied_start_can_move_and_restores_obstacle
+* test_compatibility_writes_refresh_special_tooltips_at_rest
+* test_click_move_advances_one_turn_and_spawns_three
+* test_blocked_move_preserves_turn_score_and_occupancy
+* test_five_match_scores_and_clears_without_stale_references
+* test_partial_spawn_fills_last_empty_cell_and_ends_once
+* test_spawn_checks_match_before_full_board_failure
+* test_crossed_lines_deduplicate
+* test_four_does_not_match_and_diagonal_five_does
+* test_full_clear_repopulates_and_returns_to_input
+* test_failed_spawn_does_not_offer_pending_rescue_reward
+* test_candidate_ids_are_distinct
+* test_reward_filling_last_space_ends_before_next_reward
+* test_retry_clears_score_obstacles_and_upgrade_state
+* test_rewards_queue_and_selection_applies_once
+* test_f7_uses_real_reward_popup_and_returns_to_same_turn
+* test_partial_invalid_core_target_keeps_offer_without_consuming_reward
+* test_old_skill_callback_after_retry_cannot_modify_new_run
+* test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids
+* test_coordinator_rejects_rebuild_during_move_and_finishes_once
+* test_retry_cancels_old_move_without_advancing_new_turn
+* test_extra_score_does_not_exempt_ordinary_spawn
+* test_score_reset_notifies_display_and_replaces_ledger
+* test_move_rules_are_committed_while_animation_is_pending
+* test_presenting_committed_result_twice_does_not_repeat_effects
+* test_fast_and_slow_move_playback_have_identical_rule_results
+[1m26/26 passed.
+[0m[4m
+
+res://tests/integration/test_explosion_loop.gd
+[0m* test_f6_demo_loads_markers_and_real_move_resolves_two_generations
+* test_two_playback_speeds_keep_chain_scores_and_targets_identical
+* test_retry_while_explosion_move_is_playing_drops_old_abilities
+* test_birth_fault_stops_scene_input_without_full_board_game_over
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_skip_recovery.gd
+[0m* test_skip_during_required_move_preserves_rule_snapshot_and_waits_for_move
+* test_active_blast_skip_and_normal_play_have_same_snapshot
+* test_skip_score_preserves_exact_integer_and_completes_wait
+* test_skip_before_reward_does_not_choose_or_leak_into_next_batch
+* test_failed_blast_recovers_committed_snapshot_without_recomputing
+* test_invalid_recovery_snapshot_stays_locked_and_preserves_rules
+* test_retry_discards_skip_request_and_old_step_completion
+* test_lost_movement_completion_times_out_and_recovers_without_rule_replay
+* test_compatibility_change_survives_two_queued_batches
+* test_final_alignment_restores_rule_identity_color_and_ability_markers
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_stage_scene.gd
+[0m* test_goal_bonus_keeps_score_label_and_progress_in_sync
+* test_real_stage_pass_waits_for_presentation_then_enters_next_stage
+* test_real_score_shortfall_returns_to_input_after_visuals
+* test_real_final_stage_completes_without_skill_popup
+* test_victory_continue_button_keeps_run_and_opens_deferred_reward
+* test_victory_menu_finalizes_once_as_completed
+[1m6/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               5
+Tests                50
+Passing Tests        50
+Asserts             972
+Time              43.588s
+
+
+[32m---- All tests passed! ----
+[0m

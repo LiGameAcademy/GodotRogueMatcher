@@ -12,8 +12,11 @@ signal settings_requested
 signal skip_requested
 signal board_area_changed
 signal piece_pool_visibility_changed(open: bool)
+signal reward_resume_requested
 
 @export var score_duration: float = 0.45
+## Visual-only birth host on the HUD canvas, below popup and menu canvases.
+@onready var spawn_flights: Node2D = %SpawnFlights
 @onready var score_label: Label = %ScoreLabel
 @onready var gain_label: Label = %GainLabel
 @onready var goal_progress: GOAL_PROGRESS = %GoalProgress
@@ -27,8 +30,8 @@ signal piece_pool_visibility_changed(open: bool)
 @onready var breakdown_label: RichTextLabel = %BreakdownLabel
 @onready var status_label: Label = %StatusLabel
 @onready var selection_label: Label = %SelectionLabel
-@onready var pause_button: Button = %PauseButton
-@onready var settings_button: Button = %SettingsButton
+@onready var pause_button: FeedbackButton = %PauseButton
+@onready var settings_button: FeedbackButton = %SettingsButton
 @onready var board_area: Control = %BoardArea
 @onready var history_button: Button = %HistoryButton
 @onready var history_label: RichTextLabel = %HistoryLabel
@@ -42,13 +45,20 @@ var _gain_tween: Tween
 var _run: RunController
 var _selection: PieceState
 var _selection_fuse: bool = false
-var _status_source: String = "准备棋盘…"
+var _selection_notice: StringName = &""
+var _status_id: StringName = &"hud.status.preparing"
+var _status_parameters: Dictionary = {}
+var _status_messages: HudStatusMessages = HudStatusMessages.new()
 var _game_theme: GameTheme
 
 func _ready() -> void:
+	show_status(_status_id)
+	%ResumeReward.pressed.connect(reward_resume_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
 	settings_button.pressed.connect(settings_requested.emit)
-	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	(%Title as Label).text = tr("技能连珠")
+	show_pause_state(get_tree().paused)
+	settings_button.text = ""
 	history_button.toggled.connect(_show_history)
 	board_area.item_rect_changed.connect(_notify_board_area)
 	piece_pool.pool_view_changed.connect(piece_pool_visibility_changed.emit)
@@ -65,23 +75,34 @@ func apply_game_theme(preset: GameTheme) -> void:
 	goal_progress.apply_game_theme(preset)
 	if _run != null: _show_breakdown(_run.state)
 
+func set_reward_waiting(waiting: bool) -> void:
+	%ResumeReward.visible = waiting
+
 func _show_breakdown(state: RunState) -> void:
-	var entries: Array[ScoreEntry] = state.ledger.get_entries()
-	breakdown_label.text = tr("尚未得分") if entries.is_empty() else HudDetails.score_details_rich(entries, _game_theme.ui_theme if _game_theme != null else null)
-	breakdown_label.custom_minimum_size.y = 32.0 if entries.is_empty() else 82.0
+	var entries: Array[ScoreEntry] = []
+	if state.ledger.total > 0: entries = state.ledger.get_entries()
+	var has_details: bool = HudDetails.latest_scoring_entry(entries) != null
+	breakdown_label.text = HudDetails.score_details_rich(entries, _game_theme.ui_theme if _game_theme != null else null) if has_details else tr("尚未得分")
+	breakdown_label.custom_minimum_size.y = 82.0 if has_details else 32.0
 
 func _layout_content() -> void:
 	var body: HBoxContainer = $Margin/Rows/Body
-	var available: float = maxf(240.0, size.x - 340.0)
-	board_area.custom_minimum_size.x = minf(available, maxf(240.0, body.size.y - 8.0))
+	var margin: MarginContainer = $Margin
+	var group_width: float = minf(size.x - 40.0, maxf(760.0, body.size.y + 256.0))
+	var side: int = maxi(20, roundi((size.x - group_width) * 0.5))
+	margin.add_theme_constant_override("margin_left", side)
+	margin.add_theme_constant_override("margin_right", side)
+	board_area.custom_minimum_size.x = 240.0
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
-	(%Title as Label).text = tr("技能连珠\nv%s · 试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	(%Title as Label).text = tr("技能连珠")
+	show_pause_state(get_tree().paused)
+	settings_button.text = ""
 	score_label.text = tr("分数  %d") % displayed_score
 	if _run != null: show_run(_run)
-	show_selection(_selection, _selection_fuse)
-	show_status(_status_source)
+	_refresh_selection()
+	show_status(_status_id, _status_parameters)
 	_show_history(history_button.button_pressed)
 
 ## Game负责将这一屏幕区域转换到棋盘的坐标系。
@@ -153,8 +174,18 @@ func show_score_burst(entry: ScoreEntry, origin: Vector2) -> void:
 	goal_progress.add_gain(entry.final_score, origin)
 
 func reset_score_effects() -> void:
+	_cancel_score()
 	goal_progress.cancel()
 	piece_pool.close()
+
+## Rebuilds committed HUD values without replaying score gains or old animation callbacks.
+func bind_checkpoint(active: RunController) -> void:
+	reset_score_effects()
+	_target_score = active.state.ledger.total
+	_set_score(float(_target_score))
+	gain_label.text = ""
+	show_run(active)
+	set_reward_waiting(active.state.rewards.active_offer != null)
 
 func show_run(run: RunController) -> void:
 	_run = run
@@ -184,22 +215,59 @@ func show_occupancy(count: int, capacity: int = 81) -> void:
 	pressure_bar.value = count
 	pressure_bar.modulate = Color(1.0, 0.5, 0.4) if count >= capacity * 0.8 else Color.WHITE
 
-func show_status(text: String) -> void:
-	_status_source = text
-	status_label.text = tr(text)
-	status_label.tooltip_text = tr(text)
+## Retains semantic input only; language changes do not replay the operation.
+func show_status(message_id: StringName, parameters: Dictionary = {}) -> void:
+	_status_id = message_id
+	_status_parameters = parameters.duplicate(true)
+	var rendered: String = _status_messages.render(message_id, _status_parameters, TranslationServer.get_locale())
+	status_label.text = rendered
+	status_label.tooltip_text = rendered
+
+## Internal errors stay in diagnostics rather than leaking into player-facing text.
+func show_diagnostic(reason: String) -> void:
+	_status_messages.report(&"hud.status.unavailable", TranslationServer.get_locale(), reason, {})
+	show_status(&"hud.status.unavailable")
+
+## Replaces transient playback text after the board actually reopens input.
+func show_input_ready() -> void:
+	if _status_id in [&"hud.status.preparing", &"hud.status.resolving", &"hud.status.counting_score", &"hud.status.skip_requested", &"hud.status.piece_queued", &"hud.status.move_queued"]:
+		show_status(&"hud.status.ready")
+
+## Immediate board outcomes share the selection row so autosave status stays readable.
+func show_board_feedback(message_id: String) -> void:
+	if message_id in ["hud.status.move_blocked", "hud.status.activation_empty"]:
+		_selection_notice = StringName(message_id)
+		_refresh_selection()
+	else:
+		show_status(StringName(message_id))
 
 func show_selection(piece: PieceState, has_fuse: bool) -> void:
 	_selection = piece
 	_selection_fuse = has_fuse
+	_selection_notice = &""
+	_refresh_selection()
+
+func _refresh_selection() -> void:
+	var piece: PieceState = _selection
 	if piece == null:
-		selection_label.text = tr("未选中棋子")
-		selection_label.tooltip_text = tr("选择棋子后，再点击可到达的空格。")
+		if _selection_notice.is_empty():
+			selection_label.text = tr("未选中棋子")
+			selection_label.tooltip_text = tr("选择棋子后，再点击可到达的空格。")
+		else:
+			selection_label.text = _status_messages.render(_selection_notice, {}, TranslationServer.get_locale())
+			selection_label.tooltip_text = selection_label.text
 		return
-	var identity: String = tr("爆壳手 · 消除时爆炸") if piece.content_id == &"special_demolition" else tr("普通材料")
-	if has_fuse and piece.content_id.is_empty(): identity += tr(" · 带引信，消除时爆炸")
-	selection_label.text = tr("%s · 格 (%d, %d)") % [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
-	selection_label.tooltip_text = selection_label.text
+	var identity: String = tr("普通材料")
+	match piece.content_id:
+		&"special_demolition": identity = tr("爆壳手 · 消除时爆炸")
+		LineClearState.CONTENT_ROW: identity = tr("行清除手")
+		LineClearState.CONTENT_COLUMN: identity = tr("列清除手")
+	if _selection_fuse and piece.content_id.is_empty(): identity += tr(" · 带引信，消除时爆炸")
+	var selection_format: String = tr("%s · 格 (%d, %d)")
+	var values: Array = [identity, piece.coordinate.x + 1, piece.coordinate.y + 1]
+	selection_label.tooltip_text = selection_format % values
+	# Wrap the description without splitting the cell coordinate.
+	selection_label.text = selection_format.replace(" (%d, %d)", "\u00a0(%d,\u00a0%d)") % values
 
 func _show_history(expanded: bool) -> void:
 	history_label.visible = expanded
@@ -212,6 +280,8 @@ func set_fast(fast: bool) -> void:
 
 func set_low_effects(enabled: bool) -> void:
 	goal_progress.set_low_effects(enabled)
+	pause_button.set_low_effects(enabled)
+	settings_button.set_low_effects(enabled)
 
 func _on_goal_value_changed(value: int) -> void:
 	_set_score(float(value))
@@ -232,3 +302,8 @@ func _cancel_score() -> void:
 	if _gain_tween != null and _gain_tween.is_valid(): _gain_tween.kill()
 	_score_tween = null
 	score_animation_changed.emit()
+
+## 图标按钮不以状态文字撑大布局；操作含义保留在本地化提示里。
+func show_pause_state(paused: bool) -> void:
+	pause_button.text = ""
+	pause_button.tooltip_text = tr("继续 / ESC") if paused else tr("暂停 / ESC")

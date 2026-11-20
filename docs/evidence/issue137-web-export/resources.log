@@ -1,0 +1,176 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/issue137-web-export/.godot/web-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_web_export_resources.gd
+[0m* test_retained_effects_match_original_serialized_intent
+* test_screening_type_moved_with_same_identity_and_profiles_stay_tool_only
+* test_legacy_popup_and_real_game_scene_instantiate
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_hud_status_messages.gd
+[0m* test_actual_imported_catalog_is_complete_in_both_languages
+* test_numbers_boundaries_and_locale_specific_punctuation
+* test_unknown_id_missing_wrong_extra_and_invalid_parameters_fail_closed
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=parameter_names parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_unknown_id_missing_wrong_extra_and_invalid_parameters_fail_closed (res://tests/rules/test_hud_status_messages.gd:34)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=parameter_type:current parameters={ "current": "1", "total": 3 }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_unknown_id_missing_wrong_extra_and_invalid_parameters_fail_closed (res://tests/rules/test_hud_status_messages.gd:34)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=parameter_range:current parameters={ "current": -1, "total": 3 }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_unknown_id_missing_wrong_extra_and_invalid_parameters_fail_closed (res://tests/rules/test_hud_status_messages.gd:34)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=unknown locale=en_US reason=unknown_id parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_unknown_id_missing_wrong_extra_and_invalid_parameters_fail_closed (res://tests/rules/test_hud_status_messages.gd:35)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=已暂停 locale=en_US reason=unknown_id parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_unknown_id_missing_wrong_extra_and_invalid_parameters_fail_closed (res://tests/rules/test_hud_status_messages.gd:36)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_missing_translation_does_not_fall_back_to_chinese_or_raw_id
+WARNING: HUD status: id=hud.status.ready locale=en_US reason=missing_translation parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_missing_translation_does_not_fall_back_to_chinese_or_raw_id (res://tests/rules/test_hud_status_messages.gd:47)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.ready locale=fr_FR reason=missing_translation parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_missing_translation_does_not_fall_back_to_chinese_or_raw_id (res://tests/rules/test_hud_status_messages.gd:48)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.unavailable locale=fr_FR reason=fallback_missing_or_invalid parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:38)
+       [2] test_missing_translation_does_not_fall_back_to_chinese_or_raw_id (res://tests/rules/test_hud_status_messages.gd:48)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.ready locale=en_US reason=missing_translation parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_missing_translation_does_not_fall_back_to_chinese_or_raw_id (res://tests/rules/test_hud_status_messages.gd:51)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.unavailable locale=en_US reason=fallback_missing_or_invalid parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:38)
+       [2] test_missing_translation_does_not_fall_back_to_chinese_or_raw_id (res://tests/rules/test_hud_status_messages.gd:51)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_reordered_repeated_placeholders_and_special_characters
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=placeholder_mismatch parameters={ "current": 1, "total": 3 }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_reordered_repeated_placeholders_and_special_characters (res://tests/rules/test_hud_status_messages.gd:62)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=placeholder_mismatch parameters={ "current": 1, "total": 3 }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_reordered_repeated_placeholders_and_special_characters (res://tests/rules/test_hud_status_messages.gd:62)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=placeholder_mismatch parameters={ "current": 1, "total": 3 }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_reordered_repeated_placeholders_and_special_characters (res://tests/rules/test_hud_status_messages.gd:62)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+WARNING: HUD status: id=hud.status.spawn_progress locale=en_US reason=placeholder_mismatch parameters={ "current": 1, "total": 3 }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] render (res://ui/hud_status_messages.gd:35)
+       [2] test_reordered_repeated_placeholders_and_special_characters (res://tests/rules/test_hud_status_messages.gd:62)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_hud_status_flow.gd
+[0m* test_initial_english_and_all_statuses_refresh_text_and_tooltip
+* test_parameter_snapshot_and_updates_survive_switch_without_rule_mutation
+* test_real_pause_busy_score_and_buffer_feedback_routes
+* test_terminal_message_retranslates_instead_of_caching_translated_text
+* test_language_service_refresh_preserves_current_message_during_reward_wait
+* test_internal_reason_never_becomes_player_text
+WARNING: HUD status: id=hud.status.unavailable locale=en_US reason=reward_presentation_failed parameters={  }
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] report (res://ui/hud_status_messages.gd:49)
+       [1] show_diagnostic (res://ui/hud.gd:213)
+       [2] test_internal_reason_never_becomes_player_text (res://tests/integration/test_hud_status_flow.gd:108)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] before_each (res://tests/integration/test_hud_status_flow.gd:25)
+       [5] _end_wait (res://addons/gut/awaiter.gd:126)
+       [6] _on_tree_process_frame (res://addons/gut/awaiter.gd:68)
+[1m6/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                14
+Passing Tests        14
+Asserts             457
+Time              7.173s
+
+
+[32m---- All tests passed! ----
+[0m

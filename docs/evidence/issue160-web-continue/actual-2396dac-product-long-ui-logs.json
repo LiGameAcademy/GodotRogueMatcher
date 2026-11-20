@@ -1,0 +1,38 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T06:09:25.842Z",
+    "url": "http://127.0.0.1:8918/product/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T06:09:25.971Z",
+    "url": "http://127.0.0.1:8918/product/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T06:09:26.073Z",
+    "url": "http://127.0.0.1:8918/product/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T06:09:28.429Z",
+    "url": "http://127.0.0.1:8918/product/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":10849200,\"frames\":625,\"freeze_usec\":0,\"maximum_gap_usec\":169000,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":37400,\"initialization_usec\":48400,\"largest_payload_slice_usec\":6200,\"largest_replay_slice_usec\":36400,\"payload_validation_usec\":2853800,\"prefix_replay_usec\":5937600},\"history_prime_usec\":147200,\"package\":{\"float_decode_usec\":1585700,\"largest_float_decode_slice_usec\":5000,\"package_parse_usec\":86800,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T06:09:55.256Z",
+    "url": "http://127.0.0.1:8918/product/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":86000,\"elapsed_usec\":10849200,\"frames\":625,\"freeze_usec\":0,\"maximum_gap_usec\":169000,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":37400,\"initialization_usec\":48400,\"largest_payload_slice_usec\":6200,\"largest_replay_slice_usec\":36400,\"payload_validation_usec\":2853800,\"prefix_replay_usec\":5937600},\"history_prime_usec\":147200,\"package\":{\"float_decode_usec\":1585700,\"largest_float_decode_slice_usec\":5000,\"package_parse_usec\":86800,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-10-31T06:09:55.343Z",
+    "url": "http://127.0.0.1:8918/product/index.js"
+  }
+]

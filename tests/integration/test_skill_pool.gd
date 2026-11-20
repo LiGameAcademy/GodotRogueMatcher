@@ -53,11 +53,43 @@ func test_catalog_uses_short_effects_and_actual_prerequisite_titles() -> void:
 		var text: String = SkillPoolText.details(run, skill)
 		assert_false(text.contains("E+"))
 		assert_false(text.contains("权重必须"))
+		assert_false(text.contains(tr("拥挤时可提前出现")))
+		assert_false(text.contains("missing_required_capability:"))
+		assert_false(text.contains("already_acquired_once_per_run"))
+		if skill.offer_traits.needs.has(&"core_supply"):
+			assert_true(text.contains(tr("需先获得爆壳手登场")))
+		if skill.offer_traits.needs.has(&"fuse_unlocked"):
+			assert_true(text.contains(tr("需先解锁引信路线")))
+		if skill.offer_traits.needs.has(&"live_fuse"):
+			assert_true(text.contains(tr("棋盘上需要引信")))
 		if skill.skill_id == &"relay_capacity":
 			found = true
 			for parent: SkillDefinition in SkillOfferGenerator.CATALOG:
 				if parent.skill_id == skill.prerequisite: assert_true(text.contains(tr(parent.title)))
 	assert_true(found)
+
+func test_capability_and_once_reasons_remain_readable_in_both_languages() -> void:
+	var skill: SkillDefinition = (load("res://gameplay/progression/content/instant_thin.tres") as SkillDefinition).duplicate(true) as SkillDefinition
+	skill.maximum_level = 0
+	skill.offer_traits.once_per_run = true
+	skill.offer_traits.upgradeable = false
+	skill.offer_traits.repeatable = false
+	skill.offer_traits.needs.clear()
+	for locale: String in ["zh_CN", "en_US"]:
+		TranslationServer.set_locale(locale)
+		for need: StringName in SkillOfferTraits.CAPABILITIES:
+			skill.offer_traits.needs.assign([need])
+			var text: String = SkillPoolText.details(run, skill)
+			assert_false(text.contains("missing_required_capability:"))
+			assert_false(text.contains("前置：无"))
+			assert_false(text.contains("Requires: None"))
+		skill.offer_traits.needs.clear()
+		run.state.rewards.acquired[skill.skill_id] = 1
+		assert_eq(SkillRules.rejection(run.state, skill, run.abilities.config), "already_acquired_once_per_run")
+		var once_text: String = SkillPoolText.details(run, skill)
+		assert_string_contains(once_text, "1 / 1")
+		assert_string_contains(once_text, tr("取得"))
+		assert_false(once_text.contains("already_acquired_once_per_run"))
 
 func test_choice_menu_roundtrip_preserves_popup_and_observation_location() -> void:
 	var game: Node2D = GAME.instantiate() as Node2D
@@ -72,7 +104,11 @@ func test_choice_menu_roundtrip_preserves_popup_and_observation_location() -> vo
 	board.run.state.pending_rewards = 1
 	var generator: SkillOfferGenerator = SkillOfferGenerator.new()
 	var offer: SkillOffer = generator.generate(board.run)
-	var popup: PopupSkillChoice = await UIManager.open_popup("popup_skill_choice", {"offer": offer}) as PopupSkillChoice
+	game.call("request_rewards")
+	await wait_process_frames(6)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(popup)
+	if popup == null: return
 	var collection: RunCollection = game.get_node("RunCollection") as RunCollection
 	collection.location("skill_choice")
 	popup.skill_pool_requested.emit()
@@ -83,7 +119,8 @@ func test_choice_menu_roundtrip_preserves_popup_and_observation_location() -> vo
 	assert_eq(collection.ui, "skill_choice")
 	assert_true(get_tree().paused)
 	assert_same(UIManager.current_popup, popup)
-	assert_same(popup.offer, offer)
+	assert_ne(popup.offer, offer)
+	assert_eq(RunSnapshot.offer_data(popup.offer), RunSnapshot.offer_data(offer))
 
 func test_terminal_and_presentation_views_restore_their_previous_state() -> void:
 	for phase: RunState.Phase in [RunState.Phase.INPUT, RunState.Phase.REWARDS, RunState.Phase.ERROR]:

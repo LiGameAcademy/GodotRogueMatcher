@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 ## 固定验收盘面；只走真实技能与棋盘入口，不进入发布包或采集样本。
 const MAIN: PackedScene = preload("res://main.tscn")
@@ -46,7 +46,7 @@ func _ready() -> void:
 	board.run.state.pending_rewards = 1
 	board.run.enter_rewards()
 	_offer([&"blast_chain_bonus", &"blast_chain_radius", &"blast_aftershock"])
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await _frames(8)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
 	if popup == null:
@@ -61,7 +61,7 @@ func _ready() -> void:
 	board.can_selected = true
 	board.selected_piece = board.view.get_piece(board.rules.state.get_piece_id(Vector2i(4, 4)))
 	hud.show_run(board.run)
-	hud.show_status("主动爆破已安装 · 双击核心消耗一次行动并正常补棋")
+	hud.show_status("hud.status.capture_detonate")
 	await _capture("02_build_ready")
 	board._on_piece_activated(Vector2i(4, 4))
 	await _frames(4)
@@ -74,7 +74,7 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 	hud.show_run(board.run)
-	hud.show_status("连锁与余震已结算 · 正常补棋完成 · 已安装强化保留")
+	hud.show_status("hud.status.capture_chain")
 	await _capture("04_settled")
 	print("DEMOLITION_CAPTURE_COMPLETE ", ProjectSettings.globalize_path(output_directory))
 	get_tree().quit()

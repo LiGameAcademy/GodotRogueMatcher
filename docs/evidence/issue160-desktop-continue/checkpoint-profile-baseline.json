@@ -1,0 +1,139 @@
+{
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"results": [
+		{
+			"actions": "27",
+			"container_commit_readback_usec": 425454,
+			"container_read_verify_usec": 87138,
+			"discovery_usec": 170797,
+			"freeze_encode_usec": 435663,
+			"load_rebuild_usec": 1659567,
+			"load_timing": {
+				"endpoint_validation_usec": 46495,
+				"payload_validation_usec": 295444,
+				"prefix_replay_usec": 1317628
+			},
+			"mode": "stage_challenge",
+			"note": "profiling intentionally performs separate rebuilds to measure phases; these are not additional required UI validations",
+			"ok": true,
+			"on_main_thread": true,
+			"payload_bytes": 1658111,
+			"payload_parse_usec": 169023,
+			"profile_total_usec": 5093264,
+			"records": 239,
+			"rules": "run-commands-v46-unified-offer-audit",
+			"save_preflight_rebuild_usec": 2001244,
+			"save_timing": {
+				"endpoint_validation_usec": 52732,
+				"payload_validation_usec": 343506,
+				"prefix_replay_usec": 1605006
+			},
+			"seed": "7",
+			"serialization_usec": 138128,
+			"source": "actual_normal_rules_checkpoint"
+		},
+		{
+			"actions": "27",
+			"container_commit_readback_usec": 306777,
+			"container_read_verify_usec": 118165,
+			"discovery_usec": 166298,
+			"freeze_encode_usec": 407390,
+			"load_rebuild_usec": 1797396,
+			"load_timing": {
+				"endpoint_validation_usec": 45100,
+				"payload_validation_usec": 355029,
+				"prefix_replay_usec": 1397267
+			},
+			"mode": "stage_challenge",
+			"note": "profiling intentionally performs separate rebuilds to measure phases; these are not additional required UI validations",
+			"ok": true,
+			"on_main_thread": true,
+			"payload_bytes": 1657780,
+			"payload_parse_usec": 139712,
+			"profile_total_usec": 4863238,
+			"records": 239,
+			"rules": "run-commands-v46-unified-offer-audit",
+			"save_preflight_rebuild_usec": 1786943,
+			"save_timing": {
+				"endpoint_validation_usec": 36473,
+				"payload_validation_usec": 279880,
+				"prefix_replay_usec": 1470590
+			},
+			"seed": "23",
+			"serialization_usec": 136908,
+			"source": "actual_normal_rules_checkpoint"
+		},
+		{
+			"actions": "27",
+			"container_commit_readback_usec": 240966,
+			"container_read_verify_usec": 60039,
+			"discovery_usec": 135089,
+			"freeze_encode_usec": 324934,
+			"load_rebuild_usec": 1471312,
+			"load_timing": {
+				"endpoint_validation_usec": 31823,
+				"payload_validation_usec": 256750,
+				"prefix_replay_usec": 1182739
+			},
+			"mode": "classic_endless",
+			"note": "profiling intentionally performs separate rebuilds to measure phases; these are not additional required UI validations",
+			"ok": true,
+			"on_main_thread": true,
+			"payload_bytes": 1381100,
+			"payload_parse_usec": 100027,
+			"profile_total_usec": 3902790,
+			"records": 239,
+			"rules": "run-commands-v46-unified-offer-audit",
+			"save_preflight_rebuild_usec": 1472694,
+			"save_timing": {
+				"endpoint_validation_usec": 44712,
+				"payload_validation_usec": 254411,
+				"prefix_replay_usec": 1173571
+			},
+			"seed": "7",
+			"serialization_usec": 93887,
+			"source": "actual_normal_rules_checkpoint"
+		},
+		{
+			"actions": "27",
+			"container_commit_readback_usec": 267012,
+			"container_read_verify_usec": 63012,
+			"discovery_usec": 136589,
+			"freeze_encode_usec": 378799,
+			"load_rebuild_usec": 1819915,
+			"load_timing": {
+				"endpoint_validation_usec": 44882,
+				"payload_validation_usec": 301940,
+				"prefix_replay_usec": 1473093
+			},
+			"mode": "classic_endless",
+			"note": "profiling intentionally performs separate rebuilds to measure phases; these are not additional required UI validations",
+			"ok": true,
+			"on_main_thread": true,
+			"payload_bytes": 1461334,
+			"payload_parse_usec": 105126,
+			"profile_total_usec": 4517616,
+			"records": 239,
+			"rules": "run-commands-v46-unified-offer-audit",
+			"save_preflight_rebuild_usec": 1623796,
+			"save_timing": {
+				"endpoint_validation_usec": 45463,
+				"payload_validation_usec": 239118,
+				"prefix_replay_usec": 1339215
+			},
+			"seed": "23",
+			"serialization_usec": 119210,
+			"source": "actual_normal_rules_checkpoint"
+		}
+	]
+}

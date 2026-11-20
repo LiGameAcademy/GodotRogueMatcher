@@ -1,0 +1,412 @@
+[
+  {
+    "script": "tests/integration/test_board_juice.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/integration/test_board_signal.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/integration/test_board_view.gd",
+    "passed": 11,
+    "total": 11
+  },
+  {
+    "script": "tests/integration/test_build_cards.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/integration/test_command_scene.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/integration/test_conversion_scene.gd",
+    "passed": 2,
+    "total": 2
+  },
+  {
+    "script": "tests/integration/test_core_preview_color.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/integration/test_expanded_skill_scene.gd",
+    "passed": 3,
+    "total": 3
+  },
+  {
+    "script": "tests/integration/test_explosion_loop.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/integration/test_feedback_settings.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/integration/test_game_background.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/integration/test_game_layout.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/integration/test_game_themes.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/integration/test_goal_progress.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/integration/test_hud.gd",
+    "passed": 13,
+    "total": 13
+  },
+  {
+    "script": "tests/integration/test_input_buffer.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/integration/test_line_clear_visual.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/integration/test_localization.gd",
+    "passed": 3,
+    "total": 3
+  },
+  {
+    "script": "tests/integration/test_manual_line_scene.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/integration/test_playback_settings.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/integration/test_presentation_director.gd",
+    "passed": 13,
+    "total": 13
+  },
+  {
+    "script": "tests/integration/test_refill_lifecycle.gd",
+    "passed": 2,
+    "total": 2
+  },
+  {
+    "script": "tests/integration/test_release_flow.gd",
+    "passed": 8,
+    "total": 8
+  },
+  {
+    "script": "tests/integration/test_result_viewer.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/integration/test_reward_coordination.gd",
+    "passed": 10,
+    "total": 10
+  },
+  {
+    "script": "tests/integration/test_reward_presentation.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/integration/test_score_floats.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/integration/test_skill_card_selection.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/integration/test_skill_cards.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/integration/test_skill_instance_cards.gd",
+    "passed": 1,
+    "total": 1
+  },
+  {
+    "script": "tests/integration/test_skill_pool.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/integration/test_skill_target_ux.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/integration/test_skip_recovery.gd",
+    "passed": 10,
+    "total": 10
+  },
+  {
+    "script": "tests/integration/test_stage_scene.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/integration/test_telemetry_scene.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_ability_composite_effects.gd",
+    "passed": 8,
+    "total": 8
+  },
+  {
+    "script": "tests/rules/test_ability_events.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_ability_triggers.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/rules/test_board_rules.gd",
+    "passed": 12,
+    "total": 12
+  },
+  {
+    "script": "tests/rules/test_catalog_skill_pipeline.gd",
+    "passed": 2,
+    "total": 2
+  },
+  {
+    "script": "tests/rules/test_collection_batches.gd",
+    "passed": 2,
+    "total": 2
+  },
+  {
+    "script": "tests/rules/test_collection_lifecycle.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/rules/test_commands_replay.gd",
+    "passed": 12,
+    "total": 12
+  },
+  {
+    "script": "tests/rules/test_composite_boundaries.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/rules/test_composite_empty_dye.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/rules/test_composite_offer_lifecycle.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/rules/test_composite_preview.gd",
+    "passed": 3,
+    "total": 3
+  },
+  {
+    "script": "tests/rules/test_composite_score_events.gd",
+    "passed": 2,
+    "total": 2
+  },
+  {
+    "script": "tests/rules/test_continue_challenge.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/rules/test_demolition_build.gd",
+    "passed": 15,
+    "total": 15
+  },
+  {
+    "script": "tests/rules/test_dye_rules.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_expanded_skills.gd",
+    "passed": 12,
+    "total": 12
+  },
+  {
+    "script": "tests/rules/test_explosion_rules.gd",
+    "passed": 10,
+    "total": 10
+  },
+  {
+    "script": "tests/rules/test_forest_clear_score.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_goal_score_bonus.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/rules/test_legacy_item_isolation.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/rules/test_line_build_completion.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/rules/test_line_clear_drop.gd",
+    "passed": 3,
+    "total": 3
+  },
+  {
+    "script": "tests/rules/test_line_clear_removal.gd",
+    "passed": 14,
+    "total": 14
+  },
+  {
+    "script": "tests/rules/test_line_cross.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/rules/test_line_score_availability.gd",
+    "passed": 3,
+    "total": 3
+  },
+  {
+    "script": "tests/rules/test_line_span.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/rules/test_manual_line_clear.gd",
+    "passed": 12,
+    "total": 12
+  },
+  {
+    "script": "tests/rules/test_manual_use_limit.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/rules/test_paired_windows.gd",
+    "passed": 6,
+    "total": 6
+  },
+  {
+    "script": "tests/rules/test_percent_clear.gd",
+    "passed": 7,
+    "total": 7
+  },
+  {
+    "script": "tests/rules/test_pressure_loop.gd",
+    "passed": 10,
+    "total": 10
+  },
+  {
+    "script": "tests/rules/test_pressure_offers.gd",
+    "passed": 10,
+    "total": 10
+  },
+  {
+    "script": "tests/rules/test_reward_waiting_rules.gd",
+    "passed": 8,
+    "total": 8
+  },
+  {
+    "script": "tests/rules/test_run_controller.gd",
+    "passed": 10,
+    "total": 10
+  },
+  {
+    "script": "tests/rules/test_score_ledger.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/rules/test_skill_action_migration.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/rules/test_skill_instances.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_skill_recording.gd",
+    "passed": 4,
+    "total": 4
+  },
+  {
+    "script": "tests/rules/test_skill_rewards.gd",
+    "passed": 11,
+    "total": 11
+  },
+  {
+    "script": "tests/rules/test_spawn_preview.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_special_conversion.gd",
+    "passed": 9,
+    "total": 9
+  },
+  {
+    "script": "tests/rules/test_stage_challenge.gd",
+    "passed": 15,
+    "total": 15
+  },
+  {
+    "script": "tests/rules/test_target_freeze.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/rules/test_telemetry.gd",
+    "passed": 13,
+    "total": 13
+  },
+  {
+    "script": "tests/rules/test_trial_progression.gd",
+    "passed": 5,
+    "total": 5
+  },
+  {
+    "script": "tests/test_core_loop.gd",
+    "passed": 26,
+    "total": 26
+  }
+]

@@ -131,6 +131,7 @@ func test_scored_skip_invalid_composite_keeps_scoring_policy() -> void:
 	var dead: PieceState = run.state.rules.place_piece(Vector2i(0, 4), 0)
 	var survivor: PieceState = run.state.rules.place_piece(Vector2i(1, 4), 1)
 	var clear: ClearMaterialEffect = ClearMaterialEffect.new()
+	clear.target_policy = ChoiceEffect.TargetPolicy.FIXED
 	clear.selector = ClearMaterialEffect.Selector.LINE
 	clear.score_cleared = true
 	var refill: RefillCountEffect = RefillCountEffect.new()
@@ -147,6 +148,8 @@ func test_scored_skip_invalid_composite_keeps_scoring_policy() -> void:
 	level.level = 1
 	level.abilities = [definition]
 	var skill: SkillDefinition = SkillDefinition.new()
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.roles = [&"generic"]
 	skill.skill_id = &"scored_composite"
 	skill.maximum_level = 1
 	skill.is_persistent = true
@@ -172,7 +175,7 @@ func test_other_clear_effects_and_normal_match_threshold_are_unchanged() -> void
 	assert_false(clear.score_cleared)
 	var ledger: ScoreLedger = ScoreLedger.new()
 	assert_eq(ledger.commit(2).base_score, 0)
-	assert_eq(CARD.base_weight, 3.0)
+	assert_eq(CARD.offer_traits.exception_multiplier, 1.0)
 
 func test_repeated_or_duplicate_removal_targets_never_pay_twice() -> void:
 	var run: RunController = _run()

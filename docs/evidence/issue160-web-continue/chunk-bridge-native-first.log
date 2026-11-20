@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[33m[WARNING]:  [0mIgnoring script res://tests/rules/test_checkpoint_bridge_text.gd because it does not extend GutTest
+[4m
+
+res://tests/rules/test_checkpoint_web_persistence.gd
+[0m* test_callback_keeps_opaque_text_and_explicit_failure_without_json_envelope
+* test_callback_rejects_wrong_arity_types_and_legacy_json_envelopes
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_web_files.gd
+[0m* test_open_and_encode_keep_exclusive_ownership_across_every_file_boundary
+* test_late_noncanonical_base64_never_publishes_or_writes_a_partial_mapping
+* test_file_operations_roundtrip_and_reject_paths_outside_the_slot
+* test_failed_browser_commit_restores_exact_acknowledged_pair_and_retry_can_save
+* test_bad_unknown_or_escaping_snapshots_are_not_reset_or_overwritten
+* test_raw_corrupt_original_bytes_survive_copy_and_database_roundtrip
+* test_conflicting_writer_requires_reload_instead_of_reusing_stale_local_files
+* test_no_thread_job_waits_for_actual_commit_and_keeps_single_ownership
+* test_failed_invalidation_is_not_durable_and_retry_prevents_both_generations
+* test_failed_sync_revokes_completed_ticket_instead_of_false_duplicate_success
+[1m10/10 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Warnings              1
+
+Scripts               2
+Tests                12
+Passing Tests        12
+Asserts             187
+Time              2.125s
+
+
+[32m---- All tests passed! ----
+[0m

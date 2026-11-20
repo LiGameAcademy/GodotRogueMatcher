@@ -1,0 +1,19 @@
+{
+  "details": {
+    "aborted_transactions": 3,
+    "cancel_preserves_confirmed": true,
+    "mode": "stage_challenge",
+    "new_run_allowed": false,
+    "new_run_blocked": true,
+    "origin": "http://127.0.0.1:8994",
+    "parent_wait_has_no_checkpoint_job": true,
+    "phase": "failed_save_invalidation_and_cancel_before_refresh",
+    "real_transaction_abort": true,
+    "save_failure_preserves_confirmed": true,
+    "save_failure_visible": true,
+    "terminal_not_claimed_durable": true
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

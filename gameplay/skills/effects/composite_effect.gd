@@ -7,6 +7,8 @@ enum FixedTargetPolicy { REJECT, SKIP_INVALID }
 @export var children: Array[SkillEffect] = []
 ## REJECT fails the whole acquire; SKIP_INVALID drops dead fixed ids and may yield a legal empty leaf.
 @export var fixed_target_policy: FixedTargetPolicy = FixedTargetPolicy.REJECT
+## An entirely empty acquire needs an explicit root declaration as well as legal empty leaves.
+@export var allow_empty_acquisition: bool = false
 
 func validation_error(ancestors: Array[SkillEffect] = []) -> String:
 	if children.is_empty(): return "composite effect missing children"
@@ -28,35 +30,37 @@ func validation_error(ancestors: Array[SkillEffect] = []) -> String:
 func rejection(context: ChoiceEffectContext) -> String:
 	var error: String = validation_error()
 	if not error.is_empty(): return error
+	if not allow_empty_acquisition and empty_targets_allowed(context): return "组合没有可生效目标"
+	return _child_rejection(context)
+
+func _child_rejection(context: ChoiceEffectContext) -> String:
+	var error: String = ""
 	for child: SkillEffect in children:
 		if child is ChoiceEffect:
 			error = (child as ChoiceEffect).rejection(context)
 		elif child is CompositeEffect:
-			error = (child as CompositeEffect).rejection(context)
+			error = (child as CompositeEffect)._child_rejection(context)
 		if not error.is_empty(): return error
 	return ""
 
-## Freeze every leaf against the current context for offer preview and leaf0 apply.
+func empty_targets_allowed(context: ChoiceEffectContext) -> bool:
+	if children.is_empty(): return false
+	for child: SkillEffect in children:
+		if child is ChoiceEffect:
+			var choice: ChoiceEffect = child as ChoiceEffect
+			# A fixed leaf may still repaint to a color no longer present on the board.
+			if not choice.dynamic_targets() or not choice.empty_targets_allowed(context): return false
+		if child is CompositeEffect and not (child as CompositeEffect).empty_targets_allowed(context): return false
+	return true
+
+## Fixed leaves freeze identities; dynamic leaves store only their deferred contract.
 func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> CompositeSkillTarget:
 	var target: CompositeSkillTarget = CompositeSkillTarget.new()
 	for child: SkillEffect in children:
 		if child is ChoiceEffect:
-			target.leaf_targets.append((child as ChoiceEffect).freeze(context, random))
+			target.leaf_targets.append((child as ChoiceEffect).freeze_offer(context, random))
 		elif child is CompositeEffect:
 			target.leaf_targets.append((child as CompositeEffect).freeze(context, random))
-	return target
-
-## Refresh nested previews without discarding child-specific frozen choices.
-func refresh_after_previous(context: ChoiceEffectContext, frozen: CompositeSkillTarget, random: RandomNumberGenerator) -> CompositeSkillTarget:
-	var target: CompositeSkillTarget = CompositeSkillTarget.new()
-	if frozen == null or frozen.leaf_targets.size() != children.size(): return target
-	for index: int in range(children.size()):
-		var child: SkillEffect = children[index]
-		var previous: SkillTarget = frozen.leaf_targets[index]
-		if child is ChoiceEffect:
-			target.leaf_targets.append((child as ChoiceEffect).refresh_after_previous(context, previous, random))
-		elif child is CompositeEffect:
-			target.leaf_targets.append((child as CompositeEffect).refresh_after_previous(context, previous as CompositeSkillTarget, random))
 	return target
 
 func requires_color_choice() -> bool:

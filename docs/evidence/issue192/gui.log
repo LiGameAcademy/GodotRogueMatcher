@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 2070
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/ADMINI~1/AppData/Local/Temp/rogue-192-user/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_screening_return_mouse.gd
+[0m* test_mouse_return_four_size_effect_combinations_preserve_reward_and_replay
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mISSUE192_AUTOMATED_RETEST 1280x720-low-false record=user://screening_records/119-2348-1793263042889000-8223761.jsonl
+[33m    --- Awaiting 30 idle frames  ---
+[0mSCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mISSUE192_AUTOMATED_RETEST 1280x720-low-true record=user://screening_records/119-2348-1793263047126000-12460557.jsonl
+[33m    --- Awaiting 30 idle frames  ---
+[0mSCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mISSUE192_AUTOMATED_RETEST 1024x640-low-false record=user://screening_records/119-2348-1793263050745000-16080000.jsonl
+[33m    --- Awaiting 30 idle frames  ---
+[0mSCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mISSUE192_AUTOMATED_RETEST 1024x640-low-true record=user://screening_records/119-2348-1793263054749000-20083840.jsonl
+[33m    --- Awaiting 30 idle frames  ---
+[0mSCREENING_PLAYGROUND_READY t overlap
+* test_hidden_panel_restores_on_popup_destruction_and_fixture_rebuild
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY t overlap
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY zs free
+[1m2/2 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 2
+Passing Tests         2
+Asserts             156
+Time              30.093s
+
+
+[32m---- All tests passed! ----
+[0m

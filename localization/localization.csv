@@ -37,3 +37,4 @@ item.type.building,建筑,Building
 item.type.relic,遗物,Relic
 item.type.consumable,消耗品,Consumable
 item.type.passive,被动,Passive
+checkpoint.legacy_unsupported,此存档来自旧版，当前版本无法续局。原存档已保留；若要重新开始，请返回菜单选择新一局并确认放弃旧局。,This save uses an older format and cannot be continued. It has been kept. To start again choose New Game and confirm abandoning the old run.

@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-26",
+  "branch": "feature/nut-audio-integration",
+  "engine": "Godot 4.7.2 stable",
+  "scripts": [
+    "test_nut_audio.gd",
+    "test_feedback_settings.gd",
+    "test_manual_line_scene.gd"
+  ],
+  "tests": 19,
+  "passed": 19,
+  "assertions": 485,
+  "seconds": 83.495,
+  "exit_code": 0,
+  "public_wav_count": 12,
+  "public_hashes_match_release_pack": true,
+  "private_music_copied": false,
+  "git_ignore_checks": [
+    "local_audio/gameplay.mp3",
+    "local_audio/gameplay.mp3.import"
+  ],
+  "public_export_excludes": "local_audio/*",
+  "limitations": [
+    "未做真人听感验收",
+    "未做含音乐导出验证",
+    "音乐署名UI及无缝接缝未完成"
+  ],
+  "initial_failures": "首轮两项旧测试假设不再成立：初始化无声、扫线信号为最后一项。改为隔离初始化声音并检查完整事件列表，未修改规则。"
+}

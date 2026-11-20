@@ -1,6 +1,9 @@
 class_name ThinMaterialEffect
 extends ChoiceEffect
 
+func _init() -> void:
+	target_policy = TargetPolicy.DYNAMIC
+
 ## Instantly remove up to `count` unmarked ordinary pieces without scoring.
 @export var count: int = 3
 
@@ -12,7 +15,7 @@ func freeze(context: ChoiceEffectContext, random: RandomNumberGenerator) -> Skil
 	var ids: Array[int] = _candidates(context)
 	var take: int = mini(maxi(count, 0), ids.size())
 	for _index: int in range(take):
-		var chosen: int = random.randi_range(0, ids.size() - 1)
+		var chosen: int = (random.randi_range(0, ids.size() - 1) if ids.size() > 1 else 0)
 		target.piece_ids.append(ids[chosen])
 		ids.remove_at(chosen)
 	return target

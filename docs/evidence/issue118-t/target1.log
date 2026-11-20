@@ -1,0 +1,247 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-t/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_t_template_geometry.gd
+[0m* test_t_resource_matches_confirmed_five_cell_template
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_t_resource_matches_confirmed_five_cell_template (res://tests/rules/test_t_template_geometry.gd:9)
+   GDScript backtrace (most recent call first):
+       [0] test_t_resource_matches_confirmed_five_cell_template (res://tests/rules/test_t_template_geometry.gd:9)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_t_rotations_and_mirrors_produce_four_unique_hits
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_t_rotations_and_mirrors_produce_four_unique_hits (res://tests/rules/test_t_template_geometry.gd:21)
+   GDScript backtrace (most recent call first):
+       [0] test_t_rotations_and_mirrors_produce_four_unique_hits (res://tests/rules/test_t_template_geometry.gd:21)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_each_missing_or_wrong_color_cell_and_clipped_edge_refuse_t
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_each_missing_or_wrong_color_cell_and_clipped_edge_refuse_t (res://tests/rules/test_t_template_geometry.gd:33)
+   GDScript backtrace (most recent call first):
+       [0] test_each_missing_or_wrong_color_cell_and_clipped_edge_refuse_t (res://tests/rules/test_t_template_geometry.gd:33)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_extra_same_color_does_not_extend_t_without_another_hit
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_extra_same_color_does_not_extend_t_without_another_hit (res://tests/rules/test_t_template_geometry.gd:45)
+   GDScript backtrace (most recent call first):
+       [0] test_extra_same_color_does_not_extend_t_without_another_hit (res://tests/rules/test_t_template_geometry.gd:45)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_long_stem_and_t_merge_before_landing_filter_and_score_union_once
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_long_stem_and_t_merge_before_landing_filter_and_score_union_once (res://tests/rules/test_t_template_geometry.gd:54)
+   GDScript backtrace (most recent call first):
+       [0] test_long_stem_and_t_merge_before_landing_filter_and_score_union_once (res://tests/rules/test_t_template_geometry.gd:54)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_shared_l_and_t_are_one_union_independent_shapes_remain_two_events
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_shared_l_and_t_are_one_union_independent_shapes_remain_two_events (res://tests/rules/test_t_template_geometry.gd:70)
+   GDScript backtrace (most recent call first):
+       [0] test_shared_l_and_t_are_one_union_independent_shapes_remain_two_events (res://tests/rules/test_t_template_geometry.gd:70)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_overlapping_t_hits_transitively_merge_and_template_order_is_irrelevant
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_overlapping_t_hits_transitively_merge_and_template_order_is_irrelevant (res://tests/rules/test_t_template_geometry.gd:88)
+   GDScript backtrace (most recent call first):
+       [0] test_overlapping_t_hits_transitively_merge_and_template_order_is_irrelevant (res://tests/rules/test_t_template_geometry.gd:88)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_t_is_opt_in_and_query_snapshots_cannot_mutate_template_or_other_runs
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_t_is_opt_in_and_query_snapshots_cannot_mutate_template_or_other_runs (res://tests/rules/test_t_template_geometry.gd:98)
+   GDScript backtrace (most recent call first):
+       [0] test_t_is_opt_in_and_query_snapshots_cannot_mutate_template_or_other_runs (res://tests/rules/test_t_template_geometry.gd:98)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+[1m0/8 passed.
+[0m[4m
+
+res://tests/rules/test_t_template_flow.gd
+[0m* test_direct_t_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_t_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_t_match_finishes_remaining_locked_tokens
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_birth_t_match_finishes_remaining_locked_tokens (res://tests/rules/test_t_template_flow.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] test_birth_t_match_finishes_remaining_locked_tokens (res://tests/rules/test_t_template_flow.gd:42)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_batch_dye_t_and_straight_line_score_final_union_once
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_batch_dye_t_and_straight_line_score_final_union_once (res://tests/rules/test_t_template_flow.gd:58)
+   GDScript backtrace (most recent call first):
+       [0] test_batch_dye_t_and_straight_line_score_final_union_once (res://tests/rules/test_t_template_flow.gd:58)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+* test_real_t_unlock_immediately_scans_and_does_not_enable_l
+* test_real_t_full_clear_uses_one_recovery_and_disk_replays_v42
+* test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+SCRIPT ERROR: Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+   at: test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources (res://tests/rules/test_t_template_flow.gd:120)
+   GDScript backtrace (most recent call first):
+       [0] test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources (res://tests/rules/test_t_template_flow.gd:120)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+      at line -1
+[1m4/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_t_template_geometry.gd
+[0m- test_t_resource_matches_confirmed_five_cell_template
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_t_rotations_and_mirrors_produce_four_unique_hits
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_each_missing_or_wrong_color_cell_and_clipped_edge_refuse_t
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_extra_same_color_does_not_extend_t_without_another_hit
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_long_stem_and_t_merge_before_landing_filter_and_score_union_once
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_shared_l_and_t_are_one_union_independent_shapes_remain_two_events
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_overlapping_t_hits_transitively_merge_and_template_order_is_irrelevant
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_t_is_opt_in_and_query_snapshots_cannot_mutate_template_or_other_runs
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+[4m
+res://tests/rules/test_t_template_flow.gd
+[0m- test_birth_t_match_finishes_remaining_locked_tokens
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_batch_dye_t_and_straight_line_score_final_union_once
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+- test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'run' in base 'GDScript'. The array of argument 1 (Array) does not have the same element type as the expected typed array argument.
+          at line -1
+
+Totals
+------
+Scripts               2
+Tests                15
+Passing Tests         4
+Failing Tests        11
+Asserts           41/52
+Time              0.13s
+
+
+[31m---- 11 failing tests ----
+[0m

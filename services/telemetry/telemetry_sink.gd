@@ -9,3 +9,7 @@ func flush() -> TelemetryWriteResult:
 
 func close() -> TelemetryWriteResult:
 	return flush()
+
+## A negative accepted position means an in-memory sink has no persistence watermark.
+func diagnostics() -> Dictionary:
+	return {"accepted_seq": -1, "persisted_seq": 0, "error": ""}

@@ -1,0 +1,154 @@
+{
+  "review_base": "e9c74e1456497dd8c528158f626c8aa1b8ea7965",
+  "tested_commit": "6fe3d0e07cade51bfb2ae985cc8bbccbea9d7b5d",
+  "rule_version": "run-commands-v46-unified-offer-audit",
+  "offer_version": "offer-unified-trial-v2",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "regression": {
+    "scripts": 20,
+    "tests": 183,
+    "passed": 183,
+    "assertions": 3525,
+    "exit_code": 0,
+    "started": "2026-10-29T18:40:22.3345581+08:00",
+    "ended": "2026-10-29T18:41:59.8976529+08:00"
+  },
+  "red": {
+    "tests": 6,
+    "passed": 4,
+    "failed": 2,
+    "failed_assertions": 7,
+    "exit_code": 1
+  },
+  "natural_batch": {
+    "strategy": "greedy-v1",
+    "seeds": [
+      1000,
+      1001,
+      1002
+    ],
+    "move_cap": 60,
+    "replays_ok": 3,
+    "choices": 7,
+    "analysis_errors": [],
+    "pool_audit": {
+      "complete_rate": 1.0,
+      "complete_rewards": 7,
+      "legacy_rewards": 0
+    }
+  },
+  "legacy_read": {
+    "errors": [],
+    "pool_audit": {
+      "complete_rate": 0.0,
+      "complete_rewards": 0,
+      "legacy_rewards": 7
+    },
+    "v45_replay_error": "record_version_mismatch",
+    "v45_replay_exit_code": 1,
+    "original_hashes_unchanged": true
+  },
+  "review": "authorized read-only reviewer APPROVE after both findings fixed",
+  "files": [
+    {
+      "path": "gameplay/progression/content/offer_config.tres",
+      "sha256": "d3979c3020c3a7de5210f3672d367ff11f3f73797d27404a5e9744791c8bdb1e"
+    },
+    {
+      "path": "gameplay/progression/offer_config.gd",
+      "sha256": "10fc128d8191ebfe7b5864af1a43b0af168c319606b37479da5295b50d3bc24a"
+    },
+    {
+      "path": "gameplay/progression/offer_weight_rules.gd",
+      "sha256": "f6c6a911151450c111b109864d3e5749c82a9220e8ae90df0c9f365a0532b2af"
+    },
+    {
+      "path": "gameplay/run/recording/run_snapshot.gd",
+      "sha256": "50c4dfcce1b64aaaf81537ec1a1182202eaa19ffbb856bce85fd62c28c7d4d02"
+    },
+    {
+      "path": "services/telemetry/offer_explanation_schema.gd",
+      "sha256": "d921a0ec42e3a88f633b1c26ad5a57781903ad958927097e367bbf946b91c73e"
+    },
+    {
+      "path": "tests/rules/test_ability_composite_effects.gd",
+      "sha256": "ff67b5a3a512f1db1bb0650a94fd1e1c83fac4040bae549ab15f6694ad31843c"
+    },
+    {
+      "path": "tests/rules/test_offer_measurements.gd",
+      "sha256": "f1eebaf6959f3fc3c744757d50155829fa2bcb77028e6e1a27f3c2ecab36c711"
+    },
+    {
+      "path": "tests/rules/test_plus_template_flow.gd",
+      "sha256": "0f099ccf543874565ceecaa493f1466c241b8d7a99e0d058b25fbfce3076c425"
+    },
+    {
+      "path": "tests/rules/test_ring_template_flow.gd",
+      "sha256": "80bf540d35122bac452a2af0502ea3a263d925c13eefe1a57277d2c82a1c1491"
+    },
+    {
+      "path": "tests/rules/test_skill_recording.gd",
+      "sha256": "9b4ea5d5c14791d4ece261f63c6f5ae2264035339906d699d5c437c69b3fe8c3"
+    },
+    {
+      "path": "tests/rules/test_square_template_flow.gd",
+      "sha256": "d1ab46b73b7ff738878f6a5e70141aac289631c33030006fce54867a7c0cc9d0"
+    },
+    {
+      "path": "tests/rules/test_t_template_flow.gd",
+      "sha256": "f7985acbd8d84f5a9ba88875b2e1b1894a5cfc55d8fff2cc8430e137ab84168e"
+    },
+    {
+      "path": "tests/rules/test_u_template_flow.gd",
+      "sha256": "d504110a28914e9fc7f7445ded124429d7cf0ac757ff9e96e445aaf29725621f"
+    },
+    {
+      "path": "tests/rules/test_unified_offers.gd",
+      "sha256": "881a9e8afbc28d425c52ceae28580e378cf0b3be3c4752c603e9a0e72d1f6df9"
+    },
+    {
+      "path": "tests/rules/test_x_template_flow.gd",
+      "sha256": "67b4a87d7ec5f8d1cd2c005bd9b8915bc9db3fc73dd022fb7a8a4d031d47c789"
+    },
+    {
+      "path": "tests/rules/test_zs_template_flow.gd",
+      "sha256": "09b4470a95bc39b5a6a133137b088b298745a7cff050a1c77cd8bd8dc4ad1298"
+    },
+    {
+      "path": "tools/telemetry_analysis/offer_measurements.gd",
+      "sha256": "221ff0d9a47932e7708f2d2932296b69535c918485f98490075d995e55fc2d64"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-rereview\\batch\\telemetry\\1000-50992-1793270448382000-4472374.jsonl",
+      "bytes": 1531782,
+      "sha256": "40ef5ad53531adc0c6863eb2207ee35b6aab5de1c650bf882a43aa75bacbc668"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-rereview\\batch\\telemetry\\1001-50992-1793270458223000-14313959.jsonl",
+      "bytes": 1130854,
+      "sha256": "d830fc3985c496c3602011480e7131726df40ac0af1bd6f50efa882382a973c4"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-rereview\\batch\\telemetry\\1002-50992-1793270464495000-20585788.jsonl",
+      "bytes": 1002063,
+      "sha256": "52652b4c6f06b9217d84f74c272103fdf5c268301448f4e8a777dc665d93a410"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-rereview\\batch\\records\\1000-50992-1793270448382000-4472374.jsonl",
+      "bytes": 4047252,
+      "sha256": "ef67e6c2aa1089544487bf8c97e2d714a3de4c8a6ebee99bfc7c3883b1d475cb"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-rereview\\batch\\records\\1001-50992-1793270458223000-14313959.jsonl",
+      "bytes": 2591397,
+      "sha256": "8c6e27180047eb7c60fabfc13acb4411d429ed6dc359943e06c9538508a5299f"
+    },
+    {
+      "path": "D:\\GodotProject\\laoli_gamedev_godot4_course\\projects\\godot-rogue-matcher\\work\\o1-unified-offers\\.godot\\o1-rereview\\batch\\records\\1002-50992-1793270464495000-20585788.jsonl",
+      "bytes": 2168302,
+      "sha256": "8009edd3a676a0acbeb5fc7da934e1f2b7a63bcba29e85541453b829e3fd4336"
+    }
+  ]
+}

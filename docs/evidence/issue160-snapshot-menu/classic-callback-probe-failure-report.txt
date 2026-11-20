@@ -1,0 +1,17 @@
+{
+  "details": {
+    "candidate_flag": true,
+    "default_flag_unchanged": true,
+    "endpoint_equal": true,
+    "menu_visible": true,
+    "mode": "classic_endless",
+    "origin": "http://127.0.0.1:8990",
+    "parent_known": true,
+    "provisional_projectors": 0,
+    "provisional_recorders": 0,
+    "resumed_header": "SnapshotHeader"
+  },
+  "ok": false,
+  "reason": "probe_watchdog_110s",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

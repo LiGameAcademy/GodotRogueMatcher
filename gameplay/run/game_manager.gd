@@ -44,6 +44,14 @@ func add_score(amount: int) -> void:
 	ledger.commit(0, 1.0, amount, &"legacy_extra", run.state.action_id)
 	publish_score()
 
+## Binds committed state without checking rewards, resetting counters or emitting acquisition events.
+func bind_checkpoint(controller: RunController) -> void:
+	run = controller
+	_game_over_notified = false
+	piece_count = run.state.rules.state.get_piece_count()
+	score_changed.emit(run.state.ledger.total)
+	turn_started.emit(run.state.turn_count)
+
 ## 广播已提交总分并排队奖励；表现播放不重复提交账本。
 func publish_score() -> void:
 	score_changed.emit(score)

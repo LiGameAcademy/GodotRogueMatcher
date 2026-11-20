@@ -1,0 +1,91 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/o1-unified-offers/.godot/o1-unified/ui-final-userdata/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_skill_pool.gd
+[0m* test_browsing_and_locale_changes_preserve_snapshot_offer_and_random_streams
+* test_escape_restores_existing_pause_and_does_not_reach_game_shortcuts
+* test_catalog_uses_short_effects_and_actual_prerequisite_titles
+* test_capability_and_once_reasons_remain_readable_in_both_languages
+* test_choice_menu_roundtrip_preserves_popup_and_observation_location
+* test_terminal_and_presentation_views_restore_their_previous_state
+* test_default_sort_uses_rarity_then_level_then_translated_name
+* test_filters_intersect_and_instant_history_is_not_a_level
+* test_grid_cards_filter_sort_reset_without_changing_rules
+* test_empty_filter_and_grid_column_count
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_skill_cards.gd
+[0m* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_skill_mechanic_icons.gd
+[0m* test_registered_icons_match_choices_catalog_and_compact_build_without_mutating_run
+* test_unregistered_and_same_tag_cards_keep_fallback_and_reused_nodes_clear_previous_icons
+* test_orientation_and_modulation_are_instance_local_and_do_not_intercept_input
+* test_refill_icons_keep_real_remaining_uses_and_multiplier_keeps_level
+* test_dye_build_uses_one_shared_glyph_but_distinct_roles_and_real_levels
+* test_fuse_roles_and_relay_level_two_preserve_rules_and_other_fuse_cards_keep_fallback
+* test_match_bonus_roles_keep_conditions_levels_and_multiplier_separate_without_awarding_score
+* test_blast_payoffs_keep_hit_generation_and_threshold_conditions_without_starting_refill_uses
+* test_manual_icons_keep_real_shared_quota_at_zero_without_changing_run
+* test_fuse_assignment_capacity_and_payload_keep_lifecycles_and_live_levels
+* test_instant_conversion_icons_keep_frozen_targets_colors_and_supply_locked
+* test_cross_and_sweep_harvest_keep_levels_and_manual_quota_separate
+[1m12/12 passed.
+[0m[4m
+
+res://tests/integration/test_game_themes.gd
+[0m* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
+[38;2;255;255;255m[2026-10-29T18:22:40] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-29T18:22:40] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[38;2;169;169;169m[2026-10-29T18:22:40] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
+* test_switching_retains_offer_selected_card_and_confirmation
+* test_both_themes_keep_panel_and_button_boundaries_without_focus
+* test_shader_instances_and_templates_stay_isolated_across_views
+* test_switch_during_real_move_keeps_barrier_and_exact_file_replay
+* test_retry_and_new_catalog_cards_inherit_theme_without_resetting_filters
+[1m7/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               4
+Tests                34
+Passing Tests        34
+Asserts            5965
+Time              17.837s
+
+
+[32m---- All tests passed! ----
+[0m

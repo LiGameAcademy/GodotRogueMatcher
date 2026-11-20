@@ -1,0 +1,45 @@
+{
+  "details": {
+    "candidate_flag": true,
+    "choice_consumed_once": true,
+    "default_flag_unchanged": true,
+    "durable_new_segment_replay": true,
+    "durable_new_segment_rows": 12,
+    "durable_new_segment_sha256": "bbe46f261a15834a6fd157c09fb886fdf017660b969199ab6149bb751dce758d",
+    "endpoint_equal": true,
+    "job_metrics": {
+      "elapsed_usec": 217700,
+      "frames": 9,
+      "freeze_usec": 28300,
+      "maximum_gap_usec": 52700,
+      "ok": true,
+      "stages": {
+        "decode": {},
+        "history_prime_usec": 0,
+        "package": {
+          "storage_sync": {
+            "filemap_encode_elapsed_usec": 21100,
+            "filemap_encode_usec": 600,
+            "largest_filemap_slice_usec": 300
+          },
+          "storage_sync_elapsed_usec": 107900
+        }
+      }
+    },
+    "menu_visible": true,
+    "mode": "classic_endless",
+    "moves": 36,
+    "old_callbacks_ignored": true,
+    "origin": "http://127.0.0.1:8992",
+    "parent_known": true,
+    "phase": "resumed_then_terminal",
+    "provisional_projectors": 0,
+    "provisional_recorders": 0,
+    "resumed_header": "SnapshotHeader",
+    "terminal_durable": true,
+    "terminal_reason": "board_full"
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

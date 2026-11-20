@@ -30,3 +30,10 @@ func attach(recorder: RunRecorder, run_id: String) -> TelemetryProjector:
 	projectors.append(projector)
 	attached.emit(recorder, projector)
 	return projector
+
+func resume(run: RunController, context: Dictionary, record_file: bool) -> TelemetryProjector:
+	var header: Dictionary = TelemetryResume.header(run, context, collection_context, commit_id)
+	var projector: TelemetryProjector = attach(run.recorder, run.state.run_id + "--" + session_id)
+	if record_file and not context.get("prepared", {}).get("record_file", false): run.recorder.open_resume_file(record_directory, session_id, header.metadata.resume)
+	projector.begin_resume(header, run.recorder.records)
+	return projector

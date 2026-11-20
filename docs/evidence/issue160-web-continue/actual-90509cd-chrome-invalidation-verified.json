@@ -1,0 +1,28 @@
+{
+  "revision": 4,
+  "raw_sha256": "999e4d2c06e9fc40d0591d1c729943fe3c5ec23da3489db31095df57bb8a9c26",
+  "files": {
+    "invalid-f2a97e46dd0d4ea13f028738fb0db3e2164868a930bb224478811a6064e67a43.json": {
+      "digest": "310c3f7ddae078624bf03e2c8b480bddb192c0bd74e0dc48bfba500c0e33f1be",
+      "format": "checkpoint-invalid-v1",
+      "reason": "restart",
+      "run_id": "3945234716-0-1793431457398000-3736400"
+    },
+    "previous.json": {
+      "run_id": "3945234716-0-1793431457398000-3736400",
+      "generation": "2"
+    },
+    "previous.rollback": {
+      "run_id": "3945234716-0-1793431457398000-3736400",
+      "generation": "1"
+    },
+    "primary.json": {
+      "run_id": "546405690-0-1793432192257000-738594700",
+      "generation": "3"
+    },
+    "primary.rollback": {
+      "run_id": "3945234716-0-1793431457398000-3736400",
+      "generation": "2"
+    }
+  }
+}

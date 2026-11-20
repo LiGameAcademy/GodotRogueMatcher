@@ -1,0 +1,11 @@
+# #89 普通JSONL浮点传输回归
+
+100×3探索在第100个已采样对局所在段因回放校验非零而停止。a=0、d=.25、seed1046、正常阶段挑战、固定greedy，原记录第361条的候选槽sample：记录解析后0.00005755596794188，原计算值再次canonical化为0.0000575559679418802。前后候选身份一致。
+
+最小复现使用实际计算值IEEE字节00000000082d0e3f，避免GDScript十进制常量自身先舍入。普通v1 writer短精度写JSON后解析，再次格式化可能二次舍入。修复仅在原严格比较失败且来源为普通Header时，比较实际记录按原writer做一次JSON写/读后的严格canonical结果。没有epsilon，没有改随机流、规则、writer、版本、默认配置或快照schema。SnapshotHeader全精度段保持原比较。
+
+最小回归3测试13断言通过：短精度一次传输、直接内存、全精度段以及候选/类型/随机身份/结构/实际数值篡改拒绝。原失败记录完整670条重放通过，不重跑机器人、不替换原CSV。相关10脚本84测试2808断言通过；只读独立复审通过。
+
+#89对应当前证据：FG01–10及统一合法池/工具配额由test_unified_offers覆盖；RO01–06的少张、部分失效、一次修复、失败不推进、旧身份拒绝和消费幂等由test_reward_waiting_rules覆盖；RO07当前状态快照前后修复身份由test_snapshot_safe_points覆盖；RO09机会去重及历史版本拒绝由test_offer_measurements覆盖。test_run_random_streams、test_commands_replay、test_offer_trial_config、test_run_state_snapshot、test_snapshot_segments同轮回归通过。RG自然新局生命周期另见#233，不拿旧前缀存档测试代替当前状态快照证据。
+
+这不是全部#89或平衡验收：正式a/d与稀有曲线、高k、H20/50、首次发动机/连携等待的冻结操作定义和真人体验仍缺；#88探索未完成时不得写300局通过。本批原始失败、截尾和所有已采样局仍保留。详细日志在课程工作区validation/0.0.3/o1-calibration-offline/20261102-three-variant-explore。

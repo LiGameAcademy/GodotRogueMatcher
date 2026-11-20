@@ -99,7 +99,7 @@ func test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup(
 				offer.choices.append(skill)
 				offer.targets[id] = SkillRules.freeze_target(run.state, skill)
 	run.state.rewards.active_offer = offer
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await board.finish_presentation()
 	await wait_process_frames(3)
 	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice

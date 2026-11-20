@@ -28,7 +28,7 @@ static func freeze_target(state: RunState, skill: SkillDefinition, random: Rando
 	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
 	var target: SkillTarget = SkillTarget.new()
 	if effect is ChoiceEffect:
-		target = (effect as ChoiceEffect).freeze(effect_context(state), rng)
+		target = (effect as ChoiceEffect).freeze_offer(effect_context(state), rng)
 	elif effect is CompositeEffect:
 		target = (effect as CompositeEffect).freeze(effect_context(state), rng)
 	target.level_before = level(state, skill)
@@ -45,6 +45,7 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 	context.dye_upgrades = state.dye.upgrades.duplicate()
 	context.line_upgrades = state.line_clear.upgrades.duplicate()
 	context.stage_enabled = state.stage.enabled()
+	context.unlocked_shapes = state.rules.shape_unlocks.ids()
 	context.goal_bonus_score = state.goal_bonus_score
 	context.core_pool_unlocked = state.explosion.core_pool_unlocked
 	context.line_row_unlocked = state.line_clear.row_unlocked
@@ -64,26 +65,23 @@ static func effect_context(state: RunState) -> ChoiceEffectContext:
 		if piece.content_id.is_empty() and state.explosion.instances.has(piece.piece_id): context.fuse_ids.append(piece.piece_id)
 	return context
 
-static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, frozen_pressure: float = -1.0) -> String:
+static func rejection(state: RunState, skill: SkillDefinition, config: ExplosionConfig, _frozen_pressure: float = -1.0, build: SkillBuildSnapshot = null, offer_context: ChoiceEffectContext = null) -> String:
 	var definition_error: String = skill.validation_error()
 	if not definition_error.is_empty(): return definition_error
 	if state.is_game_over or not state.rule_error.is_empty():
 		return "本局已经结束或规则异常"
-	if not is_finite(skill.base_weight) or skill.base_weight <= 0.0:
-		return "技能权重必须为正数"
-	if skill.requires_core and not state.explosion.core_pool_unlocked: return "需先获得爆壳手登场"
-	if skill.requires_fuse_unlock and not state.explosion.fuse_unlocked: return "需先解锁引信路线"
-	if skill.requires_fuse and effect_context(state).fuse_ids.is_empty(): return "棋盘上需要引信"
+	var frozen: SkillBuildSnapshot = build if build != null else SkillBuildSnapshot.capture(state, [])
+	for need: StringName in skill.offer_traits.needs:
+		if not frozen.capabilities.has(need): return "missing_required_capability:" + String(need)
 	if not skill.prerequisite.is_empty() and state.rewards.acquired.get(skill.prerequisite, 0) == 0: return "缺少前置升级"
 	var owned: SkillInstance = state.skill_instances.get(skill.skill_id)
 	if owned != null and owned.definition != skill: return "技能定义与已安装实例不符"
 	if skill.maximum_level > 0 and level(state, skill) >= skill.maximum_level: return "已满级"
+	if skill.offer_traits.once_per_run and state.rewards.acquired.get(skill.skill_id, 0) > 0: return "already_acquired_once_per_run"
 	if level(state, skill) >= 1000000: return "等级已达安全上限"
-	var early_rescue: bool = RescueOfferRules.early_allowed(state, skill, frozen_pressure)
-	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
+	if state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入候选阶段"
 	var effect: SkillEffect = skill.acquisition_effect(level(state, skill))
 	if effect == null: return "技能缺少执行配置"
-	if not early_rescue and state.rewards.consumed_count + 1 < skill.minimum_reward: return "尚未进入中期候选池"
 	if not skill.levels.is_empty() and effect is InstallUpgradeEffect:
 		var upgrade: StringName = (effect as InstallUpgradeEffect).upgrade
 		if state.explosion.level(upgrade) != level(state, skill): return "技能等级与生成修正不一致"
@@ -96,14 +94,17 @@ static func rejection(state: RunState, skill: SkillDefinition, config: Explosion
 	if effect is DemolitionStatEffect:
 		var capped: String = _demolition_stat_cap(state, config, effect as DemolitionStatEffect)
 		if not capped.is_empty(): return capped
-	if effect is ChoiceEffect:
-		return (effect as ChoiceEffect).rejection(effect_context(state))
-	if effect is CompositeEffect:
-		return (effect as CompositeEffect).rejection(effect_context(state))
+	if effect is ChoiceEffect or effect is CompositeEffect:
+		var context: ChoiceEffectContext = offer_context if offer_context != null else effect_context(state)
+		if effect is ChoiceEffect: return (effect as ChoiceEffect).rejection(context)
+		return (effect as CompositeEffect).rejection(context)
 	return "unsupported skill effect"
 
 static func apply(run: RunController, offer_id: int, skill_id: StringName, selected_color: int = -1) -> SkillApplyResult:
 	var result: SkillApplyResult = SkillApplyResult.new()
+	if run.is_retired():
+		result.error = "本局已经关闭"
+		return result
 	var state: RunState = run.state
 	var rewards: RewardState = state.rewards
 	var offer: SkillOffer = rewards.active_offer
@@ -116,6 +117,9 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	if skill == null:
 		result.error = "该技能不在当前候选中"
 		return result
+	# 命令入口刚重校验过的失效状态同样约束无UI调用，不能只禁用按钮。
+	result.error = offer.unavailable.get(skill_id, "")
+	if not result.error.is_empty(): return result
 	result.error = rejection(state, skill, run.abilities.config)
 	if not result.error.is_empty(): return result
 	var targets: SkillTarget = offer.targets.get(skill_id)
@@ -132,6 +136,7 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	state.rule_action_id = state.action_id
 	result.error = AbilityEffectRunner.apply_skill_effect(run, effect, targets, result, selected_color)
 	if not result.error.is_empty():
+		result.outcome = &"error"
 		run.abilities.abandon_held_blasts()
 		state.rule_error = result.error
 		state.phase = RunState.Phase.ERROR
@@ -148,9 +153,11 @@ static func apply(run: RunController, offer_id: int, skill_id: StringName, selec
 	for choice: SkillDefinition in offer.choices:
 		if choice.skill_id != skill_id: rewards.previous_unselected.append(choice.skill_id)
 	rewards.consumed_count += 1
+	rewards.repair_used = false
 	state.pending_rewards -= 1
 	rewards.active_offer = null
 	result.success = true
+	result.outcome = &"applied"
 	result.reward_id = offer.reward_id
 	result.offer_id = offer_id
 	result.skill_id = skill_id

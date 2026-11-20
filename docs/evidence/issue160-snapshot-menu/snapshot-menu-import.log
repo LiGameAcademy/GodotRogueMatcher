@@ -1,0 +1,106 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+WARNING: UID duplicate detected between res://production/web_o5_open_profile_a985d06/candidate905/index.apple-touch-icon.png and res://production/web_o5_files_sliced_90509cd/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_open_profile_a985d06/candidate905/index.icon.png and res://production/web_o5_files_sliced_90509cd/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_open_profile_a985d06/candidate905/index.png and res://production/web_o5_files_sliced_90509cd/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_open_profile_a985d06/chunk848fixed/index.apple-touch-icon.png and res://production/web_o5_bridge_container_848228c/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_open_profile_a985d06/chunk848fixed/index.icon.png and res://production/web_o5_bridge_container_848228c/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_open_profile_a985d06/chunk848fixed/index.png and res://production/web_o5_bridge_container_848228c/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_product_guarded_2396dac/product/index.apple-touch-icon.png and res://production/web_o5_json_sliced_20261031/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_product_guarded_2396dac/product/index.icon.png and res://production/web_o5_json_sliced_20261031/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_o5_product_guarded_2396dac/product/index.png and res://production/web_o5_json_sliced_20261031/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_final_probe/index.apple-touch-icon.png and res://production/web_snapshot_safe_v2_classic_order/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_final_probe/index.icon.png and res://production/web_snapshot_safe_v2_classic_order/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_final_probe/index.png and res://production/web_snapshot_safe_v2_classic_order/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_ports_probe/final/index.apple-touch-icon.png and res://production/web_snapshot_safe_v2_final_probe/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_ports_probe/final/index.icon.png and res://production/web_snapshot_safe_v2_final_probe/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_ports_probe/final/index.png and res://production/web_snapshot_safe_v2_final_probe/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_ports_probe/index.apple-touch-icon.png and res://production/web_snapshot_safe_v2_ports_probe/progress/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_ports_probe/index.icon.png and res://production/web_snapshot_safe_v2_ports_probe/progress/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_ports_probe/index.png and res://production/web_snapshot_safe_v2_ports_probe/progress/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_progress_probe/index.apple-touch-icon.png and res://production/web_snapshot_safe_v2_ports_probe/index.apple-touch-icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_progress_probe/index.icon.png and res://production/web_snapshot_safe_v2_ports_probe/index.icon.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://production/web_snapshot_safe_v2_progress_probe/index.png and res://production/web_snapshot_safe_v2_ports_probe/index.png.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: Missing .uid file for path "res://services/telemetry/offer_explanation_schema.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tests/integration/test_particle_graph_runtime.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tests/rules/test_offer_measurements.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tests/rules/test_run_random_streams.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tests/rules/test_unified_offers.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tests/support/screening_current_records.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tools/particle_graph_thin/particle_graph_thin.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tools/telemetry_analysis/offer_measurements.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tools/ui_motion_preview/ui_motion_preview.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 正在注册全局类…… (14 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | RunRecorder[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | GameCheckpointFlow[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | CheckpointJob[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | RunCollection[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的前置操作……[39m[0m
+[   0% ] [90m[1mreimport[22m | localization.csv[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的后置操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

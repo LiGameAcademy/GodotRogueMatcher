@@ -3,21 +3,22 @@
 [ext_resource type="Script" path="res://ui/spawn_preview.gd" id="1"]
 
 [node name="SpawnPreview" type="VBoxContainer"]
-custom_minimum_size = Vector2(216, 56)
+texture_filter = 4
+custom_minimum_size = Vector2(216, 48)
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("1")
 
 [node name="Title" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.56, 0.89, 0.85, 1)
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 12
 mouse_filter = 2
 text = "下次补棋"
 
 [node name="Slots" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 36)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_filter = 2
 

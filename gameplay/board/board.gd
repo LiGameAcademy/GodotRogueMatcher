@@ -1,32 +1,53 @@
-extends Node2D
 class_name Board
+extends Node2D
 
-## M1兼容协调器：旧回合流程调用规则入口，表现由独立BoardView消费。
+## Coordinates one run and its presentation; BoardRules owns occupancy and mutations.
 signal initialized
 signal presentation_updated
+## Publishes a committed goal bonus for sibling score presentation.
 signal goal_bonus_ready(entry: ScoreEntry)
+## Reports selection and fuse state; null clears the visible selection.
 signal selection_changed(piece: PieceState, has_fuse: bool)
+## Reports player-facing status without finding a HUD.
 signal operation_feedback(message: String)
+## Signals that the board has reopened input after all required presentation and gates.
+signal input_ready
+## Requests an audio cue without waiting for audio completion.
 signal feedback_requested(cue: StringName)
+## Requests match audio for the committed cascade generation.
+signal match_feedback_requested(generation: int)
 signal run_reset
-## Game显式提供兄弟HUD的等待入口，不从棋盘查找UI节点。
-var score_presenter: Callable
+## Hands the current run and offer to Game for popup coordination.
+signal reward_requested(active: RunController, offer: SkillOffer)
+## Announces a committed rules safe point before input or reward presentation is released.
+signal checkpoint_reached(active: RunController)
+
+const INTERACTION: Script = preload("res://gameplay/board/board_interaction.gd")
 
 @export var game_mode: GameModeDefinition = preload("res://gameplay/run/modes/stage_challenge.tres")
 @export var rows: int = 9
 @export var cols: int = 9
 @export var grid_gap: Vector2 = Vector2(1, 1)
+## Injected by Game to await sibling HUD presentation without finding UI nodes.
+var spawn_preview_prepare: Callable
+var spawn_origin_provider: Callable
+var score_presenter: Callable
 var cell_size: Vector2 = Vector2(64, 64)
 var rules: BoardRules
 var run: RunController
 var telemetry_factory: TelemetryFactory
+var new_run_seeds: NewRunSeedSource = NewRunSeedSource.new()
 var observation: BoardObservation = BoardObservation.new()
-var can_selected: bool = false
-var _generation: int = 0
-var _presented_events: Dictionary[int, bool] = {}
-var _score_presentation_pending: bool = false
-var _compatibility_changed: bool = false
-var _turn_in_progress: bool = false
+## Optional outer-session gate; does not change game rules or consume an action.
+var input_permission: Callable
+var keep_checkpoint_history: bool = false
+var hold_at_checkpoint: bool = false
+var can_selected: bool = false:
+	set(value):
+		var opened: bool = value and not can_selected
+		can_selected = value
+		if is_instance_valid(view): view.set_interaction_enabled(value)
+		if opened: input_ready.emit()
 var input_buffer: BoardInputBuffer = BoardInputBuffer.new()
 var selected_piece: ChessPiece = null:
 	set(value):
@@ -39,7 +60,16 @@ var selected_piece: ChessPiece = null:
 			selection_changed.emit(piece, run.state.explosion.instances.has(selected_piece.piece_id))
 		else:
 			selection_changed.emit(null, false)
+		if is_instance_valid(view):
+			view.set_selection_paths(INTERACTION.selection_paths(rules, selected_piece.piece_id if is_instance_valid(selected_piece) else 0))
 
+var _generation: int = 0
+var _presented_events: Dictionary[int, bool] = {}
+var _score_presentation_pending: bool = false
+var _compatibility_changed: bool = false
+var _turn_in_progress: bool = false
+
+## Public presentation ports used by Game and BoardRunFlow; neither owns rule state.
 @onready var view: BoardView = $BoardView
 @onready var director: PresentationDirector = $PresentationDirector
 
@@ -51,7 +81,6 @@ func _ready() -> void:
 	director.step_skip_requested.connect(_on_step_skip_requested)
 	director.playback_failed.connect(_on_playback_failed)
 	view.piece_removing.connect(_on_piece_removing)
-	view.match_visualized.connect(_on_match_visualized)
 	director.busy_changed.connect(view.set_playback_pending)
 
 func _notification(what: int) -> void:
@@ -69,73 +98,86 @@ func _notification(what: int) -> void:
 func _exit_tree() -> void:
 	director.cancel()
 	BoardRunFlow.finalize(run, "scene_closed")
+	if run != null: run.retire()
 
-#region 初始化与重试
-## 规则对象由Game显式注入，重试传入全新的状态。
-func start_game(board_rules: BoardRules, record_run: bool = false) -> void:
-	run_reset.emit()
-	cancel_buffered_input()
-	_turn_in_progress = false
-	_generation += 1
-	director.cancel()
+## Starts a fresh run with explicitly injected rules and cancels old presentation.
+func start_game(board_rules: BoardRules, record_run: bool = false, prepared: RunController = null, initial: RunStepResult = null, record_source: String = "human") -> void:
+	var creation: Dictionary = NewRunFactory.prepare(board_rules, game_mode.stage_config, new_run_seeds, prepared, initial)
+	if not creation.ok:
+		operation_feedback.emit("hud.status.new_run_failed")
+		return
+	var candidate: RunController = creation.run
+	initial = creation.initial
+	_activate_run(candidate, false)
+	if record_source == "human": new_run_seeds.remember(candidate.state.random_streams.master_seed)
 	var generation: int = _generation
-	can_selected = false
-	selected_piece = null
-	rules = board_rules
-	_presented_events.clear()
-	_score_presentation_pending = false
-	_compatibility_changed = false
-	view.configure(cols, rows, cell_size, grid_gap)
-	BoardRunFlow.finalize(run, "restart")
-	run = RunController.new(rules, randi(), game_mode.stage_config)
-	GameManager.reset_game(run)
-	# 先更换本局，再关闭旧奖励；等待中的回调会识别旧run并退出。
-	UIManager.close_popup()
-	await get_tree().process_frame
-	var initial: RunStepResult = run.initialize()
-	if record_run or telemetry_factory != null:
+	if record_run or telemetry_factory != null or keep_checkpoint_history:
 		run.recorder = RunRecorder.new()
 		observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
-		run.recorder.begin(run, "human", record_run)
+		run.recorder.begin(run, record_source, record_run)
 		observation.busy(true)
+	await get_tree().process_frame
+	if generation != _generation: return
+	if initial.spawns.is_empty(): view.rebuild(rules.state.get_snapshot())
 	await present_spawns(initial.spawns)
 	if generation != _generation: return
 	GameManager.turn_started.emit(run.state.turn_count)
 	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
 	observation.busy(false)
 	initialized.emit()
+	checkpoint_reached.emit(run)
 
-func retry_game(board_rules: BoardRules) -> void:
-	BoardRunFlow.finalize(run, "restart")
-	get_tree().paused = false
-	ItemEffectSystem.placed_items.clear()
-	LevelUpSystem.reset_system()
-	ItemRegistry.register_all_items()
-	await start_game(board_rules, true)
+## Takes over one already validated independent graph. No initialize/offer generation/score commit.
+func adopt_checkpoint(candidate: RunController) -> bool:
+	if not RunCheckpointCodec.safety_error(candidate).is_empty() or candidate == run: return false
+	_activate_run(candidate, true)
+	new_run_seeds.remember(candidate.state.random_streams.master_seed)
+	for entry: ScoreEntry in run.state.ledger.get_entries(): _presented_events[entry.event_id] = true
+	view.rebuild(rules.state.get_snapshot())
+	refresh_ability_markers()
+	GameManager.bind_checkpoint(run)
+	can_selected = run.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint and (not input_permission.is_valid() or bool(input_permission.call(run)))
+	observation.busy(false)
+	initialized.emit()
+	presentation_updated.emit()
+	return true
 
-## 调试入口只在稳定输入点加载固定爆炸盘面。
-func load_explosion_demo(mode: String = "fixture_f6") -> bool:
-	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()):
-		return false
-	run_reset.emit()
-	BoardRunFlow.finalize(run, "fixture_restart")
-	cancel_buffered_input()
-	_turn_in_progress = false
+func _activate_run(candidate: RunController, restoring: bool) -> void:
 	_generation += 1
-	director.cancel()
 	can_selected = false
+	cancel_buffered_input("restore" if restoring else "restart")
+	run_reset.emit()
+	_turn_in_progress = false
+	director.cancel()
 	selected_piece = null
-	ItemEffectSystem.placed_items.clear()
-	LevelUpSystem.reset_system()
-	ItemRegistry.register_all_items()
-	rules = BoardRules.new(BoardState.new(cols, rows), MatchSystem.MIN_MATCH_COUNT)
-	run = RunController.new(rules, 7)
-	GameManager.reset_game(run)
+	if run != null:
+		if restoring and run.recorder != null: run.recorder.close_interrupted()
+		else: BoardRunFlow.finalize(run, "restart")
+		run.retire()
+	run = candidate
+	rules = candidate.state.rules
+	cols = rules.state.columns
+	rows = rules.state.rows
 	_presented_events.clear()
 	_score_presentation_pending = false
 	_compatibility_changed = false
 	view.configure(cols, rows, cell_size, grid_gap)
-	run.initialize(mode)
+	observation.attach(null)
+	if not restoring: GameManager.reset_game(run)
+	UIManager.close_popup()
+
+## Restarts with fresh rules and resumes the tree.
+func retry_game(board_rules: BoardRules, prepared: RunController = null, initial: RunStepResult = null) -> void:
+	BoardRunFlow.finalize(run, "restart")
+	get_tree().paused = false
+	await start_game(board_rules, true, prepared, initial)
+
+## Loads a fixed debug board only at a stable input boundary.
+func load_explosion_demo(mode: String = "fixture_f6") -> bool:
+	if get_tree().paused or cols < 8 or rows < 6 or (not can_selected and run.state.rule_error.is_empty()): return false
+	var candidate: RunController = RunController.new(BoardRules.new(BoardState.new(cols, rows), MatchSystem.MIN_MATCH_COUNT), 7)
+	candidate.initialize(mode)
+	_activate_run(candidate, false)
 	run.recorder = RunRecorder.new()
 	observation.attach(telemetry_factory.attach(run.recorder, run.state.run_id) if telemetry_factory != null else null)
 	run.recorder.begin(run, "fixture")
@@ -146,14 +188,13 @@ func load_explosion_demo(mode: String = "fixture_f6") -> bool:
 	can_selected = true
 	observation.busy(false)
 	return true
-
 func refresh_ability_markers() -> void:
 	view.refresh_piece_details(rules.state.get_snapshot(), run.state.explosion, run.abilities.config, run.state.line_clear, run.state.manual_uses_used)
 
-## F7仅推进到下一个分数门槛，使用与正常局相同的奖励入口。
+## Advances to the next reward threshold using the normal reward entry.
 func open_skill_demo() -> bool:
 	if run.state.stage.enabled():
-		operation_feedback.emit("技能调试请先切换经典无尽，或按 F6 / F10 加载独立示例")
+		operation_feedback.emit("hud.status.debug_classic_required")
 		return false
 	if not can_selected or get_tree().paused or GameManager.is_game_over:
 		return false
@@ -161,54 +202,29 @@ func open_skill_demo() -> bool:
 	can_selected = false
 	selected_piece = null
 	if run.recorder != null: run.recorder.finish(run, "abandoned", "debug_f7_not_balance_sample")
-	GameManager.add_score(maxi(0, LevelUpSystem.next_milestone - GameManager.score))
+	GameManager.add_score(maxi(0, run.state.progression.next_milestone - GameManager.score))
 	run.enter_rewards()
-	await LevelUpSystem.resolve_pending_rewards(self)
+	await resume_run(run)
 	if generation != _generation: return false
-	if not GameManager.is_game_over and run.state.rule_error.is_empty():
-		run.state.phase = RunState.Phase.INPUT
-		can_selected = true
 	return true
-#endregion
 
-#region 单一棋盘写入口与显示适配
+## Places through BoardRules and attaches the supplied visual.
 func place_piece(coordinate: Vector2i, piece: ChessPiece) -> bool:
-	var content_id: StringName = StringName(piece.item_data.id) if piece.item_data != null else &""
-	var snapshot: PieceState = rules.place_piece(coordinate, piece.piece_type, content_id, piece.is_ghost)
-	if snapshot == null:
-		return false
-	view.show_piece(snapshot, piece)
-	refresh_ability_markers()
-	if director.is_busy(): _compatibility_changed = true
-	_update_count_display()
-	return true
+	return BoardCompatibility.place(self, coordinate, piece)
 
+## Removes through BoardRules, then updates the visual and selection.
 func remove_piece(coordinate: Vector2i, animated: bool = false) -> bool:
-	var piece_id: int = rules.state.get_piece_id(coordinate)
-	var snapshot: PieceState = rules.remove_piece(piece_id)
-	if snapshot == null:
-		return false
-	run.state.explosion.instances.erase(piece_id)
-	var piece: ChessPiece = view.get_piece(piece_id)
-	if selected_piece == piece:
-		selected_piece = null
-	if is_instance_valid(piece) and piece.item_data != null:
-		ItemEffectSystem.unregister_item(piece)
-	view.remove_piece(snapshot, animated)
+	return BoardCompatibility.remove(self, coordinate, animated)
+
+## Updates rule color before refreshing its presentation.
+func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
+	return BoardCompatibility.color(self, coordinate, match_color)
+
+func compatibility_updated() -> void:
 	if director.is_busy(): _compatibility_changed = true
 	_update_count_display()
-	return true
 
-func set_piece_color(coordinate: Vector2i, match_color: int) -> bool:
-	var piece_id: int = rules.state.get_piece_id(coordinate)
-	if not rules.set_piece_color(piece_id, match_color):
-		return false
-	view.show_color(piece_id, match_color)
-	refresh_ability_markers()
-	if director.is_busy(): _compatibility_changed = true
-	return true
-
-## 只在等待输入的稳定点重建；播放/奖励期间拒绝，避免重入旧回合。
+## Rebuilds only while accepting input; rejects playback or reward reentry.
 func rebuild_view() -> bool:
 	if not can_selected or get_tree().paused:
 		return false
@@ -216,41 +232,11 @@ func rebuild_view() -> bool:
 	_restore_view(rules.state.get_snapshot())
 	return true
 
-## 重建不是获得道具，不重新触发ON_PLACE。
-func _restore_view(snapshot: Array[PieceState]) -> void:
-	view.rebuild(snapshot)
-	refresh_ability_markers()
-	_sync_items()
-
-func _sync_items() -> void:
-	ItemEffectSystem.placed_items.clear()
-	for cell: Cell in view.get_cells():
-		var piece: ChessPiece = cell.piece
-		if is_instance_valid(piece) and piece.item_data != null: ItemEffectSystem.placed_items.append(piece)
-
-## 消费已经提交的离场快照；旧道具信号暂保留为M3兼容边界。
+## Presents committed removal snapshots without executing item rules again.
 func present_matches(results: Array[MatchResult]) -> void:
 	_submit_plan(PlaybackPlanBuilder.matches(results))
 
-func _submit_plan(steps: Array[PresentationStep]) -> void:
-	for step: PresentationStep in steps:
-		var pending: Array[MatchResult] = []
-		for result: MatchResult in step.matches:
-			if _presented_events.has(result.score_entry.event_id): continue
-			_presented_events[result.score_entry.event_id] = true
-			pending.append(result)
-		step.matches = pending
-		if not pending.is_empty(): _score_presentation_pending = true
-	director.enqueue(steps, rules.state.get_snapshot(), true)
-
-func _on_piece_removing(piece: ChessPiece) -> void:
-	if selected_piece == piece: selected_piece = null
-	if piece.item_data != null: ItemEffectSystem.unregister_item(piece)
-
-func _on_match_visualized(result: MatchResult, cells: Array[Cell]) -> void:
-	if result.cause == &"match": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
-
-## 演出完成后再广播已提交分数和检查门槛；重试取消旧批次。
+## Publishes committed score after playback; returns false if retry invalidated this batch.
 func finish_presentation() -> bool:
 	var active_run: RunController = run
 	if not await director.wait_until_idle(): return false
@@ -265,59 +251,12 @@ func finish_presentation() -> bool:
 	presentation_updated.emit()
 	return true
 
-## 技能应用只消费已提交结果；落子查线也不会重复计分。
+## Presents committed skill results without rerunning matching or scoring.
 func present_skill_result(result: SkillApplyResult) -> void:
+	view.defer_fuse_markers(result.marked_ids)
 	_submit_plan(PlaybackPlanBuilder.skill(result, director.config.spawn_duration))
 	refresh_ability_markers()
 	_update_count_display()
-
-func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: int) -> void:
-	var completed: bool = true
-	view.set_step_policy(step.policy)
-	match step.kind:
-		PresentationStep.Kind.MOVE:
-			completed = await view.animate_move(step.movement, step.duration)
-		PresentationStep.Kind.SPAWN:
-			for piece: PieceState in step.pieces: view.animate_spawn(piece, step.duration)
-		PresentationStep.Kind.REMOVE:
-			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
-		PresentationStep.Kind.TRANSFORM:
-			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration)
-		PresentationStep.Kind.MATCHES:
-			var cue: StringName = &"match"
-			for result: MatchResult in step.matches:
-				if result.cause in [&"explosion", &"line_clear"]: cue = &"blast"
-			if not step.matches.is_empty(): feedback_requested.emit(cue)
-			view.animate_matches(step.matches)
-		PresentationStep.Kind.ALIGN:
-			# 旧公开写入口的额外提交只在全部步骤结束后纳入对齐。
-			var ending: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else step.pieces
-			completed = (_compatibility_changed and director.has_queued_steps()) or view.align_snapshot(ending)
-			if completed: _sync_items()
-	if completed: completed = await view.wait_for_animations()
-	if not director.is_current(epoch, token): return
-	if completed:
-		refresh_ability_markers()
-		_update_count_display()
-	director.complete_step(epoch, token, completed)
-
-func _on_step_skip_requested(step: PresentationStep, epoch: int, token: int) -> void:
-	director.complete_step(epoch, token, view.skip_step(step))
-
-func _on_playback_failed(reason: String) -> void:
-	can_selected = false
-	cancel_buffered_input("presentation_error")
-	var snapshot: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else director.recovery_snapshot
-	if not PlaybackPlanBuilder.valid_snapshot(snapshot, Vector2i(cols, rows)):
-		operation_feedback.emit("演出异常，无法恢复盘面：" + reason)
-		return
-	selected_piece = null
-	view.cancel_animations()
-	_restore_view(snapshot)
-	_compatibility_changed = false
-	_score_presentation_pending = true
-	director.confirm_recovery()
-	operation_feedback.emit("演出异常，已对齐本次结果")
 
 func set_playback_fast(fast: bool) -> void:
 	view.presentation_speed = director.config.fast_speed if fast else director.config.normal_speed
@@ -342,12 +281,8 @@ func has_piece(coordinate: Vector2i) -> bool:
 
 func is_board_empty() -> bool:
 	return rules.state.get_piece_count() == 0
-#endregion
 
-#region 旧回合流程兼容
-func _on_cell_pressed(cell: Cell) -> void:
-	await _on_coordinate_pressed(cell.coordinate)
-
+## Submits the selected move; buffered wait is telemetry in milliseconds.
 func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait_ms: int = -1, input_id: String = "") -> bool:
 	if not can_selected or GameManager.is_game_over or not is_instance_valid(selected_piece) or target_cell == null:
 		return false
@@ -358,22 +293,57 @@ func move_selected_piece(target_cell: Cell, duration: float = 0.5, buffered_wait
 	command.buffered_wait_ms = maxi(0, buffered_wait_ms)
 	return await _execute_action(command, duration, input_id)
 
-func _on_piece_activated(coordinate: Vector2i) -> void:
-	if not can_selected or get_tree().paused or GameManager.is_game_over: return
-	var piece: PieceState = rules.state.get_piece(rules.state.get_piece_id(coordinate))
-	if piece == null: return
-	var command: RunCommand
-	if LineClearState.is_line_piece(piece.content_id):
-		var activate: ActivateLineCommand = ActivateLineCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
-		activate.piece_id = piece.piece_id
-		command = activate
-	else:
-		var detonate: DetonateCoreCommand = DetonateCoreCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id)
-		detonate.piece_id = piece.piece_id
-		command = detonate
-	await _execute_action(command, director.config.spawn_duration)
+## Resumes the same run after a choice; rules decide rewards, spawning and input.
+func resume_run(active: RunController) -> void:
+	if run != active: return
+	can_selected = false
+	await BoardRunFlow.continue_run(self, active)
+	if run != active: return
+	can_selected = active.state.phase == RunState.Phase.INPUT and not hold_at_checkpoint and not active.state.is_game_over and active.state.rule_error.is_empty() and (not input_permission.is_valid() or bool(input_permission.call(active)))
+	_turn_in_progress = false
+	if can_selected: _resume_buffered_input()
+
+func mark_score_pending() -> void:
+	_score_presentation_pending = true
+
+## Resume the same run; no reset, regeneration or ledger replacement.
+func continue_challenge() -> bool:
+	var active: RunController = run
+	var result: CommandResult = run.execute_command(ContinueChallengeCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id))
+	if not result.accepted: return false
+	GameManager.resume_game()
+	can_selected = false
+	observation.busy(true)
+	await resume_run(active)
+	if not is_instance_valid(self) or run != active: return false
+	return can_selected
+
+## Presents already committed births and their match results.
+func present_spawns(spawns: Array[SpawnResult], from_preview: bool = false) -> void:
+	await BoardRunFlow.present_spawns(self, spawns, from_preview)
+
+## Drops the pending click without submitting a rule action.
+func cancel_buffered_input(reason: String = "cancelled") -> void:
+	input_buffer.cancel(view, observation, reason)
+
+## Restores presentation without acquiring items or dispatching ON_PLACE again.
+func _restore_view(snapshot: Array[PieceState]) -> void:
+	view.rebuild(snapshot)
+	refresh_ability_markers()
+
+func _submit_plan(steps: Array[PresentationStep]) -> void:
+	for step: PresentationStep in steps:
+		var pending: Array[MatchResult] = []
+		for result: MatchResult in step.matches:
+			if _presented_events.has(result.score_entry.event_id): continue
+			_presented_events[result.score_entry.event_id] = true
+			pending.append(result)
+		step.matches = pending
+		if not pending.is_empty(): _score_presentation_pending = true
+	director.enqueue(steps, rules.state.get_snapshot(), true)
 
 func _execute_action(command: RunCommand, duration: float, input_id: String = "") -> bool:
+	if input_permission.is_valid() and not input_permission.call(run): return false
 	if input_id.is_empty(): input_id = observation.input(String(CommandCodec.encode(command).type), command.buffered)
 	observation.busy(true)
 	var outcome: CommandResult = run.execute_command(command)
@@ -387,9 +357,14 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 	if not outcome.accepted or turn == null:
 		observation.busy(false)
 		selected_piece = null
+		if not outcome.accepted:
+			feedback_requested.emit(&"reject")
+			if command is MovePieceCommand: view.show_rejection((command as MovePieceCommand).target)
+			if outcome.reason == "NO_PATH": operation_feedback.emit("hud.status.move_blocked")
 		return false
 	var generation: int = _generation
 	can_selected = false
+	selected_piece = null
 	_turn_in_progress = true
 	# 移动已经提交，演出只使用路径结果，不决定是否合法。
 	var plan: Array[PresentationStep] = []
@@ -404,54 +379,11 @@ func _execute_action(command: RunCommand, duration: float, input_id: String = ""
 	if generation != _generation:
 		return false
 	selected_piece = null
-	await BoardRunFlow.continue_run(self, run)
+	if INTERACTION.is_empty_activation(turn): operation_feedback.emit("hud.status.activation_empty")
+	await resume_run(run)
 	if generation != _generation: return false
 	if not director.error.is_empty(): return false
-	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
-	_turn_in_progress = false
-	_resume_buffered_input()
 	return true
-
-func mark_score_pending() -> void:
-	_score_presentation_pending = true
-
-## Resume the same run; no reset, regeneration or ledger replacement.
-func continue_challenge() -> bool:
-	var active: RunController = run
-	var result: CommandResult = run.execute_command(ContinueChallengeCommand.new(run.state.run_id, run.last_command_id + 1, run.state.action_id))
-	if not result.accepted: return false
-	GameManager.resume_game()
-	can_selected = false
-	observation.busy(true)
-	await BoardRunFlow.continue_run(self, active)
-	if not is_instance_valid(self) or run != active: return false
-	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
-	return can_selected
-
-func present_spawns(spawns: Array[SpawnResult]) -> void:
-	var active_run: RunController = run
-	_submit_plan(PlaybackPlanBuilder.spawns(spawns, director.config.spawn_duration))
-	if not await finish_presentation() or run != active_run: return
-	_update_count_display()
-
-func _on_coordinate_pressed(coordinate: Vector2i) -> void:
-	if GameManager.is_game_over or get_tree().paused or not run.state.rule_error.is_empty():
-		observation.resolve(observation.input("click"), "discarded", "game_over" if GameManager.is_game_over else "paused_or_error")
-		return
-	if not can_selected:
-		if _turn_in_progress: _buffer_input(coordinate)
-		else: observation.resolve(observation.input("click"), "discarded", "busy")
-		return
-	var piece_id: int = rules.state.get_piece_id(coordinate)
-	if piece_id != 0:
-		selected_piece = view.get_piece(piece_id)
-		observation.resolve(observation.input("select"), "selected", "piece_selected")
-	elif is_instance_valid(selected_piece):
-		await move_selected_piece(get_cell(coordinate))
-	else: observation.resolve(observation.input("click"), "discarded", "no_selection")
-
-func cancel_buffered_input(reason: String = "cancelled") -> void:
-	input_buffer.cancel(view, observation, reason)
 
 func _buffer_input(coordinate: Vector2i) -> void:
 	var message: String = input_buffer.receive(coordinate, view, rules.state, observation)
@@ -465,7 +397,7 @@ func _resume_buffered_input() -> void:
 	cancel_buffered_input()
 	if not can_selected or rules.state.get_piece(id) == null:
 		observation.resolve(input_id, "discarded", "piece_missing_or_busy")
-		if id != 0: operation_feedback.emit("暂存棋子已离场，操作已取消")
+		if id != 0: operation_feedback.emit("hud.status.queued_piece_missing")
 		return
 	selected_piece = view.get_piece(id)
 	if target != Vector2i(-1, -1):
@@ -479,11 +411,86 @@ func _commit_buffered_move(generation: int, id: int, target: Vector2i, waiting_m
 		return
 	if not is_instance_valid(selected_piece) or selected_piece.piece_id != id or rules.state.get_piece_id(target) != 0:
 		observation.resolve(input_id, "discarded", "piece_changed_or_target_occupied")
-		operation_feedback.emit("暂存目标失效，请重新选择")
+		operation_feedback.emit("hud.status.queued_target_invalid")
 		return
 	await move_selected_piece(get_cell(target), 0.5, waiting_ms, input_id)
 
 func _update_count_display() -> void:
 	# 旧HUD兼容字段是派生显示值，不能用于占格或寻路决策。
 	GameManager.piece_count = rules.state.get_piece_count()
-#endregion
+
+func _on_piece_removing(piece: ChessPiece) -> void:
+	if selected_piece == piece: selected_piece = null
+
+func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: int) -> void:
+	var completed: bool = true
+	view.set_step_policy(step.policy)
+	match step.kind:
+		PresentationStep.Kind.MOVE:
+			if step.duration >= 0.12: feedback_requested.emit(&"move")
+			completed = await view.animate_move(step.movement, step.duration)
+			if completed and director.is_current(epoch, token): feedback_requested.emit(&"land")
+		PresentationStep.Kind.SPAWN:
+			BoardRunFlow.present_birth(self, step)
+		PresentationStep.Kind.REMOVE:
+			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
+		PresentationStep.Kind.TRANSFORM:
+			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration)
+		PresentationStep.Kind.MARK_FUSES:
+			view.show_fuse_marks(step.pieces, step.duration)
+		PresentationStep.Kind.MATCHES:
+			BoardRunFlow.play_matches(self, step.matches)
+		PresentationStep.Kind.ALIGN:
+			# 旧公开写入口的额外提交只在全部步骤结束后纳入对齐。
+			var ending: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else step.pieces
+			completed = (_compatibility_changed and director.has_queued_steps()) or view.align_snapshot(ending)
+	if completed: completed = await view.wait_for_animations()
+	if not director.is_current(epoch, token): return
+	if completed:
+		refresh_ability_markers()
+		_update_count_display()
+	director.complete_step(epoch, token, completed)
+
+func _on_step_skip_requested(step: PresentationStep, epoch: int, token: int) -> void:
+	director.complete_step(epoch, token, view.skip_step(step))
+
+func _on_playback_failed(reason: String) -> void:
+	can_selected = false
+	cancel_buffered_input("presentation_error")
+	var snapshot: Array[PieceState] = rules.state.get_snapshot() if _compatibility_changed else director.recovery_snapshot
+	if not PlaybackPlanBuilder.valid_snapshot(snapshot, Vector2i(cols, rows)):
+		push_warning("Playback recovery failed: " + reason)
+		operation_feedback.emit("hud.status.playback_failed")
+		return
+	selected_piece = null
+	view.cancel_animations()
+	_restore_view(snapshot)
+	_compatibility_changed = false
+	_score_presentation_pending = true
+	director.confirm_recovery()
+	operation_feedback.emit("hud.status.playback_aligned")
+
+func _on_cell_pressed(cell: Cell) -> void:
+	await _on_coordinate_pressed(cell.coordinate)
+
+func _on_piece_activated(coordinate: Vector2i) -> void:
+	if not can_selected or get_tree().paused or GameManager.is_game_over: return
+	var command: RunCommand = INTERACTION.activation_command(run, coordinate)
+	if command != null: await _execute_action(command, director.config.spawn_duration)
+
+func _on_coordinate_pressed(coordinate: Vector2i) -> void:
+	if GameManager.is_game_over or get_tree().paused or not run.state.rule_error.is_empty():
+		observation.resolve(observation.input("click"), "discarded", "game_over" if GameManager.is_game_over else "paused_or_error")
+		return
+	if not can_selected:
+		if _turn_in_progress: _buffer_input(coordinate)
+		else: observation.resolve(observation.input("click"), "discarded", "busy")
+		return
+	var piece_id: int = rules.state.get_piece_id(coordinate)
+	if piece_id != 0:
+		var cancel: bool = is_instance_valid(selected_piece) and selected_piece.piece_id == piece_id
+		selected_piece = null if cancel else view.get_piece(piece_id)
+		observation.resolve(observation.input("select"), "discarded" if cancel else "selected", "selection_cancelled" if cancel else "piece_selected")
+	elif is_instance_valid(selected_piece):
+		await move_selected_piece(get_cell(coordinate))
+	else: observation.resolve(observation.input("click"), "discarded", "no_selection")

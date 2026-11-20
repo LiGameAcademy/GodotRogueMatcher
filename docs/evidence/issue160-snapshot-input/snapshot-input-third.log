@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_run_state_snapshot.gd
+[0m* test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+* test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+[31m    [Failed]:  [0msnapshot_state_invalid_or_unsupported
+      at line 79
+ERROR: Couldn't open directory at path "user://snapshot-input-tests/5632-3932031".
+   at: get_files_at (core/io/dir_access.cpp:578)
+   GDScript backtrace (most recent call first):
+       [0] after_each (res://tests/rules/test_run_state_snapshot.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:629)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+* test_unsupported_phase_and_legacy_slot_are_preserved
+[1m3/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_run_state_snapshot.gd
+[0m- test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+[31m    [Failed]:  [0msnapshot_state_invalid_or_unsupported
+          at line 79
+
+Totals
+------
+Scripts               1
+Tests                 4
+Passing Tests         3
+Failing Tests         1
+Asserts           88/89
+Time              1.541s
+
+
+[31m---- 1 failing tests ----
+[0m

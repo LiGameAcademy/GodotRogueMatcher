@@ -1,0 +1,48 @@
+91154e2:gameplay/board/board.gd:112:	ItemEffectSystem.placed_items.clear()
+91154e2:gameplay/board/board.gd:114:	ItemRegistry.register_all_items()
+91154e2:gameplay/board/board.gd:129:	ItemEffectSystem.placed_items.clear()
+91154e2:gameplay/board/board.gd:131:	ItemRegistry.register_all_items()
+91154e2:gameplay/board/board.gd:194:		ItemEffectSystem.unregister_item(piece)
+91154e2:gameplay/board/board.gd:224:	ItemEffectSystem.placed_items.clear()
+91154e2:gameplay/board/board.gd:227:		if is_instance_valid(piece) and piece.item_data != null: ItemEffectSystem.placed_items.append(piece)
+91154e2:gameplay/board/board.gd:246:	if piece.item_data != null: ItemEffectSystem.unregister_item(piece)
+91154e2:gameplay/board/board.gd:249:	if result.cause == &"match": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
+91154e2:gameplay/items/conditions/condition_timing.gd:7:@export var timing: ItemEffectSystem.TriggerTiming
+91154e2:gameplay/items/conditions/condition_timing.gd:9:func _init(t: ItemEffectSystem.TriggerTiming) -> void:
+91154e2:gameplay/items/conditions/condition_timing.gd:14:	var current_timing: ItemEffectSystem.TriggerTiming = context.get("timing", -1)
+91154e2:gameplay/items/conditions/condition_timing.gd:19:		ItemEffectSystem.TriggerTiming.ON_PLACE:
+91154e2:gameplay/items/conditions/condition_timing.gd:21:		ItemEffectSystem.TriggerTiming.ON_TURN_START:
+91154e2:gameplay/items/conditions/condition_timing.gd:23:		ItemEffectSystem.TriggerTiming.ON_TURN_END:
+91154e2:gameplay/items/conditions/condition_timing.gd:25:		ItemEffectSystem.TriggerTiming.ON_MATCH:
+91154e2:gameplay/items/conditions/condition_timing.gd:27:		ItemEffectSystem.TriggerTiming.ON_MOVE:
+91154e2:gameplay/items/item_effect_system.gd:29:	MatchSystem.match_made.connect(_on_match_made)
+91154e2:gameplay/items/item_placer.gd:78:		var effect_system: Node = get_node_or_null("/root/ItemEffectSystem")
+91154e2:gameplay/items/item_registry.gd:5:## 注意：实际效果在 MatchSystem 和 SpawnManager 中实现
+91154e2:gameplay/items/item_registry.gd:14:		push_error("ItemRegistry: LevelUpSystem 未找到!")
+91154e2:gameplay/items/item_registry.gd:27:	print("ItemRegistry: 已注册 6 个道具")
+91154e2:gameplay/items/item_registry.gd:61:## 实现：ItemEffectSystem 在回合开始时触发
+91154e2:gameplay/items/item_registry.gd:119:## 实现：SpawnManager 在生成球时检测
+91154e2:gameplay/items/item_registry.gd:129:	item.effect_config = null  # 效果在 SpawnManager 中实现
+91154e2:gameplay/presentation/README.md:9:PlaybackPlanBuilder在入队前复制路径、棋子与账本，保留规则事件顺序；同代匹配并行，跨代与逐枚出生顺序播放。旧SpawnManager也走同一队列，不独立创建出生Tween。奖励展示等待队列排空和已提交得分发布。
+91154e2:project.godot:27:SpawnManager="*res://gameplay/board/spawn_manager.gd"
+91154e2:project.godot:29:ItemPlacer="*res://gameplay/items/item_placer.gd"
+91154e2:project.godot:30:ItemEffectSystem="*res://gameplay/items/item_effect_system.gd"
+91154e2:project.godot:32:ItemRegistry="*res://gameplay/items/item_registry.gd"
+91154e2:tests/README.md:63:路径按本机安装调整。运行日志保存在忽略的.godot目录。沙箱出现系统根证书读取提示；未出现脚本解析、失效引用或Tween运行错误。旧道具若没有effect_config但在MatchSystem/SpawnManager里实现，会保留已有警告。
+91154e2:tests/integration/test_explosion_loop.gd:20:	ItemEffectSystem.placed_items.clear()
+91154e2:tests/integration/test_explosion_loop.gd:88:	assert_eq(await SpawnManager.spawn_random_pieces(board), 1)
+91154e2:tests/integration/test_skip_recovery.gd:210:	original.initialize_item(ItemRegistry.create_prism_tower())
+91154e2:tests/integration/test_skip_recovery.gd:212:	ItemEffectSystem.placed_items.append(original)
+91154e2:tests/integration/test_skip_recovery.gd:222:	assert_eq(ItemEffectSystem.placed_items.size(), 1)
+91154e2:tests/integration/test_skip_recovery.gd:223:	assert_same(ItemEffectSystem.placed_items[0], restored)
+91154e2:tests/integration/test_stage_scene.gd:37:	ItemEffectSystem.placed_items.clear()
+91154e2:tests/test_core_loop.gd:21:	ItemRegistry.register_all_items()
+91154e2:tests/test_core_loop.gd:26:	ItemEffectSystem.placed_items.clear()
+91154e2:tests/test_core_loop.gd:90:	assert_eq(await SpawnManager.spawn_random_pieces(board), 1)
+91154e2:tests/test_core_loop.gd:104:	assert_eq(await SpawnManager.spawn_random_pieces(board), 3)
+91154e2:tests/test_core_loop.gd:136:	assert_eq(await SpawnManager.spawn_random_pieces(board), 0)
+91154e2:tests/test_core_loop.gd:187:	assert_eq(ItemEffectSystem.placed_items.size(), 0)
+91154e2:tests/test_core_loop.gd:307:	var item: ItemData = ItemRegistry.create_prism_tower()
+91154e2:tests/test_core_loop.gd:308:	assert_true(ItemPlacer.place_item_at(board, board.get_cell(Vector2i.ZERO), item))
+91154e2:tests/test_core_loop.gd:315:	assert_eq(ItemEffectSystem.placed_items.size(), 1)
+91154e2:tools/ux_capture/goal_progress_capture.gd:30:	ItemEffectSystem.placed_items.clear()

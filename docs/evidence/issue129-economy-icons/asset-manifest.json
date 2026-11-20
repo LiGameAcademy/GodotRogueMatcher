@@ -1,0 +1,29 @@
+[
+  {
+    "asset": "assets/textures/ui/icon_ability_multiplier.svg",
+    "source": "SVG itself; authored from basic paths/circles in this change",
+    "size": [
+      32,
+      32
+    ],
+    "sha256": "124b8459f748d0d022670f6ee70b1314a78be556fa121355fb50459b803ad8be"
+  },
+  {
+    "asset": "assets/textures/ui/icon_ability_refill_less.svg",
+    "source": "SVG itself; authored from basic paths/circles in this change",
+    "size": [
+      32,
+      32
+    ],
+    "sha256": "fd2983aec05b7c37792b699c4f1ab8b708d7d6578a4dbe2e505cfbfd52d0d5c8"
+  },
+  {
+    "asset": "assets/textures/ui/icon_ability_refill_more.svg",
+    "source": "SVG itself; authored from basic paths/circles in this change",
+    "size": [
+      32,
+      32
+    ],
+    "sha256": "847946e5bb429fd543442109c069c8e44a0a0e4f73dea6d44839efbfc1739473"
+  }
+]

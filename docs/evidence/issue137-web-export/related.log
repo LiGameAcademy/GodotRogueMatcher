@@ -1,0 +1,173 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/issue137-web-export/.godot/web-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_legacy_item_isolation.gd
+[0m* test_local_score_config_does_not_write_current_game
+效果 [add_score] 应用：增加 60 分
+* test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+* test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+* test_legacy_dispatchers_are_not_installed_or_subscribed
+* test_local_catalog_instances_do_not_share_mutable_effect_config
+* test_retained_timing_values_only_control_explicit_local_invocation
+效果 [add_score] 应用：增加 50 分
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_screening_deck.gd
+[0m* test_six_versioned_configs_use_one_read_only_template_and_shared_budget
+* test_free_openings_streams_and_production_catalog_match_baseline
+* test_all_twenty_four_literal_task_answers_real_commands_and_disk_replay
+* test_wrong_color_never_creates_a_shape_before_spawn_and_outside_is_not_extended
+* test_window_counts_activations_waits_for_safe_boundary_and_preserves_errors
+* test_profile_isolation_keeps_fixed_candidate_out_of_production_and_free_pool
+* test_six_free_configs_complete_real_fifteen_action_bot_windows_with_production_rewards
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_screening_playground.gd
+[0m* test_all_twenty_four_fixed_tasks_run_real_scene_and_seal_one_complete_action
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY baseline direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_normal_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_fast_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_low_effects_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_fast_low_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_action_budget_seals_after_real_move_and_blocks_stale_or_buffered_action
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY l free
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_time_budget_does_not_cut_playback_and_pause_is_included
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY baseline free
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY baseline free
+* test_controls_and_menu_restart_keep_configuration_and_close_old_record
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY x outside
+SCREENING_PLAYGROUND_READY x outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_switching_while_reward_waits_closes_old_sample_and_does_not_touch_new_free_run
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY zs free
+* test_closing_during_initialization_does_not_try_to_seal_temporary_unrecorded_run
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY l direct
+[1m10/10 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Warnings             29
+
+Scripts               3
+Tests                23
+Passing Tests        23
+Asserts            1220
+Time              84.987s
+
+
+[32m---- All tests passed! ----
+[0m

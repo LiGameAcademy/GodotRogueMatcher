@@ -1,0 +1,75 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[31m[ERROR]:  [0mCould not find script:  res://tests/rules/test_run_checkpoint_session.gd
+[4m
+
+res://tests/rules/test_checkpoint_decimal_roundtrip.gd
+[0m* test_sliced_transport_preserves_exact_bytes_and_does_not_mutate_frozen_values
+* test_sliced_transport_keeps_depth_tag_and_cycle_rejections
+* test_frozen_offer_decimal_samples_survive_actual_file_roundtrip
+* test_float_tags_preserve_nested_values_and_signed_zero
+* test_transport_rejects_reserved_keys_nonfinite_and_invalid_tags
+* test_v3_root_float_tag_returns_structured_failure
+* test_known_v2_decimal_wrapper_still_reads_without_relaxed_validation
+* test_known_v1_wrapper_still_reads_without_relaxed_validation
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_checkpoint_replay_steps.gd
+[0m* test_single_thread_job_yields_and_restores_without_reading_live_changes
+* test_chunked_prefix_matches_synchronous_frozen_endpoint
+* test_late_invalid_record_is_rejected_after_earlier_steps
+* test_failed_step_can_restart_but_completed_prefix_cannot_step_again
+* test_sliced_validation_rejects_the_same_malformed_prefixes_and_depths
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_run_checkpoint_codec.gd
+[0m* test_input_payload_roundtrips_max_seed_and_isolates_object_graph
+* test_input_restore_continues_multiple_identical_commands_and_preserves_retry_cache
+* test_frozen_reward_keeps_candidates_targets_stage_plan_and_consumes_once
+* test_shape_unlock_and_empty_recovery_budget_are_reconstructed_without_bonus
+* test_unsafe_phases_closed_runs_and_unfrozen_rewards_are_rejected
+* test_held_matches_without_blasts_are_not_a_safe_checkpoint
+* test_snapshot_not_backed_by_complete_prefix_and_partial_tail_are_rejected
+* test_corruption_schema_missing_fields_and_integer_encoding_fail_without_touching_live_run
+* test_frozen_endpoint_tampering_cannot_be_hidden_by_rehashing
+* test_manifest_and_rebuild_limits_fail_explicitly
+* test_real_slot_two_generations_new_instance_and_corrupt_primary_fallback
+* test_invalidated_run_cannot_reappear_from_primary_or_backup
+* test_invalid_save_leaves_real_slot_bytes_and_source_unchanged
+* test_real_commit_failure_preserves_exact_pair_and_can_retry
+* test_malformed_frozen_targets_are_rejected_before_snapshot_traversal
+* test_frozen_before_end_reopens_from_disk_and_keeps_refill_obligation
+* test_manual_use_counts_survive_a_complete_input_checkpoint
+* test_stage_frozen_offer_roundtrips_exact_float_weights_through_real_slot
+* test_bad_storage_packages_fail_without_touching_live_run_or_slot
+[1m19/19 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Errors                1
+
+Scripts               3
+Tests                32
+Passing Tests        32
+Asserts            1027
+Time              20.132s
+
+
+[32m---- All tests passed! ----
+[0m

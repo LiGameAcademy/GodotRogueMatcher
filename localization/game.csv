@@ -1,4 +1,11 @@
 key,zh_CN,en_US
+正在准备导出记录…,正在准备导出记录…,Preparing records for export…
+部分记录不完整；可下载已保存前缀。,部分记录不完整；可下载已保存前缀。,Some records are incomplete; the saved prefix can be downloaded.
+记录已准备，点击下载记录。,记录已准备，点击下载记录。,Records are ready. Click Download records.
+下载记录,下载记录,Download records
+已发起下载；请检查浏览器下载列表。,已发起下载；请检查浏览器下载列表。,Download requested. Check your browser downloads.
+导出未完成；已保存的原件仍保留。,导出未完成；已保存的原件仍保留。,Export did not finish. Saved originals are retained.
+继续选卡,继续选卡,Resume skill choice
 技能连珠,技能连珠,Skill Lines
 "技能连珠
 v%s · 试玩","技能连珠
@@ -898,3 +905,181 @@ Leave feedback on itch.io with the version, browser and a screenshot."
 
 棋盘信号效果,棋盘信号效果,Board signal effect
 棋盘局部扫描与边缘描光；低特效时关闭。,棋盘局部扫描与边缘描光；低特效时关闭。,Local scans and edge highlights. Disabled with Reduced Effects.
+目标在执行时选择,目标在执行时选择,Targets selected during execution
+花生,花生,Peanut
+腰果,腰果,Cashew
+杏仁,杏仁,Almond
+核桃,核桃,Walnut
+开心果,开心果,Pistachio
+阶段目标,阶段目标,Goal
+"%s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s
+
+直接清理 %d 枚
+其中引信 %d 枚","%s
+
+Clear %d pieces
+Fuses included: %d"
+
+"好搭档，总会再碰面。","好搭档，总会再碰面。","Good partners find each other again."
+"留点空位，下一手更从容。","留点空位，下一手更从容。","A little room for the next move."
+"先收拾，再换个心情。","先收拾，再换个心情。","Tidy up, then change the mood."
+"自选颜色清理","自选颜色清理","Clear a chosen color"
+"暂时收起面板，保留本次选择","暂时收起面板，保留本次选择","Hide the panel while keeping this choice"
+"暂不可选：%s","暂不可选：%s","Unavailable: %s"
+"查看棋盘","查看棋盘","View board"
+"登场","登场","Arrival"
+"补给","补给","Supply"
+"范围","范围","Range"
+减量,减量,Less
+增量,增量,More
+倍率（短）,倍率,Mult.
+接续,接续,Echo
+扩散,扩散,Spread
+再续,再续,Chain
+布雷,布雷,Plant
+传递,传递,Relay
+接力,接力,Boost
+补分,补分,Bonus
+正好,正好,Exact
+长连,长连,Long
+节拍,节拍,Beat
+留白,留白,Relief
+主动,主动,Manual
+赋能,赋能,Empower
+扩容,扩容,Capacity
+装填,装填,Payload
+改装,改装,Convert
+十字,十字,Cross
+收获,收获,Harvest
+hud.status.preparing,准备棋盘…,Preparing board…
+hud.status.ready,请选择棋子与目标空格,Select a piece and an empty cell
+hud.status.paused,已暂停,Paused
+hud.status.resolving,正在结算与播放…,Resolving action…
+hud.status.awaiting_skill,等待技能选择…,Choose a skill…
+hud.status.counting_score,正在累计得分…,Counting score…
+hud.status.skip_requested,已请求略过可跳部分，必播动作仍需完成,Skipping optional effects; required actions still play
+hud.status.settings_failed,设置保存失败，本次仍可使用,Could not save settings. They still work this session.
+hud.status.theme_invalid,画面主题配置无效,Invalid visual theme configuration
+hud.status.challenge_completed,挑战完成,Challenge complete
+hud.status.board_full,棋盘已满，本局结束,Board full. Run over!
+hud.status.piece_queued,下一枚棋子已暂存,Next piece queued
+hud.status.move_queued,下一步移动已暂存，结算后验证,Next move queued; it will be validated after resolution
+hud.status.queued_piece_missing,暂存棋子已离场，操作已取消,Queued piece was removed. Input cancelled.
+hud.status.queued_target_invalid,暂存目标失效，请重新选择,Queued target is no longer valid. Choose again.
+hud.status.move_blocked,路径被挡,Path blocked
+hud.status.activation_empty,已发动但未命中,Activated. No targets hit.
+hud.status.playback_aligned,演出异常，已对齐本次结果,Playback interrupted. Board aligned to the resolved result.
+hud.status.debug_classic_required,技能调试请先切换经典无尽，或按 F6 / F10 加载独立示例,"Switch to Classic Endless for skill debugging, or use F6 / F10 for an isolated demo"
+hud.status.demo_dye,染色试玩：将第5列第7行红棋移到第5列第5行,"Dye trial: move the red piece at column 5, row 7 to column 5, row 5."
+hud.status.demo_limit,限次试玩：依次双击四枚扫线手；前三次生效，第四次保留,Quota demo: double-click the four sweepers in order. First 3 work; the fourth stays.
+hud.status.demo_score,得分试玩：双击扫线手；清2枚，基础14分+额外4分,Score demo: double-click a sweeper. Clears 2 pieces: 14 base + 4 bonus score.
+hud.status.demo_cross,十字连携试玩：双击左侧行扫手，观察行→列→爆破手,Cross chain demo: double-click the left row sweeper; watch row → column → demolition core.
+hud.status.demo_span,跨度试玩：双击扫线手，清连续3行或3列；边缘截断,Wide sweep demo: double-click to clear 3 adjacent rows or columns; clipped at edges.
+hud.status.demo_line,扫线试玩：双击行或列清除手；每条线清2枚，得14基础分,Sweep demo: double-click a row or column sweeper; each clears 2 pieces for 14 base points.
+hud.status.demo_transform,转化试玩：三选一将普通棋改装，保留原色与位置；已有引信和爆破手不受影响,Conversion demo: choose a retrofit. Keep colors and positions; existing fuses and cores remain unchanged.
+hud.status.capture_detonate,主动爆破已安装 · 双击核心消耗一次行动并正常补棋,Manual detonation installed · Double-click the core to use one action and refill normally
+hud.status.capture_chain,连锁与余震已结算 · 正常补棋完成 · 已安装强化保留,Chain and aftershock resolved · Refill complete · Installed upgrades retained
+hud.status.capture_refill_ready,临时技能已生效 · 下次补棋2枚 · 剩余3次,Temporary skill active · Next refill: 2 pieces · 3 uses remaining
+hud.status.capture_refill_done,3次实际补棋已用完 · 技能退出当前列表 · 历史保留,All 3 refill uses consumed · Skill removed from the current list · History retained
+hud.status.unavailable,状态提示暂不可用,Status message unavailable
+hud.status.playback_failed,演出异常，无法恢复盘面,Playback interrupted. Board recovery unavailable.
+hud.status.spawn_progress,正在补棋：{current}/{total},Spawning pieces: {current}/{total}
+hud.status.capture_refill_used,实际补棋已消费 {count} 次,Actual refill uses consumed: {count}
+hud.status.checkpoint_loading,正在恢复本局…,Restoring your run…
+hud.status.checkpoint_saving,正在保存续局…,Saving your run…
+hud.status.checkpoint_saved,上个安全点已保存。,Last safe checkpoint saved.
+hud.status.checkpoint_failed,续局保存或读取失败，请重试。,Could not save or restore your run. Please retry.
+hud.status.checkpoint_fallback,已恢复上一有效检查点。,Restored the previous valid checkpoint.
+hud.status.checkpoint_restored,已继续本局。,Run restored.
+checkpoint.working,正在处理续局…,Working on your checkpoint…
+checkpoint.loading,正在读取上次保存的本局…,Loading your saved run…
+checkpoint.settling,正在结清当前行动并保存。遇到选卡时保留原候选。,Finishing this action and saving. Pending choices will be preserved.
+checkpoint.exit_failed,本次进度未能保存。可以重试，或不保存本次进度退出。,This progress could not be saved. Retry or leave without saving this progress.
+checkpoint.load_failed,无法继续本局。存档未被覆盖，请重试。,Could not continue this run. Your checkpoint is unchanged. Please retry.
+checkpoint.confirm_abandon,开始新局将放弃当前续局进度。是否继续？,Starting a new run discards the current checkpoint. Continue?
+checkpoint.invalidate_failed,旧局失效确认失败，新局尚未开始。请重试或取消。,Could not retire the old run. The new run has not started. Retry or cancel.
+checkpoint.confirm_new,放弃并开始新局,Discard and start new run
+checkpoint.retry,重试,Retry
+checkpoint.leave_old,退出（本次进度不保存）,Leave without saving this progress
+checkpoint.cancel,取消,Cancel
+checkpoint.quit,保存并退出,Save and quit
+checkpoint.notice,退出前会保存到安全点；异常关闭只能回到上次成功保存的位置。,Quitting saves a safe checkpoint. An unexpected close returns to the last successful save.
+hud.status.checkpoint_waiting,上一项续局操作尚未结束，请稍候。,The previous checkpoint operation is still finishing. Please wait.
+checkpoint.waiting,上一项续局操作尚未结束，请稍候再试。,The previous checkpoint operation is still finishing. Please try again shortly.
+checkpoint.terminal_failed,未能确认本局结束标记已保存。请重试；直接退出可能在下次启动恢复旧检查点。,The end-of-run marker could not be verified. Retry; quitting now may restore an older checkpoint next time.
+checkpoint.leave_unverified_terminal,仍然退出（旧检查点可能恢复）,Quit anyway (an older checkpoint may return)
+checkpoint.challenge_pending,请先取消退出并选择继续挑战或结束本局；也可确认退出并保留上次有效检查点。,Cancel quitting and choose whether to continue the challenge or end this run. You may also leave with the last valid checkpoint.
+hud.status.checkpoint_reload_required,续局存储已在其他页面更新或连接已关闭。请刷新页面后继续。,Checkpoint storage changed in another tab or its connection closed. Reload this page to continue.
+checkpoint.reload_required,续局槽已在其他页面更新或存储连接已关闭。本页不能覆盖它，请刷新页面。,The checkpoint changed in another tab or its storage connection closed. This page cannot overwrite it. Reload this page.
+checkpoint.web_notice,"安全点自动保存到本机浏览器，不上传。
+刷新或关闭页面后，回到上次确认保存的位置。
+请等待保存完成；私密浏览或清除网站数据可能丢失存档。","Safe checkpoints are saved in this browser without uploading.
+Refreshing or closing returns to the last confirmed save.
+Wait for saving to finish. Private browsing or clearing site data may lose checkpoints."
+hud.status.new_run_failed,新局未开始，当前对局及存档未被替换。请重试。,New game did not start. Your run and checkpoint were not replaced. Retry.
+
+"立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
+被移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。","立即在空格放入一枚【爆壳手】棋子，并将这类棋加入本局棋子池。
+被移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。","Immediately place one 【Blast Core】 in an empty cell and add this type to the piece pool for this run.
+Blasts nearby pieces when removed. Refills add none while a Blast Core is on the board."
+"立即在空格放入一枚【行】棋子，并将这类棋加入本局棋子池。
+【行】棋被消除时扫清所在行。","立即在空格放入一枚【行】棋子，并将这类棋加入本局棋子池。
+【行】棋被消除时扫清所在行。","Immediately place one 【Row Sweeper】 in an empty cell and add this type to the piece pool for this run.
+When removed, it sweeps its row."
+"立即在空格放入一枚【列】棋子，并将这类棋加入本局棋子池。
+【列】棋被消除时扫清所在列。","立即在空格放入一枚【列】棋子，并将这类棋加入本局棋子池。
+【列】棋被消除时扫清所在列。","Immediately place one 【Column Sweeper】 in an empty cell and add this type to the piece pool for this run.
+When removed, it sweeps its column."
+skill.keyword.0,【爆壳手】,【Blast Core】
+skill.keyword_hint.0,移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。,Explodes around its cell when removed. Refills add none while a Blast Core is on the board.
+skill.keyword.1,【行】,【Row Sweeper】
+skill.keyword_hint.1,被消除时扫清所在行。,Sweeps its row when removed.
+skill.keyword.2,【列】,【Column Sweeper】
+skill.keyword_hint.2,被消除时扫清所在列。,Sweeps its column when removed.
+skill.keyword.3,爆壳手,Blast Core
+skill.keyword_hint.3,移除时爆破周围棋子。场上已有爆壳手时，补棋不会再生成。,Explodes around its cell when removed. Refills add none while a Blast Core is on the board.
+skill.keyword.4,爆破手,blast core
+skill.keyword_hint.4,特殊棋，移除时爆破周围棋子。,A special piece that blasts nearby pieces when removed.
+skill.keyword.5,横扫手,row sweeper
+skill.keyword_hint.5,特殊棋，移除时扫清所在行。,A special piece that sweeps its row when removed.
+skill.keyword.6,列扫手,column sweeper
+skill.keyword_hint.6,特殊棋，移除时扫清所在列。,A special piece that sweeps its column when removed.
+skill.keyword.7,引信,fuse
+skill.keyword_hint.7,带引信的普通棋被移除时会引发爆破。,Removing an ordinary piece with a fuse triggers a blast.
+skill.keyword.8,冻结,frozen
+skill.keyword_hint.8,候选生成时已确定，结算时沿用该信息。,Set when the offer is generated and carried into resolution.
+skill.keyword.9,额外得分,extra points
+skill.keyword_hint.9,额外得分独立于匹配基础分倍率。,Extra points are independent of the base match multiplier.
+skill.keyword.10,基础分倍率,base-score multiplier|score multiplier
+skill.keyword_hint.10,倍率只调整匹配基础分。,This multiplier applies to base match points.
+skill.keyword.11,染色,recolor|dye|dyed
+skill.keyword_hint.11,改变棋子的颜色，可能形成新的匹配。,Changes a piece's color and can form a new match.
+skill.keyword.12,棋子池,piece pool
+skill.keyword_hint.12,决定本局后续补棋可以出现的棋子。,Determines which pieces can appear in future refills this run.
+skill.keyword.13,生成权重,generation weight
+skill.keyword_hint.13,相对权重越高，往后补棋越容易抽到该颜色。,A higher relative weight makes that color more likely in future refills.
+skill.keyword.14,补棋,refill
+skill.keyword_hint.14,盘面按当前预告补上新棋。,Adds pieces from the current preview to the board.
+skill.keyword.15,扫线,sweep
+skill.keyword_hint.15,清除对应行、列或交叉范围内的棋子。,"Removes pieces in the affected row, column or cross."
+skill.keyword.16,爆破,blast
+skill.keyword_hint.16,移除爆破范围内的棋子，可能引发后续爆破。,Removes pieces within its area and may trigger follow-up blasts.
+skill.keyword.17,阶段目标,stage target
+skill.keyword_hint.17,累计分数达到要求时完成该阶段目标。,Reach the required total score to meet the stage target.
+skill.keyword.18,普通棋,ordinary piece
+skill.keyword_hint.18,普通棋按颜色参加匹配，部分技能另有限制。,Ordinary pieces match by color. Some skills apply additional restrictions.
+skill.keyword.19,行扫|列扫,sweep
+skill.keyword_hint.19,扫清所在行或列。范围升级后也会影响邻近行或列。,Clears the source row or column. Range upgrades can also reach adjacent rows or columns.
+skill.keyword.20,命中爆炸|爆炸,blast
+skill.keyword_hint.20,爆炸会移除范围内的棋子。仅实际移除棋子才算命中。,A blast removes pieces within its area. It counts as a hit when it removes a piece.
+skill.keyword.21,染过色,dyed
+skill.keyword_hint.21,已被技能改变颜色的棋子。,A piece whose color has been changed by a skill.
+skill.keyword.22,不吃倍率,not multiplied
+skill.keyword_hint.22,此加分直接计入得分，不乘基础分倍率。,This bonus adds directly to the score and bypasses the base-score multiplier.
+skill.keyword.23,余震,aftershock
+skill.keyword_hint.23,首次符合条件的核心爆炸结束后，在原位置追加的爆炸。,An extra blast at the original cell after the first eligible core explosion resolves.
+skill.keyword.24,五连|消除,exactly 5|five-piece match|5-piece match|clear
+skill.keyword_hint.24,消除指将符合条件的棋子移出棋盘。技能会注明适用的结算条件。,A clear removes the affected pieces from the board. Each skill states what qualifies.

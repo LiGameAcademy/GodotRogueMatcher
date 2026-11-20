@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "reason": "",
+  "samples": [
+    {
+      "endpoint_equal": true,
+      "identical_next_commands": 3,
+      "load_maximum_gap_usec": 24700,
+      "load_with_fresh_open_usec": 107000,
+      "moves": 0,
+      "ok": true,
+      "reason": "",
+      "save_maximum_gap_usec": 54700,
+      "save_usec": 100600,
+      "snapshot_bytes": 3711,
+      "source_records_not_saved": 2,
+      "source_unchanged": true,
+      "state_hash": "76bc134dad20d85a82ca413e12fb8a01723b06f9d05a25d060411ba384a1b2ad"
+    },
+    {
+      "endpoint_equal": true,
+      "identical_next_commands": 3,
+      "load_maximum_gap_usec": 27000,
+      "load_with_fresh_open_usec": 125400,
+      "moves": 45,
+      "ok": true,
+      "reason": "",
+      "save_maximum_gap_usec": 50700,
+      "save_usec": 88700,
+      "snapshot_bytes": 6861,
+      "source_records_not_saved": 425,
+      "source_unchanged": true,
+      "state_hash": "f7ee164d41ae088be265736167d655fe828a98101d016dbd330f58195e50ca43"
+    }
+  ],
+  "scope": "bounded agent-only snapshot kernel/IndexedDB probe; not live menu or whole O5 acceptance"
+}

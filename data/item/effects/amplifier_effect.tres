@@ -1,19 +1,24 @@
-[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=4 format=3 uid="uid://amplifier_effect"]
+[gd_resource type="Resource" script_class="ItemEffectConfig" load_steps=8 format=3 uid="uid://amplifier_effect"]
 
 [ext_resource type="Script" path="res://gameplay/items/item_effect_config.gd" id="1_config"]
 [ext_resource type="Script" path="res://gameplay/items/conditions/condition_timing.gd" id="2_timing"]
 [ext_resource type="Script" path="res://gameplay/items/conditions/condition_in_range.gd" id="3_range"]
 
-[sub_resource type="ConditionTiming" id="ConditionTiming_1"]
+[ext_resource type="Script" path="res://gameplay/items/effects/effect_add_score.gd" id="script_EffectAddScore"]
+
+[sub_resource type="Resource" id="ConditionTiming_1"]
+script = ExtResource("2_timing")
 condition_id = "timing"
 timing = 3
 
-[sub_resource type="ConditionInRange" id="ConditionInRange_1"]
+[sub_resource type="Resource" id="ConditionInRange_1"]
+script = ExtResource("3_range")
 condition_id = "in_range"
 range_type = "neighbor"
 check_position_key = "center_pos"
 
-[sub_resource type="EffectAddScore" id="EffectAddScore_1"]
+[sub_resource type="Resource" id="EffectAddScore_1"]
+script = ExtResource("script_EffectAddScore")
 effect_id = "add_score"
 score_multiplier = 1.0
 fixed_bonus = 0

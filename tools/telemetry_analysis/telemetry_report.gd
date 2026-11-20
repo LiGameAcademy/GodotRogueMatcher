@@ -7,12 +7,26 @@ var errors: Array[Dictionary] = []
 var _seen: Dictionary[String, String] = {}
 var _run_indices: Dictionary[String, int] = {}
 var error: String = ""
+var _lineage_raw: Array[Dictionary] = []
+var _lineage_errors: Array[Dictionary] = []
+var _lineage_branches: Array[Dictionary] = []
+var _lineage_active: bool = false
+var _lineage_dirty: bool = false
 
 func add(values: Array[Dictionary], read_error: String = "") -> void:
 	if values.is_empty():
 		if not read_error.is_empty(): errors.append({"run_id": null, "reason": read_error})
 		return
 	var header: Dictionary = values.front()
+	if _lineage_active or header.schema_version == TelemetrySchema.RESUME_VERSION:
+		if not _lineage_active:
+			_lineage_raw.assign(events)
+			_lineage_errors.assign(errors)
+			_lineage_active = true
+		_lineage_raw.append_array(values.duplicate(true))
+		if not read_error.is_empty(): _lineage_errors.append({"run_id": header.run_id, "reason": read_error})
+		_lineage_dirty = true
+		return
 	if _run_indices.has(header.run_id) and _dimensions(runs[_run_indices[header.run_id]]) != _dimensions(header):
 		errors.append({"run_id": header.run_id, "reason": "conflicting_run_metadata"})
 		return
@@ -41,12 +55,14 @@ func add(values: Array[Dictionary], read_error: String = "") -> void:
 		runs.append(row)
 
 func summary() -> Dictionary:
+	_refresh_lineage()
 	var groups: Dictionary = {}
 	for run: Dictionary in runs:
 		var key: String = _group_key(run) + "/" + run.status
 		if not groups.has(key): groups[key] = []
 		groups[key].append(run)
 	var result: Dictionary = {"schema": "telemetry-report-v1", "runs": runs.size(), "events": events.size(), "errors": errors, "groups": {}, "opportunities": _opportunities()}
+	if _lineage_active: result["resume_branches"] = _lineage_branches.duplicate(true)
 	for key: String in groups:
 		var scores: Array[int] = []
 		var moves: Array[int] = []
@@ -57,10 +73,18 @@ func summary() -> Dictionary:
 	return result
 
 func write(directory: String) -> bool:
+	_refresh_lineage()
 	if DirAccess.make_dir_recursive_absolute(directory) != OK:
 		error = "cannot_create_report_directory"
 		return false
 	if not _csv(directory.path_join("runs.csv"), runs): return false
+	if _lineage_active:
+		var lineage_file: FileAccess = FileAccess.open(directory.path_join("resume_lineage.json"), FileAccess.WRITE)
+		if lineage_file == null:
+			error = "cannot_write_resume_lineage"
+			return false
+		lineage_file.store_string(JSON.stringify({"schema": "telemetry-lineage-analysis-v1", "raw_events": _lineage_raw, "branches": _lineage_branches}, "", true, true))
+		lineage_file.close()
 	var tables: Dictionary[String, Array] = {"turns": [], "offers": [], "inputs": [], "intervals": [], "skills": [], "events": []}
 	for event: Dictionary in events:
 		var row: Dictionary = _base(event)
@@ -89,39 +113,31 @@ func write(directory: String) -> bool:
 	file.flush()
 	return file.get_error() == OK
 
+func _refresh_lineage() -> void:
+	if not _lineage_dirty: return
+	var normalized: Dictionary = preload("res://services/telemetry/telemetry_lineage.gd").normalize(_lineage_raw)
+	events = []
+	runs = []
+	errors = []
+	_seen.clear()
+	_run_indices.clear()
+	_lineage_branches.assign(normalized.branches)
+	_lineage_active = false
+	for stream: Array in normalized.streams:
+		var typed: Array[Dictionary] = []
+		typed.assign(stream)
+		add(typed)
+	_lineage_active = true
+	errors.append_array(normalized.errors)
+	var resumed: Dictionary[String, bool] = {}
+	for raw: Dictionary in _lineage_raw:
+		if raw.schema_version == TelemetrySchema.RESUME_VERSION: resumed[raw.run_id] = true
+	for previous: Dictionary in _lineage_errors:
+		if previous.reason != "incomplete_telemetry_no_complete_ending" or not resumed.has(str(previous.get("run_id"))): errors.append(previous)
+	_lineage_dirty = false
+
 func _opportunities() -> Dictionary:
-	var generated: Dictionary[String, Dictionary] = {}
-	var presented: Dictionary[String, bool] = {}
-	var acquired: Dictionary[String, String] = {}
-	var failed_choices: int = 0
-	for event: Dictionary in events:
-		var data: Dictionary = event.payload
-		var key: String = event.run_id + ":" + String(data.get("offer_id", ""))
-		match event.event_name:
-			"offer_generated": generated[key] = event
-			"offer_presented": presented[key] = true
-			"skill_acquired": acquired[key] = data.skill_id
-			"command_resolved":
-				if data.type == "choose" and not data.accepted: failed_choices += 1
-	var skills: Dictionary = {}
-	var unseen: int = 0
-	var unconsumed: int = 0
-	for key: String in generated:
-		var event: Dictionary = generated[key]
-		var opportunity: bool = event.source == "bot" or (event.source in ["human", "fixture"] and presented.has(key))
-		if event.source == "human" and not presented.has(key): unseen += 1
-		if presented.has(key) and not acquired.has(key): unconsumed += 1
-		for id: String in event.payload.choices:
-			var group: String = _group_key(event) + "/" + id
-			if not skills.has(group): skills[group] = {"dimensions": _dimensions(event), "skill_id": id, "generated": 0, "opportunities": 0, "acquired": 0}
-			skills[group].generated += 1
-			if opportunity:
-				skills[group].opportunities += 1
-				if acquired.get(key) == id: skills[group].acquired += 1
-	for key: String in skills:
-		var row: Dictionary = skills[key]
-		row["conditional_selection_rate"] = float(row.acquired) / row.opportunities if row.opportunities > 0 else null
-	return {"skills": skills, "human_generated_not_presented": unseen, "presented_not_consumed": unconsumed, "failed_choices": failed_choices, "eligibility_rate": null}
+	return preload("res://tools/telemetry_analysis/offer_measurements.gd").summarize(events, _group_key, _dimensions)
 
 func _base(event: Dictionary) -> Dictionary:
 	var result: Dictionary = {}

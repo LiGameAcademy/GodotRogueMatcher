@@ -1,0 +1,66 @@
+{
+  "tested_commit": "64f468b199b96c76292dfcb0891662441ca83dcc",
+  "base": "a9e5ebb8cfbc0b4a3c0af654d19363f60528c393",
+  "files": [
+    {
+      "path": "localization/skill_rules.csv",
+      "lines": null,
+      "working_copy_sha256": "4214c2c6793844cd5f5542df3677a367e67447d11450b8ba4f60a022f55511ea",
+      "committed_blob_sha256": "0614b0777d01155017a54bb1eb14cf184efd7d1724219da1d0a11d6c39759794"
+    },
+    {
+      "path": "localization/skill_rules.en_US.translation",
+      "lines": null,
+      "working_copy_sha256": "7d22fdf9b8f377801cc382703133f9e7ddad7cbc18d741468a23ee7cc241a30c",
+      "committed_blob_sha256": "7d22fdf9b8f377801cc382703133f9e7ddad7cbc18d741468a23ee7cc241a30c"
+    },
+    {
+      "path": "localization/skill_rules.zh_CN.translation",
+      "lines": null,
+      "working_copy_sha256": "4b84819e8cbbd8dfdc8be5780408e7fe8dd8d30342df39c3069c77b9e8151743",
+      "committed_blob_sha256": "4b84819e8cbbd8dfdc8be5780408e7fe8dd8d30342df39c3069c77b9e8151743"
+    },
+    {
+      "path": "tests/integration/test_score_rule_description_ui.gd",
+      "lines": 102,
+      "working_copy_sha256": "86ed729606aa1c44fa83606994f384a99da5d311695c90f3f6e143e06bc1d744",
+      "committed_blob_sha256": "86ed729606aa1c44fa83606994f384a99da5d311695c90f3f6e143e06bc1d744"
+    },
+    {
+      "path": "tests/integration/test_score_rule_description_ui.gd.uid",
+      "lines": null,
+      "working_copy_sha256": "3bd100d61e88fb48adba2e4db8c3454e524071621a689b594ce71a7c4fdfc903",
+      "committed_blob_sha256": "3bd100d61e88fb48adba2e4db8c3454e524071621a689b594ce71a7c4fdfc903"
+    },
+    {
+      "path": "tests/rules/test_score_rule_descriptions.gd",
+      "lines": 135,
+      "working_copy_sha256": "a5de759d60b8797108917c7c91085468ae96a7df164efa717e45ce155d72e1e5",
+      "committed_blob_sha256": "a5de759d60b8797108917c7c91085468ae96a7df164efa717e45ce155d72e1e5"
+    },
+    {
+      "path": "tests/rules/test_score_rule_descriptions.gd.uid",
+      "lines": null,
+      "working_copy_sha256": "04c36767865e500034c0f22f33255df077da36a7892c84929e0b917fd04c858e",
+      "committed_blob_sha256": "04c36767865e500034c0f22f33255df077da36a7892c84929e0b917fd04c858e"
+    },
+    {
+      "path": "tests/rules/test_skill_description_coverage.gd",
+      "lines": 73,
+      "working_copy_sha256": "84ea089442a11844129930287af7f33489ab6c1637455625145173f47e5f25c9",
+      "committed_blob_sha256": "5b5ccc300c282411fc6c6f2d5f4a91fa8f529096fea4ab2440e7e803b9e72a7a"
+    },
+    {
+      "path": "ui/skill_choice_text.gd",
+      "lines": 108,
+      "working_copy_sha256": "f193e0545c77db0e6c9963fa88c0fbca749b181548c8c65672b03a875c1fa6e3",
+      "committed_blob_sha256": "d4e390c46b556e8636735db6c05a557a91089eb0c90ef967abbf390c51ec2856"
+    },
+    {
+      "path": "ui/skill_rule_description.gd",
+      "lines": 163,
+      "working_copy_sha256": "09da3884dc3c42cf2f136f7182b0ee2f831742c271cd522f561c79a71f14c7b0",
+      "committed_blob_sha256": "848caafc062c588e7ad04208a346b4275d16c4e433b6ac8d8a671c66e584c647"
+    }
+  ]
+}

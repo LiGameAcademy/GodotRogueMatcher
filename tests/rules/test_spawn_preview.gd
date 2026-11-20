@@ -81,7 +81,7 @@ func test_core_candidates_have_locked_fallback_and_actual_unique_constraint() ->
 	var result: SpawnResult = selected.spawn_one()
 	assert_eq(result.piece.content_id, &"")
 	assert_eq(result.piece.match_color, token.color)
-	var matching: RunController = _run(selected.state.random.seed)
+	var matching: RunController = _run(selected.state.random_streams.master_seed)
 	matching.state.explosion.core_pool_unlocked = true
 	matching.prepare_spawn_plan()
 	assert_eq(matching.spawn_one().piece.content_id, &"special_demolition")

@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><title>O5 snapshot INPUT kernel probe</title>
+<style>body{background:#202327;color:#eee;font:15px system-ui;max-width:1100px;margin:24px auto}pre{white-space:pre-wrap}canvas{width:320px;height:180px}</style>
+<h1>O5 当前状态快照 · Web 内核核对</h1><p>仅经典 INPUT / seed23，0及45次移动。真实 IndexedDB 保存、新 adapter 重开、3条相同后续命令。仅127.0.0.1:8919，空槽限定；助手单场探针，非正式菜单或O5验收。</p>
+<button id="run">运行本地有界核对</button><p id="status">尚未运行</p><canvas id="canvas"></canvas><pre id="errors"></pre><pre id="report"></pre>
+<script src="./index.js"></script><script>
+"use strict";
+const config={"args":["--","--snapshot-input-probe"],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":25225288,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const engine=new Engine(config);
+const status=document.getElementById("status"), errors=document.getElementById("errors"),report=document.getElementById("report");
+document.getElementById("run").onclick=async()=>{
+ document.getElementById("run").disabled=true;status.textContent="运行中；仅本地内核探针";
+ try{await engine.startGame({
+ onPrint(...values){const line=values.join(" ");console.log(line);if(line.startsWith("SNAPSHOT_WEB_REPORT ")){const raw=line.slice("SNAPSHOT_WEB_REPORT ".length);try{report.textContent=JSON.stringify(JSON.parse(raw),null,2);status.textContent="已取得报告；完成状态以报告和退出码为准";}catch(error){report.textContent=raw;errors.textContent+="报告解析失败："+String(error)+"\n";}}},
+ onPrintError(...values){const line=values.join(" ");console.error(line);errors.textContent+=line+"\n";},
+ onExit(code){status.textContent+="；引擎退出码="+code;}
+ });}catch(error){errors.textContent+=String(error);status.textContent="启动失败";}
+};
+</script>

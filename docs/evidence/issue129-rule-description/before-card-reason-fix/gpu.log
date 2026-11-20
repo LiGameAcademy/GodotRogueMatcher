@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 2070
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/ADMINI~1/AppData/Local/Temp/o4-desc-gui/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_skill_rule_description_ui.gd
+[0m* test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
+O4_LAYOUT count3 Clear Then Dye content=(171.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count3 Tinted Whitespace content=(218.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count3 Goal Bounty content=(218.0, 303.0) effect=(290.0, 124.0) preview=(290.0, 22.0)
+O4_LAYOUT count2 Clear Then Dye content=(171.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count2 Tinted Whitespace content=(218.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count1 Clear Then Dye content=(171.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+* test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default
+* test_default_popup_insets_also_fit_three_cards_without_a_game_theme
+[1m3/3 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 3
+Passing Tests         3
+Asserts             267
+Time              10.534s
+
+
+[32m---- All tests passed! ----
+[0m

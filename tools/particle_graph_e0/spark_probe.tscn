@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tools/particle_graph_e0/spark_probe.gd" id="1"]
+
+[node name="SparkProbe" type="GPUParticles2D"]
+emitting = false
+amount = 1
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+interpolate = false
+local_coords = true
+visibility_rect = Rect2(-100, -100, 2000, 1200)
+use_fixed_seed = true
+seed = 42
+script = ExtResource("1")

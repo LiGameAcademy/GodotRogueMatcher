@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+CHECKPOINT_PROCESS {"after_retry_reason":"run_invalidated","engine":{"build":"official","hash":"ed1daf0bf001b61586d9930840f2f1394092c079","hex":263938,"major":4,"minor":7,"patch":2,"status":"stable","string":"4.7.2-stable (official)","timestamp":0},"load_reason":"invalidation_pending","mode":"retry_pending","new_run_reason":"invalidation_pending","ok":true,"original_pair_unchanged":true,"pid":41640,"retry_ok":true}

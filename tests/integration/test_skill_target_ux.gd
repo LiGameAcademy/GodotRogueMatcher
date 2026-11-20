@@ -16,7 +16,6 @@ func before_each() -> void:
 	add_child_autofree(main)
 	board = main.get_node("Game/Board") as Board
 	await board.initialized
-	LevelUpSystem.reset_system()
 	for piece: PieceState in board.rules.state.get_snapshot(): board.remove_piece(piece.coordinate)
 	var red: PieceState = board.rules.place_piece(Vector2i(2, 2), 0)
 	board.run.abilities.assign_fuse(red.piece_id)
@@ -35,7 +34,7 @@ func before_each() -> void:
 			offer.choices.append(skill)
 			offer.targets[id] = SkillRules.freeze_target(run.state, skill, run.state.rewards.target_random)
 	run.state.rewards.active_offer = offer
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await wait_process_frames(4)
 	popup = UIManager.current_popup as PopupSkillChoice
 	assert_not_null(popup)

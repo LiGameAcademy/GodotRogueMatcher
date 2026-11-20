@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_snapshot_menu_flow.gd
+[0m* test_snapshot_menu_resume_has_known_native_parent_new_segment_and_ready_input
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":49371,"frames":9,"freeze_usec":0,"maximum_gap_usec":7655,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":288271,"elapsed_usec":49371,"frames":9,"freeze_usec":0,"maximum_gap_usec":7655,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_TEST_DEFERRED_FREE {"queued_roots":86,"remaining_after_two_frames":0}
+[1m1/1 passed.
+[0m[4m
+
+res://tests/integration/test_resume_collection_flow.gd
+[0m* test_actual_menu_resume_has_one_logical_run_no_provisional_start_and_ready_input_observation
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":297181,"frames":45,"freeze_usec":0,"maximum_gap_usec":11753,"ok":true,"stages":{"decode":{"endpoint_validation_usec":46197,"payload_validation_usec":10086,"prefix_replay_usec":131347},"history_prime_usec":68104,"package":{"float_decode_usec":5436,"package_parse_usec":4901}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":73157,"elapsed_usec":297181,"frames":45,"freeze_usec":0,"maximum_gap_usec":11753,"ok":true,"resume_prepare_usec":17214,"stages":{"decode":{"endpoint_validation_usec":46197,"payload_validation_usec":10086,"prefix_replay_usec":131347},"history_prime_usec":68104,"package":{"float_decode_usec":5436,"package_parse_usec":4901}}}
+CHECKPOINT_TEST_DEFERRED_FREE {"queued_roots":86,"remaining_after_two_frames":0}
+[1m1/1 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               2
+Tests                 2
+Passing Tests         2
+Asserts              63
+Time              8.351s
+
+
+[32m---- All tests passed! ----
+[0m

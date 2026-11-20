@@ -1,0 +1,2087 @@
+{
+	"cards": [
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "TransformMaterialEffect",
+						"parameters": {
+							"content_id": "special_demolition",
+							"count": "3",
+							"reselect_after_previous": false,
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/transform_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Offer: randomly freeze up to 3 ordinary pieces without abilities; turn them into blast cores, keeping identity, place and color. Fewer available: convert fewer. None or stale: reject, no replacement. No supply unlock or manual use."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机冻结至多3枚未附能力的普通棋，转化为爆破手，保留身份、位置和颜色。目标不足时少转化，无目标不可用；任一固定目标失效则拒绝，不补选。不解锁自然供给或主动权限。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_core_transform.tres",
+			"skill_id": "instant_core_transform"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "TransformMaterialEffect",
+						"parameters": {
+							"content_id": "special_line_row",
+							"count": "3",
+							"reselect_after_previous": false,
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/transform_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Offer: randomly freeze up to 3 ordinary pieces without abilities; turn them into row sweepers, keeping identity, place and color. Fewer available: convert fewer. None or stale: reject, no replacement. No supply unlock or manual use."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机冻结至多3枚未附能力的普通棋，转化为横扫手，保留身份、位置和颜色。目标不足时少转化，无目标不可用；任一固定目标失效则拒绝，不补选。不解锁自然供给或主动权限。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_row_transform.tres",
+			"skill_id": "instant_row_transform"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "TransformMaterialEffect",
+						"parameters": {
+							"content_id": "special_line_column",
+							"count": "3",
+							"reselect_after_previous": false,
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/transform_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Offer: randomly freeze up to 3 ordinary pieces without abilities; turn them into column sweepers, keeping identity, place and color. Fewer available: convert fewer. None or stale: reject, no replacement. No supply unlock or manual use."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机冻结至多3枚未附能力的普通棋，转化为列扫手，保留身份、位置和颜色。目标不足时少转化，无目标不可用；任一固定目标失效则拒绝，不补选。不解锁自然供给或主动权限。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_column_transform.tres",
+			"skill_id": "instant_column_transform"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"children": [
+							{
+								"class": "RefillCountEffect",
+								"parameters": {
+									"batches": "3",
+									"delta": "-1",
+									"target_policy": "0"
+								},
+								"script": "res://gameplay/progression/effects/refill_count_effect.gd",
+								"target_policy": 0
+							},
+							{
+								"class": "ColorWeightEffect",
+								"parameters": {
+									"delta": "2",
+									"target_policy": "0"
+								},
+								"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+								"target_policy": 0
+							}
+						],
+						"class": "CompositeEffect",
+						"parameters": {
+							"allow_empty_acquisition": false,
+							"children": [
+								{
+									"parameters": {
+										"batches": "3",
+										"delta": "-1",
+										"target_policy": "0"
+									},
+									"script": "res://gameplay/progression/effects/refill_count_effect.gd"
+								},
+								{
+									"parameters": {
+										"delta": "2",
+										"target_policy": "0"
+									},
+									"script": "res://gameplay/progression/effects/color_weight_effect.gd"
+								}
+							],
+							"fixed_target_policy": "0"
+						},
+						"script": "res://gameplay/skills/effects/composite_effect.gd"
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Next 3 actual refills: adjust count by -1; skipped refills spend no uses.\nOne random color's generation weight +2 persists after expiry (not probability); locked previews stay."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "接下来3次实际补棋，数量修正-1枚；免补棋不扣次数。\n一种随机确定颜色的生成权重+2（非概率），减量到期后仍保留，锁定预告不重抽。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/composite_refill_color.tres",
+			"skill_id": "composite_refill_color"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"children": [
+							{
+								"class": "ClearMaterialEffect",
+								"parameters": {
+									"score_cleared": false,
+									"selector": "0",
+									"target_policy": "0"
+								},
+								"script": "res://gameplay/progression/effects/clear_material_effect.gd",
+								"target_policy": 0
+							},
+							{
+								"class": "DyeMaterialEffect",
+								"parameters": {
+									"allow_empty_targets": true,
+									"target_policy": "1"
+								},
+								"script": "res://gameplay/progression/effects/dye_material_effect.gd",
+								"target_policy": 1
+							}
+						],
+						"class": "CompositeEffect",
+						"parameters": {
+							"allow_empty_acquisition": false,
+							"children": [
+								{
+									"parameters": {
+										"score_cleared": false,
+										"selector": "0",
+										"target_policy": "0"
+									},
+									"script": "res://gameplay/progression/effects/clear_material_effect.gd"
+								},
+								{
+									"parameters": {
+										"allow_empty_targets": true,
+										"target_policy": "1"
+									},
+									"script": "res://gameplay/progression/effects/dye_material_effect.gd"
+								}
+							],
+							"fixed_target_policy": "0"
+						},
+						"script": "res://gameplay/skills/effects/composite_effect.gd"
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Clear a chosen ordinary color (fuses too; no match base points). Randomly select a surviving ordinary color and up to 3 off-color ordinary survivors to dye; skip if none. Chains follow all outermost steps."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "先自选颜色清除该色普通棋（含引信，不得匹配基础分）；再随机选存活普通棋现有颜色，随机染色至多3枚存活异色普通棋，无目标跳过。最外层效果全部完成后再连锁。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/composite_clear_dye.tres",
+			"skill_id": "composite_clear_dye"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallGoalBonusEffect",
+						"parameters": {
+							"bonus_score": "25",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/install_goal_bonus_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "From the next stage target: 25 extra points per completion, unaffected by the score multiplier. No retroactive reward."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "从下一个阶段目标起，每次达标额外得25分，不受分数倍率影响，不补发当前已完成目标。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/goal_score_bonus.tres",
+			"skill_id": "goal_score_bonus"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "UnlockLineSupplyEffect",
+						"parameters": {
+							"axis": "0",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/unlock_line_supply_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "line_row_drop (res://gameplay/progression/content/line_row_drop.tres): outside supported description slice",
+							"text": "[Manual rule] Unlock row sweeper supply and place one.\nClears its row when removed."
+						},
+						"zh_CN": {
+							"error": "line_row_drop (res://gameplay/progression/content/line_row_drop.tres): outside supported description slice",
+							"text": "[人工规则] 解锁行清除补给，立即放入一枚。\n消除时扫清所在行。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_row_drop.tres",
+			"skill_id": "line_row_drop"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "UnlockLineSupplyEffect",
+						"parameters": {
+							"axis": "1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/unlock_line_supply_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "line_column_drop (res://gameplay/progression/content/line_column_drop.tres): outside supported description slice",
+							"text": "[Manual rule] Unlock column sweeper supply and place one.\nClears its column when removed."
+						},
+						"zh_CN": {
+							"error": "line_column_drop (res://gameplay/progression/content/line_column_drop.tres): outside supported description slice",
+							"text": "[人工规则] 解锁列清除补给，立即放入一枚。\n消除时扫清所在列。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_column_drop.tres",
+			"skill_id": "line_column_drop"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "-1",
+							"target_policy": "0",
+							"upgrade": "line_manual_clear"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "line_manual_clear (res://gameplay/progression/content/line_manual_clear.tres): outside supported description slice",
+							"text": "[Manual rule] Double-click a sweeper → consume and sweep.\n3 shared uses per run; costs 1 action with normal refill."
+						},
+						"zh_CN": {
+							"error": "line_manual_clear (res://gameplay/progression/content/line_manual_clear.tres): outside supported description slice",
+							"text": "[人工规则] 双击扫线手 → 消耗并扫线。\n每局行列共用3次；花1次行动，正常补棋。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_manual_clear.tres",
+			"skill_id": "line_manual_clear"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "0",
+							"target_policy": "0",
+							"upgrade": "line_row_span"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Sweep up to 3 rows centered on the source, truncated at edges. Applies to manual and removal triggers; grants no manual activation."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "行扫扩大至以所在行为中心的连续3行，边缘截断。主动发动与离场触发均生效，不授予主动权限。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_row_span.tres",
+			"skill_id": "line_row_span"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "1",
+							"target_policy": "0",
+							"upgrade": "line_column_span"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Sweep up to 3 columns centered on the source, truncated at edges. Applies to manual and removal triggers; grants no manual activation."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "列扫扩大至以所在列为中心的连续3列，边缘截断。主动发动与离场触发均生效，不授予主动权限。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_column_span.tres",
+			"skill_id": "line_column_span"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "-1",
+							"target_policy": "0",
+							"upgrade": "line_cross_upgrade"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "line_cross_upgrade (res://gameplay/progression/content/line_cross_upgrade.tres): outside supported description slice",
+							"text": "[Manual rule] Row and column sweepers → cross clear.\nBoth span upgrades apply."
+						},
+						"zh_CN": {
+							"error": "line_cross_upgrade (res://gameplay/progression/content/line_cross_upgrade.tres): outside supported description slice",
+							"text": "[人工规则] 行、列扫线手 → 十字清除。\n两轴跨度均生效。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_cross_upgrade.tres",
+			"skill_id": "line_cross_upgrade"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "-1",
+							"target_policy": "0",
+							"upgrade": "line_clear_score"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Row, column and cross sweeps earn 2 extra points per directly removed piece (+2/level), counting overlaps once. Excludes the source and blast descendants; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "行、列与十字扫线每直接移除一枚棋子，本技能额外加2分（每级+2），交叉只计一次。不重复计来源与爆破后代；不受基础分倍率影响。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "-1",
+							"target_policy": "0",
+							"upgrade": "line_clear_score"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Row, column and cross sweeps earn 4 extra points per directly removed piece (+2/level), counting overlaps once. Excludes the source and blast descendants; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "行、列与十字扫线每直接移除一枚棋子，本技能额外加4分（每级+2），交叉只计一次。不重复计来源与爆破后代；不受基础分倍率影响。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallLineUpgradeEffect",
+						"parameters": {
+							"required_axis": "-1",
+							"target_policy": "0",
+							"upgrade": "line_clear_score"
+						},
+						"script": "res://gameplay/progression/effects/install_line_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Row, column and cross sweeps earn 6 extra points per directly removed piece (+2/level), counting overlaps once. Excludes the source and blast descendants; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "行、列与十字扫线每直接移除一枚棋子，本技能额外加6分（每级+2），交叉只计一次。不重复计来源与爆破后代；不受基础分倍率影响。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/line_clear_score.tres",
+			"skill_id": "line_clear_score"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "UnlockCoreSupplyEffect",
+						"parameters": {
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/unlock_core_supply_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "core_drop (res://gameplay/progression/content/core_drop.tres): outside supported description slice",
+							"text": "[Manual rule] Unlock core spawns and place a core now.\nOnly 1 on the board; explodes when removed."
+						},
+						"zh_CN": {
+							"error": "core_drop (res://gameplay/progression/content/core_drop.tres): outside supported description slice",
+							"text": "[人工规则] 解锁核心补给，立即放入核心。\n场上限1枚；离场时爆炸。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/core_drop.tres",
+			"skill_id": "core_drop"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "AssignFuseEffect",
+						"parameters": {
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/assign_fuse_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "assign_fuse (res://gameplay/progression/content/assign_fuse.tres): outside supported description slice",
+							"text": "[Manual rule] Arm up to 2 random ordinary pieces with fuses. Keep their colors."
+						},
+						"zh_CN": {
+							"error": "assign_fuse (res://gameplay/progression/content/assign_fuse.tres): outside supported description slice",
+							"text": "[人工规则] 随机给至多2枚普通棋装引信，保留原色。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/assign_fuse.tres",
+			"skill_id": "assign_fuse"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "4",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "This skill adds 5 extra points per blast with actual removals (+5/level), including descendant blasts. Empty blasts give none; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "每次有实际移除的爆破，本技能额外加5分（每级+5），后代爆破也适用。空爆破不加分；不受基础分倍率影响。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "4",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "This skill adds 10 extra points per blast with actual removals (+5/level), including descendant blasts. Empty blasts give none; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "每次有实际移除的爆破，本技能额外加10分（每级+5），后代爆破也适用。空爆破不加分；不受基础分倍率影响。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "4",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "This skill adds 15 extra points per blast with actual removals (+5/level), including descendant blasts. Empty blasts give none; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "每次有实际移除的爆破，本技能额外加15分（每级+5），后代爆破也适用。空爆破不加分；不受基础分倍率影响。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_extra.tres",
+			"skill_id": "blast_extra"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Add 0.2 to the multiplier of base match points. Extra points are unaffected."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "匹配基础分的分数倍率＋0.2，额外得分不受影响。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/score_multiplier.tres",
+			"skill_id": "score_multiplier"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "3",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "This skill adds 10 extra points per nonempty match, sweep or scoring clear (+10/level). No bonus for an empty result; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "每个非空匹配、扫线或有分清理结果，本技能额外加10分（每级+10）。空结果不加分；不受基础分倍率影响。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/match_extra.tres",
+			"skill_id": "match_extra"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "ThinMaterialEffect",
+						"parameters": {
+							"count": "3",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/thin_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "instant_thin (res://gameplay/progression/content/instant_thin.tres): outside supported description slice",
+							"text": "[Manual rule] Clear up to 3 random ordinary pieces, sparing fuses.\nNo points."
+						},
+						"zh_CN": {
+							"error": "instant_thin (res://gameplay/progression/content/instant_thin.tres): outside supported description slice",
+							"text": "[人工规则] 随机清理至多3枚普通棋，保留引信。\n不得分。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_thin.tres",
+			"skill_id": "instant_thin"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "PercentClearEffect",
+						"parameters": {
+							"ratio": 0.25,
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/percent_clear_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "instant_percent_clear (res://gameplay/progression/content/instant_percent_clear.tres): outside supported description slice",
+							"text": "[Manual rule] Clear 25% of ordinary pieces (round down).\nNo direct score; explosions score normally."
+						},
+						"zh_CN": {
+							"error": "instant_percent_clear (res://gameplay/progression/content/instant_percent_clear.tres): outside supported description slice",
+							"text": "[人工规则] 随机清理25%普通棋（向下取整）。\n直接清理无分；引信爆炸照常计分。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_percent_clear.tres",
+			"skill_id": "instant_percent_clear"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "RefillCountEffect",
+						"parameters": {
+							"batches": "3",
+							"delta": "-1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/refill_count_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "For 3 actual refills, adjust the count by -1. Reacquiring extends uses, not amount. Skipped refills cost no uses; opposite modifiers cancel but both consume uses."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "接下来3次实际补棋，每次数量修正-1枚。重复取得延长次数，不叠加幅度；免补棋不扣次数，增减相抵仍各扣次数。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/refill_less.tres",
+			"skill_id": "refill_less"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "RefillCountEffect",
+						"parameters": {
+							"batches": "3",
+							"delta": "1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/refill_count_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "For 3 actual refills, adjust the count by +1. Reacquiring extends uses, not amount. Skipped refills cost no uses; opposite modifiers cancel but both consume uses."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "接下来3次实际补棋，每次数量修正+1枚。重复取得延长次数，不叠加幅度；免补棋不扣次数，增减相抵仍各扣次数。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/refill_more.tres",
+			"skill_id": "refill_more"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "precision_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "precision_reward (res://gameplay/progression/content/precision_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Clear exactly 5 → bonus score +5/level, unaffected by multipliers."
+						},
+						"zh_CN": {
+							"error": "precision_reward (res://gameplay/progression/content/precision_reward.tres): outside supported description slice",
+							"text": "[人工规则] 恰好消除5枚 → 额外得分+5/级，不受倍率影响。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/precision_reward.tres",
+			"skill_id": "precision_reward"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "fuse_capacity"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "fuse_capacity (res://gameplay/progression/content/fuse_capacity.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse Empowerment targets +1 per level: 2 → 3 → 4.\nOther arming and spreading are unchanged."
+						},
+						"zh_CN": {
+							"error": "fuse_capacity (res://gameplay/progression/content/fuse_capacity.tres): outside supported description slice",
+							"text": "[人工规则] 引信赋能目标数+1/级：2 → 3 → 4。\n不影响其他装填或传递。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "fuse_capacity"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "fuse_capacity (res://gameplay/progression/content/fuse_capacity.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse Empowerment targets +1 per level: 2 → 3 → 4.\nOther arming and spreading are unchanged."
+						},
+						"zh_CN": {
+							"error": "fuse_capacity (res://gameplay/progression/content/fuse_capacity.tres): outside supported description slice",
+							"text": "[人工规则] 引信赋能目标数+1/级：2 → 3 → 4。\n不影响其他装填或传递。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/fuse_capacity.tres",
+			"skill_id": "fuse_capacity"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "0",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "blast_radius (res://gameplay/progression/content/blast_radius.tres): outside supported description slice",
+							"text": "[Manual rule] Core and fuse blast radius: 1 → 2. Aftershocks are unchanged."
+						},
+						"zh_CN": {
+							"error": "blast_radius (res://gameplay/progression/content/blast_radius.tres): outside supported description slice",
+							"text": "[人工规则] 核心与引信爆炸半径：1 → 2；余震不变。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_radius.tres",
+			"skill_id": "blast_radius"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Each piece actually removed directly by a blast earns 5 extra points from this skill (+5/level). Descendant blasts count their own removals; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "爆破每实际直接移除一枚棋子，本技能额外加5分（每级+5）。后代爆破各计自己的实际移除；不受基础分倍率影响。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Each piece actually removed directly by a blast earns 10 extra points from this skill (+5/level). Descendant blasts count their own removals; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "爆破每实际直接移除一枚棋子，本技能额外加10分（每级+5）。后代爆破各计自己的实际移除；不受基础分倍率影响。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "DemolitionStatEffect",
+						"parameters": {
+							"stat": "1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/demolition_stat_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Each piece actually removed directly by a blast earns 15 extra points from this skill (+5/level). Descendant blasts count their own removals; unaffected by the base-score multiplier."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "爆破每实际直接移除一枚棋子，本技能额外加15分（每级+5）。后代爆破各计自己的实际移除；不受基础分倍率影响。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_reward.tres",
+			"skill_id": "blast_reward"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "ColorWeightEffect",
+						"parameters": {
+							"delta": "2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer fixes one random eligible color. Acquisition changes its generation weight by +2, not probability. Board colors and locked previews stay; later offers can fix other colors."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机确定一种可调整颜色，取得时按该冻结颜色将普通生成权重+2（非概率百分点）。只影响未来生成，盘面与锁定预告不变；多次候选可确定不同颜色。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "ColorWeightEffect",
+						"parameters": {
+							"delta": "2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer fixes one random eligible color. Acquisition changes its generation weight by +2, not probability. Board colors and locked previews stay; later offers can fix other colors."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机确定一种可调整颜色，取得时按该冻结颜色将普通生成权重+2（非概率百分点）。只影响未来生成，盘面与锁定预告不变；多次候选可确定不同颜色。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "ColorWeightEffect",
+						"parameters": {
+							"delta": "2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer fixes one random eligible color. Acquisition changes its generation weight by +2, not probability. Board colors and locked previews stay; later offers can fix other colors."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机确定一种可调整颜色，取得时按该冻结颜色将普通生成权重+2（非概率百分点）。只影响未来生成，盘面与锁定预告不变；多次候选可确定不同颜色。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/color_weight_up.tres",
+			"skill_id": "color_weight_up"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "ColorWeightEffect",
+						"parameters": {
+							"delta": "-2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer fixes one random eligible color. Acquisition changes its generation weight by -2, not probability. Board colors and locked previews stay; later offers can fix other colors."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机确定一种可调整颜色，取得时按该冻结颜色将普通生成权重-2（非概率百分点）。只影响未来生成，盘面与锁定预告不变；多次候选可确定不同颜色。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "ColorWeightEffect",
+						"parameters": {
+							"delta": "-2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer fixes one random eligible color. Acquisition changes its generation weight by -2, not probability. Board colors and locked previews stay; later offers can fix other colors."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机确定一种可调整颜色，取得时按该冻结颜色将普通生成权重-2（非概率百分点）。只影响未来生成，盘面与锁定预告不变；多次候选可确定不同颜色。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "ColorWeightEffect",
+						"parameters": {
+							"delta": "-2",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/color_weight_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer fixes one random eligible color. Acquisition changes its generation weight by -2, not probability. Board colors and locked previews stay; later offers can fix other colors."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机确定一种可调整颜色，取得时按该冻结颜色将普通生成权重-2（非概率百分点）。只影响未来生成，盘面与锁定预告不变；多次候选可确定不同颜色。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/color_weight_down.tres",
+			"skill_id": "color_weight_down"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "relay_capacity"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "relay_capacity (res://gameplay/progression/content/relay_capacity.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse spread limit +1 per level: 3 → 4 → 5.\nEach source still spreads to just 1 piece."
+						},
+						"zh_CN": {
+							"error": "relay_capacity (res://gameplay/progression/content/relay_capacity.tres): outside supported description slice",
+							"text": "[人工规则] 引信传递总上限+1/级：3 → 4 → 5。\n每枚引信仍只传1枚。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "relay_capacity"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "relay_capacity (res://gameplay/progression/content/relay_capacity.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse spread limit +1 per level: 3 → 4 → 5.\nEach source still spreads to just 1 piece."
+						},
+						"zh_CN": {
+							"error": "relay_capacity (res://gameplay/progression/content/relay_capacity.tres): outside supported description slice",
+							"text": "[人工规则] 引信传递总上限+1/级：3 → 4 → 5。\n每枚引信仍只传1枚。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/relay_capacity.tres",
+			"skill_id": "relay_capacity"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "marked_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "marked_reward (res://gameplay/progression/content/marked_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse pieces removed: +5 extra points each per level.\nMatches, blasts, and skill clears all count."
+						},
+						"zh_CN": {
+							"error": "marked_reward (res://gameplay/progression/content/marked_reward.tres): outside supported description slice",
+							"text": "[人工规则] 引信棋离场 → 每枚额外+5分/级。\n五连、爆炸、技能清理均计分。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "marked_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "marked_reward (res://gameplay/progression/content/marked_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse pieces removed: +5 extra points each per level.\nMatches, blasts, and skill clears all count."
+						},
+						"zh_CN": {
+							"error": "marked_reward (res://gameplay/progression/content/marked_reward.tres): outside supported description slice",
+							"text": "[人工规则] 引信棋离场 → 每枚额外+5分/级。\n五连、爆炸、技能清理均计分。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "marked_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "marked_reward (res://gameplay/progression/content/marked_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse pieces removed: +5 extra points each per level.\nMatches, blasts, and skill clears all count."
+						},
+						"zh_CN": {
+							"error": "marked_reward (res://gameplay/progression/content/marked_reward.tres): outside supported description slice",
+							"text": "[人工规则] 引信棋离场 → 每枚额外+5分/级。\n五连、爆炸、技能清理均计分。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/marked_reward.tres",
+			"skill_id": "marked_reward"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "longline_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "longline_reward (res://gameplay/progression/content/longline_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Clear 6+ pieces in a match: +20 extra points per level, not multiplied."
+						},
+						"zh_CN": {
+							"error": "longline_reward (res://gameplay/progression/content/longline_reward.tres): outside supported description slice",
+							"text": "[人工规则] 一次消除≥6枚 → 额外+20分/级，不吃倍率。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "longline_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "longline_reward (res://gameplay/progression/content/longline_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Clear 6+ pieces in a match: +20 extra points per level, not multiplied."
+						},
+						"zh_CN": {
+							"error": "longline_reward (res://gameplay/progression/content/longline_reward.tres): outside supported description slice",
+							"text": "[人工规则] 一次消除≥6枚 → 额外+20分/级，不吃倍率。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "longline_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "longline_reward (res://gameplay/progression/content/longline_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Clear 6+ pieces in a match: +20 extra points per level, not multiplied."
+						},
+						"zh_CN": {
+							"error": "longline_reward (res://gameplay/progression/content/longline_reward.tres): outside supported description slice",
+							"text": "[人工规则] 一次消除≥6枚 → 额外+20分/级，不吃倍率。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/longline_reward.tres",
+			"skill_id": "longline_reward"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "core_supply_up"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "core_supply_up (res://gameplay/progression/content/core_supply_up.tres): outside supported description slice",
+							"text": "[Manual rule] Core spawn weight +1 per level.\nUses a refill slot; only 1 core on the board."
+						},
+						"zh_CN": {
+							"error": "core_supply_up (res://gameplay/progression/content/core_supply_up.tres): outside supported description slice",
+							"text": "[人工规则] 核心生成权重+1/级。\n占正常补棋名额；场上限1枚。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "core_supply_up"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "core_supply_up (res://gameplay/progression/content/core_supply_up.tres): outside supported description slice",
+							"text": "[Manual rule] Core spawn weight +1 per level.\nUses a refill slot; only 1 core on the board."
+						},
+						"zh_CN": {
+							"error": "core_supply_up (res://gameplay/progression/content/core_supply_up.tres): outside supported description slice",
+							"text": "[人工规则] 核心生成权重+1/级。\n占正常补棋名额；场上限1枚。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/core_supply_up.tres",
+			"skill_id": "core_supply_up"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "core_radius"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "core_radius (res://gameplay/progression/content/core_radius.tres): outside supported description slice",
+							"text": "[Manual rule] Core blast radius +1, capped at 3. Fuses and aftershocks are unchanged."
+						},
+						"zh_CN": {
+							"error": "core_radius (res://gameplay/progression/content/core_radius.tres): outside supported description slice",
+							"text": "[人工规则] 核心爆炸半径+1，上限3；引信与余震不变。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/core_radius.tres",
+			"skill_id": "core_radius"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "ClearMaterialEffect",
+						"parameters": {
+							"score_cleared": false,
+							"selector": "0",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/clear_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "Clear a chosen color's ordinary pieces (including fused pieces; no base match points)."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "自选颜色，清除该色普通棋（含引信，不得匹配基础分）。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_color_clear.tres",
+			"skill_id": "instant_color_clear"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "ClearMaterialEffect",
+						"parameters": {
+							"score_cleared": true,
+							"selector": "1",
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/clear_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "instant_line_clear (res://gameplay/progression/content/instant_line_clear.tres): outside supported description slice",
+							"text": "[Manual rule] Clear ordinary pieces in one row or column.\nScore and trigger effects."
+						},
+						"zh_CN": {
+							"error": "instant_line_clear (res://gameplay/progression/content/instant_line_clear.tres): outside supported description slice",
+							"text": "[人工规则] 消除一条行或列的普通棋。\n得分并触发效果。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_line_clear.tres",
+			"skill_id": "instant_line_clear"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "fuse_relay"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "fuse_relay (res://gameplay/progression/content/fuse_relay.tres): outside supported description slice",
+							"text": "[Manual rule] Turn end: old fuses spread to 1 orthogonal neighbor each, up to 3 total.\nNew fuses spread from the next turn."
+						},
+						"zh_CN": {
+							"error": "fuse_relay (res://gameplay/progression/content/fuse_relay.tres): outside supported description slice",
+							"text": "[人工规则] 回合结束 → 旧引信各向四邻传1枚，总计至多3枚。\n新引信下回合才传播。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/fuse_relay.tres",
+			"skill_id": "fuse_relay"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "chain_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "chain_reward (res://gameplay/progression/content/chain_reward.tres): outside supported description slice",
+							"text": "[Manual rule] At least 2 blast hits in one action: +10 extra points per level."
+						},
+						"zh_CN": {
+							"error": "chain_reward (res://gameplay/progression/content/chain_reward.tres): outside supported description slice",
+							"text": "[人工规则] 一次行动至少2次命中爆炸 → 额外+10分/级。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "chain_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "chain_reward (res://gameplay/progression/content/chain_reward.tres): outside supported description slice",
+							"text": "[Manual rule] At least 2 blast hits in one action: +10 extra points per level."
+						},
+						"zh_CN": {
+							"error": "chain_reward (res://gameplay/progression/content/chain_reward.tres): outside supported description slice",
+							"text": "[人工规则] 一次行动至少2次命中爆炸 → 额外+10分/级。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "chain_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "chain_reward (res://gameplay/progression/content/chain_reward.tres): outside supported description slice",
+							"text": "[Manual rule] At least 2 blast hits in one action: +10 extra points per level."
+						},
+						"zh_CN": {
+							"error": "chain_reward (res://gameplay/progression/content/chain_reward.tres): outside supported description slice",
+							"text": "[人工规则] 一次行动至少2次命中爆炸 → 额外+10分/级。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/chain_reward.tres",
+			"skill_id": "chain_reward"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "IgniteFusesEffect",
+						"parameters": {
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/ignite_fuses_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "instant_fuse_ignite (res://gameplay/progression/content/instant_fuse_ignite.tres): outside supported description slice",
+							"text": "[Manual rule] Detonate all ordinary fuse pieces now. Can chain."
+						},
+						"zh_CN": {
+							"error": "instant_fuse_ignite (res://gameplay/progression/content/instant_fuse_ignite.tres): outside supported description slice",
+							"text": "[人工规则] 立即引爆全部普通引信棋，可触发连锁。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_fuse_ignite.tres",
+			"skill_id": "instant_fuse_ignite"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "core_manual_detonation"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "core_manual_detonation (res://gameplay/progression/content/core_manual_detonation.tres): outside supported description slice",
+							"text": "[Manual rule] Double-click a core → consume and detonate.\n3 uses per run; costs 1 action with normal refill."
+						},
+						"zh_CN": {
+							"error": "core_manual_detonation (res://gameplay/progression/content/core_manual_detonation.tres): outside supported description slice",
+							"text": "[人工规则] 双击核心 → 消耗并引爆。\n每局3次；花1次行动，正常补棋。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/core_manual_detonation.tres",
+			"skill_id": "core_manual_detonation"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "fuse_match_plant"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "fuse_match_plant (res://gameplay/progression/content/fuse_match_plant.tres): outside supported description slice",
+							"text": "[Manual rule] First match batch per action: arm 1 ordinary piece next to the cleared cells."
+						},
+						"zh_CN": {
+							"error": "fuse_match_plant (res://gameplay/progression/content/fuse_match_plant.tres): outside supported description slice",
+							"text": "[人工规则] 每行动首批五连 → 给消除处邻近1枚普通棋装引信。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/fuse_match_plant.tres",
+			"skill_id": "fuse_match_plant"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_chain_bonus"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "blast_chain_bonus (res://gameplay/progression/content/blast_chain_bonus.tres): outside supported description slice",
+							"text": "[Manual rule] Blast hits in generations 2 / 3 / 4+\n→ +5 / 10 / 15 extra points per level."
+						},
+						"zh_CN": {
+							"error": "blast_chain_bonus (res://gameplay/progression/content/blast_chain_bonus.tres): outside supported description slice",
+							"text": "[人工规则] 第2/3/≥4代命中爆炸\n→ 额外+5/10/15分/级。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_chain_bonus"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "blast_chain_bonus (res://gameplay/progression/content/blast_chain_bonus.tres): outside supported description slice",
+							"text": "[Manual rule] Blast hits in generations 2 / 3 / 4+\n→ +5 / 10 / 15 extra points per level."
+						},
+						"zh_CN": {
+							"error": "blast_chain_bonus (res://gameplay/progression/content/blast_chain_bonus.tres): outside supported description slice",
+							"text": "[人工规则] 第2/3/≥4代命中爆炸\n→ 额外+5/10/15分/级。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_chain_bonus"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 3,
+					"locales": {
+						"en_US": {
+							"error": "blast_chain_bonus (res://gameplay/progression/content/blast_chain_bonus.tres): outside supported description slice",
+							"text": "[Manual rule] Blast hits in generations 2 / 3 / 4+\n→ +5 / 10 / 15 extra points per level."
+						},
+						"zh_CN": {
+							"error": "blast_chain_bonus (res://gameplay/progression/content/blast_chain_bonus.tres): outside supported description slice",
+							"text": "[人工规则] 第2/3/≥4代命中爆炸\n→ 额外+5/10/15分/级。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_chain_bonus.tres",
+			"skill_id": "blast_chain_bonus"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "selective_blast"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "selective_blast (res://gameplay/progression/content/selective_blast.tres): outside supported description slice",
+							"text": "[Manual rule] All blasts spare pieces matching the source color."
+						},
+						"zh_CN": {
+							"error": "selective_blast (res://gameplay/progression/content/selective_blast.tres): outside supported description slice",
+							"text": "[人工规则] 所有爆炸保留同色棋，只清异色棋。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/selective_blast.tres",
+			"skill_id": "selective_blast"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "core_fuse_payload"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "core_fuse_payload (res://gameplay/progression/content/core_fuse_payload.tres): outside supported description slice",
+							"text": "[Manual rule] Core leaves: arm up to 2 nearby pieces within 2 cells.\nBefore the blast; can chain immediately."
+						},
+						"zh_CN": {
+							"error": "core_fuse_payload (res://gameplay/progression/content/core_fuse_payload.tres): outside supported description slice",
+							"text": "[人工规则] 核心离场 → 在周围2格内装填至多2枚引信。\n爆炸前生效，可立即连锁。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/core_fuse_payload.tres",
+			"skill_id": "core_fuse_payload"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_chain_radius"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "blast_chain_radius (res://gameplay/progression/content/blast_chain_radius.tres): outside supported description slice",
+							"text": "[Manual rule] Fuse blasts from generation 2 onward: radius +1, capped at 3."
+						},
+						"zh_CN": {
+							"error": "blast_chain_radius (res://gameplay/progression/content/blast_chain_radius.tres): outside supported description slice",
+							"text": "[人工规则] 第2代起的引信爆炸 → 半径+1，上限3。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_chain_radius.tres",
+			"skill_id": "blast_chain_radius"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_refill_relief"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "blast_refill_relief (res://gameplay/progression/content/blast_refill_relief.tres): outside supported description slice",
+							"text": "[Manual rule] Blasts clear 8+ pieces in one action: next refill −1.\nRepeats add uses, not a larger reduction."
+						},
+						"zh_CN": {
+							"error": "blast_refill_relief (res://gameplay/progression/content/blast_refill_relief.tres): outside supported description slice",
+							"text": "[人工规则] 一次行动爆炸清除≥8枚 → 下次补棋−1。\n重复触发延长次数，不叠加减量。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_refill_relief.tres",
+			"skill_id": "blast_refill_relief"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_aftershock"
+						},
+						"script": "res://gameplay/progression/effects/install_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "blast_aftershock (res://gameplay/progression/content/blast_aftershock.tres): outside supported description slice",
+							"text": "[Manual rule] After a core blast hits: a radius-1 aftershock at its origin.\nOnce per action; can chain, ignores radius upgrades."
+						},
+						"zh_CN": {
+							"error": "blast_aftershock (res://gameplay/progression/content/blast_aftershock.tres): outside supported description slice",
+							"text": "[人工规则] 核心命中爆炸后 → 原位追加半径1余震。\n每行动1次；可连锁，不吃范围升级。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_aftershock.tres",
+			"skill_id": "blast_aftershock"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallDyeUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "match_dye_echo"
+						},
+						"script": "res://gameplay/progression/effects/install_dye_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "match_dye_echo (res://gameplay/progression/content/match_dye_echo.tres): outside supported description slice",
+							"text": "[Manual rule] After a match: dye 1 adjacent ordinary piece to the match color.\nUp to 1 wave per action."
+						},
+						"zh_CN": {
+							"error": "match_dye_echo (res://gameplay/progression/content/match_dye_echo.tres): outside supported description slice",
+							"text": "[人工规则] 五连后 → 染1枚邻近异色普通棋。\n染成消除色；每行动最多1波。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/match_dye_echo.tres",
+			"skill_id": "match_dye_echo"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallDyeUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "dye_target_up"
+						},
+						"script": "res://gameplay/progression/effects/install_dye_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "dye_target_up (res://gameplay/progression/content/dye_target_up.tres): outside supported description slice",
+							"text": "[Manual rule] Pieces dyed per wave: 1 → 2."
+						},
+						"zh_CN": {
+							"error": "dye_target_up (res://gameplay/progression/content/dye_target_up.tres): outside supported description slice",
+							"text": "[人工规则] 每波染色：1枚 → 2枚。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/dye_target_up.tres",
+			"skill_id": "dye_target_up"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallDyeUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "dye_chain_depth"
+						},
+						"script": "res://gameplay/progression/effects/install_dye_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "dye_chain_depth (res://gameplay/progression/content/dye_chain_depth.tres): outside supported description slice",
+							"text": "[Manual rule] A dye wave makes a match: dye again.\nUp to 2 waves per action."
+						},
+						"zh_CN": {
+							"error": "dye_chain_depth (res://gameplay/progression/content/dye_chain_depth.tres): outside supported description slice",
+							"text": "[人工规则] 染色补出五连 → 再染1波。\n每行动最多2波。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/dye_chain_depth.tres",
+			"skill_id": "dye_chain_depth"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallDyeUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "dye_mark_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_dye_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "dye_mark_reward (res://gameplay/progression/content/dye_mark_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Dyed pieces in a match: +5 points per piece per level."
+						},
+						"zh_CN": {
+							"error": "dye_mark_reward (res://gameplay/progression/content/dye_mark_reward.tres): outside supported description slice",
+							"text": "[人工规则] 染过色的棋子参与五连 → 每枚+5分/级。"
+						}
+					}
+				},
+				{
+					"effect": {
+						"class": "InstallDyeUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "dye_mark_reward"
+						},
+						"script": "res://gameplay/progression/effects/install_dye_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 2,
+					"locales": {
+						"en_US": {
+							"error": "dye_mark_reward (res://gameplay/progression/content/dye_mark_reward.tres): outside supported description slice",
+							"text": "[Manual rule] Dyed pieces in a match: +5 points per piece per level."
+						},
+						"zh_CN": {
+							"error": "dye_mark_reward (res://gameplay/progression/content/dye_mark_reward.tres): outside supported description slice",
+							"text": "[人工规则] 染过色的棋子参与五连 → 每枚+5分/级。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/dye_mark_reward.tres",
+			"skill_id": "dye_mark_reward"
+		},
+		{
+			"generated": false,
+			"levels": [
+				{
+					"effect": {
+						"class": "InstallDyeUpgradeEffect",
+						"parameters": {
+							"target_policy": "0",
+							"upgrade": "blast_dye"
+						},
+						"script": "res://gameplay/progression/effects/install_dye_upgrade_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "blast_dye (res://gameplay/progression/content/blast_dye.tres): outside supported description slice",
+							"text": "[Manual rule] First blast hit per action: dye 1 ordinary piece of another color near the blast edge.\nShares the match dye-wave limit."
+						},
+						"zh_CN": {
+							"error": "blast_dye (res://gameplay/progression/content/blast_dye.tres): outside supported description slice",
+							"text": "[人工规则] 每行动首个命中爆炸 → 在爆区外沿染1枚异色普通棋。\n与五连共用染色波数。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/blast_dye.tres",
+			"skill_id": "blast_dye"
+		},
+		{
+			"generated": true,
+			"levels": [
+				{
+					"effect": {
+						"class": "DyeMaterialEffect",
+						"parameters": {
+							"allow_empty_targets": false,
+							"target_policy": "0"
+						},
+						"script": "res://gameplay/progression/effects/dye_material_effect.gd",
+						"target_policy": 0
+					},
+					"level": 1,
+					"locales": {
+						"en_US": {
+							"error": "",
+							"text": "The offer freezes a random ordinary color and up to 3 random other-color ordinary pieces (fuses included). Recolor them together, then resolve matches; any stale target rejects use, without replacement."
+						},
+						"zh_CN": {
+							"error": "",
+							"text": "候选时随机冻结普通棋颜色与至多3枚随机异色普通棋（含引信）；将它们同时染色并检验匹配。任一固定目标失效则拒绝使用，不补选。"
+						}
+					}
+				}
+			],
+			"resource": "res://gameplay/progression/content/instant_color_dye.tres",
+			"skill_id": "instant_color_dye"
+		}
+	],
+	"catalog_size": 52,
+	"generated": 19,
+	"manual_fallback": 33
+}

@@ -59,6 +59,7 @@ foreach ($required in @('index.html', 'index.js', 'index.pck', 'index.wasm')) {
 [string]$licenseRoot = Join-Path $outputRoot 'licenses'
 New-Item -ItemType Directory -Path $licenseRoot | Out-Null
 Copy-Item -LiteralPath (Join-Path $projectRoot 'LICENSE') -Destination (Join-Path $licenseRoot 'game.txt')
+Copy-Item -LiteralPath (Join-Path $projectRoot 'LICENSING.md') -Destination (Join-Path $licenseRoot 'licensing.txt')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'addons/godot_core_system/LICENSE') -Destination (Join-Path $licenseRoot 'godot_core_system.txt')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'assets/fonts/OFL.txt') -Destination (Join-Path $licenseRoot 'noto_sans_sc.txt')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'assets/fonts/README.md') -Destination (Join-Path $outputRoot 'font_credits.md')

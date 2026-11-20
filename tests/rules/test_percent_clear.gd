@@ -113,7 +113,7 @@ func test_candidate_and_preview_use_frozen_count() -> void:
 	assert_same(SkillOfferGenerator.new().generate(run), offer)
 	var small: RunController = _run(3)
 	assert_false(SkillRules.rejection(small.state, SKILL, small.abilities.config, 100.0).is_empty())
-	assert_eq(RescueOfferRules.factor(run.state, SKILL, 100.0), 2.2)
+	assert_false(SkillOfferGenerator.CONFIG.data().situational_enabled)
 
 func test_actual_percent_choice_replays_every_checkpoint() -> void:
 	var chosen: bool = false

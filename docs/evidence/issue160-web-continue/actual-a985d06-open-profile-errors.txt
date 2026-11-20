@@ -1,0 +1,2 @@
+WARNING: 'res://tools/checkpoint_benchmark/web_long_probe.tscn': In external resource #0, invalid UID: 'uid://c77rf30p5xior' - using text path instead: 'res://tools/checkpoint_benchmark/web_long_probe.gd'.
+   at: open (core/io/resource_format_binary.cpp:1028)

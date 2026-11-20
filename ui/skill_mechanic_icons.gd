@@ -1,0 +1,91 @@
+class_name SkillMechanicIcons
+extends RefCounted
+
+## 显示侧首批图标清单；不依据名称/宽泛Tag猜测，不写入技能规则Resource。
+const EXPLOSION: Texture2D = preload("res://assets/textures/ui/icon_ability_explosion.png")
+const DUAL_SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_manual_sweep.svg")
+const SWEEP: Texture2D = preload("res://assets/textures/ui/icon_ability_sweep.png")
+const REFILL_LESS: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_less.svg")
+const REFILL_MORE: Texture2D = preload("res://assets/textures/ui/icon_ability_refill_more.svg")
+const MULTIPLIER: Texture2D = preload("res://assets/textures/ui/icon_ability_multiplier.svg")
+const DYE: Texture2D = preload("res://assets/textures/ui/icon_ability_dye.svg")
+const FUSE: Texture2D = preload("res://assets/textures/ui/icon_ability_fuse.svg")
+const MATCH_BONUS: Texture2D = preload("res://assets/textures/ui/icon_ability_match_bonus.svg")
+const TEXTURES: Dictionary[StringName, Texture2D] = {
+	&"line_cross_upgrade": DUAL_SWEEP,
+	&"line_clear_score": DUAL_SWEEP,
+	&"instant_core_transform": EXPLOSION,
+	&"instant_row_transform": SWEEP,
+	&"instant_column_transform": SWEEP,
+	&"assign_fuse": FUSE,
+	&"fuse_capacity": FUSE,
+	&"core_fuse_payload": FUSE,
+	&"core_manual_detonation": EXPLOSION,
+	&"line_manual_clear": DUAL_SWEEP,
+	&"blast_extra": EXPLOSION,
+	&"blast_chain_bonus": EXPLOSION,
+	&"blast_refill_relief": EXPLOSION,
+	&"match_extra": MATCH_BONUS,
+	&"precision_reward": MATCH_BONUS,
+	&"longline_reward": MATCH_BONUS,
+	&"fuse_match_plant": FUSE,
+	&"fuse_relay": FUSE,
+	&"relay_capacity": FUSE,
+	&"match_dye_echo": DYE,
+	&"dye_target_up": DYE,
+	&"dye_chain_depth": DYE,
+	&"refill_less": REFILL_LESS,
+	&"refill_more": REFILL_MORE,
+	&"score_multiplier": MULTIPLIER,
+	&"core_drop": EXPLOSION,
+	&"core_supply_up": EXPLOSION,
+	&"core_radius": EXPLOSION,
+	&"line_row_drop": SWEEP,
+	&"line_column_drop": SWEEP,
+	&"line_row_span": SWEEP,
+	&"line_column_span": SWEEP,
+}
+const ROLES: Dictionary[StringName, String] = {
+	&"line_cross_upgrade": "十字",
+	&"line_clear_score": "收获",
+	&"instant_core_transform": "改装",
+	&"instant_row_transform": "改装",
+	&"instant_column_transform": "改装",
+	&"assign_fuse": "赋能",
+	&"fuse_capacity": "扩容",
+	&"core_fuse_payload": "装填",
+	&"core_manual_detonation": "主动",
+	&"line_manual_clear": "主动",
+	&"blast_extra": "补分",
+	&"blast_chain_bonus": "节拍",
+	&"blast_refill_relief": "留白",
+	&"match_extra": "补分",
+	&"precision_reward": "正好",
+	&"longline_reward": "长连",
+	&"fuse_match_plant": "布雷",
+	&"fuse_relay": "传递",
+	&"relay_capacity": "接力",
+	&"match_dye_echo": "接续",
+	&"dye_target_up": "扩散",
+	&"dye_chain_depth": "再续",
+	&"refill_less": "减量",
+	&"refill_more": "增量",
+	&"score_multiplier": "倍率（短）",
+	&"core_drop": "登场",
+	&"core_supply_up": "补给",
+	&"core_radius": "范围",
+	&"line_row_drop": "登场",
+	&"line_column_drop": "登场",
+	&"line_row_span": "范围",
+	&"line_column_span": "范围",
+}
+const VERTICAL: Array[StringName] = [&"instant_column_transform", &"line_column_drop", &"line_column_span"]
+
+static func texture_for(id: StringName) -> Texture2D:
+	return TEXTURES.get(id) as Texture2D
+
+static func role_for(id: StringName) -> String:
+	return TranslationServer.translate(ROLES.get(id, "")) if ROLES.has(id) else ""
+
+static func rotation_for(id: StringName) -> float:
+	return 90.0 if id in VERTICAL else 0.0

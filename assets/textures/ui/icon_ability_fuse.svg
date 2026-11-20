@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Fuse mechanism</title>
+<path d="M5 27C2 20 9 16 14 21s10 2 5-4-3-7 3-8" fill="none" stroke="#fff8eb" stroke-width="8" stroke-linecap="round"/>
+<path d="M5 27C2 20 9 16 14 21s10 2 5-4-3-7 3-8" fill="none" stroke="#493958" stroke-width="6" stroke-linecap="round"/>
+<path d="M5 27C2 20 9 16 14 21s10 2 5-4-3-7 3-8" fill="none" stroke="#f5ce76" stroke-width="3" stroke-linecap="round"/>
+<path d="m24 2 2 3h4l-2 3 2 3h-4l-2 4-2-4h-4l2-3-2-3h4Z" fill="#f5ce76" stroke="#fff8eb" stroke-width="3" stroke-linejoin="round"/>
+<path d="m24 2 2 3h4l-2 3 2 3h-4l-2 4-2-4h-4l2-3-2-3h4Z" fill="#f5ce76" stroke="#493958" stroke-width="1.5" stroke-linejoin="round"/>
+<circle cx="24" cy="8" r="2" fill="#fff8eb"/>
+</svg>

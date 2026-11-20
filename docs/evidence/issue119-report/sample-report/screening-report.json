@@ -1,0 +1,1729 @@
+{
+  "configurations": [
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 5,
+      "config_id": "screening-baseline-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 7
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 5,
+      "config_id": "screening-l-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 6
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 5,
+      "config_id": "screening-t-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 6
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 5,
+      "config_id": "screening-plus-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 5
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 5,
+      "config_id": "screening-x-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 5
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 5,
+      "config_id": "screening-zs-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 5
+    }
+  ],
+  "diagnostics": [],
+  "duplicate_files": 0,
+  "fixed_task_accuracy": [],
+  "observation_template": {
+    "decisions": [
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-baseline-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-l-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-t-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-plus-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-x-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-zs-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      }
+    ],
+    "observations": [
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-48868-1792823141179000-14989197",
+        "use_case": null,
+        "willing_again": null
+      },
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-48868-1792823140526000-14335712",
+        "use_case": null,
+        "willing_again": null
+      },
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-48868-1792823141833000-15642663",
+        "use_case": null,
+        "willing_again": null
+      },
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-48868-1792823142116000-15924981",
+        "use_case": null,
+        "willing_again": null
+      }
+    ],
+    "schema": "screening-observations-v1"
+  },
+  "runs": [
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "3153d8068c0b104258d700231e2c44f15855b0e2472f23dba3f97c9046c58869",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "line": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/baseline-direct.jsonl",
+      "run_id": "119-48868-1792823145221000-19030387",
+      "score": 50,
+      "seed": "119",
+      "sha256": "8428642d543bb56740f56846cebf733c457f86eb5506cb9e0624ee657f1725d9",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "direct",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "3153d8068c0b104258d700231e2c44f15855b0e2472f23dba3f97c9046c58869",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "line": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/baseline-outside.jsonl",
+      "run_id": "119-48868-1792823145424000-19234496",
+      "score": 50,
+      "seed": "119",
+      "sha256": "fee341d0c227fb20a8f87ea94c23ad4c7021ac2a63e7376699a3e3cc1f7ea13a",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "outside",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "3153d8068c0b104258d700231e2c44f15855b0e2472f23dba3f97c9046c58869",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "line": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/baseline-overlap.jsonl",
+      "run_id": "119-48868-1792823145359000-19168471",
+      "score": 50,
+      "seed": "119",
+      "sha256": "9a15cc80b9eaef9b1cb07a2260c70fbfe8e2e1ad4f6175aef5558edb3c5829f7",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "3153d8068c0b104258d700231e2c44f15855b0e2472f23dba3f97c9046c58869",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/baseline-wrong.jsonl",
+      "run_id": "119-48868-1792823145287000-19096473",
+      "score": 0,
+      "seed": "119",
+      "sha256": "78d957775e39557de2c59e2cad97ea025f1ae6bb01b0b31fe5f5b2386c9a41fb",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "wrong",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 15,
+      "build": "development",
+      "config_hash": "11ba943b48f73151ce505a7f388fc83cbab8e207000fc65a9ac046abeb948543",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 45
+        },
+        "births_in_window": 45,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -45,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/free-baseline.jsonl",
+      "run_id": "119-48868-1792823147438000-21247382",
+      "score": 0,
+      "seed": "119",
+      "sha256": "b6c6b76edf8fbca9f3895522d9cca7f50a9a6a58ec376bb675a3b09c23a60fce",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "free",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 15,
+      "build": "development",
+      "config_hash": "40b783fa97de29f64ce387dd5c82074253655fe4d99cf5e35753f52aaa848942",
+      "config_id": "screening-l-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 45
+        },
+        "births_in_window": 45,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -45,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/free-l.jsonl",
+      "run_id": "119-48868-1792823148164000-21974374",
+      "score": 0,
+      "seed": "119",
+      "sha256": "774f48b77c7b5914c320643b1e860acc6c6bfb238cdda1727a249388bf1599d3",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "free",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 15,
+      "build": "development",
+      "config_hash": "1f85f05e096df3016dcf38acf47b3c57701a2392a4013569d30ad36455a81292",
+      "config_id": "screening-plus-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 45
+        },
+        "births_in_window": 45,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -45,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/free-plus.jsonl",
+      "run_id": "119-48868-1792823150003000-23812551",
+      "score": 0,
+      "seed": "119",
+      "sha256": "625e8ba6a35efb20b4a5a845e981290728268c48aae87f012a55afc0065db41a",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "free",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 15,
+      "build": "development",
+      "config_hash": "0286fef3e46d95ca557a24c85d4a5ee8cef6515676eecf1862642c8adcdb7051",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 45
+        },
+        "births_in_window": 45,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -45,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/free-t.jsonl",
+      "run_id": "119-48868-1792823149091000-22900969",
+      "score": 0,
+      "seed": "119",
+      "sha256": "3502d04049403bbd73352708d302c27799b813aba4871475983718bec83c0a6e",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "free",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 15,
+      "build": "development",
+      "config_hash": "729d70ac07a15d7d20dbe645520408b8320b85d34afb9c06bbebf915c0093281",
+      "config_id": "screening-x-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 45
+        },
+        "births_in_window": 45,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -45,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/free-x.jsonl",
+      "run_id": "119-48868-1792823150852000-24662328",
+      "score": 0,
+      "seed": "119",
+      "sha256": "c085e4becfd77eecf99ce7e4a3060cbd23f96e81d3e7d478e25c1441488018ba",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "free",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 15,
+      "build": "development",
+      "config_hash": "0bd5e543a705a6df0c209c978259722ca3d233f4344db4294f5de73874e33455",
+      "config_id": "screening-zs-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 45
+        },
+        "births_in_window": 45,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -45,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/free-zs.jsonl",
+      "run_id": "119-48868-1792823151714000-25523255",
+      "score": 0,
+      "seed": "119",
+      "sha256": "80dde04e601bd1bc6bcf728c65e31bd2c7903a52e19a92c8df071fb7ea0abf05",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "free",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "5384f5340d88378e3e417c6e380aff4baa04ae4f9e87a498ab86df8ed83cde42",
+      "config_id": "screening-l-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "l": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/l-direct.jsonl",
+      "run_id": "119-48868-1792823145493000-19302718",
+      "score": 50,
+      "seed": "119",
+      "sha256": "46162212d666e81adb3103c2ef3ed7524aa7904899ac2123f1c650b6907df7d2",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "direct",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "5384f5340d88378e3e417c6e380aff4baa04ae4f9e87a498ab86df8ed83cde42",
+      "config_id": "screening-l-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "l": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/l-outside.jsonl",
+      "run_id": "119-48868-1792823145780000-19589931",
+      "score": 50,
+      "seed": "119",
+      "sha256": "a67f8bb377647e2dfb8cc5ce4d9b2652876bcf19b94cda5ecbf224e08ca16e74",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "outside",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "5384f5340d88378e3e417c6e380aff4baa04ae4f9e87a498ab86df8ed83cde42",
+      "config_id": "screening-l-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 7,
+            "score": 84
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 7,
+        "removed_unique_entities": 7,
+        "shape_event_counts": {
+          "l": 1,
+          "line": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/l-overlap.jsonl",
+      "run_id": "119-48868-1792823145676000-19485953",
+      "score": 84,
+      "seed": "119",
+      "sha256": "b5ffafc4075f2967f92d417b09e5a7695cbce79f704efdf951846aba88cbf6b6",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "5384f5340d88378e3e417c6e380aff4baa04ae4f9e87a498ab86df8ed83cde42",
+      "config_id": "screening-l-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/l-wrong.jsonl",
+      "run_id": "119-48868-1792823145579000-19388565",
+      "score": 0,
+      "seed": "119",
+      "sha256": "e16838a5b048459639cd669cc4814e3d20710c37ab8c7d30098b60f592eb1732",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "wrong",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "ae5662530798d8b2a9320cd04873e72427f5e78ed138cd2fd72f0662ace3fbd2",
+      "config_id": "screening-plus-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "plus": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/plus-direct.jsonl",
+      "run_id": "119-48868-1792823146254000-20063812",
+      "score": 50,
+      "seed": "119",
+      "sha256": "32acb62c719f7d0b48368fba4866844fa3689b0780d1b9a605950ca76f7f138c",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "direct",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "ae5662530798d8b2a9320cd04873e72427f5e78ed138cd2fd72f0662ace3fbd2",
+      "config_id": "screening-plus-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "plus": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/plus-outside.jsonl",
+      "run_id": "119-48868-1792823146577000-20387056",
+      "score": 50,
+      "seed": "119",
+      "sha256": "3f6889f5a04e465db9aa52427c479de5a06a668afce27ffa6bde12f58cf79860",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "outside",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "ae5662530798d8b2a9320cd04873e72427f5e78ed138cd2fd72f0662ace3fbd2",
+      "config_id": "screening-plus-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "plus": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/plus-overlap.jsonl",
+      "run_id": "119-48868-1792823146460000-20270327",
+      "score": 126,
+      "seed": "119",
+      "sha256": "01f22e978e5ef38abd565b83a319f600213a458809d97de6cd193d1bee226d5e",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "ae5662530798d8b2a9320cd04873e72427f5e78ed138cd2fd72f0662ace3fbd2",
+      "config_id": "screening-plus-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/plus-wrong.jsonl",
+      "run_id": "119-48868-1792823146366000-20175569",
+      "score": 0,
+      "seed": "119",
+      "sha256": "3184caeeda313fd96a982ebee34851f570f9735d7dadca6e3e612ecf6884c0bd",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "wrong",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/t-direct.jsonl",
+      "run_id": "119-48868-1792823145866000-19675030",
+      "score": 50,
+      "seed": "119",
+      "sha256": "768c622d6fcb8ad9ed36b36f04e47eee2b7f52acb5f1e453ad2a812683c2fbb4",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "direct",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/t-outside.jsonl",
+      "run_id": "119-48868-1792823146164000-19974386",
+      "score": 50,
+      "seed": "119",
+      "sha256": "6b2874ecc14786fe0998186a360cadb89925c30cd86ecf2eb45232868057b298",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "outside",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/t-overlap.jsonl",
+      "run_id": "119-48868-1792823146045000-19854846",
+      "score": 126,
+      "seed": "119",
+      "sha256": "3563a1fd846168b14983079645497e8b4a6fa315d636516aa6c683ba869e137d",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/t-wrong.jsonl",
+      "run_id": "119-48868-1792823145949000-19758471",
+      "score": 0,
+      "seed": "119",
+      "sha256": "d138c4e51d8ddbce3d5b2f32e93b475f56124213c355fc458f3133d8f9749bd9",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "wrong",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "40b783fa97de29f64ce387dd5c82074253655fe4d99cf5e35753f52aaa848942",
+      "config_id": "screening-l-v1",
+      "elapsed_ms": 33.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_action_limit",
+      "record": "docs/evidence/issue119-screening/ui-action-limit.jsonl",
+      "run_id": "119-48868-1792823141179000-14989197",
+      "score": 0,
+      "seed": "119",
+      "sha256": "6e2559fa0a5e26c7c26df6d58409f49626759b08be193f1cc04ef9624a8c566b",
+      "sidecar_sha256": "37601459c37eb9124cec3cb6de94267fd8ec1b4ef336c18d4d55483760ce803e",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "free",
+      "warnings": [
+        "window_incomplete_or_unverified"
+      ],
+      "window_complete": false
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "698835f27a6d184f15a69572e6b2ff8bc01764832ef96b88ed4eca4d78a303b9",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": 88.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/ui-t-overlap.jsonl",
+      "run_id": "119-48868-1792823140526000-14335712",
+      "score": 126,
+      "seed": "119",
+      "sha256": "7c68199b3bd98b2886d1b04dd45bbd7b88cfae25e1b724ce15475907570a70f1",
+      "sidecar_sha256": "ee0b7544311b053dfa21008bd39bdf40d52e0c3ef000f492c74113ff6fb4312d",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "11ba943b48f73151ce505a7f388fc83cbab8e207000fc65a9ac046abeb948543",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": 29.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_time_limit",
+      "record": "docs/evidence/issue119-screening/ui-time-busy.jsonl",
+      "run_id": "119-48868-1792823141833000-15642663",
+      "score": 0,
+      "seed": "119",
+      "sha256": "f5db5fc50abfd14622fd43ca8583793182deed16fc286e1ab8adb84bcb4209d1",
+      "sidecar_sha256": "0daa92ed513840fe0db5f316852520b2c35f5d1ec0ad86d604367895d5aaebf3",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "free",
+      "warnings": [
+        "window_incomplete_or_unverified"
+      ],
+      "window_complete": false
+    },
+    {
+      "actions": 0,
+      "build": "development",
+      "config_hash": "11ba943b48f73151ce505a7f388fc83cbab8e207000fc65a9ac046abeb948543",
+      "config_id": "screening-baseline-v1",
+      "elapsed_ms": 4.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": 0,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_time_limit",
+      "record": "docs/evidence/issue119-screening/ui-time-paused.jsonl",
+      "run_id": "119-48868-1792823142116000-15924981",
+      "score": 0,
+      "seed": "119",
+      "sha256": "1f0b8ebee9f9b1f53de03427b6f5ee7c5d7ee24ef04125c7b18b73ae8259bd5d",
+      "sidecar_sha256": "74f1b47cf247ee60f1beceb588d01e2c38bf7996c2ae9e6b6e3fe766e4de117f",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "free",
+      "warnings": [
+        "window_incomplete_or_unverified"
+      ],
+      "window_complete": false
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "9055f928d98da7d7862dad1c54f7bf6103d3eb4dcbb6632d87dec622289d733d",
+      "config_id": "screening-x-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "x": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/x-direct.jsonl",
+      "run_id": "119-48868-1792823146662000-20471475",
+      "score": 50,
+      "seed": "119",
+      "sha256": "f3da5f28cf36d3a90246782bfd1566e4c117b037536c2f2edeca5c2cbc2ed9eb",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "direct",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "9055f928d98da7d7862dad1c54f7bf6103d3eb4dcbb6632d87dec622289d733d",
+      "config_id": "screening-x-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "x": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/x-outside.jsonl",
+      "run_id": "119-48868-1792823146946000-20755917",
+      "score": 50,
+      "seed": "119",
+      "sha256": "fd476b3705c05f34f899c7fbc82f4cb215c857316b350bc64b08f79d20c1d267",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "outside",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "9055f928d98da7d7862dad1c54f7bf6103d3eb4dcbb6632d87dec622289d733d",
+      "config_id": "screening-x-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 8,
+            "score": 104
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 8,
+        "removed_unique_entities": 8,
+        "shape_event_counts": {
+          "line": 1,
+          "x": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/x-overlap.jsonl",
+      "run_id": "119-48868-1792823146834000-20644097",
+      "score": 104,
+      "seed": "119",
+      "sha256": "66830c67c26eaaf9b81c1bf0e182acc97050791f855275df6809f6ed0f0726c3",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "9055f928d98da7d7862dad1c54f7bf6103d3eb4dcbb6632d87dec622289d733d",
+      "config_id": "screening-x-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/x-wrong.jsonl",
+      "run_id": "119-48868-1792823146741000-20551052",
+      "score": 0,
+      "seed": "119",
+      "sha256": "1fb2ff0ef1b012a2ff2d458e27ff73bfd3b07b843b8c8532fdb746c3e3b68580",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "wrong",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "e822e1a78a807135e844ee5e60e6d649a80feab67dbb30086ff987ccebef8039",
+      "config_id": "screening-zs-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "zs": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/zs-direct.jsonl",
+      "run_id": "119-48868-1792823147030000-20839801",
+      "score": 50,
+      "seed": "119",
+      "sha256": "f69754933e819514b82e4b6c0d97c8abb3beb30c0e56741a1181fe790efa5eb4",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "direct",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "e822e1a78a807135e844ee5e60e6d649a80feab67dbb30086ff987ccebef8039",
+      "config_id": "screening-zs-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 5,
+            "score": 50
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 5,
+        "removed_unique_entities": 5,
+        "shape_event_counts": {
+          "zs": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/zs-outside.jsonl",
+      "run_id": "119-48868-1792823147269000-21078585",
+      "score": 50,
+      "seed": "119",
+      "sha256": "67f1131c87e32398986331263edf7c8611e043d34a232e57da18b42105ff61b9",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "outside",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "e822e1a78a807135e844ee5e60e6d649a80feab67dbb30086ff987ccebef8039",
+      "config_id": "screening-zs-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 8,
+            "score": 104
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 8,
+        "removed_unique_entities": 8,
+        "shape_event_counts": {
+          "line": 1,
+          "zs": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/zs-overlap.jsonl",
+      "run_id": "119-48868-1792823147177000-20985943",
+      "score": 104,
+      "seed": "119",
+      "sha256": "2fed028787794ea06fe9ca454ee0866d864e48f09bfb17d0fbd5872c140461b8",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "e822e1a78a807135e844ee5e60e6d649a80feab67dbb30086ff987ccebef8039",
+      "config_id": "screening-zs-v1",
+      "elapsed_ms": null,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {
+          "normal": 3
+        },
+        "births_in_window": 3,
+        "by_source": {},
+        "match_events": 0,
+        "net_empty_cells": -3,
+        "removed_unique_entities": 0,
+        "shape_event_counts": {}
+      },
+      "reason": "screening_fixed_complete",
+      "record": "docs/evidence/issue119-screening/zs-wrong.jsonl",
+      "run_id": "119-48868-1792823147097000-20906913",
+      "score": 0,
+      "seed": "119",
+      "sha256": "e0cfb9eabcdcb5200060dbc4a96e0ca085c53373eb23ee9e9207ff360613e077",
+      "sidecar_sha256": null,
+      "source_kind": "automated",
+      "status": "censored",
+      "task": "wrong",
+      "warnings": [],
+      "window_complete": true
+    }
+  ],
+  "schema": "screening-report-v1"
+}

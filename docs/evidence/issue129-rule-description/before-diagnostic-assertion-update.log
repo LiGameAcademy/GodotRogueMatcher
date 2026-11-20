@@ -1,0 +1,110 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/ADMINI~1/AppData/Local/Temp/o4-desc-user/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_skill_rule_description_ui.gd
+[0m* test_six_long_rules_and_independent_flavor_fit_existing_popup_both_languages
+O4_LAYOUT count3 Clear Then Dye content=(171.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count3 Tinted Whitespace content=(218.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count3 Goal Bounty content=(218.0, 303.0) effect=(290.0, 124.0) preview=(290.0, 22.0)
+O4_LAYOUT count2 Clear Then Dye content=(171.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count2 Tinted Whitespace content=(218.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+O4_LAYOUT count1 Clear Then Dye content=(171.0, 396.0) effect=(290.0, 217.0) preview=(290.0, 22.0)
+* test_owned_and_candidate_contexts_keep_mixed_lifetimes_and_config_catalog_default
+* test_default_popup_insets_also_fit_three_cards_without_a_game_theme
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_skill_rule_description.gd
+[0m* test_all_six_use_configuration_in_both_languages
+* test_multiplier_is_additive_contribution_and_owned_level_not_final_multiplier
+* test_row_range_uses_runtime_formula_and_preserves_edges_and_manual_boundary
+* test_refill_parameters_repeat_remaining_zero_and_net_count_preview
+* test_goal_is_next_target_and_reads_changed_resource_value
+* test_mixed_lifetime_preserves_permanent_weight_after_refill_expires
+* test_clear_then_dynamic_dye_is_not_a_frozen_promise_and_barrier_is_last
+* test_nested_order_conditions_and_cycle_diagnostics
+* test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+[31m    [Failed]:  [0mExpected 'score_multiplier (): skill has no acquisition effect' to contain 'effect missing', match_case=true
+      at line 134
+* test_rendering_all_contexts_leaves_rule_snapshot_resources_and_rng_unchanged
+[1m9/10 passed.
+[0m[4m
+
+res://tests/integration/test_choice_visual_layout.gd
+[0m* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+* test_selected_and_unavailable_state_survives_locale_and_theme_changes
+* test_deselect_restores_surface_and_other_card_style_is_unchanged
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_skill_cards.gd
+[0m* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_build_cards.gd
+[0m* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_aesthetic_acceptance.gd
+[0m* test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_real_reward_popup_unlocks_l_and_restores_input
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_three_real_card_types_fit_and_can_be_chosen_bilingually
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_flash_reaches_visible_nut_and_is_isolated_from_other_instances_and_template
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_empty_build_hint_uses_full_width_then_returns_to_three_columns
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_legacy_v43_remains_viewable_but_new_protocol_rejects_exact_replay
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_new_protocol_real_command_replays_and_flavor_does_not_change_configuration
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_legacy_debug_keys_cannot_escape_acceptance_fixture
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m* test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
+[33m    --- Awaiting callable to return TRUE or 5.0s.   ---
+[0m[1m9/9 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_skill_rule_description.gd
+[0m- test_unsupported_missing_parameters_and_translation_return_identifiable_manual_fallback
+[31m    [Failed]:  [0mExpected 'score_multiplier (): skill has no acquisition effect' to contain 'effect missing', match_case=true
+          at line 134
+
+Totals
+------
+Scripts               6
+Tests                34
+Passing Tests        33
+Failing Tests         1
+Asserts           4365/4366
+Time              107.35s
+
+
+[31m---- 1 failing tests ----
+[0m

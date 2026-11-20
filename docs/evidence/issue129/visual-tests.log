@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher-128/.godot/issue129/userdata/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_choice_visual_layout.gd
+* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+* test_selected_and_unavailable_state_survives_locale_and_theme_changes
+* test_deselect_restores_surface_and_other_card_style_is_unchanged
+3/3 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               1
+Tests                 3
+Passing Tests         3
+Asserts             383
+Time              3.937s
+
+
+---- All tests passed! ----

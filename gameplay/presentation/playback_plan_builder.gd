@@ -31,19 +31,22 @@ static func matches(results: Array[MatchResult]) -> Array[PresentationStep]:
 		frozen.cross_radius = result.cross_radius
 		frozen.generation = result.generation
 		frozen.score_entry = result.score_entry.copy()
+		for hit: BoardMatchHit in result.hits: frozen.hits.append(hit.copy())
 		for piece: PieceState in result.removed: frozen.removed.append(piece.copy())
 		steps.back().matches.append(frozen)
 		if result.cause not in [&"explosion", &"line_clear"]:
 			steps.back().policy = PresentationStep.Policy.COMPLETE_REQUIRED
 	return steps
 
-static func spawns(results: Array[SpawnResult], duration: float) -> Array[PresentationStep]:
+static func spawns(results: Array[SpawnResult], duration: float, from_preview: bool = false) -> Array[PresentationStep]:
 	var steps: Array[PresentationStep] = []
-	for result: SpawnResult in results:
+	for index: int in range(results.size()):
+		var result: SpawnResult = results[index]
 		var step: PresentationStep = PresentationStep.new()
 		step.kind = PresentationStep.Kind.SPAWN
 		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
 		step.duration = maxf(0.0, duration)
+		step.preview_slot = index if from_preview and result.source in [&"normal", &"empty_recovery"] else -1
 		step.pieces.append(result.piece.copy())
 		steps.append(step)
 		steps.append_array(matches(result.matches))
@@ -71,7 +74,23 @@ static func skill(result: SkillApplyResult, duration: float) -> Array[Presentati
 		step.duration = maxf(0.0, duration)
 		for piece: PieceState in result.transformed: step.pieces.append(piece.copy())
 		steps.append(step)
-	steps.append_array(matches(result.matches))
+	steps.append_array(_skill_matches(result, duration))
+	return steps
+
+## Marker boundaries split otherwise coalescible matches; every piece snapshot is detached.
+static func _skill_matches(result: SkillApplyResult, duration: float) -> Array[PresentationStep]:
+	var steps: Array[PresentationStep] = []
+	var offset: int = 0
+	for batch: SkillMarkResult in result.mark_batches:
+		steps.append_array(matches(result.matches.slice(offset, batch.after_match_count)))
+		var step: PresentationStep = PresentationStep.new()
+		step.kind = PresentationStep.Kind.MARK_FUSES
+		step.policy = PresentationStep.Policy.COMPLETE_REQUIRED
+		step.duration = maxf(0.0, duration)
+		for piece: PieceState in batch.pieces: step.pieces.append(piece.copy())
+		steps.append(step)
+		offset = batch.after_match_count
+	steps.append_array(matches(result.matches.slice(offset)))
 	return steps
 
 ## 终态仅验证数据合法性，不修改或重新计算规则。

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://ui/release_menu/release_menu.gd" id="1"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://ui/tutorial/tutorial.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://ui/collection_controls/collection_controls.tscn" id="4"]
+
+[ext_resource type="PackedScene" path="res://ui/feedback_button/feedback_button.tscn" id="feedback"]
 
 [node name="ReleaseMenu" type="Control"]
 visible = false
@@ -107,7 +109,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="Play" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="Play" parent="Home/Panel/Margin/Shell/Scroll/Column" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 48)
@@ -129,7 +131,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "查看技能池"
 
-[node name="SettingsButton" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+[node name="SettingsButton" parent="Home/Panel/Margin/Shell/Scroll/Column" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "设置与操作"
@@ -141,6 +143,13 @@ theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.53, 0.63, 0.73, 1)
 text = "桌面浏览器试玩 · 音量 / 低特效在设置中调整\n设置与局内记录仅保存在本机浏览器，不上传；刷新后开始新局。\n反馈请附版本号、浏览器和截图，在 itch.io 项目评论区告诉我们。"
 autowrap_mode = 2
+
+[node name="CheckpointQuit" type="Button" parent="Home/Panel/Margin/Shell/Scroll/Column"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+text = "checkpoint.quit"
 
 [node name="Tutorial" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true

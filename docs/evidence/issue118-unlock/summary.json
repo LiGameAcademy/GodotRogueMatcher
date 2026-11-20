@@ -1,0 +1,29 @@
+{
+  "full_commit": "86e48965a419c536c7cff599cd37707951a966c6",
+  "final_code_commit": "59152450fec1cee877cc27c71d51aa963cc33af8",
+  "scripts": 94,
+  "tests": 687,
+  "passing": 687,
+  "asserts": 23389,
+  "seconds": 212.346,
+  "exit_code": 0,
+  "final_guard_scripts": 2,
+  "final_guard_tests": 7,
+  "final_guard_asserts": 74,
+  "rule_version": "run-commands-v42-shape-unlock-recovery",
+  "new_tests": 30,
+  "continuous_reward_fixture": {
+    "tests": 10,
+    "asserts": 140,
+    "injected_score": 200,
+    "milestones": [
+      100,
+      250
+    ],
+    "recovery_batches": 1
+  },
+  "bot_records": 415,
+  "unlock_records": 13,
+  "owned_gd_files": 331,
+  "max_gd_lines": 474
+}

@@ -17,6 +17,7 @@ func before_each() -> void:
 	add_child_autofree(game)
 	board = game.get_node("Board") as Board
 	await board.initialized
+	(game.get_node("GameFeedback") as GameFeedback).cancel()
 
 func after_each() -> void:
 	get_tree().paused = false
@@ -71,6 +72,8 @@ func test_low_effects_and_fast_modes_preserve_f6_rule_snapshot() -> void:
 				assert_true(cell.background.material is ShaderMaterial)
 
 func test_effect_toggle_during_movement_does_not_cancel_required_tween() -> void:
+	var cues: Array[StringName] = []
+	board.feedback_requested.connect(func(cue: StringName) -> void: cues.append(cue))
 	var command: MovePieceCommand = RandomLegalBot.new(28).choose(board.run) as MovePieceCommand
 	board.selected_piece = board.view.get_piece(command.piece_id)
 	board.move_selected_piece(board.get_cell(command.target), 0.12)
@@ -80,6 +83,7 @@ func test_effect_toggle_during_movement_does_not_cancel_required_tween() -> void
 	assert_eq(board.rules.state.get_piece(command.piece_id).coordinate, command.target)
 	assert_true(board.can_selected)
 	assert_eq(board.director.error, "")
+	assert_has(cues, &"land")
 
 func test_muting_cue_dedup_and_retry_stop_plugin_players() -> void:
 	var feedback: GameFeedback = game.get_node("GameFeedback") as GameFeedback
@@ -107,7 +111,7 @@ func test_finished_player_reused_by_other_caller_survives_game_cancel() -> void:
 	await borrowed.finished
 	assert_true(feedback._players.is_empty())
 	assert_eq(borrowed.process_mode, Node.PROCESS_MODE_INHERIT)
-	var external: AudioStreamPlayer = CoreSystem.audio_manager.play_sound(GameFeedback.SOUNDS[&"finish"], 0.5)
+	var external: AudioStreamPlayer = CoreSystem.audio_manager.play_sound(feedback.config.cue_paths[&"finish"], 0.5)
 	assert_same(external, borrowed)
 	feedback.cancel()
 	assert_true(external.playing)
@@ -144,3 +148,17 @@ func test_environment_and_particle_resources_are_instance_local() -> void:
 	var first: ChessPiece = other_board.view.get_piece(pieces[0].piece_id)
 	var second: ChessPiece = other_board.view.get_piece(pieces[1].piece_id)
 	assert_not_same(first.glow_particles.process_material, second.glow_particles.process_material)
+
+func test_explicit_rejection_is_audible_but_blank_click_is_not() -> void:
+	var cues: Array[StringName] = []
+	board.feedback_requested.connect(func(cue: StringName) -> void: cues.append(cue))
+	var piece: PieceState = board.rules.state.get_snapshot().front()
+	board.selected_piece = board.view.get_piece(piece.piece_id)
+	var action: int = board.run.state.action_id
+	assert_false(await board.move_selected_piece(board.get_cell(piece.coordinate)))
+	assert_has(cues, &"reject")
+	assert_eq(board.run.state.action_id, action)
+	cues.clear()
+	var empty: Vector2i = board.rules.state.get_empty_coordinates().front()
+	await board._on_coordinate_pressed(empty)
+	assert_true(cues.is_empty())

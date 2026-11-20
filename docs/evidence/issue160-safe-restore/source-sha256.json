@@ -1,0 +1,26 @@
+{
+  "base": "8e4ebe5f40258fe4fe4c803a2e5f2c15cbd90249",
+  "godot": "4.7.2 ed1daf0bf",
+  "files": [
+    {
+      "path": "services/run_checkpoint/run_checkpoint_codec.gd",
+      "sha256": "54ade49867dd7abe523d5b4d136c3a709493ef4a3298edfec3eee0ac25665028",
+      "lines": 167
+    },
+    {
+      "path": "services/run_checkpoint/run_checkpoint_session.gd",
+      "sha256": "9266a48dedced402f3f65cf56cf5a07b92b1dea71cae865698568adf2b61acb8",
+      "lines": 55
+    },
+    {
+      "path": "gameplay/skills/ability_resolver.gd",
+      "sha256": "15ac6bc042ea588134a9af0956b8a76435281920a2a39853d7b7c593b87dd2b4",
+      "lines": 398
+    },
+    {
+      "path": "tests/rules/test_run_checkpoint_codec.gd",
+      "sha256": "9ac6dc15659ed1e1635dc86dc0814faf6e80811599f7739e86a0b2786b42f141",
+      "lines": 442
+    }
+  ]
+}

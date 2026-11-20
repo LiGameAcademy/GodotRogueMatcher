@@ -1,0 +1,181 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/ADMINI~1/AppData/Local/Temp/rogue-192entry-regression/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_screening_playground.gd
+[0m* test_all_twenty_four_fixed_tasks_run_real_scene_and_seal_one_complete_action
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY baseline direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY baseline outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY l outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY t outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY plus outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY x outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs direct
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs wrong
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+SCREENING_PLAYGROUND_READY zs outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_normal_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_fast_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_low_effects_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_fast_low_fixed_bonus_finishes_before_sealing
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_action_budget_seals_after_real_move_and_blocks_stale_or_buffered_action
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY l free
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m* test_time_budget_does_not_cut_playback_and_pause_is_included
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY baseline free
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY baseline free
+* test_controls_and_menu_restart_keep_configuration_and_close_old_record
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY x outside
+SCREENING_PLAYGROUND_READY x outside
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[33m    [WARNING]:  [0mWarn:  Float/Int comparison.  Got FLOAT but expected INT
+* test_switching_while_reward_waits_closes_old_sample_and_does_not_touch_new_free_run
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY zs free
+* test_closing_during_initialization_does_not_try_to_seal_temporary_unrecorded_run
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY l direct
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_skill_card_selection.gd
+[0m* test_select_switch_inspect_and_pause_do_not_submit_or_mutate_run
+* test_color_choice_uses_same_bottom_confirmation_without_automatic_submission
+* test_rejected_selection_keeps_candidate_and_does_not_fly_card
+* test_accepted_selection_emits_visual_once_after_rule_commit
+* test_reveal_and_transfer_are_visual_only_and_support_pause_low_effects_and_cancel
+* test_closing_submitted_popup_without_success_acknowledgement_does_not_fly_card
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_reward_coordination.gd
+[0m* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+* test_popup_cannot_mutate_authoritative_frozen_targets
+* test_same_run_old_popup_callback_does_not_submit_again
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+* test_two_rewards_in_normal_mode
+* test_two_rewards_in_fast_mode
+* test_two_rewards_in_low_effects_mode
+* test_two_rewards_in_combined_mode
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_choice_visual_layout.gd
+[0m* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+* test_selected_and_unavailable_state_survives_locale_and_theme_changes
+* test_deselect_restores_surface_and_other_card_style_is_unchanged
+[1m3/3 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Warnings             29
+
+Scripts               4
+Tests                29
+Passing Tests        29
+Asserts            1008
+Time              140.077s
+
+
+[32m---- All tests passed! ----
+[0m

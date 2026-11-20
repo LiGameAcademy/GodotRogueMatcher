@@ -6,6 +6,7 @@ var synthetic: bool = false
 var source: PieceState
 var ability: AbilityInstance
 var activation: AbilityActivation
+var strength: RemovalStrength
 var generation: int = 0
 var radius: int = 0
 ## -1 means single-axis sweep; otherwise the perpendicular band radius.

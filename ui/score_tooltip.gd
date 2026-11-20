@@ -10,11 +10,13 @@ static func describe(state: RunState) -> String:
 	var action_score: int = 0
 	var choice_score: int = 0
 	var other_score: int = 0
-	for entry: ScoreEntry in state.ledger.get_entries():
+	var entries: Array[ScoreEntry] = state.ledger.get_entries()
+	for entry: ScoreEntry in entries:
 		if entry.root_action_id > 0: action_score += entry.final_score
 		elif entry.root_action_id < 0: choice_score += entry.final_score
 		else: other_score += entry.final_score
-	lines.append(TranslationServer.translate("实际构成：行动 %d + 选卡 %d + 其他 %d = %d") % [action_score, choice_score, other_score, state.ledger.total])
+	if action_score + choice_score + other_score == state.ledger.total:
+		lines.append(TranslationServer.translate("实际构成：行动 %d + 选卡 %d + 其他 %d = %d") % [action_score, choice_score, other_score, state.ledger.total])
 	lines.append(TranslationServer.translate("总分是各笔最终得分之和，采用得分当时的倍率。"))
-	if not state.ledger.get_entries().is_empty(): lines.append("\n" + HudDetails.score_details(state.ledger.get_entries(), true))
+	if HudDetails.latest_scoring_entry(entries) != null: lines.append("\n" + HudDetails.score_details(entries, true))
 	return "\n\n".join(lines)

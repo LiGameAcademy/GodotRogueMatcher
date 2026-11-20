@@ -1,0 +1,128 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135/red-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_composite_boundaries.gd
+[0m* test_b01_match_commits_before_fixed_fuse_and_descendants_wait
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6, 7]).
+    [7] != [6, 7]  2 of 2 indexes do not match.  五连即时移除，后代未执行
+      at line 80
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 80
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6]).
+    [7] != [6]  1 of 1 indexes do not match.  固定Q不能重抽或多选R
+      at line 80
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+      at line 80
+[31m    [Failed]:  [0m[3] expected to equal [4]:  染色、五连、F爆破、Q爆破
+      at line 80
+SCRIPT ERROR: Out of bounds get index '3' (on base: 'Array[MatchResult]')
+   at: _boundary (res://tests/rules/test_composite_boundaries.gd:75)
+   GDScript backtrace (most recent call first):
+       [0] _boundary (res://tests/rules/test_composite_boundaries.gd:75)
+       [1] test_b01_match_commits_before_fixed_fuse_and_descendants_wait (res://tests/rules/test_composite_boundaries.gd:80)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] test_scripts (res://addons/gut/gut.gd:1030)
+       [5] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [6] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [7] main (res://addons/gut/cli/gut_cli.gd:284)
+       [8] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '3' (on base: 'Array[MatchResult]')
+      at line -1
+* test_b02_inner_return_does_not_release_descendants
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6, 7]).
+    [7] != [6, 7]  2 of 2 indexes do not match.  五连即时移除，后代未执行
+      at line 83
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 83
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6]).
+    [7] != [6]  1 of 1 indexes do not match.  固定Q不能重抽或多选R
+      at line 83
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+      at line 83
+[31m    [Failed]:  [0m[3] expected to equal [4]:  染色、五连、F爆破、Q爆破
+      at line 83
+SCRIPT ERROR: Out of bounds get index '3' (on base: 'Array[MatchResult]')
+   at: _boundary (res://tests/rules/test_composite_boundaries.gd:75)
+   GDScript backtrace (most recent call first):
+       [0] _boundary (res://tests/rules/test_composite_boundaries.gd:75)
+       [1] test_b02_inner_return_does_not_release_descendants (res://tests/rules/test_composite_boundaries.gd:83)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '3' (on base: 'Array[MatchResult]')
+      at line -1
+* test_nested_dynamic_leaves_sample_once_when_each_is_reached
+[31m    [Failed]:  [0m[2] expected to equal [1]:  
+      at line 103
+[31m    [Failed]:  [0m[7355174245191521625] expected to equal [-1998594183374298654]:  
+      at line 104
+[1m0/3 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_composite_boundaries.gd
+[0m- test_b01_match_commits_before_fixed_fuse_and_descendants_wait
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6, 7]).
+    [7] != [6, 7]  2 of 2 indexes do not match.  五连即时移除，后代未执行
+          at line 80
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 80
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6]).
+    [7] != [6]  1 of 1 indexes do not match.  固定Q不能重抽或多选R
+          at line 80
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+          at line 80
+[31m    [Failed]:  [0m[3] expected to equal [4]:  染色、五连、F爆破、Q爆破
+          at line 80
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '3' (on base: 'Array[MatchResult]')
+          at line -1
+- test_b02_inner_return_does_not_release_descendants
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6, 7]).
+    [7] != [6, 7]  2 of 2 indexes do not match.  五连即时移除，后代未执行
+          at line 83
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 83
+[31m    [Failed]:  [0mARRAY([7]) != ARRAY([6]).
+    [7] != [6]  1 of 1 indexes do not match.  固定Q不能重抽或多选R
+          at line 83
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+          at line 83
+[31m    [Failed]:  [0m[3] expected to equal [4]:  染色、五连、F爆破、Q爆破
+          at line 83
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '3' (on base: 'Array[MatchResult]')
+          at line -1
+- test_nested_dynamic_leaves_sample_once_when_each_is_reached
+[31m    [Failed]:  [0m[2] expected to equal [1]:  
+          at line 103
+[31m    [Failed]:  [0m[7355174245191521625] expected to equal [-1998594183374298654]:  
+          at line 104
+
+Totals
+------
+Scripts               1
+Tests                 3
+Passing Tests      none
+Failing Tests         3
+Asserts           20/34
+Time              0.193s
+
+
+[31m---- 3 failing tests ----
+[0m

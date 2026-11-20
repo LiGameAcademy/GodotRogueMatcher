@@ -1,0 +1,39 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/nut-audio-130/.godot/local-sync-tests/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_nut_audio.gd
+* test_all_public_cues_resolve_to_real_wav_files
+* test_match_pitch_caps_and_variants_alternate_without_rule_rng
+* test_paused_ui_cues_and_cancel_restore_pool_ownership
+* test_missing_optional_music_is_silent_and_valid
+* test_optional_music_loop_is_instance_local_and_scene_owned
+* test_actual_tree_pause_freezes_board_voice_but_keeps_reward_voice_live
+* test_retiring_feedback_returns_borrowed_voice_before_next_scene
+* test_paused_scene_voice_is_freed_after_natural_finish
+* test_external_ogg_path_plays_without_changing_imported_template
+9/9 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               1
+Tests                 9
+Passing Tests         9
+Asserts              88
+Time              2.195s
+
+
+---- All tests passed! ----
+

@@ -1,0 +1,76 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_snapshot_boundary_flow.gd
+[0m* test_real_continue_button_binds_input_state_and_rebuilds_without_rule_commits
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":94789,"frames":11,"freeze_usec":0,"maximum_gap_usec":43050,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":200874,"elapsed_usec":94789,"frames":11,"freeze_usec":0,"maximum_gap_usec":43050,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_choose_twice
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":106114,"frames":17,"freeze_usec":0,"maximum_gap_usec":15846,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":328848,"elapsed_usec":106114,"frames":17,"freeze_usec":0,"maximum_gap_usec":15846,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":98600,"frames":16,"freeze_usec":0,"maximum_gap_usec":8365,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":465044,"elapsed_usec":98600,"frames":16,"freeze_usec":0,"maximum_gap_usec":8365,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":86523,"frames":7,"freeze_usec":41906,"maximum_gap_usec":51411,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_exit_save_can_be_cancelled_without_releasing_worker_ownership
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":41779,"frames":8,"freeze_usec":0,"maximum_gap_usec":8061,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":204761,"elapsed_usec":41779,"frames":8,"freeze_usec":0,"maximum_gap_usec":8061,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":443869,"frames":58,"freeze_usec":52548,"maximum_gap_usec":57355,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_exit_failure_keeps_old_file_and_retry_reaches_the_exit_signal
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":62458,"frames":11,"freeze_usec":0,"maximum_gap_usec":9949,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":247288,"elapsed_usec":62458,"frames":11,"freeze_usec":0,"maximum_gap_usec":9949,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":64948,"frames":11,"freeze_usec":34525,"maximum_gap_usec":14793,"ok":false,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":118602,"frames":19,"freeze_usec":58652,"maximum_gap_usec":13390,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_new_run_requires_confirmation_and_old_identity_is_invalid_before_new_save
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":141506,"frames":5,"freeze_usec":40941,"maximum_gap_usec":122106,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":54390,"frames":9,"freeze_usec":0,"maximum_gap_usec":17281,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":208286,"elapsed_usec":54390,"frames":9,"freeze_usec":0,"maximum_gap_usec":17281,"ok":true,"resume_prepare_usec":0,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_real_full_board_terminal_failure_is_visible_and_retry_finishes_durable_invalidation
+* test_new_run_can_finish_persisted_pending_invalidation_after_restart
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":147435,"frames":1,"freeze_usec":49867,"maximum_gap_usec":147418,"ok":true,"stages":{"decode":{},"history_prime_usec":0,"package":{}}}
+* test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot
+SCRIPT ERROR: Invalid access to property or key 'payload_json' on a base object of type 'Dictionary'.
+   at: test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot (res://tests/integration/test_snapshot_boundary_flow.gd:355)
+   GDScript backtrace (most recent call first):
+       [0] test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot (res://tests/integration/test_snapshot_boundary_flow.gd:355)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid access to property or key 'payload_json' on a base object of type 'Dictionary'.
+      at line -1
+[1m9/10 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/integration/test_snapshot_boundary_flow.gd
+[0m- test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid access to property or key 'payload_json' on a base object of type 'Dictionary'.
+          at line -1
+
+Totals
+------
+Scripts               1
+Tests                10
+Passing Tests         9
+Failing Tests         1
+Asserts           109/110
+Time              28.921s
+
+
+[31m---- 1 failing tests ----
+[0m

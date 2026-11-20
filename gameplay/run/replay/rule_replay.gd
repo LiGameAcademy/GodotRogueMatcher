@@ -5,6 +5,11 @@ var error: String = ""
 var complete: bool = false
 var checked_records: int = 0
 var run: RunController
+var _records: Array[Dictionary] = []
+var _generated: RunRecorder
+var _index: int = 1
+var _prefix: bool = false
+var _active: bool = false
 
 func read_file(path: String) -> Array[Dictionary]:
 	var records: Array[Dictionary] = []
@@ -30,6 +35,20 @@ func read_file(path: String) -> Array[Dictionary]:
 		records.append(value)
 	return records
 
+## Verifies a separately decoded snapshot segment with the existing per-record rule comparator.
+## Caller must validate its anchor before invoking; no initialize or prefix replay is performed.
+func verify_snapshot_segment(records: Array[Dictionary], active: RunController, generated: RunRecorder) -> bool:
+	error = ""
+	complete = false
+	checked_records = 0
+	if records.is_empty() or records[0].get("kind") != "SnapshotHeader" or records[0].get("schema_version") != "run-snapshot-segment-v1": return _fail("invalid_snapshot_segment")
+	if generated.records.is_empty(): return _fail("missing_segment_recorder")
+	run = active
+	for index: int in range(1, records.size()):
+		if not _advance_record(index, records, generated): return false
+	if generated.records.size() != records.size(): return _fail("segment_truncated")
+	if not complete and (records.back().get("kind") != "Checkpoint" or not run.state.rule_error.is_empty()): return _fail("segment_not_checkpoint")
+	return true
 func replay_file(path: String) -> bool:
 	var records: Array[Dictionary] = read_file(path)
 	var read_error: String = error
@@ -47,7 +66,44 @@ func replay(records: Array[Dictionary]) -> bool:
 func restore_prefix(records: Array[Dictionary]) -> bool:
 	return _replay(records, true)
 
+## Starts an isolated prefix rebuild; callers must not adopt run before done and ok.
+## The owner freezes records for the operation; this class never mutates the input.
+func start_prefix(records: Array[Dictionary]) -> bool:
+	return _begin(records, true)
+
+## Bounded between records, never within a rule command. No scene or rendering dependency.
+func step_prefix(maximum_records: int = 4, budget_usec: int = 2000) -> Dictionary:
+	if not _active: return {"ok": false, "done": true, "reason": "replay_not_started"}
+	if maximum_records <= 0 or budget_usec <= 0:
+		_active = false
+		_fail("invalid_step_budget")
+		return {"ok": false, "done": true, "reason": error}
+	var started: int = Time.get_ticks_usec()
+	var processed: int = 0
+	while _index < _records.size():
+		if not _advance_record(_index, _records, _generated):
+			_active = false
+			return {"ok": false, "done": true, "reason": error}
+		_index += 1
+		processed += 1
+		if processed >= maximum_records or Time.get_ticks_usec() - started >= budget_usec: break
+	if _index < _records.size(): return {"ok": true, "done": false, "reason": ""}
+	var valid: bool = _finish_replay()
+	return {"ok": valid, "done": true, "reason": error}
+
 func _replay(records: Array[Dictionary], prefix: bool) -> bool:
+	if not _begin(records, prefix): return false
+	while _index < _records.size():
+		if not _advance_record(_index, _records, _generated):
+			_active = false
+			return false
+		_index += 1
+	return _finish_replay()
+
+func _begin(records: Array[Dictionary], prefix: bool) -> bool:
+	_active = false
+	_records = []
+	_generated = null
 	error = ""
 	complete = false
 	checked_records = 0
@@ -60,6 +116,12 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	var config: Dictionary = header.config
 	if header.get("rules_version") != RunSnapshot.RULES_VERSION or header.get("offer_version") != SkillOfferGenerator.version_for_mode(StringName(str(config.get("mode_id", "classic_endless")))) or header.get("content_version") != RunSnapshot.digest(config.get("skills")):
 		return _fail("record_version_mismatch")
+	if not header.get("engine_build") is String or header.engine_build != Engine.get_version_info().hash: return _fail("engine_build_mismatch")
+	if not header.get("platform") is String or header.platform != OS.get_name(): return _fail("platform_mismatch")
+	if not header.get("rng_scheme_version") is String or header.rng_scheme_version != RunRandomStreams.SCHEME_VERSION: return _fail("unsupported_rng_scheme")
+	var initial_random: RunRandomStreams = RunRandomStreams.from_data(header.get("rng"))
+	if initial_random == null: return _fail("invalid_random_streams")
+	if header.seed.to_int() < 0 or initial_random.master_seed != header.seed.to_int(): return _fail("invalid_master_seed")
 	for key: String in ["columns", "rows", "match_count"]:
 		if not CommandCodec.valid_integer(config.get(key)): return _fail("invalid_board_config")
 	var columns: int = config.columns.to_int()
@@ -71,59 +133,153 @@ func _replay(records: Array[Dictionary], prefix: bool) -> bool:
 	if not config.challenge.is_empty():
 		stage_config = StageConfig.from_record(config.challenge)
 		if stage_config == null: return _fail("invalid_stage_config")
-	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count), header.seed.to_int(), stage_config)
+	var templates: Array[MatchShapeTemplate] = []
+	if config.has("prototype_match_templates"):
+		if not config.prototype_match_templates is Array or config.prototype_match_templates.is_empty() or config.prototype_match_templates.size() > BoardMatchDetector.MAXIMUM_TEMPLATES:
+			return _fail("invalid_match_templates")
+		for value: Variant in config.prototype_match_templates:
+			var template: MatchShapeTemplate = MatchShapeTemplate.from_record(value)
+			if template == null: return _fail("invalid_match_templates")
+			templates.append(template)
+	var profile: StringName = &""
+	if config.has("prototype_profile"):
+		if config.prototype_profile not in [String(RunController.PROTOTYPE_PROFILE), String(RunController.PLUS_PROFILE), String(RunController.X_PROFILE), String(RunController.ZS_PROFILE), String(RunController.U_PROFILE), String(RunController.RING_PROFILE), String(RunController.SQUARE_PROFILE), String(RunController.MIXED_PROFILE), String(RunController.SCREENING_PROFILE), String(RunController.SCREENING_FIXED_PROFILE)]: return _fail("invalid_prototype_profile")
+		profile = StringName(config.prototype_profile)
+	if not header.get("metadata", {}) is Dictionary or not config.get("offer") is Dictionary: return _fail("configuration_mismatch")
+	var metadata: Dictionary = header.get("metadata", {})
+	var trial_config: OfferConfig = null
+	var baseline: OfferConfig = SkillOfferGenerator.CONFIG
+	if metadata.has("offer_trial") or config.offer.get("related_gain") != baseline.related_gain or config.offer.get("gap_gain") != baseline.gap_gain:
+		if not _valid_trial_source(records): return _fail("invalid_offer_trial_binding")
+		trial_config = OfferConfig.restore_trial(config.offer, metadata, baseline)
+		if trial_config == null: return _fail("invalid_offer_trial_binding")
+	run = RunController.new(BoardRules.new(BoardState.new(columns, rows), match_count, templates), header.seed.to_int(), stage_config, profile, trial_config)
 	run.state.run_id = header.run_id
 	if RunSnapshot.digest(RunSnapshot.config(run)) != header.get("config_hash") or RunSnapshot.digest(config) != header.get("config_hash"):
 		return _fail("configuration_mismatch")
-	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"]: return _fail("unsupported_initialization")
+	if header.get("initialization") not in ["normal", "fixture_f6", "fixture_demolition", "fixture_dye", "fixture_line", "fixture_line_score", "fixture_line_span", "fixture_line_cross", "fixture_manual_limit", "fixture_transform"] + RunController.SHAPE_INITIALIZATIONS + RunController.PLUS_INITIALIZATIONS + RunController.X_INITIALIZATIONS + RunController.ZS_INITIALIZATIONS + RunController.U_INITIALIZATIONS + RunController.RING_INITIALIZATIONS + RunController.SQUARE_INITIALIZATIONS + MixedTemplateDemo.MODES + ScreeningDeck.modes(): return _fail("unsupported_initialization")
 	run.initialize(header.initialization)
+	if RunSnapshot.canonical(run.state.random_streams.data()) != RunSnapshot.canonical(header.rng): return _fail("initial_random_mismatch")
 	if RunSnapshot.canonical(RunSnapshot.capture(run)) != RunSnapshot.canonical(header.get("initial")): return _fail("initial_state_mismatch")
 	var generated: RunRecorder = RunRecorder.new()
 	run.recorder = generated
-	generated.begin(run, String(header.get("source", "replay")), false)
-	for index: int in range(1, records.size()):
-		var expected: Dictionary = records[index]
-		if not CommandCodec.valid_integer(expected.get("seq")) or expected.seq.to_int() != index + 1:
-			return _fail("seq=%d invalid_sequence" % (index + 1))
-		if generated.records.size() <= index:
-			match expected.get("kind"):
-				"CommandAttempt":
-					if not expected.get("command") is Dictionary: return _fail("invalid_command_payload")
-					var command: RunCommand = CommandCodec.decode(expected.command)
-					if command == null: return _fail("seq=%d invalid_command" % (index + 1))
-					run.execute_command(command)
-				"Offer": run.prepare_offer()
-				"Diagnostic":
-					if not expected.get("reason") is String or expected.reason.is_empty(): return _fail("invalid_diagnostic")
-					run.report_error(expected.reason)
-				"RuleResult":
-					if expected.has("stage"): run.advance()
-					else: return _fail("seq=%d missing_command_result" % (index + 1))
-				"Footer":
-					if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
-					if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"challenge_completed"]):
-						return _fail("invalid_completed_footer")
-					if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
-						return _fail("invalid_completed_footer")
-					if expected.status == "rule_error" and run.state.rule_error.is_empty(): return _fail("invalid_rule_error_footer")
-					if expected.status == "rule_error" and expected.get("reason") != run.state.rule_error: return _fail("invalid_rule_error_reason")
-					if expected.status in ["censored", "abandoned"] and run.state.is_game_over: return _fail("invalid_unfinished_footer")
-					generated.finish(run, expected.status, String(expected.get("reason", "")))
-				_: return _fail("seq=%d unsupported_or_missing_record" % (index + 1))
-		if generated.records.size() <= index: return _fail("seq=%d phase_cannot_advance" % (index + 1))
-		var actual: Dictionary = generated.records[index]
-		var expected_value: Dictionary = _without_time(expected)
-		var actual_value: Dictionary = _without_time(actual)
-		# v1首批记录没有表现路径；规则状态与事件仍逐项验证。
-		if not expected.has("move"): actual_value.erase("move")
-		if RunSnapshot.canonical(expected_value) != RunSnapshot.canonical(actual_value):
-			return _fail("seq=%d phase=%s %s" % [index + 1, RunState.Phase.keys()[run.state.phase], _difference(expected_value, actual_value, "")])
-		checked_records = index + 1
-		if expected.get("kind") == "Footer":
-			if index != records.size() - 1: return _fail("records_after_footer")
-			if not expected.get("record_complete", false): return _fail("record_write_incomplete")
-			complete = true
-	if prefix:
+	generated.begin(run, String(header.get("source", "replay")), false, String(header.get("build", "replay")))
+	_records = records
+	_generated = generated
+	_index = 1
+	_prefix = prefix
+	_active = true
+	return true
+
+func _advance_record(index: int, records: Array[Dictionary], generated: RunRecorder) -> bool:
+	var expected: Dictionary = records[index]
+	if not CommandCodec.valid_integer(expected.get("seq")) or expected.seq.to_int() != index + 1:
+		return _fail("seq=%d invalid_sequence" % (index + 1))
+	if generated.records.size() <= index:
+		match expected.get("kind"):
+			"CommandAttempt":
+				if not expected.get("command") is Dictionary: return _fail("invalid_command_payload")
+				var command: RunCommand = CommandCodec.decode(expected.command)
+				if command == null: return _fail("seq=%d invalid_command" % (index + 1))
+				run.execute_command(command)
+			"Offer": run.prepare_offer()
+			"Diagnostic":
+				if not expected.get("reason") is String or expected.reason.is_empty(): return _fail("invalid_diagnostic")
+				run.report_error(expected.reason)
+			"RuleResult":
+				if expected.has("stage"): run.advance()
+				else: return _fail("seq=%d missing_command_result" % (index + 1))
+			"Footer":
+				if expected.get("status") not in ["completed", "abandoned", "rule_error", "censored"]: return _fail("invalid_footer_status")
+				if expected.status == "completed" and (not run.state.is_game_over or not run.state.rule_error.is_empty() or expected.get("reason") != String(run.state.end_reason) or run.state.end_reason not in [&"board_full", &"challenge_completed"]):
+					return _fail("invalid_completed_footer")
+				if expected.status == "completed" and run.state.end_reason == &"board_full" and not run.state.rules.state.get_empty_coordinates().is_empty():
+					return _fail("invalid_completed_footer")
+				if expected.status == "rule_error" and run.state.rule_error.is_empty(): return _fail("invalid_rule_error_footer")
+				if expected.status == "rule_error" and expected.get("reason") != run.state.rule_error: return _fail("invalid_rule_error_reason")
+				if expected.status in ["censored", "abandoned"] and run.state.is_game_over: return _fail("invalid_unfinished_footer")
+				generated.finish(run, expected.status, String(expected.get("reason", "")))
+			_: return _fail("seq=%d unsupported_or_missing_record" % (index + 1))
+	if generated.records.size() <= index: return _fail("seq=%d phase_cannot_advance" % (index + 1))
+	var actual: Dictionary = generated.records[index]
+	var expected_value: Dictionary = _without_time(expected)
+	var actual_value: Dictionary = _without_time(actual)
+	# v1首批记录没有表现路径；规则状态与事件仍逐项验证。
+	if not expected.has("move"): actual_value.erase("move")
+	# Attempt-denominator traces are additive; legacy parents without them still restore.
+	_align_legacy_activation_attempts(expected_value, actual_value)
+	if not _record_matches(expected_value, actual_value, records[0].get("kind") == "Header"):
+		return _fail("seq=%d phase=%s %s" % [index + 1, RunState.Phase.keys()[run.state.phase], _difference(expected_value, actual_value, "")])
+	checked_records = index + 1
+	if expected.get("kind") == "Footer":
+		if index != records.size() - 1: return _fail("records_after_footer")
+		if not expected.get("record_complete", false): return _fail("record_write_incomplete")
+		complete = true
+	return true
+
+## Normal v1 JSONL used short float output. Compare its exact one-write/read projection,
+## not an epsilon: serializing a parsed tiny float again can round a second time.
+## Snapshot segments use full precision and must keep the direct comparison.
+func _record_matches(expected: Dictionary, actual: Dictionary, short_json: bool) -> bool:
+	var canonical_expected: String = RunSnapshot.canonical(expected)
+	if canonical_expected == RunSnapshot.canonical(actual): return true
+	if not short_json: return false
+	var persisted: Variant = JSON.parse_string(JSON.stringify(actual, "", true))
+	return persisted is Dictionary and canonical_expected == RunSnapshot.canonical(persisted)
+
+## A trial fixture must prove its original bot prefix and the same frozen legal reward.
+## Parent source is bot, so this verification cannot recursively accept fixture ancestry.
+func _valid_trial_source(records: Array[Dictionary]) -> bool:
+	var header: Dictionary = records[0]
+	if header.get("source") == "bot": return true
+	if header.get("source") != "fixture": return false
+	var metadata: Dictionary = header.get("metadata", {})
+	var proof: Variant = metadata.get("paired_trial")
+	if not proof is Dictionary or not proof.get("parent_header") is Dictionary: return false
+	if metadata.get("experiment_id") != "legal-choice-window-v1" or metadata.get("collection_context") != "paired_window": return false
+	if metadata.get("variant_id") not in ["treatment", "control"]: return false
+	var parent_header: Dictionary = proof.parent_header
+	if parent_header.get("source") != "bot" or not parent_header.get("run_id") is String: return false
+	var parent_id: String = parent_header.run_id
+	if metadata.get("parent_run_id") != parent_id or parent_header.get("config_hash") != header.get("config_hash"): return false
+	if not parent_header.get("metadata") is Dictionary or RunSnapshot.canonical(parent_header.metadata.get("offer_trial")) != RunSnapshot.canonical(metadata.get("offer_trial")): return false
+	if metadata.get("parent_commit_id") != parent_header.metadata.get("commit_id", "unknown"): return false
+	if not CommandCodec.valid_integer(proof.get("prefix_records")) or proof.get("horizon") not in ["20", "50"]: return false
+	var count: int = proof.prefix_records.to_int()
+	if count < 2 or count > records.size(): return false
+	for key: String in ["strategy_seed", "window_command_limit", "window_timeout_ms"]:
+		if not CommandCodec.valid_integer(metadata.get(key)) or metadata[key].to_int() < 0: return false
+	if metadata.get("strategy") not in ["greedy-v1+hold-target-v1", "random-legal-v1+hold-target-v1"]: return false
+	if not metadata.get("bot_config") is Dictionary or metadata.bot_config.get("window_policy") != "legal-choice-window-v1": return false
+	if not proof.get("target") is String or not proof.get("control") is String or proof.target == proof.control: return false
+	var strategy: String = "greedy" if metadata.strategy == "greedy-v1+hold-target-v1" else "random"
+	var pair_id: String = RunSnapshot.digest(["legal-choice-window-v1", parent_id, count, proof.target, proof.control, int(proof.horizon), strategy, int(metadata.strategy_seed), int(metadata.window_command_limit), int(metadata.window_timeout_ms)]).left(24)
+	if header.run_id != parent_id + "-" + pair_id + "-" + str(metadata.variant_id): return false
+	var parent_records: Array[Dictionary] = []
+	parent_records.assign(records.slice(0, count).duplicate(true))
+	parent_records[0] = parent_header.duplicate(true)
+	for row: Dictionary in parent_records:
+		if row.get("kind") == "CommandAttempt":
+			if not row.get("command") is Dictionary: return false
+			row.command.run_id = parent_id
+	var parent: RuleReplay = RuleReplay.new()
+	if not parent.restore_prefix(parent_records): return false
+	var offer: SkillOffer = parent.run.state.rewards.active_offer
+	if offer == null or str(offer.reward_id) != proof.get("reward_id") or str(offer.offer_id) != proof.get("offer_id"): return false
+	if not offer.targets.has(StringName(proof.target)) or not offer.targets.has(StringName(proof.control)): return false
+	if records.size() > count:
+		var command: Variant = records[count].get("command")
+		if records[count].get("kind") != "CommandAttempt" or not command is Dictionary: return false
+		var selected: String = proof.target if metadata.variant_id == "treatment" else proof.control
+		if command.get("type") != "choose" or command.get("skill_id") != selected or command.get("reward_id") != proof.reward_id or command.get("offer_id") != proof.offer_id: return false
+	return true
+
+func _finish_replay() -> bool:
+	_active = false
+	var records: Array[Dictionary] = _records
+	var generated: RunRecorder = _generated
+	var header: Dictionary = records[0]
+	if _prefix:
 		if complete or records.back().get("kind") != "Checkpoint" or generated.records.size() != records.size(): return _fail("unsafe_prefix_boundary")
 		if run.state.is_game_over or run.state.phase not in [RunState.Phase.INPUT, RunState.Phase.REWARDS]: return _fail("unsafe_prefix_phase")
 		# Header元数据不参与规则比较，但后续工具记录必须保留来源。
@@ -138,6 +294,28 @@ func _without_time(record: Dictionary) -> Dictionary:
 	result.erase("elapsed_ms")
 	if result.get("kind") == "Footer": result.erase("times")
 	return result
+
+## Pre-attempt records omit reject traces and the attempt flag. Comparison drops those additives only when expected never used the schema; new records still compare strictly.
+func _align_legacy_activation_attempts(expected: Dictionary, actual: Dictionary) -> void:
+	if expected.get("kind") != "RuleResult":
+		return
+	if not expected.get("activations") is Array or not actual.get("activations") is Array:
+		return
+	var expected_activations: Array = expected.activations
+	for entry: Variant in expected_activations:
+		if entry is Dictionary and (entry as Dictionary).has("attempt"):
+			return
+	var filtered: Array = []
+	for entry: Variant in actual.activations:
+		if not entry is Dictionary:
+			continue
+		var row: Dictionary = (entry as Dictionary).duplicate(true)
+		row.erase("attempt")
+		var reason: String = String(row.get("reason", ""))
+		if not bool(row.get("matched", false)) and reason in ["condition_rejected", "trigger_limit_reached"]:
+			continue
+		filtered.append(row)
+	actual.activations = filtered
 
 func _difference(expected: Variant, actual: Variant, path: String) -> String:
 	if expected is Dictionary and actual is Dictionary:

@@ -48,8 +48,15 @@ func test_all_types_freeze_zero_one_two_three_and_more_without_replacement() -> 
 			var rng_before: int = run.state.rewards.target_random.state
 			var result: CommandResult = run.execute_command(_command(run, card))
 			assert_eq(result.accepted, count > 0, result.reason)
+			if count == 0:
+				assert_eq(result.reason, "offer_replaced", "空冻结组已全失效，由本局重建")
+				assert_not_null(result.offer)
+				assert_eq(result.offer.reward_id, offer.reward_id)
+				assert_eq(result.offer.replaces_offer_id, offer.offer_id)
+				assert_eq(run.state.pending_rewards, 1)
+				assert_eq(run.state.rewards.consumed_count, 2)
+				continue
 			assert_eq(run.state.rewards.target_random.state, rng_before)
-			if count == 0: continue
 			assert_eq(result.skill.transformed.size(), mini(count, 3))
 			assert_true(result.skill.created.is_empty())
 			assert_true(result.skill.removed.is_empty())
@@ -189,7 +196,9 @@ func test_telemetry_records_transformation_without_counting_births_removals_or_s
 func test_composite_keeps_both_batches_of_transformation_results() -> void:
 	var run: RunController = _run(6)
 	var effect: CompositeEffect = CompositeEffect.new()
-	effect.children = [CARDS[0].choice_effect, CARDS[1].choice_effect]
+	var second: TransformMaterialEffect = CARDS[1].choice_effect.duplicate() as TransformMaterialEffect
+	second.reselect_after_previous = true
+	effect.children = [CARDS[0].choice_effect, second]
 	var frozen: CompositeSkillTarget = effect.freeze(SkillRules.effect_context(run.state), run.state.rewards.target_random)
 	var result: SkillApplyResult = SkillApplyResult.new()
 	assert_eq(AbilityEffectRunner.preflight(run, effect, frozen), "")
@@ -197,3 +206,17 @@ func test_composite_keeps_both_batches_of_transformation_results() -> void:
 	assert_eq(result.transformed.size(), 6)
 	assert_eq(run.state.explosion.instances.size(), 3)
 	assert_eq(run.state.line_clear.instances.size(), 3)
+
+func test_fixed_conversion_keeps_invalidated_sources_without_resampling() -> void:
+	var run: RunController = _run(6)
+	var effect: TransformMaterialEffect = CARDS[0].choice_effect
+	var random: RandomNumberGenerator = run.state.rewards.target_random
+	var frozen: SkillTarget = effect.freeze(SkillRules.effect_context(run.state), random)
+	var result: SkillApplyResult = SkillApplyResult.new()
+	assert_eq(AbilityEffectRunner.apply_skill_effect(run, effect, frozen, result), "")
+	var cursor: int = random.state
+	var refreshed: SkillTarget = effect.refresh_after_previous(SkillRules.effect_context(run.state), frozen, random)
+	assert_same(refreshed, frozen)
+	assert_eq(random.state, cursor)
+	assert_eq(effect.build(SkillRules.effect_context(run.state), refreshed).error, "原定转化目标已经失效")
+	assert_eq(result.transformed.size(), 3)

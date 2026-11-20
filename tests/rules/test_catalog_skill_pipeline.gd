@@ -13,6 +13,8 @@ func _run(skill: SkillDefinition) -> RunController:
 	run.state.explosion.unlocked = true
 	for prerequisite: StringName in [&"core_manual_detonation", &"fuse_relay", &"match_dye_echo"]:
 		run.state.rewards.acquired[prerequisite] = 1
+	run.state.rewards.acquired.erase(skill.skill_id)
+	if skill.skill_id != &"match_dye_echo": run.state.dye.upgrades[&"match_dye_echo"] = 1
 	run.state.rewards.consumed_count = 5
 	for color: int in range(5):
 		run.state.rules.place_piece(Vector2i(color, 1), color)
@@ -57,7 +59,7 @@ func test_every_catalog_card_uses_command_pipeline_and_records_all_score_events(
 			assert_true(run.state.line_clear.unlocked(axis), String(skill.skill_id))
 		assert_eq(run.state.rule_error, "", String(skill.skill_id))
 		assert_eq(run.state.pending_rewards, 0)
-		assert_eq(run.state.rewards.acquired.get(skill.skill_id, 0), 1 if skill.skill_id not in [&"core_manual_detonation", &"fuse_relay", &"match_dye_echo"] else 2)
+		assert_eq(run.state.rewards.acquired.get(skill.skill_id, 0), 1)
 		assert_eq(RunSnapshot.digest(RunSnapshot.config(run)), config_before)
 		var recorded_score: int = 0
 		var found_result: bool = false

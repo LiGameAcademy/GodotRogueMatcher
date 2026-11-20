@@ -1,0 +1,76 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/o3-fixed-122/.godot/o3-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_score_ledger.gd
+[0m* test_lengths_use_confirmed_formula
+* test_multiplier_extra_and_event_floor
+* test_independent_and_crossed_groups_score_separately
+* test_entries_are_copies_and_sum_matches_total
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_manual_line_clear.gd
+[0m* test_short_sweeps_score_one_two_four_and_five_without_match_bonuses
+* test_short_sweep_applies_global_multiplier_and_extra
+* test_unlock_card_needs_either_supply_and_uses_shared_acquisition_pipeline
+* test_manual_row_and_column_cost_one_action_refill_and_activate_once
+* test_refill_cost_stays_previewed_when_this_action_increases_pressure
+* test_goal_passes_only_after_normal_refill_and_full_action_settlement
+* test_empty_sweep_still_consumes_action_and_refills_without_award
+* test_rejections_leave_occupancy_score_and_random_unchanged
+* test_budget_rejection_precedes_manual_consumption
+* test_manual_sweep_fuse_chain_keeps_single_source_cost_and_normal_scores
+* test_command_codec_record_file_replay_and_analysis_cover_manual_action
+* test_bots_enumerate_manual_actions_without_touching_game_random
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                28
+Passing Tests        28
+Asserts             946
+Time              4.362s
+
+
+[32m---- All tests passed! ----
+[0m

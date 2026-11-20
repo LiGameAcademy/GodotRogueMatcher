@@ -1,0 +1,83 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/issue192-screening-return/.godot/issue192-user/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_screening_return_mouse.gd
+[0m* test_mouse_return_four_size_effect_combinations_preserve_reward_and_replay
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mISSUE192_AUTOMATED_RETEST 1280x720-low-false record=user://screening_records/119-34252-1793262897818000-7046223.jsonl
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mISSUE192_AUTOMATED_RETEST 1280x720-low-true record=user://screening_records/119-34252-1793262901193000-10421779.jsonl
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[31m    [Failed] [0m
+      at line 82
+[31m    [Failed] [0m
+      at line 83
+[31m    [Failed] [0m
+      at line 84
+ISSUE192_AUTOMATED_RETEST 1024x640-low-false record=user://screening_records/119-34252-1793262904084000-13312824.jsonl
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0m[31m    [Failed] [0m
+      at line 82
+[31m    [Failed] [0m
+      at line 83
+[31m    [Failed] [0m
+      at line 84
+ISSUE192_AUTOMATED_RETEST 1024x640-low-true record=user://screening_records/119-34252-1793262907561000-16788502.jsonl
+SCREENING_PLAYGROUND_READY t overlap
+* test_hidden_panel_restores_on_popup_destruction_and_fixture_rebuild
+SCREENING_PLAYGROUND_READY baseline free
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY t overlap
+SCREENING_PLAYGROUND_READY t overlap
+[33m    --- Awaiting callable to return TRUE or 6.0s.   ---
+[0mSCREENING_PLAYGROUND_READY zs free
+[1m1/2 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/integration/test_screening_return_mouse.gd
+[0m- test_mouse_return_four_size_effect_combinations_preserve_reward_and_replay
+[31m    [Failed]:  [0m
+          at line 82
+[31m    [Failed]:  [0m
+          at line 83
+[31m    [Failed]:  [0m
+          at line 84
+[31m    [Failed]:  [0m
+          at line 82
+[31m    [Failed]:  [0m
+          at line 83
+[31m    [Failed]:  [0m
+          at line 84
+
+Totals
+------
+Scripts               1
+Tests                 2
+Passing Tests         1
+Failing Tests         1
+Asserts           118/124
+Time              26.072s
+
+
+[31m---- 1 failing tests ----
+[0m

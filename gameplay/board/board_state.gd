@@ -33,6 +33,21 @@ func get_piece_count() -> int:
 func next_piece_id() -> int:
 	return _next_piece_id
 
+## Construction-only restore. Validate the complete detached board before publishing it.
+func restore_checkpoint(pieces: Array[PieceState], next_id: int) -> bool:
+	if not _pieces.is_empty() or next_id <= 0 or pieces.size() > columns * rows: return false
+	var restored: Dictionary[int, PieceState] = {}
+	var occupied: Dictionary[Vector2i, int] = {}
+	for piece: PieceState in pieces:
+		if piece == null or piece.piece_id <= 0 or piece.piece_id >= next_id or restored.has(piece.piece_id): return false
+		if not is_valid_coordinate(piece.coordinate) or occupied.has(piece.coordinate) or piece.match_color < 0 or piece.match_color >= 5: return false
+		restored[piece.piece_id] = piece.copy()
+		occupied[piece.coordinate] = piece.piece_id
+	_pieces = restored
+	_occupancy = occupied
+	_next_piece_id = next_id
+	return true
+
 func get_empty_coordinates() -> Array[Vector2i]:
 	var coordinates: Array[Vector2i] = []
 	for x: int in range(columns):

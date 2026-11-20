@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+greedy 1/3 seed=1000 status=completed score=629 moves=43 replay=OK
+greedy 2/3 seed=1001 status=completed score=300 moves=34 replay=OK
+greedy 3/3 seed=1002 status=completed score=250 moves=31 replay=OK
+REPORT=.godot/o1-unified/frozen-batch/report

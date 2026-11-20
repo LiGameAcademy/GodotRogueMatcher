@@ -1,0 +1,9 @@
+Historical local #187 verification log (.godot/issue129/final.log), excerpt only:
+Leaked instance: AudioStreamWAV:9223372473767039129 - Reference count: 1
+Leaked instance: AudioStreamWAV:9223372826474451498 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223390335294509964 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223390342324166279 - Reference count: 1
+Resource still in use: res://gameplay/presentation/audio/match.tres (AudioStreamWAV)
+Resource still in use: res://gameplay/presentation/audio/reward.tres (AudioStreamWAV)
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 2 resources still in use at exit.

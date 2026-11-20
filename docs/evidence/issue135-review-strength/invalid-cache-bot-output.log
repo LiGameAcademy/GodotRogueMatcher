@@ -1,0 +1,123 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Could not find type "RemovalStrength" in the current scope.
+   at: GDScript::reload (res://gameplay/skills/blast_request.gd:9)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/effects/explode_effect.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/ability_trigger_adapter.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/skill_level_definition.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/skill_definition.gd:0)
+ERROR: Failed to load script "res://gameplay/progression/skill_definition.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Could not resolve external class member "strength".
+   at: GDScript::reload (res://gameplay/skills/ability_resolver.gd:195)
+SCRIPT ERROR: Parse Error: Identifier "RemovalStrength" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/skills/ability_resolver.gd:269)
+SCRIPT ERROR: Parse Error: Identifier "RemovalStrength" not declared in the current scope.
+   at: GDScript::reload (res://gameplay/skills/ability_resolver.gd:346)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/dye/dye_rules.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/effects/dye_material_effect.gd:0)
+ERROR: Failed to load script "res://gameplay/progression/effects/dye_material_effect.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController._init (res://gameplay/run/run_controller.gd:36)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://gameplay/run/run_controller.gd:36)
+       [1] @implicit_new (res://gameplay/run/game_manager.gd:4)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController._init (res://gameplay/run/run_controller.gd:36)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://gameplay/run/run_controller.gd:36)
+       [1] play (res://tools/bot_testing/bot_runner.gd:10)
+       [2] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'resolve' in base 'Nil'.
+   at: RunController._resolve_groups (res://gameplay/run/run_controller.gd:164)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_groups (res://gameplay/run/run_controller.gd:164)
+       [1] resolve_matches_at (res://gameplay/run/run_controller.gd:66)
+       [2] spawn_one (res://gameplay/run/run_controller.gd:153)
+       [3] spawn_batch (res://gameplay/run/run_controller.gd:114)
+       [4] initialize (res://gameplay/run/run_controller.gd:179)
+       [5] play (res://tools/bot_testing/bot_runner.gd:11)
+       [6] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'resolve' in base 'Nil'.
+   at: RunController._resolve_groups (res://gameplay/run/run_controller.gd:164)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_groups (res://gameplay/run/run_controller.gd:164)
+       [1] resolve_matches_at (res://gameplay/run/run_controller.gd:66)
+       [2] spawn_one (res://gameplay/run/run_controller.gd:153)
+       [3] spawn_batch (res://gameplay/run/run_controller.gd:114)
+       [4] initialize (res://gameplay/run/run_controller.gd:179)
+       [5] play (res://tools/bot_testing/bot_runner.gd:11)
+       [6] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'resolve' in base 'Nil'.
+   at: RunController._resolve_groups (res://gameplay/run/run_controller.gd:164)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_groups (res://gameplay/run/run_controller.gd:164)
+       [1] resolve_matches_at (res://gameplay/run/run_controller.gd:66)
+       [2] spawn_one (res://gameplay/run/run_controller.gd:153)
+       [3] spawn_batch (res://gameplay/run/run_controller.gd:114)
+       [4] initialize (res://gameplay/run/run_controller.gd:179)
+       [5] play (res://tools/bot_testing/bot_runner.gd:11)
+       [6] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'resolve' in base 'Nil'.
+   at: RunController._resolve_groups (res://gameplay/run/run_controller.gd:164)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_groups (res://gameplay/run/run_controller.gd:164)
+       [1] resolve_matches_at (res://gameplay/run/run_controller.gd:66)
+       [2] spawn_one (res://gameplay/run/run_controller.gd:153)
+       [3] spawn_batch (res://gameplay/run/run_controller.gd:114)
+       [4] initialize (res://gameplay/run/run_controller.gd:179)
+       [5] play (res://tools/bot_testing/bot_runner.gd:11)
+       [6] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'resolve' in base 'Nil'.
+   at: RunController._resolve_groups (res://gameplay/run/run_controller.gd:164)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_groups (res://gameplay/run/run_controller.gd:164)
+       [1] resolve_matches_at (res://gameplay/run/run_controller.gd:66)
+       [2] spawn_one (res://gameplay/run/run_controller.gd:153)
+       [3] spawn_batch (res://gameplay/run/run_controller.gd:114)
+       [4] initialize (res://gameplay/run/run_controller.gd:179)
+       [5] play (res://tools/bot_testing/bot_runner.gd:11)
+       [6] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid access to property or key 'config' on a base object of type 'Nil'.
+   at: config (res://gameplay/run/recording/run_snapshot.gd:48)
+   GDScript backtrace (most recent call first):
+       [0] config (res://gameplay/run/recording/run_snapshot.gd:48)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:36)
+       [2] play (res://tools/bot_testing/bot_runner.gd:18)
+       [3] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid access to property or key 'skills' on a base object of type 'Dictionary'.
+   at: RunRecorder.begin (res://gameplay/run/recording/run_recorder.gd:38)
+   GDScript backtrace (most recent call first):
+       [0] begin (res://gameplay/run/recording/run_recorder.gd:38)
+       [1] play (res://tools/bot_testing/bot_runner.gd:18)
+       [2] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'pending_removals' in base 'Nil'.
+   at: capture (res://gameplay/run/recording/run_snapshot.gd:139)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://gameplay/run/recording/run_snapshot.gd:139)
+       [1] execute_command (res://gameplay/run/run_controller.gd:214)
+       [2] play (res://tools/bot_testing/bot_runner.gd:60)
+       [3] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid call. Nonexistent function 'validation_error' in base 'Nil'.
+   at: RunController.execute_command (res://gameplay/run/run_controller.gd:232)
+   GDScript backtrace (most recent call first):
+       [0] execute_command (res://gameplay/run/run_controller.gd:232)
+       [1] play (res://tools/bot_testing/bot_runner.gd:60)
+       [2] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+   at: BotRunner.play (res://tools/bot_testing/bot_runner.gd:62)
+   GDScript backtrace (most recent call first):
+       [0] play (res://tools/bot_testing/bot_runner.gd:62)
+       [1] _run (res://tools/bot_testing/batch_job.gd:63)
+SCRIPT ERROR: Invalid access to property or key 'path' on a base object of type 'Nil'.
+   at: _run (res://tools/bot_testing/batch_job.gd:66)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tools/bot_testing/batch_job.gd:66)

@@ -1,0 +1,163 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/validation/np/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_run_state_snapshot.gd
+[0m* test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+SCRIPT ERROR: Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+   at: decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+       [1] test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state (res://tests/rules/test_run_state_snapshot.gd:42)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] test_scripts (res://addons/gut/gut.gd:1030)
+       [5] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [6] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [7] main (res://addons/gut/cli/gut_cli.gd:284)
+       [8] _init (res://addons/gut/gut_cmdln.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state (res://tests/rules/test_run_state_snapshot.gd:43)
+   GDScript backtrace (most recent call first):
+       [0] test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state (res://tests/rules/test_run_state_snapshot.gd:43)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+      at line -1
+* test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+SCRIPT ERROR: Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+   at: decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+       [1] save (res://services/run_checkpoint/run_state_snapshot.gd:68)
+       [2] test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history (res://tests/rules/test_run_state_snapshot.gd:78)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: save (res://services/run_checkpoint/run_state_snapshot.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] save (res://services/run_checkpoint/run_state_snapshot.gd:69)
+       [1] test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history (res://tests/rules/test_run_state_snapshot.gd:78)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history (res://tests/rules/test_run_state_snapshot.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history (res://tests/rules/test_run_state_snapshot.gd:79)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+    [3] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+      at line -1
+ERROR: Couldn't open directory at path "user://snapshot-input-tests/25236-5803362".
+   at: get_files_at (core/io/dir_access.cpp:578)
+   GDScript backtrace (most recent call first):
+       [0] after_each (res://tests/rules/test_run_state_snapshot.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:629)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+SCRIPT ERROR: Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+   at: decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+       [1] test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate (res://tests/rules/test_run_state_snapshot.gd:114)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate (res://tests/rules/test_run_state_snapshot.gd:114)
+   GDScript backtrace (most recent call first):
+       [0] test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate (res://tests/rules/test_run_state_snapshot.gd:114)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+      at line -1
+* test_unsupported_phase_and_legacy_slot_are_preserved
+SCRIPT ERROR: Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+   at: decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://services/run_checkpoint/run_state_snapshot.gd:32)
+       [1] save (res://services/run_checkpoint/run_state_snapshot.gd:68)
+       [2] test_unsupported_phase_and_legacy_slot_are_preserved (res://tests/rules/test_run_state_snapshot.gd:123)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: save (res://services/run_checkpoint/run_state_snapshot.gd:69)
+   GDScript backtrace (most recent call first):
+       [0] save (res://services/run_checkpoint/run_state_snapshot.gd:69)
+       [1] test_unsupported_phase_and_legacy_slot_are_preserved (res://tests/rules/test_run_state_snapshot.gd:123)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: test_unsupported_phase_and_legacy_slot_are_preserved (res://tests/rules/test_run_state_snapshot.gd:124)
+   GDScript backtrace (most recent call first):
+       [0] test_unsupported_phase_and_legacy_slot_are_preserved (res://tests/rules/test_run_state_snapshot.gd:124)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+    [3] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+      at line -1
+[1m0/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_run_state_snapshot.gd
+[0m- test_initial_max_seed_restores_without_initialize_and_owns_all_mutable_state
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+          at line -1
+- test_real_file_restore_after_normal_play_keeps_multiple_next_commands_equal_without_history
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+    [3] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+          at line -1
+- test_rehashed_bad_state_and_missing_stream_never_repair_into_a_candidate
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+          at line -1
+- test_unsupported_phase_and_legacy_slot_are_preserved
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid type in function 'keys' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+    [2] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+    [3] <engine-2>Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+          at line -1
+
+Totals
+------
+Scripts               1
+Tests                 4
+Passing Tests      none
+Failing Tests         4
+Asserts           68/72
+Time              1.614s
+
+
+[31m---- 4 failing tests ----
+[0m

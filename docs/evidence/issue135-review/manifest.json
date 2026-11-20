@@ -1,0 +1,77 @@
+[
+  {
+    "file": "bot-output.log",
+    "bytes": 382,
+    "sha256": "1c379634be9fc0dfaf4d92858fb0ce035a2fb5ec1d2ae80c6a7e7627fcc681aa"
+  },
+  {
+    "file": "bot-record.jsonl",
+    "bytes": 3325445,
+    "sha256": "f29a78402d5259fb85a238c4cc43f78c11b5dc8ae54b78f0bbd3457a4e81ed03"
+  },
+  {
+    "file": "bot-runs.csv",
+    "bytes": 671,
+    "sha256": "557027d80b1850261a47aec5994b1b79c5b8bde42e60c84143c04ee3262eb14f"
+  },
+  {
+    "file": "bot-summary.json",
+    "bytes": 2366,
+    "sha256": "ab487f8126b55d7f9011f0fdc6e03aff9881953e517bfadbd43514a441f89a26"
+  },
+  {
+    "file": "first-rules-output.log",
+    "bytes": 45932,
+    "sha256": "5e43bf2b4d4ecb0fc9f3a74ba5583b176e5a1bacba9b52d67f091523cd8e3768"
+  },
+  {
+    "file": "full-engine.log",
+    "bytes": 51718,
+    "sha256": "79a06a5a60c83aad0aaca81c6ced6f04925adf69f78d59413e7a64d2f1d7a518"
+  },
+  {
+    "file": "full-output.log",
+    "bytes": 55692,
+    "sha256": "d6348bd55068d65397011570ab8262377c1d9ab1ab0c988e802300bbb1d67b3f"
+  },
+  {
+    "file": "line-counts.json",
+    "bytes": 2100,
+    "sha256": "40b101fc4d22bfa1d1c6cfbdf6e88ca82a25c7be8b7194d9c15a1e10bf5ce3c2"
+  },
+  {
+    "file": "new-rules-verbose-output.log",
+    "bytes": 52692,
+    "sha256": "1613c600208ac31aeee75c45cdea70d87f74bea99b130c3fea07d219f1dd993a"
+  },
+  {
+    "file": "old-replay-output.log",
+    "bytes": 257,
+    "sha256": "492eddb98e972b48539bf9eba43117895c40d61ca4feef5555b622fa5340b376"
+  },
+  {
+    "file": "replay-output.log",
+    "bytes": 235,
+    "sha256": "548e1ba90298abb0789de887f6beba808ef7d28fc3133928b7afee6737d464f4"
+  },
+  {
+    "file": "script-results.json",
+    "bytes": 8393,
+    "sha256": "3ce6bfe3117a1bf1b5aff9020c821df69dbe81a71876e0c62b9a1631c0afd0e1"
+  },
+  {
+    "file": "target2-output.log",
+    "bytes": 4420,
+    "sha256": "93d2eafa93a7c9f7657d20d2d5e765827508904edff5dc2e9289a66e6b18508e"
+  },
+  {
+    "file": "target3-output.log",
+    "bytes": 4582,
+    "sha256": "d6b7a24353c0fcea8f613e6ea970fdb756e1e351a083bd110633c4a93b496741"
+  },
+  {
+    "file": "target4-output.log",
+    "bytes": 4185,
+    "sha256": "de7e079b6b7fba1adc18eee11ee3e01c9b8f8d9534cddc13ad522f484943c4e7"
+  }
+]

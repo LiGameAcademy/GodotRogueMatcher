@@ -1,0 +1,6 @@
+ERROR: Cannot open file 'res://tools/checkpoint_benchmark/web_open_probe.tscn'.
+   at: load (scene/resources/resource_format_text.cpp:1442)
+ERROR: Failed loading resource: res://tools/checkpoint_benchmark/web_open_probe.tscn.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: Failed loading scene: res://tools/checkpoint_benchmark/web_open_probe.tscn.
+   at: start (main/main.cpp:4767)

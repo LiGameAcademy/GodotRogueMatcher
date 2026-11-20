@@ -1,0 +1,13 @@
+{
+  "manifest_error": "web_telemetry_write_failed",
+  "validated_files": 6,
+  "files": [
+    "run_records/1730251673-0-1793431301854000-7342600.jsonl",
+    "run_records/3945234716-0-1793431457398000-3736400.jsonl",
+    "sessions/s-4be3242bd773110e5b98a4fc.jsonl",
+    "sessions/s-64ffa1288f0d06458d2c2623.jsonl",
+    "telemetry/1730251673-0-1793431301854000-7342600.jsonl",
+    "telemetry/3945234716-0-1793431457398000-3736400.jsonl"
+  ],
+  "zip_sha256": "f922542d8e5d68dbd70e9441e8aa710d8ccc7513665a3f459880a9cbfd2a4651"
+}

@@ -1,4 +1,4 @@
-﻿extends GutTest
+extends GutTest
 
 const CARD: PackedScene = preload("res://ui/skill_card.tscn")
 const POPUP: PackedScene = preload("res://ui/popup_skill_choice.tscn")
@@ -23,11 +23,13 @@ func test_all_skill_descriptions_fit_card_and_popup_at_base_viewport() -> void:
 		for resolution: Vector2i in [Vector2i(1280, 720), Vector2i(1024, 640)]:
 			get_window().size = resolution
 			await wait_process_frames(3)
-			await _assert_all_cards_fit()
+			for low_effects: bool in [false, true]:
+				await _assert_all_cards_fit(low_effects)
 
-func _assert_all_cards_fit() -> void:
+func _assert_all_cards_fit(low_effects: bool) -> void:
 	var popup: PopupSkillChoice = POPUP.instantiate() as PopupSkillChoice
 	add_child_autofree(popup)
+	popup.set_low_effects(low_effects)
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), MatchSystem.MIN_MATCH_COUNT), 864)
 	for x: int in range(9):
 		for y: int in range(7): run.state.rules.place_piece(Vector2i(x, y), posmod(x + y, 5))
@@ -41,23 +43,35 @@ func _assert_all_cards_fit() -> void:
 			target.level_after = target.level_before + 1
 			offer.targets[skill.skill_id] = target
 		popup.show_offer(offer)
-		await wait_process_frames(3)
+		# 翻牌隐藏Content时容器不排版；检查实际展示后的矩形，不读取隐藏布局。
+		for index: int in range(offer.choices.size()):
+			var card: SkillCard = popup.options.get_child(index) as SkillCard
+			if card._reveal != null and card._reveal.is_running():
+				await wait_for_signal(card._reveal.finished, 2.0)
+		await wait_process_frames(2)
 		var panel: Control = popup.get_node("Center/Panel") as Control
 		assert_true(get_viewport().get_visible_rect().grow(1.0).encloses(panel.get_global_rect()), "三选一弹窗不得超出窗口")
 		for index: int in range(offer.choices.size()):
 			var card: SkillCard = popup.options.get_child(index) as SkillCard
+			assert_true(card.content.is_visible_in_tree(), "检查时卡面内容已展示")
+			assert_eq(card.scale, Vector2.ONE, "检查时翻牌已结束")
 			assert_true(card.get_global_rect().encloses(card.action_label.get_global_rect()), "%s操作提示不得溢出卡片" % offer.choices[index].skill_id)
 			assert_true(card.get_global_rect().encloses(card.rarity_label.get_global_rect()), "%s稀有度不得溢出卡片" % offer.choices[index].skill_id)
 			assert_gte(card.effect_label.size.y, float(card.effect_label.get_minimum_size().y), "%s摘要可见" % offer.choices[index].skill_id)
 			assert_eq(card.effect_label.get_parsed_text(), SkillChoiceText.summary(offer.choices[index]))
+			assert_false(card.effect_label.tooltip_text.is_empty(), "%s has a localized glossary explanation (%s)" % [offer.choices[index].skill_id, TranslationServer.get_locale()])
 			assert_eq(card.tooltip_text, "", "整卡不重复解释完整规则")
 	popup.queue_free()
 	await wait_process_frames(1)
 
 func test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run() -> void:
 	var skill: SkillDefinition = SkillDefinition.new()
+	skill.offer_traits = SkillOfferTraits.new()
+	skill.offer_traits.roles = [&"generic"]
 	skill.description = "旧完整描述"
-	assert_eq(SkillChoiceText.summary(skill), skill.description)
+	assert_string_contains(SkillChoiceText.summary(skill), "[人工规则]")
+	assert_string_contains(SkillChoiceText.summary(skill), skill.description)
+	assert_string_contains(SkillRuleDescription.describe(skill).error, "outside supported description slice")
 	var card: SkillCard = CARD.instantiate() as SkillCard
 	add_child_autofree(card)
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 864)
@@ -84,8 +98,10 @@ func test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle() -> voi
 	var card: SkillCard = CARD.instantiate() as SkillCard
 	add_child_autofree(card)
 	card.configure(skill, target)
-	assert_eq(card.preview_label.text, "本次补棋：6 → 5 枚 · 余5次")
-	assert_string_contains(card.effect_label.text, "[b]消耗[/b]")
+	assert_eq(card.preview_label.text, "补棋6→5枚；余次2→5。")
+	assert_string_contains(card.effect_label.get_parsed_text(), "实际补棋")
+	assert_string_contains(card.effect_label.text, "免补棋不扣次数")
+	assert_false(card.effect_label.text.contains("回合"))
 	assert_eq(card.consume_label.text, "消耗")
 	assert_string_contains(card.consume_label.tooltip_text, "免补棋不扣次数")
 	assert_false(card.level_label.visible)

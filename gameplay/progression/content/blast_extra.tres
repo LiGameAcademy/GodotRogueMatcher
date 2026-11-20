@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://gameplay/progression/skill_definition.gd" id="1"]
 [ext_resource type="Script" path="res://gameplay/progression/skill_level_definition.gd" id="2"]
 [ext_resource type="Script" path="res://gameplay/skills/ability_definition.gd" id="3"]
 [ext_resource type="Script" path="res://gameplay/progression/effects/demolition_stat_effect.gd" id="4"]
+
+[ext_resource type="Script" path="res://gameplay/progression/skill_offer_traits.gd" id="offer_traits_script"]
 
 [sub_resource type="Resource" id="effect"]
 script = ExtResource("4")
@@ -36,23 +38,32 @@ script = ExtResource("2")
 level = 3
 abilities = Array[ExtResource("3")]([SubResource("upgraded")])
 
+[sub_resource type="Resource" id="offer_traits"]
+script = ExtResource("offer_traits_script")
+mechanisms = Array[StringName]([&"blast"])
+affinity = Array[StringName]([&"blast"])
+invests = Array[StringName]([&"blast"])
+supplies = Array[StringName]([])
+payoffs = Array[StringName]([&"blast"])
+needs = Array[StringName]([&"core_supply"])
+roles = Array[StringName]([&"payoff"])
+lifetime = "persistent"
+once_per_run = false
+upgradeable = true
+repeatable = false
+utility_pick = false
+
 [resource]
 script = ExtResource("1")
+offer_traits = SubResource("offer_traits")
 skill_id = &"blast_extra"
 title = "爆破补分"
 description = "每次消除了至少一枚棋子的爆炸额外分增加5。"
 short_description = "每次命中爆炸 → 额外+5分/级。"
 levels = Array[ExtResource("2")]([SubResource("level_1"), SubResource("level_2"), SubResource("level_3")])
-base_weight = 6.0
 tags = Array[StringName]([&"exp", &"extra"])
-is_starter = false
 is_persistent = true
-fallback_only = false
-need_rule = &"explosion_payoff"
 minimum_reward = 1
 rarity = 0
 maximum_level = 3
-requires_core = true
-requires_fuse_unlock = false
-requires_fuse = false
 prerequisite = &""

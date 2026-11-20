@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "config_id": "screening-l-v1",
+  "elapsed_ms": 33,
+  "participant": null,
+  "predictions": null,
+  "reason": "action_limit",
+  "record": "user://screening_records/119-48868-1792823141179000-14989197.jsonl",
+  "record_error": "",
+  "run_id": "119-48868-1792823141179000-14989197",
+  "selection_decision": null,
+  "task": "free"
+}

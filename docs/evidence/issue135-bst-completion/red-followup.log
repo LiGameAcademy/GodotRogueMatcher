@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-bst/followup-red2-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://.godot/issue135-bst/test_followup_strength.gd
+[0m* test_match_plant_freezes_configuration_at_trigger
+* test_match_dye_freezes_target_count_before_later_upgrade
+[31m    [Failed]:  [0m[2] expected to equal [1]:  
+      at line 41
+* test_match_dye_eligibility_is_not_granted_or_revoked_retroactively
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+      at line 51
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 51
+* test_match_dye_freezes_wave_limit_and_keeps_shared_usage
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+      at line 63
+[31m    [Failed]:  [0m[2] expected to equal [1]:  
+      at line 64
+[1m1/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://.godot/issue135-bst/test_followup_strength.gd
+[0m- test_match_dye_freezes_target_count_before_later_upgrade
+[31m    [Failed]:  [0m[2] expected to equal [1]:  
+          at line 41
+- test_match_dye_eligibility_is_not_granted_or_revoked_retroactively
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+          at line 51
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 51
+- test_match_dye_freezes_wave_limit_and_keeps_shared_usage
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+          at line 63
+[31m    [Failed]:  [0m[2] expected to equal [1]:  
+          at line 64
+
+Totals
+------
+Scripts               1
+Tests                 4
+Passing Tests         1
+Failing Tests         3
+Asserts            7/12
+Time              0.023s
+
+
+[31m---- 3 failing tests ----
+[0m

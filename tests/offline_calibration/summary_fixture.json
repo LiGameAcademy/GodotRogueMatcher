@@ -1,0 +1,32 @@
+{
+  "fixture": true,
+  "fixture_purpose": "Synthetic summary contract; not gameplay or human observations",
+  "schema": "telemetry-report-v1",
+  "runs": 3,
+  "events": 60,
+  "errors": [],
+  "bounded": {"complete": true},
+  "groups": {
+    "synthetic-bot-group": {
+      "count": 3,
+      "status": "completed",
+      "dimensions": {
+        "schema_version": "2",
+        "rule_version": "run-commands-v46-unified-offer-audit",
+        "offer_version": "offer-unified-trial-v2",
+        "source": "bot",
+        "initialization": "normal",
+        "content_version": "synthetic-content",
+        "config_hash": "synthetic-config",
+        "strategy_version": "greedy-v1",
+        "bot_config_hash": "synthetic-bot-config",
+        "mode_id": "stage_challenge",
+        "commit_id": "synthetic-commit"
+      }
+    }
+  },
+  "opportunities": {
+    "opportunity_protocol": "parent-run-reward-v1",
+    "pool_audit": {"complete_rewards": 3, "legacy_rewards": 0, "complete_rate": 1.0}
+  }
+}

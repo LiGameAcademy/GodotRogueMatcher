@@ -1,0 +1,1158 @@
+[
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 8.188,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 17.804,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			},
+			{
+				"at_ms": 1017.914,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 3,
+				"generation": 1,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					6
+				],
+				"score": 5,
+				"source_id": 3
+			},
+			{
+				"at_ms": 1401.833,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					3
+				],
+				"event_id": 4,
+				"generation": 2,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					7
+				],
+				"score": 5,
+				"source_id": 6
+			}
+		],
+		"fast": false,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": false,
+		"markers": [
+			{
+				"at_ms": 200.928,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 30,
+		"probe": "pause",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [],
+		"wall_elapsed_ms": 2085.975
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 7.683,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 9.898,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			},
+			{
+				"at_ms": 911.988,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 3,
+				"generation": 1,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					6
+				],
+				"score": 5,
+				"source_id": 3
+			},
+			{
+				"at_ms": 1295.551,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					3
+				],
+				"event_id": 4,
+				"generation": 2,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					7
+				],
+				"score": 5,
+				"source_id": 6
+			}
+		],
+		"fast": false,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": true,
+		"markers": [
+			{
+				"at_ms": 110.924,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 30,
+		"probe": "pause",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [],
+		"wall_elapsed_ms": 1695.545
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 9.476,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 18.656,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			},
+			{
+				"at_ms": 775.665,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 3,
+				"generation": 1,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					6
+				],
+				"score": 5,
+				"source_id": 3
+			},
+			{
+				"at_ms": 976.147,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					3
+				],
+				"event_id": 4,
+				"generation": 2,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					7
+				],
+				"score": 5,
+				"source_id": 6
+			}
+		],
+		"fast": true,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": false,
+		"markers": [
+			{
+				"at_ms": 124.982,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 30,
+		"probe": "pause",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [],
+		"wall_elapsed_ms": 1359.168
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 7.898,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 10.543,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			},
+			{
+				"at_ms": 655.403,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 3,
+				"generation": 1,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					6
+				],
+				"score": 5,
+				"source_id": 3
+			},
+			{
+				"at_ms": 855.518,
+				"axis": -1,
+				"cause": "explosion",
+				"center": [
+					3,
+					3
+				],
+				"event_id": 4,
+				"generation": 2,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [
+					8
+				],
+				"removed": 1,
+				"removed_ids": [
+					7
+				],
+				"score": 5,
+				"source_id": 6
+			}
+		],
+		"fast": true,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": true,
+		"markers": [
+			{
+				"at_ms": 21.022,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 30,
+		"probe": "pause",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [],
+		"wall_elapsed_ms": 1075.036
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 8.615,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 18.944,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			}
+		],
+		"fast": false,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": false,
+		"markers": [
+			{
+				"at_ms": 227.886,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 0,
+		"probe": "skip",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [
+			{
+				"cause": "explosion",
+				"generation": 1,
+				"kind": 3
+			},
+			{
+				"cause": "explosion",
+				"generation": 2,
+				"kind": 3
+			}
+		],
+		"wall_elapsed_ms": 544.904
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 8.915,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 12.286,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			}
+		],
+		"fast": false,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": true,
+		"markers": [
+			{
+				"at_ms": 102.31,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 0,
+		"probe": "skip",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [
+			{
+				"cause": "explosion",
+				"generation": 1,
+				"kind": 3
+			},
+			{
+				"cause": "explosion",
+				"generation": 2,
+				"kind": 3
+			}
+		],
+		"wall_elapsed_ms": 419.173
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 8.172,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 18.64,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			}
+		],
+		"fast": true,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": false,
+		"markers": [
+			{
+				"at_ms": 117.323,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 0,
+		"probe": "skip",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [
+			{
+				"cause": "explosion",
+				"generation": 1,
+				"kind": 3
+			},
+			{
+				"cause": "explosion",
+				"generation": 2,
+				"kind": 3
+			}
+		],
+		"wall_elapsed_ms": 284.29
+	},
+	{
+		"author_audio_clear": null,
+		"author_readable": null,
+		"author_wait_acceptable": null,
+		"baseline_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"consumed_rewards": 1,
+		"events": [
+			{
+				"at_ms": 8.56,
+				"axis": -1,
+				"cause": "dye",
+				"center": [
+					8,
+					8
+				],
+				"event_id": 1,
+				"generation": 0,
+				"hits": [],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 0,
+				"removed_ids": [],
+				"score": 0,
+				"source_id": 0
+			},
+			{
+				"at_ms": 11.754,
+				"axis": -1,
+				"cause": "match",
+				"center": [
+					3,
+					2
+				],
+				"event_id": 2,
+				"generation": 0,
+				"hits": [
+					{
+						"coordinates": [
+							[
+								1,
+								2
+							],
+							[
+								2,
+								2
+							],
+							[
+								3,
+								2
+							],
+							[
+								4,
+								2
+							],
+							[
+								5,
+								2
+							]
+						],
+						"direction": [
+							1,
+							0
+						],
+						"ids": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"origin": [
+							1,
+							2
+						],
+						"shape_id": "line"
+					}
+				],
+				"input_blocked": true,
+				"new_fuses_visible": [],
+				"removed": 5,
+				"removed_ids": [
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"score": 50,
+				"source_id": 0
+			}
+		],
+		"fast": true,
+		"final_digest": "fdb0f97d9c272e315e0f5455d6c73bc31977cb9f69b598956f9b73321ac0f6cd",
+		"headless": false,
+		"input_restored": true,
+		"low": true,
+		"markers": [
+			{
+				"at_ms": 22.227,
+				"ids": [
+					6,
+					8
+				],
+				"input_blocked": true,
+				"visible_ids": [
+					6,
+					8
+				]
+			}
+		],
+		"paused_frames": 0,
+		"probe": "skip",
+		"required_boundary_preserved": true,
+		"score": 60,
+		"skipped": [
+			{
+				"cause": "explosion",
+				"generation": 1,
+				"kind": 3
+			},
+			{
+				"cause": "explosion",
+				"generation": 2,
+				"kind": 3
+			}
+		],
+		"wall_elapsed_ms": 191.442
+	}
+]

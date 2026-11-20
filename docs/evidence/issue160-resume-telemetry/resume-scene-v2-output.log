@@ -1,0 +1,123 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/resume-scene-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_resume_collection_flow.gd
+[0m* test_actual_menu_resume_has_one_logical_run_no_provisional_start_and_ready_input_observation
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":140888,"frames":1033,"freeze_usec":0,"maximum_gap_usec":1581,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":105107,"elapsed_usec":140888,"frames":1033,"freeze_usec":0,"maximum_gap_usec":1581,"ok":true,"resume_prepare_usec":5659}
+[33m    748 Orphans[0m
+[33m        * [Piece:<Node2D#300563826947>(chess_piece.gd)] + 19
+        * [Cell:(0, 0)(cell.gd)] + 7
+        * [@Node2D@167:(6, 0)(cell.gd)] + 7
+        * [@Node2D@166:(5, 8)(cell.gd)] + 7
+        * [@Node2D@165:(5, 7)(cell.gd)] + 7
+        * [@Node2D@164:(5, 6)(cell.gd)] + 7
+        * [@Node2D@163:(5, 5)(cell.gd)] + 7
+        * [@Node2D@162:(5, 4)(cell.gd)] + 7
+        * [@Node2D@161:(5, 3)(cell.gd)] + 7
+        * [@Node2D@160:(5, 2)(cell.gd)] + 7
+        * [@Node2D@159:(5, 1)(cell.gd)] + 7
+        * [@Node2D@158:(5, 0)(cell.gd)] + 7
+        * [@Node2D@157:(4, 8)(cell.gd)] + 7
+        * [@Node2D@156:(4, 7)(cell.gd)] + 7
+        * [@Node2D@155:(4, 6)(cell.gd)] + 7
+        * [@Node2D@154:(4, 5)(cell.gd)] + 7
+        * [@Node2D@153:(4, 4)(cell.gd)] + 7
+        * [@Node2D@152:(4, 3)(cell.gd)] + 7
+        * [@Node2D@151:(4, 2)(cell.gd)] + 7
+        * [@Node2D@150:(4, 1)(cell.gd)] + 7
+        * [@Node2D@149:(4, 0)(cell.gd)] + 7
+        * [@Node2D@148:(3, 8)(cell.gd)] + 7
+        * [@Node2D@147:(3, 7)(cell.gd)] + 7
+        * [@Node2D@146:(3, 6)(cell.gd)] + 7
+        * [@Node2D@145:(3, 5)(cell.gd)] + 7
+        * [@Node2D@144:(3, 4)(cell.gd)] + 7
+        * [@Node2D@143:(3, 3)(cell.gd)] + 7
+        * [@Node2D@142:(3, 2)(cell.gd)] + 7
+        * [@Node2D@141:(3, 1)(cell.gd)] + 7
+        * [@Node2D@140:(3, 0)(cell.gd)] + 7
+        * [@Node2D@139:(2, 8)(cell.gd)] + 7
+        * [@Node2D@138:(2, 7)(cell.gd)] + 7
+        * [@Node2D@137:(2, 6)(cell.gd)] + 7
+        * [@Node2D@136:(2, 5)(cell.gd)] + 7
+        * [@Node2D@135:(2, 4)(cell.gd)] + 7
+        * [@Node2D@134:(2, 3)(cell.gd)] + 7
+        * [@Node2D@133:(2, 2)(cell.gd)] + 7
+        * [@Node2D@132:(2, 1)(cell.gd)] + 7
+        * [@Node2D@131:(2, 0)(cell.gd)] + 7
+        * [@Node2D@130:(1, 8)(cell.gd)] + 7
+        * [@Node2D@129:(1, 7)(cell.gd)] + 7
+        * [@Node2D@128:(1, 6)(cell.gd)] + 7
+        * [@Node2D@127:(1, 5)(cell.gd)] + 7
+        * [@Node2D@126:(1, 4)(cell.gd)] + 7
+        * [@Node2D@125:(1, 3)(cell.gd)] + 7
+        * [@Node2D@124:(1, 2)(cell.gd)] + 7
+        * [@Node2D@123:(1, 1)(cell.gd)] + 7
+        * [@Node2D@122:(1, 0)(cell.gd)] + 7
+        * [@Node2D@121:(0, 8)(cell.gd)] + 7
+        * [@Node2D@120:(0, 7)(cell.gd)] + 7
+        * [@Node2D@119:(0, 6)(cell.gd)] + 7
+        * [@Node2D@118:(0, 5)(cell.gd)] + 7
+        * [@Node2D@117:(0, 4)(cell.gd)] + 7
+        * [@Node2D@116:(0, 3)(cell.gd)] + 7
+        * [@Node2D@115:(0, 2)(cell.gd)] + 7
+        * [@Node2D@114:(0, 1)(cell.gd)] + 7
+        * [@Node2D@168:(6, 1)(cell.gd)] + 7
+        * [@Node2D@169:(6, 2)(cell.gd)] + 7
+        * [@Node2D@170:(6, 3)(cell.gd)] + 7
+        * [@Node2D@171:(6, 4)(cell.gd)] + 7
+        * [@Node2D@172:(6, 5)(cell.gd)] + 7
+        * [@Node2D@173:(6, 6)(cell.gd)] + 7
+        * [@Node2D@174:(6, 7)(cell.gd)] + 7
+        * [@Node2D@175:(6, 8)(cell.gd)] + 7
+        * [@Node2D@176:(7, 0)(cell.gd)] + 7
+        * [@Node2D@177:(7, 1)(cell.gd)] + 7
+        * [@Node2D@178:(7, 2)(cell.gd)] + 7
+        * [@Node2D@179:(7, 3)(cell.gd)] + 7
+        * [@Node2D@180:(7, 4)(cell.gd)] + 7
+        * [@Node2D@181:(7, 5)(cell.gd)] + 7
+        * [@Node2D@182:(7, 6)(cell.gd)] + 7
+        * [@Node2D@183:(7, 7)(cell.gd)] + 7
+        * [@Node2D@184:(7, 8)(cell.gd)] + 7
+        * [@Node2D@185:(8, 0)(cell.gd)] + 7
+        * [@Node2D@186:(8, 1)(cell.gd)] + 7
+        * [@Node2D@187:(8, 2)(cell.gd)] + 7
+        * [@Node2D@188:(8, 3)(cell.gd)] + 7
+        * [@Node2D@189:(8, 4)(cell.gd)] + 7
+        * [@Node2D@190:(8, 5)(cell.gd)] + 7
+        * [@Node2D@191:(8, 6)(cell.gd)] + 7
+        * [@Node2D@192:(8, 7)(cell.gd)] + 7
+        * [@Node2D@193:(8, 8)(cell.gd)] + 7
+        * [Piece:<Node2D#301687902890>(chess_piece.gd)] + 19
+        * [Piece:<Node2D#302744867531>(chess_piece.gd)] + 19
+        * [Piece:<Node2D#303801832170>(chess_piece.gd)] + 19
+        * [Piece:<Node2D#304858796809>(chess_piece.gd)] + 19[0m
+[33m748 orphans[0m
+[1m1/1 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 1
+Passing Tests         1
+Asserts              22
+Time              1.656s
+
+
+[32m---- All tests passed! ----
+[0m

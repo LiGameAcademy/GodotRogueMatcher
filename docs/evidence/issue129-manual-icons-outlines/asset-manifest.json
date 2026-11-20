@@ -1,0 +1,20 @@
+[
+  {
+    "path": "assets/textures/ui/icon_ability_explosion.png",
+    "bytes": 8372,
+    "sha256": "87e8ee1912a5a920f794413ba34d5f3daf439af2c96c2818a50fa45f523a7fd1",
+    "source": "Existing icon, provenance in assets/textures/README.md"
+  },
+  {
+    "path": "assets/textures/ui/icon_ability_manual_sweep.svg",
+    "bytes": 606,
+    "sha256": "d54b1562ebac0c88a9500efbcc8e477cdf0b6844811ea319818d660870725e8c",
+    "source": "Original editable project source, authored for #129"
+  },
+  {
+    "path": "gameplay/board/piece/body_outline.gdshader",
+    "bytes": 1463,
+    "sha256": "ed413b60ea7a83dc4547f88783987f3a19479eb44ec09d81eaee9e76efd1b4c6",
+    "source": "Original editable project source, authored for #129"
+  }
+]

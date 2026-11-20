@@ -1,0 +1,676 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: res://gameplay/progression/content/instant_core_transform.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_core_transform.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_core_transform.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_row_transform.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_row_transform.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_row_transform.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_column_transform.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_column_transform.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_column_transform.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/composite_refill_color.tres:37 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/composite_refill_color.tres:37 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/composite_refill_color.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/composite_clear_dye.tres:38 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/composite_clear_dye.tres:38 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/composite_clear_dye.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/goal_score_bonus.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/goal_score_bonus.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/goal_score_bonus.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_row_drop.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_row_drop.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_row_drop.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_column_drop.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_column_drop.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_column_drop.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_manual_clear.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_manual_clear.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_manual_clear.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_row_span.tres:25 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_row_span.tres:25 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_row_span.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_column_span.tres:25 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_column_span.tres:25 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_column_span.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_cross_upgrade.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_cross_upgrade.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_cross_upgrade.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/line_clear_score.tres:40 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/line_clear_score.tres:40 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/line_clear_score.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/core_drop.tres:23 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/core_drop.tres:23 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/core_drop.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/assign_fuse.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/assign_fuse.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/assign_fuse.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_extra.tres:40 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_extra.tres:40 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_extra.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/score_multiplier.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/score_multiplier.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/score_multiplier.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/match_extra.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/match_extra.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/match_extra.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_thin.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_thin.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_thin.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_percent_clear.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_percent_clear.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_percent_clear.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/refill_less.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/refill_less.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/refill_less.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/refill_more.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/refill_more.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/refill_more.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/precision_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/precision_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/precision_reward.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/fuse_capacity.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/fuse_capacity.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/fuse_capacity.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_radius.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_radius.tres:24 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_radius.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_reward.tres:40 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_reward.tres:40 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_reward.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/color_weight_up.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/color_weight_up.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/color_weight_up.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/color_weight_down.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/color_weight_down.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/color_weight_down.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/relay_capacity.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/relay_capacity.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/relay_capacity.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/marked_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/marked_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/marked_reward.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/longline_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/longline_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/longline_reward.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/core_supply_up.tres:32 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/core_supply_up.tres:32 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/core_supply_up.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/core_radius.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/core_radius.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/core_radius.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_color_clear.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_color_clear.tres:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_color_clear.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_line_clear.tres:13 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_line_clear.tres:13 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_line_clear.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/fuse_relay.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/fuse_relay.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/fuse_relay.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/chain_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/chain_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/chain_reward.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_fuse_ignite.tres:7 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_fuse_ignite.tres:7 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_fuse_ignite.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/core_manual_detonation.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/core_manual_detonation.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/core_manual_detonation.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/fuse_match_plant.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/fuse_match_plant.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/fuse_match_plant.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_chain_bonus.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_chain_bonus.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_chain_bonus.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/selective_blast.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/selective_blast.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/selective_blast.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/core_fuse_payload.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/core_fuse_payload.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/core_fuse_payload.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_chain_radius.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_chain_radius.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_chain_radius.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_refill_relief.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_refill_relief.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_refill_relief.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_aftershock.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_aftershock.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_aftershock.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/match_dye_echo.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/match_dye_echo.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/match_dye_echo.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/dye_target_up.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/dye_target_up.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/dye_target_up.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/dye_chain_depth.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/dye_chain_depth.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/dye_chain_depth.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/dye_mark_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/dye_mark_reward.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/dye_mark_reward.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/blast_dye.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/blast_dye.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/blast_dye.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+ERROR: res://gameplay/progression/content/instant_color_dye.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: res://gameplay/progression/content/instant_color_dye.tres:8 - Parse Error: [ext_resource] referenced non-existent resource at: res://gameplay/progression/skill_definition.gd.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: res://gameplay/progression/content/instant_color_dye.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_core_transform.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:7)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_row_transform.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:8)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_column_transform.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:9)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/composite_refill_color.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:10)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/composite_clear_dye.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:11)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/goal_score_bonus.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:12)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_row_drop.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:13)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_column_drop.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:14)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_manual_clear.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:15)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_row_span.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:16)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_column_span.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:17)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_cross_upgrade.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:18)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/line_clear_score.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:19)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/core_drop.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:20)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/assign_fuse.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:21)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_extra.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:22)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/score_multiplier.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:23)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/match_extra.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:24)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_thin.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:25)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_percent_clear.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:26)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/refill_less.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:27)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/refill_more.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:28)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/precision_reward.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:29)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/fuse_capacity.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:30)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_radius.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:31)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_reward.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:32)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/color_weight_up.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:33)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/color_weight_down.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:34)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/relay_capacity.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:35)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/marked_reward.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:36)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/longline_reward.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:37)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/core_supply_up.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:38)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/core_radius.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:39)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_color_clear.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:40)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_line_clear.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:41)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/fuse_relay.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:42)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/chain_reward.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:43)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_fuse_ignite.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:44)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/core_manual_detonation.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:45)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/fuse_match_plant.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:46)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_chain_bonus.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:47)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/selective_blast.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:48)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/core_fuse_payload.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:49)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_chain_radius.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:50)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_refill_relief.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:51)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_aftershock.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:52)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/match_dye_echo.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:53)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/dye_target_up.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:54)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/dye_chain_depth.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:55)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/dye_mark_reward.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:56)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/blast_dye.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:57)
+SCRIPT ERROR: Parse Error: Could not preload resource file "res://gameplay/progression/content/instant_color_dye.tres".
+   at: GDScript::reload (res://gameplay/progression/skill_offer_generator.gd:58)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/recording/run_snapshot.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/stages/stage_result.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/stages/stage_state.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/run/run_state.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/removal_strength.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/blast_request.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/effects/explode_effect.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/skills/ability_trigger_adapter.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/skill_level_definition.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://gameplay/progression/skill_definition.gd:0)
+ERROR: Failed to load script "res://gameplay/progression/skill_definition.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-unlock/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_shape_unlock_lifecycle.gd
+[0m* test_real_acquisition_immediately_scans_all_enabled_rules_once
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:221)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:221)
+       [1] choose (res://tests/support/shape_unlock_fixture.gd:9)
+       [2] test_real_acquisition_immediately_scans_all_enabled_rules_once (res://tests/rules/test_shape_unlock_lifecycle.gd:10)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [5] test_scripts (res://addons/gut/gut.gd:1030)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mExpected [<null>] to be anything but NULL:  
+      at line 11
+SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+   at: test_real_acquisition_immediately_scans_all_enabled_rules_once (res://tests/rules/test_shape_unlock_lifecycle.gd:12)
+   GDScript backtrace (most recent call first):
+       [0] test_real_acquisition_immediately_scans_all_enabled_rules_once (res://tests/rules/test_shape_unlock_lifecycle.gd:12)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+      at line -1
+* test_no_match_is_successful_unlock_and_precision_reward_applies_once
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:221)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:221)
+       [1] choose (res://tests/support/shape_unlock_fixture.gd:9)
+       [2] test_no_match_is_successful_unlock_and_precision_reward_applies_once (res://tests/rules/test_shape_unlock_lifecycle.gd:29)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [5] test_scripts (res://addons/gut/gut.gd:1030)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+   at: test_no_match_is_successful_unlock_and_precision_reward_applies_once (res://tests/rules/test_shape_unlock_lifecycle.gd:30)
+   GDScript backtrace (most recent call first):
+       [0] test_no_match_is_successful_unlock_and_precision_reward_applies_once (res://tests/rules/test_shape_unlock_lifecycle.gd:30)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+      at line -1
+* test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:221)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:221)
+       [1] test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run (res://tests/rules/test_shape_unlock_lifecycle.gd:41)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] test_scripts (res://addons/gut/gut.gd:1030)
+       [5] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [6] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [7] main (res://addons/gut/cli/gut_cli.gd:284)
+       [8] _init (res://addons/gut/gut_cmdln.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'offer_id' on a base object of type 'Nil'.
+   at: test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run (res://tests/rules/test_shape_unlock_lifecycle.gd:43)
+   GDScript backtrace (most recent call first):
+       [0] test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run (res://tests/rules/test_shape_unlock_lifecycle.gd:43)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'offer_id' on a base object of type 'Nil'.
+      at line -1
+* test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity
+SCRIPT ERROR: Invalid call. Nonexistent function 'build_profile' in base 'GDScript'.
+   at: test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity (res://tests/rules/test_shape_unlock_lifecycle.gd:64)
+   GDScript backtrace (most recent call first):
+       [0] test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity (res://tests/rules/test_shape_unlock_lifecycle.gd:64)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'build_profile' in base 'GDScript'.
+      at line -1
+* test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:221)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:221)
+       [1] test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice (res://tests/rules/test_shape_unlock_lifecycle.gd:81)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] test_scripts (res://addons/gut/gut.gd:1030)
+       [5] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [6] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [7] main (res://addons/gut/cli/gut_cli.gd:284)
+       [8] _init (res://addons/gut/gut_cmdln.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:221)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:221)
+       [1] choose (res://tests/support/shape_unlock_fixture.gd:9)
+       [2] test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice (res://tests/rules/test_shape_unlock_lifecycle.gd:88)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [5] test_scripts (res://addons/gut/gut.gd:1030)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+   at: test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice (res://tests/rules/test_shape_unlock_lifecycle.gd:89)
+   GDScript backtrace (most recent call first):
+       [0] test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice (res://tests/rules/test_shape_unlock_lifecycle.gd:89)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [3] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+      at line -1
+* test_unlock_budget_failure_rejects_before_enable_score_or_random
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: RunController.prepare_offer (res://gameplay/run/run_controller.gd:221)
+   GDScript backtrace (most recent call first):
+       [0] prepare_offer (res://gameplay/run/run_controller.gd:221)
+       [1] test_unlock_budget_failure_rejects_before_enable_score_or_random (res://tests/rules/test_shape_unlock_lifecycle.gd:104)
+       [2] _run_test (res://addons/gut/gut.gd:615)
+       [3] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [4] test_scripts (res://addons/gut/gut.gd:1030)
+       [5] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [6] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [7] main (res://addons/gut/cli/gut_cli.gd:284)
+       [8] _init (res://addons/gut/gut_cmdln.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'offer_id' on a base object of type 'Nil'.
+   at: test_unlock_budget_failure_rejects_before_enable_score_or_random (res://tests/rules/test_shape_unlock_lifecycle.gd:108)
+   GDScript backtrace (most recent call first):
+       [0] test_unlock_budget_failure_rejects_before_enable_score_or_random (res://tests/rules/test_shape_unlock_lifecycle.gd:108)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+       [3] test_scripts (res://addons/gut/gut.gd:1030)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [6] main (res://addons/gut/cli/gut_cli.gd:284)
+       [7] _init (res://addons/gut/gut_cmdln.gd:38)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'offer_id' on a base object of type 'Nil'.
+      at line -1
+[1m0/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_shape_unlock_lifecycle.gd
+[0m- test_real_acquisition_immediately_scans_all_enabled_rules_once
+[31m    [Failed]:  [0mExpected [<null>] to be anything but NULL:  
+          at line 11
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+          at line -1
+- test_no_match_is_successful_unlock_and_precision_reward_applies_once
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+          at line -1
+- test_duplicate_command_is_idempotent_and_old_run_cannot_unlock_new_run
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'offer_id' on a base object of type 'Nil'.
+          at line -1
+- test_legal_pool_filters_shape_identity_without_raising_other_shape_affinity
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'build_profile' in base 'GDScript'.
+          at line -1
+- test_obsolete_unconsumed_choice_refuses_without_mutation_and_keeps_other_choice
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [3] <engine-2>Invalid access to property or key 'accepted' on a base object of type 'Nil'.
+          at line -1
+- test_unlock_budget_failure_rejects_before_enable_score_or_random
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Invalid call. Nonexistent function 'new' in base 'GDScript'.
+    [2] <engine-2>Invalid access to property or key 'offer_id' on a base object of type 'Nil'.
+          at line -1
+
+Totals
+------
+Scripts               1
+Tests                 6
+Passing Tests      none
+Failing Tests         6
+Asserts             1/8
+Time              0.024s
+
+
+[31m---- 6 failing tests ----
+[0m

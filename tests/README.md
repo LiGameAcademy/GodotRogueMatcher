@@ -1,4 +1,16 @@
-# 当前回归 · 2026-10-09
+# 当前回归 · 2026-10-20
+
+#168同步#167 review修复：正式动态目标生命周期与离场强度共同验证，83脚本、605/605测试、22616断言，188.59秒、退出0；v39独立回放415条成功。无脚本解析错误，首次分支缓存缺类的无效启动已分开归档；见[同步证据](../docs/evidence/issue135-review-strength/README.md)。#135仍未整体完成。
+
+#167 review修复：正式发牌延迟动态目标，固定失效重校验，前置拒绝与后代中断区分。82脚本、593/593测试、22574断言，211.194秒、退出0；v38独立回放415条通过。旧单卡显式固定、组合染色显式动态；实际范围与未完成项见[review说明](../docs/quality/issue135_composite_boundaries.md)和[证据](../docs/evidence/issue135-review/README.md)。
+
+0.0.3 #135第二片：离场爆破/扫线在触发时冻结强度，实际目标执行时重查。82脚本、599/599测试、22519断言，436.792秒、退出0；定向25/25，v37独立回放415条成功。范围、未完成窗口及复现见[强度接入记录](../docs/quality/issue135_trigger_strength.md)与[机器证据](../docs/evidence/issue135-strength/README.md)。本片依赖#167，#135保持开放。
+
+0.0.3第三片#135首片：Composite叶间屏障、固定/动态目标与嵌套单次刷新。81脚本、587/587测试、22477断言，518.065秒、退出0；定向31/31，独立v36回放415条通过。完整范围及未交付项见[接入记录](../docs/quality/issue135_composite_boundaries.md)及[机器证据](../docs/evidence/issue135/README.md)。#135保持开放。
+
+0.0.3第二片#134：旧道具全局触发与重复补棋循环退役，测试/工具迁移到本局或局部显式上下文。80脚本、581/581测试、22418断言通过，285.006秒、退出0；保留项、替代覆盖和复现见[迁移说明](../docs/quality/issue134_legacy_retirement.md)及[机器证据](../docs/evidence/issue134/README.md)。
+
+0.0.3首片#133：奖励等待归本局，Game协调弹窗。当前实现、审查发现、完整/定向回归、已知失败与复现方式见[交付报告](../docs/quality/issue133_reward_coordination.md)及[机器证据](../docs/evidence/issue133/README.md)。下方保留历史版本结果，不把历史全绿当作当前结论。
 
 0.0.2首片 #12：补棋升压与达标降压替代行动耗尽失败；完整36脚本、291测试/6879断言通过（`.godot/pressure_final_output.log`，313.972秒，退出0）。新增`test_pressure_loop.gd`覆盖升压边界、行动冻结应补量、达标行动完整补棋、锁定尾部/RNG、免补与全清、修正消费和配置隔离；旧累计奖励测试显式使用经典局及固定候选，避免默认模式或随机候选影响用例。独立用户沙箱使用`.godot/pressure_sandbox`。CLI两局机器人保存后读回精确回放均OK；真人压力节奏及数值仍待review，本轮未导出Web。详见外层`GDC/acceptance/0.0.2-补棋压力循环切片.md`。
 
@@ -108,3 +120,12 @@ test_presentation_director.gd验证队列身份、空队列、重复完成、取
 最终完整回归138项测试、2103断言通过，日志.godot/m5a-delivery-tests.log。
 
 2026-10-09染色试玩：完整32脚本/230项回归229通过，新增英文翻译随后补齐；最终染色/视图/本地化3脚本22项266断言全部通过，日志`.godot/dye_verified_final_tests.log`。新增9项规则与1项冻结变色视图用例；开发Catalog38项。详见外层GDC/acceptance/0.0.2-染色试玩切片.md；不将子集结果当作完整全绿回归。
+
+# #135 B/S/T 补齐回归（2026-10-21）
+
+- test_composite_contracts：根全空许可/固定过滤、嵌套路径、原子成本、能力空扣次、循环与旧局退役。
+- test_followup_strength：触发时的附引信/染色资格与强度、实际存活目标、异常中断、记录读盘与重复安全前缀恢复。
+- test_composite_contract_scene：真实Game选卡的部分成功/异常锁局/重试隔离，正常和快放低特效的强度一致性。
+- 既有test_trigger_strength与test_composite_offer_lifecycle继续验证爆破/扫线以及正式候选动态目标路径。
+
+新类型分支先用 --headless --editor --path . --quit 导入。规则v41，旧版精确回放明确拒绝；只读pending投影不代表中间叶存档恢复。L解锁/U/R依赖O2实现。

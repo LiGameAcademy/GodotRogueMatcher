@@ -1,0 +1,104 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-review/target2-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_composite_offer_lifecycle.gd
+[0m* test_formal_offer_does_not_sample_dynamic_subtree_and_choice_samples_each_once
+* test_each_declared_dynamic_selector_samples_from_post_clear_board_once
+* test_preview_snapshot_and_missing_color_do_not_sample_dynamic_target
+* test_b03_b04_formal_offer_fixed_invalid_target_skip_and_strict_error
+* test_partial_fixed_targets_revalidate_and_bad_color_is_not_swallowed
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_composite_preview.gd
+[0m* test_catalog_refill_color_matches_displayed_frozen_color
+* test_weight_refresh_keeps_color_and_uses_updated_values_without_rng
+* test_nested_offer_and_apply_preserve_displayed_weight_color
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_percent_clear.gd
+[0m* test_floor_zero_and_invalid_ratio
+* test_freeze_is_unique_reproducible_and_preserves_board_random
+* test_plain_clear_preserves_partner_score_turn_and_refill
+* test_stale_and_duplicate_targets_do_not_consume_reward
+* test_fuse_can_be_selected_and_descendants_use_normal_score
+* test_candidate_and_preview_use_frozen_count
+* test_actual_percent_choice_replays_every_checkpoint
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_forest_clear_score.gd
+[0m* test_row_clear_scores_mixed_colors_and_keeps_specials
+* test_column_clear_scores_even_below_five_targets
+* test_fuse_chain_scores_separately_and_global_modifiers_apply_to_direct_clear
+* test_rejected_frozen_target_keeps_board_score_and_reward
+* test_budget_rejection_keeps_direct_score_uncommitted
+* test_command_duplicate_preserves_score_and_recorded_events
+* test_scored_skip_invalid_composite_keeps_scoring_policy
+[31m    [Failed]:  [0minvalid deferred target
+      at line 166
+[31m    [Failed]:  [0m[0] expected to equal [6]:  
+      at line 167
+[31m    [Failed]:  [0mExpected [<RefCounted#-9223370072544768401>(piece_state.gd)] to be NULL:  
+      at line 168
+* test_other_clear_effects_and_normal_match_threshold_are_unchanged
+* test_repeated_or_duplicate_removal_targets_never_pay_twice
+[1m8/9 passed.
+[0m[4m
+
+res://tests/rules/test_trial_progression.gd
+[0m* test_one_thousand_points_grants_four_rewards_and_progress_uses_actual_interval
+* test_milestones_are_strictly_increasing_including_tail
+* test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores
+* test_thinning_invalid_target_preserves_whole_action
+* test_midgame_pool_includes_new_utility_and_freezes_real_targets
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_special_conversion.gd
+[0m* test_all_types_freeze_zero_one_two_three_and_more_without_replacement
+* test_capabilities_specials_and_ghosts_are_never_overwritten
+* test_duplicate_stale_and_newly_marked_targets_reject_atomically
+* test_conversion_instances_are_independent_and_manual_quota_is_not_refilled
+* test_converted_row_column_core_chain_uses_type_upgrades_and_single_use_instances
+* test_real_files_replay_all_three_conversion_commands
+* test_telemetry_records_transformation_without_counting_births_removals_or_score
+* test_composite_keeps_both_batches_of_transformation_results
+* test_fixed_conversion_keeps_invalidated_sources_without_resampling
+[1m9/9 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_forest_clear_score.gd
+[0m- test_scored_skip_invalid_composite_keeps_scoring_policy
+[31m    [Failed]:  [0minvalid deferred target
+          at line 166
+[31m    [Failed]:  [0m[0] expected to equal [6]:  
+          at line 167
+[31m    [Failed]:  [0mExpected [<RefCounted#-9223370072544768401>(piece_state.gd)] to be NULL:  
+          at line 168
+
+Totals
+------
+Scripts               6
+Tests                38
+Passing Tests        37
+Failing Tests         1
+Asserts           1682/1685
+Time              9.384s
+
+
+[31m---- 1 failing tests ----
+[0m

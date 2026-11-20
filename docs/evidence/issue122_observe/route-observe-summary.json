@@ -1,0 +1,185 @@
+{
+	"by_route": {
+		"B1": {
+			"acquired_parents": "30",
+			"coverage_gap": false,
+			"failures": [],
+			"scanned": "54",
+			"stop_reason": "target_reached",
+			"windows": {
+				"startup_within_4": {
+					"denom": "30",
+					"hits": "3"
+				},
+				"startup_within_8": {
+					"denom": "30",
+					"hits": "7"
+				},
+				"sustain_within_10": {
+					"denom": "16",
+					"hits": "3"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "1",
+					"hits": "1"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "1",
+					"hits": "0"
+				}
+			}
+		},
+		"B2": {
+			"acquired_parents": "30",
+			"coverage_gap": false,
+			"failures": [],
+			"scanned": "59",
+			"stop_reason": "target_reached",
+			"windows": {
+				"startup_within_4": {
+					"denom": "29",
+					"hits": "5"
+				},
+				"startup_within_8": {
+					"denom": "29",
+					"hits": "5"
+				},
+				"sustain_within_10": {
+					"denom": "10",
+					"hits": "2"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "3",
+					"hits": "0"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "3",
+					"hits": "0"
+				}
+			}
+		},
+		"L1": {
+			"acquired_parents": "30",
+			"coverage_gap": false,
+			"failures": [],
+			"scanned": "67",
+			"stop_reason": "target_reached",
+			"windows": {
+				"startup_within_4": {
+					"denom": "29",
+					"hits": "5"
+				},
+				"startup_within_8": {
+					"denom": "29",
+					"hits": "7"
+				},
+				"sustain_within_10": {
+					"denom": "16",
+					"hits": "6"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "5",
+					"hits": "4"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "5",
+					"hits": "0"
+				}
+			}
+		},
+		"L2": {
+			"acquired_parents": "30",
+			"coverage_gap": false,
+			"failures": [],
+			"scanned": "73",
+			"stop_reason": "target_reached",
+			"windows": {
+				"startup_within_4": {
+					"denom": "30",
+					"hits": "2"
+				},
+				"startup_within_8": {
+					"denom": "30",
+					"hits": "5"
+				},
+				"sustain_within_10": {
+					"denom": "17",
+					"hits": "10"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "8",
+					"hits": "7"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "8",
+					"hits": "1"
+				}
+			}
+		},
+		"M1": {
+			"acquired_parents": "30",
+			"coverage_gap": false,
+			"failures": [],
+			"scanned": "36",
+			"stop_reason": "target_reached",
+			"windows": {
+				"startup_within_4": {
+					"denom": "30",
+					"hits": "2"
+				},
+				"startup_within_8": {
+					"denom": "30",
+					"hits": "5"
+				},
+				"sustain_within_10": {
+					"denom": "17",
+					"hits": "3"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "5",
+					"hits": "1"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "5",
+					"hits": "0"
+				}
+			}
+		},
+		"M2": {
+			"acquired_parents": "30",
+			"coverage_gap": false,
+			"failures": [],
+			"scanned": "35",
+			"stop_reason": "target_reached",
+			"windows": {
+				"startup_within_4": {
+					"denom": "29",
+					"hits": "2"
+				},
+				"startup_within_8": {
+					"denom": "29",
+					"hits": "4"
+				},
+				"sustain_within_10": {
+					"denom": "9",
+					"hits": "0"
+				},
+				"upgrade_offered_in_3": {
+					"denom": "1",
+					"hits": "0"
+				},
+				"upgrade_taken_in_3": {
+					"denom": "1",
+					"hits": "0"
+				}
+			}
+		}
+	},
+	"failures": [],
+	"max_scan": "100",
+	"move_limit": "120",
+	"note": "trial windows only; not formal acceptance; synergy left null pending opportunity telemetry",
+	"pass_line": null,
+	"start_seed": "13000",
+	"target": "30"
+}

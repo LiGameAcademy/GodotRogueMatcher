@@ -1,0 +1,590 @@
+{
+  "commit": "50f9f77653e8f3ee953c312e6feefe4457715bf7",
+  "base": "acad1edbdcde118f9aa0c30f28374ee80ecb0e09",
+  "scripts": 123,
+  "tests": 905,
+  "passing": 905,
+  "exit_code": 0,
+  "new_tests": 17,
+  "target_asserts": 1195,
+  "asserts": 26830,
+  "seconds": 261.544,
+  "rules_version": "run-commands-v43-shape-identity-order",
+  "new_profiles": [
+    "screening-free-v1",
+    "screening-fixed-v1"
+  ],
+  "owned_gd_files": 383,
+  "max_gd_lines": 478,
+  "gui": "Visible screening game launched; READY and stable viewport checked; startup errors empty; human experience not evaluated",
+  "independent_replays": {
+    "u": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/u-unlock-record.jsonl",
+      "sha256": "1de4d1cae7abb3efc4743e112b6f80cd88eab66185551e364157582b5c6e6aed",
+      "exit_code": 0
+    },
+    "l-u": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/order-l-u.jsonl",
+      "sha256": "a12cb582c9c5b8e07c32e71cad753f766a43b243aa6d92bc6fe6c3a0dfce0f59",
+      "exit_code": 0
+    },
+    "u-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/order-u-l.jsonl",
+      "sha256": "90cd9b6fc4225112b5cee634f853dd98fd742b6c41b317468b1ce96b8b8835f4",
+      "exit_code": 0
+    },
+    "rotated": {
+      "checked_records": 11,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/rotated-playground.jsonl",
+      "sha256": "df106429c0b882aa41e56f5680bcf66ed70e8a8cd0aa206d0c20fa3aa5cca17f",
+      "exit_code": 0
+    },
+    "move": {
+      "checked_records": 14,
+      "error": "",
+      "success": true,
+      "record": "issue118-u/move-playground.jsonl",
+      "sha256": "f431879e00093b85881bf98c747a7f41280fa934f32f3ba823a7475b5970e1c0",
+      "exit_code": 0
+    },
+    "old-zs": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/zs-unlock-record.jsonl",
+      "sha256": "08827fb0fa47aa66fd8ff5f7b0eede2de5b3313993abafd3605cfe0cad809c3a",
+      "exit_code": 0
+    },
+    "old-zs-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/order-zs-l.jsonl",
+      "sha256": "0414d79240b2c004204b3146ca5028c0ceb859e35b6c488ef3da3b04d032d982",
+      "exit_code": 0
+    },
+    "old-l-zs": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/order-l-zs.jsonl",
+      "sha256": "c0cee59514ecf09c89dcb27534cfc028ee0275a171f7c38c7ae780bcbbf1e0b6",
+      "exit_code": 0
+    },
+    "old-zs-mirror": {
+      "checked_records": 11,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/mirror-playground.jsonl",
+      "sha256": "c6eeaf8728fdbe60032e49163c5b0aaebae652d2e1ebf4c29d58deed3a55f63e",
+      "exit_code": 0
+    },
+    "old-zs-move": {
+      "checked_records": 14,
+      "error": "",
+      "success": true,
+      "record": "issue118-zs/move-playground.jsonl",
+      "sha256": "820616f532cca0475c50cac200068dbc9cb8a5a233727b5fb4236d16e16e2d2a",
+      "exit_code": 0
+    },
+    "old-x": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-x/x-unlock-record.jsonl",
+      "sha256": "d962111f66a671f56afe680b1b7a1f40950058aa2b3bfac95afc4365d7a7d7d6",
+      "exit_code": 0
+    },
+    "old-l-x": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-x/order-l-x.jsonl",
+      "sha256": "e746266c7aa6f5ca21e16be902bc2c398aad7db4392cce7ea313e358cb6cd98f",
+      "exit_code": 0
+    },
+    "old-x-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-x/order-x-l.jsonl",
+      "sha256": "98e0af77a77a4e9f34f2f0ea51523696144f6a7c19a8434b61c2c08a24f38fdd",
+      "exit_code": 0
+    },
+    "old-plus": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/plus-unlock-record.jsonl",
+      "sha256": "8b87f8467b009eab9ff14d042d83f8d5ed7befbca42db8337793bfd145797a7a",
+      "exit_code": 0
+    },
+    "old-l-plus": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/order-l-plus.jsonl",
+      "sha256": "1ad63f9d9db8fe5481312c7f31edc4678f7628cd9fcc507c73094a699d300a4a",
+      "exit_code": 0
+    },
+    "old-plus-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-plus/order-plus-l.jsonl",
+      "sha256": "646b056b302932c7adf9b5f74bece3745ab6dc5f952be9644900c4826454cf91",
+      "exit_code": 0
+    },
+    "old-t": {
+      "checked_records": 13,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/t-unlock-record.jsonl",
+      "sha256": "27d053168e8370d1b430d7fac01669755796859ace807334d401e52e2c32c4a0",
+      "exit_code": 0
+    },
+    "old-l-t": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/order-l-t.jsonl",
+      "sha256": "af5d23eff634521a8a8e51d2e5298c6628eee5808470dd834b55f5d714739769",
+      "exit_code": 0
+    },
+    "old-t-l": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-t/order-t-l.jsonl",
+      "sha256": "68f16cd7e0130647ccbdb0dea9899f3e2b68803037d7294762512c225c7f0334",
+      "exit_code": 0
+    },
+    "ring": {
+      "checked_records": 19,
+      "error": "",
+      "success": true,
+      "record": "issue118-ring/ring-unlock-record.jsonl",
+      "sha256": "7ae232dd4f704225026bd2fbc1868aac472ea2ad9f2cfbb5831e06b920d422b9",
+      "exit_code": 0
+    },
+    "ring-u": {
+      "checked_records": 23,
+      "error": "",
+      "success": true,
+      "record": "issue118-ring/order-ring-u.jsonl",
+      "sha256": "cb462271f0956fe68b7e7aa58294cea286eac6edefedcb5d96370e8272580e82",
+      "exit_code": 0
+    },
+    "u-ring": {
+      "checked_records": 23,
+      "error": "",
+      "success": true,
+      "record": "issue118-ring/order-u-ring.jsonl",
+      "sha256": "63cb6cef6b0db8e96db11baf1bd6534eabfeb5251bcd0e3721c5987ec264a2c4",
+      "exit_code": 0
+    },
+    "ring-center": {
+      "checked_records": 17,
+      "error": "",
+      "success": true,
+      "record": "issue118-ring/center-playground.jsonl",
+      "sha256": "1fada12e620f4dde2374912c513088289c67dda65327664cd24d8929215c0b43",
+      "exit_code": 0
+    },
+    "ring-move": {
+      "checked_records": 20,
+      "error": "",
+      "success": true,
+      "record": "issue118-ring/move-playground.jsonl",
+      "sha256": "5d6ba0eb97b019118794f746c1df3838c9782106a2c6a40ef80dde39ac23e422",
+      "exit_code": 0
+    },
+    "square": {
+      "checked_records": 19,
+      "error": "",
+      "success": true,
+      "record": "issue118-square/square-unlock-record.jsonl",
+      "sha256": "61f48f88a945657ea30a2a202842d4e848af88eb5da0bb791eaf53224652caf6",
+      "exit_code": 0
+    },
+    "square-ring": {
+      "checked_records": 23,
+      "error": "",
+      "success": true,
+      "record": "issue118-square/order-square-ring.jsonl",
+      "sha256": "acb2da1f83da5372830ab84d855756e496005b632ed1f061da4dca56c2d898b6",
+      "exit_code": 0
+    },
+    "ring-square": {
+      "checked_records": 23,
+      "error": "",
+      "success": true,
+      "record": "issue118-square/order-ring-square.jsonl",
+      "sha256": "96858049e317560c7206b9a858be2948c4f77081b182ea24a6f3f71596a1a645",
+      "exit_code": 0
+    },
+    "square-center": {
+      "checked_records": 11,
+      "error": "",
+      "success": true,
+      "record": "issue118-square/center-playground.jsonl",
+      "sha256": "f1e02006403f9f5149e0b15383f963563d5eb24698f8690aa7b42609ee8e8b56",
+      "exit_code": 0
+    },
+    "square-move": {
+      "checked_records": 20,
+      "error": "",
+      "success": true,
+      "record": "issue118-square/move-playground.jsonl",
+      "sha256": "b518a1e3a85d9acd45c514862c642aa12f06ed40f57ef265d095445688f8a2b6",
+      "exit_code": 0
+    },
+    "mixed-lt": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/lt.jsonl",
+      "sha256": "69be56ac870ac75446f1466ffc721ad36f386ee7208c907c318a17b705fffeee",
+      "exit_code": 0
+    },
+    "mixed-lt-baseline": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/lt-baseline.jsonl",
+      "sha256": "6b910dd2bafa7e2833784e16bb27a4cb74abb478984a6f82c12befe593ba116a",
+      "exit_code": 0
+    },
+    "mixed-plus-x": {
+      "checked_records": 18,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/plus-x.jsonl",
+      "sha256": "f86ea481cfb1f3949449128cde89e0594fc3391e4018cb8695f46d62d6f54747",
+      "exit_code": 0
+    },
+    "mixed-plus-x-baseline": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/plus-x-baseline.jsonl",
+      "sha256": "f6b13d6486ef68238f28fd3f1a2fce351f1f48a7eb715f93762cf23888f2a513",
+      "exit_code": 0
+    },
+    "mixed-independent": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/independent.jsonl",
+      "sha256": "2b8e9fbf7b29ece1c26e006a2ee79227327b2b6dc4ac3ed32c4edcc401ba99bd",
+      "exit_code": 0
+    },
+    "mixed-independent-baseline": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/independent-baseline.jsonl",
+      "sha256": "ff60d62a181a7ed47ba825f23adcd51470f902bf111d858ae72d6b65b6e927bc",
+      "exit_code": 0
+    },
+    "mixed-nested": {
+      "checked_records": 18,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/nested.jsonl",
+      "sha256": "db8d179f94420ae2e23565ec38e06c49809c912baf07562117fad2dff28680ad",
+      "exit_code": 0
+    },
+    "mixed-nested-baseline": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue118-mixed/nested-baseline.jsonl",
+      "sha256": "02059be2681a07d0963214bd5ae1cf13afc0833845bde836fac42634a83d1b7b",
+      "exit_code": 0
+    },
+    "screening-free-baseline": {
+      "checked_records": 138,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/free-baseline.jsonl",
+      "sha256": "b6c6b76edf8fbca9f3895522d9cca7f50a9a6a58ec376bb675a3b09c23a60fce",
+      "exit_code": 0
+    },
+    "screening-free-l": {
+      "checked_records": 138,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/free-l.jsonl",
+      "sha256": "774f48b77c7b5914c320643b1e860acc6c6bfb238cdda1727a249388bf1599d3",
+      "exit_code": 0
+    },
+    "screening-free-t": {
+      "checked_records": 138,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/free-t.jsonl",
+      "sha256": "3502d04049403bbd73352708d302c27799b813aba4871475983718bec83c0a6e",
+      "exit_code": 0
+    },
+    "screening-free-plus": {
+      "checked_records": 138,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/free-plus.jsonl",
+      "sha256": "625e8ba6a35efb20b4a5a845e981290728268c48aae87f012a55afc0065db41a",
+      "exit_code": 0
+    },
+    "screening-free-x": {
+      "checked_records": 138,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/free-x.jsonl",
+      "sha256": "c085e4becfd77eecf99ce7e4a3060cbd23f96e81d3e7d478e25c1441488018ba",
+      "exit_code": 0
+    },
+    "screening-free-zs": {
+      "checked_records": 138,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/free-zs.jsonl",
+      "sha256": "80dde04e601bd1bc6bcf728c65e31bd2c7903a52e19a92c8df071fb7ea0abf05",
+      "exit_code": 0
+    },
+    "screening-ui-t-overlap": {
+      "checked_records": 20,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/ui-t-overlap.jsonl",
+      "sha256": "7c68199b3bd98b2886d1b04dd45bbd7b88cfae25e1b724ce15475907570a70f1",
+      "exit_code": 0
+    },
+    "screening-ui-action-limit": {
+      "checked_records": 14,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/ui-action-limit.jsonl",
+      "sha256": "6e2559fa0a5e26c7c26df6d58409f49626759b08be193f1cc04ef9624a8c566b",
+      "exit_code": 0
+    },
+    "screening-ui-time-busy": {
+      "checked_records": 14,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/ui-time-busy.jsonl",
+      "sha256": "f5db5fc50abfd14622fd43ca8583793182deed16fc286e1ab8adb84bcb4209d1",
+      "exit_code": 0
+    },
+    "screening-ui-time-paused": {
+      "checked_records": 5,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/ui-time-paused.jsonl",
+      "sha256": "1f0b8ebee9f9b1f53de03427b6f5ee7c5d7ee24ef04125c7b18b73ae8259bd5d",
+      "exit_code": 0
+    },
+    "screening-baseline-direct": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/baseline-direct.jsonl",
+      "sha256": "8428642d543bb56740f56846cebf733c457f86eb5506cb9e0624ee657f1725d9",
+      "exit_code": 0
+    },
+    "screening-baseline-wrong": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/baseline-wrong.jsonl",
+      "sha256": "78d957775e39557de2c59e2cad97ea025f1ae6bb01b0b31fe5f5b2386c9a41fb",
+      "exit_code": 0
+    },
+    "screening-baseline-overlap": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/baseline-overlap.jsonl",
+      "sha256": "9a15cc80b9eaef9b1cb07a2260c70fbfe8e2e1ad4f6175aef5558edb3c5829f7",
+      "exit_code": 0
+    },
+    "screening-baseline-outside": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/baseline-outside.jsonl",
+      "sha256": "fee341d0c227fb20a8f87ea94c23ad4c7021ac2a63e7376699a3e3cc1f7ea13a",
+      "exit_code": 0
+    },
+    "screening-l-direct": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/l-direct.jsonl",
+      "sha256": "46162212d666e81adb3103c2ef3ed7524aa7904899ac2123f1c650b6907df7d2",
+      "exit_code": 0
+    },
+    "screening-l-wrong": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/l-wrong.jsonl",
+      "sha256": "e16838a5b048459639cd669cc4814e3d20710c37ab8c7d30098b60f592eb1732",
+      "exit_code": 0
+    },
+    "screening-l-overlap": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/l-overlap.jsonl",
+      "sha256": "b5ffafc4075f2967f92d417b09e5a7695cbce79f704efdf951846aba88cbf6b6",
+      "exit_code": 0
+    },
+    "screening-l-outside": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/l-outside.jsonl",
+      "sha256": "a67f8bb377647e2dfb8cc5ce4d9b2652876bcf19b94cda5ecbf224e08ca16e74",
+      "exit_code": 0
+    },
+    "screening-t-direct": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/t-direct.jsonl",
+      "sha256": "768c622d6fcb8ad9ed36b36f04e47eee2b7f52acb5f1e453ad2a812683c2fbb4",
+      "exit_code": 0
+    },
+    "screening-t-wrong": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/t-wrong.jsonl",
+      "sha256": "d138c4e51d8ddbce3d5b2f32e93b475f56124213c355fc458f3133d8f9749bd9",
+      "exit_code": 0
+    },
+    "screening-t-overlap": {
+      "checked_records": 18,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/t-overlap.jsonl",
+      "sha256": "3563a1fd846168b14983079645497e8b4a6fa315d636516aa6c683ba869e137d",
+      "exit_code": 0
+    },
+    "screening-t-outside": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/t-outside.jsonl",
+      "sha256": "6b2874ecc14786fe0998186a360cadb89925c30cd86ecf2eb45232868057b298",
+      "exit_code": 0
+    },
+    "screening-plus-direct": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/plus-direct.jsonl",
+      "sha256": "32acb62c719f7d0b48368fba4866844fa3689b0780d1b9a605950ca76f7f138c",
+      "exit_code": 0
+    },
+    "screening-plus-wrong": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/plus-wrong.jsonl",
+      "sha256": "3184caeeda313fd96a982ebee34851f570f9735d7dadca6e3e612ecf6884c0bd",
+      "exit_code": 0
+    },
+    "screening-plus-overlap": {
+      "checked_records": 18,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/plus-overlap.jsonl",
+      "sha256": "01f22e978e5ef38abd565b83a319f600213a458809d97de6cd193d1bee226d5e",
+      "exit_code": 0
+    },
+    "screening-plus-outside": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/plus-outside.jsonl",
+      "sha256": "3f6889f5a04e465db9aa52427c479de5a06a668afce27ffa6bde12f58cf79860",
+      "exit_code": 0
+    },
+    "screening-x-direct": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/x-direct.jsonl",
+      "sha256": "f3da5f28cf36d3a90246782bfd1566e4c117b037536c2f2edeca5c2cbc2ed9eb",
+      "exit_code": 0
+    },
+    "screening-x-wrong": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/x-wrong.jsonl",
+      "sha256": "1fb2ff0ef1b012a2ff2d458e27ff73bfd3b07b843b8c8532fdb746c3e3b68580",
+      "exit_code": 0
+    },
+    "screening-x-overlap": {
+      "checked_records": 18,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/x-overlap.jsonl",
+      "sha256": "66830c67c26eaaf9b81c1bf0e182acc97050791f855275df6809f6ed0f0726c3",
+      "exit_code": 0
+    },
+    "screening-x-outside": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/x-outside.jsonl",
+      "sha256": "fd476b3705c05f34f899c7fbc82f4cb215c857316b350bc64b08f79d20c1d267",
+      "exit_code": 0
+    },
+    "screening-zs-direct": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/zs-direct.jsonl",
+      "sha256": "f69754933e819514b82e4b6c0d97c8abb3beb30c0e56741a1181fe790efa5eb4",
+      "exit_code": 0
+    },
+    "screening-zs-wrong": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/zs-wrong.jsonl",
+      "sha256": "e0cfb9eabcdcb5200060dbc4a96e0ca085c53373eb23ee9e9207ff360613e077",
+      "exit_code": 0
+    },
+    "screening-zs-overlap": {
+      "checked_records": 18,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/zs-overlap.jsonl",
+      "sha256": "2fed028787794ea06fe9ca454ee0866d864e48f09bfb17d0fbd5872c140461b8",
+      "exit_code": 0
+    },
+    "screening-zs-outside": {
+      "checked_records": 12,
+      "error": "",
+      "success": true,
+      "record": "issue119-screening/zs-outside.jsonl",
+      "sha256": "67f1131c87e32398986331263edf7c8611e043d34a232e57da18b42105ff61b9",
+      "exit_code": 0
+    }
+  }
+}

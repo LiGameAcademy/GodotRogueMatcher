@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/resume-lineage-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_resume_telemetry.gd
+[0m* test_resume_header_has_unique_segment_event_identity_and_never_replays_run_started
+* test_checkpoint_wrapper_preserves_accepted_and_persisted_anchor_without_changing_rules
+* test_real_resume_files_preserve_originals_and_new_commands_match_without_history_emission
+* test_missing_wrapper_schema_with_replacement_key_is_rejected_and_bad_trace_does_not_block_save
+* test_lineage_reassembles_unique_chain_once_and_preserves_discarded_tail_and_source_events
+* test_ambiguous_resume_leaves_and_missing_or_bad_anchors_do_not_create_natural_samples
+[1m6/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 6
+Passing Tests         6
+Asserts              67
+Time              6.621s
+
+
+[32m---- All tests passed! ----
+[0m

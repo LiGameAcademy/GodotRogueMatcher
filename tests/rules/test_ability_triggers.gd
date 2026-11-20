@@ -62,6 +62,25 @@ func test_wrong_owner_event_or_cause_never_consumes_trigger_count() -> void:
 	assert_eq(instance.trigger_count, 0)
 	assert_false(instance.has_triggered)
 
+func test_condition_and_limit_rejects_record_attempts_owner_noise_does_not() -> void:
+	var instance: AbilityInstance = _instance()
+	assert_eq(events.dispatch([_event(&"match", 2)], [instance]).size(), 0)
+	assert_eq(events.take_traces().size(), 0, "owner_mismatch is not an attempt")
+	assert_eq(events.dispatch([_event(&"cleanup")], [instance]).size(), 0)
+	var rejects: Array[Dictionary] = events.take_traces()
+	assert_eq(rejects.size(), 1)
+	assert_eq(String(rejects[0].reason), "condition_rejected")
+	assert_true(bool(rejects[0].attempt))
+	assert_false(bool(rejects[0].consumed))
+	assert_true(_accept(instance, _event()))
+	assert_eq(events.take_traces().size(), 1)
+	assert_eq(events.dispatch([_event()], [instance]).size(), 0)
+	var capped: Array[Dictionary] = events.take_traces()
+	assert_eq(capped.size(), 1)
+	assert_eq(String(capped[0].reason), "trigger_limit_reached")
+	assert_true(bool(capped[0].attempt))
+	assert_eq(instance.trigger_count, 1)
+
 func test_changing_only_condition_changes_real_resolver_trigger() -> void:
 	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
 	var core: PieceState = run.abilities.add_core(Vector2i(2, 0))

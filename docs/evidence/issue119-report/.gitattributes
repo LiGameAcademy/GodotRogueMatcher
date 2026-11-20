@@ -1,0 +1,4 @@
+*.log -text -whitespace
+*.json -text -whitespace
+*.md -text -whitespace
+.gitattributes -text -whitespace

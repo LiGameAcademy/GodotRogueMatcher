@@ -1,0 +1,310 @@
+{
+  "row_hash": "8b3de879d8785febdff10789e0ff6d097add7010da39465d3799b75b61733fc7",
+  "revision": 33,
+  "payload_hash": "7bc938f32401dfaa5577fb7bc0682ebe108a9811bbe220b91957012439e8e749",
+  "schema": "checkpoint-web-files-v1",
+  "files": [
+    "previous.json",
+    "previous.rollback",
+    "primary.json",
+    "primary.rollback"
+  ],
+  "sealed_ok": true,
+  "generation": "12",
+  "package_schema": "run-checkpoint-package-v3",
+  "run_id": "191055749-0-1793350950588000-3405400",
+  "point": "input",
+  "record_seq": "104",
+  "state_hash": "d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+  "phase": "1",
+  "action": "11",
+  "moves": "10",
+  "continuation": "idle",
+  "pending": "0",
+  "consumed": "1",
+  "rng": {
+    "master_seed": "191055749",
+    "rng_scheme_version": "sl-rng-v1",
+    "streams": {
+      "effect_execution": {
+        "seed": "7892502943832050992",
+        "state": "6773964613564168962"
+      },
+      "offer_candidates": {
+        "seed": "4300920153211973774",
+        "state": "-6463136479422982799"
+      },
+      "offer_order": {
+        "seed": "7279101750637075736",
+        "state": "-8505968075381759636"
+      },
+      "offer_targets": {
+        "seed": "5000153515030395472",
+        "state": "-6827329792794142716"
+      },
+      "spawn_content": {
+        "seed": "5676506742996021317",
+        "state": "-3084894257921109460"
+      },
+      "spawn_position": {
+        "seed": "8415804414150746724",
+        "state": "1527751957231984072"
+      }
+    }
+  },
+  "pieces": [
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "6"
+      ],
+      "ghost": false,
+      "id": "5"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "8"
+      ],
+      "ghost": false,
+      "id": "7"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "0"
+      ],
+      "ghost": false,
+      "id": "9"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "1"
+      ],
+      "ghost": false,
+      "id": "10"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "6"
+      ],
+      "ghost": false,
+      "id": "11"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "6"
+      ],
+      "ghost": false,
+      "id": "12"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "5"
+      ],
+      "ghost": false,
+      "id": "13"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "6"
+      ],
+      "ghost": false,
+      "id": "15"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "3"
+      ],
+      "ghost": false,
+      "id": "17"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "2"
+      ],
+      "ghost": false,
+      "id": "19"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "0"
+      ],
+      "ghost": false,
+      "id": "20"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "4"
+      ],
+      "ghost": false,
+      "id": "21"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "2"
+      ],
+      "ghost": false,
+      "id": "22"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "1"
+      ],
+      "ghost": false,
+      "id": "23"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "2"
+      ],
+      "ghost": false,
+      "id": "24"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "1"
+      ],
+      "ghost": false,
+      "id": "25"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "5"
+      ],
+      "ghost": false,
+      "id": "26"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "6"
+      ],
+      "ghost": false,
+      "id": "27"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "7"
+      ],
+      "ghost": false,
+      "id": "28"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "3"
+      ],
+      "ghost": false,
+      "id": "30"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "2"
+      ],
+      "ghost": false,
+      "id": "31"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "1"
+      ],
+      "ghost": false,
+      "id": "32"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "8"
+      ],
+      "ghost": false,
+      "id": "33"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "1"
+      ],
+      "ghost": false,
+      "id": "34"
+    }
+  ],
+  "last_command": {
+    "buffered": false,
+    "buffered_wait_ms": "0",
+    "command_id": "13",
+    "expected_action_id": "10",
+    "offer_id": "1",
+    "reward_id": "1",
+    "run_id": "191055749-0-1793350950588000-3405400",
+    "selected_color": "-1",
+    "skill_id": "color_weight_down",
+    "source": "human",
+    "type": "choose"
+  }
+}

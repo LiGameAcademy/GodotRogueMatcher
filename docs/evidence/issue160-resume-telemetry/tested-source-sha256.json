@@ -1,0 +1,140 @@
+[
+  {
+    "path": "gameplay/game_checkpoint_flow.gd",
+    "sha256": "6bf3aee25e28fce98a88d3a077c9139820eec136c8cc288b0a48e6e3519023e0",
+    "git_blob": "c7fa0ef8eaf3e6f8256a5c96f196818ae2ab32ee",
+    "lines": 367
+  },
+  {
+    "path": "gameplay/game.gd",
+    "sha256": "c61669f297d99826b67ab8a3c76014a053038d38dea68b228b00016164e376a9",
+    "git_blob": "afca2885bb5d20b3bbd866b833ded0a20860def5",
+    "lines": 500
+  },
+  {
+    "path": "gameplay/run/recording/run_recorder.gd",
+    "sha256": "ec1947352e48a4a340954e1500e99b3914cd4808cf21dfa89fdc0842031b416c",
+    "git_blob": "57195a3ea61a970aae0902dfac81141d6d75ad22",
+    "lines": 193
+  },
+  {
+    "path": "services/run_checkpoint/checkpoint_job.gd",
+    "sha256": "102ee6a106aa4dd64f1ed48b09a48005aa41a078d16d049ec8e00f35e2c0a21e",
+    "git_blob": "29333eac3f9b7f4e7f365d59c7687f43f03e8a43",
+    "lines": 56
+  },
+  {
+    "path": "services/run_checkpoint/run_checkpoint_session.gd",
+    "sha256": "4c4523a8051f5860eee8d2b7f819586412e092c30ea1d0ac0ab2e01aed8b2083",
+    "git_blob": "0cad5dbf7978c93da7c2ea1d1e1489346809c942",
+    "lines": 88
+  },
+  {
+    "path": "services/telemetry/board_observation.gd",
+    "sha256": "74b2d1e313833e6c9bbf7bc9aa580af94b0485bfa94caa276a512191df5303d4",
+    "git_blob": "7caf125465b6ba3179e8c8783fb5df7380eade6b",
+    "lines": 65
+  },
+  {
+    "path": "services/telemetry/collection_session.gd",
+    "sha256": "55970584dfc315daddd24836e1cba7a309536a794bbeffdec3e73d4d84332d1c",
+    "git_blob": "14946d2368d6761e7195fe7d6439df576635c11c",
+    "lines": 98
+  },
+  {
+    "path": "services/telemetry/run_collection.gd",
+    "sha256": "4be3d1bc6ca05def2e82ea44d920de3000a60d1e48cbc96b5294b50dd56639a5",
+    "git_blob": "6c5fe34c5e795d1cf9a76fba006fb26842745f59",
+    "lines": 210
+  },
+  {
+    "path": "services/telemetry/telemetry_factory.gd",
+    "sha256": "712416d89a4d4388ff756c52e68f921b44fd657af070e09a869da331056b7ba1",
+    "git_blob": "858c753f3b20c6b4044e6f220fc50573cca8d5e1",
+    "lines": 39
+  },
+  {
+    "path": "services/telemetry/telemetry_lineage.gd",
+    "sha256": "95b275c69c6b97f0c25318ef5e861667827759497e795ad7fffc384623129c4f",
+    "git_blob": "4a2f012f48e68da8d2d7649da5758cb061940d05",
+    "lines": 123
+  },
+  {
+    "path": "services/telemetry/telemetry_projector.gd",
+    "sha256": "4bfd650ff7291be252909eaf073b4a48da35be1573f67359e7e3da73bc5df7ab",
+    "git_blob": "c44f00925bb310d23303e0cb7a201eb24a0d2a4b",
+    "lines": 331
+  },
+  {
+    "path": "services/telemetry/telemetry_reader.gd",
+    "sha256": "259e67161b06dd0d617e39b5615792356d9b968f7b524f897d3206f4953aa490",
+    "git_blob": "3cb1e2613034860b0beaf8c2953a7f7d4db4a028",
+    "lines": 63
+  },
+  {
+    "path": "services/telemetry/telemetry_resume.gd",
+    "sha256": "a2e47a9afe27690fb860f00dcc7e5dde64a7da8d2008eec0d1a334e89b35758f",
+    "git_blob": "aaaff9b4f48203cabd913219ed6f20bccd72c942",
+    "lines": 24
+  },
+  {
+    "path": "services/telemetry/telemetry_schema.gd",
+    "sha256": "2e7568daebf460bae1322d48b7c1a49544098c5b7c5a8e8b5767c9442e4283d1",
+    "git_blob": "eb85235ecbb2f709edfc7a63230953e85bc40dd4",
+    "lines": 204
+  },
+  {
+    "path": "services/telemetry/telemetry_summary.gd",
+    "sha256": "ba9cfd51c9237009388593741e0432305c83fc00582cbf0fe83e3f815d78563c",
+    "git_blob": "dcb2f5cea185dcae4f766ca855d4e94760bb3673",
+    "lines": 47
+  },
+  {
+    "path": "tests/integration/test_resume_collection_flow.gd",
+    "sha256": "0664bf4b1ec7c84df1c1a894b53befe34f58ef975fbef67cfbbfb09783f4b0b9",
+    "git_blob": "6eb3ff0651adfcab1a8f0e34300acbec82edb920",
+    "lines": 94
+  },
+  {
+    "path": "tests/rules/test_resume_telemetry.gd",
+    "sha256": "4431b917962ccfbbf479e713532c6b45ca0784e2921278a6c05655058eb2f8f6",
+    "git_blob": "c751e87f84d4985b96f55fa0ac269019f3044d9a",
+    "lines": 416
+  },
+  {
+    "path": "tools/checkpoint_benchmark/desktop_gpu_probe.gd",
+    "sha256": "eae3236019e32d865d61d07de3fa89f7b2f184c4ca6b02334dcf54638abb1ed2",
+    "git_blob": "3a1cc190e280a0483a5431c74c07a1e42a6d8970",
+    "lines": 102
+  },
+  {
+    "path": "tools/checkpoint_benchmark/resume_telemetry_probe.gd",
+    "sha256": "ac5127dbf2eff18013d4cc682e4a2a0ffef1e6698064cf7841d6b9d262f5af4b",
+    "git_blob": "2c3ad00b6b56013ebbc09eaf32d0b0ceb757b265",
+    "lines": 90
+  },
+  {
+    "path": "tools/telemetry_analysis/import_sources.py",
+    "sha256": "6891a1aa2135a985b52cac7de95acdfcb41ec705d62c4768f3ffff4dbed571f3",
+    "git_blob": "3e393db96c70491c4e746a8cae765c9072bd158f",
+    "lines": 282
+  },
+  {
+    "path": "tools/telemetry_analysis/telemetry_report.gd",
+    "sha256": "65ef4635543ad78dd869357be7d9334da744e863342efab9b87ab56cbb1f8720",
+    "git_blob": "15cf6fbd761531de8c1bac09b62729cbc24c17dc",
+    "lines": 181
+  },
+  {
+    "path": "tools/telemetry_analysis/test_resume_import.py",
+    "sha256": "270da1ada13dab108968a372958ac762ff9a94e514aa85a5e0c45001d9a8ab7b",
+    "git_blob": "1be4303989f023a9194f30a485891145f2398c8e",
+    "lines": 114
+  },
+  {
+    "path": "ui/collection_controls/collection_controls.gd",
+    "sha256": "d4124dfc81c3419cc5f0941769f5a44b380e8201550f2fa05311335f23c29c54",
+    "git_blob": "e37291b36beafd12f8de1e305fcc336ae8da2d64",
+    "lines": 29
+  }
+]

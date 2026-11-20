@@ -1,0 +1,9 @@
+{
+  "asset": "assets/textures/ui/icon_ability_match_bonus.svg",
+  "source": "SVG itself; authored in this change from basic rectangles and paths",
+  "size": [
+    32,
+    32
+  ],
+  "sha256": "5700e356bd87ab81e628090674631391a21ba32f9b720e3b780ff828aaaad508"
+}

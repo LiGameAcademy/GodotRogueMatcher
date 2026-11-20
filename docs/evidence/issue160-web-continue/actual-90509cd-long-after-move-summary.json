@@ -1,0 +1,501 @@
+{
+  "row_hash": "780e2911804b0aad5c56203beaf8906ade2586889c2394344fbf44658db2d4d3",
+  "revision": 4,
+  "payload_hash": "d8749ba63c0200e5ec2eb7ff575c2697c02181887d48d066f1b61a1fd8473a0b",
+  "schema": "checkpoint-web-files-v1",
+  "files": [
+    "previous.json",
+    "previous.rollback",
+    "primary.json",
+    "primary.rollback"
+  ],
+  "sealed_ok": true,
+  "generation": "4",
+  "package_schema": "run-checkpoint-package-v3",
+  "run_id": "23-0-1793426885263000-2678900",
+  "point": "input",
+  "record_seq": "485",
+  "state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+  "phase": "1",
+  "action": "55",
+  "moves": "51",
+  "continuation": "idle",
+  "pending": "0",
+  "consumed": "4",
+  "rng": {
+    "master_seed": "23",
+    "rng_scheme_version": "sl-rng-v1",
+    "streams": {
+      "effect_execution": {
+        "seed": "4442505890182549836",
+        "state": "6637229646640809487"
+      },
+      "offer_candidates": {
+        "seed": "2165954338366668637",
+        "state": "7565615689464916247"
+      },
+      "offer_order": {
+        "seed": "4259881053563926600",
+        "state": "5476479154855629218"
+      },
+      "offer_targets": {
+        "seed": "8066979840261213541",
+        "state": "6035750050688738401"
+      },
+      "spawn_content": {
+        "seed": "1464555921950556451",
+        "state": "1464402108081733811"
+      },
+      "spawn_position": {
+        "seed": "5073266472179731833",
+        "state": "5671067582556682864"
+      }
+    }
+  },
+  "pieces": [
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "7"
+      ],
+      "ghost": false,
+      "id": "36"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "3"
+      ],
+      "ghost": false,
+      "id": "38"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "8"
+      ],
+      "ghost": false,
+      "id": "39"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "8"
+      ],
+      "ghost": false,
+      "id": "50"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "3"
+      ],
+      "ghost": false,
+      "id": "52"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "2"
+      ],
+      "ghost": false,
+      "id": "59"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "7"
+      ],
+      "ghost": false,
+      "id": "65"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "8"
+      ],
+      "ghost": false,
+      "id": "66"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "7"
+      ],
+      "ghost": false,
+      "id": "70"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "6"
+      ],
+      "ghost": false,
+      "id": "72"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "5"
+      ],
+      "ghost": false,
+      "id": "77"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "4"
+      ],
+      "ghost": false,
+      "id": "78"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "6"
+      ],
+      "ghost": false,
+      "id": "79"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "8"
+      ],
+      "ghost": false,
+      "id": "80"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "1"
+      ],
+      "ghost": false,
+      "id": "82"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "7"
+      ],
+      "ghost": false,
+      "id": "84"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "0"
+      ],
+      "ghost": false,
+      "id": "85"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "5"
+      ],
+      "ghost": false,
+      "id": "86"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "5"
+      ],
+      "ghost": false,
+      "id": "88"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "4"
+      ],
+      "ghost": false,
+      "id": "89"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "6"
+      ],
+      "ghost": false,
+      "id": "96"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "3"
+      ],
+      "ghost": false,
+      "id": "97"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "2"
+      ],
+      "ghost": false,
+      "id": "98"
+    },
+    {
+      "color": "1",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "6"
+      ],
+      "ghost": false,
+      "id": "99"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "1"
+      ],
+      "ghost": false,
+      "id": "101"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "2"
+      ],
+      "ghost": false,
+      "id": "102"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "3"
+      ],
+      "ghost": false,
+      "id": "103"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "1",
+        "1"
+      ],
+      "ghost": false,
+      "id": "105"
+    },
+    {
+      "color": "1",
+      "content_id": "special_line_row",
+      "coordinate": [
+        "0",
+        "6"
+      ],
+      "ghost": false,
+      "id": "106"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "6"
+      ],
+      "ghost": false,
+      "id": "107"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "3"
+      ],
+      "ghost": false,
+      "id": "108"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "0"
+      ],
+      "ghost": false,
+      "id": "109"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "4",
+        "5"
+      ],
+      "ghost": false,
+      "id": "110"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "8"
+      ],
+      "ghost": false,
+      "id": "111"
+    },
+    {
+      "color": "3",
+      "content_id": "",
+      "coordinate": [
+        "0",
+        "4"
+      ],
+      "ghost": false,
+      "id": "112"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "8",
+        "4"
+      ],
+      "ghost": false,
+      "id": "113"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "3"
+      ],
+      "ghost": false,
+      "id": "114"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "6"
+      ],
+      "ghost": false,
+      "id": "115"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "3",
+        "8"
+      ],
+      "ghost": false,
+      "id": "116"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "7",
+        "3"
+      ],
+      "ghost": false,
+      "id": "117"
+    },
+    {
+      "color": "4",
+      "content_id": "",
+      "coordinate": [
+        "6",
+        "0"
+      ],
+      "ghost": false,
+      "id": "118"
+    },
+    {
+      "color": "2",
+      "content_id": "",
+      "coordinate": [
+        "5",
+        "2"
+      ],
+      "ghost": false,
+      "id": "119"
+    },
+    {
+      "color": "0",
+      "content_id": "",
+      "coordinate": [
+        "2",
+        "8"
+      ],
+      "ghost": false,
+      "id": "120"
+    }
+  ],
+  "last_command": {
+    "buffered": false,
+    "buffered_wait_ms": "0",
+    "command_id": "55",
+    "expected_action_id": "54",
+    "piece_id": "85",
+    "run_id": "23-0-1793426885263000-2678900",
+    "source": "human",
+    "target": [
+      "4",
+      "0"
+    ],
+    "type": "move"
+  }
+}

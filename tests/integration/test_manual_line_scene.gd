@@ -89,7 +89,9 @@ func test_double_click_fast_and_normal_scene_match_headless_rules_and_replay() -
 		assert_true(board.load_explosion_demo("fixture_line"))
 		board.set_playback_fast(fast)
 		var run: RunController = board.run
-		watch_signals(board)
+		var cues: Array[StringName] = []
+		var capture: Callable = func(cue: StringName) -> void: cues.append(cue)
+		board.feedback_requested.connect(capture)
 		var shadow: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7)
 		shadow.state.run_id = run.state.run_id
 		shadow.initialize("fixture_line")
@@ -99,7 +101,9 @@ func test_double_click_fast_and_normal_scene_match_headless_rules_and_replay() -
 		assert_true(shadow.execute_command(command).accepted)
 		while shadow.state.phase != RunState.Phase.INPUT and not shadow.state.is_game_over: shadow.advance()
 		await board._on_piece_activated(Vector2i.ZERO)
-		assert_signal_emitted_with_parameters(board, "feedback_requested", [&"blast"])
+		board.feedback_requested.disconnect(capture)
+		assert_has(cues, &"sweep")
+		assert_false(cues.has(&"blast"))
 		assert_true(board.can_selected)
 		assert_eq(run.state.activations, 1)
 		assert_eq(run.state.ledger.total, 14)

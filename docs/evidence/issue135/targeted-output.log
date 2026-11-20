@@ -1,0 +1,92 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135/targeted-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+SCRIPT ERROR: Parse Error: Value of type "CompositeEffect" cannot be assigned to a variable of type "ChoiceEffect".
+   at: GDScript::reload (res://tests/rules/test_composite_boundaries.gd:126)
+   GDScript backtrace (most recent call first):
+       [0] load_script_using_custom_warnings (res://addons/gut/warnings_manager.gd:173)
+       [1] _parse_script (res://addons/gut/test_collector.gd:76)
+       [2] add_script (res://addons/gut/test_collector.gd:127)
+       [3] add_script (res://addons/gut/gut.gd:1053)
+       [4] _apply_options (res://addons/gut/gut_config.gd:139)
+       [5] apply_options (res://addons/gut/gut_config.gd:207)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:192)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+ERROR: Failed to load script "res://tests/rules/test_composite_boundaries.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] load_script_using_custom_warnings (res://addons/gut/warnings_manager.gd:173)
+       [1] _parse_script (res://addons/gut/test_collector.gd:76)
+       [2] add_script (res://addons/gut/test_collector.gd:127)
+       [3] add_script (res://addons/gut/gut.gd:1053)
+       [4] _apply_options (res://addons/gut/gut_config.gd:139)
+       [5] apply_options (res://addons/gut/gut_config.gd:207)
+       [6] run_tests (res://addons/gut/gui/GutRunner.gd:192)
+       [7] _run_tests (res://addons/gut/cli/gut_cli.gd:238)
+       [8] main (res://addons/gut/cli/gut_cli.gd:284)
+       [9] _init (res://addons/gut/gut_cmdln.gd:38)
+[33m[WARNING]:  [0mIgnoring script res://tests/rules/test_composite_boundaries.gd because it does not extend GutTest
+[4m
+
+res://tests/rules/test_ability_composite_effects.gd
+[0m* test_leaf2_reads_state_after_leaf1_commit
+* test_clear_then_dye_defers_descendant_blasts_until_composite_done
+* test_fixed_target_reject_fails_before_mutating
+* test_fixed_target_skip_drops_invalid_ids
+* test_composite_validation_rejects_cycle_depth_and_empty
+* test_acceptance_skill_uses_generic_apply_without_skill_id_branch
+* test_single_leaf_core_drop_still_applies_through_runner
+* test_composite_clear_color_picker_reads_clear_leaf_groups
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_composite_preview.gd
+[0m* test_catalog_refill_color_matches_displayed_frozen_color
+* test_weight_refresh_keeps_color_and_uses_updated_values_without_rng
+* test_nested_refresh_preserves_displayed_weight_color
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_composite_score_events.gd
+[0m* test_catalog_clear_dye_keeps_first_leaf_score_events
+REVIEW marked reward: ledger=true returned=true total=5
+* test_core_creation_keeps_prior_leaf_results
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_composite_empty_dye.gd
+[0m* test_catalog_clear_dye_does_not_end_a_valid_two_color_run
+REVIEW two-color: success=true error= phase=REWARDS pieces=1 rewards=0
+* test_standalone_dye_still_rejects_missing_targets
+* test_configured_empty_dye_does_not_hide_invalid_live_targets
+* test_configured_empty_board_dye_is_legal
+[1m4/4 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Warnings              1
+
+Scripts               4
+Tests                17
+Passing Tests        17
+Asserts              68
+Time              0.049s
+
+
+[32m---- All tests passed! ----
+[0m

@@ -1,0 +1,62 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:41:55.321Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:41:55.566Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:41:55.861Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-10-31T10:41:59.320Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-10-31T10:41:59.464Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-10-31T10:41:59.601Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-10-31T10:42:02.226Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":11874200,\"frames\":683,\"freeze_usec\":0,\"maximum_gap_usec\":195000,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":48700,\"initialization_usec\":58200,\"largest_payload_slice_usec\":7100,\"largest_replay_slice_usec\":40200,\"payload_validation_usec\":3014600,\"prefix_replay_usec\":6489900},\"history_prime_usec\":159800,\"package\":{\"float_decode_usec\":1821600,\"largest_float_decode_slice_usec\":5600,\"package_parse_usec\":92300,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T10:43:02.540Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":123200,\"elapsed_usec\":11874200,\"frames\":683,\"freeze_usec\":0,\"maximum_gap_usec\":195000,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":48700,\"initialization_usec\":58200,\"largest_payload_slice_usec\":7100,\"largest_replay_slice_usec\":40200,\"payload_validation_usec\":3014600,\"prefix_replay_usec\":6489900},\"history_prime_usec\":159800,\"package\":{\"float_decode_usec\":1821600,\"largest_float_decode_slice_usec\":5600,\"package_parse_usec\":92300,\"storage_sync\":{},\"storage_sync_elapsed_usec\":100}}}",
+    "timestamp": "2026-10-31T10:43:02.660Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":16664100,\"frames\":889,\"freeze_usec\":9200,\"maximum_gap_usec\":489100,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":43500,\"initialization_usec\":63100,\"largest_payload_slice_usec\":7800,\"largest_replay_slice_usec\":44900,\"payload_validation_usec\":2856900,\"prefix_replay_usec\":6776700},\"history_prime_usec\":0,\"package\":{\"encode\":{\"float_encode_elapsed_usec\":1726700,\"largest_float_encode_slice_usec\":5700,\"largest_package_serialize_slice_usec\":3100,\"package_serialize_usec\":1315700,\"package_size_check_usec\":57100},\"roundtrip\":{\"float_decode_elapsed_usec\":1798300,\"largest_float_decode_slice_usec\":4900,\"payload_parse_usec\":106900},\"save_encode_usec\":3133800,\"save_prepare_usec\":5047100,\"save_roundtrip_usec\":1913300,\"storage_sync\":{\"filemap_encode_elapsed_usec\":172200,\"filemap_encode_usec\":160000,\"largest_filemap_slice_usec\":88700},\"storage_sync_elapsed_usec\":419600,\"store\":{\"begin_usec\":202800,\"cleanup_pending\":[],\"largest_store_slice_usec\":197400,\"stage_usec\":81600}}}}",
+    "timestamp": "2026-10-31T10:43:53.265Z",
+    "url": "http://127.0.0.1:8918/candidatefb/index.js"
+  }
+]

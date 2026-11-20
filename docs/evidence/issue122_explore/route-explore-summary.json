@@ -1,0 +1,51 @@
+{
+	"by_route": {
+		"B1": {
+			"acquired_parents": "30",
+			"acquisition_rate": 0.555555555555556,
+			"coverage_gap": false,
+			"scanned": "54",
+			"stop_reason": "target_reached"
+		},
+		"B2": {
+			"acquired_parents": "30",
+			"acquisition_rate": 0.508474576271186,
+			"coverage_gap": false,
+			"scanned": "59",
+			"stop_reason": "target_reached"
+		},
+		"L1": {
+			"acquired_parents": "30",
+			"acquisition_rate": 0.447761194029851,
+			"coverage_gap": false,
+			"scanned": "67",
+			"stop_reason": "target_reached"
+		},
+		"L2": {
+			"acquired_parents": "30",
+			"acquisition_rate": 0.410958904109589,
+			"coverage_gap": false,
+			"scanned": "73",
+			"stop_reason": "target_reached"
+		},
+		"M1": {
+			"acquired_parents": "30",
+			"acquisition_rate": 0.833333333333333,
+			"coverage_gap": false,
+			"scanned": "36",
+			"stop_reason": "target_reached"
+		},
+		"M2": {
+			"acquired_parents": "30",
+			"acquisition_rate": 0.857142857142857,
+			"coverage_gap": false,
+			"scanned": "35",
+			"stop_reason": "target_reached"
+		}
+	},
+	"failures": [],
+	"max_scan": "100",
+	"move_limit": "80",
+	"start_seed": "13000",
+	"target": "30"
+}

@@ -1,0 +1,44 @@
+{
+	"groups": {
+		"bot/random-legal-v1/4b0bec1bbd22bc6bc0bc99bc961282a4ea0ce15d5e072ca492ec3a20e1774b10/2f29c5eec13cfcf04771b58fa19104e51498f303465ed9c1604c1f049730df2c/censored": {
+			"count": 1,
+			"highest": {
+				"moves": 12,
+				"run_id": "132000-37948-1792470292845000-2331587",
+				"score": 0
+			},
+			"lowest": {
+				"moves": 12,
+				"run_id": "132000-37948-1792470292845000-2331587",
+				"score": 0
+			},
+			"moves_p10_p50_p90": [
+				12,
+				12,
+				12
+			],
+			"reached_8_9_10": [
+				0,
+				0,
+				0
+			],
+			"reached_8_9_10_rates": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"reasons": {
+				"move_limit": 1
+			},
+			"replay_failures": 0,
+			"score_p10_p50_p90": [
+				0,
+				0,
+				0
+			]
+		}
+	},
+	"runs": 1,
+	"schema": "bot-report-v1",
+	"skills": {}
+}

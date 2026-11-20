@@ -26,6 +26,11 @@ func _run() -> void:
 	var record_output: String = "user://run_records"
 	var selected_strategy: String = "both"
 	var commit_id: String = "unknown"
+	var trial: OfferTrialOptions = OfferTrialOptions.from_args(args)
+	if not trial.error.is_empty():
+		push_error(trial.error)
+		get_tree().quit(2)
+		return
 	for arg: String in args:
 		if arg.begins_with("--count=") or arg.begins_with("--seed=") or arg.begins_with("--moves="):
 			if not CommandCodec.valid_integer(arg.get_slice("=", 1)):
@@ -44,6 +49,11 @@ func _run() -> void:
 		push_error("Invalid batch bounds")
 		get_tree().quit(2)
 		return
+	# Validate the whole interval before creating any run or adding index to the master seed.
+	if start_seed < 0 or start_seed > 9223372036854775807 - (count - 1):
+		push_error("Master seed interval exceeds nonnegative 63-bit range")
+		get_tree().quit(2)
+		return
 	var analysis: RunAnalysis = RunAnalysis.new()
 	var pressure_report: PressureBatchReport = PressureBatchReport.new()
 	var failures: int = 0
@@ -58,9 +68,14 @@ func _run() -> void:
 			strategy.config = strategy.config.duplicate(true) as BotConfig
 			strategy.config.move_limit = move_limit
 			var runner: BotRunner = BotRunner.new()
+			runner.trial_options = trial
 			runner.stage_config = null if args.has("--legacy") else preload("res://gameplay/progression/stages/stage_config.tres")
 			runner.telemetry_factory = telemetry_factory
-			var recorder: RunRecorder = runner.play(start_seed + index, start_seed + index + 100000, strategy, true, false)
+			var recorder: RunRecorder = runner.play(start_seed + index, BotRunner.strategy_seed_for(start_seed + index), strategy, true, false)
+			if recorder == null:
+				push_error(runner.last_replay_error)
+				get_tree().quit(1)
+				return
 			# 实際落盘后再读回回放，而非只校验内存副本。
 			var replay: RuleReplay = RuleReplay.new()
 			if not replay.replay_file(recorder.path): runner.last_replay_error = replay.error

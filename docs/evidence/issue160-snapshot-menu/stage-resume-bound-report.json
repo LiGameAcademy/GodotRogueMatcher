@@ -1,0 +1,22 @@
+{
+  "details": {
+    "candidate_flag": true,
+    "choice_consumed_once": true,
+    "default_flag_unchanged": true,
+    "durable_new_segment_replay": true,
+    "durable_new_segment_rows": 8,
+    "durable_new_segment_sha256": "d843a298f2651f3406e95021d8217726d4617fc6d39181292d95142f055d410c",
+    "endpoint_equal": true,
+    "menu_visible": true,
+    "mode": "stage_challenge",
+    "old_callbacks_ignored": true,
+    "origin": "http://127.0.0.1:8991",
+    "parent_known": true,
+    "provisional_projectors": 0,
+    "provisional_recorders": 0,
+    "resumed_header": "SnapshotHeader"
+  },
+  "ok": false,
+  "reason": "probe_watchdog_110s",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

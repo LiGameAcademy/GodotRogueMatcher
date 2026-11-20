@@ -1,18 +1,30 @@
 class_name ReleaseMenu
 extends Control
 
+## Coordinates the existing start menu and its child views.
 signal play_requested(new_run: bool)
 signal mode_requested(mode_id: StringName)
 signal skill_pool_requested
 signal settings_requested
 signal tutorial_completed
 signal language_requested(preference: String)
+signal quit_requested
+
+const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
+
+var _active_mode: StringName = &"stage_challenge"
+var _low_effects: bool = false
+var _has_game: bool = false
+var _tutorial_seen: bool = false
+var _game_over: bool = false
+var _practice_done: bool = false
+var _checkpoint_enabled: bool = false
+var _checkpoint_error: String = ""
 
 @onready var mode_button: OptionButton = %Mode
 @onready var mode_hint: Label = %ModeHint
-var _active_mode: StringName = &"stage_challenge"
 @onready var home: CenterContainer = %Home
-@onready var play_button: Button = %Play
+@onready var play_button: FeedbackButton = %Play
 @onready var new_button: Button = %New
 @onready var learn_button: Button = %Learn
 @onready var version_label: Label = %Version
@@ -21,16 +33,13 @@ var _active_mode: StringName = &"stage_challenge"
 @onready var language: OptionButton = %Language
 @onready var collection_controls: CollectionControls = %CollectionControls
 @onready var notice: Label = %Notice
-var _low_effects: bool = false
-var _has_game: bool = false
-var _tutorial_seen: bool = false
-var _game_over: bool = false
-var _practice_done: bool = false
-const LOCALES: Array[String] = ["auto", "en_US", "zh_CN"]
+@onready var _settings_button: FeedbackButton = %SettingsButton
+@onready var _quit_button: Button = %CheckpointQuit
 
 func _ready() -> void:
 	%SkillPoolButton.pressed.connect(skill_pool_requested.emit)
 	%SettingsButton.pressed.connect(settings_requested.emit)
+	_quit_button.pressed.connect(quit_requested.emit)
 	play_button.pressed.connect(_play.bind(false))
 	new_button.pressed.connect(_play.bind(true))
 	learn_button.pressed.connect(_learn)
@@ -49,28 +58,17 @@ func set_language_preference(preference: String) -> void:
 func show_language_error() -> void:
 	hint.text = tr("语言设置保存失败；当前选择仍可使用。")
 
-func _refresh_text() -> void:
-	version_label.text = tr("v%s · Web 预览试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
-	if not OS.has_feature("web"):
-		version_label.text = tr("v%s · 桌面试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
-		notice.text = tr("试玩记录保存在本机，不上传。\n从下方打开目录或导出记录；Excel 分析在离线工具中完成。")
-	language.set_item_text(0, tr("语言：跟随系统"))
-	play_button.text = tr("继续本局") if _has_game else tr("开始试玩")
-	learn_button.text = tr("重看操作练习") if _tutorial_seen else tr("先试一下 · 操作练习")
-	hint.text = tr("本局已结束 · 可以开始新一局。") if _game_over else (tr("本局已暂停，返回后从原处继续。") if _has_game else tr("第一次来？用四步练习认识五连、补棋、技能和爆破。"))
-	for index: int in range(GameModes.ALL.size()): mode_button.set_item_text(index, tr(GameModes.ALL[index].title))
-	var selected: GameModeDefinition = GameModes.ALL[mode_button.selected]
-	mode_hint.text = tr(selected.description)
-	if selected.mode_id != _active_mode:
-		play_button.text = tr("开始所选模式 · 新局")
-		mode_hint.text += "\n" + tr("切换模式将开始新局，重置本局棋盘与构筑。")
-	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
+func set_checkpoint_status(enabled: bool, error: String) -> void:
+	_checkpoint_enabled = enabled
+	_checkpoint_error = error
+	_quit_button.visible = enabled and not OS.has_feature("web")
+	_refresh_text()
 
 func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: bool = false, mode_id: StringName = &"stage_challenge") -> void:
 	_active_mode = mode_id
 	for index: int in range(GameModes.ALL.size()):
 		if GameModes.ALL[index].mode_id == mode_id: mode_button.select(index)
-	_low_effects = low_effects
+	set_low_effects(low_effects)
 	_has_game = has_game
 	_tutorial_seen = tutorial_seen
 	_game_over = game_over
@@ -84,9 +82,39 @@ func open(has_game: bool, tutorial_seen: bool, low_effects: bool, game_over: boo
 	if tutorial_seen and play_button.visible: play_button.grab_focus()
 	else: learn_button.grab_focus()
 
+## Applies reduced effects to the primary menu controls.
+func set_low_effects(enabled: bool) -> void:
+	_low_effects = enabled
+	play_button.set_low_effects(enabled)
+	_settings_button.set_low_effects(enabled)
+
 func close() -> void:
 	tutorial.cancel()
 	hide()
+
+func _refresh_text() -> void:
+	version_label.text = tr("v%s · Web 预览试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+	if not OS.has_feature("web"):
+		version_label.text = tr("v%s · 桌面试玩") % str(ProjectSettings.get_setting("application/config/version", "development"))
+		notice.text = tr("试玩记录保存在本机，不上传。\n从下方打开目录或导出记录；Excel 分析在离线工具中完成。")
+	else: notice.text = tr("checkpoint.web_notice")
+	language.set_item_text(0, tr("语言：跟随系统"))
+	play_button.text = tr("继续本局") if _has_game else tr("开始试玩")
+	learn_button.text = tr("重看操作练习") if _tutorial_seen else tr("先试一下 · 操作练习")
+	hint.text = tr("本局已结束 · 可以开始新一局。") if _game_over else (tr("本局已暂停，返回后从原处继续。") if _has_game else tr("第一次来？用四步练习认识五连、补棋、技能和爆破。"))
+	for index: int in range(GameModes.ALL.size()): mode_button.set_item_text(index, tr(GameModes.ALL[index].title))
+	var selected: GameModeDefinition = GameModes.ALL[mode_button.selected]
+	mode_hint.text = tr(selected.description)
+	if selected.mode_id != _active_mode:
+		play_button.text = tr("开始所选模式 · 新局")
+		mode_hint.text += "\n" + tr("切换模式将开始新局，重置本局棋盘与构筑。")
+	if _practice_done: hint.text = tr("练习完成！去正式棋盘试试自己的构筑。")
+	_quit_button.text = tr("checkpoint.quit")
+	if _checkpoint_enabled:
+		if not OS.has_feature("web"): notice.text += "\n" + tr("checkpoint.notice")
+		if not _checkpoint_error.is_empty():
+			hint.text = tr("checkpoint.reload_required" if _checkpoint_error.ends_with("web_storage_conflict") or _checkpoint_error.ends_with("web_storage_not_open") else ("checkpoint.waiting" if _checkpoint_error == "worker_busy" else "checkpoint.load_failed"))
+			if _checkpoint_error == "legacy_checkpoint_unsupported": hint.text = tr("checkpoint.legacy_unsupported")
 
 func _play(new_run: bool) -> void:
 	close()

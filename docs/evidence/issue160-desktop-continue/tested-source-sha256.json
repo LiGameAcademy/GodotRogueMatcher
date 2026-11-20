@@ -1,0 +1,194 @@
+[
+  {
+    "path": "gameplay/board/board_compatibility.gd",
+    "sha256": "8d0e1f66ee0a1c953f5b00a3a249c94731407245a085fbc894ded8f01f6a9461",
+    "lines": 30,
+    "git_blob": "8d702cad3eb05441287d4da67fbe0b92a5d20106"
+  },
+  {
+    "path": "gameplay/board/board_run_flow.gd",
+    "sha256": "d357d9a0729437188e2be4446a492d2357c1fe4a81e46c5c51e4ffa13deffa33",
+    "lines": 49,
+    "git_blob": "27fa602bdb04eb9365d1a1f8c332e5ae77384632"
+  },
+  {
+    "path": "gameplay/board/board.gd",
+    "sha256": "b6905daa72bb98cb45076e7ffec89874283a6b66485a765ca1455f17a2334e4a",
+    "lines": 492,
+    "git_blob": "e8cadefc53a014c14be320ecdd8c9db37a6a4d63"
+  },
+  {
+    "path": "gameplay/debug/game_debug_input.gd",
+    "sha256": "a041c0a281785b36b3be51930cb1661c14e55946d68d371092c89be42174bdbd",
+    "lines": 24,
+    "git_blob": "6bc412a38c90f629720c9abb4564e35defa6c16d"
+  },
+  {
+    "path": "gameplay/game_checkpoint_flow.gd",
+    "sha256": "d9883378bef7f4837d797a494ffa14c3063b12e4edcddd21570386936b8f5e79",
+    "lines": 334,
+    "git_blob": "56816bc9a9a2acc6f9268c9a8c0eb0acba9745bb"
+  },
+  {
+    "path": "gameplay/game_checkpoint_flow.tscn",
+    "sha256": "45972291a97fb1ab838ac1bd23137089d8452f85c59566423099c2eb974ba788",
+    "lines": null,
+    "git_blob": "eccc46ba0b3d333ed48ecedbdacef3898ba13604"
+  },
+  {
+    "path": "gameplay/game.gd",
+    "sha256": "7d630e39a84baf6218410fa8ae3c1d3796c740b46b4716eb26d485b6517766d3",
+    "lines": 498,
+    "git_blob": "3dbeb60a1c02efe7fddb35165c6181a9d40baf70"
+  },
+  {
+    "path": "gameplay/game.tscn",
+    "sha256": "c466067b8e6062ff66e6ad2f2c230cea378b2df3bf9ccc3b92b27ca7af465191",
+    "lines": null,
+    "git_blob": "3f73d28f384852328c16b27cd3c5bfc2583604b3"
+  },
+  {
+    "path": "gameplay/run/game_manager.gd",
+    "sha256": "4de00f809175f5f3e748c6c5617fc77ae01764259613d9d3a4c8fb7e2411ffbe",
+    "lines": 81,
+    "git_blob": "e1a1cb5f3bbd5a0c3a4756b0953cc411ffca37f6"
+  },
+  {
+    "path": "gameplay/run/recording/run_recorder.gd",
+    "sha256": "6df5fa239ad5f7768a24abe5ae094ace7b735925ec2d0c5bc380ac7d01d68f9c",
+    "lines": 167,
+    "git_blob": "36e1798fe1349276ac500f3f86b1ca572327a2dd"
+  },
+  {
+    "path": "gameplay/run/replay/rule_replay.gd",
+    "sha256": "17cf6de7e33b7cd9c5805c95112e5011ea2cc140b2d93fe21da4c540bee9566c",
+    "lines": 199,
+    "git_blob": "7406ac53f066ba532d8b0018e1c86242858510d4"
+  },
+  {
+    "path": "localization/game.csv",
+    "sha256": "19f2f60dc6d502bbc267d0ac907303f781838d491c84e54aea37ee49c2445565",
+    "lines": null,
+    "git_blob": "3dc968fe6f02b0fdeedb83c7ee8d8344dbb48133"
+  },
+  {
+    "path": "localization/game.en_US.translation",
+    "sha256": "57456a59014b7f8b2ac369347a82fb295d04c6d4e819e1b317ee005e7161952c",
+    "lines": null,
+    "git_blob": "9769bebdb97e05329740b44cc603da2256bc2115"
+  },
+  {
+    "path": "localization/game.zh_CN.translation",
+    "sha256": "45aa448b747df44d428ae4f7efb4384f30be214046af945655b64d57d506c07f",
+    "lines": null,
+    "git_blob": "8ae5882078866992c3ac599382e03f15d7b861e9"
+  },
+  {
+    "path": "main.gd",
+    "sha256": "50af7a6148fb8542cf8c2cbc44b85428bad1e10617305155fedca7d38fa6a809",
+    "lines": 9,
+    "git_blob": "89649daf4632abd5eb8351ed619e9384be4dda1f"
+  },
+  {
+    "path": "services/run_checkpoint/checkpoint_history.gd",
+    "sha256": "4a415661c61fa261276734a79c49ec89a46ab9c1915dc8789666dc2eead4696e",
+    "lines": 38,
+    "git_blob": "3224078c2a5574c8cb525c4f9f66bc74dad05da3"
+  },
+  {
+    "path": "services/run_checkpoint/checkpoint_job.gd",
+    "sha256": "4bcf207be4f290fffd37dd6e07d3946ae4506e824e46b0cedb3353c21994f377",
+    "lines": 49,
+    "git_blob": "7471d60b6c5443abeaea3d52bda18661472a1549"
+  },
+  {
+    "path": "services/run_checkpoint/checkpoint_store.gd",
+    "sha256": "b486a326bb8c49246af0997a5fe2c8f316b0c569baf3b8d98742b373f664d71c",
+    "lines": 340,
+    "git_blob": "c84a7e7d76ff875b2f8157ba0be93a097ec28bb4"
+  },
+  {
+    "path": "services/run_checkpoint/run_checkpoint_codec.gd",
+    "sha256": "9e1d2298b98cd8dfac7ad7978ee9bb4b2308efb1e9fc1df612bbfad9cb9e065a",
+    "lines": 189,
+    "git_blob": "ac75ed4b15b5b1e6c9d4b2836c72b9d38d4d1742"
+  },
+  {
+    "path": "services/run_checkpoint/run_checkpoint_session.gd",
+    "sha256": "e5179698ddda136b979e58d5cbaabba1f1c83340fc2680e0a36fe7f1446b3b53",
+    "lines": 61,
+    "git_blob": "5525d9b4d0d1929da7a077a230bc90bda5a1b7ba"
+  },
+  {
+    "path": "services/telemetry/run_collection.gd",
+    "sha256": "2ddd8b175bbd4a52cc3c813073738a79b9ae8e3b9a115e31d6119e88929e96e3",
+    "lines": 177,
+    "git_blob": "4544fa7bff34a76a5e5b3ac7aab00a274fdcbcf5"
+  },
+  {
+    "path": "tests/integration/test_desktop_checkpoint_flow.gd",
+    "sha256": "a98721e8ef3fc63b4ac4cb1ad23c63ea2f134ef8c0a05ac0a047cc0189d24f87",
+    "lines": 312,
+    "git_blob": "1a6d9b627a7f401d9aa93c1c7a924231ce73e9c1"
+  },
+  {
+    "path": "tests/rules/test_checkpoint_job.gd",
+    "sha256": "0b1d7b370e0216b7f0d6bfd1af50a4900e34368ce305c3030dfd2a757cbbeb94",
+    "lines": 97,
+    "git_blob": "416ba2793051c83dd47743138935aae8c98e598f"
+  },
+  {
+    "path": "tools/checkpoint_benchmark/checkpoint_benchmark.gd",
+    "sha256": "3ca05c3d07d381cf6fbecc4cc7c1ea7d660ed23033700afdc7219f35dc8d285d",
+    "lines": 176,
+    "git_blob": "47547ff1deb8f03a0c2d8035d4ed8cacfee033be"
+  },
+  {
+    "path": "tools/checkpoint_benchmark/checkpoint_profile.gd",
+    "sha256": "886711d32a337edcc32c9d7de9e40b2d2a8022c3abbe893df597a8c503c4ab68",
+    "lines": 72,
+    "git_blob": "edc00748d431bbeb521a16253df5b119104b5197"
+  },
+  {
+    "path": "tools/checkpoint_benchmark/desktop_gpu_probe.gd",
+    "sha256": "b1f79d802279ffd6d8677813805874f003282c5fd4cb2f20f2e6cd8dc117d25b",
+    "lines": 95,
+    "git_blob": "eade98a79c93b9dd32f675cef7a89d4f7ef18e5a"
+  },
+  {
+    "path": "ui/checkpoint_prompt/checkpoint_prompt.gd",
+    "sha256": "97b48bdeb490b23e850b3effd6168b34ad938f64656d0146f4023d70552003ca",
+    "lines": 50,
+    "git_blob": "240cb42f8a6ad1dfa89519f844577a5e6ed39ff5"
+  },
+  {
+    "path": "ui/checkpoint_prompt/checkpoint_prompt.tscn",
+    "sha256": "eece441203abb9909d61ceb88c075ae4fb1908239cea9617a1ebe85bf4c6d646",
+    "lines": null,
+    "git_blob": "a833959721bca1294d4f07e63487f738c5f8df2e"
+  },
+  {
+    "path": "ui/hud_status_messages.gd",
+    "sha256": "32e4a1c76fde317f0eb1df0ece7f5a55b7df64de6e501fc43df9c19405e7b1f1",
+    "lines": 109,
+    "git_blob": "01b34076da8f4072431dfa256f8f5309306da567"
+  },
+  {
+    "path": "ui/hud.gd",
+    "sha256": "99d8686bdd03a108383ad356b969c6a25cb3519c315b48bd9f40f081dd287e91",
+    "lines": 275,
+    "git_blob": "ab0b393c37f62475b14f0124e01c04f84754ec55"
+  },
+  {
+    "path": "ui/release_menu/release_menu.gd",
+    "sha256": "53f3224742f1943c2999792ba4f14c8b8350b38e5bed4bd2e354517f3500c9ee",
+    "lines": 135,
+    "git_blob": "f393b6e865592c1578505944b070334ce17f510b"
+  },
+  {
+    "path": "ui/release_menu/release_menu.tscn",
+    "sha256": "278d26bd3e6c2fcce91d4afd811dc758058178d09946335e32b0dade4c02bca6",
+    "lines": null,
+    "git_blob": "12fc14c5047552619277b44fa7205bb25b7085ce"
+  }
+]

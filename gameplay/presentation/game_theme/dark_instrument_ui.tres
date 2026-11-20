@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3]
+[gd_resource type="Theme" load_steps=11 format=3]
 
 [sub_resource type="StyleBoxFlat" id="Normal"]
 bg_color = Color(0.086275, 0.117647, 0.145098, 1)
@@ -129,6 +129,39 @@ content_margin_right = 12.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
 
+
+[sub_resource type="StyleBoxFlat" id="HeaderCompact"]
+bg_color = Color(0.086275, 0.117647, 0.145098, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="HeaderInset"]
+bg_color = Color(0.086275, 0.117647, 0.145098, 1)
+border_color = Color(0.160784, 0.231373, 0.282353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+
 [resource]
 default_font_size = 15
 Label/colors/font_color = Color(0.894118, 0.921569, 0.945098, 1)
@@ -204,3 +237,7 @@ Game/colors/rarity_2 = Color(0.384314, 0.666667, 1.000000, 1)
 Game/colors/rarity_3 = Color(0.733333, 0.513725, 0.929412, 1)
 Game/colors/rarity_4 = Color(1.000000, 0.682353, 0.341176, 1)
 Game/constants/rounding = 2
+HudHeader/base_type = &"PanelContainer"
+HudHeader/styles/panel = SubResource("HeaderCompact")
+HudHeaderInset/base_type = &"PanelContainer"
+HudHeaderInset/styles/panel = SubResource("HeaderInset")

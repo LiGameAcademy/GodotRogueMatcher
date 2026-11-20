@@ -1,12 +1,23 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://ui/playback_settings/playback_settings.gd" id="1"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="2"]
+
+[ext_resource type="PackedScene" path="res://ui/feedback_button/feedback_button.tscn" id="feedback"]
 
 [node name="PlaybackSettings" type="CanvasLayer"]
 process_mode = 3
 layer = 145
 script = ExtResource("1")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+visible = false
+mouse_filter = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.025, 0.038, 0.055, 0.96)
 
 [node name="Panel" type="Control" parent="."]
 visible = false
@@ -15,13 +26,6 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("2")
-
-[node name="Backdrop" type="ColorRect" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.025, 0.038, 0.055, 0.96)
 
 [node name="Center" type="CenterContainer" parent="Panel"]
 layout_mode = 1
@@ -101,7 +105,7 @@ max_value = 1.0
 step = 0.05
 value = 0.7
 
-[node name="SkipButton" type="Button" parent="Panel/Center/Frame/Margin/Column"]
+[node name="SkipButton" parent="Panel/Center/Frame/Margin/Column" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "略过本次演出并返回（F9）"
@@ -114,13 +118,13 @@ theme_override_font_sizes/normal_font_size = 16
 autowrap_mode = 2
 text = "点击棋子，再点可到达的空格移动；横、竖、斜同色五连消除。\n未直接消除时补棋，全清后也会补棋；棋盘填满结束。\n安装主动技能后，双击对应特殊棋；剩余次数见棋子提示。\nESC 暂停 / 继续 · F1 设置 · F8 快放 · F9 略过\n操作练习、语言和模式选择可从开始菜单进入。"
 
-[node name="Menu" type="Button" parent="Panel/Center/Frame/Margin/Column"]
+[node name="Menu" parent="Panel/Center/Frame/Margin/Column" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "开始菜单 · 练习、语言与模式"
 tooltip_text = "选卡期间请先完成或返回原选择。"
 
-[node name="Close" type="Button" parent="Panel/Center/Frame/Margin/Column"]
+[node name="Close" parent="Panel/Center/Frame/Margin/Column" instance=ExtResource("feedback")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "返回原界面（ESC）"

@@ -1,0 +1,9 @@
+{
+  "asset": "assets/textures/ui/icon_ability_fuse.svg",
+  "source": "SVG itself; authored in this change from basic paths and a circle",
+  "size": [
+    32,
+    32
+  ],
+  "sha256": "51d80940138f134df7cad15aa78762bbd08f468a5e5a0ef2a8e83b23fee27846"
+}

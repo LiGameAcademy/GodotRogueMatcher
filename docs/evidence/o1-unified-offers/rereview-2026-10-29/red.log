@@ -1,0 +1,71 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/o1-unified-offers/.godot/o1-rereview/userdata/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_offer_measurements.gd
+[0m* test_real_offer_explanation_schema_csv_and_command_replay_are_consistent
+* test_corrupt_binary_factors_weights_or_denominators_are_explicit_schema_errors
+* test_synthetic_replacement_trace_counts_one_reward_and_does_not_call_it_a_refusal
+* test_legacy_missing_explanations_stay_unknown_and_hidden_human_offers_are_not_exposures
+* test_truncated_pool_omitted_candidate_and_forged_quota_are_rejected
+[31m    [Failed]:  [0mlegal remaining candidates require more slots
+      at line 142
+[31m    [Failed]:  [0mself-consistent subset is not the legal pool
+      at line 157
+[31m    [Failed]:  [0m0
+      at line 164
+[31m    [Failed]:  [0m1
+      at line 164
+[31m    [Failed]:  [0m3
+      at line 164
+* test_legacy_acquisition_without_reward_id_joins_its_generated_offer
+[31m    [Failed]:  [0m[0] expected to equal [1]:
+      at line 185
+[31m    [Failed]:  [0m[1] expected to equal [0]:
+      at line 186
+[1m4/6 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_offer_measurements.gd
+[0m- test_truncated_pool_omitted_candidate_and_forged_quota_are_rejected
+[31m    [Failed]:  [0mlegal remaining candidates require more slots
+          at line 142
+[31m    [Failed]:  [0mself-consistent subset is not the legal pool
+          at line 157
+[31m    [Failed]:  [0m0
+          at line 164
+[31m    [Failed]:  [0m1
+          at line 164
+[31m    [Failed]:  [0m3
+          at line 164
+- test_legacy_acquisition_without_reward_id_joins_its_generated_offer
+[31m    [Failed]:  [0m[0] expected to equal [1]:
+          at line 185
+[31m    [Failed]:  [0m[1] expected to equal [0]:
+          at line 186
+
+Totals
+------
+Scripts               1
+Tests                 6
+Passing Tests         4
+Failing Tests         2
+Asserts           188/195
+Time              1.423s
+
+
+[31m---- 2 failing tests ----
+[0m

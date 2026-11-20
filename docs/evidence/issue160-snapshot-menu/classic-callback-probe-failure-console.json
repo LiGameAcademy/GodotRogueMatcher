@@ -1,0 +1,128 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:01:57.221Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:01:57.536Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:01:57.998Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:02:01.546Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":98600,\"frames\":5,\"freeze_usec\":36200,\"maximum_gap_usec\":38400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":30700,\"filemap_encode_usec\":100,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":40500}}}",
+    "timestamp": "2026-11-01T10:02:03.874Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":115900,\"frames\":6,\"freeze_usec\":30500,\"maximum_gap_usec\":43400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":28700,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":41700}}}",
+    "timestamp": "2026-11-01T10:02:04.946Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":132000,\"frames\":7,\"freeze_usec\":28400,\"maximum_gap_usec\":40700,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":46000,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":63200}}}",
+    "timestamp": "2026-11-01T10:02:06.110Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":148300,\"frames\":7,\"freeze_usec\":28000,\"maximum_gap_usec\":49400,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":24900,\"filemap_encode_usec\":400,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":68600}}}",
+    "timestamp": "2026-11-01T10:02:07.197Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":116500,\"frames\":6,\"freeze_usec\":28300,\"maximum_gap_usec\":45500,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":24800,\"filemap_encode_usec\":700,\"largest_filemap_slice_usec\":400},\"storage_sync_elapsed_usec\":40200}}}",
+    "timestamp": "2026-11-01T10:02:08.311Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":109300,\"frames\":6,\"freeze_usec\":32500,\"maximum_gap_usec\":42900,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":19600,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":200},\"storage_sync_elapsed_usec\":41800}}}",
+    "timestamp": "2026-11-01T10:02:08.707Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":117400,\"frames\":6,\"freeze_usec\":26500,\"maximum_gap_usec\":43600,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":25700,\"filemap_encode_usec\":200,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":43300}}}",
+    "timestamp": "2026-11-01T10:02:09.899Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":115700,\"frames\":6,\"freeze_usec\":28800,\"maximum_gap_usec\":38200,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":27700,\"filemap_encode_usec\":300,\"largest_filemap_slice_usec\":100},\"storage_sync_elapsed_usec\":51000}}}",
+    "timestamp": "2026-11-01T10:02:11.095Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":180200,\"frames\":6,\"freeze_usec\":53500,\"maximum_gap_usec\":100000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":27500,\"filemap_encode_usec\":1300,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":46700}}}",
+    "timestamp": "2026-11-01T10:02:11.709Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"default_flag_unchanged\":true,\"job_metrics\":{\"elapsed_usec\":180200,\"frames\":6,\"freeze_usec\":53500,\"maximum_gap_usec\":100000,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{\"filemap_encode_elapsed_usec\":27500,\"filemap_encode_usec\":1300,\"largest_filemap_slice_usec\":600},\"storage_sync_elapsed_usec\":46700}}},\"menu_visible\":true,\"mode\":\"classic_endless\",\"origin\":\"http://127.0.0.1:8990\",\"phase\":\"saved_frozen_reward\",\"run_id\":\"1245361234-0-1793527322125000-5150700\",\"seed\":\"1245361234\",\"snapshot_matches_live\":true,\"snapshot_schema\":\"run-state-snapshot-safe-v2\",\"state_hash\":\"170a9981f05284c7666e789d7e6bce8b34ebf3a69adb14f2fe4779b3d1d5cf87\",\"trace_known\":true,\"trace_parent_id\":\"1245361234-0-1793527322125000-5150700:126\"},\"ok\":true,\"reason\":\"\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:02:11.818Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T10:03:01.384Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T10:03:01.593Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T10:03:01.875Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T10:03:04.554Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":73100,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":62800,\"ok\":true,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:03:06.969Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":343900,\"elapsed_usec\":73100,\"frames\":3,\"freeze_usec\":0,\"maximum_gap_usec\":62800,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{},\"history_prime_usec\":0,\"package\":{\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+    "timestamp": "2026-11-01T10:03:07.312Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_MENU_REPORT {\"details\":{\"candidate_flag\":true,\"default_flag_unchanged\":true,\"endpoint_equal\":true,\"menu_visible\":true,\"mode\":\"classic_endless\",\"origin\":\"http://127.0.0.1:8990\",\"parent_known\":true,\"provisional_projectors\":0,\"provisional_recorders\":0,\"resumed_header\":\"SnapshotHeader\"},\"ok\":false,\"reason\":\"probe_watchdog_110s\",\"scope\":\"bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance\"}",
+    "timestamp": "2026-11-01T10:04:54.804Z",
+    "url": "http://127.0.0.1:8990/probe.html"
+  }
+]

@@ -2,6 +2,8 @@ class_name SkillCard
 extends Button
 
 ## 独立卡面只消费定义和冻结目标，选择仍由弹窗提交命令。
+@onready var mechanic_slot: Control = $Content/Column/Tags/MechanicSlot
+@onready var mechanic_icon: TextureRect = %MechanicIcon
 @onready var card_back: Panel = $CardBack
 @onready var rarity_label: Label = %Rarity
 @onready var kind_label: Label = %Kind
@@ -10,11 +12,13 @@ extends Button
 @onready var level_label: Label = %Level
 @onready var effect_label: RichTextLabel = %Effect
 @onready var preview_label: Label = %Preview
+@onready var flavor_label: Label = %Flavor
 @onready var action_label: Label = %Action
 @onready var content: MarginContainer = $Content
 @export var hover_duration: float = 0.12
 var _reveal: Tween
 var _selected: bool = false
+var _unavailable_reason: String = ""
 var _motion: Tween
 var _accent: Color = Color.WHITE
 var _skill: SkillDefinition
@@ -29,6 +33,7 @@ func apply_game_theme(preset: GameTheme) -> void:
 	SkillRarity.style(self, _skill.rarity, preset)
 	rarity_label.add_theme_color_override("font_color", _accent)
 	set_selected(_selected)
+	_fit_card_width()
 
 func _ready() -> void:
 	_ignore_child_mouse(content)
@@ -39,6 +44,7 @@ func _ready() -> void:
 	button_down.connect(_press_feedback)
 	button_up.connect(_update_feedback)
 	content.minimum_size_changed.connect(_fit_catalog_height)
+	get_viewport().size_changed.connect(_fit_card_width)
 
 func _exit_tree() -> void:
 	if _motion != null: _motion.kill()
@@ -47,10 +53,17 @@ func _exit_tree() -> void:
 func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	finish_reveal()
 	_selected = false
+	_unavailable_reason = ""
+	tooltip_text = ""
 	_catalog_run = null
 	action_label.show()
 	focus_mode = Control.FOCUS_ALL
 	_skill = skill
+	mechanic_icon.texture = SkillMechanicIcons.texture_for(skill.skill_id)
+	mechanic_icon.visible = mechanic_icon.texture != null
+	mechanic_slot.visible = mechanic_icon.visible
+	mechanic_icon.pivot_offset = Vector2(12, 12)
+	mechanic_icon.rotation_degrees = SkillMechanicIcons.rotation_for(skill.skill_id)
 	_target = target
 	_accent = SkillRarity.color_for(skill.rarity, _game_theme)
 	SkillRarity.style(self, skill.rarity, _game_theme)
@@ -58,26 +71,33 @@ func configure(skill: SkillDefinition, target: SkillTarget) -> void:
 	rarity_label.add_theme_color_override("font_color", _accent)
 	kind_label.text = SkillChoiceText.tags(skill)
 	kind_label.visible = not kind_label.text.is_empty()
-	consume_label.visible = skill.refill_effect() != null
+	consume_label.visible = skill.refill_effect() != null and not (skill.acquisition_effect(target.level_before) is CompositeEffect)
 	consume_label.text = tr("消耗")
 	consume_label.tooltip_text = tr(SkillChoiceText.CONSUME_HINT)
 	title_label.text = tr(skill.title)
 	level_label.text = SkillChoiceText.level_text(skill, target)
 	level_label.visible = not level_label.text.is_empty()
-	effect_label.text = SkillChoiceText.summary_rich(skill)
+	_set_rule(SkillChoiceText.summary(skill, maxi(1, target.level_after)))
+	flavor_label.text = tr(skill.flavor_text) if not skill.flavor_text.is_empty() else ""
+	flavor_label.visible = not flavor_label.text.is_empty()
 	preview_label.text = SkillChoiceText.compact_preview(skill, target)
 	preview_label.visible = not preview_label.text.is_empty()
 	action_label.text = tr("点选后，在下方确认")
 	_update_feedback()
+	_fit_card_width()
+	_fit_catalog_height.call_deferred()
 
 ## 技能池只读卡面，不冻结随机目标或提供选取动作。
 func configure_catalog(skill: SkillDefinition, run: RunController) -> void:
 	configure(skill, SkillTarget.new())
+	custom_minimum_size.x = 256.0
 	_catalog_run = run
 	_target = null
+	var view: Dictionary[String, String] = SkillPoolText.rule_view(run, skill)
+	_set_rule(view.text)
 	level_label.hide()
 	var details: PackedStringArray = SkillPoolText.details(run, skill).split("\n")
-	var effect_lines: int = SkillChoiceText.summary(skill).split("\n").size()
+	var effect_lines: int = view.text.split("\n").size()
 	preview_label.text = "\n".join(details.slice(effect_lines))
 	preview_label.show()
 	action_label.hide()
@@ -94,8 +114,31 @@ func set_selected(selected: bool) -> void:
 		box.set_border_width_all(2 if selected else 1)
 		box.border_width_top = 3
 	add_theme_stylebox_override("normal", box)
-	if _catalog_run == null: action_label.text = tr("已点选 · 等待确认") if selected else tr("点选后，在下方确认")
+	if _game_theme != null:
+		box.bg_color = _game_theme.ui_theme.get_color("hover" if selected else "surface", "Game")
+		add_theme_stylebox_override("normal", box)
+	_refresh_action()
 	_update_feedback()
+
+## 失效原因直接可见，不只依赖悬停或变淡；不改变候选内容。
+func set_unavailable(reason: String) -> void:
+	_unavailable_reason = reason
+	disabled = not reason.is_empty()
+	tooltip_text = tr(reason)
+	_refresh_action()
+	_update_feedback()
+
+func _set_rule(text: String) -> void:
+	var copy: Dictionary[String, String] = SkillChoiceText.glossary(text)
+	effect_label.text = copy.text
+	effect_label.tooltip_text = copy.hint
+
+func _refresh_action() -> void:
+	if _catalog_run != null: return
+	if not _unavailable_reason.is_empty():
+		action_label.text = tr("暂不可选：%s") % tr(_unavailable_reason)
+	else:
+		action_label.text = ("✓ " + tr("已点选 · 等待确认")) if _selected else tr("点选后，在下方确认")
 
 func reveal(delay: float, low_effects: bool) -> void:
 	finish_reveal()
@@ -125,21 +168,36 @@ func set_presentation_only() -> void:
 	_ignore_child_mouse(content, true)
 
 func _fit_catalog_height() -> void:
-	if _catalog_run == null: return
-	custom_minimum_size.y = maxf(352.0, content.get_combined_minimum_size().y + 36.0)
+	# Both catalog and offered cards must contain their generated rules and actions.
+	custom_minimum_size.y = maxf(360.0, content.get_combined_minimum_size().y + 36.0)
+
+func _fit_card_width() -> void:
+	if _catalog_run != null:
+		custom_minimum_size.x = 256.0
+		return
+	# Existing three-card popup: 20px between cards; its default panel has 48px insets.
+	var insets: float = 48.0 if _game_theme == null else _game_theme.ui_theme.get_stylebox("panel", "PanelContainer").get_minimum_size().x
+	custom_minimum_size.x = minf(326.0, maxf(256.0, (get_viewport_rect().size.x - insets - 20.0) / 3.0))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and _skill != null:
 		if _catalog_run != null: configure_catalog(_skill, _catalog_run)
-		else: configure(_skill, _target)
+		else:
+			var selected_before: bool = _selected
+			var reason_before: String = _unavailable_reason
+			var disabled_before: bool = disabled
+			configure(_skill, _target)
+			set_unavailable(reason_before)
+			set_selected(selected_before)
+			disabled = disabled_before
 
 func _update_feedback() -> void:
 	var highlighted: bool = not disabled and (is_hovered() or has_focus() or _selected)
-	var tint: Color = Color.WHITE if not disabled else Color("748195")
+	var tint: Color = Color.WHITE if _game_theme != null or not disabled else Color("748195")
 	if _motion != null: _motion.kill()
 	_motion = create_tween().set_parallel(true)
 	_motion.tween_property(content, "modulate", tint, hover_duration)
-	_motion.tween_property(action_label, "modulate", Color.WHITE if highlighted else Color("acbacb"), hover_duration)
+	_motion.tween_property(action_label, "modulate", Color.WHITE if _game_theme != null or highlighted else Color("acbacb"), hover_duration)
 
 func _press_feedback() -> void:
 	if disabled or _catalog_run != null: return

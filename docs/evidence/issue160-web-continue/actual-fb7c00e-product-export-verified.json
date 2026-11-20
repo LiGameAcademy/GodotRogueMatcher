@@ -1,0 +1,405 @@
+{
+  "zip_bytes": 2009909,
+  "zip_sha256": "34afbecc286e631b033d4db94e39137d6764ec56242b3605aa630ef6ca7af722",
+  "manifest_error": "",
+  "validated_files": 71,
+  "segments": [
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-51820545b3dfc16129b881a6.jsonl",
+      "rows": 70,
+      "first_event": "run_resumed",
+      "run_id": "191055749-0-1793350950588000-3405400",
+      "segment_id": "s-51820545b3dfc16129b881a6",
+      "resume": {
+        "anchor_state_hash": "f253b3deefa8b8217e4203319c1b1578ea32290e03f855660cfc719502a15d54",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:11:f253b3deefa8b8217e4203319c1b1578ea32290e03f855660cfc719502a15d54",
+        "lineage_known": false,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "98",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-6febd39f13bbcc51318595b7.jsonl",
+      "rows": 343,
+      "first_event": "run_resumed",
+      "run_id": "191055749-0-1793350950588000-3405400",
+      "segment_id": "s-6febd39f13bbcc51318595b7",
+      "resume": {
+        "anchor_state_hash": "d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:12:d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "lineage_known": true,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "2875b30600586f32b04aed5373494dd1e75bccc637e0d6b84d5ee31e83d32f8e",
+        "parent_last_event_id": "191055749-0-1793350950588000-3405400:s-d8efc6ca1bb57d441a2bfe76:52",
+        "parent_persisted_seq": "45",
+        "parent_segment_id": "s-d8efc6ca1bb57d441a2bfe76",
+        "parent_telemetry_seq": "52",
+        "record_seq": "104",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-ab6812d0c921338b88a7ca4d.jsonl",
+      "rows": 38,
+      "first_event": "run_resumed",
+      "run_id": "191055749-0-1793350950588000-3405400",
+      "segment_id": "s-ab6812d0c921338b88a7ca4d",
+      "resume": {
+        "anchor_state_hash": "d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:12:d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "lineage_known": true,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "2875b30600586f32b04aed5373494dd1e75bccc637e0d6b84d5ee31e83d32f8e",
+        "parent_last_event_id": "191055749-0-1793350950588000-3405400:s-d8efc6ca1bb57d441a2bfe76:52",
+        "parent_persisted_seq": "45",
+        "parent_segment_id": "s-d8efc6ca1bb57d441a2bfe76",
+        "parent_telemetry_seq": "52",
+        "record_seq": "104",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-d8efc6ca1bb57d441a2bfe76.jsonl",
+      "rows": 172,
+      "first_event": "run_resumed",
+      "run_id": "191055749-0-1793350950588000-3405400",
+      "segment_id": "s-d8efc6ca1bb57d441a2bfe76",
+      "resume": {
+        "anchor_state_hash": "f253b3deefa8b8217e4203319c1b1578ea32290e03f855660cfc719502a15d54",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:11:f253b3deefa8b8217e4203319c1b1578ea32290e03f855660cfc719502a15d54",
+        "lineage_known": false,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "98",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/191055749-0-1793350950588000-3405400--s-dc6bbf5ad35d309a2b8dd809.jsonl",
+      "rows": 38,
+      "first_event": "run_resumed",
+      "run_id": "191055749-0-1793350950588000-3405400",
+      "segment_id": "s-dc6bbf5ad35d309a2b8dd809",
+      "resume": {
+        "anchor_state_hash": "d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "checkpoint_id": "191055749-0-1793350950588000-3405400:12:d2a29c2b13dc4070b6f361f7169421531cc4b7c1aede6cbfb2bcdb85032b928e",
+        "lineage_known": true,
+        "next_rule_event_id": "3",
+        "parent_last_event_hash": "c26e4a5c24f2a233a6575b1a8ac809b7df38d650e1d463dfa4f2bd2210205521",
+        "parent_last_event_id": "191055749-0-1793350950588000-3405400:s-51820545b3dfc16129b881a6:38",
+        "parent_persisted_seq": "31",
+        "parent_segment_id": "s-51820545b3dfc16129b881a6",
+        "parent_telemetry_seq": "38",
+        "record_seq": "104",
+        "run_id": "191055749-0-1793350950588000-3405400",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-09ce3ce1a6a5d1972259db30.jsonl",
+      "rows": 95,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-09ce3ce1a6a5d1972259db30",
+      "resume": {
+        "anchor_state_hash": "1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "checkpoint_id": "23-0-1793426885263000-2678900:3:1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "lineage_known": false,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "476",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-337b4ab988ee79500d01fe1a.jsonl",
+      "rows": 30,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-337b4ab988ee79500d01fe1a",
+      "resume": {
+        "anchor_state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "checkpoint_id": "23-0-1793426885263000-2678900:4:7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "lineage_known": true,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "63f743794f4cf822dea36a31fd6092feb7a60e56322aca526443c4ce871a3e46",
+        "parent_last_event_id": "23-0-1793426885263000-2678900:s-09ce3ce1a6a5d1972259db30:61",
+        "parent_persisted_seq": "58",
+        "parent_segment_id": "s-09ce3ce1a6a5d1972259db30",
+        "parent_telemetry_seq": "61",
+        "record_seq": "485",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-63fd03c4439f2e10f9cdba54.jsonl",
+      "rows": 173,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-63fd03c4439f2e10f9cdba54",
+      "resume": {
+        "anchor_state_hash": "1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "checkpoint_id": "23-0-1793426885263000-2678900:3:1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "lineage_known": false,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "476",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-75eccadfe146f3451d3e05c3.jsonl",
+      "rows": 112,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-75eccadfe146f3451d3e05c3",
+      "resume": {
+        "anchor_state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "checkpoint_id": "23-0-1793426885263000-2678900:4:7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "lineage_known": true,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "e3d531d5db0e6b81f1feee674fa176897d293520765f5d64fb2d7c8358fa55a2",
+        "parent_last_event_id": "23-0-1793426885263000-2678900:s-63fd03c4439f2e10f9cdba54:53",
+        "parent_persisted_seq": "50",
+        "parent_segment_id": "s-63fd03c4439f2e10f9cdba54",
+        "parent_telemetry_seq": "53",
+        "record_seq": "485",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-774fd6bf4e84fa7a314fcefe.jsonl",
+      "rows": 125,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-774fd6bf4e84fa7a314fcefe",
+      "resume": {
+        "anchor_state_hash": "1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "checkpoint_id": "23-0-1793426885263000-2678900:3:1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "lineage_known": false,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "476",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-854513a7cbb358235323d4d8.jsonl",
+      "rows": 108,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-854513a7cbb358235323d4d8",
+      "resume": {
+        "anchor_state_hash": "1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "checkpoint_id": "23-0-1793426885263000-2678900:3:1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "lineage_known": false,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "476",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-9eab338bd12a2cb4bcb6f3b3.jsonl",
+      "rows": 60,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-9eab338bd12a2cb4bcb6f3b3",
+      "resume": {
+        "anchor_state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "checkpoint_id": "23-0-1793426885263000-2678900:4:7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "lineage_known": true,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "cba167cc69cee44883d80d0d083e95823b05afc1545a7d0e9dcf8be58bb8afd0",
+        "parent_last_event_id": "23-0-1793426885263000-2678900:s-e33dd03da110dc6a44c2e38b:53",
+        "parent_persisted_seq": "50",
+        "parent_segment_id": "s-e33dd03da110dc6a44c2e38b",
+        "parent_telemetry_seq": "53",
+        "record_seq": "485",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-b78f795bb3e8464226a61f3f.jsonl",
+      "rows": 211,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-b78f795bb3e8464226a61f3f",
+      "resume": {
+        "anchor_state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "checkpoint_id": "23-0-1793426885263000-2678900:4:7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "lineage_known": true,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "f4e13c2dda1b2ca578986016d0d9b8a64ca9e03f3495bd958c3013246996d943",
+        "parent_last_event_id": "23-0-1793426885263000-2678900:s-774fd6bf4e84fa7a314fcefe:53",
+        "parent_persisted_seq": "50",
+        "parent_segment_id": "s-774fd6bf4e84fa7a314fcefe",
+        "parent_telemetry_seq": "53",
+        "record_seq": "485",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-ba643388a7f2b565f04909ca.jsonl",
+      "rows": 50,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-ba643388a7f2b565f04909ca",
+      "resume": {
+        "anchor_state_hash": "1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "checkpoint_id": "23-0-1793426885263000-2678900:3:1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "lineage_known": false,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "476",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-cd2587dd794a90edfce41c4f.jsonl",
+      "rows": 132,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-cd2587dd794a90edfce41c4f",
+      "resume": {
+        "anchor_state_hash": "7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "checkpoint_id": "23-0-1793426885263000-2678900:4:7b1a720b3e314301fb0abc50c1cea7154467c76dee5b4b227d1dc87c084a87ff",
+        "lineage_known": true,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "f4e13c2dda1b2ca578986016d0d9b8a64ca9e03f3495bd958c3013246996d943",
+        "parent_last_event_id": "23-0-1793426885263000-2678900:s-774fd6bf4e84fa7a314fcefe:53",
+        "parent_persisted_seq": "50",
+        "parent_segment_id": "s-774fd6bf4e84fa7a314fcefe",
+        "parent_telemetry_seq": "53",
+        "record_seq": "485",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/23-0-1793426885263000-2678900--s-e33dd03da110dc6a44c2e38b.jsonl",
+      "rows": 145,
+      "first_event": "run_resumed",
+      "run_id": "23-0-1793426885263000-2678900",
+      "segment_id": "s-e33dd03da110dc6a44c2e38b",
+      "resume": {
+        "anchor_state_hash": "1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "checkpoint_id": "23-0-1793426885263000-2678900:3:1ceac1a26d287265da668f6989b158028c3fdc63874ebd7e884bfe69600bd3ea",
+        "lineage_known": false,
+        "next_rule_event_id": "17",
+        "parent_last_event_hash": "",
+        "parent_last_event_id": "",
+        "parent_persisted_seq": "0",
+        "parent_segment_id": "",
+        "parent_telemetry_seq": "0",
+        "record_seq": "476",
+        "run_id": "23-0-1793426885263000-2678900",
+        "schema": "telemetry-resume-v1"
+      },
+      "run_started_count": 0
+    },
+    {
+      "file": "telemetry/4265122820-0-1793443044555000-9471000.jsonl",
+      "rows": 64,
+      "first_event": "run_started",
+      "run_id": "4265122820-0-1793443044555000-9471000",
+      "segment_id": null,
+      "resume": {},
+      "run_started_count": 1
+    }
+  ],
+  "known_parent_checks": [
+    {
+      "parent_event_id": "191055749-0-1793350950588000-3405400:s-d8efc6ca1bb57d441a2bfe76:52",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "191055749-0-1793350950588000-3405400:s-d8efc6ca1bb57d441a2bfe76:52",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "191055749-0-1793350950588000-3405400:s-51820545b3dfc16129b881a6:38",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "23-0-1793426885263000-2678900:s-09ce3ce1a6a5d1972259db30:61",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "23-0-1793426885263000-2678900:s-63fd03c4439f2e10f9cdba54:53",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "23-0-1793426885263000-2678900:s-e33dd03da110dc6a44c2e38b:53",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "23-0-1793426885263000-2678900:s-774fd6bf4e84fa7a314fcefe:53",
+      "exact_parent_line_hash_matches": true
+    },
+    {
+      "parent_event_id": "23-0-1793426885263000-2678900:s-774fd6bf4e84fa7a314fcefe:53",
+      "exact_parent_line_hash_matches": true
+    }
+  ],
+  "legacy_without_segment_field": 1,
+  "scope": "agent-operated localhost test data, including retained prior test roots; segments are not independent human samples"
+}

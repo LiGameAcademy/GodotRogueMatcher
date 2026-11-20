@@ -1,0 +1,3363 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue133/final-head-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_board_juice.gd
+[0m* test_piece_flash_isolated_from_other_instance_and_template
+* test_tile_highlight_isolated_from_other_instance_and_template
+* test_birth_keeps_ghost_alpha_and_never_modifies_rule_piece
+* test_cancel_move_clears_path_and_keeps_committed_rules
+* test_selection_pulse_pauses_and_low_effects_stops_motion
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_board_signal.gd
+[0m* test_toggle_does_not_change_snapshot_geometry_or_input_surface
+* test_pause_freezes_clock_fast_does_not_accelerate_and_low_effects_hide_it
+* test_instance_materials_and_template_are_isolated
+* test_settings_preference_round_trip_and_disabled_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:08] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:08] [INFO] Config file saved to 'user://test_board_signal.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:08] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_board_signal.cfg'.
+* test_real_sweep_and_retry_keep_exact_replay_and_reset_effect
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_board_view.gd
+[0m* test_standalone_view_renders_without_external_parent_state
+* test_click_only_emits_coordinate_without_moving_rules
+* test_rebuilding_display_preserves_rule_ids_and_colors
+* test_animation_consumes_already_committed_move_result
+* test_rebuild_cancels_old_animation_without_altering_rule_state
+* test_two_views_do_not_share_mutable_materials
+* test_special_tooltips_follow_current_ability_configuration
+* test_tooltip_moves_with_piece_and_is_disabled_before_departure
+* test_rebuild_does_not_reuse_old_run_tooltip_for_same_piece_id
+* test_dye_step_changes_visual_color_before_following_match_without_rule_mutation
+* test_sweep_removals_animate_without_mutating_rules_and_show_truthful_tooltip
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_build_cards.gd
+[0m* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_command_scene.gd
+[0m* test_human_fast_scene_and_headless_command_have_same_state
+* test_human_slow_scene_and_headless_command_have_same_state
+* test_retry_preserves_earned_reward_state_in_old_record
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_fixture_restart_preserves_old_record
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_conversion_scene.gd
+[0m* test_f12_offer_confirms_and_transforms_same_nodes_with_exact_file_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_transform_plan_copies_snapshots_and_low_effects_preserve_nodes
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m2/2 passed.
+[0m[4m
+
+res://tests/integration/test_core_preview_color.gd
+[0m* test_skill_core_freezes_weighted_color_and_displays_it_before_selection
+* test_real_board_spawn_animation_and_rebuild_preserve_all_preview_colors
+* test_invalid_frozen_core_color_rejects_without_consuming_choice
+* test_core_budget_preflight_uses_frozen_blue_color
+* test_normal_commands_replay_non_green_skill_core
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_expanded_skill_scene.gd
+[0m* test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
+* test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds
+* test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_explosion_loop.gd
+[0m* test_f6_demo_loads_markers_and_real_move_resolves_two_generations
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_two_playback_speeds_keep_chain_scores_and_targets_identical
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_while_explosion_move_is_playing_drops_old_abilities
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_birth_fault_stops_scene_input_without_full_board_game_over
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_feedback_settings.gd
+[0m* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:23] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:23] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_feedback_settings.cfg'.
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:23] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad[39m[0m
+* test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_effect_toggle_during_movement_does_not_cancel_required_tween
+* test_muting_cue_dedup_and_retry_stop_plugin_players
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_finished_player_reused_by_other_caller_survives_game_cancel
+* test_reborrow_before_finished_keeps_original_player_mode
+* test_environment_and_particle_resources_are_instance_local
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_game_background.gd
+[0m* test_settings_save_and_invalid_value_falls_back_to_default
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:27] [INFO] Config file saved to 'user://test_background.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:27] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_background.cfg'.
+[38;2;169;169;169m[2026-10-20T13:28:27] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid[39m[0m
+* test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it
+* test_disabled_and_reduced_effects_use_solid_background_and_keep_rule_state
+* test_materials_and_shared_presets_are_not_mutated_by_other_instances
+* test_real_score_and_retry_are_visual_only_and_replay_stays_exact
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_settings_toggle_preserves_pause_and_rules
+* test_saved_theme_is_applied_before_initial_spawn_yields
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_game_layout.gd
+[0m* test_real_board_edges_fit_ui_area_at_multiple_window_sizes
+* test_settings_fit_both_languages_at_supported_sizes_without_changing_run
+* test_scaled_corner_picking_and_move_use_same_grid_coordinates
+* test_mode_menu_fits_supported_viewport_in_both_languages
+* test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages
+[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_game_themes.gd
+[0m* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:32] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-20T13:28:32] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[38;2;169;169;169m[2026-10-20T13:28:32] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
+* test_switching_retains_offer_selected_card_and_confirmation
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_both_themes_keep_panel_and_button_boundaries_without_focus
+* test_shader_instances_and_templates_stay_isolated_across_views
+* test_switch_during_real_move_keeps_barrier_and_exact_file_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_and_new_catalog_cards_inherit_theme_without_resetting_filters
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_goal_progress.gd
+[0m* test_light_starts_at_source_and_fill_waits_for_arrival
+* test_many_gains_merge_at_limit_and_skip_preserves_exact_total
+[33m    --- Awaiting 0.8 seconds  ---
+[0m* test_pause_freezes_flight_and_reset_cancels_old_wait
+[33m    --- Awaiting 0.8 seconds  ---
+[0m* test_low_effects_and_materials_are_isolated_between_instances
+* test_all_score_waiters_finish_when_first_waiter_advances_goal
+[33m    --- Awaiting 0.8 seconds  ---
+[0m[1m5/5 passed.
+[0m[4m
+
+res://tests/integration/test_hud.gd
+[0m* test_score_counts_up_without_mutating_ledger
+* test_invalid_stage_table_displays_error_without_accessing_missing_target
+* test_reset_cancels_old_wait_and_score
+* test_pause_freezes_score_but_resume_control_remains_available
+* test_hud_uses_real_reward_occupancy_skill_and_score_data
+* test_prototype_layout_leaves_board_click_area_clear
+* test_preview_refresh_and_pause_do_not_consume_or_regenerate_plan
+* test_piece_pool_shows_current_conditional_weights_without_mutating_run
+* test_stage_progress_uses_same_total_including_choice_without_settling
+* test_gain_fades_without_delaying_score_barrier_and_reset_cancels_fade
+[33m    --- Awaiting 1.6 seconds  ---
+[0m* test_second_stage_shows_cumulative_score_and_target
+* test_pool_escape_closes_it_without_requesting_pause
+* test_top_and_bottom_share_the_same_visible_score_during_flight_and_fill
+[1m13/13 passed.
+[0m[4m
+
+res://tests/integration/test_input_buffer.gd
+[0m* test_selection_during_movement_survives_to_next_turn
+* test_only_latest_piece_and_one_move_are_buffered
+* test_removed_buffered_entity_is_not_replaced_by_same_cell_occupant
+* test_retry_discards_buffered_command
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_reward_popup_discards_previous_board_intent
+* test_buffered_move_rechecks_target_occupancy
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_line_clear_visual.gd
+[0m* test_frozen_row_and_column_results_draw_full_axis_even_with_no_targets
+* test_pause_fast_playback_and_cancellation_keep_rules_unchanged
+* test_low_effects_and_retry_cleanup_cover_both_sweep_instances
+* test_wide_visual_uses_frozen_radius_and_clips_to_the_board
+* test_skip_sweep_removes_only_frozen_targets_without_resolving_again
+* test_cross_visual_freezes_both_independent_bands_and_cancels_together
+* test_unlocked_sweeper_tooltip_is_localized_and_does_not_mutate_state
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_localization.gd
+[0m* test_first_language_switch_refreshes_unopened_tutorial_and_preserves_run
+* test_every_skill_has_english_text_without_mutating_resources
+* test_color_picker_switch_preserves_selected_target_and_board_view
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m3/3 passed.
+[0m[4m
+
+res://tests/integration/test_manual_line_scene.gd
+[0m* test_ctrl_shift_f11_scores_bonus_and_shows_owned_card_and_tooltip
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_alt_f11_quota_rejection_pause_rebuild_and_tooltip_match_recorded_rules
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_f11_debug_entry_loads_replayable_fixture_and_shows_unlocked_tooltip
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_double_click_fast_and_normal_scene_match_headless_rules_and_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_shift_f11_wide_command_matches_headless_and_freezes_card_preview
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_ctrl_f11_cross_chain_matches_headless_and_replays_after_presentation
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_playback_settings.gd
+[0m* test_settings_restore_running_paused_and_menu_states_without_rule_changes
+* test_settings_keep_selected_card_and_offer_and_block_skip_without_consuming_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_volume_drag_previews_changes_and_commits_once_on_release
+* test_loading_preferences_does_not_save_and_closing_drag_commits_once
+* test_f8_inside_settings_updates_game_once_and_f1_restores_input
+* test_settings_skip_returns_to_live_presentation_and_preserves_exact_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_closes_settings_and_initializes_new_run_without_stale_pause
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m7/7 passed.
+[0m[4m
+
+res://tests/integration/test_presentation_director.gd
+[0m* test_queue_requires_matching_completion_and_empty_queue_is_complete
+* test_cancel_invalidates_old_completion_before_new_queue
+* test_paused_completion_does_not_dispatch_next_step
+* test_failed_action_is_not_successful_completion
+* test_plan_freezes_path_pieces_and_score_and_orders_generations
+* test_view_parallel_barrier_waits_for_all_required_tweens
+* test_pausing_freezes_required_visual_tasks
+* test_f8_fast_mode_keeps_f6_rule_snapshot_and_telemetry_counts_identical
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_skip_preserves_required_segments_and_rejects_old_completion
+* test_skip_stops_at_batch_alignment_and_pause_rejects_request
+* test_fixed_required_clock_ignores_fast_speed_changes
+* test_recovery_callback_starting_next_batch_keeps_new_barrier_busy
+* test_step_guard_freezes_while_paused
+[1m13/13 passed.
+[0m[4m
+
+res://tests/integration/test_release_flow.gd
+[0m* test_all_four_lessons_use_real_commands_and_isolated_state
+* test_help_preserves_board_and_previous_pause_and_replay_can_skip
+* test_skip_during_animation_cancels_old_completion_and_allows_replay
+[33m    --- Awaiting 30 idle frames  ---
+[0m* test_tutorial_choice_occurs_after_animation_while_tree_paused
+* test_build_label_uses_application_version_and_explicit_override
+* test_switching_modes_starts_new_runs_and_preserves_mode_on_retry
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_challenge_hud_and_end_titles_use_stage_state
+* test_closing_popup_during_initialization_does_not_resume_stale_dialog
+[1m8/8 passed.
+[0m[4m
+
+res://tests/integration/test_result_viewer.gd
+[0m* test_cross_records_validate_both_bands_and_view_without_rescoring
+* test_result_viewing_speeds_preserve_snapshot_without_counting_score
+* test_result_watching_accepts_old_config_while_rule_replay_rejects_it
+* test_malformed_consumed_records_fail_without_stalling_viewer
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_reward_coordination.gd
+[0m* test_closing_keeps_reward_without_automatic_reopen_and_board_remains_locked
+* test_popup_cannot_mutate_authoritative_frozen_targets
+* test_same_run_old_popup_callback_does_not_submit_again
+* test_rule_waiting_blocks_move_without_global_pause
+* test_leaving_game_closes_owned_popup_and_releases_pause
+* test_explicit_resume_button_returns_to_same_offer_without_reroll
+* test_two_rewards_in_normal_mode
+* test_two_rewards_in_fast_mode
+* test_two_rewards_in_low_effects_mode
+* test_two_rewards_in_combined_mode
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_reward_presentation.gd
+[0m* test_match_finishes_before_score_notification_and_reward_popup
+* test_blast_waits_for_longer_visual_before_reward_pauses_game
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_core_selection_match_completes_before_next_queued_reward
+* test_retry_cancels_wait_without_publishing_old_score_or_opening_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m4/4 passed.
+[0m[4m
+
+res://tests/integration/test_score_floats.gd
+[0m* test_split_uses_paid_main_score_and_exact_extra_without_mutating_entry
+* test_bonus_only_and_zero_score_never_invent_base_points
+* test_grade_font_and_colors_are_isolated_per_number_instance
+* test_big_scores_pop_more_and_stay_inside_reserved_sweep
+* test_edge_anchors_bonus_followup_and_overlapping_rewards_stay_readable
+* test_pause_low_effects_speed_and_expiry_preserve_ledger
+* test_delayed_rewards_reserve_motion_range_and_crowded_bursts_do_not_overlap
+* test_float_tail_is_optional_duplicate_results_do_not_repeat_and_reset_clears_old_text
+* test_score_burst_notifies_once_with_an_independent_entry_and_local_anchor
+[1m9/9 passed.
+[0m[4m
+
+res://tests/integration/test_skill_card_selection.gd
+[0m* test_select_switch_inspect_and_pause_do_not_submit_or_mutate_run
+* test_color_choice_uses_same_bottom_confirmation_without_automatic_submission
+* test_rejected_selection_keeps_candidate_and_does_not_fly_card
+* test_accepted_selection_emits_visual_once_after_rule_commit
+* test_reveal_and_transfer_are_visual_only_and_support_pause_low_effects_and_cancel
+* test_closing_submitted_popup_without_success_acknowledgement_does_not_fly_card
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_skill_cards.gd
+[0m* test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+      at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+      at line -1
+* test_legacy_definition_falls_back_and_choice_rendering_does_not_mutate_run
+* test_frozen_refill_preview_and_consume_hint_keep_correct_lifecycle
+* test_build_summary_and_config_hash_are_unchanged_by_presentation_fields
+* test_rarity_styles_are_instance_owned_and_other_card_stays_unchanged
+[1m4/5 passed.
+[0m[4m
+
+res://tests/integration/test_skill_instance_cards.gd
+[0m* test_build_card_and_pool_read_real_level_without_changing_rules
+[1m1/1 passed.
+[0m[4m
+
+res://tests/integration/test_skill_pool.gd
+[0m* test_browsing_and_locale_changes_preserve_snapshot_offer_and_random_streams
+* test_escape_restores_existing_pause_and_does_not_reach_game_shortcuts
+* test_catalog_uses_short_effects_and_actual_prerequisite_titles
+* test_choice_menu_roundtrip_preserves_popup_and_observation_location
+* test_terminal_and_presentation_views_restore_their_previous_state
+* test_default_sort_uses_rarity_then_level_then_translated_name
+* test_filters_intersect_and_instant_history_is_not_a_level
+* test_grid_cards_filter_sort_reset_without_changing_rules
+* test_empty_filter_and_grid_column_count
+[1m9/9 passed.
+[0m[4m
+
+res://tests/integration/test_skill_target_ux.gd
+[0m* test_color_has_no_default_invalid_confirm_only_highlights_without_consumption
+* test_fold_view_pause_and_return_preserve_target_and_lock_board_without_reroll
+* test_color_confirm_applies_once_and_proceeds_through_real_reward_coordinator
+* test_hud_temporary_skill_disappears_when_consumed_history_can_be_expanded
+* test_non_color_budget_refusal_keeps_offer_random_and_reward
+* test_paused_card_body_mouse_click_opens_picker_once_without_reroll
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_skip_recovery.gd
+[0m* test_skip_during_required_move_preserves_rule_snapshot_and_waits_for_move
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_active_blast_skip_and_normal_play_have_same_snapshot
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_skip_score_preserves_exact_integer_and_completes_wait
+* test_skip_before_reward_does_not_choose_or_leak_into_next_batch
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_failed_blast_recovers_committed_snapshot_without_recomputing
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_invalid_recovery_snapshot_stays_locked_and_preserves_rules
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_discards_skip_request_and_old_step_completion
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_lost_movement_completion_times_out_and_recovers_without_rule_replay
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_compatibility_change_survives_two_queued_batches
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_final_alignment_rebuild_restores_legacy_item_mapping_without_placement
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+WARNING: 道具 prism_tower 没有配置效果！
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _trigger_effect (res://gameplay/items/item_effect_system.gd:115)
+       [1] _trigger_effects_for_timing (res://gameplay/items/item_effect_system.gd:101)
+       [2] _on_turn_ended (res://gameplay/items/item_effect_system.gd:64)
+       [3] continue_run (res://gameplay/board/board_run_flow.gd:22)
+       [4] finish_presentation (res://gameplay/board/board.gd:264)
+       [5] _wait_for_score (res://gameplay/game.gd:379)
+       [6] wait_for_score (res://ui/hud.gd:145)
+       [7] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [8] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+WARNING: 道具 prism_tower 没有配置效果！
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _trigger_effect (res://gameplay/items/item_effect_system.gd:115)
+       [1] _trigger_effects_for_timing (res://gameplay/items/item_effect_system.gd:101)
+       [2] _on_turn_started (res://gameplay/items/item_effect_system.gd:60)
+       [3] continue_run (res://gameplay/board/board_run_flow.gd:27)
+       [4] finish_presentation (res://gameplay/board/board.gd:264)
+       [5] _wait_for_score (res://gameplay/game.gd:379)
+       [6] wait_for_score (res://ui/hud.gd:145)
+       [7] wait_until_settled (res://ui/goal_progress/goal_progress.gd:87)
+       [8] _finish_fill (res://ui/goal_progress/goal_progress.gd:132)
+[1m10/10 passed.
+[0m[4m
+
+res://tests/integration/test_stage_scene.gd
+[0m* test_goal_bonus_keeps_score_label_and_progress_in_sync
+* test_real_stage_pass_waits_for_presentation_then_enters_next_stage
+* test_real_score_shortfall_returns_to_input_after_visuals
+* test_real_final_stage_completes_without_skill_popup
+* test_victory_continue_button_keeps_run_and_opens_deferred_reward
+* test_victory_menu_finalizes_once_as_completed
+[1m6/6 passed.
+[0m[4m
+
+res://tests/integration/test_telemetry_scene.gd
+[0m* test_game_over_connects_collection_controls_and_refreshes_save_status
+* test_normal_scene_records_submitted_command_and_turn_without_false_exposure
+* test_real_popup_produces_visible_exposure_then_acquisition_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_buffer_overwrite_and_reward_cancel_are_terminal_events
+* test_retry_closes_old_sink_and_keeps_session_but_changes_run_id
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_mode_switch_records_own_reason_and_integration_context
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_help_export_controls_preserve_rules_and_normalize_ui_exit_location
+* test_settings_location_and_pause_are_recorded_without_ending_run
+* test_piece_pool_location_is_observed_and_viewing_preserves_rules
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_ability_composite_effects.gd
+[0m* test_leaf2_reads_state_after_leaf1_commit
+* test_clear_then_dye_defers_descendant_blasts_until_composite_done
+* test_fixed_target_reject_fails_before_mutating
+* test_fixed_target_skip_drops_invalid_ids
+* test_composite_validation_rejects_cycle_depth_and_empty
+* test_acceptance_skill_uses_generic_apply_without_skill_id_branch
+* test_single_leaf_core_drop_still_applies_through_runner
+* test_composite_clear_color_picker_reads_clear_leaf_groups
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_ability_events.gd
+[0m* test_duplicate_event_and_completion_never_repeat_unlimited_ability
+* test_failed_application_does_not_consume_and_empty_policy_is_explicit
+* test_event_source_is_frozen_twice_and_does_not_query_removed_board_piece
+* test_shuffled_events_and_listeners_have_stable_generation_source_ability_order
+* test_all_any_not_and_always_only_query_and_do_not_consume_rng
+* test_invalid_event_cause_composition_or_depth_is_diagnostic
+* test_reset_invalidates_old_bus_events_and_pending_completion
+* test_invalid_batch_is_rejected_before_reserving_or_consuming_any_instance
+* test_real_empty_manual_detonation_keeps_action_cost_and_consumes_once
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_ability_triggers.gd
+[0m* test_resource_composes_core_trigger_conditions_and_independent_effect
+* test_instances_own_counts_without_mutating_shared_trigger_or_global_rng
+* test_wrong_owner_event_or_cause_never_consumes_trigger_count
+* test_changing_only_condition_changes_real_resolver_trigger
+* test_unsupported_condition_refuses_entire_batch_before_board_or_score_commit
+* test_cyclic_or_missing_condition_is_a_diagnostic_not_recursive_evaluation
+* test_configuration_and_snapshot_include_trigger_parameters_and_instance_counts
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_board_rules.gd
+[0m* test_invalid_moves_do_not_mutate_state_or_random_stream
+* test_four_neighbor_path_never_moves_diagonally
+* test_blocked_corner_rejects_diagonal_escape
+* test_path_detours_around_occupied_cell
+* test_rectangular_board_uses_columns_for_x_and_rows_for_y
+* test_four_is_not_a_match_and_long_lines_are_complete
+* test_both_diagonal_directions_match
+* test_t15_independent_lines_remain_two_groups
+* test_t16_crossed_lines_merge_nine_unique_ids
+* test_bridge_line_merges_multiple_existing_groups
+* test_failed_placement_does_not_consume_entity_id
+* test_snapshots_and_two_boards_are_isolated
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_catalog_skill_pipeline.gd
+[0m* test_every_catalog_card_uses_command_pipeline_and_records_all_score_events
+* test_all_declared_level_upgrades_use_frozen_targets_and_preserve_instance
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_collection_batches.gd
+[0m* test_local_sink_accepts_in_memory_then_persists_one_batch
+* test_pressure_snapshot_computes_real_empty_components_without_rng
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_collection_lifecycle.gd
+[0m* test_exit_during_action_records_incomplete_root_and_unique_summary
+* test_finished_action_conserves_score_and_space_and_recovers_only_prefix
+* test_live_session_is_never_recovered_and_zip_contains_current_prefix
+* test_end_screen_session_location_does_not_rewrite_gameplay_ending
+* test_failed_directory_does_not_reject_legal_command
+WARNING: 本局分析记录不完整：telemetry_queue_limit
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] _emit (res://services/telemetry/telemetry_projector.gd:198)
+       [2] _start (res://services/telemetry/telemetry_projector.gd:100)
+       [3] observe_record (res://services/telemetry/telemetry_projector.gd:47)
+       [4] append (res://gameplay/run/recording/run_recorder.gd:59)
+       [5] begin (res://gameplay/run/recording/run_recorder.gd:38)
+       [6] test_failed_directory_does_not_reject_legal_command (res://tests/rules/test_collection_lifecycle.gd:111)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_goal_reward_score_stays_outside_completed_action_and_has_own_identity
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_composite_empty_dye.gd
+[0m* test_catalog_clear_dye_does_not_end_a_valid_two_color_run
+REVIEW two-color: success=true error= phase=REWARDS pieces=1 rewards=0
+* test_standalone_dye_still_rejects_missing_targets
+* test_configured_empty_dye_does_not_hide_invalid_live_targets
+* test_configured_empty_board_dye_is_legal
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_composite_preview.gd
+[0m* test_catalog_refill_color_matches_displayed_frozen_color
+* test_weight_refresh_keeps_color_and_uses_updated_values_without_rng
+* test_nested_refresh_preserves_displayed_weight_color
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_composite_score_events.gd
+[0m* test_catalog_clear_dye_keeps_first_leaf_score_events
+REVIEW marked reward: ledger=true returned=true total=5
+* test_core_creation_keeps_prior_leaf_results
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_continue_challenge.gd
+[0m* test_continue_keeps_board_score_and_build_and_grants_terminal_reward
+* test_reward_enters_extended_stage_and_whole_record_replays
+* test_command_roundtrip_and_duplicate_grants_reward_once
+* test_rejects_unfinished_board_full_and_closed_records
+* test_extra_goals_use_frozen_final_increment_carry_and_one_new_action
+* test_ending_at_victory_writes_one_valid_footer_and_does_not_continue
+* test_extend_rejects_target_overflow
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_demolition_build.gd
+[0m* test_catalog_has_42_real_distinct_effects_and_five_grades
+* test_prerequisites_and_rarity_multiply_after_clamp_once
+* test_active_core_consumes_once_and_normal_refill_still_happens
+* test_active_budget_failure_preserves_source_score_and_rng
+* test_payload_creates_immediate_chain_and_score_is_extra_only
+* test_relay_snapshot_does_not_propagate_new_source_same_turn
+* test_aftershock_once_selective_filter_and_radius_caps
+* test_relief_waits_for_complete_root_and_extends_without_double_strength
+* test_supply_uses_normal_slots_unique_and_run_state_isolated
+* test_core_drop_new_budget_preflight_preserves_entire_choice
+* test_plant_runs_after_all_match_groups_removed_once_per_root
+* test_chain_radius_only_later_fuses_and_general_rewards_are_independent
+* test_old_parent_root_survives_interleaved_skill_root
+* test_active_command_chain_settlement_and_refill_replay_all_checkpoints
+* test_rarity_styles_are_owned_by_each_card
+[1m15/15 passed.
+[0m[4m
+
+res://tests/rules/test_dye_rules.gd
+[0m* test_echo_completes_second_line_and_scores_mark_once
+* test_new_line_allows_second_wave_but_shared_budget_stops_third
+* test_recolor_preserves_fuse_and_identity_without_direct_score
+* test_no_surviving_target_leaves_only_first_match
+* test_dye_state_is_owned_per_run_and_stale_instant_targets_reject
+* test_fixture_records_replay_rule_and_presentation_events
+* test_non_match_removal_does_not_consume_later_spawn_match_opportunity
+* test_dye_bonus_is_not_paid_on_explosion_removal
+* test_blast_bridge_dyes_surviving_edge_material_and_shares_wave_limit
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_expanded_skills.gd
+[0m* test_40_resources_and_support_skills_can_be_drawn_at_third_reward
+* test_refill_modifier_survives_match_skip_and_lasts_three_actual_batches
+* test_refill_repeat_extends_duration_without_stacking_and_opposites_offset
+* test_color_weight_changes_only_selected_color_and_isolates_runs_and_resources
+* test_weighted_colors_are_deterministic_and_follow_modified_distribution
+* test_color_lowering_stays_positive_and_excludes_capped_targets
+* test_color_clear_triggers_fuse_chain_scores_only_explosions_and_preserves_unhit_partner
+* test_line_clear_freezes_both_axes_removes_all_ordinary_targets_with_direct_score
+* test_changed_targets_and_invalid_trigger_refuse_without_consuming_reward_or_action
+* test_command_duplicate_does_not_apply_modifier_twice_and_config_is_stable
+* test_frozen_parameter_changes_and_low_event_budget_preserve_whole_choice
+* test_actual_bot_commands_replay_with_expanded_skills_and_reject_old_rule_version
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_explosion_rules.gd
+[0m* test_t02_core_fuse_chain_scores_70_and_clears
+* test_t03_overlapping_sources_sort_by_id_and_count_target_once
+* test_t09_match_multiplier_and_extra_do_not_multiply_blast_extra
+* test_empty_blast_never_awards_blast_extra
+* test_core_unique_fuse_eligibility_and_one_instance_per_piece
+* test_radius_and_reward_caps_and_shared_definitions_are_isolated
+* test_board_edge_blast_clips_and_ordinary_green_never_explodes
+* test_budget_failure_preserves_board_ledger_and_instances
+* test_reset_clears_fuses_levels_unlock_and_consumed_events
+* test_birth_budget_fault_stops_batch_and_preserves_error_phase
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_forest_clear_score.gd
+[0m* test_row_clear_scores_mixed_colors_and_keeps_specials
+* test_column_clear_scores_even_below_five_targets
+* test_fuse_chain_scores_separately_and_global_modifiers_apply_to_direct_clear
+* test_rejected_frozen_target_keeps_board_score_and_reward
+* test_budget_rejection_keeps_direct_score_uncommitted
+* test_command_duplicate_preserves_score_and_recorded_events
+* test_scored_skip_invalid_composite_keeps_scoring_policy
+* test_other_clear_effects_and_normal_match_threshold_are_unchanged
+* test_repeated_or_duplicate_removal_targets_never_pay_twice
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_goal_score_bonus.gd
+[0m* test_bonus_is_once_after_action_and_carry_requires_new_action
+* test_new_choice_does_not_reward_past_goal_and_final_goal_has_no_offer
+* test_shortfall_and_full_board_never_trigger_bonus
+* test_configuration_eligibility_stale_target_and_reset
+* test_telemetry_separates_action_score_and_goal_reward
+* test_actual_choice_and_goal_bonus_replay_every_checkpoint
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_line_build_completion.gd
+[0m* test_score_card_requires_supply_preserves_instance_and_caps_at_three
+* test_empty_short_and_full_sweeps_add_bonus_after_global_multiplier
+* test_cross_chain_counts_live_targets_once_and_does_not_bonus_blasts
+* test_normal_match_and_instant_clear_do_not_gain_sweep_bonus
+* test_starter_slot_is_supply_only_until_any_supply_is_unlocked
+* test_dye_keeps_six_cards_at_lower_weight_and_no_forced_exploration
+* test_scored_fixture_records_and_replays_real_file
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_line_clear_drop.gd
+[0m* test_row_drop_unlocks_places_and_allows_second_piece
+* test_column_drop_is_independent_and_repeat_rejected
+* test_catalog_includes_line_drops
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_line_clear_removal.gd
+[0m* test_column_removed_in_horizontal_match_sweeps_column_and_chains_row
+* test_row_removed_by_clear_sweeps_specials_and_triggers_core
+* test_sweep_fuse_explosion_chain_keeps_generation_and_parent_ids
+* test_explosion_removes_sweeper_then_sweeps_from_frozen_coordinate
+* test_overlapping_sweeps_remove_and_score_each_target_once_in_source_order
+* test_empty_sweep_consumes_once_without_score_or_action_cost
+* test_budget_rejects_before_score_occupancy_or_event_mutation
+* test_held_sweep_waits_for_later_leaf_and_uses_frozen_source
+* test_shared_definition_counts_are_isolated_and_snapshot_records_sweeper
+* test_sweep_at_end_of_blast_queue_does_not_drop_aftershock
+* test_score_uses_global_multiplier_and_extra_without_five_match_upgrades
+* test_identical_fixture_results_records_and_snapshots_are_deterministic
+* test_line_arrival_budget_includes_new_innate_source_before_skill_commit
+* test_moving_sweeper_into_five_costs_only_parent_action_and_duplicate_command_is_noop
+[1m14/14 passed.
+[0m[4m
+
+res://tests/rules/test_line_cross.gd
+[0m* test_cross_requires_either_supply_installs_once_and_is_run_local
+* test_both_source_types_use_independent_spans_and_score_union_once
+* test_corner_cross_clips_each_band_and_dedupes_overlap
+* test_single_axis_can_chain_row_column_core_without_cross_and_without_cycles
+* test_cross_chain_fixture_active_action_and_file_replay_preserve_causal_records
+* test_cross_budget_rejects_before_board_score_and_rng_commit
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_line_score_availability.gd
+[0m* test_score_weight_stays_above_unowned_manual_through_repeat_and_history_penalties
+* test_fixed_seed_offers_show_score_more_often_for_acquisition_and_upgrades_in_both_modes
+Sweep availability: challenge=false level=0, harvest=131/256 manual=45/256
+Sweep availability: challenge=false level=1, harvest=91/256 manual=45/256
+Sweep availability: challenge=false level=2, harvest=92/256 manual=46/256
+Sweep availability: challenge=true level=0, harvest=135/256 manual=44/256
+Sweep availability: challenge=true level=1, harvest=83/256 manual=40/256
+Sweep availability: challenge=true level=2, harvest=85/256 manual=40/256
+* test_manual_rarity_limit_and_score_effect_are_preserved
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_line_span.gd
+[0m* test_span_cards_require_their_own_supply_and_cap_at_one_level
+* test_three_rows_and_columns_score_the_actual_union_once
+* test_edges_clip_symmetrically_without_shifting_to_a_third_line
+* test_five_match_departure_uses_the_same_span_without_an_extra_action
+* test_fuses_on_adjacent_band_chain_and_overlapping_sources_dedupe
+* test_wide_fixture_active_command_file_replay_preserves_radius_and_scores
+* test_greedy_bot_accounts_for_adjacent_bands_without_changing_game_random
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_manual_line_clear.gd
+[0m* test_short_sweeps_score_one_two_four_and_five_without_match_bonuses
+* test_short_sweep_applies_global_multiplier_and_extra
+* test_unlock_card_needs_either_supply_and_uses_shared_acquisition_pipeline
+* test_manual_row_and_column_cost_one_action_refill_and_activate_once
+* test_refill_cost_stays_previewed_when_this_action_increases_pressure
+* test_goal_passes_only_after_normal_refill_and_full_action_settlement
+* test_empty_sweep_still_consumes_action_and_refills_without_award
+* test_rejections_leave_occupancy_score_and_random_unchanged
+* test_budget_rejection_precedes_manual_consumption
+* test_manual_sweep_fuse_chain_keeps_single_source_cost_and_normal_scores
+* test_command_codec_record_file_replay_and_analysis_cover_manual_action
+* test_bots_enumerate_manual_actions_without_touching_game_random
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_manual_use_limit.gd
+[0m* test_row_column_share_three_uses_duplicate_and_fourth_do_not_consume
+* test_core_has_independent_three_uses_empty_costs_once_and_passive_survives
+* test_empty_sweep_costs_once_and_invalid_budget_and_stale_do_not
+* test_cross_chain_charges_root_only_and_shared_config_is_not_mutated
+* test_exhaustion_file_replay_and_telemetry_preserve_uses_and_rejected_attempt
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_paired_windows.gd
+[0m* test_prefix_restores_all_rng_offer_plan_and_isolates_instances
+* test_illegal_intervention_and_partial_prefix_are_rejected
+* test_censored_window_has_null_delta_and_includes_immediate_choice
+* test_deterministic_branches_replan_and_keep_legal_target_levels
+* test_pressure_report_does_not_classify_tool_limit_as_stage_failure
+* test_long_disk_run_flushes_without_a_ui_driver
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_percent_clear.gd
+[0m* test_floor_zero_and_invalid_ratio
+* test_freeze_is_unique_reproducible_and_preserves_board_random
+* test_plain_clear_preserves_partner_score_turn_and_refill
+* test_stale_and_duplicate_targets_do_not_consume_reward
+* test_fuse_can_be_selected_and_descendants_use_normal_score
+* test_candidate_and_preview_use_frozen_count
+* test_actual_percent_choice_replays_every_checkpoint
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_loop.gd
+[0m* test_pressure_boundaries_are_completed_actions_and_have_no_death_line
+* test_action_at_pressure_boundary_pays_locked_cost_then_previews_increase
+* test_goal_action_pays_five_before_relief_and_offer_uses_next_stage_base
+* test_five_to_three_to_five_preserves_all_tokens_and_content_random
+* test_direct_match_preserves_modifiers_but_full_clear_pays_locked_refill
+* test_temporary_counts_clamp_at_five_and_both_expire_on_real_refill
+* test_config_roundtrip_rejects_old_budget_and_invalid_pressure
+* test_reset_restores_pressure_without_mutating_other_run_or_config
+* test_birth_match_frees_space_and_remaining_five_piece_batch_finishes
+* test_refill_more_at_five_is_rejected_instead_of_promising_six
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_offers.gd
+[0m* test_pressure_empty_full_and_equal_occupancy_fragmentation
+* test_rescue_factor_is_bounded_monotonic_and_neutral_for_other_skills
+* test_high_pressure_waives_only_rescue_reward_gate
+* test_classic_keeps_original_weight_gate_and_version
+* test_offer_pressure_and_weights_freeze_and_next_group_resamples
+* test_finished_run_cannot_be_rescued_and_invalid_config_is_rejected
+* test_high_pressure_groups_keep_distinct_legal_choices_and_one_utility
+* test_telemetry_pressure_matches_candidate_snapshot_and_does_not_touch_board_rng
+* test_offer_record_emits_frozen_pressure_weights_and_version
+* test_challenge_record_replays_offers_with_current_config
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_reward_waiting_rules.gd
+[0m* test_partial_invalid_offer_keeps_identity_targets_and_random_without_replacement
+* test_all_invalid_offer_rebuilds_same_reward_once_without_consuming_it
+* test_nested_popup_snapshot_isolates_every_target_collection
+* test_second_complete_invalidation_stops_without_new_offer_or_repair
+* test_failed_freeze_keeps_all_formal_streams_identity_and_reward
+* test_one_and_two_card_groups_are_complete_but_zero_pool_is_an_error
+* test_successful_choose_duplicate_keeps_result_and_consumes_once
+* test_command_cannot_acquire_candidate_with_outdated_frozen_level
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_run_controller.gd
+[0m* test_initialization_adds_five_and_ordinary_batch_still_adds_three
+* test_move_commits_match_before_any_presentation
+* test_invalid_and_busy_move_preserve_run_and_random
+* test_full_clear_sampling_uses_current_board_after_reward
+* test_two_spaces_fill_then_third_spawn_fails
+* test_three_spaces_fill_then_final_space_check_fails
+* test_first_birth_match_does_not_stop_remaining_births
+* test_third_birth_match_is_resolved_before_failure
+* test_independent_events_and_intersection_use_correct_counts
+* test_same_seed_and_replacement_run_are_isolated
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_score_ledger.gd
+[0m* test_lengths_use_confirmed_formula
+* test_multiplier_extra_and_event_floor
+* test_independent_and_crossed_groups_score_separately
+* test_entries_are_copies_and_sum_matches_total
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_skill_action_migration.gd
+[0m* test_assign_fuse_marks_and_unlocks_fuse_route
+* test_thin_removes_without_scoring_or_blast
+* test_blast_radius_levels_and_stat_stay_synced
+* test_score_multiplier_repeat_via_choice_effect
+* test_catalog_every_skill_has_effect_root
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_skill_instances.gd
+[0m* test_shared_definitions_and_independent_instances_with_no_template_writes
+* test_upgrade_retains_ability_identity_count_and_authoritative_level
+* test_failed_core_target_does_not_consume_or_install_any_state
+* test_failed_upgrade_does_not_reset_count_or_consume_reward
+* test_core_leaving_keeps_unlock_and_skills_and_reset_discards_instances
+* test_invalid_levels_and_wrong_effect_types_are_rejected_before_changes
+* test_snapshot_includes_runtime_counts_and_nested_level_config
+* test_desynchronized_modifier_refuses_upgrade_without_consumption
+* test_actual_commands_replay_acquisition_and_upgrade_instances
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_skill_recording.gd
+[0m* test_snapshot_ability_instances_expose_debug_links
+* test_explain_matches_adapter_and_records_condition_rejection
+* test_rule_result_activations_locate_consume_after_blast
+* test_replay_describe_error_covers_version_and_truncation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_skill_rewards.gd
+[0m* test_first_offer_has_starter_and_distinct_legal_ids
+* test_empty_board_uses_fallback_and_freezes_offer
+* test_invalid_target_preserves_every_rule_state_and_reward
+* test_fuse_marks_actual_one_target_and_preserves_color
+* test_weight_example_and_live_driver_compensation
+* test_full_caps_exclude_upgrades_and_core_unique
+* test_current_and_future_fuses_share_upgraded_radius_only_in_same_run
+* test_core_landing_resolves_match_without_movement_and_records_once
+* test_core_budget_rejection_does_not_insert_or_consume
+* test_fixed_seed_offers_targets_and_board_stream_are_independent
+* test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades
+[1m11/11 passed.
+[0m[4m
+
+res://tests/rules/test_spawn_preview.gd
+[0m* test_preview_matches_actual_births_and_only_actual_consumption_advances
+* test_direct_match_without_full_clear_preserves_plan_and_temporary_batches
+* test_count_changes_preserve_prefix_and_weights_only_affect_appended_tokens
+* test_position_random_read_only_preview_and_copies_cannot_change_content_plan
+* test_core_candidates_have_locked_fallback_and_actual_unique_constraint
+* test_full_board_does_not_consume_pending_token
+* test_core_birth_uses_all_five_preview_colors_and_fallback_stays_locked
+* test_preview_colored_core_participates_in_same_color_five_match
+* test_non_default_core_birth_replays_from_real_commands
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_special_conversion.gd
+[0m* test_all_types_freeze_zero_one_two_three_and_more_without_replacement
+* test_capabilities_specials_and_ghosts_are_never_overwritten
+* test_duplicate_stale_and_newly_marked_targets_reject_atomically
+* test_conversion_instances_are_independent_and_manual_quota_is_not_refilled
+* test_converted_row_column_core_chain_uses_type_upgrades_and_single_use_instances
+* test_real_files_replay_all_three_conversion_commands
+* test_telemetry_records_transformation_without_counting_births_removals_or_score
+* test_composite_keeps_both_batches_of_transformation_results
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_stage_challenge.gd
+[0m* test_score_shortfall_does_not_end_at_old_tenth_action
+* test_last_action_passes_only_after_tail_and_grants_one_reward
+* test_one_point_short_keeps_playing_and_does_not_grant_reward
+* test_final_stage_completes_without_card_and_total_is_not_debited
+* test_board_full_wins_over_carry_and_actual_refill_finishes_first
+* test_carry_cannot_auto_pass_next_stage_and_rewards_do_not_use_actions
+* test_instant_choice_scores_next_goal_without_consuming_action_or_auto_pass
+* test_invalid_and_duplicate_commands_preserve_stage_and_random
+* test_active_core_counts_one_action_even_with_zero_score
+* test_invalid_config_refuses_before_births_and_state_is_owned
+* test_exact_replay_and_terminal_classification_for_challenge
+* test_bot_challenge_ends_only_at_real_board_full_and_exact_replay
+* test_classic_mode_still_grants_score_rewards_without_stage_budget
+* test_bot_prepares_stage_reward_before_requesting_a_skill_command
+* test_choice_excess_counts_but_waits_for_new_action
+[1m15/15 passed.
+[0m[4m
+
+res://tests/rules/test_target_freeze.gd
+[0m* test_source_and_other_run_cannot_change_frozen_curve_or_hash
+* test_burst_keeps_more_carry_without_pricing_up_following_targets
+* test_choice_points_and_extra_choices_do_not_change_frozen_targets
+* test_curve_provenance_round_trips_and_invalid_reference_is_rejected
+* test_curve_fields_are_in_record_header_and_exact_replay
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_telemetry.gd
+[0m* test_collecting_and_failed_sink_do_not_change_rules_or_random_streams
+WARNING: 本局分析记录不完整：test_write_failure
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] flush_pending (res://services/telemetry/telemetry_projector.gd:240)
+       [2] play (res://tools/bot_testing/bot_runner.gd:27)
+       [3] test_collecting_and_failed_sink_do_not_change_rules_or_random_streams (res://tests/rules/test_telemetry.gd:59)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_generated_without_visible_popup_is_not_human_exposure
+* test_repeated_presentation_failed_choice_and_duplicate_confirmation_are_deduplicated
+* test_bot_opportunities_use_generated_offers_without_fake_presentations
+* test_exported_csv_keeps_the_complete_event_envelope
+* test_clock_priority_focus_and_closing_total_are_exclusive
+* test_inputs_have_one_terminal_disposition_and_command_link
+* test_turn_aggregates_chain_and_generated_entities_once
+* test_local_sink_readback_precision_truncation_and_schema_rejection
+* test_core_json_strategy_works_without_autoload_and_preserves_null_error_boundary
+* test_overlapping_prefix_and_complete_files_count_one_run
+* test_experiment_variant_and_bot_configuration_are_separate_groups
+* test_active_core_turn_counts_source_removal_and_reports_action
+[1m13/13 passed.
+[0m[4m
+
+res://tests/rules/test_trial_progression.gd
+[0m* test_one_thousand_points_grants_four_rewards_and_progress_uses_actual_interval
+* test_milestones_are_strictly_increasing_including_tail
+* test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores
+* test_thinning_invalid_target_preserves_whole_action
+* test_midgame_pool_includes_new_utility_and_freezes_real_targets
+[1m5/5 passed.
+[0m[4m
+
+res://tests/test_core_loop.gd
+[0m* test_occupied_start_can_move_and_restores_obstacle
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_compatibility_writes_refresh_special_tooltips_at_rest
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_click_move_advances_one_turn_and_spawns_three
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_blocked_move_preserves_turn_score_and_occupancy
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_five_match_scores_and_clears_without_stale_references
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_partial_spawn_fills_last_empty_cell_and_ends_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_spawn_checks_match_before_full_board_failure
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_crossed_lines_deduplicate
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_four_does_not_match_and_diagonal_five_does
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_full_clear_repopulates_and_returns_to_input
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_failed_spawn_does_not_offer_pending_rescue_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_candidate_ids_are_distinct
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_reward_filling_last_space_ends_before_next_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_clears_score_items_obstacles_and_upgrade_state
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_rewards_queue_and_selection_applies_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_f7_uses_real_reward_popup_and_returns_to_same_turn
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_partial_invalid_core_target_keeps_offer_without_consuming_reward
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_old_skill_callback_after_retry_cannot_modify_new_run
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_legacy_dye_and_destroy_route_through_rule_state
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+效果 [dye_piece] 应用：将棋子染成颜色 4 (位置: (3, 2))
+效果 [destroy_pieces] 应用：摧毁 1 个棋子
+* test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+WARNING: 道具 prism_tower 没有配置效果！
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] register_item (res://gameplay/items/item_effect_system.gd:46)
+       [1] place_item_at (res://gameplay/items/item_placer.gd:80)
+       [2] test_game_display_rebuild_does_not_reapply_item_or_reset_rule_ids (res://tests/test_core_loop.gd:308)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] before_each (res://tests/test_core_loop.gd:21)
+       [5] start_game (res://gameplay/board/board.gd:107)
+       [6] present_spawns (res://gameplay/board/board.gd:439)
+       [7] finish_presentation (res://gameplay/board/board.gd:264)
+       [8] wait_until_idle (res://gameplay/presentation/presentation_director.gd:81)
+       [9] _set_busy (res://gameplay/presentation/presentation_director.gd:152)
+       [10] _dispatch (res://gameplay/presentation/presentation_director.gd:113)
+* test_coordinator_rejects_rebuild_during_move_and_finishes_once
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_retry_cancels_old_move_without_advancing_new_turn
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_extra_score_does_not_exempt_ordinary_spawn
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_score_reset_notifies_display_and_replaces_ledger
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_move_rules_are_committed_while_animation_is_pending
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+* test_presenting_committed_result_twice_does_not_repeat_effects
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[33m    1 Orphans[0m
+[33m        * [ScoreMote:<Node2D#114661802387191>(score_mote.gd)][0m
+* test_fast_and_slow_move_playback_have_identical_rule_results
+注册道具：prism_tower (稀有度: COMMON, 类型: BUILDING)
+注册道具：amplifier (稀有度: COMMON, 类型: BUILDING)
+注册道具：dye_station (稀有度: COMMON, 类型: BUILDING)
+注册道具：ether_totem (稀有度: RARE, 类型: RELIC)
+注册道具：energy_core (稀有度: RARE, 类型: RELIC)
+注册道具：space_compressor (稀有度: RARE, 类型: BUILDING)
+ItemRegistry: 已注册 6 个道具
+[1m27/27 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/integration/test_skill_cards.gd
+[0m- test_all_skill_descriptions_fit_card_and_popup_at_base_viewport
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_core_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_row_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_column_transform稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_refill_color稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcomposite_clear_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mgoal_score_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_manual_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_row_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_column_span稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_cross_upgrade稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mline_clear_score稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_drop稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0massign_fuse稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mscore_multiplier稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_extra稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_thin稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_percent_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_less稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrefill_more稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mprecision_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcolor_weight_down稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mrelay_capacity稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmarked_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mlongline_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_supply_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_line_clear稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_relay稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mchain_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_fuse_ignite稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_manual_detonation稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mfuse_match_plant稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_bonus稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mselective_blast稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mcore_fuse_payload稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_chain_radius稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_refill_relief稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_aftershock稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mmatch_dye_echo稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_target_up稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_chain_depth稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mdye_mark_reward稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0mblast_dye稀有度不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye操作提示不得溢出卡片
+          at line -1
+[31m    [Failed]:  [0minstant_color_dye稀有度不得溢出卡片
+          at line -1
+
+Totals
+------
+Scripts              78
+Tests               574
+Passing Tests       573
+Failing Tests         1
+Asserts           20018/20434
+Time              229.147s
+
+
+[31m---- 1 failing tests ----
+[0m

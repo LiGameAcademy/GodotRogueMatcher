@@ -2,7 +2,7 @@ extends ScrollContainer
 
 const CARD: PackedScene = preload("res://ui/build_card/build_card.tscn")
 const CARD_SCRIPT: Script = preload("res://ui/build_card/build_card.gd")
-@onready var cards: VBoxContainer = %Cards
+@onready var cards: GridContainer = %Cards
 @onready var empty_label: Label = %Empty
 var _cards: Dictionary[StringName, PanelContainer] = {}
 var _game_theme: GameTheme
@@ -33,6 +33,7 @@ func show_state(state: RunState) -> void:
 		cards.remove_child(retired)
 		retired.queue_free()
 		_cards.erase(id)
+	cards.columns = 1 if active.is_empty() else 3
 	empty_label.visible = active.is_empty()
 	empty_label.text = tr("尚未获得持续技能")
 

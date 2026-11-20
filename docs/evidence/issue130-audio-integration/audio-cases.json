@@ -1,0 +1,190 @@
+[
+  {
+    "case": "match",
+    "cues": [
+      "select",
+      "land",
+      "match"
+    ],
+    "cues_valid": true,
+    "fast": false,
+    "low": false,
+    "rule_error": "",
+    "score": 50,
+    "snapshot": "ec91afc37755fdee4a9a6046108e239b19e0688203ed1e79d576cf81c3e26ab6",
+    "valid": true
+  },
+  {
+    "case": "blast_row",
+    "cues": [
+      "select",
+      "land",
+      "match",
+      "blast",
+      "sweep"
+    ],
+    "cues_valid": true,
+    "fast": false,
+    "low": false,
+    "rule_error": "",
+    "score": 61,
+    "snapshot": "6fbbbd4d06cd714b5e334dd51acd5ebf8089f8d56c4ea3a0f4b4913ecd4b2acd",
+    "valid": true
+  },
+  {
+    "case": "row_blast",
+    "cues": [
+      "sweep",
+      "blast",
+      "spawn"
+    ],
+    "cues_valid": true,
+    "fast": false,
+    "low": false,
+    "rule_error": "",
+    "score": 16,
+    "snapshot": "edf7c13ea7fb5b50bd80e80989f959a857076c5943dd2575c225e7b69c57d1d0",
+    "valid": true
+  },
+  {
+    "case": "match",
+    "cues": [
+      "select",
+      "land",
+      "match"
+    ],
+    "cues_valid": true,
+    "fast": true,
+    "low": false,
+    "rule_error": "",
+    "score": 50,
+    "snapshot": "ec91afc37755fdee4a9a6046108e239b19e0688203ed1e79d576cf81c3e26ab6",
+    "valid": true
+  },
+  {
+    "case": "blast_row",
+    "cues": [
+      "select",
+      "land",
+      "match",
+      "blast",
+      "sweep"
+    ],
+    "cues_valid": true,
+    "fast": true,
+    "low": false,
+    "rule_error": "",
+    "score": 61,
+    "snapshot": "6fbbbd4d06cd714b5e334dd51acd5ebf8089f8d56c4ea3a0f4b4913ecd4b2acd",
+    "valid": true
+  },
+  {
+    "case": "row_blast",
+    "cues": [
+      "sweep",
+      "blast",
+      "spawn"
+    ],
+    "cues_valid": true,
+    "fast": true,
+    "low": false,
+    "rule_error": "",
+    "score": 16,
+    "snapshot": "edf7c13ea7fb5b50bd80e80989f959a857076c5943dd2575c225e7b69c57d1d0",
+    "valid": true
+  },
+  {
+    "case": "match",
+    "cues": [
+      "select",
+      "land",
+      "match"
+    ],
+    "cues_valid": true,
+    "fast": false,
+    "low": true,
+    "rule_error": "",
+    "score": 50,
+    "snapshot": "ec91afc37755fdee4a9a6046108e239b19e0688203ed1e79d576cf81c3e26ab6",
+    "valid": true
+  },
+  {
+    "case": "blast_row",
+    "cues": [
+      "select",
+      "land",
+      "match",
+      "blast",
+      "sweep"
+    ],
+    "cues_valid": true,
+    "fast": false,
+    "low": true,
+    "rule_error": "",
+    "score": 61,
+    "snapshot": "6fbbbd4d06cd714b5e334dd51acd5ebf8089f8d56c4ea3a0f4b4913ecd4b2acd",
+    "valid": true
+  },
+  {
+    "case": "row_blast",
+    "cues": [
+      "sweep",
+      "blast",
+      "spawn"
+    ],
+    "cues_valid": true,
+    "fast": false,
+    "low": true,
+    "rule_error": "",
+    "score": 16,
+    "snapshot": "edf7c13ea7fb5b50bd80e80989f959a857076c5943dd2575c225e7b69c57d1d0",
+    "valid": true
+  },
+  {
+    "case": "match",
+    "cues": [
+      "select",
+      "land",
+      "match"
+    ],
+    "cues_valid": true,
+    "fast": true,
+    "low": true,
+    "rule_error": "",
+    "score": 50,
+    "snapshot": "ec91afc37755fdee4a9a6046108e239b19e0688203ed1e79d576cf81c3e26ab6",
+    "valid": true
+  },
+  {
+    "case": "blast_row",
+    "cues": [
+      "select",
+      "land",
+      "match",
+      "blast",
+      "sweep"
+    ],
+    "cues_valid": true,
+    "fast": true,
+    "low": true,
+    "rule_error": "",
+    "score": 61,
+    "snapshot": "6fbbbd4d06cd714b5e334dd51acd5ebf8089f8d56c4ea3a0f4b4913ecd4b2acd",
+    "valid": true
+  },
+  {
+    "case": "row_blast",
+    "cues": [
+      "sweep",
+      "blast",
+      "spawn"
+    ],
+    "cues_valid": true,
+    "fast": true,
+    "low": true,
+    "rule_error": "",
+    "score": 16,
+    "snapshot": "edf7c13ea7fb5b50bd80e80989f959a857076c5943dd2575c225e7b69c57d1d0",
+    "valid": true
+  }
+]

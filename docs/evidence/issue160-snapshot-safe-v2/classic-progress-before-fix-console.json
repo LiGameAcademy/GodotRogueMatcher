@@ -1,0 +1,50 @@
+[
+  {
+    "level": "log",
+    "message": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "timestamp": "2026-11-01T05:24:54.085Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "timestamp": "2026-11-01T05:24:54.278Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "timestamp": "2026-11-01T05:24:54.542Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+    "timestamp": "2026-11-01T05:24:56.789Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS ready",
+    "timestamp": "2026-11-01T05:24:56.799Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS open",
+    "timestamp": "2026-11-01T05:24:56.802Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_PROGRESS opened true",
+    "timestamp": "2026-11-01T05:24:56.863Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  },
+  {
+    "level": "log",
+    "message": "SNAPSHOT_SAFE_WEB_REPORT {\"ok\":false,\"reason\":\"probe_watchdog_60_seconds\",\"samples\":[],\"scope\":\"bounded agent-only snapshot safe-points/segment/IndexedDB probe; not live menu or whole O5 acceptance\"}",
+    "timestamp": "2026-11-01T05:25:56.663Z",
+    "url": "http://127.0.0.1:8982/progress/classic.html"
+  }
+]

@@ -1,0 +1,7 @@
+# 旧道具配置的保留边界
+
+#134已移除ItemEffectSystem、ItemPlacer及其Autoload，ItemRegistry改为显式创建的RefCounted配置工厂。没有旧道具自动订阅真实回合/匹配，也不维护placed_items全局节点表。
+
+这些历史配置仅供兼容显示和局部回归，不进入当前SkillOfferGenerator或正式取得路径。EffectAddScore需要显式ledger，EffectDyePiece/EffectDestroyPieces需要显式run与coordinate；调用不会寻找当前Game、Board或UI。ItemEffectConfig保留原时机枚举数值，ConditionTiming只检查显式传入的timing，不驱动调度。
+
+正式技能仍沿SkillDefinition → SkillRules → AbilityEffectRunner，补棋由RunController及本局SpawnState拥有；不在此目录增加第二套回合或消除流程。保留消费者、测试替代与退役条件见[迁移说明](../../docs/quality/issue134_legacy_retirement.md)。

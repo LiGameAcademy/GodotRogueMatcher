@@ -1,0 +1,300 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+Loading resource: res://localization/localization.en_US.translation remapped: res://localization/localization.en_US.translation
+Completed load for: 'res://localization/localization.en_US.translation' remapped 'res://localization/localization.en_US.translation' at thread -1
+Loading resource: res://localization/localization.zh_CN.translation remapped: res://localization/localization.zh_CN.translation
+Completed load for: 'res://localization/localization.zh_CN.translation' remapped 'res://localization/localization.zh_CN.translation' at thread -1
+Loading resource: res://localization/game.en_US.translation remapped: res://localization/game.en_US.translation
+Completed load for: 'res://localization/game.en_US.translation' remapped 'res://localization/game.en_US.translation' at thread -1
+Loading resource: res://localization/game.zh_CN.translation remapped: res://localization/game.zh_CN.translation
+Completed load for: 'res://localization/game.zh_CN.translation' remapped 'res://localization/game.zh_CN.translation' at thread -1
+TextServer: Primary interface set to: "Dummy".
+Loading resource: res://assets/fonts/noto_sans_sc_regular.otf remapped: res://assets/fonts/noto_sans_sc_regular.otf
+Loading resource: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata remapped: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata
+Completed load for: 'res://assets/fonts/noto_sans_sc_regular.otf' remapped 'res://assets/fonts/noto_sans_sc_regular.otf' at thread -1
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tools/bot_testing/batch_cli.gd remapped: res://tools/bot_testing/batch_cli.gd
+Completed load for: 'res://tools/bot_testing/batch_cli.gd' remapped 'res://tools/bot_testing/batch_cli.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/godot_core_system/source/core_system.gd remapped: res://addons/godot_core_system/source/core_system.gd
+Completed load for: 'res://addons/godot_core_system/source/core_system.gd' remapped 'res://addons/godot_core_system/source/core_system.gd' at thread -1
+Loading resource: res://gameplay/run/game_manager.gd remapped: res://gameplay/run/game_manager.gd
+Loading resource: res://gameplay/progression/content/progression_config.tres remapped: res://gameplay/progression/content/progression_config.tres
+Loading resource: res://gameplay/progression/progression_config.gd remapped: res://gameplay/progression/progression_config.gd
+Completed load for: 'res://gameplay/progression/progression_config.gd' remapped 'res://gameplay/progression/progression_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/progression_config.tres' remapped 'res://gameplay/progression/content/progression_config.tres' at thread -1
+Loading resource: res://gameplay/run/run_config.tres remapped: res://gameplay/run/run_config.tres
+Loading resource: res://gameplay/run/run_config.gd remapped: res://gameplay/run/run_config.gd
+Completed load for: 'res://gameplay/run/run_config.gd' remapped 'res://gameplay/run/run_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/run_config.tres' remapped 'res://gameplay/run/run_config.tres' at thread -1
+Loading resource: res://gameplay/run/spawn_config.tres remapped: res://gameplay/run/spawn_config.tres
+Loading resource: res://gameplay/run/spawn_config.gd remapped: res://gameplay/run/spawn_config.gd
+Completed load for: 'res://gameplay/run/spawn_config.gd' remapped 'res://gameplay/run/spawn_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/spawn_config.tres' remapped 'res://gameplay/run/spawn_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/explosion_config.tres remapped: res://gameplay/skills/content/explosion_config.tres
+Loading resource: res://gameplay/skills/explosion_config.gd remapped: res://gameplay/skills/explosion_config.gd
+Completed load for: 'res://gameplay/skills/explosion_config.gd' remapped 'res://gameplay/skills/explosion_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/explosion_config.tres' remapped 'res://gameplay/skills/content/explosion_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/demolition_config.tres remapped: res://gameplay/skills/content/demolition_config.tres
+Loading resource: res://gameplay/skills/demolition_config.gd remapped: res://gameplay/skills/demolition_config.gd
+Completed load for: 'res://gameplay/skills/demolition_config.gd' remapped 'res://gameplay/skills/demolition_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/demolition_config.tres' remapped 'res://gameplay/skills/content/demolition_config.tres' at thread -1
+Loading resource: res://gameplay/skills/dye/dye_config.tres remapped: res://gameplay/skills/dye/dye_config.tres
+Loading resource: res://gameplay/skills/dye/dye_config.gd remapped: res://gameplay/skills/dye/dye_config.gd
+Completed load for: 'res://gameplay/skills/dye/dye_config.gd' remapped 'res://gameplay/skills/dye/dye_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/dye/dye_config.tres' remapped 'res://gameplay/skills/dye/dye_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_explosion.tres remapped: res://gameplay/skills/content/on_eliminated_explosion.tres
+Loading resource: res://gameplay/skills/effects/explode_effect.gd remapped: res://gameplay/skills/effects/explode_effect.gd
+Completed load for: 'res://gameplay/skills/effects/explode_effect.gd' remapped 'res://gameplay/skills/effects/explode_effect.gd' at thread -1
+Loading resource: res://gameplay/skills/conditions/removal_cause_condition.gd remapped: res://gameplay/skills/conditions/removal_cause_condition.gd
+Completed load for: 'res://gameplay/skills/conditions/removal_cause_condition.gd' remapped 'res://gameplay/skills/conditions/removal_cause_condition.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/on_eliminated_explosion.tres' remapped 'res://gameplay/skills/content/on_eliminated_explosion.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_line_sweep.tres remapped: res://gameplay/skills/content/on_eliminated_line_sweep.tres
+Completed load for: 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' remapped 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' at thread -1
+Loading resource: res://gameplay/skills/content/line_clear_config.tres remapped: res://gameplay/skills/content/line_clear_config.tres
+Loading resource: res://gameplay/skills/line_clear_config.gd remapped: res://gameplay/skills/line_clear_config.gd
+Completed load for: 'res://gameplay/skills/line_clear_config.gd' remapped 'res://gameplay/skills/line_clear_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/line_clear_config.tres' remapped 'res://gameplay/skills/content/line_clear_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_core_transform.tres remapped: res://gameplay/progression/content/instant_core_transform.tres
+Loading resource: res://gameplay/progression/skill_definition.gd remapped: res://gameplay/progression/skill_definition.gd
+Completed load for: 'res://gameplay/progression/skill_definition.gd' remapped 'res://gameplay/progression/skill_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/transform_material_effect.gd remapped: res://gameplay/progression/effects/transform_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/transform_material_effect.gd' remapped 'res://gameplay/progression/effects/transform_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_core_transform.tres' remapped 'res://gameplay/progression/content/instant_core_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_row_transform.tres remapped: res://gameplay/progression/content/instant_row_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_row_transform.tres' remapped 'res://gameplay/progression/content/instant_row_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_column_transform.tres remapped: res://gameplay/progression/content/instant_column_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_column_transform.tres' remapped 'res://gameplay/progression/content/instant_column_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_refill_color.tres remapped: res://gameplay/progression/content/composite_refill_color.tres
+Loading resource: res://gameplay/progression/effects/color_weight_effect.gd remapped: res://gameplay/progression/effects/color_weight_effect.gd
+Completed load for: 'res://gameplay/progression/effects/color_weight_effect.gd' remapped 'res://gameplay/progression/effects/color_weight_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_refill_color.tres' remapped 'res://gameplay/progression/content/composite_refill_color.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_clear_dye.tres remapped: res://gameplay/progression/content/composite_clear_dye.tres
+Loading resource: res://gameplay/progression/effects/clear_material_effect.gd remapped: res://gameplay/progression/effects/clear_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/clear_material_effect.gd' remapped 'res://gameplay/progression/effects/clear_material_effect.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/dye_material_effect.gd remapped: res://gameplay/progression/effects/dye_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/dye_material_effect.gd' remapped 'res://gameplay/progression/effects/dye_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_clear_dye.tres' remapped 'res://gameplay/progression/content/composite_clear_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/goal_score_bonus.tres remapped: res://gameplay/progression/content/goal_score_bonus.tres
+Loading resource: res://gameplay/progression/effects/install_goal_bonus_effect.gd remapped: res://gameplay/progression/effects/install_goal_bonus_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' remapped 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/goal_score_bonus.tres' remapped 'res://gameplay/progression/content/goal_score_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_drop.tres remapped: res://gameplay/progression/content/line_row_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_line_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_line_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_row_drop.tres' remapped 'res://gameplay/progression/content/line_row_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_drop.tres remapped: res://gameplay/progression/content/line_column_drop.tres
+Completed load for: 'res://gameplay/progression/content/line_column_drop.tres' remapped 'res://gameplay/progression/content/line_column_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_manual_clear.tres remapped: res://gameplay/progression/content/line_manual_clear.tres
+Loading resource: res://gameplay/progression/effects/install_line_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_line_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_manual_clear.tres' remapped 'res://gameplay/progression/content/line_manual_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_span.tres remapped: res://gameplay/progression/content/line_row_span.tres
+Completed load for: 'res://gameplay/progression/content/line_row_span.tres' remapped 'res://gameplay/progression/content/line_row_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_span.tres remapped: res://gameplay/progression/content/line_column_span.tres
+Completed load for: 'res://gameplay/progression/content/line_column_span.tres' remapped 'res://gameplay/progression/content/line_column_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_cross_upgrade.tres remapped: res://gameplay/progression/content/line_cross_upgrade.tres
+Completed load for: 'res://gameplay/progression/content/line_cross_upgrade.tres' remapped 'res://gameplay/progression/content/line_cross_upgrade.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_clear_score.tres remapped: res://gameplay/progression/content/line_clear_score.tres
+Completed load for: 'res://gameplay/progression/content/line_clear_score.tres' remapped 'res://gameplay/progression/content/line_clear_score.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_drop.tres remapped: res://gameplay/progression/content/core_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_core_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_core_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/core_drop.tres' remapped 'res://gameplay/progression/content/core_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/assign_fuse.tres remapped: res://gameplay/progression/content/assign_fuse.tres
+Completed load for: 'res://gameplay/progression/content/assign_fuse.tres' remapped 'res://gameplay/progression/content/assign_fuse.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_extra.tres remapped: res://gameplay/progression/content/blast_extra.tres
+Completed load for: 'res://gameplay/progression/content/blast_extra.tres' remapped 'res://gameplay/progression/content/blast_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/score_multiplier.tres remapped: res://gameplay/progression/content/score_multiplier.tres
+Completed load for: 'res://gameplay/progression/content/score_multiplier.tres' remapped 'res://gameplay/progression/content/score_multiplier.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_extra.tres remapped: res://gameplay/progression/content/match_extra.tres
+Completed load for: 'res://gameplay/progression/content/match_extra.tres' remapped 'res://gameplay/progression/content/match_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_thin.tres remapped: res://gameplay/progression/content/instant_thin.tres
+Completed load for: 'res://gameplay/progression/content/instant_thin.tres' remapped 'res://gameplay/progression/content/instant_thin.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_percent_clear.tres remapped: res://gameplay/progression/content/instant_percent_clear.tres
+Loading resource: res://gameplay/progression/effects/percent_clear_effect.gd remapped: res://gameplay/progression/effects/percent_clear_effect.gd
+Completed load for: 'res://gameplay/progression/effects/percent_clear_effect.gd' remapped 'res://gameplay/progression/effects/percent_clear_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_percent_clear.tres' remapped 'res://gameplay/progression/content/instant_percent_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_less.tres remapped: res://gameplay/progression/content/refill_less.tres
+Completed load for: 'res://gameplay/progression/content/refill_less.tres' remapped 'res://gameplay/progression/content/refill_less.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_more.tres remapped: res://gameplay/progression/content/refill_more.tres
+Completed load for: 'res://gameplay/progression/content/refill_more.tres' remapped 'res://gameplay/progression/content/refill_more.tres' at thread -1
+Loading resource: res://gameplay/progression/content/precision_reward.tres remapped: res://gameplay/progression/content/precision_reward.tres
+Loading resource: res://gameplay/progression/effects/install_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/precision_reward.tres' remapped 'res://gameplay/progression/content/precision_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_capacity.tres remapped: res://gameplay/progression/content/fuse_capacity.tres
+Completed load for: 'res://gameplay/progression/content/fuse_capacity.tres' remapped 'res://gameplay/progression/content/fuse_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_radius.tres remapped: res://gameplay/progression/content/blast_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_radius.tres' remapped 'res://gameplay/progression/content/blast_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_reward.tres remapped: res://gameplay/progression/content/blast_reward.tres
+Completed load for: 'res://gameplay/progression/content/blast_reward.tres' remapped 'res://gameplay/progression/content/blast_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_up.tres remapped: res://gameplay/progression/content/color_weight_up.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_up.tres' remapped 'res://gameplay/progression/content/color_weight_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_down.tres remapped: res://gameplay/progression/content/color_weight_down.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_down.tres' remapped 'res://gameplay/progression/content/color_weight_down.tres' at thread -1
+Loading resource: res://gameplay/progression/content/relay_capacity.tres remapped: res://gameplay/progression/content/relay_capacity.tres
+Completed load for: 'res://gameplay/progression/content/relay_capacity.tres' remapped 'res://gameplay/progression/content/relay_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/marked_reward.tres remapped: res://gameplay/progression/content/marked_reward.tres
+Completed load for: 'res://gameplay/progression/content/marked_reward.tres' remapped 'res://gameplay/progression/content/marked_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/longline_reward.tres remapped: res://gameplay/progression/content/longline_reward.tres
+Completed load for: 'res://gameplay/progression/content/longline_reward.tres' remapped 'res://gameplay/progression/content/longline_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_supply_up.tres remapped: res://gameplay/progression/content/core_supply_up.tres
+Completed load for: 'res://gameplay/progression/content/core_supply_up.tres' remapped 'res://gameplay/progression/content/core_supply_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_radius.tres remapped: res://gameplay/progression/content/core_radius.tres
+Completed load for: 'res://gameplay/progression/content/core_radius.tres' remapped 'res://gameplay/progression/content/core_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_clear.tres remapped: res://gameplay/progression/content/instant_color_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_clear.tres' remapped 'res://gameplay/progression/content/instant_color_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_line_clear.tres remapped: res://gameplay/progression/content/instant_line_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_line_clear.tres' remapped 'res://gameplay/progression/content/instant_line_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_relay.tres remapped: res://gameplay/progression/content/fuse_relay.tres
+Completed load for: 'res://gameplay/progression/content/fuse_relay.tres' remapped 'res://gameplay/progression/content/fuse_relay.tres' at thread -1
+Loading resource: res://gameplay/progression/content/chain_reward.tres remapped: res://gameplay/progression/content/chain_reward.tres
+Completed load for: 'res://gameplay/progression/content/chain_reward.tres' remapped 'res://gameplay/progression/content/chain_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_fuse_ignite.tres remapped: res://gameplay/progression/content/instant_fuse_ignite.tres
+Loading resource: res://gameplay/progression/effects/ignite_fuses_effect.gd remapped: res://gameplay/progression/effects/ignite_fuses_effect.gd
+Completed load for: 'res://gameplay/progression/effects/ignite_fuses_effect.gd' remapped 'res://gameplay/progression/effects/ignite_fuses_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_fuse_ignite.tres' remapped 'res://gameplay/progression/content/instant_fuse_ignite.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_manual_detonation.tres remapped: res://gameplay/progression/content/core_manual_detonation.tres
+Completed load for: 'res://gameplay/progression/content/core_manual_detonation.tres' remapped 'res://gameplay/progression/content/core_manual_detonation.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_match_plant.tres remapped: res://gameplay/progression/content/fuse_match_plant.tres
+Completed load for: 'res://gameplay/progression/content/fuse_match_plant.tres' remapped 'res://gameplay/progression/content/fuse_match_plant.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_bonus.tres remapped: res://gameplay/progression/content/blast_chain_bonus.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_bonus.tres' remapped 'res://gameplay/progression/content/blast_chain_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/selective_blast.tres remapped: res://gameplay/progression/content/selective_blast.tres
+Completed load for: 'res://gameplay/progression/content/selective_blast.tres' remapped 'res://gameplay/progression/content/selective_blast.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_fuse_payload.tres remapped: res://gameplay/progression/content/core_fuse_payload.tres
+Completed load for: 'res://gameplay/progression/content/core_fuse_payload.tres' remapped 'res://gameplay/progression/content/core_fuse_payload.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_radius.tres remapped: res://gameplay/progression/content/blast_chain_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_radius.tres' remapped 'res://gameplay/progression/content/blast_chain_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_refill_relief.tres remapped: res://gameplay/progression/content/blast_refill_relief.tres
+Completed load for: 'res://gameplay/progression/content/blast_refill_relief.tres' remapped 'res://gameplay/progression/content/blast_refill_relief.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_aftershock.tres remapped: res://gameplay/progression/content/blast_aftershock.tres
+Completed load for: 'res://gameplay/progression/content/blast_aftershock.tres' remapped 'res://gameplay/progression/content/blast_aftershock.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_dye_echo.tres remapped: res://gameplay/progression/content/match_dye_echo.tres
+Loading resource: res://gameplay/progression/effects/install_dye_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_dye_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/match_dye_echo.tres' remapped 'res://gameplay/progression/content/match_dye_echo.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_target_up.tres remapped: res://gameplay/progression/content/dye_target_up.tres
+Completed load for: 'res://gameplay/progression/content/dye_target_up.tres' remapped 'res://gameplay/progression/content/dye_target_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_chain_depth.tres remapped: res://gameplay/progression/content/dye_chain_depth.tres
+Completed load for: 'res://gameplay/progression/content/dye_chain_depth.tres' remapped 'res://gameplay/progression/content/dye_chain_depth.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_mark_reward.tres remapped: res://gameplay/progression/content/dye_mark_reward.tres
+Completed load for: 'res://gameplay/progression/content/dye_mark_reward.tres' remapped 'res://gameplay/progression/content/dye_mark_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_dye.tres remapped: res://gameplay/progression/content/blast_dye.tres
+Completed load for: 'res://gameplay/progression/content/blast_dye.tres' remapped 'res://gameplay/progression/content/blast_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_dye.tres remapped: res://gameplay/progression/content/instant_color_dye.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_dye.tres' remapped 'res://gameplay/progression/content/instant_color_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/offer_config.tres remapped: res://gameplay/progression/content/offer_config.tres
+Loading resource: res://gameplay/progression/offer_config.gd remapped: res://gameplay/progression/offer_config.gd
+Completed load for: 'res://gameplay/progression/offer_config.gd' remapped 'res://gameplay/progression/offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/offer_config.tres' remapped 'res://gameplay/progression/content/offer_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/rescue_offer_config.tres remapped: res://gameplay/progression/content/rescue_offer_config.tres
+Loading resource: res://gameplay/progression/rescue_offer_config.gd remapped: res://gameplay/progression/rescue_offer_config.gd
+Completed load for: 'res://gameplay/progression/rescue_offer_config.gd' remapped 'res://gameplay/progression/rescue_offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/rescue_offer_config.tres' remapped 'res://gameplay/progression/content/rescue_offer_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/game_manager.gd' remapped 'res://gameplay/run/game_manager.gd' at thread -1
+Loading resource: res://gameplay/board/match_system.gd remapped: res://gameplay/board/match_system.gd
+Loading resource: res://gameplay/presentation/board_juice_config.tres remapped: res://gameplay/presentation/board_juice_config.tres
+Loading resource: res://gameplay/presentation/board_juice_config.gd remapped: res://gameplay/presentation/board_juice_config.gd
+Completed load for: 'res://gameplay/presentation/board_juice_config.gd' remapped 'res://gameplay/presentation/board_juice_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/board_juice_config.tres' remapped 'res://gameplay/presentation/board_juice_config.tres' at thread -1
+Loading resource: res://gameplay/run/modes/stage_challenge.tres remapped: res://gameplay/run/modes/stage_challenge.tres
+Loading resource: res://gameplay/run/modes/game_mode_definition.gd remapped: res://gameplay/run/modes/game_mode_definition.gd
+Completed load for: 'res://gameplay/run/modes/game_mode_definition.gd' remapped 'res://gameplay/run/modes/game_mode_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/stages/stage_config.tres remapped: res://gameplay/progression/stages/stage_config.tres
+Completed load for: 'res://gameplay/progression/stages/stage_config.tres' remapped 'res://gameplay/progression/stages/stage_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/modes/stage_challenge.tres' remapped 'res://gameplay/run/modes/stage_challenge.tres' at thread -1
+Loading resource: res://gameplay/presentation/presentation_config.tres remapped: res://gameplay/presentation/presentation_config.tres
+Loading resource: res://gameplay/presentation/presentation_config.gd remapped: res://gameplay/presentation/presentation_config.gd
+Completed load for: 'res://gameplay/presentation/presentation_config.gd' remapped 'res://gameplay/presentation/presentation_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/presentation_config.tres' remapped 'res://gameplay/presentation/presentation_config.tres' at thread -1
+Loading resource: res://services/telemetry/telemetry_config.tres remapped: res://services/telemetry/telemetry_config.tres
+Loading resource: res://services/telemetry/telemetry_config.gd remapped: res://services/telemetry/telemetry_config.gd
+Completed load for: 'res://services/telemetry/telemetry_config.gd' remapped 'res://services/telemetry/telemetry_config.gd' at thread -1
+Completed load for: 'res://services/telemetry/telemetry_config.tres' remapped 'res://services/telemetry/telemetry_config.tres' at thread -1
+Loading resource: res://gameplay/board/cell/cell.tscn remapped: res://gameplay/board/cell/cell.tscn
+Loading resource: res://gameplay/board/cell/tile_surface.gdshader remapped: res://gameplay/board/cell/tile_surface.gdshader
+Completed load for: 'res://gameplay/board/cell/tile_surface.gdshader' remapped 'res://gameplay/board/cell/tile_surface.gdshader' at thread -1
+Completed load for: 'res://gameplay/board/cell/cell.tscn' remapped 'res://gameplay/board/cell/cell.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/chess_piece.tscn remapped: res://gameplay/board/piece/chess_piece.tscn
+Loading resource: res://gameplay/board/piece/piece_surface.gdshader remapped: res://gameplay/board/piece/piece_surface.gdshader
+Completed load for: 'res://gameplay/board/piece/piece_surface.gdshader' remapped 'res://gameplay/board/piece/piece_surface.gdshader' at thread -1
+Loading resource: res://gameplay/board/piece/piece_aura.tscn remapped: res://gameplay/board/piece/piece_aura.tscn
+Completed load for: 'res://gameplay/board/piece/piece_aura.tscn' remapped 'res://gameplay/board/piece/piece_aura.tscn' at thread -1
+Completed load for: 'res://gameplay/board/piece/chess_piece.tscn' remapped 'res://gameplay/board/piece/chess_piece.tscn' at thread -1
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.tscn remapped: res://gameplay/presentation/explosion_visual/explosion_visual.tscn
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.gd remapped: res://gameplay/presentation/explosion_visual/explosion_visual.gd
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_config.tres remapped: res://gameplay/presentation/score_float/score_float_config.tres
+Loading resource: res://gameplay/presentation/score_float/score_float_config.gd remapped: res://gameplay/presentation/score_float/score_float_config.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.gd' remapped 'res://gameplay/presentation/score_float/score_float_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.tres' remapped 'res://gameplay/presentation/score_float/score_float_config.tres' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float.tscn remapped: res://gameplay/presentation/score_float/score_float.tscn
+Loading resource: res://gameplay/presentation/score_float/score_float.gd remapped: res://gameplay/presentation/score_float/score_float.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float.gd' remapped 'res://gameplay/presentation/score_float/score_float.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float.tscn' remapped 'res://gameplay/presentation/score_float/score_float.tscn' at thread -1
+Completed load for: 'res://gameplay/board/match_system.gd' remapped 'res://gameplay/board/match_system.gd' at thread -1
+Loading resource: res://gameplay/progression/level_up_system.gd remapped: res://gameplay/progression/level_up_system.gd
+Completed load for: 'res://gameplay/progression/level_up_system.gd' remapped 'res://gameplay/progression/level_up_system.gd' at thread -1
+Loaded system CA certificates
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+Loading resource: res://tools/bot_testing/batch_job.gd remapped: res://tools/bot_testing/batch_job.gd
+Loading resource: res://tools/bot_testing/bot_config.tres remapped: res://tools/bot_testing/bot_config.tres
+Loading resource: res://tools/bot_testing/bot_config.gd remapped: res://tools/bot_testing/bot_config.gd
+Completed load for: 'res://tools/bot_testing/bot_config.gd' remapped 'res://tools/bot_testing/bot_config.gd' at thread -1
+Completed load for: 'res://tools/bot_testing/bot_config.tres' remapped 'res://tools/bot_testing/bot_config.tres' at thread -1
+Completed load for: 'res://tools/bot_testing/batch_job.gd' remapped 'res://tools/bot_testing/batch_job.gd' at thread -1
+{"checked_records":415,"error":"","success":true}
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Orphan StringName: Vector2 (static: 0, total: 1)
+Orphan StringName: Vector3 (static: 0, total: 1)
+Orphan StringName: Vector4 (static: 0, total: 1)
+Orphan StringName: PackedVector4Array (static: 0, total: 1)
+Orphan StringName: RID (static: 0, total: 1)
+Orphan StringName: Color (static: 0, total: 1)
+Orphan StringName: PackedByteArray (static: 0, total: 1)
+Orphan StringName: Vector2i (static: 0, total: 1)
+Orphan StringName: Callable (static: 0, total: 1)
+Orphan StringName: Vector3i (static: 0, total: 1)
+Orphan StringName: Vector4i (static: 0, total: 1)
+Orphan StringName: PackedStringArray (static: 0, total: 1)
+Orphan StringName: Basis (static: 0, total: 1)
+Orphan StringName: int (static: 0, total: 1)
+Orphan StringName: PackedFloat32Array (static: 0, total: 1)
+Orphan StringName: Plane (static: 0, total: 1)
+Orphan StringName: PackedFloat64Array (static: 0, total: 1)
+Orphan StringName: NodePath (static: 0, total: 1)
+Orphan StringName: Signal (static: 0, total: 1)
+Orphan StringName: StringName (static: 0, total: 1)
+Orphan StringName: String (static: 0, total: 1)
+Orphan StringName: Transform2D (static: 0, total: 1)
+Orphan StringName: Transform3D (static: 0, total: 1)
+Orphan StringName: Array (static: 0, total: 1)
+Orphan StringName: Quaternion (static: 0, total: 1)
+Orphan StringName: bool (static: 0, total: 1)
+Orphan StringName: PackedColorArray (static: 0, total: 1)
+Orphan StringName: PackedVector2Array (static: 0, total: 1)
+Orphan StringName: Object (static: 1, total: 2)
+Orphan StringName: AABB (static: 0, total: 1)
+Orphan StringName: float (static: 0, total: 1)
+Orphan StringName: Dictionary (static: 0, total: 1)
+Orphan StringName: Projection (static: 0, total: 1)
+Orphan StringName: Rect2 (static: 0, total: 1)
+Orphan StringName: PackedVector3Array (static: 0, total: 1)
+Orphan StringName: PackedInt32Array (static: 0, total: 1)
+Orphan StringName: Rect2i (static: 0, total: 1)
+Orphan StringName: PackedInt64Array (static: 0, total: 1)
+StringName: 38 unclaimed string names at exit.

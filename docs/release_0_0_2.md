@@ -44,7 +44,7 @@ RC1虽导出成功，Chrome实际启动报TelemetryReader缺失：运行时Telem
 
 Web禁用桌面遥测采集器并隐藏记录目录／导出按钮。内部RunRecorder命令JSONL不等于提供浏览器下载入口；需用于分析的单局请在编辑器／桌面采集。设置和练习标记使用浏览器本地存储，清理站点数据会删除；刷新不续局，关浏览器不保证最后写入。没有上传端点。
 
-候选ZIP附游戏GPL-3.0、CoreSystem许可、Noto Sans SC OFL与字体鸣谢，Godot许可入口见包内RELEASE说明。导出预设排除测试、工具与设计文档；源码及子模块版本可按清单还原。
+当时的候选 ZIP 附的是游戏 GPL-3.0、CoreSystem 许可、Noto Sans SC OFL 与字体鸣谢，Godot 许可入口见包内 RELEASE 说明。当前仓库已改为 [LICENSING.md](../LICENSING.md)：程序源码 MIT，游戏名、原创美术、文案和数值保留权利。导出预设排除测试、工具与设计文档；源码及子模块版本可按清单还原。
 
 本PR验收合并后，从最终合并提交重新导出正式包并保存新哈希，再创建0.0.2 tag／GitHub Release并更新现有itch.io页面；分别打开实际公开入口核对版本。不把RC2的源提交改写成合并提交。回退保留现有0.0.1发行包／tag与候选构建清单，更新失败时恢复上一版。
 

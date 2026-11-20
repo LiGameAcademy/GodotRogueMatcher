@@ -7,9 +7,15 @@ var previous_colors: Array[int] = []
 var source_color: int = -1
 var score_entry: ScoreEntry
 var cause: StringName = &"match"
+var match_source: StringName = &""
 var source_id: int = 0
 var center: Vector2i = Vector2i.ZERO
 var line_axis: int = -1
 var radius: int = 0
 var cross_radius: int = -1
 var generation: int = 0
+var followups: Array[Dictionary] = []
+## Detached scalar data for recording the trigger snapshot alongside actual hits.
+var trigger_strength: Dictionary = {}
+## Geometry survives removal; cause/root action remain independent of shape identity.
+var hits: Array[BoardMatchHit] = []

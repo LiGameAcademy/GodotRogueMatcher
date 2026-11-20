@@ -57,7 +57,7 @@ func test_real_popup_produces_visible_exposure_then_acquisition_once() -> void:
 	assert_true(board.load_explosion_demo())
 	var telemetry: TelemetryProjector = board.observation.telemetry
 	GameManager.add_score(100)
-	LevelUpSystem.resolve_pending_rewards(board)
+	main.get_node("Game").call("request_rewards")
 	await (main.get_node("Game/UILayer/HUD") as Hud).wait_for_score()
 	await wait_process_frames(4)
 	assert_true(UIManager.current_popup is PopupSkillChoice)

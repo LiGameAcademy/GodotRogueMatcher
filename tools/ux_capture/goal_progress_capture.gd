@@ -27,7 +27,6 @@ func _ready() -> void:
 	board.run = run
 	board.rules = run.state.rules
 	GameManager.reset_game(run)
-	ItemEffectSystem.placed_items.clear()
 	board.rebuild_view()
 	game.call("_refresh_hud")
 	game.call("_set_fast", false, false)

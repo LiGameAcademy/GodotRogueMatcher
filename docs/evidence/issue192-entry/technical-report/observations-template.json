@@ -1,0 +1,113 @@
+{
+  "decisions": [
+    {
+      "author_confirmed": null,
+      "build": null,
+      "config_hash": null,
+      "config_id": "screening-baseline-v1",
+      "decision": null,
+      "evidence_run_ids": null,
+      "reason": null
+    },
+    {
+      "author_confirmed": null,
+      "build": null,
+      "config_hash": null,
+      "config_id": "screening-l-v1",
+      "decision": null,
+      "evidence_run_ids": null,
+      "reason": null
+    },
+    {
+      "author_confirmed": null,
+      "build": null,
+      "config_hash": null,
+      "config_id": "screening-t-v1",
+      "decision": null,
+      "evidence_run_ids": null,
+      "reason": null
+    },
+    {
+      "author_confirmed": null,
+      "build": null,
+      "config_hash": null,
+      "config_id": "screening-plus-v1",
+      "decision": null,
+      "evidence_run_ids": null,
+      "reason": null
+    },
+    {
+      "author_confirmed": null,
+      "build": null,
+      "config_hash": null,
+      "config_id": "screening-x-v1",
+      "decision": null,
+      "evidence_run_ids": null,
+      "reason": null
+    },
+    {
+      "author_confirmed": null,
+      "build": null,
+      "config_hash": null,
+      "config_id": "screening-zs-v1",
+      "decision": null,
+      "evidence_run_ids": null,
+      "reason": null
+    }
+  ],
+  "observations": [
+    {
+      "explanation_count": null,
+      "interference": null,
+      "notes": null,
+      "participant": null,
+      "planned_layout": null,
+      "prediction_correct": null,
+      "role": null,
+      "round": null,
+      "run_id": "119-31044-1793266325999000-8333112",
+      "use_case": null,
+      "willing_again": null
+    },
+    {
+      "explanation_count": null,
+      "interference": null,
+      "notes": null,
+      "participant": null,
+      "planned_layout": null,
+      "prediction_correct": null,
+      "role": null,
+      "round": null,
+      "run_id": "119-31044-1793266330253000-12586321",
+      "use_case": null,
+      "willing_again": null
+    },
+    {
+      "explanation_count": null,
+      "interference": null,
+      "notes": null,
+      "participant": null,
+      "planned_layout": null,
+      "prediction_correct": null,
+      "role": null,
+      "round": null,
+      "run_id": "119-31044-1793266333839000-16172571",
+      "use_case": null,
+      "willing_again": null
+    },
+    {
+      "explanation_count": null,
+      "interference": null,
+      "notes": null,
+      "participant": null,
+      "planned_layout": null,
+      "prediction_correct": null,
+      "role": null,
+      "round": null,
+      "run_id": "119-31044-1793266337792000-20125707",
+      "use_case": null,
+      "willing_again": null
+    }
+  ],
+  "schema": "screening-observations-v1"
+}

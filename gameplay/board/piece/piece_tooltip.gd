@@ -2,7 +2,7 @@ class_name PieceTooltip
 extends RefCounted
 
 ## 从只读规则数据生成提示；不保存能力状态，也不消费随机数。
-const COLOR_NAMES: Array[String] = ["红色", "绿色", "蓝色", "黄色", "紫色"]
+const COLOR_NAMES: Array[String] = ["花生", "腰果", "杏仁", "核桃", "开心果"]
 
 static func describe(piece: PieceState, explosion: ExplosionState, config: ExplosionConfig, item: ItemData = null, line_clear: LineClearState = null, manual_uses_used: Dictionary[StringName, int] = {}) -> String:
 	var lines: Array[String] = []

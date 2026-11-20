@@ -1,0 +1,862 @@
+WorkerThreadPool: 8 threads, 6 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+Loading resource: res://localization/localization.en_US.translation remapped: res://localization/localization.en_US.translation
+Completed load for: 'res://localization/localization.en_US.translation' remapped 'res://localization/localization.en_US.translation' at thread -1
+Loading resource: res://localization/localization.zh_CN.translation remapped: res://localization/localization.zh_CN.translation
+Completed load for: 'res://localization/localization.zh_CN.translation' remapped 'res://localization/localization.zh_CN.translation' at thread -1
+Loading resource: res://localization/game.en_US.translation remapped: res://localization/game.en_US.translation
+Completed load for: 'res://localization/game.en_US.translation' remapped 'res://localization/game.en_US.translation' at thread -1
+Loading resource: res://localization/game.zh_CN.translation remapped: res://localization/game.zh_CN.translation
+Completed load for: 'res://localization/game.zh_CN.translation' remapped 'res://localization/game.zh_CN.translation' at thread -1
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+Loading resource: res://assets/fonts/noto_sans_sc_regular.otf remapped: res://assets/fonts/noto_sans_sc_regular.otf
+Loading resource: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata remapped: res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata
+Completed load for: 'res://assets/fonts/noto_sans_sc_regular.otf' remapped 'res://assets/fonts/noto_sans_sc_regular.otf' at thread -1
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+SceneTreeFTI: traversal method DEFAULT
+EditorTheme: Generating new theme for the config '3810048042'.
+EditorTheme: Generating new icons.
+EditorTheme: Generating new fonts.
+EditorTheme: Generating new styles.
+Regenerating editor help cache
+Class 'AbstractPolygon2DEditor' is not exposed, skipping.
+Class 'AbstractPolygon2DEditorPlugin' is not exposed, skipping.
+Class 'ActionMapEditor' is not exposed, skipping.
+Class 'AnchorPresetPicker' is not exposed, skipping.
+Class 'AnimationBezierTrackEdit' is not exposed, skipping.
+Class 'AnimationLibraryEditor' is not exposed, skipping.
+Class 'AnimationMarkerEdit' is not exposed, skipping.
+Class 'AnimationMarkerKeyEditEditorPlugin' is not exposed, skipping.
+Class 'AnimationNodeBlendSpace1DEditor' is not exposed, skipping.
+Class 'AnimationNodeBlendSpace2DEditor' is not exposed, skipping.
+Class 'AnimationNodeBlendTreeEditor' is not exposed, skipping.
+Class 'AnimationNodeStateMachineEditor' is not exposed, skipping.
+Class 'AnimationPlayerEditor' is not exposed, skipping.
+Class 'AnimationPlayerEditorPlugin' is not exposed, skipping.
+Class 'AnimationTimelineEdit' is not exposed, skipping.
+Class 'AnimationTrackEditDefaultPlugin' is not exposed, skipping.
+Class 'AnimationTrackEditPlugin' is not exposed, skipping.
+Class 'AnimationTrackEditor' is not exposed, skipping.
+Class 'AnimationTrackKeyEditEditorPlugin' is not exposed, skipping.
+Class 'AnimationTreeEditor' is not exposed, skipping.
+Class 'AnimationTreeEditorPlugin' is not exposed, skipping.
+Class 'AnimationTreeNodeEditorPlugin' is not exposed, skipping.
+Class 'AssetLibraryEditorPlugin' is not exposed, skipping.
+Class 'AtlasMergingDialog' is not exposed, skipping.
+Class 'AudioBusesEditorPlugin' is not exposed, skipping.
+Class 'AudioStreamEditorPlugin' is not exposed, skipping.
+Class 'AudioStreamImportSettingsDialog' is not exposed, skipping.
+Class 'AudioStreamInteractiveEditorPlugin' is not exposed, skipping.
+Class 'AudioStreamInteractiveTransitionEditor' is not exposed, skipping.
+Class 'AudioStreamPlayerInternal' is not exposed, skipping.
+Class 'AudioStreamPreviewGenerator' is not exposed, skipping.
+Class 'AudioStreamRandomizerEditorPlugin' is not exposed, skipping.
+Class 'BackgroundProgress' is not exposed, skipping.
+Class 'BitMapEditorPlugin' is not exposed, skipping.
+Class 'BlitMaterialConversionPlugin' is not exposed, skipping.
+Class 'BoneMapEditorPlugin' is not exposed, skipping.
+Class 'BottomSideDockTabContainer' is not exposed, skipping.
+Class 'CPUParticles2DEditorPlugin' is not exposed, skipping.
+Class 'CPUParticles3DEditorPlugin' is not exposed, skipping.
+Class 'CSGShape3DGizmoPlugin' is not exposed, skipping.
+Class 'CSGShapeEditor' is not exposed, skipping.
+Class 'Camera2DEditor' is not exposed, skipping.
+Class 'Camera2DEditorPlugin' is not exposed, skipping.
+Class 'Camera3DEditorPlugin' is not exposed, skipping.
+Class 'CanvasItemEditor' is not exposed, skipping.
+Class 'CanvasItemEditorPlugin' is not exposed, skipping.
+Class 'CanvasItemEditorViewport' is not exposed, skipping.
+Class 'CanvasItemMaterialConversionPlugin' is not exposed, skipping.
+Class 'Cast2DEditor' is not exposed, skipping.
+Class 'Cast2DEditorPlugin' is not exposed, skipping.
+Class 'CollisionPolygon2DEditor' is not exposed, skipping.
+Class 'CollisionPolygon2DEditorPlugin' is not exposed, skipping.
+Class 'CollisionShape2DEditor' is not exposed, skipping.
+Class 'CollisionShape2DEditorPlugin' is not exposed, skipping.
+Class 'ColorPickerShape' is not exposed, skipping.
+Class 'ColorPickerShapeCircle' is not exposed, skipping.
+Class 'ColorPickerShapeOKHLRectangle' is not exposed, skipping.
+Class 'ColorPickerShapeOKHSLCircle' is not exposed, skipping.
+Class 'ColorPickerShapeOKHSRectangle' is not exposed, skipping.
+Class 'ColorPickerShapeVHSCircle' is not exposed, skipping.
+Class 'ColorPickerShapeWheel' is not exposed, skipping.
+Class 'ConnectDialog' is not exposed, skipping.
+Class 'ConnectDialogBinds' is not exposed, skipping.
+Class 'ConnectionsDock' is not exposed, skipping.
+Class 'ControlEditorPlugin' is not exposed, skipping.
+Class 'ControlEditorPopupButton' is not exposed, skipping.
+Class 'ControlEditorPresetPicker' is not exposed, skipping.
+Class 'ControlEditorToolbar' is not exposed, skipping.
+Class 'ControlOffsetTransformPreview' is not exposed, skipping.
+Class 'CreateDialog' is not exposed, skipping.
+Class 'CurveEditorPlugin' is not exposed, skipping.
+Class 'CurvePreviewGenerator' is not exposed, skipping.
+Class 'DebugAdapterParser' is not exposed, skipping.
+Class 'DebugAdapterServer' is not exposed, skipping.
+Class 'DebuggerEditorPlugin' is not exposed, skipping.
+Class 'DefaultThemeEditorPreview' is not exposed, skipping.
+Class 'DependencyEditor' is not exposed, skipping.
+Class 'DependencyEditorOwners' is not exposed, skipping.
+Class 'DependencyErrorDialog' is not exposed, skipping.
+Class 'DependencyRemoveDialog' is not exposed, skipping.
+Class 'DirectoryCreateDialog' is not exposed, skipping.
+Class 'DockContextPopup' is not exposed, skipping.
+Class 'DockShortcutHandler' is not exposed, skipping.
+Class 'DockSlotGrid' is not exposed, skipping.
+Class 'DockSplitContainer' is not exposed, skipping.
+Class 'DockTabContainer' is not exposed, skipping.
+Class 'DynamicFontImportSettingsData' is not exposed, skipping.
+Class 'DynamicFontImportSettingsDialog' is not exposed, skipping.
+Class 'EditorAbout' is not exposed, skipping.
+Class 'EditorAssetLibrary' is not exposed, skipping.
+Class 'EditorAudioBuses' is not exposed, skipping.
+Class 'EditorAudioStreamPreviewPlugin' is not exposed, skipping.
+Class 'EditorAudioStreamTooltipPlugin' is not exposed, skipping.
+Class 'EditorAutoloadSettings' is not exposed, skipping.
+Class 'EditorBitmapPreviewPlugin' is not exposed, skipping.
+Class 'EditorBottomPanel' is not exposed, skipping.
+Class 'EditorBuildProfileManager' is not exposed, skipping.
+Class 'EditorConfigFileSyntaxHighlighter' is not exposed, skipping.
+Class 'EditorContextMenuPluginManager' is not exposed, skipping.
+Class 'EditorDebuggerInspector' is not exposed, skipping.
+Class 'EditorDebuggerNode' is not exposed, skipping.
+Class 'EditorDebuggerRemoteObjects' is not exposed, skipping.
+Class 'EditorDebuggerTree' is not exposed, skipping.
+Class 'EditorDirDialog' is not exposed, skipping.
+Class 'EditorDockDragHint' is not exposed, skipping.
+Class 'EditorDockManager' is not exposed, skipping.
+Class 'EditorEventSearchBar' is not exposed, skipping.
+Class 'EditorExport' is not exposed, skipping.
+Class 'EditorExportGDScript' is not exposed, skipping.
+Class 'EditorExpressionEvaluator' is not exposed, skipping.
+Class 'EditorFeatureProfileManager' is not exposed, skipping.
+Class 'EditorFileServer' is not exposed, skipping.
+Class 'EditorFileSystemImportFormatSupportQueryBlend' is not exposed, skipping.
+Class 'EditorFontPreviewPlugin' is not exposed, skipping.
+Class 'EditorGradientPreviewPlugin' is not exposed, skipping.
+Class 'EditorHelpBit' is not exposed, skipping.
+Class 'EditorHelpSearch' is not exposed, skipping.
+Class 'EditorImagePreviewPlugin' is not exposed, skipping.
+Class 'EditorImportBlendRunner' is not exposed, skipping.
+Class 'EditorInspectorCategory' is not exposed, skipping.
+Class 'EditorInspectorDefaultPlugin' is not exposed, skipping.
+Class 'EditorInspectorParticleProcessMaterialPlugin' is not exposed, skipping.
+Class 'EditorInspectorPlugin3DTexture' is not exposed, skipping.
+Class 'EditorInspectorPluginAnimationMarkerKeyEdit' is not exposed, skipping.
+Class 'EditorInspectorPluginAnimationNodeAnimation' is not exposed, skipping.
+Class 'EditorInspectorPluginAnimationTrackKeyEdit' is not exposed, skipping.
+Class 'EditorInspectorPluginAudioStream' is not exposed, skipping.
+Class 'EditorInspectorPluginAudioStreamInteractive' is not exposed, skipping.
+Class 'EditorInspectorPluginBitMap' is not exposed, skipping.
+Class 'EditorInspectorPluginBoneMap' is not exposed, skipping.
+Class 'EditorInspectorPluginCamera3DPreview' is not exposed, skipping.
+Class 'EditorInspectorPluginControl' is not exposed, skipping.
+Class 'EditorInspectorPluginCurve' is not exposed, skipping.
+Class 'EditorInspectorPluginFontPreview' is not exposed, skipping.
+Class 'EditorInspectorPluginFontVariation' is not exposed, skipping.
+Class 'EditorInspectorPluginGradient' is not exposed, skipping.
+Class 'EditorInspectorPluginGradientTexture2D' is not exposed, skipping.
+Class 'EditorInspectorPluginInputEvent' is not exposed, skipping.
+Class 'EditorInspectorPluginLayeredTexture' is not exposed, skipping.
+Class 'EditorInspectorPluginMaterial' is not exposed, skipping.
+Class 'EditorInspectorPluginMesh' is not exposed, skipping.
+Class 'EditorInspectorPluginPackedScene' is not exposed, skipping.
+Class 'EditorInspectorPluginSkeleton' is not exposed, skipping.
+Class 'EditorInspectorPluginStyleBox' is not exposed, skipping.
+Class 'EditorInspectorPluginSubViewportPreview' is not exposed, skipping.
+Class 'EditorInspectorPluginSystemFont' is not exposed, skipping.
+Class 'EditorInspectorPluginTexture' is not exposed, skipping.
+Class 'EditorInspectorPluginTextureRegion' is not exposed, skipping.
+Class 'EditorInspectorPluginTileData' is not exposed, skipping.
+Class 'EditorInspectorRootMotionPlugin' is not exposed, skipping.
+Class 'EditorInspectorToolButtonPlugin' is not exposed, skipping.
+Class 'EditorInspectorVisualShaderModePlugin' is not exposed, skipping.
+Class 'EditorJSONSyntaxHighlighter' is not exposed, skipping.
+Class 'EditorLayoutsDialog' is not exposed, skipping.
+Class 'EditorLocaleDialog' is not exposed, skipping.
+Class 'EditorLog' is not exposed, skipping.
+Class 'EditorMainScreen' is not exposed, skipping.
+Class 'EditorMarkdownSyntaxHighlighter' is not exposed, skipping.
+Class 'EditorMaterialPreviewPlugin' is not exposed, skipping.
+Class 'EditorMeshPreviewPlugin' is not exposed, skipping.
+Class 'EditorNativeShaderSourceVisualizer' is not exposed, skipping.
+Class 'EditorNode' is not exposed, skipping.
+Class 'EditorOBJImporter' is not exposed, skipping.
+Class 'EditorObjectSelector' is not exposed, skipping.
+Class 'EditorPackedScenePreviewPlugin' is not exposed, skipping.
+Class 'EditorPerformanceProfiler' is not exposed, skipping.
+Class 'EditorPluginCSG' is not exposed, skipping.
+Class 'EditorPluginSettings' is not exposed, skipping.
+Class 'EditorProfiler' is not exposed, skipping.
+Class 'EditorPropertyInteger' is not exposed, skipping.
+Class 'EditorPropertyNameProcessor' is not exposed, skipping.
+Class 'EditorPropertyPath' is not exposed, skipping.
+Class 'EditorPropertyVector2i' is not exposed, skipping.
+Class 'EditorPropertyVectorN' is not exposed, skipping.
+Class 'EditorQuickOpenDialog' is not exposed, skipping.
+Class 'EditorRunBar' is not exposed, skipping.
+Class 'EditorRunNative' is not exposed, skipping.
+Class 'EditorSceneExporterGLTFSettings' is not exposed, skipping.
+Class 'EditorSceneFormatImporterCollada' is not exposed, skipping.
+Class 'EditorSceneFormatImporterESCN' is not exposed, skipping.
+Class 'EditorSceneTabs' is not exposed, skipping.
+Class 'EditorScriptPlugin' is not exposed, skipping.
+Class 'EditorScriptPreviewPlugin' is not exposed, skipping.
+Class 'EditorSettingsDialog' is not exposed, skipping.
+Class 'EditorSettingsInspectorPlugin' is not exposed, skipping.
+Class 'EditorShaderLanguagePlugin' is not exposed, skipping.
+Class 'EditorTexturePreviewPlugin' is not exposed, skipping.
+Class 'EditorTextureTooltipPlugin' is not exposed, skipping.
+Class 'EditorTheme' is not exposed, skipping.
+Class 'EditorTitleBar' is not exposed, skipping.
+Class 'EditorTranslationPreviewButton' is not exposed, skipping.
+Class 'EditorTranslationPreviewMenu' is not exposed, skipping.
+Class 'EditorValidationPanel' is not exposed, skipping.
+Class 'EditorVariantTypeOptionButton' is not exposed, skipping.
+Class 'EditorVersionButton' is not exposed, skipping.
+Class 'EditorVisualProfiler' is not exposed, skipping.
+Class 'EditorZoomWidget' is not exposed, skipping.
+Class 'EmbeddedProcess' is not exposed, skipping.
+Class 'EmbeddedProcessBase' is not exposed, skipping.
+Class 'EventListenerLineEdit' is not exposed, skipping.
+Class 'ExportTemplateManager' is not exposed, skipping.
+Class 'FBXImporterManager' is not exposed, skipping.
+Class 'FileSystemList' is not exposed, skipping.
+Class 'FilterLineEdit' is not exposed, skipping.
+Class 'FindInFiles' is not exposed, skipping.
+Class 'FindInFilesContainer' is not exposed, skipping.
+Class 'FindInFilesDialog' is not exposed, skipping.
+Class 'FindReplaceBar' is not exposed, skipping.
+Class 'FogMaterialConversionPlugin' is not exposed, skipping.
+Class 'FontEditorPlugin' is not exposed, skipping.
+Class 'GDScriptEditorTranslationParserPlugin' is not exposed, skipping.
+Class 'GDScriptFunctionState' is not exposed, skipping.
+Class 'GDScriptLanguageServer' is not exposed, skipping.
+Class 'GDScriptNativeClass' is not exposed, skipping.
+Class 'GLTFDocumentExtensionPhysics' is not exposed, skipping.
+Class 'GLTFDocumentExtensionTextureKTX' is not exposed, skipping.
+Class 'GLTFDocumentExtensionTextureWebP' is not exposed, skipping.
+Class 'GPUParticles2DEditorPlugin' is not exposed, skipping.
+Class 'GPUParticles3DEditorPlugin' is not exposed, skipping.
+Class 'GPUParticlesCollisionSDF3DEditorPlugin' is not exposed, skipping.
+Class 'GameView' is not exposed, skipping.
+Class 'GameViewDebugger' is not exposed, skipping.
+Class 'GameViewPlugin' is not exposed, skipping.
+Class 'GameViewPluginBase' is not exposed, skipping.
+Class 'Gizmo3DHelper' is not exposed, skipping.
+Class 'GodotNavigationServer2D' is not exposed, skipping.
+Class 'GodotPhysicsServer2D' is not exposed, skipping.
+Class 'GodotPhysicsServer3D' is not exposed, skipping.
+Class 'GradientEditorPlugin' is not exposed, skipping.
+Class 'GradientTexture2DEditorPlugin' is not exposed, skipping.
+Class 'GraphEditFilter' is not exposed, skipping.
+Class 'GraphEditMinimap' is not exposed, skipping.
+Class 'GroupSettingsEditor' is not exposed, skipping.
+Class 'GroupsDock' is not exposed, skipping.
+Class 'GroupsEditor' is not exposed, skipping.
+Class 'HistoryDock' is not exposed, skipping.
+Class 'IPWindows' is not exposed, skipping.
+Class 'ImportDefaultsEditor' is not exposed, skipping.
+Class 'ImportDefaultsEditorSettings' is not exposed, skipping.
+Class 'ImportDock' is not exposed, skipping.
+Class 'ImportDockParameters' is not exposed, skipping.
+Class 'InputEventConfigurationDialog' is not exposed, skipping.
+Class 'InputEventEditorPlugin' is not exposed, skipping.
+Class 'InspectorDock' is not exposed, skipping.
+Class 'LightOccluder2DEditor' is not exposed, skipping.
+Class 'LightOccluder2DEditorPlugin' is not exposed, skipping.
+Class 'LightmapGIEditorPlugin' is not exposed, skipping.
+Class 'Line2DEditor' is not exposed, skipping.
+Class 'Line2DEditorPlugin' is not exposed, skipping.
+Class 'LocalizationEditor' is not exposed, skipping.
+Class 'MarginContainerEditorPlugin' is not exposed, skipping.
+Class 'MaterialEditorPlugin' is not exposed, skipping.
+Class 'MeshEditorPlugin' is not exposed, skipping.
+Class 'MeshInstance3DEditor' is not exposed, skipping.
+Class 'MeshInstance3DEditorPlugin' is not exposed, skipping.
+Class 'MeshLibraryEditor' is not exposed, skipping.
+Class 'MeshLibraryEditorPlugin' is not exposed, skipping.
+Class 'MovieWriterMJPEG' is not exposed, skipping.
+Class 'MovieWriterOGV' is not exposed, skipping.
+Class 'MovieWriterPNGWAV' is not exposed, skipping.
+Class 'MultiMeshEditor' is not exposed, skipping.
+Class 'MultiMeshEditorPlugin' is not exposed, skipping.
+Class 'MultiplayerEditorDebugger' is not exposed, skipping.
+Class 'MultiplayerEditorPlugin' is not exposed, skipping.
+Class 'NavigationLink2DEditor' is not exposed, skipping.
+Class 'NavigationLink2DEditorPlugin' is not exposed, skipping.
+Class 'NavigationLink3DEditorPlugin' is not exposed, skipping.
+Class 'NavigationLink3DGizmoPlugin' is not exposed, skipping.
+Class 'NavigationObstacle2DEditor' is not exposed, skipping.
+Class 'NavigationObstacle2DEditorPlugin' is not exposed, skipping.
+Class 'NavigationObstacle3DEditorPlugin' is not exposed, skipping.
+Class 'NavigationObstacle3DGizmoPlugin' is not exposed, skipping.
+Class 'NavigationRegion2DEditor' is not exposed, skipping.
+Class 'NavigationRegion2DEditorPlugin' is not exposed, skipping.
+Class 'NavigationRegion3DEditor' is not exposed, skipping.
+Class 'NavigationRegion3DEditorPlugin' is not exposed, skipping.
+Class 'NavigationRegion3DGizmoPlugin' is not exposed, skipping.
+Class 'Node3DEditor' is not exposed, skipping.
+Class 'Node3DEditorPlugin' is not exposed, skipping.
+Class 'Node3DEditorViewport' is not exposed, skipping.
+Class 'Node3DEditorViewportContainer' is not exposed, skipping.
+Class 'NoiseEditorInspectorPlugin' is not exposed, skipping.
+Class 'NoiseEditorPlugin' is not exposed, skipping.
+Class 'ORMMaterial3DConversionPlugin' is not exposed, skipping.
+Class 'ObjectDBProfilerDebuggerPlugin' is not exposed, skipping.
+Class 'ObjectDBProfilerPlugin' is not exposed, skipping.
+Class 'OccluderInstance3DEditorPlugin' is not exposed, skipping.
+Class 'OpenXREditorPlugin' is not exposed, skipping.
+Class 'OrphanResourcesDialog' is not exposed, skipping.
+Class 'PackedSceneEditorPlugin' is not exposed, skipping.
+Class 'PackedSceneEditorTranslationParserPlugin' is not exposed, skipping.
+Class 'PanoramaSkyMaterialConversionPlugin' is not exposed, skipping.
+Class 'ParallaxBackgroundEditorPlugin' is not exposed, skipping.
+Class 'ParticleProcessMaterialConversionPlugin' is not exposed, skipping.
+Class 'Particles2DEditorPlugin' is not exposed, skipping.
+Class 'Particles3DEditorPlugin' is not exposed, skipping.
+Class 'ParticlesEditorPlugin' is not exposed, skipping.
+Class 'Path2DEditor' is not exposed, skipping.
+Class 'Path2DEditorPlugin' is not exposed, skipping.
+Class 'Path3DEditorPlugin' is not exposed, skipping.
+Class 'Path3DGizmoPlugin' is not exposed, skipping.
+Class 'PhysicalBone3DEditorPlugin' is not exposed, skipping.
+Class 'PhysicalSkyMaterialConversionPlugin' is not exposed, skipping.
+Class 'PluginConfigDialog' is not exposed, skipping.
+Class 'Polygon2DEditor' is not exposed, skipping.
+Class 'Polygon2DEditorPlugin' is not exposed, skipping.
+Class 'Polygon3DEditor' is not exposed, skipping.
+Class 'Polygon3DEditorPlugin' is not exposed, skipping.
+Class 'PopupMenuItems' is not exposed, skipping.
+Class 'PostImportPluginSkeletonRenamer' is not exposed, skipping.
+Class 'PostImportPluginSkeletonRestFixer' is not exposed, skipping.
+Class 'PostImportPluginSkeletonTrackOrganizer' is not exposed, skipping.
+Class 'PreviewSunEnvPopup' is not exposed, skipping.
+Class 'ProceduralSkyMaterialConversionPlugin' is not exposed, skipping.
+Class 'ProgressDialog' is not exposed, skipping.
+Class 'ProgressIndicator' is not exposed, skipping.
+Class 'ProjectExportDialog' is not exposed, skipping.
+Class 'ProjectExportTextureFormatError' is not exposed, skipping.
+Class 'ProjectSettingsEditor' is not exposed, skipping.
+Class 'ProjectSettingsGDExtension' is not exposed, skipping.
+Class 'ProjectUpgradeTool' is not exposed, skipping.
+Class 'PropertySelector' is not exposed, skipping.
+Class 'QuickOpenResultContainer' is not exposed, skipping.
+Class 'RenameDialog' is not exposed, skipping.
+Class 'ReparentDialog' is not exposed, skipping.
+Class 'ReplicationEditor' is not exposed, skipping.
+Class 'ResourceFormatImporterSaver' is not exposed, skipping.
+Class 'ResourcePreloaderEditor' is not exposed, skipping.
+Class 'ResourcePreloaderEditorPlugin' is not exposed, skipping.
+Class 'RunInstancesDialog' is not exposed, skipping.
+Class 'ScalableContainer' is not exposed, skipping.
+Class 'SceneCacheInterface' is not exposed, skipping.
+Class 'SceneCreateDialog' is not exposed, skipping.
+Class 'SceneExporterGLTFPlugin' is not exposed, skipping.
+Class 'SceneImportSettingsData' is not exposed, skipping.
+Class 'SceneImportSettingsDialog' is not exposed, skipping.
+Class 'ScenePaint2DEditor' is not exposed, skipping.
+Class 'ScenePaint2DEditorPlugin' is not exposed, skipping.
+Class 'SceneRPCInterface' is not exposed, skipping.
+Class 'SceneReplicationInterface' is not exposed, skipping.
+SceneTreeFTI: traversal method DEFAULT
+Class 'SceneTreeDialog' is not exposed, skipping.
+Class 'SceneTreeDock' is not exposed, skipping.
+Class 'SceneTreeEditor' is not exposed, skipping.
+Class 'ScreenSelect' is not exposed, skipping.
+Class 'ScriptEditorDebugger' is not exposed, skipping.
+Class 'ScriptEditorPlugin' is not exposed, skipping.
+Class 'SectionedInspector' is not exposed, skipping.
+Class 'SectionedInspectorFilter' is not exposed, skipping.
+Class 'ShaderBakerExportPluginPlatform' is not exposed, skipping.
+Class 'ShaderBakerExportPluginPlatformD3D12' is not exposed, skipping.
+Class 'ShaderBakerExportPluginPlatformVulkan' is not exposed, skipping.
+Class 'ShaderCreateDialog' is not exposed, skipping.
+Class 'ShaderEditorPlugin' is not exposed, skipping.
+Class 'ShaderFileEditor' is not exposed, skipping.
+Class 'ShaderFileEditorPlugin' is not exposed, skipping.
+Class 'ShaderGlobalsEditor' is not exposed, skipping.
+Class 'ShaderGlobalsEditorInterface' is not exposed, skipping.
+Class 'SideDockTabContainer' is not exposed, skipping.
+Class 'SignalsDock' is not exposed, skipping.
+Class 'SizeFlagPresetPicker' is not exposed, skipping.
+Class 'Skeleton2DEditor' is not exposed, skipping.
+Class 'Skeleton2DEditorPlugin' is not exposed, skipping.
+Class 'Skeleton3DEditorPlugin' is not exposed, skipping.
+Class 'Skeleton3DGizmoPlugin' is not exposed, skipping.
+Class 'SkeletonIK3DEditorPlugin' is not exposed, skipping.
+Class 'SnapDialog' is not exposed, skipping.
+Class 'SpinBoxLineEdit' is not exposed, skipping.
+Class 'SplitContainerDragger' is not exposed, skipping.
+Class 'Sprite2DEditor' is not exposed, skipping.
+Class 'Sprite2DEditorPlugin' is not exposed, skipping.
+Class 'SpriteFramesEditor' is not exposed, skipping.
+Class 'SpriteFramesEditorPlugin' is not exposed, skipping.
+Class 'StandardMaterial3DConversionPlugin' is not exposed, skipping.
+Class 'StyleBoxEditorPlugin' is not exposed, skipping.
+Class 'SubViewportPreviewEditorPlugin' is not exposed, skipping.
+Class 'SwitchSeparator' is not exposed, skipping.
+Class 'TemplateDownloader' is not exposed, skipping.
+Class 'TextShaderLanguagePlugin' is not exposed, skipping.
+Class 'Texture3DEditorPlugin' is not exposed, skipping.
+Class 'TextureEditorPlugin' is not exposed, skipping.
+Class 'TextureLayeredEditorPlugin' is not exposed, skipping.
+Class 'TextureRegionEditor' is not exposed, skipping.
+Class 'TextureRegionEditorPlugin' is not exposed, skipping.
+Class 'ThemeContext' is not exposed, skipping.
+Class 'ThemeEditor' is not exposed, skipping.
+Class 'ThemeEditorPlugin' is not exposed, skipping.
+Class 'ThemeEditorPreview' is not exposed, skipping.
+Class 'ThemeItemEditorDialog' is not exposed, skipping.
+Class 'ThemeItemImportTree' is not exposed, skipping.
+Class 'ThemeTypeDialog' is not exposed, skipping.
+Class 'ThemeTypeEditor' is not exposed, skipping.
+Class 'TileAtlasView' is not exposed, skipping.
+Class 'TileMapEditorPlugin' is not exposed, skipping.
+Class 'TileMapLayerEditor' is not exposed, skipping.
+Class 'TileMapLayerEditorTerrainsPlugin' is not exposed, skipping.
+Class 'TileMapLayerEditorTilesPlugin' is not exposed, skipping.
+Class 'TileProxiesManagerDialog' is not exposed, skipping.
+Class 'TileSetAtlasSourceEditor' is not exposed, skipping.
+Class 'TileSetEditor' is not exposed, skipping.
+Class 'TileSetEditorPlugin' is not exposed, skipping.
+Class 'TileSetScenesCollectionSourceEditor' is not exposed, skipping.
+Class 'TileSetSourceItemList' is not exposed, skipping.
+Class 'TileSourceInspectorPlugin' is not exposed, skipping.
+Class 'TilesEditorUtils' is not exposed, skipping.
+Class 'ToolButtonEditorPlugin' is not exposed, skipping.
+Class 'VersionControlEditorPlugin' is not exposed, skipping.
+Class 'View3DController' is not exposed, skipping.
+Class 'ViewPanner' is not exposed, skipping.
+Class 'ViewportNavigationControl' is not exposed, skipping.
+Class 'ViewportRotationControl' is not exposed, skipping.
+Class 'VirtualJoystickEditorPlugin' is not exposed, skipping.
+Class 'VisualShaderConversionPlugin' is not exposed, skipping.
+Class 'VisualShaderLanguagePlugin' is not exposed, skipping.
+Class 'VoxelGIEditorPlugin' is not exposed, skipping.
+Class 'WindowWrapper' is not exposed, skipping.
+Loaded system CA certificates
+Loading resource: res://localization/localization.en_US.translation remapped: res://localization/localization.en_US.translation
+Completed load for: 'res://localization/localization.en_US.translation' remapped 'res://localization/localization.en_US.translation' at thread -1
+Loading resource: res://localization/localization.zh_CN.translation remapped: res://localization/localization.zh_CN.translation
+Completed load for: 'res://localization/localization.zh_CN.translation' remapped 'res://localization/localization.zh_CN.translation' at thread -1
+Loading resource: res://localization/game.en_US.translation remapped: res://localization/game.en_US.translation
+Completed load for: 'res://localization/game.en_US.translation' remapped 'res://localization/game.en_US.translation' at thread -1
+Loading resource: res://localization/game.zh_CN.translation remapped: res://localization/game.zh_CN.translation
+Completed load for: 'res://localization/game.zh_CN.translation' remapped 'res://localization/game.zh_CN.translation' at thread -1
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+Loading resource: res://addons/godot_core_system/source/core_system.gd remapped: res://addons/godot_core_system/source/core_system.gd
+Completed load for: 'res://addons/godot_core_system/source/core_system.gd' remapped 'res://addons/godot_core_system/source/core_system.gd' at thread -1
+Loading resource: res://gameplay/run/game_manager.gd remapped: res://gameplay/run/game_manager.gd
+Loading resource: res://gameplay/progression/content/progression_config.tres remapped: res://gameplay/progression/content/progression_config.tres
+Loading resource: res://gameplay/progression/progression_config.gd remapped: res://gameplay/progression/progression_config.gd
+Completed load for: 'res://gameplay/progression/progression_config.gd' remapped 'res://gameplay/progression/progression_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/progression_config.tres' remapped 'res://gameplay/progression/content/progression_config.tres' at thread -1
+Loading resource: res://gameplay/run/run_config.tres remapped: res://gameplay/run/run_config.tres
+Loading resource: res://gameplay/run/run_config.gd remapped: res://gameplay/run/run_config.gd
+Completed load for: 'res://gameplay/run/run_config.gd' remapped 'res://gameplay/run/run_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/run_config.tres' remapped 'res://gameplay/run/run_config.tres' at thread -1
+Loading resource: res://gameplay/run/spawn_config.tres remapped: res://gameplay/run/spawn_config.tres
+Loading resource: res://gameplay/run/spawn_config.gd remapped: res://gameplay/run/spawn_config.gd
+Completed load for: 'res://gameplay/run/spawn_config.gd' remapped 'res://gameplay/run/spawn_config.gd' at thread -1
+Completed load for: 'res://gameplay/run/spawn_config.tres' remapped 'res://gameplay/run/spawn_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/explosion_config.tres remapped: res://gameplay/skills/content/explosion_config.tres
+Loading resource: res://gameplay/skills/explosion_config.gd remapped: res://gameplay/skills/explosion_config.gd
+Completed load for: 'res://gameplay/skills/explosion_config.gd' remapped 'res://gameplay/skills/explosion_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/explosion_config.tres' remapped 'res://gameplay/skills/content/explosion_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/demolition_config.tres remapped: res://gameplay/skills/content/demolition_config.tres
+Loading resource: res://gameplay/skills/demolition_config.gd remapped: res://gameplay/skills/demolition_config.gd
+Completed load for: 'res://gameplay/skills/demolition_config.gd' remapped 'res://gameplay/skills/demolition_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/demolition_config.tres' remapped 'res://gameplay/skills/content/demolition_config.tres' at thread -1
+Loading resource: res://gameplay/skills/dye/dye_config.tres remapped: res://gameplay/skills/dye/dye_config.tres
+Loading resource: res://gameplay/skills/dye/dye_config.gd remapped: res://gameplay/skills/dye/dye_config.gd
+Completed load for: 'res://gameplay/skills/dye/dye_config.gd' remapped 'res://gameplay/skills/dye/dye_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/dye/dye_config.tres' remapped 'res://gameplay/skills/dye/dye_config.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_explosion.tres remapped: res://gameplay/skills/content/on_eliminated_explosion.tres
+Loading resource: res://gameplay/skills/effects/explode_effect.gd remapped: res://gameplay/skills/effects/explode_effect.gd
+Completed load for: 'res://gameplay/skills/effects/explode_effect.gd' remapped 'res://gameplay/skills/effects/explode_effect.gd' at thread -1
+Loading resource: res://gameplay/skills/conditions/removal_cause_condition.gd remapped: res://gameplay/skills/conditions/removal_cause_condition.gd
+Completed load for: 'res://gameplay/skills/conditions/removal_cause_condition.gd' remapped 'res://gameplay/skills/conditions/removal_cause_condition.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/on_eliminated_explosion.tres' remapped 'res://gameplay/skills/content/on_eliminated_explosion.tres' at thread -1
+Loading resource: res://gameplay/skills/content/on_eliminated_line_sweep.tres remapped: res://gameplay/skills/content/on_eliminated_line_sweep.tres
+Completed load for: 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' remapped 'res://gameplay/skills/content/on_eliminated_line_sweep.tres' at thread -1
+Loading resource: res://gameplay/skills/content/line_clear_config.tres remapped: res://gameplay/skills/content/line_clear_config.tres
+Loading resource: res://gameplay/skills/line_clear_config.gd remapped: res://gameplay/skills/line_clear_config.gd
+Completed load for: 'res://gameplay/skills/line_clear_config.gd' remapped 'res://gameplay/skills/line_clear_config.gd' at thread -1
+Completed load for: 'res://gameplay/skills/content/line_clear_config.tres' remapped 'res://gameplay/skills/content/line_clear_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_core_transform.tres remapped: res://gameplay/progression/content/instant_core_transform.tres
+Loading resource: res://gameplay/progression/skill_definition.gd remapped: res://gameplay/progression/skill_definition.gd
+Completed load for: 'res://gameplay/progression/skill_definition.gd' remapped 'res://gameplay/progression/skill_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/transform_material_effect.gd remapped: res://gameplay/progression/effects/transform_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/transform_material_effect.gd' remapped 'res://gameplay/progression/effects/transform_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_core_transform.tres' remapped 'res://gameplay/progression/content/instant_core_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_row_transform.tres remapped: res://gameplay/progression/content/instant_row_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_row_transform.tres' remapped 'res://gameplay/progression/content/instant_row_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_column_transform.tres remapped: res://gameplay/progression/content/instant_column_transform.tres
+Completed load for: 'res://gameplay/progression/content/instant_column_transform.tres' remapped 'res://gameplay/progression/content/instant_column_transform.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_refill_color.tres remapped: res://gameplay/progression/content/composite_refill_color.tres
+Loading resource: res://gameplay/progression/effects/color_weight_effect.gd remapped: res://gameplay/progression/effects/color_weight_effect.gd
+Completed load for: 'res://gameplay/progression/effects/color_weight_effect.gd' remapped 'res://gameplay/progression/effects/color_weight_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_refill_color.tres' remapped 'res://gameplay/progression/content/composite_refill_color.tres' at thread -1
+Loading resource: res://gameplay/progression/content/composite_clear_dye.tres remapped: res://gameplay/progression/content/composite_clear_dye.tres
+Loading resource: res://gameplay/progression/effects/clear_material_effect.gd remapped: res://gameplay/progression/effects/clear_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/clear_material_effect.gd' remapped 'res://gameplay/progression/effects/clear_material_effect.gd' at thread -1
+Loading resource: res://gameplay/progression/effects/dye_material_effect.gd remapped: res://gameplay/progression/effects/dye_material_effect.gd
+Completed load for: 'res://gameplay/progression/effects/dye_material_effect.gd' remapped 'res://gameplay/progression/effects/dye_material_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/composite_clear_dye.tres' remapped 'res://gameplay/progression/content/composite_clear_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/goal_score_bonus.tres remapped: res://gameplay/progression/content/goal_score_bonus.tres
+Loading resource: res://gameplay/progression/effects/install_goal_bonus_effect.gd remapped: res://gameplay/progression/effects/install_goal_bonus_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' remapped 'res://gameplay/progression/effects/install_goal_bonus_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/goal_score_bonus.tres' remapped 'res://gameplay/progression/content/goal_score_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_drop.tres remapped: res://gameplay/progression/content/line_row_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_line_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_line_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_line_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_row_drop.tres' remapped 'res://gameplay/progression/content/line_row_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_drop.tres remapped: res://gameplay/progression/content/line_column_drop.tres
+Completed load for: 'res://gameplay/progression/content/line_column_drop.tres' remapped 'res://gameplay/progression/content/line_column_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_manual_clear.tres remapped: res://gameplay/progression/content/line_manual_clear.tres
+Loading resource: res://gameplay/progression/effects/install_line_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_line_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_line_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/line_manual_clear.tres' remapped 'res://gameplay/progression/content/line_manual_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_row_span.tres remapped: res://gameplay/progression/content/line_row_span.tres
+Completed load for: 'res://gameplay/progression/content/line_row_span.tres' remapped 'res://gameplay/progression/content/line_row_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_column_span.tres remapped: res://gameplay/progression/content/line_column_span.tres
+Completed load for: 'res://gameplay/progression/content/line_column_span.tres' remapped 'res://gameplay/progression/content/line_column_span.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_cross_upgrade.tres remapped: res://gameplay/progression/content/line_cross_upgrade.tres
+Completed load for: 'res://gameplay/progression/content/line_cross_upgrade.tres' remapped 'res://gameplay/progression/content/line_cross_upgrade.tres' at thread -1
+Loading resource: res://gameplay/progression/content/line_clear_score.tres remapped: res://gameplay/progression/content/line_clear_score.tres
+Completed load for: 'res://gameplay/progression/content/line_clear_score.tres' remapped 'res://gameplay/progression/content/line_clear_score.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_drop.tres remapped: res://gameplay/progression/content/core_drop.tres
+Loading resource: res://gameplay/progression/effects/unlock_core_supply_effect.gd remapped: res://gameplay/progression/effects/unlock_core_supply_effect.gd
+Completed load for: 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' remapped 'res://gameplay/progression/effects/unlock_core_supply_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/core_drop.tres' remapped 'res://gameplay/progression/content/core_drop.tres' at thread -1
+Loading resource: res://gameplay/progression/content/assign_fuse.tres remapped: res://gameplay/progression/content/assign_fuse.tres
+Completed load for: 'res://gameplay/progression/content/assign_fuse.tres' remapped 'res://gameplay/progression/content/assign_fuse.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_extra.tres remapped: res://gameplay/progression/content/blast_extra.tres
+Completed load for: 'res://gameplay/progression/content/blast_extra.tres' remapped 'res://gameplay/progression/content/blast_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/score_multiplier.tres remapped: res://gameplay/progression/content/score_multiplier.tres
+Completed load for: 'res://gameplay/progression/content/score_multiplier.tres' remapped 'res://gameplay/progression/content/score_multiplier.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_extra.tres remapped: res://gameplay/progression/content/match_extra.tres
+Completed load for: 'res://gameplay/progression/content/match_extra.tres' remapped 'res://gameplay/progression/content/match_extra.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_thin.tres remapped: res://gameplay/progression/content/instant_thin.tres
+Completed load for: 'res://gameplay/progression/content/instant_thin.tres' remapped 'res://gameplay/progression/content/instant_thin.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_percent_clear.tres remapped: res://gameplay/progression/content/instant_percent_clear.tres
+Loading resource: res://gameplay/progression/effects/percent_clear_effect.gd remapped: res://gameplay/progression/effects/percent_clear_effect.gd
+Completed load for: 'res://gameplay/progression/effects/percent_clear_effect.gd' remapped 'res://gameplay/progression/effects/percent_clear_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_percent_clear.tres' remapped 'res://gameplay/progression/content/instant_percent_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_less.tres remapped: res://gameplay/progression/content/refill_less.tres
+Completed load for: 'res://gameplay/progression/content/refill_less.tres' remapped 'res://gameplay/progression/content/refill_less.tres' at thread -1
+Loading resource: res://gameplay/progression/content/refill_more.tres remapped: res://gameplay/progression/content/refill_more.tres
+Completed load for: 'res://gameplay/progression/content/refill_more.tres' remapped 'res://gameplay/progression/content/refill_more.tres' at thread -1
+Loading resource: res://gameplay/progression/content/precision_reward.tres remapped: res://gameplay/progression/content/precision_reward.tres
+Loading resource: res://gameplay/progression/effects/install_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/precision_reward.tres' remapped 'res://gameplay/progression/content/precision_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_capacity.tres remapped: res://gameplay/progression/content/fuse_capacity.tres
+Completed load for: 'res://gameplay/progression/content/fuse_capacity.tres' remapped 'res://gameplay/progression/content/fuse_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_radius.tres remapped: res://gameplay/progression/content/blast_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_radius.tres' remapped 'res://gameplay/progression/content/blast_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_reward.tres remapped: res://gameplay/progression/content/blast_reward.tres
+Completed load for: 'res://gameplay/progression/content/blast_reward.tres' remapped 'res://gameplay/progression/content/blast_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_up.tres remapped: res://gameplay/progression/content/color_weight_up.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_up.tres' remapped 'res://gameplay/progression/content/color_weight_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/color_weight_down.tres remapped: res://gameplay/progression/content/color_weight_down.tres
+Completed load for: 'res://gameplay/progression/content/color_weight_down.tres' remapped 'res://gameplay/progression/content/color_weight_down.tres' at thread -1
+Loading resource: res://gameplay/progression/content/relay_capacity.tres remapped: res://gameplay/progression/content/relay_capacity.tres
+Completed load for: 'res://gameplay/progression/content/relay_capacity.tres' remapped 'res://gameplay/progression/content/relay_capacity.tres' at thread -1
+Loading resource: res://gameplay/progression/content/marked_reward.tres remapped: res://gameplay/progression/content/marked_reward.tres
+Completed load for: 'res://gameplay/progression/content/marked_reward.tres' remapped 'res://gameplay/progression/content/marked_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/longline_reward.tres remapped: res://gameplay/progression/content/longline_reward.tres
+Completed load for: 'res://gameplay/progression/content/longline_reward.tres' remapped 'res://gameplay/progression/content/longline_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_supply_up.tres remapped: res://gameplay/progression/content/core_supply_up.tres
+Completed load for: 'res://gameplay/progression/content/core_supply_up.tres' remapped 'res://gameplay/progression/content/core_supply_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_radius.tres remapped: res://gameplay/progression/content/core_radius.tres
+Completed load for: 'res://gameplay/progression/content/core_radius.tres' remapped 'res://gameplay/progression/content/core_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_clear.tres remapped: res://gameplay/progression/content/instant_color_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_clear.tres' remapped 'res://gameplay/progression/content/instant_color_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_line_clear.tres remapped: res://gameplay/progression/content/instant_line_clear.tres
+Completed load for: 'res://gameplay/progression/content/instant_line_clear.tres' remapped 'res://gameplay/progression/content/instant_line_clear.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_relay.tres remapped: res://gameplay/progression/content/fuse_relay.tres
+Completed load for: 'res://gameplay/progression/content/fuse_relay.tres' remapped 'res://gameplay/progression/content/fuse_relay.tres' at thread -1
+Loading resource: res://gameplay/progression/content/chain_reward.tres remapped: res://gameplay/progression/content/chain_reward.tres
+Completed load for: 'res://gameplay/progression/content/chain_reward.tres' remapped 'res://gameplay/progression/content/chain_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_fuse_ignite.tres remapped: res://gameplay/progression/content/instant_fuse_ignite.tres
+Loading resource: res://gameplay/progression/effects/ignite_fuses_effect.gd remapped: res://gameplay/progression/effects/ignite_fuses_effect.gd
+Completed load for: 'res://gameplay/progression/effects/ignite_fuses_effect.gd' remapped 'res://gameplay/progression/effects/ignite_fuses_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/instant_fuse_ignite.tres' remapped 'res://gameplay/progression/content/instant_fuse_ignite.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_manual_detonation.tres remapped: res://gameplay/progression/content/core_manual_detonation.tres
+Completed load for: 'res://gameplay/progression/content/core_manual_detonation.tres' remapped 'res://gameplay/progression/content/core_manual_detonation.tres' at thread -1
+Loading resource: res://gameplay/progression/content/fuse_match_plant.tres remapped: res://gameplay/progression/content/fuse_match_plant.tres
+Completed load for: 'res://gameplay/progression/content/fuse_match_plant.tres' remapped 'res://gameplay/progression/content/fuse_match_plant.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_bonus.tres remapped: res://gameplay/progression/content/blast_chain_bonus.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_bonus.tres' remapped 'res://gameplay/progression/content/blast_chain_bonus.tres' at thread -1
+Loading resource: res://gameplay/progression/content/selective_blast.tres remapped: res://gameplay/progression/content/selective_blast.tres
+Completed load for: 'res://gameplay/progression/content/selective_blast.tres' remapped 'res://gameplay/progression/content/selective_blast.tres' at thread -1
+Loading resource: res://gameplay/progression/content/core_fuse_payload.tres remapped: res://gameplay/progression/content/core_fuse_payload.tres
+Completed load for: 'res://gameplay/progression/content/core_fuse_payload.tres' remapped 'res://gameplay/progression/content/core_fuse_payload.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_chain_radius.tres remapped: res://gameplay/progression/content/blast_chain_radius.tres
+Completed load for: 'res://gameplay/progression/content/blast_chain_radius.tres' remapped 'res://gameplay/progression/content/blast_chain_radius.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_refill_relief.tres remapped: res://gameplay/progression/content/blast_refill_relief.tres
+Completed load for: 'res://gameplay/progression/content/blast_refill_relief.tres' remapped 'res://gameplay/progression/content/blast_refill_relief.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_aftershock.tres remapped: res://gameplay/progression/content/blast_aftershock.tres
+Completed load for: 'res://gameplay/progression/content/blast_aftershock.tres' remapped 'res://gameplay/progression/content/blast_aftershock.tres' at thread -1
+Loading resource: res://gameplay/progression/content/match_dye_echo.tres remapped: res://gameplay/progression/content/match_dye_echo.tres
+Loading resource: res://gameplay/progression/effects/install_dye_upgrade_effect.gd remapped: res://gameplay/progression/effects/install_dye_upgrade_effect.gd
+Completed load for: 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' remapped 'res://gameplay/progression/effects/install_dye_upgrade_effect.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/match_dye_echo.tres' remapped 'res://gameplay/progression/content/match_dye_echo.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_target_up.tres remapped: res://gameplay/progression/content/dye_target_up.tres
+Completed load for: 'res://gameplay/progression/content/dye_target_up.tres' remapped 'res://gameplay/progression/content/dye_target_up.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_chain_depth.tres remapped: res://gameplay/progression/content/dye_chain_depth.tres
+Completed load for: 'res://gameplay/progression/content/dye_chain_depth.tres' remapped 'res://gameplay/progression/content/dye_chain_depth.tres' at thread -1
+Loading resource: res://gameplay/progression/content/dye_mark_reward.tres remapped: res://gameplay/progression/content/dye_mark_reward.tres
+Completed load for: 'res://gameplay/progression/content/dye_mark_reward.tres' remapped 'res://gameplay/progression/content/dye_mark_reward.tres' at thread -1
+Loading resource: res://gameplay/progression/content/blast_dye.tres remapped: res://gameplay/progression/content/blast_dye.tres
+Completed load for: 'res://gameplay/progression/content/blast_dye.tres' remapped 'res://gameplay/progression/content/blast_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/instant_color_dye.tres remapped: res://gameplay/progression/content/instant_color_dye.tres
+Completed load for: 'res://gameplay/progression/content/instant_color_dye.tres' remapped 'res://gameplay/progression/content/instant_color_dye.tres' at thread -1
+Loading resource: res://gameplay/progression/content/offer_config.tres remapped: res://gameplay/progression/content/offer_config.tres
+Loading resource: res://gameplay/progression/offer_config.gd remapped: res://gameplay/progression/offer_config.gd
+Completed load for: 'res://gameplay/progression/offer_config.gd' remapped 'res://gameplay/progression/offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/offer_config.tres' remapped 'res://gameplay/progression/content/offer_config.tres' at thread -1
+Loading resource: res://gameplay/progression/content/rescue_offer_config.tres remapped: res://gameplay/progression/content/rescue_offer_config.tres
+Loading resource: res://gameplay/progression/rescue_offer_config.gd remapped: res://gameplay/progression/rescue_offer_config.gd
+Completed load for: 'res://gameplay/progression/rescue_offer_config.gd' remapped 'res://gameplay/progression/rescue_offer_config.gd' at thread -1
+Completed load for: 'res://gameplay/progression/content/rescue_offer_config.tres' remapped 'res://gameplay/progression/content/rescue_offer_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/game_manager.gd' remapped 'res://gameplay/run/game_manager.gd' at thread -1
+Loading resource: res://gameplay/board/match_system.gd remapped: res://gameplay/board/match_system.gd
+Loading resource: res://gameplay/presentation/board_juice_config.tres remapped: res://gameplay/presentation/board_juice_config.tres
+Loading resource: res://gameplay/presentation/board_juice_config.gd remapped: res://gameplay/presentation/board_juice_config.gd
+Completed load for: 'res://gameplay/presentation/board_juice_config.gd' remapped 'res://gameplay/presentation/board_juice_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/board_juice_config.tres' remapped 'res://gameplay/presentation/board_juice_config.tres' at thread -1
+Loading resource: res://gameplay/run/modes/stage_challenge.tres remapped: res://gameplay/run/modes/stage_challenge.tres
+Loading resource: res://gameplay/run/modes/game_mode_definition.gd remapped: res://gameplay/run/modes/game_mode_definition.gd
+Completed load for: 'res://gameplay/run/modes/game_mode_definition.gd' remapped 'res://gameplay/run/modes/game_mode_definition.gd' at thread -1
+Loading resource: res://gameplay/progression/stages/stage_config.tres remapped: res://gameplay/progression/stages/stage_config.tres
+Completed load for: 'res://gameplay/progression/stages/stage_config.tres' remapped 'res://gameplay/progression/stages/stage_config.tres' at thread -1
+Completed load for: 'res://gameplay/run/modes/stage_challenge.tres' remapped 'res://gameplay/run/modes/stage_challenge.tres' at thread -1
+Loading resource: res://gameplay/presentation/presentation_config.tres remapped: res://gameplay/presentation/presentation_config.tres
+Loading resource: res://gameplay/presentation/presentation_config.gd remapped: res://gameplay/presentation/presentation_config.gd
+Completed load for: 'res://gameplay/presentation/presentation_config.gd' remapped 'res://gameplay/presentation/presentation_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/presentation_config.tres' remapped 'res://gameplay/presentation/presentation_config.tres' at thread -1
+Loading resource: res://services/telemetry/telemetry_config.tres remapped: res://services/telemetry/telemetry_config.tres
+Loading resource: res://services/telemetry/telemetry_config.gd remapped: res://services/telemetry/telemetry_config.gd
+Completed load for: 'res://services/telemetry/telemetry_config.gd' remapped 'res://services/telemetry/telemetry_config.gd' at thread -1
+Completed load for: 'res://services/telemetry/telemetry_config.tres' remapped 'res://services/telemetry/telemetry_config.tres' at thread -1
+Loading resource: res://gameplay/board/cell/cell.tscn remapped: res://gameplay/board/cell/cell.tscn
+Loading resource: res://gameplay/board/cell/tile_surface.gdshader remapped: res://gameplay/board/cell/tile_surface.gdshader
+Completed load for: 'res://gameplay/board/cell/tile_surface.gdshader' remapped 'res://gameplay/board/cell/tile_surface.gdshader' at thread -1
+Completed load for: 'res://gameplay/board/cell/cell.tscn' remapped 'res://gameplay/board/cell/cell.tscn' at thread -1
+Loading resource: res://gameplay/board/piece/chess_piece.tscn remapped: res://gameplay/board/piece/chess_piece.tscn
+Loading resource: res://gameplay/board/piece/piece_surface.gdshader remapped: res://gameplay/board/piece/piece_surface.gdshader
+Completed load for: 'res://gameplay/board/piece/piece_surface.gdshader' remapped 'res://gameplay/board/piece/piece_surface.gdshader' at thread -1
+Loading resource: res://gameplay/board/piece/piece_aura.tscn remapped: res://gameplay/board/piece/piece_aura.tscn
+Completed load for: 'res://gameplay/board/piece/piece_aura.tscn' remapped 'res://gameplay/board/piece/piece_aura.tscn' at thread -1
+Completed load for: 'res://gameplay/board/piece/chess_piece.tscn' remapped 'res://gameplay/board/piece/chess_piece.tscn' at thread -1
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.tscn remapped: res://gameplay/presentation/explosion_visual/explosion_visual.tscn
+Loading resource: res://gameplay/presentation/explosion_visual/explosion_visual.gd remapped: res://gameplay/presentation/explosion_visual/explosion_visual.gd
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' remapped 'res://gameplay/presentation/explosion_visual/explosion_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn
+Loading resource: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd remapped: res://gameplay/presentation/line_clear_visual/line_clear_visual.gd
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' remapped 'res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_config.tres remapped: res://gameplay/presentation/score_float/score_float_config.tres
+Loading resource: res://gameplay/presentation/score_float/score_float_config.gd remapped: res://gameplay/presentation/score_float/score_float_config.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.gd' remapped 'res://gameplay/presentation/score_float/score_float_config.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float_config.tres' remapped 'res://gameplay/presentation/score_float/score_float_config.tres' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float.tscn remapped: res://gameplay/presentation/score_float/score_float.tscn
+Loading resource: res://gameplay/presentation/score_float/score_float.gd remapped: res://gameplay/presentation/score_float/score_float.gd
+Completed load for: 'res://gameplay/presentation/score_float/score_float.gd' remapped 'res://gameplay/presentation/score_float/score_float.gd' at thread -1
+Completed load for: 'res://gameplay/presentation/score_float/score_float.tscn' remapped 'res://gameplay/presentation/score_float/score_float.tscn' at thread -1
+Completed load for: 'res://gameplay/board/match_system.gd' remapped 'res://gameplay/board/match_system.gd' at thread -1
+Loading resource: res://gameplay/progression/level_up_system.gd remapped: res://gameplay/progression/level_up_system.gd
+Completed load for: 'res://gameplay/progression/level_up_system.gd' remapped 'res://gameplay/progression/level_up_system.gd' at thread -1
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 正在注册全局类…… (17 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | TransformMaterialEffect[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | RunRecorder[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | RunSnapshot[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | MatchResult[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | DyeRules[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | DyeTrigger[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | AbilityEffectRunner[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | AbilityResolver[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | BlastRequest[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | FusePlantTrigger[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | RemovalStrength[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[  33% ] [90m[1mloading_editor_layout[22m | 正在重新打开场景……[39m[0m
+Loading resource: res://ui/hud.tscn remapped: res://ui/hud.tscn
+Loading resource: res://ui/hud.gd remapped: res://ui/hud.gd
+Loading resource: res://ui/goal_progress/score_mote.tscn remapped: res://ui/goal_progress/score_mote.tscn
+Loading resource: res://ui/goal_progress/score_mote.gd remapped: res://ui/goal_progress/score_mote.gd
+Completed load for: 'res://ui/goal_progress/score_mote.gd' remapped 'res://ui/goal_progress/score_mote.gd' at thread -1
+Completed load for: 'res://ui/goal_progress/score_mote.tscn' remapped 'res://ui/goal_progress/score_mote.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress_config.tres remapped: res://ui/goal_progress/goal_progress_config.tres
+Completed load for: 'res://ui/goal_progress/goal_progress_config.tres' remapped 'res://ui/goal_progress/goal_progress_config.tres' at thread -1
+Loading resource: res://ui/build_card/build_card.tscn remapped: res://ui/build_card/build_card.tscn
+Loading resource: res://ui/build_card/build_card.gd remapped: res://ui/build_card/build_card.gd
+Completed load for: 'res://ui/build_card/build_card.gd' remapped 'res://ui/build_card/build_card.gd' at thread -1
+Loading resource: res://ui/skill_text.tscn remapped: res://ui/skill_text.tscn
+Loading resource: res://ui/skill_text.gd remapped: res://ui/skill_text.gd
+Loading resource: res://ui/skill_details.tscn remapped: res://ui/skill_details.tscn
+Loading resource: res://ui/skill_details.gd remapped: res://ui/skill_details.gd
+Completed load for: 'res://ui/skill_details.gd' remapped 'res://ui/skill_details.gd' at thread -1
+Completed load for: 'res://ui/skill_details.tscn' remapped 'res://ui/skill_details.tscn' at thread -1
+Completed load for: 'res://ui/skill_text.gd' remapped 'res://ui/skill_text.gd' at thread -1
+Completed load for: 'res://ui/skill_text.tscn' remapped 'res://ui/skill_text.tscn' at thread -1
+Completed load for: 'res://ui/build_card/build_card.tscn' remapped 'res://ui/build_card/build_card.tscn' at thread -1
+Completed load for: 'res://ui/hud.gd' remapped 'res://ui/hud.gd' at thread -1
+Loading resource: res://ui/preview_theme.tres remapped: res://ui/preview_theme.tres
+Completed load for: 'res://ui/preview_theme.tres' remapped 'res://ui/preview_theme.tres' at thread -1
+Loading resource: res://ui/spawn_preview.tscn remapped: res://ui/spawn_preview.tscn
+Completed load for: 'res://ui/spawn_preview.tscn' remapped 'res://ui/spawn_preview.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress.tscn remapped: res://ui/goal_progress/goal_progress.tscn
+Loading resource: res://ui/goal_progress/progress_glow.gdshader remapped: res://ui/goal_progress/progress_glow.gdshader
+Completed load for: 'res://ui/goal_progress/progress_glow.gdshader' remapped 'res://ui/goal_progress/progress_glow.gdshader' at thread -1
+Completed load for: 'res://ui/goal_progress/goal_progress.tscn' remapped 'res://ui/goal_progress/goal_progress.tscn' at thread -1
+Loading resource: res://ui/piece_pool/piece_pool.tscn remapped: res://ui/piece_pool/piece_pool.tscn
+Completed load for: 'res://ui/piece_pool/piece_pool.tscn' remapped 'res://ui/piece_pool/piece_pool.tscn' at thread -1
+Loading resource: res://ui/build_list/build_list.tscn remapped: res://ui/build_list/build_list.tscn
+Completed load for: 'res://ui/build_list/build_list.tscn' remapped 'res://ui/build_list/build_list.tscn' at thread -1
+Completed load for: 'res://ui/hud.tscn' remapped 'res://ui/hud.tscn' at thread -1
+Loading resource: res://gameplay/game.tscn remapped: res://gameplay/game.tscn
+Loading resource: res://gameplay/game.gd remapped: res://gameplay/game.gd
+Loading resource: res://gameplay/run/modes/classic_endless.tres remapped: res://gameplay/run/modes/classic_endless.tres
+Completed load for: 'res://gameplay/run/modes/classic_endless.tres' remapped 'res://gameplay/run/modes/classic_endless.tres' at thread -1
+Loading resource: res://gameplay/tutorial/tutorial_config.tres remapped: res://gameplay/tutorial/tutorial_config.tres
+Loading resource: res://gameplay/tutorial/tutorial_config.gd remapped: res://gameplay/tutorial/tutorial_config.gd
+Completed load for: 'res://gameplay/tutorial/tutorial_config.gd' remapped 'res://gameplay/tutorial/tutorial_config.gd' at thread -1
+Completed load for: 'res://gameplay/tutorial/tutorial_config.tres' remapped 'res://gameplay/tutorial/tutorial_config.tres' at thread -1
+Loading resource: res://ui/skill_card.tscn remapped: res://ui/skill_card.tscn
+Completed load for: 'res://ui/skill_card.tscn' remapped 'res://ui/skill_card.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_theme/light_toy.tres remapped: res://gameplay/presentation/game_theme/light_toy.tres
+Loading resource: res://gameplay/presentation/game_theme/light_toy_ui.tres remapped: res://gameplay/presentation/game_theme/light_toy_ui.tres
+Completed load for: 'res://gameplay/presentation/game_theme/light_toy_ui.tres' remapped 'res://gameplay/presentation/game_theme/light_toy_ui.tres' at thread -1
+Completed load for: 'res://gameplay/presentation/game_theme/light_toy.tres' remapped 'res://gameplay/presentation/game_theme/light_toy.tres' at thread -1
+Loading resource: res://gameplay/presentation/game_theme/dark_instrument.tres remapped: res://gameplay/presentation/game_theme/dark_instrument.tres
+Loading resource: res://gameplay/presentation/game_theme/dark_instrument_ui.tres remapped: res://gameplay/presentation/game_theme/dark_instrument_ui.tres
+Completed load for: 'res://gameplay/presentation/game_theme/dark_instrument_ui.tres' remapped 'res://gameplay/presentation/game_theme/dark_instrument_ui.tres' at thread -1
+Completed load for: 'res://gameplay/presentation/game_theme/dark_instrument.tres' remapped 'res://gameplay/presentation/game_theme/dark_instrument.tres' at thread -1
+Completed load for: 'res://gameplay/game.gd' remapped 'res://gameplay/game.gd' at thread -1
+Loading resource: res://ui/hud.tscn remapped: res://ui/hud.tscn
+Loading resource: res://ui/spawn_preview.tscn remapped: res://ui/spawn_preview.tscn
+Completed load for: 'res://ui/spawn_preview.tscn' remapped 'res://ui/spawn_preview.tscn' at thread -1
+Loading resource: res://ui/goal_progress/goal_progress.tscn remapped: res://ui/goal_progress/goal_progress.tscn
+Completed load for: 'res://ui/goal_progress/goal_progress.tscn' remapped 'res://ui/goal_progress/goal_progress.tscn' at thread -1
+Loading resource: res://ui/piece_pool/piece_pool.tscn remapped: res://ui/piece_pool/piece_pool.tscn
+Completed load for: 'res://ui/piece_pool/piece_pool.tscn' remapped 'res://ui/piece_pool/piece_pool.tscn' at thread -1
+Loading resource: res://ui/build_list/build_list.tscn remapped: res://ui/build_list/build_list.tscn
+Completed load for: 'res://ui/build_list/build_list.tscn' remapped 'res://ui/build_list/build_list.tscn' at thread -1
+Completed load for: 'res://ui/hud.tscn' remapped 'res://ui/hud.tscn' at thread -1
+Loading resource: res://gameplay/board/board_view.tscn remapped: res://gameplay/board/board_view.tscn
+Loading resource: res://gameplay/presentation/move_path_visual.tscn remapped: res://gameplay/presentation/move_path_visual.tscn
+Completed load for: 'res://gameplay/presentation/move_path_visual.tscn' remapped 'res://gameplay/presentation/move_path_visual.tscn' at thread -1
+Loading resource: res://gameplay/presentation/score_float/score_float_layer.tscn remapped: res://gameplay/presentation/score_float/score_float_layer.tscn
+Completed load for: 'res://gameplay/presentation/score_float/score_float_layer.tscn' remapped 'res://gameplay/presentation/score_float/score_float_layer.tscn' at thread -1
+Loading resource: res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn remapped: res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn
+Loading resource: res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader remapped: res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader
+Completed load for: 'res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader' remapped 'res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader' at thread -1
+Completed load for: 'res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn' remapped 'res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn' at thread -1
+Completed load for: 'res://gameplay/board/board_view.tscn' remapped 'res://gameplay/board/board_view.tscn' at thread -1
+Loading resource: res://gameplay/presentation/presentation_director.tscn remapped: res://gameplay/presentation/presentation_director.tscn
+Completed load for: 'res://gameplay/presentation/presentation_director.tscn' remapped 'res://gameplay/presentation/presentation_director.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_feedback.tscn remapped: res://gameplay/presentation/game_feedback.tscn
+Completed load for: 'res://gameplay/presentation/game_feedback.tscn' remapped 'res://gameplay/presentation/game_feedback.tscn' at thread -1
+Loading resource: res://ui/release_menu/release_menu.tscn remapped: res://ui/release_menu/release_menu.tscn
+Loading resource: res://ui/tutorial/tutorial.tscn remapped: res://ui/tutorial/tutorial.tscn
+Loading resource: res://ui/popup_skill_choice.tscn remapped: res://ui/popup_skill_choice.tscn
+Loading resource: res://ui/color_target_picker.tscn remapped: res://ui/color_target_picker.tscn
+Completed load for: 'res://ui/color_target_picker.tscn' remapped 'res://ui/color_target_picker.tscn' at thread -1
+Completed load for: 'res://ui/popup_skill_choice.tscn' remapped 'res://ui/popup_skill_choice.tscn' at thread -1
+Completed load for: 'res://ui/tutorial/tutorial.tscn' remapped 'res://ui/tutorial/tutorial.tscn' at thread -1
+Loading resource: res://ui/collection_controls/collection_controls.tscn remapped: res://ui/collection_controls/collection_controls.tscn
+Completed load for: 'res://ui/collection_controls/collection_controls.tscn' remapped 'res://ui/collection_controls/collection_controls.tscn' at thread -1
+Completed load for: 'res://ui/release_menu/release_menu.tscn' remapped 'res://ui/release_menu/release_menu.tscn' at thread -1
+Loading resource: res://services/telemetry/run_collection.tscn remapped: res://services/telemetry/run_collection.tscn
+Completed load for: 'res://services/telemetry/run_collection.tscn' remapped 'res://services/telemetry/run_collection.tscn' at thread -1
+Loading resource: res://ui/skill_pool/skill_pool.tscn remapped: res://ui/skill_pool/skill_pool.tscn
+Completed load for: 'res://ui/skill_pool/skill_pool.tscn' remapped 'res://ui/skill_pool/skill_pool.tscn' at thread -1
+Loading resource: res://ui/card_transfer/card_transfer.tscn remapped: res://ui/card_transfer/card_transfer.tscn
+Completed load for: 'res://ui/card_transfer/card_transfer.tscn' remapped 'res://ui/card_transfer/card_transfer.tscn' at thread -1
+Loading resource: res://ui/playback_settings/playback_settings.tscn remapped: res://ui/playback_settings/playback_settings.tscn
+Completed load for: 'res://ui/playback_settings/playback_settings.tscn' remapped 'res://ui/playback_settings/playback_settings.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_background/game_background.tscn remapped: res://gameplay/presentation/game_background/game_background.tscn
+Loading resource: res://gameplay/presentation/game_background/game_background.gdshader remapped: res://gameplay/presentation/game_background/game_background.gdshader
+Completed load for: 'res://gameplay/presentation/game_background/game_background.gdshader' remapped 'res://gameplay/presentation/game_background/game_background.gdshader' at thread -1
+Completed load for: 'res://gameplay/presentation/game_background/game_background.tscn' remapped 'res://gameplay/presentation/game_background/game_background.tscn' at thread -1
+Completed load for: 'res://gameplay/game.tscn' remapped 'res://gameplay/game.tscn' at thread -1
+Loading resource: res://gameplay/presentation/game_feedback.tscn remapped: res://gameplay/presentation/game_feedback.tscn
+Completed load for: 'res://gameplay/presentation/game_feedback.tscn' remapped 'res://gameplay/presentation/game_feedback.tscn' at thread -1
+[  50% ] [90m[1mloading_editor_layout[22m | 正在加载中央编辑器布局……[39m[0m
+[  66% ] [90m[1mloading_editor_layout[22m | 正在加载插件窗口布局……[39m[0m
+[  83% ] [90m[1mloading_editor_layout[22m | 编辑器布局就绪。[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Script docs haven't been properly loaded or regenerated, so don't save them to disk.
+EditorSettings: Save OK!
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Orphan StringName: Vector2 (static: 0, total: 1)
+Orphan StringName: Vector3 (static: 0, total: 1)
+Orphan StringName: Vector4 (static: 0, total: 1)
+Orphan StringName: PackedVector4Array (static: 0, total: 1)
+Orphan StringName: RID (static: 0, total: 1)
+Orphan StringName: Color (static: 3, total: 4)
+Orphan StringName: PackedByteArray (static: 0, total: 1)
+Orphan StringName: Vector2i (static: 0, total: 1)
+Orphan StringName: Callable (static: 0, total: 1)
+Orphan StringName: Vector3i (static: 0, total: 1)
+Orphan StringName: Vector4i (static: 0, total: 1)
+Orphan StringName: PackedStringArray (static: 0, total: 1)
+Orphan StringName: Basis (static: 0, total: 1)
+Orphan StringName: int (static: 1, total: 2)
+Orphan StringName: PackedFloat32Array (static: 0, total: 1)
+Orphan StringName: Plane (static: 0, total: 1)
+Orphan StringName: PackedFloat64Array (static: 0, total: 1)
+Orphan StringName: NodePath (static: 1, total: 2)
+Orphan StringName: Signal (static: 0, total: 1)
+Orphan StringName: StringName (static: 0, total: 1)
+Orphan StringName: String (static: 0, total: 1)
+Orphan StringName: Transform2D (static: 0, total: 1)
+Orphan StringName: Transform3D (static: 0, total: 1)
+Orphan StringName: Array (static: 0, total: 1)
+Orphan StringName: Quaternion (static: 0, total: 1)
+Orphan StringName: bool (static: 1, total: 2)
+Orphan StringName: PackedColorArray (static: 0, total: 1)
+Orphan StringName: Node (static: 9, total: 10)
+Orphan StringName: PackedVector2Array (static: 0, total: 1)
+Orphan StringName: Object (static: 5, total: 6)
+Orphan StringName: AABB (static: 0, total: 1)
+Orphan StringName: float (static: 1, total: 2)
+Orphan StringName: Dictionary (static: 0, total: 1)
+Orphan StringName: Projection (static: 0, total: 1)
+Orphan StringName: Rect2 (static: 0, total: 1)
+Orphan StringName: PackedVector3Array (static: 0, total: 1)
+Orphan StringName: PackedInt32Array (static: 0, total: 1)
+Orphan StringName: Rect2i (static: 0, total: 1)
+Orphan StringName: PackedInt64Array (static: 0, total: 1)
+StringName: 39 unclaimed string names at exit.

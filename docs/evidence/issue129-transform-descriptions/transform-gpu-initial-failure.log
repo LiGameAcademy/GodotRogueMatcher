@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 2070
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [C:/Users/ADMINI~1/AppData/Local/Temp/o4-transform-review/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_transform_rule_description_ui.gd
+* test_three_card_offers_fit_both_languages_and_viewports_without_mutating_run
+    [Failed]:  en_US (1024, 640) [P: (1.0, -31.5), S: (1022.0, 703.0)]
+      at line 51
+0/1 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://tests/integration/test_transform_rule_description_ui.gd
+- test_three_card_offers_fit_both_languages_and_viewports_without_mutating_run
+    [Failed]:  en_US (1024, 640) [P: (1.0, -31.5), S: (1022.0, 703.0)]
+          at line 51
+
+Totals
+------
+Scripts               1
+Tests                 1
+Passing Tests      none
+Failing Tests         1
+Asserts           88/89
+Time              2.349s
+
+
+---- 1 failing tests ----

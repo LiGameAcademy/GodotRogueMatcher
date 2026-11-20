@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-01",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "browser": "Codex in-app Chromium WebGL2 single-threaded",
+  "strict_release_source": "b947f9f",
+  "strict_release_zip_sha256": "083AE4759DF42E4522855B1AF7E4B6D88C38C381678E1635216FC79339D84B1B",
+  "stage": {
+    "source": "b947f9f",
+    "origin": "http://127.0.0.1:8983",
+    "pck_sha256": "DE82FB4C469F894ACA81225749B9F4580876962F35763FBD6B837BF7889DD2A3",
+    "harness_sha256": "EBE42453541CA06105159F2DCE2687F484A362FFFB62BA15C10F68952CC1AA79"
+  },
+  "classic": {
+    "source": "3ac9e0e",
+    "origin": "http://127.0.0.1:8984",
+    "pck_sha256": "36AFAF9CF8694CDF5493D14BEBD675054EF117CE7CFF196060F5F00276B4B97C",
+    "harness_sha256": "AA67631D916B246C713D20957F1B9F76C63ADA404A184B0B5FB358150D456257"
+  },
+  "production_code_between_sources": "git diff b947f9f 3ac9e0e -- services gameplay empty; only probe order/origin/idempotent finish and evidence changed",
+  "override": "diagnostic main_scene plus include tools; project.godot/export_presets restored original bytes in finally; strict ZIP untouched",
+  "slots": "each successful origin empty at start; same slot reused within mode; no DB clear; old8982 retained",
+  "scope": "bounded agent-only service/IndexedDB/new command segment tests, not live menus or whole O5 acceptance"
+}

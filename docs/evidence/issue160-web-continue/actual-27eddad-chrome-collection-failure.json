@@ -1,0 +1,209 @@
+{
+  "slot": {
+    "row_hash": "05b8220c66834fb329af507a9bb08dee5b6340a40ca5a5de18d9a806fb545171",
+    "revision": 3,
+    "payload_hash": "cb8f3dc195c8863fdb95786fc0eeba5f2b07c73c2174b035ea75423c67e62e77",
+    "schema": "checkpoint-web-files-v1",
+    "files": [
+      "previous.json",
+      "previous.rollback",
+      "primary.json",
+      "primary.rollback"
+    ],
+    "sealed_ok": true,
+    "generation": "3",
+    "package_schema": "run-checkpoint-package-v3",
+    "run_id": "4268877321-0-1793412849911000-3895300",
+    "point": "input",
+    "record_seq": "11",
+    "state_hash": "2aaf87ffd96aae3c982c231bdbf24ba35a164442a2808e4c6b27530c72fb03a5",
+    "phase": "1",
+    "action": "1",
+    "moves": "1",
+    "continuation": "idle",
+    "pending": "0",
+    "consumed": "0",
+    "rng": {
+      "master_seed": "4268877321",
+      "rng_scheme_version": "sl-rng-v1",
+      "streams": {
+        "effect_execution": {
+          "seed": "4846869984671249732",
+          "state": "1509155639807799942"
+        },
+        "offer_candidates": {
+          "seed": "4476334820583845046",
+          "state": "-7028221581143769200"
+        },
+        "offer_order": {
+          "seed": "5794164172913129453",
+          "state": "4897965230764310843"
+        },
+        "offer_targets": {
+          "seed": "7398057484161274117",
+          "state": "7527928954830000755"
+        },
+        "spawn_content": {
+          "seed": "7508749602533401504",
+          "state": "-9157917885970062549"
+        },
+        "spawn_position": {
+          "seed": "4354962374893132110",
+          "state": "-4640239897546165904"
+        }
+      }
+    },
+    "pieces": [
+      {
+        "color": "2",
+        "content_id": "",
+        "coordinate": [
+          "7",
+          "5"
+        ],
+        "ghost": false,
+        "id": "1"
+      },
+      {
+        "color": "1",
+        "content_id": "",
+        "coordinate": [
+          "2",
+          "2"
+        ],
+        "ghost": false,
+        "id": "2"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "3",
+          "6"
+        ],
+        "ghost": false,
+        "id": "3"
+      },
+      {
+        "color": "2",
+        "content_id": "",
+        "coordinate": [
+          "0",
+          "6"
+        ],
+        "ghost": false,
+        "id": "4"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "6",
+          "4"
+        ],
+        "ghost": false,
+        "id": "5"
+      },
+      {
+        "color": "1",
+        "content_id": "",
+        "coordinate": [
+          "7",
+          "0"
+        ],
+        "ghost": false,
+        "id": "6"
+      },
+      {
+        "color": "3",
+        "content_id": "",
+        "coordinate": [
+          "0",
+          "8"
+        ],
+        "ghost": false,
+        "id": "7"
+      },
+      {
+        "color": "0",
+        "content_id": "",
+        "coordinate": [
+          "6",
+          "0"
+        ],
+        "ghost": false,
+        "id": "8"
+      }
+    ],
+    "last_command": {
+      "buffered": false,
+      "buffered_wait_ms": "0",
+      "command_id": "1",
+      "expected_action_id": "0",
+      "piece_id": "2",
+      "run_id": "4268877321-0-1793412849911000-3895300",
+      "source": "human",
+      "target": [
+        "2",
+        "2"
+      ],
+      "type": "move"
+    }
+  },
+  "logs": [
+    {
+      "level": "log",
+      "message": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "timestamp": "2026-10-31T02:18:04.948Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+      "timestamp": "2026-10-31T02:18:05.182Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().",
+      "timestamp": "2026-10-31T02:18:07.626Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":1156800,\"frames\":9,\"freeze_usec\":0,\"maximum_gap_usec\":999900,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":28900,\"initialization_usec\":52800,\"largest_replay_slice_usec\":1600,\"payload_validation_usec\":8000,\"prefix_replay_usec\":58300},\"history_prime_usec\":27500,\"package\":{\"float_decode_usec\":3600,\"package_parse_usec\":1400,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+      "timestamp": "2026-10-31T02:18:46.226Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "CHECKPOINT_WEB_RESTORE {\"adoption_usec\":62400,\"elapsed_usec\":1156800,\"frames\":9,\"freeze_usec\":0,\"maximum_gap_usec\":999900,\"ok\":true,\"resume_prepare_usec\":0,\"stages\":{\"decode\":{\"endpoint_validation_usec\":28900,\"initialization_usec\":52800,\"largest_replay_slice_usec\":1600,\"payload_validation_usec\":8000,\"prefix_replay_usec\":58300},\"history_prime_usec\":27500,\"package\":{\"float_decode_usec\":3600,\"package_parse_usec\":1400,\"storage_sync\":{},\"storage_sync_elapsed_usec\":0}}}",
+      "timestamp": "2026-10-31T02:18:46.284Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "error",
+      "message": "WARNING: 本局分析记录不完整：web_telemetry_write_failed",
+      "timestamp": "2026-10-31T02:20:54.056Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "error",
+      "message": "   at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "timestamp": "2026-10-31T02:20:54.057Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":1471100,\"frames\":14,\"freeze_usec\":1600,\"maximum_gap_usec\":991500,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":32900,\"initialization_usec\":51400,\"largest_replay_slice_usec\":1400,\"payload_validation_usec\":6500,\"prefix_replay_usec\":91600},\"history_prime_usec\":0,\"package\":{\"save_encode_usec\":6400,\"save_prepare_usec\":11200,\"save_roundtrip_usec\":4800,\"storage_sync\":{\"filemap_encode_usec\":3700},\"storage_sync_elapsed_usec\":74400,\"store\":{\"begin_usec\":3300,\"largest_store_slice_usec\":7800,\"stage_usec\":2700}}}}",
+      "timestamp": "2026-10-31T02:20:54.461Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    },
+    {
+      "level": "log",
+      "message": "CHECKPOINT_WEB_JOB {\"elapsed_usec\":7116900,\"frames\":17,\"freeze_usec\":2100,\"maximum_gap_usec\":1033200,\"ok\":true,\"stages\":{\"decode\":{\"endpoint_validation_usec\":56700,\"initialization_usec\":44400,\"largest_replay_slice_usec\":4900,\"payload_validation_usec\":9200,\"prefix_replay_usec\":233000},\"history_prime_usec\":0,\"package\":{\"save_encode_usec\":9600,\"save_prepare_usec\":23500,\"save_roundtrip_usec\":13900,\"storage_sync\":{\"filemap_encode_usec\":5000},\"storage_sync_elapsed_usec\":21700,\"store\":{\"begin_usec\":13200,\"largest_store_slice_usec\":4900,\"stage_usec\":1400}}}}",
+      "timestamp": "2026-10-31T02:21:27.968Z",
+      "url": "http://127.0.0.1:8917/index.js"
+    }
+  ]
+}

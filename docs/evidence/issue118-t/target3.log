@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue118-t/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_t_template_geometry.gd
+[0m* test_t_resource_matches_confirmed_five_cell_template
+* test_t_rotations_and_mirrors_produce_four_unique_hits
+* test_each_missing_or_wrong_color_cell_and_clipped_edge_refuse_t
+* test_extra_same_color_does_not_extend_t_without_another_hit
+* test_long_stem_and_t_merge_before_landing_filter_and_score_union_once
+* test_shared_l_and_t_are_one_union_independent_shapes_remain_two_events
+* test_overlapping_t_hits_transitively_merge_and_template_order_is_irrelevant
+* test_t_is_opt_in_and_query_snapshots_cannot_mutate_template_or_other_runs
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_t_template_flow.gd
+[0m* test_direct_t_move_uses_same_refill_exemption_and_frozen_plan
+* test_disabled_t_does_not_match_or_skip_refill_and_full_clear_still_refills
+* test_birth_t_match_finishes_remaining_locked_tokens
+* test_batch_dye_t_and_straight_line_score_final_union_once
+* test_real_t_unlock_immediately_scans_and_does_not_enable_l
+* test_real_t_full_clear_uses_one_recovery_and_disk_replays_v42
+* test_t_and_l_unlock_orders_keep_independent_identity_and_stable_resources
+[1m7/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               2
+Tests                15
+Passing Tests        15
+Asserts             141
+Time              0.157s
+
+
+[32m---- All tests passed! ----
+[0m

@@ -55,7 +55,7 @@ func _render_colors() -> void:
 		var button: Button = colors.get_child(color) as Button
 		var count: int = target.color_groups[color].size() if color < target.color_groups.size() else 0
 		var fuses: int = target.fuse_counts[color] if color < target.fuse_counts.size() else 0
-		button.text = tr("%s · %s\n\n直接清理 %d 枚\n其中引信 %d 枚") % [tr(PieceTooltip.COLOR_NAMES[color]), [tr("圆形"), tr("方形"), tr("三角形"), tr("五边形"), tr("星形")][color], count, fuses]
+		button.text = tr("%s\n\n直接清理 %d 枚\n其中引信 %d 枚") % [tr(PieceTooltip.COLOR_NAMES[color]), count, fuses]
 		button.disabled = count == 0
 		button.set_pressed_no_signal(color == selected_color)
 		if color == selected_color: button.text = tr("✓ 已选\n") + button.text

@@ -13,13 +13,16 @@ func ui_location(value: String) -> void:
 	_ui = value
 	_refresh()
 
-func attach(projector: TelemetryProjector) -> void:
+func attach(projector: TelemetryProjector, busy_state: bool = true) -> void:
 	telemetry = projector
 	buffered_input = ""
-	_busy = true
+	_busy = busy_state
 	_choice = false
 	_paused = false
 	_ui = ""
+	if not busy_state and telemetry != null:
+		_refresh()
+		telemetry.play_started()
 
 func busy(value: bool) -> void:
 	_busy = value

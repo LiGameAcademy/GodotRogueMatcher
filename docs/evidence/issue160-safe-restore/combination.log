@@ -1,0 +1,115 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/restore-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/rules/test_run_checkpoint_codec.gd
+* test_input_payload_roundtrips_max_seed_and_isolates_object_graph
+* test_input_restore_continues_multiple_identical_commands_and_preserves_retry_cache
+* test_frozen_reward_keeps_candidates_targets_stage_plan_and_consumes_once
+* test_shape_unlock_and_empty_recovery_budget_are_reconstructed_without_bonus
+* test_unsafe_phases_closed_runs_and_unfrozen_rewards_are_rejected
+* test_held_matches_without_blasts_are_not_a_safe_checkpoint
+* test_snapshot_not_backed_by_complete_prefix_and_partial_tail_are_rejected
+* test_corruption_schema_missing_fields_and_integer_encoding_fail_without_touching_live_run
+* test_frozen_endpoint_tampering_cannot_be_hidden_by_rehashing
+* test_manifest_and_rebuild_limits_fail_explicitly
+* test_real_slot_two_generations_new_instance_and_corrupt_primary_fallback
+* test_invalidated_run_cannot_reappear_from_primary_or_backup
+* test_invalid_save_leaves_real_slot_bytes_and_source_unchanged
+* test_real_commit_failure_preserves_exact_pair_and_can_retry
+* test_malformed_frozen_targets_are_rejected_before_snapshot_traversal
+* test_frozen_before_end_reopens_from_disk_and_keeps_refill_obligation
+* test_manual_use_counts_survive_a_complete_input_checkpoint
+* test_stage_frozen_offer_roundtrips_exact_float_weights_through_real_slot
+* test_bad_storage_packages_fail_without_touching_live_run_or_slot
+19/19 passed.
+
+
+res://tests/rules/test_checkpoint_store.gd
+* test_primary_previous_frozen_values_and_64_bit_string_round_trip
+* test_stale_tickets_duplicate_commit_and_reentry
+* test_invalid_values_and_manifests_never_advance_or_write
+* test_corrupt_primary_falls_back_and_repair_preserves_original
+* test_unknown_schema_incompatible_manifest_and_both_corrupt_refuse
+* test_write_read_copy_replace_and_finish_failures_preserve_exact_old_pair
+* test_interrupted_commit_recovers_old_pair_before_loading
+* test_corrupt_journal_and_rollback_copy_fail_closed
+* test_reopen_identity_and_invalidation_override_both_generations
+* test_invalidation_failure_never_claims_success_or_reopens_old_tickets
+* test_terminal_and_corrupt_invalidation_markers_block_backup_revival
+* test_late_invalidation_error_may_have_committed_and_is_not_a_rollback
+* test_completed_old_ticket_is_rejected_after_external_invalidation
+* test_stale_owner_cannot_overwrite_a_newer_disk_generation
+* test_valid_json_checksum_damage_is_rejected_on_readback_and_load
+* test_generation_encoding_and_exhaustion_do_not_silently_normalize
+* test_real_disk_reopen_previous_and_raw_corrupt_bytes_copy
+* test_disk_read_hash_and_copy_enforce_the_same_size_limit
+* test_real_disk_commit_failure_and_interruption_restore_exact_pair
+* test_real_disk_failed_invalidation_then_verified_retry
+20/20 passed.
+
+
+res://tests/rules/test_commands_replay.gd
+* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+12/12 passed.
+
+
+res://tests/rules/test_run_random_streams.gd
+* test_fixed_vectors_and_creation_order
+* test_each_consumer_is_bound_to_its_named_stream_and_runs_are_independent
+* test_signed_64_bit_roundtrip_and_future_draws
+* test_invalid_protocol_or_missing_stream_is_rejected_without_touching_active_run
+* test_dynamic_execution_leaves_offer_streams_untouched
+* test_unique_position_and_color_do_not_draw_and_preview_is_read_only
+* test_replay_rejects_missing_protocol_and_stream_before_replacing_run
+7/7 passed.
+
+
+res://tests/rules/test_shape_unlock_replay.gd
+* test_unlock_recovery_disk_replay_and_safe_prefix_keep_budget_and_acquisition
+* test_shape_state_and_profile_tampering_are_rejected_and_v41_is_explicitly_old
+2/2 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+Totals
+------
+Scripts               5
+Tests                60
+Passing Tests        60
+Asserts            1754
+Time              10.88s
+
+
+---- All tests passed! ----

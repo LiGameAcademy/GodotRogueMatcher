@@ -12,6 +12,7 @@ extends Resource
 @export var board_signal: BoardSignalConfig
 @export var background_flow: BackgroundFlowConfig
 @export var background: Color = Color("0b0f13")
+@export var background_texture: Texture2D
 
 func validation_error() -> String:
 	if (theme_id.is_empty() or ui_theme == null or board == null or feedback == null

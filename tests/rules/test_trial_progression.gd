@@ -10,14 +10,14 @@ func after_each() -> void:
 	GameManager.reset_game(previous_run)
 
 func test_one_thousand_points_grants_four_rewards_and_progress_uses_actual_interval() -> void:
-	LevelUpSystem.reset_system()
-	assert_true(LevelUpSystem.check_level_up(1000))
+	assert_gt(GameManager.run.check_rewards(1000), 0)
 	assert_eq(LevelUpSystem.pending_rewards, 4)
 	assert_eq(LevelUpSystem.next_milestone, 1500)
 	assert_almost_eq(LevelUpSystem.get_level_progress(1000), 1.0 / 6.0, 0.0001)
-	assert_false(LevelUpSystem.check_level_up(1000))
+	assert_eq(GameManager.run.check_rewards(1000), 0)
 	assert_eq(LevelUpSystem.pending_rewards, 4)
-	LevelUpSystem.reset_system()
+	GameManager.run.state.progression = ProgressionState.new(RunController.PROGRESSION)
+	GameManager.run.state.pending_rewards = 0
 	assert_eq(LevelUpSystem.get_level_progress(0), 0.0)
 
 func test_milestones_are_strictly_increasing_including_tail() -> void:
@@ -50,7 +50,7 @@ func test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores()
 	assert_eq(run.state.ledger.total, 0)
 	assert_eq(result.matches.size(), 0)
 	assert_eq(run.state.pending_rewards, 0)
-	assert_false(SkillOfferGenerator.build_profile(run.state).has(&"thin"))
+	assert_false(SkillOfferGenerator.build_snapshot(run.state).invested.has(&"thin"))
 	assert_false(SkillRules.apply(run, offer.offer_id, definition.skill_id).success)
 
 func test_thinning_invalid_target_preserves_whole_action() -> void:

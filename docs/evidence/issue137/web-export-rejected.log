@@ -1,0 +1,1275 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+WARNING: Missing .uid file for path "res://tests/rules/test_run_random_streams.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tests/support/screening_current_records.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+WARNING: Missing .uid file for path "res://tools/ui_motion_preview/ui_motion_preview.gd". The file was re-created from cache.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1391)
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的前置操作……[39m[0m
+[   0% ] [90m[1mreimport[22m | localization.csv[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的后置操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1msavepack[22m | Started 打包中 (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://assets/fonts/OFL.txt[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.ctex[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://icon.png.import[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://ui/ui_manager.gdc[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://ui/stage_text.gdc[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn[39m[0m
+[   1% ] [90m[1msavepack[22m | 正在保存文件：res://main.gdc[39m[0m
+[   2% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-febfc7d12cdd62924e1f1d78462cef78-skill_text.scn[39m[0m
+[   2% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e1e43b4e69c9506584bfb1379ebdac08-spawn_preview.scn[39m[0m
+[   2% ] [90m[1msavepack[22m | 正在保存文件：res://ui/spawn_preview.gdc[39m[0m
+[   2% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_text.gdc[39m[0m
+[   2% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_rarity.gdc[39m[0m
+[   3% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-ea4997cce91204a368f533eb850d666c-skill_details.scn[39m[0m
+[   3% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_details.gdc[39m[0m
+[   3% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_choice_text.gdc[39m[0m
+[   3% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d342cde6738e3099035ba17cbbc794cf-skill_card.scn[39m[0m
+[   3% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_card.gdc[39m[0m
+[   4% ] [90m[1msavepack[22m | 正在保存文件：res://ui/score_tooltip.gdc[39m[0m
+[   4% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-48f87cede3d3b6b93501d9e46d5ae9bb-preview_theme.res[39m[0m
+[   4% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-4fc4d2c8eb1f0ce3cddfeea84139cd1a-popup_skill_choice.scn[39m[0m
+[   4% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_skill_choice.gdc[39m[0m
+WARNING: res://ui/item_widget.tscn:4 - ext_resource, invalid UID: uid://bityhkmnvogq6 - using text path instead: res://icon.svg
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+[   4% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-2dd07200af9fd101fa14adc6a651fcc9-popup_level_up.scn[39m[0m
+[   4% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_level_up.gdc[39m[0m
+[   5% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-857496567eeab6593d37a2e3c07e8ba1-popup_game_over.scn[39m[0m
+[   5% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_game_over.gdc[39m[0m
+WARNING: res://ui/item_widget.tscn:4 - ext_resource, invalid UID: uid://bityhkmnvogq6 - using text path instead: res://icon.svg
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: Failed loading resource: res://icon.svg.
+   at: _load (core/io/resource_loader.cpp:317)
+[   5% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-7ff43535512e4f9dcf2500ade3582a18-item_widget.scn[39m[0m
+[   5% ] [90m[1msavepack[22m | 正在保存文件：res://ui/item_widget.gdc[39m[0m
+[   5% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-abb7b6fcc0e44997116530fdc07cf8b6-item_tooltip.scn[39m[0m
+[   6% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_mechanic_icons.gdc[39m[0m
+[   6% ] [90m[1msavepack[22m | 正在保存文件：res://ui/item_tooltip.gdc[39m[0m
+[   6% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud_status_messages.gdc[39m[0m
+[   6% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud_details.gdc[39m[0m
+[   6% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-bab6eb13998c1d76cbb0c1fb3e7dc228-hud.scn[39m[0m
+[   7% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud.gdc[39m[0m
+[   7% ] [90m[1msavepack[22m | 正在保存文件：res://ui/game_theme_ui.gdc[39m[0m
+[   7% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-9b8c3a52a83ca3d6b72395c1b5de2c40-color_target_picker.scn[39m[0m
+[   7% ] [90m[1msavepack[22m | 正在保存文件：res://ui/color_target_picker.gdc[39m[0m
+[   7% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-da559b3e6b82f327a852ef7ddf0c157e-tutorial.scn[39m[0m
+[   7% ] [90m[1msavepack[22m | 正在保存文件：res://ui/tutorial/tutorial.gdc[39m[0m
+[   8% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool_text.gdc[39m[0m
+[   8% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool.gdc[39m[0m
+[   8% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-2bb61be06ef6e5df2ca3d34f012329f7-release_menu.scn[39m[0m
+[   8% ] [90m[1msavepack[22m | 正在保存文件：res://ui/release_menu/release_menu.gdc[39m[0m
+[   8% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-368544c1a48343514e72f8f550c4c2c1-playback_settings.scn[39m[0m
+[   9% ] [90m[1msavepack[22m | 正在保存文件：res://ui/playback_settings/playback_settings.gdc[39m[0m
+[   9% ] [90m[1msavepack[22m | 正在保存文件：res://ui/piece_pool/spawn_pool_text.gdc[39m[0m
+[   9% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool_query.gdc[39m[0m
+[   9% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-25f169bd15940ed9727d908191445620-skill_pool.scn[39m[0m
+[   9% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-187f0c4dda1b7010048ee675cf58ff33-piece_pool.scn[39m[0m
+[  10% ] [90m[1msavepack[22m | 正在保存文件：res://ui/piece_pool/piece_pool.gdc[39m[0m
+[  10% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-6e4dfdb15a465db32bc96b87dfa17e8f-score_mote.scn[39m[0m
+[  10% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/score_mote.gdc[39m[0m
+[  10% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/progress_glow.gdshader[39m[0m
+[  10% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress_text.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b548794922048398d2f3cef2dd8bd373-goal_progress_config.res[39m[0m
+[  11% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress_config.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-8c682fa45d8c9d6ffc9992b5c5483cee-goal_progress.scn[39m[0m
+[  11% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/audio_system/audio_manager.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/config_system/config_manager.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/entity_system/entity_manager.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/event_system/event_bus.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/config/input_config.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/config/input_config_adapter.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_buffer.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_event_processor.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_recorder.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_virtual_axis.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/input_manager.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/input_state.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/localization_system/locale_selection.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/localization_system/localization_manager.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e0f63545b1b21307f51f725e0d3329bc-localization_manager.scn[39m[0m
+[  14% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/logger/core_logger.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/resource_system/resource_manager.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/async_io_strategy.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/binary_save_strategy.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/json_save_strategy.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/resource_save_strategy.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/save_format_strategy.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/game_state_data.gdc[39m[0m
+[  16% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_manager.gdc[39m[0m
+[  16% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/base_transition.gdc[39m[0m
+[  16% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/dissolve_transition.gdc[39m[0m
+[  16% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/fade_transition.gdc[39m[0m
+[  16% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/slide_transition.gdc[39m[0m
+[  17% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/scene_base.gdc[39m[0m
+[  17% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/scene_manager.gdc[39m[0m
+[  17% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/base_state.gdc[39m[0m
+[  17% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/base_state_machine.gdc[39m[0m
+[  17% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/core_state_machine.gdc[39m[0m
+[  18% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/state_machine_manager.gdc[39m[0m
+[  18% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/tag_system/gameplay_tag.gdc[39m[0m
+[  18% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/tag_system/gameplay_tag_container.gdc[39m[0m
+[  18% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/tag_system/gameplay_tag_manager.gdc[39m[0m
+[  18% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/time_system/core_timer.gdc[39m[0m
+[  18% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/time_system/time_manager.gdc[39m[0m
+[  19% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/conditions/composite_trigger_condition.gdc[39m[0m
+[  19% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/conditions/event_type_trigger_condition.gdc[39m[0m
+[  19% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/conditions/state_trigger_condition.gdc[39m[0m
+[  19% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/gameplay_trigger.gdc[39m[0m
+[  19% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/trigger_confition.gdc[39m[0m
+[  20% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/trigger_manager.gdc[39m[0m
+[  20% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/compression/compression_strategy.gdc[39m[0m
+[  20% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/compression/gzip_compression_strategy.gdc[39m[0m
+[  20% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/compression/no_compression_strategy.gdc[39m[0m
+[  20% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/encryption/encryption_strategy.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/encryption/no_encryption_strategy.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/encryption/xor_encryption_strategy.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/serialization/json_serialization_strategy.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/serialization/serialization_strategy.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/threading/module_thread.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/threading/single_thread.gdc[39m[0m
+[  22% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/async_io_manager.gdc[39m[0m
+[  22% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/file_dir_handler.gdc[39m[0m
+[  22% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/frame_splitter.gdc[39m[0m
+[  22% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/random_picker.gdc[39m[0m
+[  22% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/core_system.gdc[39m[0m
+[  23% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-1d29153bc571bd00b7456837f1a052e7-ui_motion_config.res[39m[0m
+[  23% ] [90m[1msavepack[22m | 正在保存文件：res://ui/feedback_button/ui_motion_config.gdc[39m[0m
+[  23% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-3388b01c1ff4ab8d86a5b04566de0853-feedback_button.scn[39m[0m
+[  23% ] [90m[1msavepack[22m | 正在保存文件：res://ui/feedback_button/feedback_button.gdc[39m[0m
+[  23% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b28c59d0f593e4ba9a5e1c6f7e5ee6d7-collection_controls.scn[39m[0m
+[  24% ] [90m[1msavepack[22m | 正在保存文件：res://ui/collection_controls/collection_controls.gdc[39m[0m
+[  24% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-985aae8f808782b8c613df145ec95ebd-card_transfer.scn[39m[0m
+[  24% ] [90m[1msavepack[22m | 正在保存文件：res://ui/card_transfer/card_transfer.gdc[39m[0m
+[  24% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-7d703492fbcb9bad3631dc13307231dd-build_list.scn[39m[0m
+[  24% ] [90m[1msavepack[22m | 正在保存文件：res://ui/build_list/build_list.gdc[39m[0m
+[  25% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-6629a9bde07de44380c3f90a695dd41f-build_card.scn[39m[0m
+[  25% ] [90m[1msavepack[22m | 正在保存文件：res://ui/build_card/build_card.gdc[39m[0m
+[  25% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/color_weight_effect.gdc[39m[0m
+[  25% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/demolition_stat_effect.gdc[39m[0m
+[  25% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/dye_material_effect.gdc[39m[0m
+[  25% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/ignite_fuses_effect.gdc[39m[0m
+[  26% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_dye_upgrade_effect.gdc[39m[0m
+[  26% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_goal_bonus_effect.gdc[39m[0m
+[  26% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_line_upgrade_effect.gdc[39m[0m
+[  26% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_upgrade_effect.gdc[39m[0m
+[  26% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/percent_clear_effect.gdc[39m[0m
+[  27% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/refill_count_effect.gdc[39m[0m
+[  27% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/thin_material_effect.gdc[39m[0m
+[  27% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/transform_material_effect.gdc[39m[0m
+[  27% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/unlock_core_supply_effect.gdc[39m[0m
+[  27% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/unlock_line_supply_effect.gdc[39m[0m
+[  28% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/unlock_shape_effect.gdc[39m[0m
+[  28% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/goal_completion_rules.gdc[39m[0m
+[  28% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_config.gdc[39m[0m
+[  28% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-51ca33f6959c1a7630e447038b8ae3de-stage_config.res[39m[0m
+[  28% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_result.gdc[39m[0m
+[  28% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_state.gdc[39m[0m
+[  29% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/composite_skill_target.gdc[39m[0m
+[  29% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/level_up_system.gdc[39m[0m
+[  29% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/offer_config.gdc[39m[0m
+[  29% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/progression_config.gdc[39m[0m
+[  29% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/progression_state.gdc[39m[0m
+[  30% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/plugin.gdc[39m[0m
+[  30% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/setting.gdc[39m[0m
+[  30% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/dye_demo.gdc[39m[0m
+[  30% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/explosion_demo.gdc[39m[0m
+[  30% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/line_clear_demo.gdc[39m[0m
+[  31% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/mixed_template_demo.gdc[39m[0m
+[  31% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_write_result.gdc[39m[0m
+[  31% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/ring_template_demo.gdc[39m[0m
+[  31% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/screening_deck.gdc[39m[0m
+[  31% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock_demo.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/square_template_demo.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/transformation_demo.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/u_template_demo.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/zs_template_demo.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_config.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d84003faf88bc2f09d7e8f5b9a4369d6-dye_config.res[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_rules.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_state.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_trigger.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/composite_effect.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/explode_effect.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/line_sweep_effect.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/skill_effect.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_activation.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_definition.gdc[39m[0m
+[  33% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_effect_runner.gdc[39m[0m
+[  34% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_event.gdc[39m[0m
+[  34% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_events.gdc[39m[0m
+[  34% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_instance.gdc[39m[0m
+[  34% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_resolver.gdc[39m[0m
+[  34% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_trigger_adapter.gdc[39m[0m
+[  34% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/blast_request.gdc[39m[0m
+[  35% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/demolition_action_state.gdc[39m[0m
+[  35% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/demolition_config.gdc[39m[0m
+[  35% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/demolition_rules.gdc[39m[0m
+[  35% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/explosion_config.gdc[39m[0m
+[  35% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/explosion_state.gdc[39m[0m
+[  36% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/fuse_plant_trigger.gdc[39m[0m
+[  36% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/line_clear_config.gdc[39m[0m
+[  36% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/line_clear_rules.gdc[39m[0m
+[  36% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/line_clear_state.gdc[39m[0m
+[  36% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/manual_activation_rules.gdc[39m[0m
+[  37% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/removal_strength.gdc[39m[0m
+[  37% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/tutorial/tutorial_config.gdc[39m[0m
+[  37% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d7a9874413f05aabae88e0c8a0791506-tutorial_config.res[39m[0m
+[  37% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/tutorial/tutorial_session.gdc[39m[0m
+[  37% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/game.gdc[39m[0m
+[  37% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0d989e81c3d368cd42aec76af86711a4-game.scn[39m[0m
+[  38% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/game_reward_flow.gdc[39m[0m
+[  38% ] [90m[1msavepack[22m | 正在保存文件：res://localization/game.csv.import[39m[0m
+[  38% ] [90m[1msavepack[22m | 正在保存文件：res://localization/game.en_US.translation[39m[0m
+[  38% ] [90m[1msavepack[22m | 正在保存文件：res://localization/game.zh_CN.translation[39m[0m
+[  38% ] [90m[1msavepack[22m | 正在保存文件：res://localization/localization.csv.import[39m[0m
+[  39% ] [90m[1msavepack[22m | 正在保存文件：res://localization/localization.en_US.translation[39m[0m
+[  39% ] [90m[1msavepack[22m | 正在保存文件：res://localization/localization.zh_CN.translation[39m[0m
+[  39% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/board_observation.gdc[39m[0m
+[  39% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/collection_session.gdc[39m[0m
+[  39% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/local_jsonl_sink.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/run_collection.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-398cd176e79a4c3dfc2dc1e61557428e-run_collection.scn[39m[0m
+[  40% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_clock.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_config.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-f247f587fbff91fa30e06cf0d03fe415-telemetry_config.res[39m[0m
+[  41% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_factory.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_facts.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_projector.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_reader.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_schema.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_sink.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_summary.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_turn.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/rescue_offer_config.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/rescue_offer_rules.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/reward_offer_rules.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/reward_state.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_apply_result.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_definition.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_mark_result.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_offer.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_offer_generator.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_rules.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_target.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/activate_line_command.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_instance.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_level_definition.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/choose_skill_command.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/continue_challenge_command.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-1374cd54d88ef8f5a77c762db4e7bae8-stage_challenge.res[39m[0m
+[  45% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/recording/command_codec.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/recording/run_recorder.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/recording/run_snapshot.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/detonate_core_command.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/move_piece_command.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/run_command.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-fc59feab5597c465a53c99eb79bd16cc-classic_endless.res[39m[0m
+[  47% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/modes/game_modes.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/modes/game_mode_definition.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/replay/rule_replay.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/command_result.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/empty_board_recovery.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/game_manager.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/match_result.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_config.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b909f2ae83cfc293868cf9f2df9bf0ab-run_config.res[39m[0m
+[  48% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_controller.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_random_streams.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_state.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_step_result.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_config.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-49c7e7af10be5360d57af0a792d4c39b-spawn_config.res[39m[0m
+[  49% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_result.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_state.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_token.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/turn_result.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/scoring/legacy_score_modifiers.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/scoring/score_entry.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/conditions/always_ability_condition.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/conditions/removal_cause_condition.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e1035934bd15afe338d71b9aaea4e09a-demolition_config.res[39m[0m
+[  51% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e00a4a5d00902afed61923bfbd6602ad-explosion_config.res[39m[0m
+[  51% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-490ad79df2d19f09055769cde4f715ff-line_clear_config.res[39m[0m
+[  51% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-fa7e00658593fabba637ffcc6363fc82-on_eliminated_explosion.res[39m[0m
+[  52% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0eea94dfddeeaba1425fb9660f887459-on_eliminated_line_sweep.res[39m[0m
+[  52% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-f84b2797b827b2c5fba2a7419e4db4f3-unlock_l.res[39m[0m
+[  52% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-25556c829ec582be669ba75357d9892c-unlock_plus.res[39m[0m
+[  52% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-953b8d6ef69fc1d484e01bf7b664bd88-unlock_ring.res[39m[0m
+[  52% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-14b3ace214d60f7e41d0478752d060e4-unlock_square.res[39m[0m
+[  53% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-47365efa55e7d9b64fe8be7f9b33454a-unlock_t.res[39m[0m
+[  53% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-3d9c246105dfd7b4a2b31fe58b62dad3-unlock_u.res[39m[0m
+[  53% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-472f3235d5e1864833d2a53dd7fafe91-unlock_x.res[39m[0m
+[  53% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0818e56f14ad6dae717e3eec9336d4b5-unlock_zs.res[39m[0m
+[  53% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/scoring/score_ledger.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/demolition_demo.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/noto_sans_sc_regular.otf-28ca3a0ab3cc4aa064efdacdaf37a6af.fontdata[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://assets/fonts/noto_sans_sc_regular.otf.import[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/amplifier.svg-80e6f9f41361306a5a8471034a2b335c.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/amplifier.svg.import[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/bomb.svg-812d535d570ff90be9cfa0776ea05b96.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/bomb.svg.import[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/drill.svg-bbefe30ad831414eee3045fcaed6c1c3.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/drill.svg.import[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/dye_station.svg-ac43cd4404800aa52c930bfbfed60ae3.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/dye_station.svg.import[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/energy_core.svg-8a55a28e67d29d7fd7a9ef630651ae98.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/energy_core.svg.import[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/ether_totem.svg-26436b0c2c0526ba3286c8df7c9fe39a.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/ether_totem.svg.import[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/prism_tower.svg-0627f9e8a1a93784e71d99534124cd2d.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/prism_tower.svg.import[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/space_compressor.svg-d4619d0754da59f8a7b9fe00469924f3.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/space_compressor.svg.import[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/swapper.svg-217ed2f06c7665d23e3caadf35f0b55d.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | 正在保存文件：res://assets/icons/swapper.svg.import[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/garden_background.png-340988fbf4b517979b59d4d05672b5de.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/backgrounds/garden_background.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sweep_arrow_right.png-05825248f559371cb7b2de707bcfd8b3.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/board/sweep_arrow_right.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_attentive.png-138fee5967a7604b4ab810bcc5a6208a.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_attentive.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_blink_closed.png-67cfde20f574142a9db24235654714fb.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_blink_closed.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_focus.png-5768b93bc4b7c7c8d61cf65e2243dd9f.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_focus.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_happy.png-24ae6a17dee9b227e4bafd9fb15a4844.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_happy.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_idle.png-95a4bc97f8db23d3ac80fa39f46bfb83.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_idle.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_sad.png-2b2d992769d4ef18d5816f1e87a6322d.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_sad.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_smug.png-8e3b9f446ca8ecbdb2fe5b4a11f3e00c.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_smug.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/eyes_surprise.png-f0d1790b18a64f1a4b57df3d7fe4fc92.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/eyes_surprise.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/mouth_flat.png-392f7c6f42d4f4c0fc0eb3ea441a9f91.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/mouth_flat.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/mouth_happy.png-4299c01a84191e000bc4c92378909df3.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/mouth_happy.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/mouth_purse.png-d46cab7f22fbee9ddad945ab023208de.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/mouth_purse.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/mouth_round.png-2702155e82ecb0eadd149afe73fd8de1.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/mouth_round.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/mouth_smile.png-827a9c360f64d227ac8426d76a42a8b4.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/mouth_smile.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/mouth_smirk.png-1851438b88c64e759a678cf12a3b4411.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/faces/mouth_smirk.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/almond_body.png-46bdce001f9e0c762ab4fded74446525.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/pieces/almond_body.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/cashew_body.png-23b24971aa677cf8b3e8e35575be1923.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/pieces/cashew_body.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/peanut_body.png-d51cde035b1a27373944b0f18e6c0063.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/pieces/peanut_body.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/pistachio_body.png-40ea95cc20a31d67dd378b2d306ee96b.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/pieces/pistachio_body.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/walnut_body.png-9680884c4a958a2ae6a106a9b9b6bf3a.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/pieces/walnut_body.png.import[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_dye.svg-cdd92a0aa8539086400c6cb7001d2546.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_dye.svg.import[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_explosion.png-6591407fe1134fe023eadf20e411856f.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_explosion.png.import[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_fuse.svg-52d83c15882552e44566454e0b7c5785.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_fuse.svg.import[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_manual_sweep.svg-9199242e89a195064837cb058838cc1f.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_manual_sweep.svg.import[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_match_bonus.svg-6141a166dc8dfbade217dce0cc14c946.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_match_bonus.svg.import[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_multiplier.svg-ba797ea627182dde07c5d8e2d08895c7.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_multiplier.svg.import[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_refill_less.svg-0ab51611242cedeb03e7d5eb3a6c4f7e.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_refill_less.svg.import[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_refill_more.svg-904a6e26147fae09901177c1bde47882.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_refill_more.svg.import[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_ability_sweep.png-f8eb273a389060307fdfe751bad0d495.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_ability_sweep.png.import[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_chevron_down.png-1be0b862d4507fdbba4d183a88134ddc.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_chevron_down.png.import[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_history.png-648cd2bf2cdee09845adb291414f7fc8.ctex[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_history.png.import[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_pause.png-765f3bcd7b8f04529088af516fba7510.ctex[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_pause.png.import[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/icon_settings.png-fff936900ae5c3120f2ac2d8ca11010c.ctex[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/icon_settings.png.import[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/selection_corner_top_left.png-694d351837832bea1e564223ca523232.ctex[39m[0m
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://assets/textures/ui/selection_corner_top_left.png.import[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'ConditionInRange'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-3b812f5f67151ff706384847209a5263-amplifier_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectDestroyPieces'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  62% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-eec365f30461319f3196ee8299aa3546-bomb_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectDestroyPieces'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  63% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a32249bed749ed24b50066f2acd1ba5c-drill_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectDyePiece'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  63% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-6271e9c21eb8a952fbc817ceafc41c63-dye_station_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  63% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d8dfb12c76f8fe972b6e884c07bf77ae-energy_core_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'ConditionPieceColor'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  63% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d53e43ab507528fc4134dd4a80a5abf5-ether_totem_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  63% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-16231640811082441da1a37cbedb5220-prism_tower_effect.res[39m[0m
+[  64% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-ab86d80cf96e130df638ae610be182ab-space_compressor_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  64% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0a09f9fd121b12b24b2d323f4d86fbb9-swapper_effect.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'ConditionInRange'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  64% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-09f1c3c0ab357a138152adfed73ca15f-amplifier.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectDestroyPieces'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  64% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-931fd00b6de1208ecac4ae05260d3bd1-bomb.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectDestroyPieces'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  64% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-65cd1cb746e30d564d63e3f78a0a4407-drill.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectDyePiece'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  65% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0df346db5d4cad4911f5b28819112a2f-dye_station.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  65% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-cfec6f9cfeef9d6daf635b5824cc88a0-energy_core.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'ConditionPieceColor'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  65% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a1cf977a24ad6c4a2b2433ae1af7f7c7-ether_totem.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Cannot get class 'EffectAddScore'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  65% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-21adf76437ac2f2b139ff6783fb22b73-prism_tower.res[39m[0m
+[  65% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-4e0b18ebea1d27ffeb52ec3cf182bb7e-space_compressor.res[39m[0m
+ERROR: Cannot get class 'ConditionTiming'.
+   at: _instantiate_internal (core/object/class_db.cpp:587)
+ERROR: Attempted to assign an object into a TypedArray, that does not inherit from 'GDScript'.
+   at: _internal_validate_object (./core/variant/container_type_validate.h:130)
+ERROR: Unable to convert array index 0 from "Object" to "Object".
+   at: assign (core/variant/array.cpp:238)
+[  65% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-6df3b34b19c1aa8919ceb306dc377aeb-swapper.res[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/cell/cell.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-79493389d4156161cd625c926ead0c7e-cell.scn[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/cell/tile_surface.gdshader[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/board_match_detector.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/board_match_hit.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-9ed498ef4dada9d2ba84c42fc1ee549b-l_template.res[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/match_shape_template.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-42df5dba7c92d5a112a40bff0b0c0404-plus_template.res[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b773bfd3152ec1844eb7ff2e185050cb-ring_template.res[39m[0m
+[  66% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/shape_unlock_state.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-eb0e48310c7ef10ce5d8aa0e271aaa45-square_template.res[39m[0m
+[  67% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e5f2303394683a1ef5e03d603c258077-t_template.res[39m[0m
+[  67% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-94122c13f428381a7408f1e9cd25f93f-u_template.res[39m[0m
+[  67% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-98aff04c2551e9654313a0c8088ade08-x_template.res[39m[0m
+[  67% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-c1de5224a071e7680823106daeb78cb0-zs_template.res[39m[0m
+[  67% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gdshader[39m[0m
+[  68% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-4210960613843fb60520da1e179d985d-piece_contact_shadow.scn[39m[0m
+[  68% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/body_outline.gdshader[39m[0m
+[  68% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/chess_piece.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-fc0212512c9535ebc8133062bc75b60d-chess_piece.scn[39m[0m
+[  69% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_flash.gdshader[39m[0m
+[  69% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_idle_config.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-f4e41f30778c7237e68fc713fbe16ba1-nut_idle_config.res[39m[0m
+[  69% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_visual.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-8dff757c064a9f9165c8402bf52823b7-nut_visual.scn[39m[0m
+[  70% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_ability_visual.gdc[39m[0m
+[  70% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-2912bc29ed61980c72b1a22a4cb8cefb-piece_ability_visual.scn[39m[0m
+[  70% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_aura.gdc[39m[0m
+[  70% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-5fad451bf3c44610fd68ab9c99a5c0b4-piece_aura.scn[39m[0m
+[  70% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_marker_config.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-279cdcd19ee9355a31c3784f917ab7a2-piece_marker_config.res[39m[0m
+[  71% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_surface.gdshader[39m[0m
+[  71% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_tooltip.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_input_buffer.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_match_group.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_move_result.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_pressure.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_rules.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_run_flow.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_state.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_view.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-fdbb3d84a5c27b8a942a6926d6304c30-board_view.scn[39m[0m
+[  73% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/match_system.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece_state.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/conditions/condition_in_range.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/conditions/condition_piece_color.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/conditions/condition_timing.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/effects/effect_add_score.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/effects/effect_destroy_pieces.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/effects/effect_dye_piece.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/gameplay_condition.gdc[39m[0m
+[  75% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/gameplay_effect.gdc[39m[0m
+[  75% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/item_data.gdc[39m[0m
+[  75% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/item_effect_config.gdc[39m[0m
+[  75% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/item_registry.gdc[39m[0m
+[  75% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-93f1ecb038799130f42fd428d4c1e453-blast.res[39m[0m
+[  76% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-6e5e981b3d2333f3bd62264b00eb7527-finish.res[39m[0m
+[  76% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/game_audio_config.gdc[39m[0m
+[  76% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/manifest.json[39m[0m
+[  76% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a194eae3e45b9ce90a5c439293125e82-match.res[39m[0m
+[  76% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-70d2228c9c92850ffc93be30a09e72b6-nut_audio.res[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e97404fa16e27d0a43a9c9a9600bed81-reward.res[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0d62fd7c40b86c08b7b563b2ed82335c-select.res[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_ability_explosion_activate.wav-31a17c7da6c7399e8718c08a854fc230.sample[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_ability_explosion_activate.wav.import[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_ability_sweep_activate.wav-7ee5f51564acacb67b7e31d43cac18c7.sample[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_ability_sweep_activate.wav.import[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_board_land.wav-c6b4659047d9c964f7e80c47427a97be.sample[39m[0m
+[  77% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_board_land.wav.import[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_board_match_var01.wav-1e54ceb3ba252f20aab727cbf9dd582e.sample[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_board_match_var01.wav.import[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_board_match_var02.wav-414e7b8edb201d87efc1c2509189c5c6.sample[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_board_match_var02.wav.import[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_board_reject.wav-ae7fb806df2f791c0f68bd1716a336d2.sample[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_board_reject.wav.import[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_board_select.wav-df6286fce36c7fc3d876ee0f97a8d935.sample[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_board_select.wav.import[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_board_spawn.wav-6d0a3d391ed6af8ea9bb08f2f7a4acb5.sample[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_board_spawn.wav.import[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_ui_confirm.wav-d9b11d83cc7b588ea67a417ba8e690a5.sample[39m[0m
+[  78% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_ui_confirm.wav.import[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_ui_run_failure.wav-f395696bbd6adacd17ecb0aa26e9ee87.sample[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_ui_run_failure.wav.import[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_ui_skill_acquire.wav-492d0eaa53dff3af9d23031bb22e8eb0.sample[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_ui_skill_acquire.wav.import[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/imported/sfx_ui_skill_offer.wav-a7128445326bc1bd075a6dbd4265b986.sample[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/sfx_ui_skill_offer.wav.import[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_signal_effect/board_signal_config.gdc[39m[0m
+[  79% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_signal_effect/board_signal_effect.gdc[39m[0m
+[  80% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_signal_effect/board_signal_effect.gdshader[39m[0m
+[  80% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-88fc8dc67493c6245458e1d2998756c9-board_signal_effect.scn[39m[0m
+[  80% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/explosion_visual/explosion_visual.gdc[39m[0m
+[  80% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-2795f52c349280f7b2388897d6bcf858-explosion_visual.scn[39m[0m
+[  80% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_background/background_flow_config.gdc[39m[0m
+[  81% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_background/game_background.gdc[39m[0m
+[  81% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_background/game_background.gdshader[39m[0m
+[  81% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-bdc0b1e97a744cb9a977e3c5e7820179-game_background.scn[39m[0m
+[  81% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/board_appearance.gdc[39m[0m
+[  81% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a11d883fd1df6fc560666c8f836e2b7b-dark_instrument.res[39m[0m
+[  81% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-ec6c5b874cc7fdf6e2719efe64e7568d-dark_instrument_ui.res[39m[0m
+[  82% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/game_theme.gdc[39m[0m
+[  82% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/game_themes.gdc[39m[0m
+[  82% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-cd3e4e7c86d9ae44497ff27be93a7468-light_toy.res[39m[0m
+[  82% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-89ae4808843de09e52f3bc11fc277410-light_toy_ui.res[39m[0m
+[  82% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/line_clear_visual/line_clear_visual.gdc[39m[0m
+[  83% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a57373f91b07e8a431fbb5c82140dc55-line_clear_visual.scn[39m[0m
+[  83% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float.gdc[39m[0m
+[  83% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d48f71d43a1d34b25f9a7449a7c3e3d0-score_float.scn[39m[0m
+[  83% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float_config.gdc[39m[0m
+[  83% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-67da7520f6601441fa99aeb82f47aeaa-score_float_config.res[39m[0m
+[  84% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float_layer.gdc[39m[0m
+[  84% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-29c687f392a67e49928b9255e8a710a8-score_float_layer.scn[39m[0m
+[  84% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_juice_config.gdc[39m[0m
+[  84% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e930ed2cf0a03eac7509724c323c02e9-board_juice_config.res[39m[0m
+[  84% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_feedback.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-33434f3dbb98d5ecf0422475cfd9b79d-game_feedback.scn[39m[0m
+[  85% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_music.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-c4babac07f5075e918f42d67366ca6fb-game_music.scn[39m[0m
+[  85% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/glow_effect.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/move_path_visual.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-00853be840a6359d8e91c08fcaa32095-move_path_visual.scn[39m[0m
+[  86% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/playback_plan_builder.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/player_preferences.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_config.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-475b32edb545560294ffad69a1ad4c87-presentation_config.res[39m[0m
+[  86% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_director.gdc[39m[0m
+[  87% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-118842ae6705427cd401e1085956e8d2-presentation_director.scn[39m[0m
+[  87% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_step.gdc[39m[0m
+[  87% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-5c348e145cec1d4a39a8bd6f3fc2930e-assign_fuse.res[39m[0m
+[  87% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-8fb7e6be7a0296cc1ede76745744c9fa-blast_aftershock.res[39m[0m
+[  87% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-0bc161ebee5a70d658b6beaa40831a2d-blast_chain_bonus.res[39m[0m
+[  88% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-665a1b56329e2768b1db7b60192fa03c-blast_chain_radius.res[39m[0m
+[  88% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-5a73fec2b61caa7b73ab29ae56443e59-blast_dye.res[39m[0m
+[  88% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-df579ed2cf058ab9ea7b66d94ec3976c-blast_extra.res[39m[0m
+[  88% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-928ce91bbfa9301694299817b3e87bb3-blast_radius.res[39m[0m
+[  88% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-c90e2b2edb4ecc7197f37d2769f43f1c-blast_refill_relief.res[39m[0m
+[  88% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-9b466b15175289cc392232b4aff9a9c1-blast_reward.res[39m[0m
+[  89% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-867b6b408b7dd7331019ec78e146c5e4-chain_reward.res[39m[0m
+[  89% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-bab561cd55983ed65b4a62d869811185-color_weight_down.res[39m[0m
+[  89% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-cc3977d6790af48702a21446faf996cc-color_weight_up.res[39m[0m
+[  89% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b8b01481a9e63b093512026abaa71677-composite_clear_dye.res[39m[0m
+[  89% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-2403b4c041360f91f8c36eea3e06ee65-composite_refill_color.res[39m[0m
+[  90% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-54610c8bf82648b6203ee34c1e67ac34-core_drop.res[39m[0m
+[  90% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-60c00645ce7cca2c14f9760661225c3d-core_fuse_payload.res[39m[0m
+[  90% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b5e184a523113d2c4992d2d63ff5cd1a-core_manual_detonation.res[39m[0m
+[  90% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-8caeb154100591431d26f4177e1f67ee-core_radius.res[39m[0m
+[  90% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d4f9495b9ec9de46a7dd0ac298d73bfb-core_supply_up.res[39m[0m
+[  91% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-82f0c9a4974f5a46a59777f5437e69da-dye_chain_depth.res[39m[0m
+[  91% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-44fbc04bc47f9d2f21e4a55ae3a5dc22-dye_mark_reward.res[39m[0m
+[  91% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-5cdef779d16509bb9de0f9c82738a616-dye_target_up.res[39m[0m
+[  91% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-82206391af1dc216e02e3fd5357d1002-fuse_capacity.res[39m[0m
+[  91% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-1bb1e23a5154d739b659d26599cb1ab8-fuse_match_plant.res[39m[0m
+[  92% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-f377c7df9fa42f13bd8386ff0566afab-fuse_relay.res[39m[0m
+[  92% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-2d8c35aa0937207c0c67256cf2b1a017-goal_score_bonus.res[39m[0m
+[  92% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-97e7253d25ea8a26326387fc1a058157-instant_color_clear.res[39m[0m
+[  92% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-afb2ceaa1cd173dbd14a6088f0e8ec9d-instant_color_dye.res[39m[0m
+[  92% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b95438d96836a080bb37bea79ba36b08-instant_column_transform.res[39m[0m
+[  92% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-c6252511239942c52e831473d47bfbd1-instant_core_transform.res[39m[0m
+[  93% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-27b2aa6d6fa270dde92559455ecefa0a-instant_fuse_ignite.res[39m[0m
+[  93% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-55524b6db50ca4ede0993fafdf392b42-instant_line_clear.res[39m[0m
+[  93% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-80e5dae21ce3652ddc006f5669a5224a-instant_percent_clear.res[39m[0m
+[  93% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-ac9ced94dc94e834cd592f0ee00747ab-instant_row_transform.res[39m[0m
+[  93% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-d05e7ab544deabd1755e2c9912f46fba-instant_thin.res[39m[0m
+[  94% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-99bccbb9bfd1b04693fed12562bfc15f-line_clear_score.res[39m[0m
+[  94% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-478551bed001f6247500e46c0d171155-line_column_drop.res[39m[0m
+[  94% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-704990f008a5f4777bcf8602744d7194-line_column_span.res[39m[0m
+[  94% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-ef51456b3392f5f53a788fbe5850a4b7-line_cross_upgrade.res[39m[0m
+[  94% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e441b22982dd65ce11a8d9ac64da2c07-line_manual_clear.res[39m[0m
+[  95% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-c223038d2d8e32a68ff7871d7a329d97-line_row_drop.res[39m[0m
+[  95% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-b1bbe1c563f90f22b72aa5dab503b0d4-line_row_span.res[39m[0m
+[  95% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-47ac18eee8db53887d21eea1904dac01-longline_reward.res[39m[0m
+[  95% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-e0c145be1f359a29efbce43e737d506c-marked_reward.res[39m[0m
+[  95% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-9bdd562cbcc48d1338999a1b79eeca97-match_dye_echo.res[39m[0m
+[  95% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-65f02e60aaf11d8b9a624dccf3c21660-match_extra.res[39m[0m
+[  96% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-00777f9f117b66ea4a584ae0c2e99929-offer_config.res[39m[0m
+[  96% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a34fc0863b2546b075dc01b5d9c3beb9-precision_reward.res[39m[0m
+[  96% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-c981801794001222a1490f46c358aba8-progression_config.res[39m[0m
+[  96% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-bd48f414d57a2e2abc8a0ec25a2e6c1e-refill_less.res[39m[0m
+[  96% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-86d29ced4bea15388f8c75ea564c125e-refill_more.res[39m[0m
+[  97% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-7b7a94622abe7875d62b59b090ff97a3-relay_capacity.res[39m[0m
+[  97% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-df95f5eb97a7ac3f4356f26fd92b513d-rescue_offer_config.res[39m[0m
+[  97% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-996f140f8a8eb235e4c1a947f79afc7d-score_multiplier.res[39m[0m
+[  97% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/exported/133200997/export-a47f03f1fb81635c29c23aae620f97f1-selective_blast.res[39m[0m
+[  97% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/assign_fuse_effect.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/atomic_transform_effect.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/choice_effect.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/choice_effect_context.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/choice_effect_request.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/clear_material_effect.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/ui_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/stage_text.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://main.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://main.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_text.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/spawn_preview.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/spawn_preview.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_text.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_rarity.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_details.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_details.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_choice_text.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_card.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_card.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/score_tooltip.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/preview_theme.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_skill_choice.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_skill_choice.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_level_up.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_level_up.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_game_over.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/popup_game_over.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/item_widget.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/item_widget.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/item_tooltip.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_mechanic_icons.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/item_tooltip.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud_status_messages.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud_details.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/hud.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/game_theme_ui.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/color_target_picker.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/color_target_picker.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/tutorial/tutorial.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/tutorial/tutorial.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool_text.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/release_menu/release_menu.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/release_menu/release_menu.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/playback_settings/playback_settings.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/playback_settings/playback_settings.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/piece_pool/spawn_pool_text.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool_query.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/skill_pool/skill_pool.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/piece_pool/piece_pool.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/piece_pool/piece_pool.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/score_mote.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/score_mote.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress_text.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/goal_progress/goal_progress.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/audio_system/audio_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/config_system/config_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/entity_system/entity_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/event_system/event_bus.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/config/input_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/config/input_config_adapter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_buffer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_event_processor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_recorder.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/features/input_virtual_axis.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/input_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/input_system/input_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/localization_system/locale_selection.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/localization_system/localization_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/localization_system/localization_manager.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/logger/core_logger.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/resource_system/resource_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/async_io_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/binary_save_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/json_save_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/resource_save_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_format_strategy/save_format_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/game_state_data.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/save_system/save_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/base_transition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/dissolve_transition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/fade_transition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/transitions/slide_transition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/scene_base.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/scene_system/scene_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/base_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/base_state_machine.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/core_state_machine.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/state_machine/state_machine_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/tag_system/gameplay_tag.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/tag_system/gameplay_tag_container.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/tag_system/gameplay_tag_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/time_system/core_timer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/time_system/time_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/conditions/composite_trigger_condition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/conditions/event_type_trigger_condition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/conditions/state_trigger_condition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/gameplay_trigger.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/trigger_confition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/trigger_system/trigger_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/compression/compression_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/compression/gzip_compression_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/compression/no_compression_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/encryption/encryption_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/encryption/no_encryption_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/encryption/xor_encryption_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/serialization/json_serialization_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/io_strategies/serialization/serialization_strategy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/threading/module_thread.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/threading/single_thread.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/async_io_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/file_dir_handler.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/frame_splitter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/utils/random_picker.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/source/core_system.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/feedback_button/ui_motion_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/feedback_button/ui_motion_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/feedback_button/feedback_button.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/feedback_button/feedback_button.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/collection_controls/collection_controls.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/collection_controls/collection_controls.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/card_transfer/card_transfer.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/card_transfer/card_transfer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/build_list/build_list.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/build_list/build_list.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/build_card/build_card.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://ui/build_card/build_card.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/color_weight_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/demolition_stat_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/dye_material_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/ignite_fuses_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_dye_upgrade_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_goal_bonus_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_line_upgrade_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/install_upgrade_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/percent_clear_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/refill_count_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/thin_material_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/transform_material_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/unlock_core_supply_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/unlock_line_supply_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/unlock_shape_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/goal_completion_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/stages/stage_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/composite_skill_target.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/level_up_system.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/offer_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/progression_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/progression_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/plugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://addons/godot_core_system/setting.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/dye_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/explosion_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/line_clear_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/mixed_template_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_write_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/ring_template_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/screening_deck.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/square_template_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/transformation_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/u_template_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/zs_template_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/dye/dye_trigger.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/composite_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/explode_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/line_sweep_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/effects/skill_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_activation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_effect_runner.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_event.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_events.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_instance.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_resolver.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/ability_trigger_adapter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/blast_request.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/demolition_action_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/demolition_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/demolition_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/explosion_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/explosion_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/fuse_plant_trigger.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/line_clear_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/line_clear_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/line_clear_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/manual_activation_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/removal_strength.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/tutorial/tutorial_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/tutorial/tutorial_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/tutorial/tutorial_session.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/game.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/game.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/game_reward_flow.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/board_observation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/collection_session.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/local_jsonl_sink.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/run_collection.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/run_collection.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_clock.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_factory.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_facts.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_projector.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_reader.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_schema.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_sink.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_summary.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://services/telemetry/telemetry_turn.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/rescue_offer_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/rescue_offer_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/reward_offer_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/reward_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_apply_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_mark_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_offer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_offer_generator.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_target.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/activate_line_command.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_instance.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/skill_level_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/choose_skill_command.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/continue_challenge_command.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/modes/stage_challenge.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/recording/command_codec.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/recording/run_recorder.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/recording/run_snapshot.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/detonate_core_command.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/move_piece_command.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/commands/run_command.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/modes/classic_endless.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/modes/game_modes.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/modes/game_mode_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/replay/rule_replay.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/command_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/empty_board_recovery.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/game_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/match_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_controller.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_random_streams.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/run_step_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/spawn_token.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/run/turn_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/scoring/legacy_score_modifiers.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/scoring/score_entry.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/conditions/always_ability_condition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/conditions/removal_cause_condition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/content/demolition_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/content/explosion_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/content/line_clear_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/content/on_eliminated_explosion.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/content/on_eliminated_line_sweep.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_l.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_plus.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_ring.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_square.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_t.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_u.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_x.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/shape_unlock/unlock_zs.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/scoring/score_ledger.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/skills/debug/demolition_demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/amplifier_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/bomb_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/drill_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/dye_station_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/energy_core_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/ether_totem_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/prism_tower_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/space_compressor_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/effects/swapper_effect.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/amplifier.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/bomb.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/drill.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/dye_station.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/energy_core.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/ether_totem.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/prism_tower.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/space_compressor.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://data/item/swapper.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/cell/cell.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/cell/cell.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/board_match_detector.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/board_match_hit.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/l_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/match_shape_template.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/plus_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/ring_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/shape_unlock_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/square_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/t_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/u_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/x_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/matching/zs_template.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_contact_shadow/piece_contact_shadow.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/chess_piece.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/chess_piece.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_idle_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_idle_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/nut_visual.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_ability_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_ability_visual.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_aura.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_aura.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_marker_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_marker_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece/piece_tooltip.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_input_buffer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_match_group.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_move_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_pressure.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_rules.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_run_flow.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_view.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/board_view.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/match_system.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/board/piece_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/conditions/condition_in_range.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/conditions/condition_piece_color.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/conditions/condition_timing.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/effects/effect_add_score.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/effects/effect_destroy_pieces.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/effects/effect_dye_piece.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/gameplay_condition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/gameplay_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/item_data.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/item_effect_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/items/item_registry.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/blast.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/finish.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/game_audio_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/match.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/nut_audio.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/audio/select.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_signal_effect/board_signal_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_signal_effect/board_signal_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_signal_effect/board_signal_effect.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/explosion_visual/explosion_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/explosion_visual/explosion_visual.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_background/background_flow_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_background/game_background.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_background/game_background.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/board_appearance.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/dark_instrument.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/dark_instrument_ui.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/game_theme.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/game_themes.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/light_toy.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_theme/light_toy_ui.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/line_clear_visual/line_clear_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/line_clear_visual/line_clear_visual.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float_layer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/score_float/score_float_layer.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_juice_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/board_juice_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_feedback.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_feedback.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_music.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/game_music.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/glow_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/move_path_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/move_path_visual.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/playback_plan_builder.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/player_preferences.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_director.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_director.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/presentation/presentation_step.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/assign_fuse.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_aftershock.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_chain_bonus.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_chain_radius.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_dye.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_extra.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_radius.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_refill_relief.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/blast_reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/chain_reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/color_weight_down.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/color_weight_up.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/composite_clear_dye.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/composite_refill_color.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/core_drop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/core_fuse_payload.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/core_manual_detonation.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/core_radius.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/core_supply_up.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/dye_chain_depth.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/dye_mark_reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/dye_target_up.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/fuse_capacity.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/fuse_match_plant.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/fuse_relay.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/goal_score_bonus.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_color_clear.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_color_dye.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_column_transform.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_core_transform.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_fuse_ignite.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_line_clear.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_percent_clear.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_row_transform.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/instant_thin.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_clear_score.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_column_drop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_column_span.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_cross_upgrade.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_manual_clear.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_row_drop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/line_row_span.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/longline_reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/marked_reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/match_dye_echo.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/match_extra.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/offer_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/precision_reward.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/progression_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/refill_less.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/refill_more.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/relay_capacity.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/rescue_offer_config.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/score_multiplier.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/content/selective_blast.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/assign_fuse_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/atomic_transform_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/choice_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/choice_effect_context.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/choice_effect_request.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://gameplay/progression/effects/clear_material_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/global_script_class_cache.cfg[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://icon.png[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://.godot/uid_cache.bin[39m[0m
+导出: 使用编辑器内嵌的文本服务器数据。如果导出模板是使用不同的 ICU 版本构建的，则导出项目中的文本显示可能会出现问题！
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://icudt_godot.dat[39m[0m
+[  98% ] [90m[1msavepack[22m | 正在保存文件：res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m

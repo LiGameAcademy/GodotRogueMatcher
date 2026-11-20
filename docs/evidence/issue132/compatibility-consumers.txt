@@ -1,0 +1,299 @@
+project.godot:25:GameManager="*res://gameplay/run/game_manager.gd"
+project.godot:26:MatchSystem="*res://gameplay/board/match_system.gd"
+project.godot:27:SpawnManager="*res://gameplay/board/spawn_manager.gd"
+project.godot:28:LevelUpSystem="*res://gameplay/progression/level_up_system.gd"
+project.godot:29:ItemPlacer="*res://gameplay/items/item_placer.gd"
+project.godot:30:ItemEffectSystem="*res://gameplay/items/item_effect_system.gd"
+project.godot:32:ItemRegistry="*res://gameplay/items/item_registry.gd"
+gameplay\tutorial\tutorial_session.gd:4:## 练习拥有独立Run，不接GameManager、记录器或采集器。
+tools\ux_capture\skill_ux_capture.gd:32:	GameManager.add_score(500)
+tools\ux_capture\skill_ux_capture.gd:50:	LevelUpSystem.resolve_pending_rewards(board)
+tools\ux_capture\skill_copy_capture.gd:23:	GameManager.reset_game(run)
+tools\ux_capture\settings_capture.gd:22:	GameManager.reset_game(run)
+tools\ux_capture\score_float_capture.gd:32:	if GameManager.score != 120 or not board.run.state.rule_error.is_empty():
+tools\ux_capture\goal_progress_capture.gd:29:	GameManager.reset_game(run)
+tools\ux_capture\goal_progress_capture.gd:30:	ItemEffectSystem.placed_items.clear()
+tools\ux_capture\demolition_capture.gd:29:	GameManager.add_score(500)
+tools\ux_capture\demolition_capture.gd:49:	LevelUpSystem.resolve_pending_rewards(board)
+tools\ux_capture\game_theme_capture.gd:22:	GameManager.reset_game(run)
+tools\ux_capture\background_capture.gd:28:	GameManager.reset_game(run)
+tests\test_core_loop.gd:20:	LevelUpSystem.reset_system()
+tests\test_core_loop.gd:21:	ItemRegistry.register_all_items()
+tests\test_core_loop.gd:26:	ItemEffectSystem.placed_items.clear()
+tests\test_core_loop.gd:48:	assert_eq(GameManager.turn_count, 1)
+tests\test_core_loop.gd:49:	assert_eq(GameManager.score, 0)
+tests\test_core_loop.gd:57:	assert_eq(GameManager.turn_count, 2)
+tests\test_core_loop.gd:58:	assert_eq(GameManager.piece_count, 4)
+tests\test_core_loop.gd:68:	assert_eq(GameManager.turn_count, 1)
+tests\test_core_loop.gd:69:	assert_eq(GameManager.score, 0)
+tests\test_core_loop.gd:70:	assert_eq(GameManager.piece_count, 3)
+tests\test_core_loop.gd:81:	assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:82:	assert_eq(GameManager.piece_count, 1)
+tests\test_core_loop.gd:89:	assert_false(GameManager.is_game_over)
+tests\test_core_loop.gd:90:	assert_eq(await SpawnManager.spawn_random_pieces(board), 1)
+tests\test_core_loop.gd:91:	assert_true(GameManager.is_game_over)
+tests\test_core_loop.gd:104:	assert_eq(await SpawnManager.spawn_random_pieces(board), 3)
+tests\test_core_loop.gd:105:	assert_false(GameManager.is_game_over)
+tests\test_core_loop.gd:106:	assert_gt(GameManager.score, 0)
+tests\test_core_loop.gd:114:	assert_eq(MatchSystem.check_for_elimination(board, board.get_cell(Vector2i(2, 2))).size(), 9)
+tests\test_core_loop.gd:119:	assert_eq(MatchSystem.check_for_elimination(board, board.get_cell(Vector2i(3, 3))).size(), 0)
+tests\test_core_loop.gd:121:	assert_eq(MatchSystem.check_for_elimination(board, board.get_cell(Vector2i(4, 4))).size(), 5)
+tests\test_core_loop.gd:128:	assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:129:	assert_eq(GameManager.piece_count, 3)
+tests\test_core_loop.gd:130:	assert_eq(GameManager.turn_count, 2)
+tests\test_core_loop.gd:135:	GameManager.add_score(100)
+tests\test_core_loop.gd:136:	assert_eq(await SpawnManager.spawn_random_pieces(board), 0)
+tests\test_core_loop.gd:137:	await LevelUpSystem.resolve_pending_rewards(board)
+tests\test_core_loop.gd:140:	assert_true(GameManager.is_game_over)
+tests\test_core_loop.gd:142:	assert_eq(LevelUpSystem.pending_rewards, 1)
+tests\test_core_loop.gd:146:		var options: Array[ItemData] = LevelUpSystem.generate_options()
+tests\test_core_loop.gd:155:	GameManager.add_score(260)
+tests\test_core_loop.gd:156:	LevelUpSystem.resolve_pending_rewards(board)
+tests\test_core_loop.gd:164:	assert_true(GameManager.is_game_over)
+tests\test_core_loop.gd:166:	assert_eq(GameManager.turn_count, 1)
+tests\test_core_loop.gd:167:	assert_eq(LevelUpSystem.pending_rewards, 1)
+tests\test_core_loop.gd:173:	GameManager.add_score(123)
+tests\test_core_loop.gd:174:	LevelUpSystem.pending_rewards = 2
+tests\test_core_loop.gd:175:	GameManager.finish_game()
+tests\test_core_loop.gd:180:	assert_eq(GameManager.score, 0)
+tests\test_core_loop.gd:181:	assert_eq(GameManager.turn_count, 1)
+tests\test_core_loop.gd:182:	assert_eq(GameManager.piece_count, 5)
+tests\test_core_loop.gd:183:	assert_eq(LevelUpSystem.pending_rewards, 0)
+tests\test_core_loop.gd:184:	assert_eq(LevelUpSystem.current_level, 0)
+tests\test_core_loop.gd:185:	assert_false(GameManager.is_game_over)
+tests\test_core_loop.gd:187:	assert_eq(ItemEffectSystem.placed_items.size(), 0)
+tests\test_core_loop.gd:188:	assert_eq(LevelUpSystem.item_pools["common"].size(), 3)
+tests\test_core_loop.gd:193:	GameManager.add_score(260)
+tests\test_core_loop.gd:194:	assert_eq(LevelUpSystem.pending_rewards, 2)
+tests\test_core_loop.gd:196:	LevelUpSystem.resolve_pending_rewards(board)
+tests\test_core_loop.gd:219:	assert_eq(GameManager.piece_count, 1)
+tests\test_core_loop.gd:220:	assert_eq(LevelUpSystem.pending_rewards, 0)
+tests\test_core_loop.gd:221:	assert_false(LevelUpSystem.is_resolving)
+tests\test_core_loop.gd:241:	assert_eq(LevelUpSystem.pending_rewards, 1)
+tests\test_core_loop.gd:255:	GameManager.add_score(100)
+tests\test_core_loop.gd:256:	LevelUpSystem.resolve_pending_rewards(board)
+tests\test_core_loop.gd:265:	assert_eq(LevelUpSystem.pending_rewards, 1)
+tests\test_core_loop.gd:273:	assert_eq(LevelUpSystem.pending_rewards, 0)
+tests\test_core_loop.gd:277:	GameManager.add_score(100)
+tests\test_core_loop.gd:278:	LevelUpSystem.resolve_pending_rewards(board)
+tests\test_core_loop.gd:285:	LevelUpSystem._apply_selected_skill(old_id, &"core_drop", board, old_run, null, SkillOfferGenerator.new())
+tests\test_core_loop.gd:290:	assert_false(LevelUpSystem.is_resolving)
+tests\test_core_loop.gd:304:	assert_eq(GameManager.piece_count, board.rules.state.get_piece_count())
+tests\test_core_loop.gd:308:	var item: ItemData = ItemRegistry.create_prism_tower()
+tests\test_core_loop.gd:309:	assert_true(ItemPlacer.place_item_at(board, board.get_cell(Vector2i.ZERO), item))
+tests\test_core_loop.gd:316:	assert_eq(ItemEffectSystem.placed_items.size(), 1)
+tests\test_core_loop.gd:317:	assert_eq(GameManager.piece_count, 1)
+tests\test_core_loop.gd:326:	await GameManager.turn_started
+tests\test_core_loop.gd:328:	assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:329:	assert_eq(GameManager.turn_count, 2)
+tests\test_core_loop.gd:340:	assert_eq(GameManager.score, 0)
+tests\test_core_loop.gd:341:	assert_eq(GameManager.turn_count, 1)
+tests\test_core_loop.gd:347:	var award: Callable = func(_turn: int) -> void: GameManager.add_score(1)
+tests\test_core_loop.gd:348:	GameManager.turn_ended.connect(award, CONNECT_ONE_SHOT)
+tests\test_core_loop.gd:350:	assert_eq(GameManager.score, 1)
+tests\test_core_loop.gd:352:	assert_eq(GameManager.ledger.get_entries()[0].extra_score, 1)
+tests\test_core_loop.gd:355:	GameManager.add_score(12)
+tests\test_core_loop.gd:356:	var previous: ScoreLedger = GameManager.ledger
+tests\test_core_loop.gd:357:	watch_signals(GameManager)
+tests\test_core_loop.gd:358:	GameManager.reset_game()
+tests\test_core_loop.gd:359:	assert_signal_emitted_with_parameters(GameManager, "score_changed", [0])
+tests\test_core_loop.gd:360:	assert_eq(GameManager.score, 0)
+tests\test_core_loop.gd:361:	assert_eq(GameManager.ledger.get_entries().size(), 0)
+tests\test_core_loop.gd:362:	assert_ne(GameManager.ledger, previous)
+tests\test_core_loop.gd:371:	assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:375:	await GameManager.turn_started
+tests\test_core_loop.gd:377:	assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:378:	assert_eq(GameManager.turn_count, 2)
+tests\test_core_loop.gd:385:	watch_signals(MatchSystem)
+tests\test_core_loop.gd:388:	assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:389:	assert_signal_emit_count(MatchSystem, "match_made", 1)
+tests\test_core_loop.gd:390:	assert_eq(GameManager.ledger.get_entries().size(), 1)
+tests\test_core_loop.gd:400:		assert_eq(GameManager.score, 50)
+tests\test_core_loop.gd:401:		assert_eq(GameManager.turn_count, 2)
+tests\test_core_loop.gd:403:		assert_eq(GameManager.ledger.get_entries().size(), 1)
+tests\test_core_loop.gd:410:	GameManager.reset_game()
+tests\test_core_loop.gd:412:	GameManager.start_turn()
+tests\integration\test_telemetry_scene.gd:59:	GameManager.add_score(100)
+tests\integration\test_telemetry_scene.gd:60:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_stage_scene.gd:36:	GameManager.reset_game(run)
+tests\integration\test_stage_scene.gd:37:	ItemEffectSystem.placed_items.clear()
+tests\integration\test_stage_scene.gd:175:	assert_false(GameManager.is_game_over)
+tests\integration\test_skip_recovery.gd:73:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:82:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:92:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:98:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:109:	assert_eq(GameManager.score, 0)
+tests\integration\test_skip_recovery.gd:113:	GameManager.add_score(30)
+tests\integration\test_skip_recovery.gd:133:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:139:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:144:	assert_eq(GameManager.score, 70)
+tests\integration\test_skip_recovery.gd:159:	assert_eq(GameManager.score, 70)
+tests\integration\test_skip_recovery.gd:172:	assert_eq(GameManager.score, 0)
+tests\integration\test_skip_recovery.gd:178:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:187:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:201:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:210:	original.initialize_item(ItemRegistry.create_prism_tower())
+tests\integration\test_skip_recovery.gd:212:	ItemEffectSystem.placed_items.append(original)
+tests\integration\test_skip_recovery.gd:216:	await GameManager.turn_started
+tests\integration\test_skip_recovery.gd:222:	assert_eq(ItemEffectSystem.placed_items.size(), 1)
+tests\integration\test_skip_recovery.gd:223:	assert_same(ItemEffectSystem.placed_items[0], restored)
+tests\integration\test_skill_target_ux.gd:19:	LevelUpSystem.reset_system()
+tests\integration\test_skill_target_ux.gd:38:	LevelUpSystem.resolve_pending_rewards(board)
+tests\rules\test_trial_progression.gd:6:	previous_run = GameManager.run
+tests\rules\test_trial_progression.gd:7:	GameManager.reset_game(RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 7))
+tests\rules\test_trial_progression.gd:10:	GameManager.reset_game(previous_run)
+tests\rules\test_trial_progression.gd:13:	LevelUpSystem.reset_system()
+tests\rules\test_trial_progression.gd:14:	assert_true(LevelUpSystem.check_level_up(1000))
+tests\rules\test_trial_progression.gd:15:	assert_eq(LevelUpSystem.pending_rewards, 4)
+tests\rules\test_trial_progression.gd:16:	assert_eq(LevelUpSystem.next_milestone, 1500)
+tests\rules\test_trial_progression.gd:17:	assert_almost_eq(LevelUpSystem.get_level_progress(1000), 1.0 / 6.0, 0.0001)
+tests\rules\test_trial_progression.gd:18:	assert_false(LevelUpSystem.check_level_up(1000))
+tests\rules\test_trial_progression.gd:19:	assert_eq(LevelUpSystem.pending_rewards, 4)
+tests\rules\test_trial_progression.gd:20:	LevelUpSystem.reset_system()
+tests\rules\test_trial_progression.gd:21:	assert_eq(LevelUpSystem.get_level_progress(0), 0.0)
+tests\rules\test_trial_progression.gd:26:		var threshold: int = LevelUpSystem.CONFIG.threshold(index)
+tests\integration\test_skill_cards.gd:31:	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), MatchSystem.MIN_MATCH_COUNT), 864)
+tests\integration\test_reward_presentation.gd:18:	LevelUpSystem.reset_system()
+tests\integration\test_reward_presentation.gd:26:	GameManager.add_score(50)
+tests\integration\test_reward_presentation.gd:28:	watch_signals(GameManager)
+tests\integration\test_reward_presentation.gd:30:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_reward_presentation.gd:32:	assert_eq(GameManager.score, 100)
+tests\integration\test_reward_presentation.gd:34:	assert_eq(LevelUpSystem.pending_rewards, 1)
+tests\integration\test_reward_presentation.gd:35:	assert_signal_not_emitted(GameManager, "score_changed")
+tests\integration\test_reward_presentation.gd:43:	assert_signal_emitted_with_parameters(GameManager, "score_changed", [100])
+tests\integration\test_reward_presentation.gd:44:	assert_eq(LevelUpSystem.pending_rewards, 1)
+tests\integration\test_reward_presentation.gd:53:	GameManager.add_score(30)
+tests\integration\test_reward_presentation.gd:57:	assert_eq(GameManager.score, 100)
+tests\integration\test_reward_presentation.gd:71:	GameManager.add_score(260)
+tests\integration\test_reward_presentation.gd:83:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_reward_presentation.gd:101:	assert_eq(GameManager.score, 310)
+tests\integration\test_reward_presentation.gd:113:	GameManager.add_score(50)
+tests\integration\test_reward_presentation.gd:116:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_reward_presentation.gd:119:	assert_eq(GameManager.score, 0)
+tests\integration\test_reward_presentation.gd:120:	assert_eq(LevelUpSystem.pending_rewards, 0)
+tests\integration\test_reward_presentation.gd:121:	assert_false(LevelUpSystem.is_resolving)
+tests\integration\test_result_viewer.gd:48:	var global_before: String = RunSnapshot.digest(RunSnapshot.capture(GameManager.run))
+tests\integration\test_result_viewer.gd:57:		assert_eq(RunSnapshot.digest(RunSnapshot.capture(GameManager.run)), global_before)
+tests\integration\test_presentation_director.gd:143:		assert_eq(GameManager.score, 70)
+tests\integration\test_playback_settings.gd:55:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_input_buffer.gd:17:	LevelUpSystem.reset_system()
+tests\integration\test_input_buffer.gd:32:	await GameManager.turn_started
+tests\integration\test_input_buffer.gd:36:	assert_eq(GameManager.turn_count, 2)
+tests\integration\test_input_buffer.gd:45:	await GameManager.turn_started
+tests\integration\test_input_buffer.gd:48:	await GameManager.turn_started
+tests\integration\test_input_buffer.gd:50:	assert_eq(GameManager.turn_count, 3)
+tests\integration\test_input_buffer.gd:58:	await GameManager.turn_started
+tests\integration\test_input_buffer.gd:61:	assert_eq(GameManager.turn_count, 2)
+tests\integration\test_input_buffer.gd:70:	assert_eq(GameManager.turn_count, 1)
+tests\integration\test_input_buffer.gd:75:	GameManager.add_score(50)
+tests\integration\test_input_buffer.gd:85:	if not board.can_selected: await GameManager.turn_started
+tests\integration\test_input_buffer.gd:87:	assert_eq(GameManager.turn_count, 2)
+tests\integration\test_input_buffer.gd:96:	await GameManager.turn_started
+tests\integration\test_input_buffer.gd:98:	assert_eq(GameManager.turn_count, 2)
+tests\integration\test_hud.gd:18:	var before: int = GameManager.score
+tests\integration\test_hud.gd:26:	assert_eq(GameManager.score, before)
+tests\integration\test_game_themes.gd:76:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_game_themes.gd:150:	assert_eq(GameManager.score, 70)
+tests\integration\test_game_background.gd:113:	assert_eq(GameManager.score, 70)
+tests\integration\test_feedback_settings.gd:65:		assert_eq(GameManager.score, 70)
+tests\integration\test_feedback_settings.gd:78:	await GameManager.turn_started
+tests\integration\test_explosion_loop.gd:20:	ItemEffectSystem.placed_items.clear()
+tests\integration\test_explosion_loop.gd:33:	assert_eq(GameManager.score, 70)
+tests\integration\test_explosion_loop.gd:35:	assert_eq(GameManager.ledger.get_entries().size(), 3)
+tests\integration\test_explosion_loop.gd:36:	assert_eq(GameManager.turn_count, 2)
+tests\integration\test_explosion_loop.gd:45:		assert_eq(GameManager.score, 70)
+tests\integration\test_explosion_loop.gd:46:		var entries: Array[ScoreEntry] = GameManager.ledger.get_entries()
+tests\integration\test_explosion_loop.gd:60:	assert_eq(GameManager.score, 0)
+tests\integration\test_explosion_loop.gd:64:	assert_eq(GameManager.turn_count, 1)
+tests\integration\test_explosion_loop.gd:88:	assert_eq(await SpawnManager.spawn_random_pieces(board), 1)
+tests\integration\test_explosion_loop.gd:91:	assert_false(GameManager.is_game_over)
+tests\integration\test_expanded_skill_scene.gd:85:	GameManager.add_score(500)
+tests\integration\test_expanded_skill_scene.gd:102:	LevelUpSystem.resolve_pending_rewards(board)
+tests\integration\test_expanded_skill_scene.gd:110:	assert_eq(GameManager.score, 1000)
+tests\integration\test_command_scene.gd:75:	GameManager.reset_game(run)
+gameplay\progression\level_up_system.gd:10:	get: return GameManager.run.state.progression.level
+gameplay\progression\level_up_system.gd:11:	set(value): GameManager.run.state.progression.level = value
+gameplay\progression\level_up_system.gd:14:		return GameManager.run.state.pending_rewards
+gameplay\progression\level_up_system.gd:16:		GameManager.run.state.pending_rewards = value
+gameplay\progression\level_up_system.gd:21:	get: return GameManager.run.state.progression.next_milestone
+gameplay\progression\level_up_system.gd:22:	set(value): GameManager.run.state.progression.next_milestone = value
+gameplay\progression\level_up_system.gd:26:	get: return GameManager.run.state.progression.previous_milestone
+gameplay\progression\level_up_system.gd:27:	set(value): GameManager.run.state.progression.previous_milestone = value
+gameplay\progression\level_up_system.gd:114:	return GameManager.run.check_rewards(score) > 0
+gameplay\progression\level_up_system.gd:118:	if is_resolving or GameManager.is_game_over or not board.run.state.rule_error.is_empty():
+gameplay\progression\level_up_system.gd:123:	while not GameManager.is_game_over:
+gameplay\progression\level_up_system.gd:145:		if board.get_empty_cells().is_empty(): GameManager.finish_game()
+gameplay\game.gd:36:	GameManager.game_overed.connect(_on_game_over)
+gameplay\game.gd:37:	GameManager.score_changed.connect(hud.show_score)
+gameplay\game.gd:38:	GameManager.piece_count_changed.connect(hud.show_occupancy)
+gameplay\game.gd:39:	GameManager.turn_started.connect(_on_turn_started)
+gameplay\game.gd:96:	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
+gameplay\game.gd:165:	var popup: Control = await UIManager.open_popup("popup_game_over", {"score": GameManager.score, "summary": HudDetails.summary(active_run.state), "run_state": active_run.state, "can_continue": active_run.can_continue_challenge()})
+gameplay\game.gd:179:	release_menu.open(_has_played, preferences.tutorial_seen, preferences.low_effects, GameManager.is_game_over, board.run.state.mode_id())
+gameplay\game.gd:221:	board_rules = BoardRules.new(BoardState.new(board.cols, board.rows), MatchSystem.MIN_MATCH_COUNT)
+gameplay\game.gd:371:	if is_instance_valid(UIManager.current_popup) or GameManager.is_game_over: return
+gameplay\board\board.gd:91:	GameManager.reset_game(run)
+gameplay\board\board.gd:103:	GameManager.turn_started.emit(run.state.turn_count)
+gameplay\board\board.gd:104:	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
+gameplay\board\board.gd:111:	ItemEffectSystem.placed_items.clear()
+gameplay\board\board.gd:112:	LevelUpSystem.reset_system()
+gameplay\board\board.gd:113:	ItemRegistry.register_all_items()
+gameplay\board\board.gd:128:	ItemEffectSystem.placed_items.clear()
+gameplay\board\board.gd:129:	LevelUpSystem.reset_system()
+gameplay\board\board.gd:130:	ItemRegistry.register_all_items()
+gameplay\board\board.gd:131:	rules = BoardRules.new(BoardState.new(cols, rows), MatchSystem.MIN_MATCH_COUNT)
+gameplay\board\board.gd:133:	GameManager.reset_game(run)
+gameplay\board\board.gd:145:	GameManager.turn_started.emit(run.state.turn_count)
+gameplay\board\board.gd:158:	if not can_selected or get_tree().paused or GameManager.is_game_over:
+gameplay\board\board.gd:164:	GameManager.add_score(maxi(0, LevelUpSystem.next_milestone - GameManager.score))
+gameplay\board\board.gd:166:	await LevelUpSystem.resolve_pending_rewards(self)
+gameplay\board\board.gd:168:	if not GameManager.is_game_over and run.state.rule_error.is_empty():
+gameplay\board\board.gd:196:		ItemEffectSystem.unregister_item(piece)
+gameplay\board\board.gd:226:	ItemEffectSystem.placed_items.clear()
+gameplay\board\board.gd:229:		if is_instance_valid(piece) and piece.item_data != null: ItemEffectSystem.placed_items.append(piece)
+gameplay\board\board.gd:248:	if piece.item_data != null: ItemEffectSystem.unregister_item(piece)
+gameplay\board\board.gd:251:	if result.cause == &"match": MatchSystem.match_made.emit(result.score_entry.final_score, result.center, cells)
+gameplay\board\board.gd:260:		GameManager.publish_score()
+gameplay\board\board.gd:352:	if not can_selected or GameManager.is_game_over or not is_instance_valid(selected_piece) or target_cell == null:
+gameplay\board\board.gd:362:	if not can_selected or get_tree().paused or GameManager.is_game_over: return
+gameplay\board\board.gd:410:	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
+gameplay\board\board.gd:423:	GameManager.resume_game()
+gameplay\board\board.gd:428:	can_selected = not GameManager.is_game_over and run.state.rule_error.is_empty()
+gameplay\board\board.gd:438:	if GameManager.is_game_over or get_tree().paused or not run.state.rule_error.is_empty():
+gameplay\board\board.gd:439:		observation.resolve(observation.input("click"), "discarded", "game_over" if GameManager.is_game_over else "paused_or_error")
+gameplay\board\board.gd:488:	GameManager.piece_count = rules.state.get_piece_count()
+gameplay\items\item_registry.gd:5:## 注意：实际效果在 MatchSystem 和 SpawnManager 中实现
+gameplay\items\item_registry.gd:12:	var level_up_system = get_node_or_null("/root/LevelUpSystem")
+gameplay\items\item_registry.gd:14:		push_error("ItemRegistry: LevelUpSystem 未找到!")
+gameplay\items\item_registry.gd:27:	print("ItemRegistry: 已注册 6 个道具")
+gameplay\items\item_registry.gd:31:## 实现：MatchSystem 在计算分数时检测
+gameplay\items\item_registry.gd:41:	item.effect_config = null  # 效果在 MatchSystem 中实现
+gameplay\items\item_registry.gd:46:## 实现：MatchSystem 在计算分数时检测
+gameplay\items\item_registry.gd:56:	item.effect_config = null  # 效果在 MatchSystem 中实现
+gameplay\items\item_registry.gd:61:## 实现：ItemEffectSystem 在回合开始时触发
+gameplay\items\item_registry.gd:89:## 实现：MatchSystem 在计算分数时检测
+gameplay\items\item_registry.gd:99:	item.effect_config = null  # 效果在 MatchSystem 中实现
+gameplay\items\item_registry.gd:104:## 实现：MatchSystem 在计算分数时作为全局加成
+gameplay\items\item_registry.gd:114:	item.effect_config = null  # 效果在 MatchSystem 中实现
+gameplay\items\item_registry.gd:119:## 实现：SpawnManager 在生成球时检测
+gameplay\items\item_registry.gd:129:	item.effect_config = null  # 效果在 SpawnManager 中实现
+gameplay\items\item_placer.gd:78:		var effect_system: Node = get_node_or_null("/root/ItemEffectSystem")
+gameplay\items\item_effect_system.gd:25:	GameManager.turn_started.connect(_on_turn_started)
+gameplay\items\item_effect_system.gd:26:	GameManager.turn_ended.connect(_on_turn_ended)
+gameplay\items\item_effect_system.gd:29:	MatchSystem.match_made.connect(_on_match_made)
+gameplay\items\effects\effect_add_score.gd:22:		GameManager.add_score(bonus_score)
+gameplay\items\conditions\condition_timing.gd:7:@export var timing: ItemEffectSystem.TriggerTiming
+gameplay\items\conditions\condition_timing.gd:9:func _init(t: ItemEffectSystem.TriggerTiming) -> void:
+gameplay\items\conditions\condition_timing.gd:14:	var current_timing: ItemEffectSystem.TriggerTiming = context.get("timing", -1)
+gameplay\items\conditions\condition_timing.gd:19:		ItemEffectSystem.TriggerTiming.ON_PLACE:
+gameplay\items\conditions\condition_timing.gd:21:		ItemEffectSystem.TriggerTiming.ON_TURN_START:
+gameplay\items\conditions\condition_timing.gd:23:		ItemEffectSystem.TriggerTiming.ON_TURN_END:
+gameplay\items\conditions\condition_timing.gd:25:		ItemEffectSystem.TriggerTiming.ON_MATCH:
+gameplay\items\conditions\condition_timing.gd:27:		ItemEffectSystem.TriggerTiming.ON_MOVE:
+gameplay\board\board_run_flow.gd:13:			&"offer": await LevelUpSystem.resolve_pending_rewards(board)
+gameplay\board\board_run_flow.gd:16:				GameManager.turn_ended.emit(active.state.turn_count)
+gameplay\board\board_run_flow.gd:21:				GameManager.turn_started.emit(active.state.turn_count)
+gameplay\board\board_run_flow.gd:26:				GameManager.finish_game()
+gameplay\board\spawn_manager.gd:25:				GameManager.finish_game()
+gameplay\board\spawn_manager.gd:31:		GameManager.piece_count = board.rules.state.get_piece_count()
+gameplay\board\spawn_manager.gd:37:		GameManager.finish_game()

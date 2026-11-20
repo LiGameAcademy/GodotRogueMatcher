@@ -1,0 +1,130 @@
+{
+  "base": "7d78fd8fa26624b6ad7f81fe5c9447a60c856e54",
+  "tested_commit": "25297aa0e8ed1acb2e69729e6abc1509518e8010",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "platform": "Windows",
+  "regression": {
+    "scripts": 3,
+    "tests": 28,
+    "passed": 28,
+    "assertions": 622,
+    "exit_code": 0,
+    "started": "2026-10-29T19:08:14.4626497+08:00",
+    "ended": "2026-10-29T19:08:57.1627045+08:00"
+  },
+  "cli": {
+    "files": 3,
+    "source_bytes": 3664699,
+    "events": 1057,
+    "choices": 7,
+    "exit_code": 0,
+    "wall_ms": 8392,
+    "bounded": {
+      "complete": true,
+      "elapsed_ms": 3592,
+      "input_files": 3,
+      "inspected_files": 3,
+      "maximum_elapsed_ms": 60000,
+      "maximum_files": 4096,
+      "maximum_line_bytes": 1048576,
+      "maximum_observation_events": 20000,
+      "maximum_retained_bytes": 33554432,
+      "maximum_run_bytes": 16777216,
+      "omitted_diagnostics": 0,
+      "peak_run_input_bytes": 1531782,
+      "processed_runs": 3,
+      "protocol": "per-run-shards-v1",
+      "retained_budget_protocol": "compact-records-v1",
+      "retained_observation_bytes": 43426,
+      "retained_observation_events": 14,
+      "retained_summary_bytes": 5155,
+      "shards": [
+        {
+          "events": 418,
+          "input_bytes": 1531782,
+          "path": "runs/652877c8c4f5c27866fe6ad6c886cd86d30f40e7d647c97024e20880caaa5050",
+          "run_id": "1000-50992-1793270448382000-4472374"
+        },
+        {
+          "events": 335,
+          "input_bytes": 1130854,
+          "path": "runs/a3454c3272a946707cdd31470ae19240a20a32c1f2ef2b4d4987d81607876fc7",
+          "run_id": "1001-50992-1793270458223000-14313959"
+        },
+        {
+          "events": 304,
+          "input_bytes": 1002063,
+          "path": "runs/d0c73932dec9ce5bd3dbc0d49be7c2a6b313b3fc2cc7c2ac76e2733448883710",
+          "run_id": "1002-50992-1793270464495000-20585788"
+        }
+      ],
+      "uninspected_files": 0
+    },
+    "equivalence_fields": [
+      "runs",
+      "events",
+      "groups",
+      "opportunities",
+      "errors"
+    ],
+    "all_equal": true
+  },
+  "review": "authorized read-only reviewer APPROVE after case-insensitive shard and exact byte ledger fixes",
+  "files": [
+    {
+      "path": "tests/rules/test_bounded_analysis.gd",
+      "sha256": "8e0842bb933571717c50f43fa15809b1a5b9c4bcc6bd3dc7050bfa9effdcd793"
+    },
+    {
+      "path": "tests/rules/test_bounded_analysis.gd.uid",
+      "sha256": "b5d8ac2d59a38d0a5013c3bf2055ee4945a838c3227125f4b2be3de941840d66"
+    },
+    {
+      "path": "tools/telemetry_analysis/analysis_cli.gd",
+      "sha256": "2429749f36259872b77805b1beda5759758d9c6c4a89516dad613b72798b4ab0"
+    },
+    {
+      "path": "tools/telemetry_analysis/bounded_analysis.gd",
+      "sha256": "fe7bf7680dbdc4fd2408d269e242e88478530f48c75dc3d200094a342337965a"
+    },
+    {
+      "path": "tools/telemetry_analysis/bounded_analysis.gd.uid",
+      "sha256": "5126202627537487028a7466ed6d5212c00cc3ceba5dfc043ee733a87bdf2e84"
+    },
+    {
+      "path": "tools/telemetry_analysis/bounded_observation.gd",
+      "sha256": "8081ee8c90ea5d53f4e0e9ea700aff007554313f2342befe1cf88ce112b5c07e"
+    },
+    {
+      "path": "tools/telemetry_analysis/bounded_observation.gd.uid",
+      "sha256": "e3f801e6e53b57a94856e6bc88ec697eeb76bc7f87d4f0fb1479c54153e157f4"
+    }
+  ],
+  "limitations": [
+    "old 450 source unavailable at checked paths; root cause not reproduced",
+    "no 450 natural runs",
+    "compact serialized budget is not RSS hard cap",
+    "cooperative deadline is not OS hard timeout",
+    "sharded root is not a flat model_import directory"
+  ],
+  "combined": {
+    "base": "849d4d8e38a06d625e51bd8ebfcf35af35d3ca43",
+    "tested_commit": "3d69183139b36e57c362cb0b672078daa1cd9dda",
+    "own_scripts_unchanged": true,
+    "scripts": 2,
+    "tests": 15,
+    "passed": 15,
+    "assertions": 515,
+    "exit_code": 0,
+    "cli_exit_code": 0,
+    "equivalence_exit_code": 0
+  },
+  "latest_combination": {
+    "base": "e3e3f978ad0ae9f0555756475c7392862c594036",
+    "tested_commit": "147af41e5d2fa5a33c0b37057d19ecf10114b98b",
+    "own_scripts_unchanged": true,
+    "cli_exit_code": 0,
+    "equivalence_exit_code": 0,
+    "scope": "class-cache import and actual three-file CLI only; no repeated unit suite"
+  }
+}

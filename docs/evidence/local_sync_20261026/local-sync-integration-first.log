@@ -1,0 +1,237 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/nut-audio-130/.godot/local-sync-integration/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_aesthetic_acceptance.gd
+* test_actual_closed_loops_preserve_rules_across_normal_and_low_effects
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_real_reward_popup_unlocks_l_and_restores_input
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+    --- Awaiting callable to return TRUE or 6.0s.   ---
+* test_three_real_card_types_fit_and_can_be_chosen_bilingually
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_flash_reaches_visible_nut_and_is_isolated_from_other_instances_and_template
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_empty_build_hint_uses_full_width_then_returns_to_three_columns
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_legacy_v43_replay_and_flavor_do_not_change_rule_configuration
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_legacy_debug_keys_cannot_escape_acceptance_fixture
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+* test_pause_locale_and_menu_restore_keep_icon_header_at_small_viewport
+    --- Awaiting callable to return TRUE or 5.0s.   ---
+    [Failed]:  ["继续 / ESC"] expected to equal [""]:
+      at line 179
+    [Failed]:  ["暂停 / ESC"] expected to equal ["继续 / ESC"]:
+      at line 180
+    [Failed]:  [94.0] expected to be <= than [44.0]:
+      at line 181
+    [Failed]:  ["暂停 / ESC"] expected to equal [""]:
+      at line 179
+    [Failed]:  [94.0] expected to be <= than [44.0]:
+      at line 181
+    [Failed]:  ["暂停 / ESC"] expected to equal [""]:
+      at line 184
+    [Failed]:  ["Resume / ESC"] expected to equal [""]:
+      at line 179
+    [Failed]:  ["Pause / ESC"] expected to equal ["Resume / ESC"]:
+      at line 180
+    [Failed]:  [120.0] expected to be <= than [44.0]:
+      at line 181
+    [Failed]:  ["Pause / ESC"] expected to equal [""]:
+      at line 179
+    [Failed]:  [106.0] expected to be <= than [44.0]:
+      at line 181
+    [Failed]:  ["Pause / ESC"] expected to equal [""]:
+      at line 184
+7/8 passed.
+
+
+res://tests/integration/test_board_juice.gd
+* test_piece_flash_isolated_from_other_instance_and_template
+* test_tile_highlight_isolated_from_other_instance_and_template
+* test_birth_keeps_ghost_alpha_and_never_modifies_rule_piece
+* test_cancel_move_clears_path_and_keeps_committed_rules
+* test_selection_pulse_pauses_and_low_effects_stops_motion
+5/5 passed.
+
+
+res://tests/integration/test_board_signal.gd
+* test_toggle_does_not_change_snapshot_geometry_or_input_surface
+* test_pause_freezes_clock_fast_does_not_accelerate_and_low_effects_hide_it
+* test_instance_materials_and_template_are_isolated
+* test_settings_preference_round_trip_and_disabled_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:12:53] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = false
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.0
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false
+[2026-10-26T17:12:53] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T17:12:53] [INFO] Config file saved to 'user://test_board_signal.cfg'.
+[2026-10-26T17:12:53] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_board_signal.cfg'.
+* test_real_sweep_and_retry_keep_exact_replay_and_reset_effect
+5/5 passed.
+
+
+res://tests/integration/test_board_view.gd
+* test_standalone_view_renders_without_external_parent_state
+* test_click_only_emits_coordinate_without_moving_rules
+* test_rebuilding_display_preserves_rule_ids_and_colors
+* test_animation_consumes_already_committed_move_result
+* test_rebuild_cancels_old_animation_without_altering_rule_state
+* test_two_views_do_not_share_mutable_materials
+* test_special_tooltips_follow_current_ability_configuration
+* test_tooltip_moves_with_piece_and_is_disabled_before_departure
+* test_rebuild_does_not_reuse_old_run_tooltip_for_same_piece_id
+* test_dye_step_changes_visual_color_before_following_match_without_rule_mutation
+* test_sweep_removals_animate_without_mutating_rules_and_show_truthful_tooltip
+11/11 passed.
+
+
+res://tests/integration/test_build_cards.gd
+* test_build_lists_only_active_skills_and_keeps_level_and_remaining_refills
+* test_build_and_formula_use_player_words_and_display_preserves_run
+* test_all_acquired_cards_fit_horizontal_width_and_styles_are_isolated
+* test_manual_card_keeps_zero_uses_and_refreshes_localization_without_mutation
+4/4 passed.
+
+
+res://tests/integration/test_choice_visual_layout.gd
+* test_three_two_one_choices_both_themes_languages_and_viewports_fit_without_rule_changes
+* test_selected_and_unavailable_state_survives_locale_and_theme_changes
+* test_deselect_restores_surface_and_other_card_style_is_unchanged
+3/3 passed.
+
+
+res://tests/integration/test_command_scene.gd
+* test_human_fast_scene_and_headless_command_have_same_state
+* test_human_slow_scene_and_headless_command_have_same_state
+* test_retry_preserves_earned_reward_state_in_old_record
+* test_fixture_restart_preserves_old_record
+4/4 passed.
+
+
+res://tests/integration/test_composite_contract_scene.gd
+* test_t09_partial_result_normal_presentation_and_duplicate_confirmation
+* test_t09_partial_result_fast_and_low_effects_preserves_rules
+* test_t09_error_locks_input_retry_retires_run_and_old_callback
+* test_s08_frozen_blast_strength_normal_presentation
+* test_s08_frozen_blast_strength_fast_low_effects
+5/5 passed.
+
+
+res://tests/integration/test_conversion_scene.gd
+* test_f12_offer_confirms_and_transforms_same_nodes_with_exact_file_replay
+* test_transform_plan_copies_snapshots_and_low_effects_preserve_nodes
+2/2 passed.
+
+
+res://tests/integration/test_core_preview_color.gd
+* test_skill_core_freezes_weighted_color_and_displays_it_before_selection
+* test_real_board_spawn_animation_and_rebuild_preserve_all_preview_colors
+* test_invalid_frozen_core_color_rejects_without_consuming_choice
+* test_core_budget_preflight_uses_frozen_blue_color
+* test_normal_commands_replay_non_green_skill_core
+5/5 passed.
+
+
+res://tests/integration/test_expanded_skill_scene.gd
+* test_popup_shows_frozen_colors_counts_and_hud_shows_actual_generation_state
+* test_clear_then_blast_presentation_aligns_rule_and_view_at_two_speeds
+* test_skill_clear_chain_finishes_and_score_arrives_before_next_reward_popup
+3/3 passed.
+
+
+res://tests/integration/test_explosion_loop.gd
+* test_f6_demo_loads_markers_and_real_move_resolves_two_generations
+* test_two_playback_speeds_keep_chain_scores_and_targets_identical
+* test_retry_while_explosion_move_is_playing_drops_old_abilities
+* test_birth_fault_stops_scene_input_without_full_board_game_over
+4/4 passed.
+
+
+res://tests/integration/test_feedback_settings.gd
+* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:13:30] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T17:13:30] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.
+[2026-10-26T17:13:30] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_feedback_settings.cfg'.
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad
+[2026-10-26T17:13:30] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad
+* test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
+* test_effect_toggle_during_movement_does_not_cancel_required_tween
+* test_muting_cue_dedup_and_retry_stop_plugin_players
+* test_finished_player_reused_by_other_caller_survives_game_cancel
+* test_reborrow_before_finished_keeps_original_player_mode
+* test_environment_and_particle_resources_are_instance_local
+* test_explicit_rejection_is_audible_but_blank_click_is_not
+8/8 passed.
+
+
+res://tests/integration/test_game_background.gd
+* test_settings_save_and_invalid_value_falls_back_to_default
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:13:34] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = false
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T17:13:34] [INFO] Config file saved to 'user://test_background.cfg'.
+[2026-10-26T17:13:34] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_background.cfg'.
+[2026-10-26T17:13:34] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = invalid
+* test_clock_freezes_on_pause_and_fast_playback_does_not_multiply_it
+* test_disabled_and_reduced_effects_keep_static_background_and_rule_state
+* test_materials_and_shared_presets_are_not_mutated_by_other_instances
+* test_real_score_and_retry_are_visual_only_and_replay_stays_exact
+* test_settings_toggle_preserves_pause_and_rules
+* test_saved_theme_is_applied_before_initial_spawn_yields
+7/7 passed.
+
+
+res://tests/integration/test_game_layout.gd
+* test_real_board_edges_fit_ui_area_at_multiple_window_sizes
+* test_settings_fit_both_languages_at_supported_sizes_without_changing_run
+* test_scaled_corner_picking_and_move_use_same_grid_coordinates
+* test_mode_menu_fits_supported_viewport_in_both_languages
+* test_maximum_five_piece_preview_fits_panel_at_supported_sizes_in_both_languages
+5/5 passed.
+
+
+res://tests/integration/test_game_themes.gd
+* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T17:13:39] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument
+[2026-10-26T17:13:39] [INFO] Config file saved to 'user://test_game_theme.cfg'.
+[2026-10-26T17:13:39] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[2026-10-26T17:13:39] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams

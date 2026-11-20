@@ -73,7 +73,22 @@ func test_deterministic_branches_replan_and_keep_legal_target_levels() -> void:
 	assert_true(second.compare(prefix, choices[0].skill_id, choices[1].skill_id, 20, "random", 11), second.error)
 	assert_eq(first.report, second.report)
 	assert_true(first.report.known)
-	assert_null(first.report.target_trigger_count)
+	assert_typeof(first.report.target_trigger_count, TYPE_INT)
+	assert_true(first.report.target_trigger_count >= 0)
+	assert_typeof(first.report.target_trigger_attempts, TYPE_INT)
+	assert_true(first.report.target_trigger_attempts >= first.report.target_trigger_count)
+	assert_true(first.report.has("target_trigger_rate"))
+	assert_eq(first.report.branches[0].target_trigger_count, first.report.target_trigger_count)
+	assert_eq(first.report.branches[0].target_trigger_attempts, first.report.target_trigger_attempts)
+	assert_true(first.report.has("target_trigger_mode"))
+	assert_true(first.report.has("target_install_uses"))
+	assert_typeof(first.report.target_install_uses, TYPE_INT)
+	if int(first.report.target_trigger_attempts) > 0:
+		assert_eq(first.report.target_trigger_missing_reason, "")
+	else:
+		assert_ne(first.report.target_trigger_missing_reason, "")
+		assert_true(first.report.target_trigger_missing_reason in [
+			"install_effect_not_recurring", "manual_unused", "no_in_scope_attempt"])
 	assert_eq(first.branches[0].state.rewards.acquired.get(choices[0].skill_id, 0), first.report.level)
 	assert_eq(first.branches[1].state.rewards.acquired.get(choices[0].skill_id, 0), first.report.level_before)
 	for run: RunController in first.branches:

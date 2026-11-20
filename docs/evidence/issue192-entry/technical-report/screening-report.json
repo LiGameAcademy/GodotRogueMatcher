@@ -1,0 +1,373 @@
+{
+  "configurations": [
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 0,
+      "config_id": "screening-baseline-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 0
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 0,
+      "config_id": "screening-l-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 0
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 0,
+      "config_id": "screening-t-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 4
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 0,
+      "config_id": "screening-plus-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 0
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 0,
+      "config_id": "screening-x-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 0
+    },
+    {
+      "annotated_human_trials": 0,
+      "automated_records": 0,
+      "config_id": "screening-zs-v1",
+      "human_comprehension": null,
+      "natural_encounter_rate": null,
+      "screening_decision": null,
+      "valid_records": 0
+    }
+  ],
+  "diagnostics": [],
+  "duplicate_files": 0,
+  "fixed_task_accuracy": [],
+  "observation_template": {
+    "decisions": [
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-baseline-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-l-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-t-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-plus-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-x-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      },
+      {
+        "author_confirmed": null,
+        "build": null,
+        "config_hash": null,
+        "config_id": "screening-zs-v1",
+        "decision": null,
+        "evidence_run_ids": null,
+        "reason": null
+      }
+    ],
+    "observations": [
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-31044-1793266325999000-8333112",
+        "use_case": null,
+        "willing_again": null
+      },
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-31044-1793266330253000-12586321",
+        "use_case": null,
+        "willing_again": null
+      },
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-31044-1793266333839000-16172571",
+        "use_case": null,
+        "willing_again": null
+      },
+      {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "run_id": "119-31044-1793266337792000-20125707",
+        "use_case": null,
+        "willing_again": null
+      }
+    ],
+    "schema": "screening-observations-v1"
+  },
+  "runs": [
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": 2515.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "res://docs/evidence/issue192-entry/119-31044-1793266325999000-8333112.jsonl",
+      "run_id": "119-31044-1793266325999000-8333112",
+      "score": 126,
+      "seed": "119",
+      "sha256": "feec5c549f09ba7664b12f3eca919061c32b6ed369140324b2f8aa34f6f559b6",
+      "sidecar_sha256": "5be166fcc3ee638700f6cf0142fcbad19c5728f353c30e253ad9a7970fb5efbc",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": 1863.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "res://docs/evidence/issue192-entry/119-31044-1793266330253000-12586321.jsonl",
+      "run_id": "119-31044-1793266330253000-12586321",
+      "score": 126,
+      "seed": "119",
+      "sha256": "5ac4b309c7c8d991dc9c7f9a1473399dd23f3755233378919237e935e6018a26",
+      "sidecar_sha256": "d293ee478bddeb11113595b7b70e56e3ad17e21d331489ec5dbebb6f3f409368",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": 2180.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "res://docs/evidence/issue192-entry/119-31044-1793266333839000-16172571.jsonl",
+      "run_id": "119-31044-1793266333839000-16172571",
+      "score": 126,
+      "seed": "119",
+      "sha256": "edbe530d9a8018b199e21aac0724925222f3cc12e4da789e694e6c0dbf63f465",
+      "sidecar_sha256": "bb36b32f56ac382805a762cb92f027d661b49c57a06b4e436dfe576f0531f3e7",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    },
+    {
+      "actions": 1,
+      "build": "development",
+      "config_hash": "85309ed44898fa77bc1e83c528b77ca81b42293cfcf561653085dd5a93687834",
+      "config_id": "screening-t-v1",
+      "elapsed_ms": 1827.0,
+      "human": {
+        "explanation_count": null,
+        "interference": null,
+        "notes": null,
+        "participant": null,
+        "planned_layout": null,
+        "prediction_correct": null,
+        "role": null,
+        "round": null,
+        "use_case": null,
+        "willing_again": null
+      },
+      "metrics": {
+        "births_by_source": {},
+        "births_in_window": 0,
+        "by_source": {
+          "direct_move": {
+            "events": 1,
+            "removed": 9,
+            "score": 126
+          }
+        },
+        "match_events": 1,
+        "net_empty_cells": 9,
+        "removed_unique_entities": 9,
+        "shape_event_counts": {
+          "line": 1,
+          "t": 1
+        }
+      },
+      "reason": "screening_fixed_complete",
+      "record": "res://docs/evidence/issue192-entry/119-31044-1793266337792000-20125707.jsonl",
+      "run_id": "119-31044-1793266337792000-20125707",
+      "score": 126,
+      "seed": "119",
+      "sha256": "0229836214ab64004d0fa336e6a8e6459d705ccf94a6c0ea8b6218d8ba28634a",
+      "sidecar_sha256": "57754ddb473dfb7ef08ca97c9d3b94c5a9615f28a6188236df5f94f5a65cac5e",
+      "source_kind": "human_unobserved",
+      "status": "censored",
+      "task": "overlap",
+      "warnings": [],
+      "window_complete": true
+    }
+  ],
+  "schema": "screening-report-v1"
+}

@@ -1,0 +1,577 @@
+[
+  {
+    "script": "res://tests/integration/test_board_juice.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_board_signal.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_board_view.gd",
+    "passing": 11,
+    "total": 11
+  },
+  {
+    "script": "res://tests/integration/test_build_cards.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_command_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_composite_contract_scene.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_conversion_scene.gd",
+    "passing": 2,
+    "total": 2
+  },
+  {
+    "script": "res://tests/integration/test_core_preview_color.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_expanded_skill_scene.gd",
+    "passing": 3,
+    "total": 3
+  },
+  {
+    "script": "res://tests/integration/test_explosion_loop.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_feedback_settings.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/integration/test_game_background.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/integration/test_game_layout.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_game_themes.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/integration/test_goal_progress.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_hud.gd",
+    "passing": 13,
+    "total": 13
+  },
+  {
+    "script": "res://tests/integration/test_input_buffer.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/integration/test_line_clear_visual.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/integration/test_localization.gd",
+    "passing": 3,
+    "total": 3
+  },
+  {
+    "script": "res://tests/integration/test_manual_line_scene.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/integration/test_playback_settings.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/integration/test_plus_template_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_presentation_director.gd",
+    "passing": 13,
+    "total": 13
+  },
+  {
+    "script": "res://tests/integration/test_refill_lifecycle.gd",
+    "passing": 2,
+    "total": 2
+  },
+  {
+    "script": "res://tests/integration/test_release_flow.gd",
+    "passing": 8,
+    "total": 8
+  },
+  {
+    "script": "res://tests/integration/test_result_viewer.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_reward_coordination.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/integration/test_reward_presentation.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_ring_playground.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_ring_template_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_score_floats.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/integration/test_shape_unlock_scene.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_skill_card_selection.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/integration/test_skill_cards.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_skill_instance_cards.gd",
+    "passing": 1,
+    "total": 1
+  },
+  {
+    "script": "res://tests/integration/test_skill_pool.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/integration/test_skill_target_ux.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/integration/test_skip_recovery.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/integration/test_stage_scene.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/integration/test_t_template_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_telemetry_scene.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/integration/test_u_playground.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_u_template_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_x_template_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/integration/test_zs_playground.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/integration/test_zs_template_scene.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/rules/test_ability_composite_effects.gd",
+    "passing": 8,
+    "total": 8
+  },
+  {
+    "script": "res://tests/rules/test_ability_events.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_ability_triggers.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/rules/test_board_rules.gd",
+    "passing": 12,
+    "total": 12
+  },
+  {
+    "script": "res://tests/rules/test_catalog_skill_pipeline.gd",
+    "passing": 2,
+    "total": 2
+  },
+  {
+    "script": "res://tests/rules/test_collection_batches.gd",
+    "passing": 2,
+    "total": 2
+  },
+  {
+    "script": "res://tests/rules/test_collection_lifecycle.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_commands_replay.gd",
+    "passing": 12,
+    "total": 12
+  },
+  {
+    "script": "res://tests/rules/test_composite_boundaries.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/rules/test_composite_contracts.gd",
+    "passing": 13,
+    "total": 13
+  },
+  {
+    "script": "res://tests/rules/test_composite_empty_dye.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/rules/test_composite_offer_lifecycle.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_composite_preview.gd",
+    "passing": 3,
+    "total": 3
+  },
+  {
+    "script": "res://tests/rules/test_composite_score_events.gd",
+    "passing": 2,
+    "total": 2
+  },
+  {
+    "script": "res://tests/rules/test_continue_challenge.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/rules/test_demolition_build.gd",
+    "passing": 15,
+    "total": 15
+  },
+  {
+    "script": "res://tests/rules/test_dye_rules.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_dynamic_transform_preflight.gd",
+    "passing": 3,
+    "total": 3
+  },
+  {
+    "script": "res://tests/rules/test_empty_board_recovery.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_expanded_skills.gd",
+    "passing": 12,
+    "total": 12
+  },
+  {
+    "script": "res://tests/rules/test_explosion_rules.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_followup_strength.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_forest_clear_score.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_goal_score_bonus.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_legacy_item_isolation.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_line_build_completion.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/rules/test_line_clear_drop.gd",
+    "passing": 3,
+    "total": 3
+  },
+  {
+    "script": "res://tests/rules/test_line_clear_removal.gd",
+    "passing": 14,
+    "total": 14
+  },
+  {
+    "script": "res://tests/rules/test_line_cross.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_line_score_availability.gd",
+    "passing": 3,
+    "total": 3
+  },
+  {
+    "script": "res://tests/rules/test_line_span.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/rules/test_manual_line_clear.gd",
+    "passing": 12,
+    "total": 12
+  },
+  {
+    "script": "res://tests/rules/test_manual_use_limit.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/rules/test_paired_windows.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_percent_clear.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/rules/test_plus_template_flow.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_plus_template_geometry.gd",
+    "passing": 8,
+    "total": 8
+  },
+  {
+    "script": "res://tests/rules/test_pressure_loop.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_pressure_offers.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_reward_waiting_rules.gd",
+    "passing": 8,
+    "total": 8
+  },
+  {
+    "script": "res://tests/rules/test_ring_template_flow.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_ring_template_geometry.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_run_controller.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_score_ledger.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/rules/test_shape_flow_integration.gd",
+    "passing": 12,
+    "total": 12
+  },
+  {
+    "script": "res://tests/rules/test_shape_match_detector.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_shape_unlock_composites.gd",
+    "passing": 6,
+    "total": 6
+  },
+  {
+    "script": "res://tests/rules/test_shape_unlock_lifecycle.gd",
+    "passing": 7,
+    "total": 7
+  },
+  {
+    "script": "res://tests/rules/test_shape_unlock_replay.gd",
+    "passing": 2,
+    "total": 2
+  },
+  {
+    "script": "res://tests/rules/test_skill_action_migration.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/rules/test_skill_instances.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_skill_recording.gd",
+    "passing": 4,
+    "total": 4
+  },
+  {
+    "script": "res://tests/rules/test_skill_rewards.gd",
+    "passing": 11,
+    "total": 11
+  },
+  {
+    "script": "res://tests/rules/test_spawn_preview.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_special_conversion.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_stage_challenge.gd",
+    "passing": 15,
+    "total": 15
+  },
+  {
+    "script": "res://tests/rules/test_t_template_flow.gd",
+    "passing": 8,
+    "total": 8
+  },
+  {
+    "script": "res://tests/rules/test_t_template_geometry.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_target_freeze.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/rules/test_telemetry.gd",
+    "passing": 13,
+    "total": 13
+  },
+  {
+    "script": "res://tests/rules/test_trial_progression.gd",
+    "passing": 5,
+    "total": 5
+  },
+  {
+    "script": "res://tests/rules/test_trigger_strength.gd",
+    "passing": 12,
+    "total": 12
+  },
+  {
+    "script": "res://tests/rules/test_u_template_flow.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_u_template_geometry.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_x_template_flow.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_x_template_geometry.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/rules/test_zs_template_flow.gd",
+    "passing": 10,
+    "total": 10
+  },
+  {
+    "script": "res://tests/rules/test_zs_template_geometry.gd",
+    "passing": 9,
+    "total": 9
+  },
+  {
+    "script": "res://tests/test_core_loop.gd",
+    "passing": 26,
+    "total": 26
+  }
+]

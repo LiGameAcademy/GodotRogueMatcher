@@ -181,8 +181,17 @@ func test_lost_movement_completion_times_out_and_recovers_without_rule_replay() 
 	assert_true(board.load_explosion_demo())
 	board.director.config = board.director.config.duplicate() as PresentationConfig
 	board.director.config.step_timeout_seconds = 0.1
+	# The accepted move clears selection, so retain the moving view before submitting it.
+	var moving: ChessPiece = board.get_cell(Vector2i(5, 5)).piece
+	assert_not_null(moving)
+	if moving == null:
+		return
 	_start_move(0.05)
-	board.selected_piece.tween.kill()
+	var motion: Tween = moving.tween
+	assert_true(motion != null and motion.is_running())
+	if motion == null or not motion.is_running():
+		return
+	motion.kill()
 	assert_false(board.can_selected)
 	await GameManager.turn_started
 	await wait_process_frames(2)
@@ -204,12 +213,13 @@ func test_compatibility_change_survives_two_queued_batches() -> void:
 	assert_eq(board.rules.state.get_piece_id(Vector2i(8, 8)), extra.piece_id)
 	_assert_display_matches_rules()
 
-func test_final_alignment_rebuild_restores_legacy_item_mapping_without_placement() -> void:
+func test_final_alignment_restores_rule_identity_color_and_ability_markers() -> void:
 	assert_true(board.load_explosion_demo())
 	var original: ChessPiece = BoardView.PIECE_SCENE.instantiate() as ChessPiece
-	original.initialize_item(ItemRegistry.create_prism_tower())
+	original.piece_type = 2
 	assert_true(board.place_piece(Vector2i(8, 8), original))
-	ItemEffectSystem.placed_items.append(original)
+	assert_true(board.run.abilities.assign_fuse(original.piece_id))
+	board.refresh_ability_markers()
 	var id: int = original.piece_id
 	_start_move(0.05)
 	original.is_ghost = true
@@ -217,8 +227,8 @@ func test_final_alignment_rebuild_restores_legacy_item_mapping_without_placement
 	await wait_process_frames(2)
 	var restored: ChessPiece = board.view.get_piece(id)
 	assert_false(is_instance_valid(original))
-	assert_not_null(restored.item_data)
+	assert_eq(restored.piece_type, 2)
 	assert_false(restored.is_ghost)
-	assert_eq(ItemEffectSystem.placed_items.size(), 1)
-	assert_same(ItemEffectSystem.placed_items[0], restored)
+	assert_true(board.run.state.explosion.instances.has(id))
+	assert_eq(restored.ability_marker.text, "引")
 	_assert_display_matches_rules()

@@ -28,11 +28,11 @@ func receive(clicked: Vector2i, view: BoardView, state: BoardState, observation:
 		piece_id = id
 		coordinate = clicked
 		cell.highlight_path()
-		return "下一枚棋子已暂存"
+		return "hud.status.piece_queued"
 	elif piece_id != 0:
 		if target != Vector2i(-1, -1):
 			observation.cancel_buffer("overwritten")
 			observation.buffered_input = observation.input("move", true)
 		target = clicked
-		return "下一步移动已暂存，结算后验证"
+		return "hud.status.move_queued"
 	return ""

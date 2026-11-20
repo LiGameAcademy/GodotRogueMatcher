@@ -1,0 +1,13 @@
+{
+  "details": {
+    "confirmed_hash": "2453f43632436e6c0038b8e269d166fb259677957abe9cc97b3d5d2e12fccca0",
+    "confirmed_point_restored": true,
+    "mode": "stage_challenge",
+    "origin": "http://127.0.0.1:8994",
+    "phase": "refresh_after_withheld_parent_ack",
+    "real_transaction_abort": true
+  },
+  "ok": true,
+  "reason": "",
+  "scope": "bounded agent-driven actual Game/menu/Board candidate, accelerated presentation; not default rollout or human acceptance"
+}

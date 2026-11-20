@@ -1,0 +1,182 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/execution/o5-restore-independent-v2/.godot/adoption-optimization-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/integration/test_resume_collection_flow.gd
+[0m* test_actual_menu_resume_has_one_logical_run_no_provisional_start_and_ready_input_observation
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":215710,"frames":1122,"freeze_usec":0,"maximum_gap_usec":6817,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":55843,"elapsed_usec":215710,"frames":1122,"freeze_usec":0,"maximum_gap_usec":6817,"ok":true,"resume_prepare_usec":17337}
+[33m    748 Orphans[0m
+[33m        * [Piece:<Node2D#311485794563>(chess_piece.gd)] + 19
+        * [Cell:(0, 0)(cell.gd)] + 7
+        * [@Node2D@165:(5, 7)(cell.gd)] + 7
+        * [@Node2D@164:(5, 6)(cell.gd)] + 7
+        * [@Node2D@163:(5, 5)(cell.gd)] + 7
+        * [@Node2D@162:(5, 4)(cell.gd)] + 7
+        * [@Node2D@161:(5, 3)(cell.gd)] + 7
+        * [@Node2D@160:(5, 2)(cell.gd)] + 7
+        * [@Node2D@159:(5, 1)(cell.gd)] + 7
+        * [@Node2D@158:(5, 0)(cell.gd)] + 7
+        * [@Node2D@157:(4, 8)(cell.gd)] + 7
+        * [@Node2D@156:(4, 7)(cell.gd)] + 7
+        * [@Node2D@155:(4, 6)(cell.gd)] + 7
+        * [@Node2D@154:(4, 5)(cell.gd)] + 7
+        * [@Node2D@153:(4, 4)(cell.gd)] + 7
+        * [@Node2D@152:(4, 3)(cell.gd)] + 7
+        * [@Node2D@151:(4, 2)(cell.gd)] + 7
+        * [@Node2D@150:(4, 1)(cell.gd)] + 7
+        * [@Node2D@149:(4, 0)(cell.gd)] + 7
+        * [@Node2D@148:(3, 8)(cell.gd)] + 7
+        * [@Node2D@147:(3, 7)(cell.gd)] + 7
+        * [@Node2D@146:(3, 6)(cell.gd)] + 7
+        * [@Node2D@145:(3, 5)(cell.gd)] + 7
+        * [@Node2D@144:(3, 4)(cell.gd)] + 7
+        * [@Node2D@143:(3, 3)(cell.gd)] + 7
+        * [@Node2D@142:(3, 2)(cell.gd)] + 7
+        * [@Node2D@141:(3, 1)(cell.gd)] + 7
+        * [@Node2D@140:(3, 0)(cell.gd)] + 7
+        * [@Node2D@139:(2, 8)(cell.gd)] + 7
+        * [@Node2D@138:(2, 7)(cell.gd)] + 7
+        * [@Node2D@137:(2, 6)(cell.gd)] + 7
+        * [@Node2D@136:(2, 5)(cell.gd)] + 7
+        * [@Node2D@135:(2, 4)(cell.gd)] + 7
+        * [@Node2D@134:(2, 3)(cell.gd)] + 7
+        * [@Node2D@133:(2, 2)(cell.gd)] + 7
+        * [@Node2D@132:(2, 1)(cell.gd)] + 7
+        * [@Node2D@131:(2, 0)(cell.gd)] + 7
+        * [@Node2D@130:(1, 8)(cell.gd)] + 7
+        * [@Node2D@129:(1, 7)(cell.gd)] + 7
+        * [@Node2D@128:(1, 6)(cell.gd)] + 7
+        * [@Node2D@127:(1, 5)(cell.gd)] + 7
+        * [@Node2D@126:(1, 4)(cell.gd)] + 7
+        * [@Node2D@125:(1, 3)(cell.gd)] + 7
+        * [@Node2D@124:(1, 2)(cell.gd)] + 7
+        * [@Node2D@123:(1, 1)(cell.gd)] + 7
+        * [@Node2D@122:(1, 0)(cell.gd)] + 7
+        * [@Node2D@121:(0, 8)(cell.gd)] + 7
+        * [@Node2D@120:(0, 7)(cell.gd)] + 7
+        * [@Node2D@119:(0, 6)(cell.gd)] + 7
+        * [@Node2D@118:(0, 5)(cell.gd)] + 7
+        * [@Node2D@117:(0, 4)(cell.gd)] + 7
+        * [@Node2D@116:(0, 3)(cell.gd)] + 7
+        * [@Node2D@115:(0, 2)(cell.gd)] + 7
+        * [@Node2D@114:(0, 1)(cell.gd)] + 7
+        * [@Node2D@166:(5, 8)(cell.gd)] + 7
+        * [@Node2D@167:(6, 0)(cell.gd)] + 7
+        * [@Node2D@168:(6, 1)(cell.gd)] + 7
+        * [@Node2D@169:(6, 2)(cell.gd)] + 7
+        * [@Node2D@170:(6, 3)(cell.gd)] + 7
+        * [@Node2D@171:(6, 4)(cell.gd)] + 7
+        * [@Node2D@172:(6, 5)(cell.gd)] + 7
+        * [@Node2D@173:(6, 6)(cell.gd)] + 7
+        * [@Node2D@174:(6, 7)(cell.gd)] + 7
+        * [@Node2D@175:(6, 8)(cell.gd)] + 7
+        * [@Node2D@176:(7, 0)(cell.gd)] + 7
+        * [@Node2D@177:(7, 1)(cell.gd)] + 7
+        * [@Node2D@178:(7, 2)(cell.gd)] + 7
+        * [@Node2D@179:(7, 3)(cell.gd)] + 7
+        * [@Node2D@180:(7, 4)(cell.gd)] + 7
+        * [@Node2D@181:(7, 5)(cell.gd)] + 7
+        * [@Node2D@182:(7, 6)(cell.gd)] + 7
+        * [@Node2D@183:(7, 7)(cell.gd)] + 7
+        * [@Node2D@184:(7, 8)(cell.gd)] + 7
+        * [@Node2D@185:(8, 0)(cell.gd)] + 7
+        * [@Node2D@186:(8, 1)(cell.gd)] + 7
+        * [@Node2D@187:(8, 2)(cell.gd)] + 7
+        * [@Node2D@188:(8, 3)(cell.gd)] + 7
+        * [@Node2D@189:(8, 4)(cell.gd)] + 7
+        * [@Node2D@190:(8, 5)(cell.gd)] + 7
+        * [@Node2D@191:(8, 6)(cell.gd)] + 7
+        * [@Node2D@192:(8, 7)(cell.gd)] + 7
+        * [@Node2D@193:(8, 8)(cell.gd)] + 7
+        * [Piece:<Node2D#312609870555>(chess_piece.gd)] + 19
+        * [Piece:<Node2D#313666835196>(chess_piece.gd)] + 19
+        * [Piece:<Node2D#314723799835>(chess_piece.gd)] + 19
+        * [Piece:<Node2D#315780764474>(chess_piece.gd)] + 19[0m
+[33m748 orphans[0m
+[1m1/1 passed.
+[0m[4m
+
+res://tests/integration/test_desktop_checkpoint_flow.gd
+[0m* test_real_continue_button_binds_input_state_and_rebuilds_without_rule_commits
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":173085,"frames":960,"freeze_usec":0,"maximum_gap_usec":6228,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":28450,"elapsed_usec":173085,"frames":960,"freeze_usec":0,"maximum_gap_usec":6228,"ok":true,"resume_prepare_usec":2}
+* test_frozen_continue_shows_original_offer_and_old_popup_callback_cannot_choose_twice
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":687236,"frames":3607,"freeze_usec":0,"maximum_gap_usec":11572,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":59919,"elapsed_usec":687236,"frames":3607,"freeze_usec":0,"maximum_gap_usec":11572,"ok":true,"resume_prepare_usec":2}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":646092,"frames":3687,"freeze_usec":0,"maximum_gap_usec":6406,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":189292,"elapsed_usec":646092,"frames":3687,"freeze_usec":0,"maximum_gap_usec":6406,"ok":true,"resume_prepare_usec":1}
+* test_cancelled_load_keeps_single_worker_through_new_action_and_rejects_reentry
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":193374,"frames":955,"freeze_usec":42574,"maximum_gap_usec":55894,"ok":true}
+* test_exit_save_can_be_cancelled_without_releasing_worker_ownership
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":172918,"frames":1110,"freeze_usec":0,"maximum_gap_usec":5917,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":22939,"elapsed_usec":172918,"frames":1110,"freeze_usec":0,"maximum_gap_usec":5917,"ok":true,"resume_prepare_usec":1}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":496491,"frames":2543,"freeze_usec":1797,"maximum_gap_usec":5318,"ok":true}
+* test_exit_failure_keeps_old_file_and_retry_reaches_the_exit_signal
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":143678,"frames":1042,"freeze_usec":0,"maximum_gap_usec":2942,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":24904,"elapsed_usec":143678,"frames":1042,"freeze_usec":0,"maximum_gap_usec":2942,"ok":true,"resume_prepare_usec":0}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":126627,"frames":688,"freeze_usec":1508,"maximum_gap_usec":3949,"ok":false}
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":186924,"frames":910,"freeze_usec":1694,"maximum_gap_usec":5983,"ok":true}
+* test_new_run_requires_confirmation_and_old_identity_is_invalid_before_new_save
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":183730,"frames":527,"freeze_usec":31134,"maximum_gap_usec":78774,"ok":true}
+* test_pending_challenge_victory_can_continue_and_save_same_run
+* test_old_movement_and_buffered_callbacks_cannot_modify_adopted_run
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":179898,"frames":390,"freeze_usec":0,"maximum_gap_usec":67844,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":26754,"elapsed_usec":179898,"frames":390,"freeze_usec":0,"maximum_gap_usec":67844,"ok":true,"resume_prepare_usec":1}
+* test_real_full_board_terminal_failure_is_visible_and_retry_finishes_durable_invalidation
+* test_new_run_can_finish_persisted_pending_invalidation_after_restart
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":215579,"frames":600,"freeze_usec":29208,"maximum_gap_usec":76101,"ok":true}
+* test_rule_corrupt_primary_real_continue_button_reports_fallback_and_adopts_original_snapshot
+CHECKPOINT_DESKTOP_JOB {"elapsed_usec":148959,"frames":1111,"freeze_usec":0,"maximum_gap_usec":2945,"ok":true}
+CHECKPOINT_DESKTOP_RESTORE {"adoption_usec":21368,"elapsed_usec":148959,"frames":1111,"freeze_usec":0,"maximum_gap_usec":2945,"ok":true,"resume_prepare_usec":1}
+[1m11/11 passed.
+[0m[4m
+
+res://tests/integration/test_game_themes.gd
+[0m* test_presets_and_saved_preference_round_trip_and_invalid_value_fallback
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config is already empty and unmodified, reset_config skipped.[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = false[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = false[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.7[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = false[39m[0m
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = dark_instrument[39m[0m
+[38;2;255;255;255m[2026-10-30T13:48:54] [INFO] Config file saved to 'user://test_game_theme.cfg'.[39m[0m
+[38;2;255;255;255m[2026-10-30T13:48:54] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.[39m[0m
+Config loaded successfully from 'user://test_game_theme.cfg'.
+[38;2;169;169;169m[2026-10-30T13:48:54] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = missing[39m[0m
+* test_switching_in_settings_preserves_pause_focus_rules_and_random_streams
+* test_switching_retains_offer_selected_card_and_confirmation
+* test_both_themes_keep_panel_and_button_boundaries_without_focus
+* test_shader_instances_and_templates_stay_isolated_across_views
+* test_switch_during_real_move_keeps_barrier_and_exact_file_replay
+* test_retry_and_new_catalog_cards_inherit_theme_without_resetting_filters
+[1m7/7 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               3
+Tests                19
+Passing Tests        19
+Asserts             261
+Time              23.368s
+
+
+[32m---- All tests passed! ----
+[0m

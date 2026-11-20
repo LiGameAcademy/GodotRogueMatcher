@@ -1,0 +1,117 @@
+[
+  {
+    "path": "gameplay/board/board.gd",
+    "before": 493,
+    "after": 472
+  },
+  {
+    "path": "gameplay/board/match_system.gd",
+    "before": 18,
+    "after": 15
+  },
+  {
+    "path": "gameplay/board/spawn_manager.gd",
+    "before": 39,
+    "after": null
+  },
+  {
+    "path": "gameplay/items/conditions/condition_timing.gd",
+    "before": 30,
+    "after": 30
+  },
+  {
+    "path": "gameplay/items/effects/effect_add_score.gd",
+    "before": 37,
+    "after": 39
+  },
+  {
+    "path": "gameplay/items/effects/effect_destroy_pieces.gd",
+    "before": 93,
+    "after": 32
+  },
+  {
+    "path": "gameplay/items/effects/effect_dye_piece.gd",
+    "before": 100,
+    "after": 37
+  },
+  {
+    "path": "gameplay/items/item_effect_config.gd",
+    "before": 39,
+    "after": 41
+  },
+  {
+    "path": "gameplay/items/item_effect_system.gd",
+    "before": 186,
+    "after": null
+  },
+  {
+    "path": "gameplay/items/item_placer.gd",
+    "before": 106,
+    "after": null
+  },
+  {
+    "path": "gameplay/items/item_registry.gd",
+    "before": 130,
+    "after": 107
+  },
+  {
+    "path": "gameplay/progression/level_up_system.gd",
+    "before": 170,
+    "after": 38
+  },
+  {
+    "path": "tests/integration/test_explosion_loop.gd",
+    "before": 92,
+    "after": 95
+  },
+  {
+    "path": "tests/integration/test_input_buffer.gd",
+    "before": 116,
+    "after": 115
+  },
+  {
+    "path": "tests/integration/test_refill_lifecycle.gd",
+    "before": null,
+    "after": 76
+  },
+  {
+    "path": "tests/integration/test_reward_presentation.gd",
+    "before": 124,
+    "after": 123
+  },
+  {
+    "path": "tests/integration/test_skill_target_ux.gd",
+    "before": 181,
+    "after": 180
+  },
+  {
+    "path": "tests/integration/test_skip_recovery.gd",
+    "before": 224,
+    "after": 225
+  },
+  {
+    "path": "tests/integration/test_stage_scene.gd",
+    "before": 189,
+    "after": 188
+  },
+  {
+    "path": "tests/rules/test_legacy_item_isolation.gd",
+    "before": null,
+    "after": 73
+  },
+  {
+    "path": "tests/rules/test_trial_progression.gd",
+    "before": 91,
+    "after": 89
+  },
+  {
+    "path": "tests/test_core_loop.gd",
+    "before": 449,
+    "after": 448
+  },
+  {
+    "path": "tools/ux_capture/goal_progress_capture.gd",
+    "before": 77,
+    "after": 76
+  }
+]

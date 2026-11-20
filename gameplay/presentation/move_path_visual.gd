@@ -1,6 +1,8 @@
 class_name MovePathVisual
 extends Node2D
 
+## Draws a read-only preview or committed path; reached segments fade in place.
+
 @export var config: BoardJuiceConfig = preload("res://gameplay/presentation/board_juice_config.tres")
 var _points: PackedVector2Array = PackedVector2Array()
 var _reached: int = 0
@@ -20,9 +22,10 @@ func clear() -> void:
 
 func _draw() -> void:
 	if _points.size() < 2: return
-	draw_polyline(_points, Color(config.path_color, 0.3), 3.0, true)
+	for segment: int in range(1, _points.size()):
+		draw_line(_points[segment - 1], _points[segment], Color(config.path_color, 0.08 if segment <= _reached else 0.3), 3.0, true)
 	for index: int in range(1, _points.size()):
-		var color: Color = Color(config.path_color, 0.8 if index <= _reached else 0.45)
+		var color: Color = Color(config.path_color, 0.1 if index <= _reached else 0.45)
 		draw_circle(_points[index], 3.0, color, true, -1.0, true)
 		var direction: Vector2 = (_points[index] - _points[index - 1]).normalized()
 		var center: Vector2 = (_points[index] + _points[index - 1]) * 0.5

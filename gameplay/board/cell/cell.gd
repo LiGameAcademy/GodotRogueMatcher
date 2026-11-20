@@ -11,10 +11,13 @@ class_name Cell
 @export var path_highlight_color: Color = Color("74ddcf")
 @export var hover_color: Color = Color("1c2e40")
 var coordinate: Vector2i = Vector2i.ZERO
+var _shadow_direction: Vector2 = Vector2.ZERO
 var low_effects: bool = false
 var is_path_highlighted: bool = false
 var is_hovered: bool = false
 var _selected: bool = false
+var _reachable: bool = false
+var _shape_hit: bool = false
 var _surface: ShaderMaterial
 var _flash: Tween
 
@@ -24,6 +27,7 @@ var piece: ChessPiece:
 
 signal pressed(cell: Cell)
 signal activated(cell: Cell)
+signal hover_changed(cell: Cell, hovered: bool)
 
 func _ready() -> void:
 	_surface = background.material.duplicate() as ShaderMaterial
@@ -43,9 +47,15 @@ func apply_game_theme(appearance: BoardAppearance) -> void:
 	_surface.set_shader_parameter("rounding", appearance.cell_rounding)
 	_refresh_style()
 
+## Positions the cell and stores the cast direction from the board's visual light.
+func layout(at: Vector2, light: Vector2) -> void:
+	position = at
+	_shadow_direction = (at - light).normalized()
+
 func show_piece(display_piece: ChessPiece) -> void:
 	display_piece.name = "Piece"
 	add_child(display_piece)
+	display_piece.set_shadow_direction(_shadow_direction)
 
 func take_piece() -> ChessPiece:
 	var display_piece: ChessPiece = piece
@@ -54,8 +64,7 @@ func take_piece() -> ChessPiece:
 
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
-	if _flash != null and _flash.is_valid(): _flash.kill()
-	background.modulate = Color.WHITE
+	clear_feedback()
 	_refresh_style()
 
 func highlight() -> void:
@@ -71,6 +80,44 @@ func unhighlight() -> void:
 	is_path_highlighted = false
 	_refresh_style()
 
+## Marks a legal destination without changing selection or occupancy.
+func set_reachable(enabled: bool) -> void:
+	_reachable = enabled
+	_refresh_style()
+
+## Brief local rejection; remains readable with reduced effects.
+func reject_feedback() -> void:
+	_flash_feedback(Color(1.25, 0.72, 0.72), 0.16)
+
+## Marks a committed hit in both effect modes, with no input or playback wait.
+func show_match_hit(shaped: bool) -> void:
+	_flash_feedback(Color(1.24, 1.16, 0.88), 0.16)
+	if shaped:
+		_shape_hit = true
+		_refresh_style()
+		_flash.finished.connect(_clear_shape_hit)
+
+## Adds a short accent to a committed landing in the full effects mode.
+func show_arrival() -> void:
+	if not low_effects: _flash_feedback(Color(1.14, 1.14, 1.14), 0.10)
+
+## Cancels transient color before a rebuild, skip or effect-mode change.
+func clear_feedback() -> void:
+	if _flash != null and _flash.is_valid(): _flash.kill()
+	background.modulate = Color.WHITE
+	_clear_shape_hit()
+
+func _flash_feedback(color: Color, duration: float) -> void:
+	clear_feedback()
+	background.modulate = color
+	_flash = create_tween()
+	_flash.tween_property(background, "modulate", Color.WHITE, duration)
+
+func _clear_shape_hit() -> void:
+	if not _shape_hit: return
+	_shape_hit = false
+	_refresh_style()
+
 func _refresh_style() -> void:
 	if _surface == null: return
 	var edge: Color = default_border_color
@@ -81,33 +128,31 @@ func _refresh_style() -> void:
 	elif _selected:
 		background.color = highlight_bg_color
 		edge = highlight_glow_color
+	elif _reachable:
+		background.color = default_bg_color.lerp(highlight_bg_color, 0.35)
+		edge = default_border_color.lerp(path_highlight_color, 0.5)
 	elif is_hovered:
 		background.color = hover_color
 		edge = Color("618899")
+	if _shape_hit: edge = Color("fce4a5")
 	_surface.set_shader_parameter("edge_color", edge)
 
 func _on_mouse_entered() -> void:
 	is_hovered = true
+	hover_changed.emit(self, true)
 	_refresh_style()
 
 func _on_mouse_exited() -> void:
 	is_hovered = false
+	hover_changed.emit(self, false)
 	_refresh_style()
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		var button: InputEventMouseButton = event as InputEventMouseButton
 		if button.button_index == MOUSE_BUTTON_LEFT and button.pressed:
-			_click_feedback()
 			if button.double_click: activated.emit(self)
 			else: pressed.emit(self)
-
-func _click_feedback() -> void:
-	if low_effects: return
-	if _flash != null and _flash.is_valid(): _flash.kill()
-	background.modulate = Color(1.15, 1.15, 1.15, 1.0)
-	_flash = create_tween()
-	_flash.tween_property(background, "modulate", Color.WHITE, 0.12)
 
 func _to_string() -> String:
 	return name + ":" + str(coordinate)

@@ -1,0 +1,1019 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[1m[INFO]:  [0musing [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/godot-rogue-matcher/.godot/issue135-review/target-sandbox/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+[4m
+
+res://tests/rules/test_ability_composite_effects.gd
+[0m* test_leaf2_reads_state_after_leaf1_commit
+* test_clear_then_dye_defers_descendant_blasts_until_composite_done
+* test_fixed_target_reject_fails_before_mutating
+* test_fixed_target_skip_drops_invalid_ids
+* test_composite_validation_rejects_cycle_depth_and_empty
+* test_acceptance_skill_uses_generic_apply_without_skill_id_branch
+* test_single_leaf_core_drop_still_applies_through_runner
+* test_composite_clear_color_picker_reads_clear_leaf_groups
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_ability_events.gd
+[0m* test_duplicate_event_and_completion_never_repeat_unlimited_ability
+* test_failed_application_does_not_consume_and_empty_policy_is_explicit
+* test_event_source_is_frozen_twice_and_does_not_query_removed_board_piece
+* test_shuffled_events_and_listeners_have_stable_generation_source_ability_order
+* test_all_any_not_and_always_only_query_and_do_not_consume_rng
+* test_invalid_event_cause_composition_or_depth_is_diagnostic
+* test_reset_invalidates_old_bus_events_and_pending_completion
+* test_invalid_batch_is_rejected_before_reserving_or_consuming_any_instance
+* test_real_empty_manual_detonation_keeps_action_cost_and_consumes_once
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_ability_triggers.gd
+[0m* test_resource_composes_core_trigger_conditions_and_independent_effect
+* test_instances_own_counts_without_mutating_shared_trigger_or_global_rng
+* test_wrong_owner_event_or_cause_never_consumes_trigger_count
+* test_changing_only_condition_changes_real_resolver_trigger
+* test_unsupported_condition_refuses_entire_batch_before_board_or_score_commit
+* test_cyclic_or_missing_condition_is_a_diagnostic_not_recursive_evaluation
+* test_configuration_and_snapshot_include_trigger_parameters_and_instance_counts
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_board_rules.gd
+[0m* test_invalid_moves_do_not_mutate_state_or_random_stream
+* test_four_neighbor_path_never_moves_diagonally
+* test_blocked_corner_rejects_diagonal_escape
+* test_path_detours_around_occupied_cell
+* test_rectangular_board_uses_columns_for_x_and_rows_for_y
+* test_four_is_not_a_match_and_long_lines_are_complete
+* test_both_diagonal_directions_match
+* test_t15_independent_lines_remain_two_groups
+* test_t16_crossed_lines_merge_nine_unique_ids
+* test_bridge_line_merges_multiple_existing_groups
+* test_failed_placement_does_not_consume_entity_id
+* test_snapshots_and_two_boards_are_isolated
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_catalog_skill_pipeline.gd
+[0m* test_every_catalog_card_uses_command_pipeline_and_records_all_score_events
+* test_all_declared_level_upgrades_use_frozen_targets_and_preserve_instance
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_collection_batches.gd
+[0m* test_local_sink_accepts_in_memory_then_persists_one_batch
+* test_pressure_snapshot_computes_real_empty_components_without_rng
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_collection_lifecycle.gd
+[0m* test_exit_during_action_records_incomplete_root_and_unique_summary
+* test_finished_action_conserves_score_and_space_and_recovers_only_prefix
+* test_live_session_is_never_recovered_and_zip_contains_current_prefix
+* test_end_screen_session_location_does_not_rewrite_gameplay_ending
+* test_failed_directory_does_not_reject_legal_command
+WARNING: 本局分析记录不完整：telemetry_queue_limit
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] _emit (res://services/telemetry/telemetry_projector.gd:198)
+       [2] _start (res://services/telemetry/telemetry_projector.gd:100)
+       [3] observe_record (res://services/telemetry/telemetry_projector.gd:47)
+       [4] append (res://gameplay/run/recording/run_recorder.gd:59)
+       [5] begin (res://gameplay/run/recording/run_recorder.gd:38)
+       [6] test_failed_directory_does_not_reject_legal_command (res://tests/rules/test_collection_lifecycle.gd:111)
+       [7] _run_test (res://addons/gut/gut.gd:615)
+       [8] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_goal_reward_score_stays_outside_completed_action_and_has_own_identity
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_commands_replay.gd
+[0m* test_command_rejection_duplicates_and_old_run_do_not_repeat_state
+* test_record_replay_preserves_all_safety_checkpoints
+* test_replay_rejects_changed_trigger_condition_configuration
+* test_decimal_integer_codec_preserves_64_bit_and_rejects_bad_values
+* test_corrupt_command_configuration_and_truncation_are_detected
+* test_random_bot_enumerates_each_legal_pair_and_does_not_touch_game_rng
+* test_footer_and_versions_cannot_claim_unearned_completion
+* test_write_failure_keeps_gameplay_and_diagnostic_replay
+WARNING: 本局记录不完整：无法创建JSONL文件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _fail (res://gameplay/run/recording/run_recorder.gd:123)
+       [1] begin (res://gameplay/run/recording/run_recorder.gd:35)
+       [2] test_write_failure_keeps_gameplay_and_diagnostic_replay (res://tests/rules/test_commands_replay.gd:130)
+       [3] _run_test (res://addons/gut/gut.gd:615)
+       [4] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_greedy_bot_prefers_reachable_five_without_mutating_live_board
+* test_jsonl_file_round_trip_and_reports_match_footer
+* test_fixture_explosion_records_replay_without_injecting_results
+* test_fixed_seed_rerun_preserves_commands_and_final_state
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_composite_boundaries.gd
+[0m* test_b01_match_commits_before_fixed_fuse_and_descendants_wait
+* test_b02_inner_return_does_not_release_descendants
+* test_nested_dynamic_leaves_sample_once_when_each_is_reached
+* test_later_leaf_error_keeps_match_commit_but_cancels_waiting_descendants
+* test_deferred_match_plant_keeps_trigger_time_eligibility
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_composite_empty_dye.gd
+[0m* test_catalog_clear_dye_does_not_end_a_valid_two_color_run
+REVIEW two-color: success=true error= phase=REWARDS pieces=1 rewards=0
+* test_standalone_dye_still_rejects_missing_targets
+* test_configured_empty_dye_does_not_hide_invalid_live_targets
+* test_configured_empty_board_dye_is_legal
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_composite_offer_lifecycle.gd
+[0m* test_formal_offer_does_not_sample_dynamic_subtree_and_choice_samples_each_once
+[1m1/1 passed.
+[0m[4m
+
+res://tests/rules/test_composite_preview.gd
+[0m* test_catalog_refill_color_matches_displayed_frozen_color
+* test_weight_refresh_keeps_color_and_uses_updated_values_without_rng
+* test_nested_offer_and_apply_preserve_displayed_weight_color
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_composite_score_events.gd
+[0m* test_catalog_clear_dye_keeps_first_leaf_score_events
+REVIEW marked reward: ledger=true returned=true total=5
+* test_core_creation_keeps_prior_leaf_results
+[1m2/2 passed.
+[0m[4m
+
+res://tests/rules/test_continue_challenge.gd
+[0m* test_continue_keeps_board_score_and_build_and_grants_terminal_reward
+* test_reward_enters_extended_stage_and_whole_record_replays
+* test_command_roundtrip_and_duplicate_grants_reward_once
+* test_rejects_unfinished_board_full_and_closed_records
+* test_extra_goals_use_frozen_final_increment_carry_and_one_new_action
+* test_ending_at_victory_writes_one_valid_footer_and_does_not_continue
+* test_extend_rejects_target_overflow
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_demolition_build.gd
+[0m* test_catalog_has_42_real_distinct_effects_and_five_grades
+* test_prerequisites_and_rarity_multiply_after_clamp_once
+* test_active_core_consumes_once_and_normal_refill_still_happens
+* test_active_budget_failure_preserves_source_score_and_rng
+* test_payload_creates_immediate_chain_and_score_is_extra_only
+* test_relay_snapshot_does_not_propagate_new_source_same_turn
+* test_aftershock_once_selective_filter_and_radius_caps
+* test_relief_waits_for_complete_root_and_extends_without_double_strength
+* test_supply_uses_normal_slots_unique_and_run_state_isolated
+* test_core_drop_new_budget_preflight_preserves_entire_choice
+* test_plant_runs_after_all_match_groups_removed_once_per_root
+* test_chain_radius_only_later_fuses_and_general_rewards_are_independent
+* test_old_parent_root_survives_interleaved_skill_root
+* test_active_command_chain_settlement_and_refill_replay_all_checkpoints
+* test_rarity_styles_are_owned_by_each_card
+[1m15/15 passed.
+[0m[4m
+
+res://tests/rules/test_dye_rules.gd
+[0m* test_echo_completes_second_line_and_scores_mark_once
+* test_new_line_allows_second_wave_but_shared_budget_stops_third
+* test_recolor_preserves_fuse_and_identity_without_direct_score
+* test_no_surviving_target_leaves_only_first_match
+* test_dye_state_is_owned_per_run_and_stale_instant_targets_reject
+* test_fixture_records_replay_rule_and_presentation_events
+* test_non_match_removal_does_not_consume_later_spawn_match_opportunity
+* test_dye_bonus_is_not_paid_on_explosion_removal
+* test_blast_bridge_dyes_surviving_edge_material_and_shares_wave_limit
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_expanded_skills.gd
+[0m* test_40_resources_and_support_skills_can_be_drawn_at_third_reward
+* test_refill_modifier_survives_match_skip_and_lasts_three_actual_batches
+* test_refill_repeat_extends_duration_without_stacking_and_opposites_offset
+* test_color_weight_changes_only_selected_color_and_isolates_runs_and_resources
+* test_weighted_colors_are_deterministic_and_follow_modified_distribution
+* test_color_lowering_stays_positive_and_excludes_capped_targets
+* test_color_clear_triggers_fuse_chain_scores_only_explosions_and_preserves_unhit_partner
+* test_line_clear_freezes_both_axes_removes_all_ordinary_targets_with_direct_score
+[31m    [Failed]:  [0m[1] expected to equal [2]:  
+      at line 176
+[31m    [Failed]:  [0m[1] expected to equal [5]:  
+      at line 184
+[31m    [Failed]:  [0m[6] expected to equal [50]:  
+      at line 185
+[31m    [Failed]:  [0m[5] expected to equal [1]:  
+      at line 186
+* test_changed_targets_and_invalid_trigger_refuse_without_consuming_reward_or_action
+* test_command_duplicate_does_not_apply_modifier_twice_and_config_is_stable
+* test_frozen_parameter_changes_and_low_event_budget_preserve_whole_choice
+* test_actual_bot_commands_replay_with_expanded_skills_and_reject_old_rule_version
+[1m11/12 passed.
+[0m[4m
+
+res://tests/rules/test_explosion_rules.gd
+[0m* test_t02_core_fuse_chain_scores_70_and_clears
+* test_t03_overlapping_sources_sort_by_id_and_count_target_once
+* test_t09_match_multiplier_and_extra_do_not_multiply_blast_extra
+* test_empty_blast_never_awards_blast_extra
+* test_core_unique_fuse_eligibility_and_one_instance_per_piece
+* test_radius_and_reward_caps_and_shared_definitions_are_isolated
+* test_board_edge_blast_clips_and_ordinary_green_never_explodes
+* test_budget_failure_preserves_board_ledger_and_instances
+* test_reset_clears_fuses_levels_unlock_and_consumed_events
+* test_birth_budget_fault_stops_batch_and_preserves_error_phase
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_forest_clear_score.gd
+[0m* test_row_clear_scores_mixed_colors_and_keeps_specials
+[31m    [Failed]:  [0m[6] expected to equal [50]:  
+      at line 35
+[31m    [Failed]:  [0m[1] expected to equal [5]:  
+      at line 40
+* test_column_clear_scores_even_below_five_targets
+[31m    [Failed]:  [0m[6] expected to equal [14]:  
+      at line 50
+[31m    [Failed]:  [0mExpected [<null>] to be anything but NULL:  
+      at line 51
+* test_fuse_chain_scores_separately_and_global_modifiers_apply_to_direct_clear
+[31m    [Failed]:  [0m[1] expected to equal [2]:  
+      at line 66
+* test_rejected_frozen_target_keeps_board_score_and_reward
+* test_budget_rejection_keeps_direct_score_uncommitted
+* test_command_duplicate_preserves_score_and_recorded_events
+[31m    [Failed]:  [0m["6"] expected to equal ["50"]:  
+      at line 115
+[31m    [Failed]:  [0m[6] expected to equal [50]:  
+      at line 124
+[31m    [Failed]:  [0m[1] expected to equal [5]:  
+      at line 127
+* test_scored_skip_invalid_composite_keeps_scoring_policy
+* test_other_clear_effects_and_normal_match_threshold_are_unchanged
+* test_repeated_or_duplicate_removal_targets_never_pay_twice
+[1m5/9 passed.
+[0m[4m
+
+res://tests/rules/test_goal_score_bonus.gd
+[0m* test_bonus_is_once_after_action_and_carry_requires_new_action
+* test_new_choice_does_not_reward_past_goal_and_final_goal_has_no_offer
+* test_shortfall_and_full_board_never_trigger_bonus
+* test_configuration_eligibility_stale_target_and_reset
+* test_telemetry_separates_action_score_and_goal_reward
+* test_actual_choice_and_goal_bonus_replay_every_checkpoint
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_legacy_item_isolation.gd
+[0m* test_local_score_config_does_not_write_current_game
+效果 [add_score] 应用：增加 60 分
+* test_local_dye_and_destroy_keep_identity_and_do_not_touch_other_runs
+* test_score_effect_requires_explicit_ledger_instead_of_global_fallback
+* test_legacy_dispatchers_are_not_installed_or_subscribed
+* test_local_catalog_instances_do_not_share_mutable_effect_config
+* test_retained_timing_values_only_control_explicit_local_invocation
+效果 [add_score] 应用：增加 50 分
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_line_build_completion.gd
+[0m* test_score_card_requires_supply_preserves_instance_and_caps_at_three
+* test_empty_short_and_full_sweeps_add_bonus_after_global_multiplier
+* test_cross_chain_counts_live_targets_once_and_does_not_bonus_blasts
+* test_normal_match_and_instant_clear_do_not_gain_sweep_bonus
+* test_starter_slot_is_supply_only_until_any_supply_is_unlocked
+* test_dye_keeps_six_cards_at_lower_weight_and_no_forced_exploration
+* test_scored_fixture_records_and_replays_real_file
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_line_clear_drop.gd
+[0m* test_row_drop_unlocks_places_and_allows_second_piece
+* test_column_drop_is_independent_and_repeat_rejected
+* test_catalog_includes_line_drops
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_line_clear_removal.gd
+[0m* test_column_removed_in_horizontal_match_sweeps_column_and_chains_row
+* test_row_removed_by_clear_sweeps_specials_and_triggers_core
+* test_sweep_fuse_explosion_chain_keeps_generation_and_parent_ids
+* test_explosion_removes_sweeper_then_sweeps_from_frozen_coordinate
+* test_overlapping_sweeps_remove_and_score_each_target_once_in_source_order
+* test_empty_sweep_consumes_once_without_score_or_action_cost
+* test_budget_rejects_before_score_occupancy_or_event_mutation
+* test_held_sweep_waits_for_later_leaf_and_uses_frozen_source
+* test_shared_definition_counts_are_isolated_and_snapshot_records_sweeper
+* test_sweep_at_end_of_blast_queue_does_not_drop_aftershock
+* test_score_uses_global_multiplier_and_extra_without_five_match_upgrades
+* test_identical_fixture_results_records_and_snapshots_are_deterministic
+* test_line_arrival_budget_includes_new_innate_source_before_skill_commit
+* test_moving_sweeper_into_five_costs_only_parent_action_and_duplicate_command_is_noop
+[1m14/14 passed.
+[0m[4m
+
+res://tests/rules/test_line_cross.gd
+[0m* test_cross_requires_either_supply_installs_once_and_is_run_local
+* test_both_source_types_use_independent_spans_and_score_union_once
+* test_corner_cross_clips_each_band_and_dedupes_overlap
+* test_single_axis_can_chain_row_column_core_without_cross_and_without_cycles
+* test_cross_chain_fixture_active_action_and_file_replay_preserve_causal_records
+* test_cross_budget_rejects_before_board_score_and_rng_commit
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_line_score_availability.gd
+[0m* test_score_weight_stays_above_unowned_manual_through_repeat_and_history_penalties
+* test_fixed_seed_offers_show_score_more_often_for_acquisition_and_upgrades_in_both_modes
+Sweep availability: challenge=false level=0, harvest=131/256 manual=45/256
+Sweep availability: challenge=false level=1, harvest=91/256 manual=45/256
+Sweep availability: challenge=false level=2, harvest=92/256 manual=46/256
+Sweep availability: challenge=true level=0, harvest=135/256 manual=44/256
+Sweep availability: challenge=true level=1, harvest=83/256 manual=40/256
+Sweep availability: challenge=true level=2, harvest=85/256 manual=40/256
+* test_manual_rarity_limit_and_score_effect_are_preserved
+[1m3/3 passed.
+[0m[4m
+
+res://tests/rules/test_line_span.gd
+[0m* test_span_cards_require_their_own_supply_and_cap_at_one_level
+* test_three_rows_and_columns_score_the_actual_union_once
+* test_edges_clip_symmetrically_without_shifting_to_a_third_line
+* test_five_match_departure_uses_the_same_span_without_an_extra_action
+* test_fuses_on_adjacent_band_chain_and_overlapping_sources_dedupe
+* test_wide_fixture_active_command_file_replay_preserves_radius_and_scores
+* test_greedy_bot_accounts_for_adjacent_bands_without_changing_game_random
+[1m7/7 passed.
+[0m[4m
+
+res://tests/rules/test_manual_line_clear.gd
+[0m* test_short_sweeps_score_one_two_four_and_five_without_match_bonuses
+* test_short_sweep_applies_global_multiplier_and_extra
+* test_unlock_card_needs_either_supply_and_uses_shared_acquisition_pipeline
+* test_manual_row_and_column_cost_one_action_refill_and_activate_once
+* test_refill_cost_stays_previewed_when_this_action_increases_pressure
+* test_goal_passes_only_after_normal_refill_and_full_action_settlement
+* test_empty_sweep_still_consumes_action_and_refills_without_award
+* test_rejections_leave_occupancy_score_and_random_unchanged
+* test_budget_rejection_precedes_manual_consumption
+* test_manual_sweep_fuse_chain_keeps_single_source_cost_and_normal_scores
+* test_command_codec_record_file_replay_and_analysis_cover_manual_action
+* test_bots_enumerate_manual_actions_without_touching_game_random
+[1m12/12 passed.
+[0m[4m
+
+res://tests/rules/test_manual_use_limit.gd
+[0m* test_row_column_share_three_uses_duplicate_and_fourth_do_not_consume
+* test_core_has_independent_three_uses_empty_costs_once_and_passive_survives
+* test_empty_sweep_costs_once_and_invalid_budget_and_stale_do_not
+* test_cross_chain_charges_root_only_and_shared_config_is_not_mutated
+* test_exhaustion_file_replay_and_telemetry_preserve_uses_and_rejected_attempt
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_paired_windows.gd
+[0m* test_prefix_restores_all_rng_offer_plan_and_isolates_instances
+* test_illegal_intervention_and_partial_prefix_are_rejected
+* test_censored_window_has_null_delta_and_includes_immediate_choice
+* test_deterministic_branches_replan_and_keep_legal_target_levels
+* test_pressure_report_does_not_classify_tool_limit_as_stage_failure
+* test_long_disk_run_flushes_without_a_ui_driver
+[1m6/6 passed.
+[0m[4m
+
+res://tests/rules/test_percent_clear.gd
+[0m* test_floor_zero_and_invalid_ratio
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+      at line 33
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 33
+* test_freeze_is_unique_reproducible_and_preserves_board_random
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+      at line 48
+* test_plain_clear_preserves_partner_score_turn_and_refill
+* test_stale_and_duplicate_targets_do_not_consume_reward
+SCRIPT ERROR: Out of bounds get index '0' (on base: 'Array[int]')
+   at: test_stale_and_duplicate_targets_do_not_consume_reward (res://tests/rules/test_percent_clear.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] test_stale_and_duplicate_targets_do_not_consume_reward (res://tests/rules/test_percent_clear.gd:79)
+       [1] _run_test (res://addons/gut/gut.gd:615)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:818)
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '0' (on base: 'Array[int]')
+      at line -1
+* test_fuse_can_be_selected_and_descendants_use_normal_score
+[31m    [Failed]:  [0m[0] expected to be > than [0]:  
+      at line 101
+[31m    [Failed]:  [0m[0] expected to be > than [0]:  
+      at line 102
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+      at line 103
+* test_candidate_and_preview_use_frozen_count
+[31m    [Failed]:  [0mExpected '本次清理：0枚普通棋' to contain '1枚', match_case=true
+      at line 112
+* test_actual_percent_choice_replays_every_checkpoint
+[1m2/7 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_loop.gd
+[0m* test_pressure_boundaries_are_completed_actions_and_have_no_death_line
+* test_action_at_pressure_boundary_pays_locked_cost_then_previews_increase
+* test_goal_action_pays_five_before_relief_and_offer_uses_next_stage_base
+* test_five_to_three_to_five_preserves_all_tokens_and_content_random
+* test_direct_match_preserves_modifiers_but_full_clear_pays_locked_refill
+* test_temporary_counts_clamp_at_five_and_both_expire_on_real_refill
+* test_config_roundtrip_rejects_old_budget_and_invalid_pressure
+* test_reset_restores_pressure_without_mutating_other_run_or_config
+* test_birth_match_frees_space_and_remaining_five_piece_batch_finishes
+* test_refill_more_at_five_is_rejected_instead_of_promising_six
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_pressure_offers.gd
+[0m* test_pressure_empty_full_and_equal_occupancy_fragmentation
+* test_rescue_factor_is_bounded_monotonic_and_neutral_for_other_skills
+* test_high_pressure_waives_only_rescue_reward_gate
+* test_classic_keeps_original_weight_gate_and_version
+* test_offer_pressure_and_weights_freeze_and_next_group_resamples
+* test_finished_run_cannot_be_rescued_and_invalid_config_is_rejected
+* test_high_pressure_groups_keep_distinct_legal_choices_and_one_utility
+* test_telemetry_pressure_matches_candidate_snapshot_and_does_not_touch_board_rng
+* test_offer_record_emits_frozen_pressure_weights_and_version
+* test_challenge_record_replays_offers_with_current_config
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_reward_waiting_rules.gd
+[0m* test_partial_invalid_offer_keeps_identity_targets_and_random_without_replacement
+* test_all_invalid_offer_rebuilds_same_reward_once_without_consuming_it
+* test_nested_popup_snapshot_isolates_every_target_collection
+* test_second_complete_invalidation_stops_without_new_offer_or_repair
+* test_failed_freeze_keeps_all_formal_streams_identity_and_reward
+* test_one_and_two_card_groups_are_complete_but_zero_pool_is_an_error
+* test_successful_choose_duplicate_keeps_result_and_consumes_once
+* test_command_cannot_acquire_candidate_with_outdated_frozen_level
+[1m8/8 passed.
+[0m[4m
+
+res://tests/rules/test_run_controller.gd
+[0m* test_initialization_adds_five_and_ordinary_batch_still_adds_three
+* test_move_commits_match_before_any_presentation
+* test_invalid_and_busy_move_preserve_run_and_random
+* test_full_clear_sampling_uses_current_board_after_reward
+* test_two_spaces_fill_then_third_spawn_fails
+* test_three_spaces_fill_then_final_space_check_fails
+* test_first_birth_match_does_not_stop_remaining_births
+* test_third_birth_match_is_resolved_before_failure
+* test_independent_events_and_intersection_use_correct_counts
+* test_same_seed_and_replacement_run_are_isolated
+[1m10/10 passed.
+[0m[4m
+
+res://tests/rules/test_score_ledger.gd
+[0m* test_lengths_use_confirmed_formula
+* test_multiplier_extra_and_event_floor
+* test_independent_and_crossed_groups_score_separately
+* test_entries_are_copies_and_sum_matches_total
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_skill_action_migration.gd
+[0m* test_assign_fuse_marks_and_unlocks_fuse_route
+* test_thin_removes_without_scoring_or_blast
+* test_blast_radius_levels_and_stat_stay_synced
+* test_score_multiplier_repeat_via_choice_effect
+* test_catalog_every_skill_has_effect_root
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_skill_instances.gd
+[0m* test_shared_definitions_and_independent_instances_with_no_template_writes
+* test_upgrade_retains_ability_identity_count_and_authoritative_level
+* test_failed_core_target_does_not_consume_or_install_any_state
+* test_failed_upgrade_does_not_reset_count_or_consume_reward
+* test_core_leaving_keeps_unlock_and_skills_and_reset_discards_instances
+* test_invalid_levels_and_wrong_effect_types_are_rejected_before_changes
+* test_snapshot_includes_runtime_counts_and_nested_level_config
+* test_desynchronized_modifier_refuses_upgrade_without_consumption
+* test_actual_commands_replay_acquisition_and_upgrade_instances
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_skill_recording.gd
+[0m* test_snapshot_ability_instances_expose_debug_links
+* test_explain_matches_adapter_and_records_condition_rejection
+* test_rule_result_activations_locate_consume_after_blast
+* test_replay_describe_error_covers_version_and_truncation
+[1m4/4 passed.
+[0m[4m
+
+res://tests/rules/test_skill_rewards.gd
+[0m* test_first_offer_has_starter_and_distinct_legal_ids
+* test_empty_board_uses_fallback_and_freezes_offer
+* test_invalid_target_preserves_every_rule_state_and_reward
+* test_fuse_marks_actual_one_target_and_preserves_color
+* test_weight_example_and_live_driver_compensation
+* test_full_caps_exclude_upgrades_and_core_unique
+* test_current_and_future_fuses_share_upgraded_radius_only_in_same_run
+* test_core_landing_resolves_match_without_movement_and_records_once
+* test_core_budget_rejection_does_not_insert_or_consume
+* test_fixed_seed_offers_targets_and_board_stream_are_independent
+* test_ten_thousand_seeds_never_repeat_ids_or_offer_illegal_upgrades
+[1m11/11 passed.
+[0m[4m
+
+res://tests/rules/test_spawn_preview.gd
+[0m* test_preview_matches_actual_births_and_only_actual_consumption_advances
+* test_direct_match_without_full_clear_preserves_plan_and_temporary_batches
+* test_count_changes_preserve_prefix_and_weights_only_affect_appended_tokens
+* test_position_random_read_only_preview_and_copies_cannot_change_content_plan
+* test_core_candidates_have_locked_fallback_and_actual_unique_constraint
+* test_full_board_does_not_consume_pending_token
+* test_core_birth_uses_all_five_preview_colors_and_fallback_stays_locked
+* test_preview_colored_core_participates_in_same_color_five_match
+* test_non_default_core_birth_replays_from_real_commands
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_special_conversion.gd
+[0m* test_all_types_freeze_zero_one_two_three_and_more_without_replacement
+* test_capabilities_specials_and_ghosts_are_never_overwritten
+* test_duplicate_stale_and_newly_marked_targets_reject_atomically
+* test_conversion_instances_are_independent_and_manual_quota_is_not_refilled
+* test_converted_row_column_core_chain_uses_type_upgrades_and_single_use_instances
+* test_real_files_replay_all_three_conversion_commands
+* test_telemetry_records_transformation_without_counting_births_removals_or_score
+* test_composite_keeps_both_batches_of_transformation_results
+* test_fixed_conversion_keeps_invalidated_sources_without_resampling
+[1m9/9 passed.
+[0m[4m
+
+res://tests/rules/test_stage_challenge.gd
+[0m* test_score_shortfall_does_not_end_at_old_tenth_action
+* test_last_action_passes_only_after_tail_and_grants_one_reward
+* test_one_point_short_keeps_playing_and_does_not_grant_reward
+* test_final_stage_completes_without_card_and_total_is_not_debited
+* test_board_full_wins_over_carry_and_actual_refill_finishes_first
+* test_carry_cannot_auto_pass_next_stage_and_rewards_do_not_use_actions
+* test_instant_choice_scores_next_goal_without_consuming_action_or_auto_pass
+* test_invalid_and_duplicate_commands_preserve_stage_and_random
+* test_active_core_counts_one_action_even_with_zero_score
+* test_invalid_config_refuses_before_births_and_state_is_owned
+* test_exact_replay_and_terminal_classification_for_challenge
+* test_bot_challenge_ends_only_at_real_board_full_and_exact_replay
+* test_classic_mode_still_grants_score_rewards_without_stage_budget
+* test_bot_prepares_stage_reward_before_requesting_a_skill_command
+* test_choice_excess_counts_but_waits_for_new_action
+[1m15/15 passed.
+[0m[4m
+
+res://tests/rules/test_target_freeze.gd
+[0m* test_source_and_other_run_cannot_change_frozen_curve_or_hash
+* test_burst_keeps_more_carry_without_pricing_up_following_targets
+* test_choice_points_and_extra_choices_do_not_change_frozen_targets
+* test_curve_provenance_round_trips_and_invalid_reference_is_rejected
+* test_curve_fields_are_in_record_header_and_exact_replay
+[1m5/5 passed.
+[0m[4m
+
+res://tests/rules/test_telemetry.gd
+[0m* test_collecting_and_failed_sink_do_not_change_rules_or_random_streams
+WARNING: 本局分析记录不完整：test_write_failure
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://services/telemetry/telemetry_projector.gd:203)
+       [1] flush_pending (res://services/telemetry/telemetry_projector.gd:240)
+       [2] play (res://tools/bot_testing/bot_runner.gd:27)
+       [3] test_collecting_and_failed_sink_do_not_change_rules_or_random_streams (res://tests/rules/test_telemetry.gd:59)
+       [4] _run_test (res://addons/gut/gut.gd:615)
+       [5] _test_the_scripts (res://addons/gut/gut.gd:818)
+* test_generated_without_visible_popup_is_not_human_exposure
+* test_repeated_presentation_failed_choice_and_duplicate_confirmation_are_deduplicated
+* test_bot_opportunities_use_generated_offers_without_fake_presentations
+* test_exported_csv_keeps_the_complete_event_envelope
+* test_clock_priority_focus_and_closing_total_are_exclusive
+* test_inputs_have_one_terminal_disposition_and_command_link
+* test_turn_aggregates_chain_and_generated_entities_once
+* test_local_sink_readback_precision_truncation_and_schema_rejection
+* test_core_json_strategy_works_without_autoload_and_preserves_null_error_boundary
+* test_overlapping_prefix_and_complete_files_count_one_run
+* test_experiment_variant_and_bot_configuration_are_separate_groups
+* test_active_core_turn_counts_source_removal_and_reports_action
+[1m13/13 passed.
+[0m[4m
+
+res://tests/rules/test_trial_progression.gd
+[0m* test_one_thousand_points_grants_four_rewards_and_progress_uses_actual_interval
+* test_milestones_are_strictly_increasing_including_tail
+* test_thinning_freezes_targets_and_never_removes_fuse_or_partner_or_scores
+* test_thinning_invalid_target_preserves_whole_action
+* test_midgame_pool_includes_new_utility_and_freezes_real_targets
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+      at line 86
+[1m4/5 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/rules/test_expanded_skills.gd
+[0m- test_line_clear_freezes_both_axes_removes_all_ordinary_targets_with_direct_score
+[31m    [Failed]:  [0m[1] expected to equal [2]:  
+          at line 176
+[31m    [Failed]:  [0m[1] expected to equal [5]:  
+          at line 184
+[31m    [Failed]:  [0m[6] expected to equal [50]:  
+          at line 185
+[31m    [Failed]:  [0m[5] expected to equal [1]:  
+          at line 186
+[4m
+res://tests/rules/test_forest_clear_score.gd
+[0m- test_row_clear_scores_mixed_colors_and_keeps_specials
+[31m    [Failed]:  [0m[6] expected to equal [50]:  
+          at line 35
+[31m    [Failed]:  [0m[1] expected to equal [5]:  
+          at line 40
+- test_column_clear_scores_even_below_five_targets
+[31m    [Failed]:  [0m[6] expected to equal [14]:  
+          at line 50
+[31m    [Failed]:  [0mExpected [<null>] to be anything but NULL:  
+          at line 51
+- test_fuse_chain_scores_separately_and_global_modifiers_apply_to_direct_clear
+[31m    [Failed]:  [0m[1] expected to equal [2]:  
+          at line 66
+- test_command_duplicate_preserves_score_and_recorded_events
+[31m    [Failed]:  [0m["6"] expected to equal ["50"]:  
+          at line 115
+[31m    [Failed]:  [0m[6] expected to equal [50]:  
+          at line 124
+[31m    [Failed]:  [0m[1] expected to equal [5]:  
+          at line 127
+[4m
+res://tests/rules/test_percent_clear.gd
+[0m- test_floor_zero_and_invalid_ratio
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [1]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [2]:  
+          at line 33
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 33
+- test_freeze_is_unique_reproducible_and_preserves_board_random
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+[31m    [Failed]:  [0m[0] expected to equal [10]:  
+          at line 48
+- test_stale_and_duplicate_targets_do_not_consume_reward
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Out of bounds get index '0' (on base: 'Array[int]')
+          at line -1
+- test_fuse_can_be_selected_and_descendants_use_normal_score
+[31m    [Failed]:  [0m[0] expected to be > than [0]:  
+          at line 101
+[31m    [Failed]:  [0m[0] expected to be > than [0]:  
+          at line 102
+[31m    [Failed]:  [0m[1] expected to equal [0]:  
+          at line 103
+- test_candidate_and_preview_use_frozen_count
+[31m    [Failed]:  [0mExpected '本次清理：0枚普通棋' to contain '1枚', match_case=true
+          at line 112
+[4m
+res://tests/rules/test_trial_progression.gd
+[0m- test_midgame_pool_includes_new_utility_and_freezes_real_targets
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+[31m    [Failed]:  [0m[0] expected to equal [3]:  
+          at line 86
+
+Totals
+------
+Scripts              46
+Tests               344
+Passing Tests       333
+Failing Tests        11
+Asserts           14850/14949
+Time              131.446s
+
+
+[31m---- 11 failing tests ----
+[0m

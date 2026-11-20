@@ -1,0 +1,81 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+---  GUT  ---
+[INFO]:  using [D:/GodotProject/laoli_gamedev_godot4_course/projects/godot-rogue-matcher/work/nut-audio-130/.godot/audio_tests/Godot/app_userdata/技能连珠] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.6.0
+
+
+res://tests/integration/test_nut_audio.gd
+* test_all_public_cues_resolve_to_real_wav_files
+* test_match_pitch_caps_and_variants_alternate_without_rule_rng
+* test_paused_ui_cues_and_cancel_restore_pool_ownership
+* test_missing_optional_music_is_silent_and_valid
+* test_optional_music_loop_is_instance_local_and_scene_owned
+* test_actual_tree_pause_freezes_board_voice_but_keeps_reward_voice_live
+    [Failed]:  [@AudioStreamPlayer@16:<AudioStreamPlayer#229629757768>] expected to not be same as  [@AudioStreamPlayer@16:<AudioStreamPlayer#229629757768>]:
+      at line 84
+* test_retiring_feedback_returns_borrowed_voice_before_next_scene
+6/7 passed.
+
+
+res://tests/integration/test_feedback_settings.gd
+* test_plugin_config_round_trip_and_invalid_values_keep_safe_defaults
+Config file 'user://rogue_matcher_settings.cfg' not found. Will use default values provided by get_value().
+[2026-10-26T09:54:51] [DEBUG] Config is already empty and unmodified, reset_config skipped.
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] board_signal = true
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] background_motion = true
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = true
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] low_effects = true
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = 0.25
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = true
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] theme_id = light_toy
+[2026-10-26T09:54:52] [INFO] Config file saved to 'user://test_feedback_settings.cfg'.
+[2026-10-26T09:54:52] [INFO] Config cleared in memory. Manual save required to persist emptiness or defaults.
+Config loaded successfully from 'user://test_feedback_settings.cfg'.
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] fast = bad
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] volume = bad
+[2026-10-26T09:54:52] [DEBUG] Config value set in memory: [rogue_matcher_presentation] tutorial_seen = bad
+* test_low_effects_and_fast_modes_preserve_f6_rule_snapshot
+* test_effect_toggle_during_movement_does_not_cancel_required_tween
+* test_muting_cue_dedup_and_retry_stop_plugin_players
+* test_finished_player_reused_by_other_caller_survives_game_cancel
+* test_reborrow_before_finished_keeps_original_player_mode
+* test_environment_and_particle_resources_are_instance_local
+* test_explicit_rejection_is_audible_but_blank_click_is_not
+8/8 passed.
+
+
+res://tests/integration/test_manual_line_scene.gd
+* test_ctrl_shift_f11_scores_bonus_and_shows_owned_card_and_tooltip
+* test_alt_f11_quota_rejection_pause_rebuild_and_tooltip_match_recorded_rules
+* test_f11_debug_entry_loads_replayable_fixture_and_shows_unlocked_tooltip
+* test_double_click_fast_and_normal_scene_match_headless_rules_and_replay
+* test_shift_f11_wide_command_matches_headless_and_freezes_card_preview
+* test_ctrl_f11_cross_chain_matches_headless_and_replays_after_presentation
+6/6 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://tests/integration/test_nut_audio.gd
+- test_actual_tree_pause_freezes_board_voice_but_keeps_reward_voice_live
+    [Failed]:  [@AudioStreamPlayer@16:<AudioStreamPlayer#229629757768>] expected to not be same as  [@AudioStreamPlayer@16:<AudioStreamPlayer#229629757768>]:
+          at line 84
+
+Totals
+------
+Scripts               3
+Tests                21
+Passing Tests        20
+Failing Tests         1
+Asserts           501/502
+Time              33.669s
+
+
+---- 1 failing tests ----

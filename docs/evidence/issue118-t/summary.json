@@ -1,0 +1,21 @@
+{
+  "commit": "b910374ab5374e9f0fe6df84cf31e2670e83a01d",
+  "base": "3c4c414326f53aa1a085b692f8f854cf92122afd",
+  "scripts": 97,
+  "tests": 708,
+  "passing": 708,
+  "exit_code": 0,
+  "new_tests": 21,
+  "target_asserts": 220,
+  "rules_version": "run-commands-v43-shape-identity-order",
+  "independent_replays": {
+    "t": 13,
+    "l_then_t": 17,
+    "t_then_l": 17
+  },
+  "old_v42": "expected_record_version_mismatch_exit_1",
+  "asserts": 23612,
+  "seconds": 190.371,
+  "owned_gd_files": 335,
+  "max_gd_lines": 474
+}

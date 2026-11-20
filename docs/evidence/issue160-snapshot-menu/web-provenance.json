@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-01",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "browser": "Codex in-app Chromium WebGL2 single-threaded",
+  "strict_release_source": "3189b12",
+  "strict_release_zip_sha256": "D60E427933C1E5042004AD3CE7736FEB0CE14C43DC7C3B34A586877C19C19197",
+  "default_flag": "use_snapshot_checkpoints=false; test host sets true before Game startup",
+  "classic": {
+    "source": "efe003c",
+    "origin": "http://127.0.0.1:8992",
+    "pck_sha256": "951DE37FBD6624B69A146403D9E54DC76DB22E7481B9F5BF9E6696F951BBC177",
+    "html_sha256": "BC4BFCFA0D8300AF2490CFD42AA7D2C2C838B025E5F7B11DA4295C7EE675383C"
+  },
+  "stage": {
+    "source": "70142c2",
+    "origin": "http://127.0.0.1:8993",
+    "pck_sha256": "6D59F3414F9998A4AA46D44A311E3CB235BC89BD05315567EDE6F7D713CADB6B",
+    "html_sha256": "335158BA69D51FF1B27070189029A1C012D4C711DE7F1A5B745F0C50C31DF2B5"
+  },
+  "production_code": "git diff 3189b12 70142c2 -- gameplay services empty; later changes only probe/tests/evidence",
+  "temporary_overrides": "diagnostic main_scene plus tools included; project.godot/export_presets.cfg original bytes restored in finally",
+  "slot_policy": "old8990/8991 failure origins retained, no database clear; successful8992/8993 each used same slot across all page reloads",
+  "scope": "actual Game/menu/Board/Popup, programmatic signals and automated action driver, accelerated rendering; stage host resumes intentional focus-loss pause via actual toggle action only outside modal ownership",
+  "completion": "Game intentionally remains open after report; no engine-exit code asserted",
+  "sampling": "agent-generated isolated samples; not human participant or default rollout acceptance"
+}

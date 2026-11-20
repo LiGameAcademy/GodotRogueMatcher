@@ -1,0 +1,61 @@
+{
+  "source_head": "1201816b4f11ce465b3e0cdca92eeb2a73e35b9e",
+  "base": "e3e3f978ad0ae9f0555756475c7392862c594036",
+  "files": [
+    {
+      "path": "localization/skill_rules.csv",
+      "sha256": "ca90b6e6bd3cf57cb5948e38ba40a662e078f1a5c6c811ea953f16652be074f0",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.en_US.translation",
+      "sha256": "13fa15671f7e9e7018eb497eb73312e29e87fd746422aaea2413c6ba83203cef",
+      "lines": null
+    },
+    {
+      "path": "localization/skill_rules.zh_CN.translation",
+      "sha256": "0e39a379b38faa5e40d27f817357c570ece1f0ca4fd1b4bbc1f882f0adc86d55",
+      "lines": null
+    },
+    {
+      "path": "tests/integration/test_skill_cards.gd",
+      "sha256": "931e1e6c4973265c04a90f3b7a5a98bcef118cbb63e2fffd940ccd4803287db2",
+      "lines": 161
+    },
+    {
+      "path": "tests/integration/test_skill_pool_rule_context.gd",
+      "sha256": "f8a06a8756d3379c177102e1d95e949c215e7ab906ab14ac9c602a01a16b847d",
+      "lines": 125
+    },
+    {
+      "path": "tests/integration/test_skill_pool_rule_context.gd.uid",
+      "sha256": "0ea0daf38896c8c26fae62d779b8e052d306e887849a4083c351e0dfdfbb6798",
+      "lines": null
+    },
+    {
+      "path": "tests/rules/test_skill_description_coverage.gd",
+      "sha256": "914dce108be06a04c7ccdb98f2245bcd7a009046700dd20b513d05bd40325ec7",
+      "lines": 73
+    },
+    {
+      "path": "tests/rules/test_skill_description_coverage.gd.uid",
+      "sha256": "37584484540a0fee9219a2236d28da7a38afc392fbde691ac1c2d2819b6d4ed3",
+      "lines": null
+    },
+    {
+      "path": "ui/skill_card.gd",
+      "sha256": "5401d2f9bf5aac96f19cd393f47315136b071ce674acef0946fbfe4293b24100",
+      "lines": 206
+    },
+    {
+      "path": "ui/skill_pool/skill_pool_text.gd",
+      "sha256": "00fc761fa2072196eda0f3ff8755f81879bff29ca1a031f020b573d6313ac6f4",
+      "lines": 57
+    },
+    {
+      "path": "ui/skill_rule_description.gd",
+      "sha256": "6aeeb8cd053c7d7df23e1bac64669052db47365626b6ab4b07d42de420bc218c",
+      "lines": 146
+    }
+  ]
+}
