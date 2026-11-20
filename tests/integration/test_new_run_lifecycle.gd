@@ -28,6 +28,7 @@ func after_each() -> void:
 
 func _remove(directory: String) -> void:
 	assert_true(directory.begins_with("user://new-run-lifecycle/"))
+	if not DirAccess.dir_exists_absolute(directory): return
 	for name: String in DirAccess.get_directories_at(directory): _remove(directory.path_join(name))
 	for name: String in DirAccess.get_files_at(directory): DirAccess.remove_absolute(directory.path_join(name))
 	DirAccess.remove_absolute(directory)
@@ -67,6 +68,25 @@ func _board() -> Board:
 func _flow() -> GameCheckpointFlow:
 	return _game.get_node("GameCheckpointFlow") as GameCheckpointFlow
 
+func _confirm_standard() -> void:
+	var dialog: OpeningChoice = _flow().opening_choice
+	assert_true(dialog.visible, "stage challenge requests an opening before preparing the run")
+	assert_true((dialog.get_node("Options/Standard") as CheckBox).button_pressed)
+	dialog.confirmed.emit()
+
+func test_second_restart_while_selecting_keeps_one_dialog_and_does_not_request_entropy() -> void:
+	await _open()
+	var results: Array[bool] = []
+	var restart: Callable = func() -> void: results.append(await _game.call("_on_retry_requested"))
+	restart.call()
+	restart.call()
+	assert_eq(results.size(), 1, "the duplicate request must complete immediately")
+	if results.size() == 1: assert_false(results[0])
+	assert_true(_flow().opening_choice.visible)
+	_flow().opening_choice.canceled.emit()
+	assert_eq(results.size(), 2)
+	assert_eq(_calls, 0)
+
 func test_menu_preview_and_actual_saved_continue_do_not_request_entropy() -> void:
 	var saved: RunController = _saved()
 	var state: Dictionary = RunSnapshot.capture(saved)
@@ -83,11 +103,13 @@ func test_menu_preview_and_actual_saved_continue_do_not_request_entropy() -> voi
 func test_first_actual_play_and_continuous_restart_avoid_only_last_started_seed() -> void:
 	await _open()
 	assert_eq(_calls, 0)
+	_confirm_standard.call_deferred()
 	await _game.call("_play_from_menu", false)
 	assert_eq(_calls, 1)
 	assert_eq(_board().run.state.random_streams.master_seed, 23)
 	await _wait(func() -> bool: return not _flow().is_busy())
 	_game.call("_on_retry_requested")
+	_confirm_standard()
 	await _wait(func() -> bool: return _flow().prompt.is_open())
 	_flow().prompt.action_requested.emit(&"confirm")
 	await _wait(func() -> bool: return _board().run.state.random_streams.master_seed == 24)
@@ -102,6 +124,7 @@ func test_entropy_failure_retains_current_graph_and_saved_bytes_without_confirma
 	var original: RunController = _board().run
 	var streams: Dictionary = original.state.random_streams.data()
 	_bytes = PackedByteArray()
+	_confirm_standard.call_deferred()
 	assert_false(await _game.call("_on_retry_requested"))
 	assert_same(_board().run, original)
 	assert_false(original.is_retired())
@@ -117,8 +140,11 @@ func test_cancelled_new_run_keeps_previous_seed_and_checkpoint_identity() -> voi
 	var original: RunController = _board().run
 	var digest: String = FileAccess.get_sha256(_directory.path_join("primary.json"))
 	_game.call("_on_retry_requested")
+	_confirm_standard()
 	await _wait(func() -> bool: return _flow().prompt.is_open())
 	_flow().prompt.action_requested.emit(&"cancel")
+	assert_true(_flow().opening_choice.visible)
+	_flow().opening_choice.canceled.emit()
 	await _wait(func() -> bool: return not _flow().is_busy())
 	assert_same(_board().run, original)
 	assert_eq(_board().new_run_seeds.last_started(), -1)
@@ -130,11 +156,13 @@ func test_second_retry_during_confirmation_does_not_take_more_entropy() -> void:
 	await _open()
 	var original: RunController = _board().run
 	_game.call("_on_retry_requested")
+	_confirm_standard()
 	await _wait(func() -> bool: return _flow().prompt.is_open())
 	assert_false(await _game.call("_on_retry_requested"))
 	assert_eq(_calls, 1)
 	assert_same(_board().run, original)
 	_flow().prompt.action_requested.emit(&"cancel")
+	_flow().opening_choice.canceled.emit()
 	await _wait(func() -> bool: return not _flow().is_busy())
 
 func test_continue_challenge_keeps_seed_and_does_not_request_entropy() -> void:
@@ -183,6 +211,7 @@ func test_failed_invalidation_does_not_claim_or_adopt_prepared_seed() -> void:
 	_flow().set("_store", CheckpointStore.new(_directory, MarkerFaultFiles.new()))
 	var original: RunController = _board().run
 	_game.call("_on_retry_requested")
+	_confirm_standard()
 	await _wait(func() -> bool: return _flow().prompt.is_open())
 	_flow().prompt.action_requested.emit(&"confirm")
 	await _wait(func() -> bool: return _flow().last_error != "")
@@ -200,6 +229,7 @@ func test_compatible_saved_identity_causes_collision_correction_without_restorin
 	assert_eq(_calls, 0)
 	assert_same(_board().run, preview)
 	_game.call("_on_retry_requested")
+	_confirm_standard()
 	await _wait(func() -> bool: return _flow().prompt.is_open())
 	_flow().prompt.action_requested.emit(&"confirm")
 	await _wait(func() -> bool: return _board().run != preview)

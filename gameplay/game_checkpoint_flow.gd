@@ -51,6 +51,7 @@ var _terminal_in_progress: bool = false
 var _terminal_retry_run: RunController
 var _history: CheckpointHistory = CheckpointHistory.new()
 @onready var prompt: CheckpointPrompt = $CheckpointPrompt
+@onready var opening_choice: OpeningChoice = $OpeningChoice
 
 func _ready() -> void:
 	prompt.action_requested.connect(_on_prompt_action)

@@ -1,9 +1,6 @@
 class_name GameNewRunFlow
 extends RefCounted
 
-const OPENING_CHOICE: PackedScene = preload("res://ui/opening_choice/opening_choice.tscn")
-const OPENING_CHOICE_SCRIPT: Script = preload("res://ui/opening_choice/opening_choice.gd")
-
 static func refresh_entry(checkpoint: GameCheckpointFlow, menu: Control, popup: Control, run: RunController) -> void:
 	menu.set_checkpoint_status(checkpoint.enabled, checkpoint.last_error, checkpoint.opening_progress.unlocked)
 	if run != null and popup is PopupGameOver and checkpoint.opening_unlocked_run == run.state.run_id:
@@ -24,16 +21,12 @@ static func startup(board: Board, rules: BoardRules, record_run: bool, provision
 	return started
 
 static func prepare(board: Board, checkpoint: GameCheckpointFlow, choose_opening: bool = false) -> Dictionary:
-	if checkpoint.is_busy(): return {"ok": false, "reason": "worker_busy"}
+	if checkpoint.is_busy() or checkpoint.opening_choice.visible: return {"ok": false, "reason": "worker_busy"}
 	if choose_opening and checkpoint.enabled and checkpoint.use_snapshot and board.game_mode.mode_id == &"stage_challenge":
-		var dialog: OPENING_CHOICE_SCRIPT = OPENING_CHOICE.instantiate()
-		checkpoint.add_child(dialog)
-		var chosen: Dictionary = await _prepare_with_choice(board, checkpoint, dialog)
-		dialog.queue_free()
-		return chosen
+		return await _prepare_with_choice(board, checkpoint, checkpoint.opening_choice)
 	return await _prepare_candidate(board, checkpoint, &"standard")
 
-static func _prepare_with_choice(board: Board, checkpoint: GameCheckpointFlow, dialog: OPENING_CHOICE_SCRIPT) -> Dictionary:
+static func _prepare_with_choice(board: Board, checkpoint: GameCheckpointFlow, dialog: OpeningChoice) -> Dictionary:
 	var selected: StringName = &"standard"
 	while true:
 		selected = await dialog.choose(checkpoint.opening_progress.unlocked, selected)

@@ -1,3 +1,4 @@
+class_name OpeningChoice
 extends ConfirmationDialog
 
 ## Presents one provisional opening selection before a new stage run is prepared.
