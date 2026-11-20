@@ -113,6 +113,24 @@ func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 		return
 	assert_eq(get_tree().current_scene.get_node("Board").run.state.run_id, identity)
 
+func test_relaunch_after_durable_settlement_retires_only_the_same_run() -> void:
+	var old: RunController = _run(71)
+	var store: CheckpointStore = CheckpointStore.new(_directory)
+	assert_true((await SNAPSHOT.save_frozen(store, SNAPSHOT.freeze(old))).ok)
+	var progress: PROGRESS = PROGRESS.new()
+	await progress.load_progress(_directory)
+	assert_eq(await progress.finish_visit(old.state.run_id, false), "")
+	_boot()
+	if not await _until(func() -> bool: return _at(ROOM_PATH) and get_tree().current_scene.get("_loaded")):
+		fail_test("A settled run must reopen the room")
+		return
+	assert_false(get_tree().current_scene.get_node("%Continue").visible)
+	assert_eq(store.inspect_latest().reason, "run_invalidated")
+	var newer: RunController = _run(72)
+	assert_true((await SNAPSHOT.save_frozen(store, SNAPSHOT.freeze(newer))).ok)
+	await get_tree().current_scene.get_node("Slot").inspect_slot(_directory)
+	assert_eq(store.inspect_latest().run_id, newer.state.run_id)
+
 func test_locked_role_and_real_new_game_result_return() -> void:
 	var room: Control = await _room()
 	assert_eq(ProjectSettings.get_setting("application/run/main_scene"), "res://gameplay/flow/game_boot.tscn")
@@ -140,13 +158,27 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 	var board: Board = game.get_node("Board")
 	assert_eq(board.run.opening_id, &"standard")
 	board.run.state.stage.index = 1
+	var fault: String = _directory.path_join("opening_progress.json.tmp")
+	assert_eq(DirAccess.make_dir_recursive_absolute(fault), OK)
 	board.run.finish_game(&"board_full")
 	GameManager.game_overed.emit()
 	if not await _until(func() -> bool: return UIManager.current_popup is PopupGameOver and UIManager.current_popup.visible):
 		fail_test("Result not shown")
 		return
 	await get_tree().process_frame
-	UIManager.current_popup.menu_requested.emit()
+	assert_eq(GameFlow.machine.current, GameFlow.Page.RESULT)
+	var flow: GameCheckpointFlow = game.get_node("GameCheckpointFlow")
+	assert_eq(flow.last_error, "opening_progress_write_failed")
+	assert_true(CheckpointStore.new(_directory).inspect_latest().ok)
+	assert_false(flow.opening_progress.unlocked)
+	assert_eq(DirAccess.remove_absolute(fault), OK)
+	flow.prompt.primary.pressed.emit()
+	if not await _until(func() -> bool: return flow.last_error.is_empty() and flow.opening_progress.unlocked):
+		fail_test("Settlement retry did not grant the role")
+		return
+	var result: Control = UIManager.current_popup
+	result.menu_requested.emit()
+	result.menu_requested.emit()
 	if not await _until(func() -> bool: return _at(ROOM_PATH) and get_tree().current_scene.get("_loaded")):
 		fail_test("Result did not return to the preparation room")
 		return

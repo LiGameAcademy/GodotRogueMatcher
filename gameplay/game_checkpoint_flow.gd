@@ -85,7 +85,20 @@ func inspect_slot(directory: String) -> void:
 	var synced: Dictionary = await _store.sync()
 	if not synced.ok: last_error = synced.reason
 	var progress_error: String = await opening_progress.load_progress(directory)
-	if not progress_error.is_empty(): last_error = progress_error
+	if not progress_error.is_empty():
+		last_error = progress_error
+		return
+	# If the process stopped after the grant but before invalidation, retire only
+	# the exact settled identity. A later saved run must remain resumable.
+	if not opening_progress.settled_run.is_empty() and last_error in ["", "invalidation_pending"]:
+		var latest: Dictionary = _store.inspect_latest()
+		if latest.get("run_id") == opening_progress.settled_run and (latest.ok or latest.reason == "invalidation_pending"):
+			var recovered: Dictionary = await _invalidate_run(opening_progress.settled_run, "terminal")
+			if not recovered.ok:
+				last_error = recovered.reason
+				return
+			last_error = ""
+			_refresh_metadata()
 
 func saved_summary() -> Dictionary:
 	var metadata: Dictionary = _store.inspect_latest()
