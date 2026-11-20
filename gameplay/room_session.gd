@@ -6,6 +6,7 @@ const PREPARATION_ROOM: String = "res://ui/preparation_room/preparation_room.tsc
 var _request: Dictionary
 var _returning: bool = false
 var _select_on_return: bool = false
+var _confirming_result: bool = false
 
 func _ready() -> void:
 	_checkpoint.track_visits = true
@@ -84,8 +85,11 @@ func _continue_challenge() -> void:
 	await super._continue_challenge()
 
 func _end_to_menu() -> void:
+	if _confirming_result or _returning or GameFlow.machine.current != GameFlow.Page.RESULT: return
+	_confirming_result = true
 	var seen: bool = _checkpoint.opening_progress.unlocked
 	await _checkpoint.terminal(_board.run, true)
+	_confirming_result = false
 	if not GameNewRunFlow.result_can_close(_checkpoint, _board.run, seen, UIManager.current_popup): return
 	_return_to_room()
 
