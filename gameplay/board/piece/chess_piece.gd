@@ -334,7 +334,7 @@ func spawn_animation(duration: float = 0.3, in_place: bool = true) -> Tween:
 	return tween
 
 ## Flashes the committed conversion on this piece, then reveals its permanent marker.
-func play_conversion_feedback() -> Tween:
+func play_conversion_feedback(time_budget: float = 0.0) -> Tween:
 	var icon: Node2D
 	match _ability_kind:
 		&"行", &"列": icon = _conversion_arrow
@@ -349,6 +349,8 @@ func play_conversion_feedback() -> Tween:
 	icon.modulate.a = 0.0
 	icon.scale = Vector2(0.9, 0.7) if icon == _conversion_arrow else Vector2.ONE * 0.65
 	tween = create_tween()
+	# Leave the committed mark hold in charge of the next presentation step.
+	if time_budget > 0.0: tween.set_speed_scale(maxf(1.0, 0.42 / time_budget))
 	tween.tween_property(icon, "modulate:a", 1.0, 0.07)
 	tween.parallel().tween_property(icon, "scale", Vector2.ONE, 0.10).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_interval(0.18)
