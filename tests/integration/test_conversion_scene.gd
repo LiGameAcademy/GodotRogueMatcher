@@ -82,3 +82,49 @@ func test_transform_plan_copies_snapshots_and_low_effects_preserve_nodes() -> vo
 	for piece: PieceState in steps[0].pieces: board.view.animate_transform(piece, 0.12)
 	assert_same(board.view.get_piece(id), node)
 	assert_false(board.view.is_presenting())
+
+func test_compact_card_lands_before_piece_feedback(
+	use_fuse: bool = use_parameters([false, true])
+) -> void:
+	var window: Window = get_window()
+	var original_size: Vector2i = window.size
+	window.size = Vector2i(568, 320)
+	await wait_process_frames(3)
+	var game: Node = board.get_parent()
+	var transfer: CardTransfer = game.get_node("CardTransfer")
+	var slot: TextureRect = game.get_node("UILayer/HUD/%RewardSlot")
+	assert_true(slot.is_visible_in_tree())
+	assert_true(board.load_explosion_demo("fixture_transform"))
+	var offer: SkillOffer = board.run.state.rewards.active_offer
+	var skill: SkillDefinition = offer.choices[0]
+	if use_fuse:
+		skill = preload("res://gameplay/progression/content/assign_fuse.tres")
+		offer.choices[0] = skill
+		offer.targets[skill.skill_id] = SkillRules.freeze_target(board.run.state, skill)
+	board.can_selected = false
+	BoardRunFlow.continue_run(board, board.run)
+	for frame: int in range(180):
+		if UIManager.current_popup is PopupSkillChoice: break
+		await wait_process_frames(1)
+	var popup: PopupSkillChoice = UIManager.current_popup as PopupSkillChoice
+	assert_not_null(popup)
+	if popup == null:
+		window.size = original_size
+		return
+	await wait_process_frames(2)
+	var tracked: Array[Node2D] = []
+	for piece: PieceState in board.rules.state.get_snapshot():
+		var visual: ChessPiece = board.view.get_piece(piece.piece_id)
+		tracked.append(visual.get_node("FuseSpark" if use_fuse else "ConversionBurst"))
+	popup._select(0)
+	popup.confirm_selection()
+	assert_true((transfer.get_node("FlightIcon") as TextureRect).visible)
+	assert_true(tracked.all(func(visual: Node2D) -> bool: return not visual.visible))
+	assert_null(slot.texture)
+	for frame: int in range(180):
+		if tracked.any(func(visual: Node2D) -> bool: return visual.visible): break
+		await wait_process_frames(1)
+	assert_true(tracked.any(func(visual: Node2D) -> bool: return visual.visible))
+	assert_false((transfer.get_node("FlightIcon") as TextureRect).visible)
+	assert_eq(slot.texture, SkillMechanicIcons.texture_for(skill.skill_id))
+	window.size = original_size

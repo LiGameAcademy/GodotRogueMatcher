@@ -17,6 +17,10 @@ var _suspended: bool = false
 var _previous_pause: bool = false
 var _owns_pause: bool = false
 var _tree: SceneTree
+var _card_transfer: CardTransfer
+
+func _init(card_transfer: CardTransfer) -> void:
+	_card_transfer = card_transfer
 
 func present(board: Board, active: RunController, offer: SkillOffer, resume: bool = false) -> void:
 	if board.run != active or offer == null or active.state.is_game_over or not active.state.rule_error.is_empty(): return
@@ -106,8 +110,12 @@ func _choose(offer_id: int, skill_id: StringName, epoch: int, active: RunControl
 	_popup = null
 	_offer_id = 0
 	_release_pause()
-	board.present_skill_result(outcome.skill)
+	var committed_epoch: int = _epoch
 	popup.accept_selection(true)
+	if not outcome.skill.transformed.is_empty() or not outcome.skill.marked_ids.is_empty():
+		await _card_transfer.wait_for_slot()
+		if not _valid(committed_epoch): return
+	board.present_skill_result(outcome.skill)
 	selection_committed.emit(active)
 
 func _closed(epoch: int) -> void:
