@@ -195,10 +195,11 @@ func show_color(piece_id: int, match_color: int) -> void:
 	if is_instance_valid(piece):
 		piece.piece_type = match_color
 
-func show_ability_marker(piece_id: int, text: String) -> void:
+func show_ability_marker(piece_id: int, text: String, flash: bool = false) -> void:
 	var piece: ChessPiece = get_piece(piece_id)
 	if is_instance_valid(piece):
 		piece.set_ability_marker(text)
+		if flash and not low_effects: track_presentation(piece.play_conversion_feedback())
 
 ## 调用者传入当前规则快照，能力升级后同步标记和提示。
 func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionState, config: ExplosionConfig, line_clear: LineClearState = null, manual_uses_used: Dictionary[StringName, int] = {}) -> void:
@@ -222,7 +223,7 @@ func defer_fuse_markers(ids: Array[int]) -> void:
 func show_fuse_marks(pieces: Array[PieceState], duration: float) -> void:
 	for piece: PieceState in pieces:
 		_deferred_fuse_ids.erase(piece.piece_id)
-		show_ability_marker(piece.piece_id, "引")
+		show_ability_marker(piece.piece_id, "引", duration > 0.0)
 	var hold: Tween = create_tween()
 	hold.tween_interval(maxf(0.0, duration))
 	track_presentation(hold)
@@ -424,7 +425,7 @@ func animate_transform(snapshot: PieceState, duration: float) -> void:
 	if not is_instance_valid(piece): return
 	var marker: String = "爆" if snapshot.content_id == &"special_demolition" else ("行" if snapshot.content_id == LineClearState.CONTENT_ROW else "列")
 	piece.set_ability_marker(marker)
-	if not low_effects and duration > 0.0: track_presentation(piece.land())
+	if not low_effects and duration > 0.0: track_presentation(piece.play_conversion_feedback())
 
 ## 导演每步只等待实际动画；队列状态由父级另行映射给公开查询。
 func wait_for_animations() -> bool:
