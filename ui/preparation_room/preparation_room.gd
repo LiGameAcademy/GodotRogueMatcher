@@ -10,6 +10,9 @@ var _entry: Dictionary = {}
 var _selected: StringName = &"standard"
 var _saved: Dictionary = {}
 var _loaded: bool = false
+var _window: Window
+var _original_canvas: Vector2i
+var _portrait: bool = false
 var _departing: bool = false
 var _preferences: PlayerPreferences = PlayerPreferences.new()
 @onready var _cards: Dictionary[StringName, Button] = {&"standard": %Standard, &"row_sweep": %Scout, &"dyer": %Dyer, &"bomber": %Bomber}
@@ -29,6 +32,12 @@ func init_state(data: Dictionary) -> void:
 	checkpoint_directory = _entry.get("directory", checkpoint_directory)
 
 func _ready() -> void:
+	_window = get_window()
+	_original_canvas = _window.content_scale_size
+	_window.size_changed.connect(_layout.call_deferred)
+	for overlay: Control in [_settings.panel, _pool.panel, _tutorial]:
+		overlay.visibility_changed.connect(_layout.call_deferred)
+	_layout()
 	_home.hide()
 	_characters.hide()
 	if not _entry.is_empty():
@@ -72,6 +81,52 @@ func _ready() -> void:
 	%Status.text = "" if _slot.last_error.is_empty() else tr("checkpoint.load_failed")
 	if _entry.get("select", false) and mode_id == &"stage_challenge": _show_characters()
 	else: _show_home()
+
+func _exit_tree() -> void:
+	if is_instance_valid(_window) and _portrait:
+		_window.set_deferred("content_scale_size", _original_canvas)
+
+## Give the preparation room a portrait canvas while it owns the window.
+func _layout() -> void:
+	if not is_inside_tree() or not is_instance_valid(_window): return
+	var pixels: Vector2i = _window.size
+	var portrait: bool = pixels.x > 0 and pixels.y > pixels.x and not (_settings.panel.visible or _pool.panel.visible or _tutorial.visible)
+	var canvas: Vector2i = Vector2i(320, roundi(320.0 * pixels.y / pixels.x)) if portrait else _original_canvas
+	if _window.content_scale_size != canvas: _window.content_scale_size = canvas
+	if portrait == _portrait: return
+	_portrait = portrait
+	%Panel.custom_minimum_size.x = 300 if portrait else 720
+	for side: String in ["margin_left", "margin_right"]:
+		%Margin.add_theme_constant_override(side, 8 if portrait else 34)
+	for group: BoxContainer in [%Launch, %Tools, %Body]:
+		group.vertical = portrait
+	%Launch.move_child(%New, 0 if portrait else 1)
+	%Title.add_theme_font_size_override("font_size", 23 if portrait else 36)
+	%SelectTitle.add_theme_font_size_override("font_size", 21 if portrait else 32)
+	%Role.add_theme_font_size_override("font_size", 21 if portrait else 28)
+	%Portrait.visible = not portrait
+	%Requirement.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if portrait else TextServer.AUTOWRAP_OFF
+	%Continue.autowrap_mode = %Requirement.autowrap_mode
+	%Skill.autowrap_mode = %Requirement.autowrap_mode
+	for action: Button in [%Back, %Depart, _records.folder, _records.export_button, _records.quit_button]:
+		action.autowrap_mode = %Requirement.autowrap_mode
+		if action in [_records.folder, _records.export_button, _records.quit_button]:
+			action.add_theme_font_size_override("font_size", 13 if portrait else 16)
+			action.custom_minimum_size.y = 44.0 if portrait else 0.0
+			action.size_flags_horizontal = Control.SIZE_EXPAND_FILL if portrait else Control.SIZE_FILL
+	for button: Button in _cards.values():
+		button.custom_minimum_size = Vector2(124, 54) if portrait else Vector2(126, 96)
+		button.add_theme_constant_override("icon_max_width", 32 if portrait else 42)
+		button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER if portrait else VERTICAL_ALIGNMENT_TOP
+		button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT if portrait else HORIZONTAL_ALIGNMENT_CENTER
+		button.autowrap_mode = %Requirement.autowrap_mode
+		var lock_icon: TextureRect = button.get_node("LockIcon")
+		lock_icon.anchor_left = 0.0 if portrait else 1.0
+		lock_icon.anchor_right = lock_icon.anchor_left
+		lock_icon.offset_left = 6.0 if portrait else -32.0
+		lock_icon.offset_right = 22.0 if portrait else -8.0
+		lock_icon.offset_top = 4.0 if portrait else 8.0
+		lock_icon.offset_bottom = 20.0 if portrait else 32.0
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and _loaded:
