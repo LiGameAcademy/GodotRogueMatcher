@@ -74,6 +74,10 @@ var _hovered: bool = false
 @onready var ability_marker: Label = $AbilityMarker
 @onready var tooltip_region: Control = $TooltipRegion
 
+@onready var _conversion_arrow: Polygon2D = $ConversionArrow
+@onready var _conversion_burst: Polygon2D = $ConversionBurst
+@onready var _fuse_spark: Node2D = $FuseSpark
+
 func _ready() -> void:
 	_surface = polygon.material.duplicate() as ShaderMaterial
 	polygon.material = _surface
@@ -83,6 +87,7 @@ func _ready() -> void:
 ## Changes decoration only; required movement and birth clocks keep running.
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
+	if enabled and is_node_ready(): _hide_conversion_feedback()
 	_set_deformation(Vector2.ONE)
 	_refresh_idle_expression()
 	if is_instance_valid(ability_visual): ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects)
@@ -131,6 +136,7 @@ func set_tooltip_text(text: String) -> void:
 ## Cancels presentation and wakes a waiting move; restores local visuals at once.
 func cancel_movement() -> void:
 	if tween != null: tween.kill()
+	_hide_conversion_feedback()
 	_set_deformation(Vector2.ONE)
 	if not is_eliminating:
 		scale = Vector2.ONE * ((1.04 if low_effects else JUICE.selected_scale) if is_selected else 1.0)
@@ -326,6 +332,36 @@ func spawn_animation(duration: float = 0.3, in_place: bool = true) -> Tween:
 	tween.tween_method(_set_deformation, JUICE.birth_stretch, JUICE.landing_squash, contact).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_method(_set_deformation, JUICE.landing_squash, Vector2.ONE, seconds - contact).set_delay(contact).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	return tween
+
+## Flashes the committed conversion on this piece, then reveals its permanent marker.
+func play_conversion_feedback(time_budget: float = 0.0) -> Tween:
+	var icon: Node2D
+	match _ability_kind:
+		&"行", &"列": icon = _conversion_arrow
+		&"爆": icon = _conversion_burst
+		&"引": icon = _fuse_spark
+		_: return land()
+	if tween != null: tween.kill()
+	_conversion_arrow.visible = icon == _conversion_arrow
+	_conversion_burst.visible = icon == _conversion_burst
+	_fuse_spark.visible = icon == _fuse_spark
+	_conversion_arrow.rotation = PI / 2.0 if _ability_kind == &"行" else 0.0
+	icon.modulate.a = 0.0
+	icon.scale = Vector2(0.9, 0.7) if icon == _conversion_arrow else Vector2.ONE * 0.65
+	tween = create_tween()
+	# Leave the committed mark hold in charge of the next presentation step.
+	if time_budget > 0.0: tween.set_speed_scale(maxf(1.0, 0.42 / time_budget))
+	tween.tween_property(icon, "modulate:a", 1.0, 0.07)
+	tween.parallel().tween_property(icon, "scale", Vector2.ONE, 0.10).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(0.18)
+	tween.tween_property(icon, "modulate:a", 0.0, 0.14)
+	tween.tween_callback(icon.hide)
+	return tween
+
+func _hide_conversion_feedback() -> void:
+	_conversion_arrow.hide()
+	_conversion_burst.hide()
+	_fuse_spark.hide()
 
 ## Keeps hit bounds and selection stable while the local visual group recovers.
 func land() -> Tween:

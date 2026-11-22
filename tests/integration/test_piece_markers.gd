@@ -113,3 +113,36 @@ func test_core_and_fuse_keep_distinct_static_contours_when_reused_or_reduced() -
 	assert_true(other.ability_visual.first_arrow.visible)
 	assert_eq(rules.state.get_snapshot().size(), before.size())
 	assert_eq(rules.state.get_piece_at(Vector2i.ZERO).match_color, 0)
+
+func test_only_new_fuse_marks_flash_and_keep_their_steady_marker_afterwards(
+	reduced: bool = use_parameters([false, true])
+) -> void:
+	var fresh: ChessPiece = view.get_cell(Vector2i.ZERO).piece
+	var existing: ChessPiece = view.get_cell(Vector2i(1, 0)).piece
+	view.set_low_effects(reduced)
+	view.show_ability_marker(existing.piece_id, "引")
+	var marks: Array[PieceState] = [rules.state.get_piece(fresh.piece_id).copy()]
+	view.show_fuse_marks(marks, 0.15)
+	assert_eq((fresh.get_node("FuseSpark") as Node2D).visible, not reduced)
+	assert_false((existing.get_node("FuseSpark") as Node2D).visible)
+	assert_false((fresh.get_node("ConversionBurst") as Polygon2D).visible)
+	await view.wait_for_animations()
+	assert_false((fresh.get_node("FuseSpark") as Node2D).visible)
+	assert_eq(fresh.ability_visual.kind, &"引")
+	assert_eq(existing.ability_visual.kind, &"引")
+
+func test_core_conversion_uses_burst_and_reset_clears_it() -> void:
+	var piece: ChessPiece = view.get_cell(Vector2i.ZERO).piece
+	var converted: PieceState = rules.state.get_piece(piece.piece_id).copy()
+	converted.content_id = &"special_demolition"
+	view.animate_transform(converted, 0.15)
+	var burst: Polygon2D = piece.get_node("ConversionBurst")
+	assert_true(burst.visible)
+	assert_false((piece.get_node("FuseSpark") as Node2D).visible)
+	assert_eq(piece.ability_visual.kind, &"爆")
+	piece.reset()
+	assert_false(burst.visible)
+	view.set_low_effects(true)
+	view.animate_transform(converted, 0.15)
+	assert_false(burst.visible)
+	assert_eq(piece.ability_visual.kind, &"爆")
