@@ -59,7 +59,10 @@ func _ready() -> void:
 	_role_tap_platform = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--wechat-window="): _role_tap_platform = true
-	_role_details.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	var body: Label = _role_details.get_label()
+	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	body.add_theme_color_override("font_color", Color("#f8f4ea"))
+	body.add_theme_font_size_override("font_size", 24)
 	_current_role.gui_input.connect(_on_role_input)
 	visibility_changed.connect(_close_hidden_role_details)
 	show_status(_status_id)
@@ -234,7 +237,7 @@ func _on_role_input(event: InputEvent) -> void:
 	var position: Vector2 = touch.position if touch != null else click.position
 	if event.is_pressed() or not Rect2(Vector2.ZERO, _current_role.size).has_point(position): return
 	_current_role.accept_event()
-	var width: int = clampi(floori(get_viewport_rect().size.x) - 24, 1, 360)
+	var width: int = clampi(floori(get_viewport_rect().size.x) - 24, 1, 500)
 	_role_details.popup_centered(Vector2i(width, 0))
 
 func _close_hidden_role_details() -> void:

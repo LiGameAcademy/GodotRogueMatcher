@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cy1b1q0q5h25h"]
+[gd_scene load_steps=13 format=3 uid="uid://cy1b1q0q5h25h"]
 
 [ext_resource type="Script" uid="uid://d0h8rr8llaaaj" path="res://ui/hud.gd" id="1"]
 
@@ -24,6 +24,9 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_left = 8
 corner_radius_bottom_right = 8
+
+[sub_resource type="Theme" id="RoleDialog"]
+AcceptDialog/styles/panel = SubResource("Panel")
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -266,4 +269,5 @@ z_index = 100
 unique_name_in_owner = true
 transient = true
 exclusive = true
+theme = SubResource("RoleDialog")
 ok_button_text = "关闭"
