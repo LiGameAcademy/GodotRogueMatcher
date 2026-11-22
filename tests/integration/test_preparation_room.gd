@@ -346,6 +346,7 @@ func _pad(button: JoyButton) -> void:
 func test_small_window_touch_previews_lock_and_resumes_original_slot() -> void:
 	var old: RunController = _run(61)
 	assert_true((await SNAPSHOT.save_frozen(CheckpointStore.new(_directory), SNAPSHOT.freeze(old))).ok)
+	var original_canvas: Vector2i = get_window().content_scale_size
 	var room: Control = await _room()
 	var window: Window = room.get_window()
 	var runner_layer: CanvasLayer = get_tree().root.find_child("GutLayer", true, false) as CanvasLayer
@@ -365,17 +366,32 @@ func test_small_window_touch_previews_lock_and_resumes_original_slot() -> void:
 	window.size = Vector2i(320, 568)
 	await wait_process_frames(4)
 	await _tap(room.get_node("%New"))
+	var transform: Transform2D = window.get_final_transform()
+	var physical_window: Rect2 = Rect2(Vector2.ZERO, Vector2(window.size))
+	var previous_locale: String = TranslationServer.get_locale()
+	TranslationServer.set_locale("en_US")
+	await wait_process_frames(3)
+	var launch: Rect2 = transform * room.get_node("%New").get_global_rect()
+	assert_gte(launch.size.y, 44.0)
 	await _tap(room.get_node("%Bomber"))
 	assert_true(room.get_node("%Bomber").button_pressed)
+	assert_lte((transform * room.get_node("%SelectTitle").get_global_rect()).end.x, float(window.size.x))
+	TranslationServer.set_locale(previous_locale)
+	await wait_process_frames(3)
 	assert_true(room.get_node("%Depart").disabled)
+	for id: String in ["%Bomber","%Requirement","%Back","%Depart"]:
+		assert_true(physical_window.encloses(transform * room.get_node(id).get_global_rect()), id)
+	assert_gte((transform * room.get_node("%Back").get_global_rect()).size.y, 44.0)
 	await _tap(room.get_node("%Back"))
 	await _tap(room.get_node("%Continue"))
-	window.size = previous_size
 	if runner_layer != null: runner_layer.visible = overlay_visible
 	if not await _until(_playing):
+		window.size = previous_size
 		fail_test("Touch did not resume the original slot")
 		return
 	assert_eq(get_tree().current_scene.get_node("Board").run.state.run_id, old.state.run_id)
+	assert_eq(window.content_scale_size, original_canvas)
+	window.size = previous_size
 
 func test_gamepad_preview_and_cancel_replacement_preserve_choice() -> void:
 	var old: RunController = _run(62)
