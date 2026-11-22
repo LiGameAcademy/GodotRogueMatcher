@@ -211,8 +211,13 @@ func refresh_piece_details(snapshot: Array[PieceState], explosion: ExplosionStat
 			marker = "爆" if piece_state.content_id == &"special_demolition" else "引"
 		elif LineClearState.is_line_piece(piece_state.content_id):
 			marker = "行" if piece_state.content_id == LineClearState.CONTENT_ROW else "列"
-		piece.set_ability_marker(marker)
+		piece.set_ability_marker(marker, _sweep_lanes(piece_state.content_id, line_clear))
 		piece.set_tooltip_text(PieceTooltip.describe(piece_state, explosion, config, piece.item_data, line_clear, manual_uses_used))
+
+static func _sweep_lanes(content_id: StringName, line_clear: LineClearState) -> int:
+	if line_clear == null or not LineClearState.is_line_piece(content_id): return 2
+	var axis: int = LineClearState.axis_of(content_id)
+	return 3 if LineClearRules.radius(line_clear, axis) > 0 else 2
 
 ## Prevent final-state refreshes from revealing a later leaf before its committed boundary.
 func defer_fuse_markers(ids: Array[int]) -> void:
@@ -420,11 +425,11 @@ func animate_spawn(snapshot: PieceState, duration: float, origin: Variant = null
 	track_presentation(animation)
 
 ## Reuse the same node, color and cell; only the special marker changes.
-func animate_transform(snapshot: PieceState, duration: float) -> void:
+func animate_transform(snapshot: PieceState, duration: float, line_clear: LineClearState = null) -> void:
 	var piece: ChessPiece = get_piece(snapshot.piece_id)
 	if not is_instance_valid(piece): return
 	var marker: String = "爆" if snapshot.content_id == &"special_demolition" else ("行" if snapshot.content_id == LineClearState.CONTENT_ROW else "列")
-	piece.set_ability_marker(marker)
+	piece.set_ability_marker(marker, _sweep_lanes(snapshot.content_id, line_clear))
 	if not low_effects and duration > 0.0: track_presentation(piece.play_conversion_feedback())
 
 ## 导演每步只等待实际动画；队列状态由父级另行映射给公开查询。
