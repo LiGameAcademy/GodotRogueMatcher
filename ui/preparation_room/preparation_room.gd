@@ -106,6 +106,8 @@ func _layout() -> void:
 	%Role.add_theme_font_size_override("font_size", 21 if portrait else 28)
 	%Portrait.visible = not portrait
 	%Requirement.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if portrait else TextServer.AUTOWRAP_OFF
+	%Title.autowrap_mode = %Requirement.autowrap_mode
+	%SelectTitle.autowrap_mode = %Requirement.autowrap_mode
 	%Continue.autowrap_mode = %Requirement.autowrap_mode
 	%Skill.autowrap_mode = %Requirement.autowrap_mode
 	for action: Button in [%Back, %Depart, _records.folder, _records.export_button, _records.quit_button]:
