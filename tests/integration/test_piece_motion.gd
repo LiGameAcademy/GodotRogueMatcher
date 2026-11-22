@@ -36,8 +36,10 @@ func test_birth_deforms_body_locally_and_preserves_ghost_opacity() -> void:
 	var bounds: Rect2 = piece.tooltip_region.get_rect()
 	var animation: Tween = piece.spawn_animation(0.12)
 	assert_ne(visual.scale.x, visual.scale.y)
+	assert_lt(visual.position.y, 0.0)
 	assert_eq(piece.tooltip_region.get_rect(), bounds)
 	await animation.finished
+	assert_eq(visual.position.y, 0.0)
 	assert_eq(visual.scale, Vector2.ONE)
 	assert_eq(piece.scale, Vector2.ONE)
 	assert_almost_eq(piece.modulate.a, 0.5, 0.001)
@@ -66,6 +68,7 @@ func test_low_effects_during_birth_snaps_deformation_without_killing_required_cl
 	_view.track_presentation(animation)
 	await wait_process_frames(3)
 	piece.set_low_effects(true)
+	assert_eq(visual.position.y, 0.0)
 	assert_eq(visual.scale, Vector2.ONE)
 	assert_true(animation.is_running())
 	await wait_process_frames(3)
@@ -88,6 +91,7 @@ func test_pause_cancel_and_reset_restore_deformation_without_late_writes() -> vo
 	assert_eq(visual.scale, pose)
 	get_tree().paused = false
 	_view.cancel_animations()
+	assert_eq(visual.position.y, 0.0)
 	assert_eq(visual.scale, Vector2.ONE)
 	piece.spawn_animation(0.2)
 	piece.reset()

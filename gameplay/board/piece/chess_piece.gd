@@ -88,7 +88,9 @@ func _ready() -> void:
 ## Changes decoration only; required movement and birth clocks keep running.
 func set_low_effects(enabled: bool) -> void:
 	low_effects = enabled
-	if enabled and is_node_ready(): _hide_conversion_feedback()
+	if enabled and is_node_ready():
+		_hide_conversion_feedback()
+		_set_birth_height(0.0)
 	_set_deformation(Vector2.ONE)
 	_refresh_idle_expression()
 	if is_instance_valid(ability_visual): ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects, _sweep_lanes)
@@ -139,6 +141,7 @@ func set_tooltip_text(text: String) -> void:
 func cancel_movement() -> void:
 	if tween != null: tween.kill()
 	_hide_conversion_feedback()
+	_set_birth_height(0.0)
 	_set_deformation(Vector2.ONE)
 	if not is_eliminating:
 		scale = Vector2.ONE * ((1.04 if low_effects else JUICE.selected_scale) if is_selected else 1.0)
@@ -318,19 +321,25 @@ func reset() -> void:
 func initialize_item(data: ItemData) -> void:
 	item_data = data
 
-## Presents birth within the existing clock; flight callers own scale and start visible.
+static func spawn_contact_time(duration: float) -> float:
+	return maxf(duration, 0.001) * JUICE.birth_landing_ratio
+
+func _set_birth_height(height: float) -> void:
+	_motion_visuals.position.y = 0.0 if low_effects else height
+
+## Presents birth within the existing clock; flight callers own the approach transform.
 func spawn_animation(duration: float = 0.3, in_place: bool = true) -> Tween:
 	if tween != null: tween.kill()
 	var opacity: float = 0.5 if is_ghost else 1.0
 	var seconds: float = maxf(duration, 0.001)
-	var contact: float = seconds * JUICE.birth_landing_ratio
-	scale = Vector2.ONE * (0.25 if in_place else 1.0)
-	modulate.a = 0.0 if in_place else opacity
+	var contact: float = spawn_contact_time(duration)
+	scale = Vector2.ONE
+	modulate.a = opacity
+	_set_birth_height(-12.0 if in_place else 0.0)
 	_set_deformation(JUICE.birth_stretch)
 	tween = create_tween().set_parallel()
-	if in_place:
-		tween.tween_property(self, "scale", Vector2.ONE, seconds).set_trans(Tween.TRANS_CUBIC if low_effects else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "modulate:a", opacity, seconds)
+	if in_place and not low_effects:
+		tween.tween_method(_set_birth_height, -12.0, 0.0, contact).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_method(_set_deformation, JUICE.birth_stretch, JUICE.landing_squash, contact).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_method(_set_deformation, JUICE.landing_squash, Vector2.ONE, seconds - contact).set_delay(contact).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	return tween
