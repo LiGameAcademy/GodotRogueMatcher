@@ -30,3 +30,8 @@ texture = SubResource("Arrow")
 visible = false
 z_index = 1
 texture = SubResource("Arrow")
+
+[node name="ThirdArrow" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture = SubResource("Arrow")

@@ -435,7 +435,7 @@ func _on_presentation_step_requested(step: PresentationStep, epoch: int, token: 
 		PresentationStep.Kind.REMOVE:
 			for piece: PieceState in step.pieces: view.remove_piece(piece, true)
 		PresentationStep.Kind.TRANSFORM:
-			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration)
+			for piece: PieceState in step.pieces: view.animate_transform(piece, step.duration, run.state.line_clear)
 		PresentationStep.Kind.MARK_FUSES:
 			view.show_fuse_marks(step.pieces, step.duration)
 		PresentationStep.Kind.MATCHES:

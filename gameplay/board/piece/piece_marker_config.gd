@@ -4,6 +4,7 @@ extends Resource
 ## Read-only tuning for local markers. The values never affect rules or playback barriers.
 @export var arrow_size: Vector2 = Vector2(8, 14)
 @export var arrow_offset: float = 23.0
+@export var arrow_lane_gap: float = 16.0
 @export var arrow_travel: float = 2.0
 @export var pulse_seconds: float = 2.0
 ## Texture offsets are expressed in a 64-pixel reference space.

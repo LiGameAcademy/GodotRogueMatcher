@@ -146,3 +146,58 @@ func test_core_conversion_uses_burst_and_reset_clears_it() -> void:
 	view.animate_transform(converted, 0.15)
 	assert_false(burst.visible)
 	assert_eq(piece.ability_visual.kind, &"爆")
+
+func test_sweep_arrows_follow_the_upgraded_axis_and_stay_clear_in_low_effects() -> void:
+	var row: ChessPiece = view.get_cell(Vector2i.ZERO).piece
+	var column: ChessPiece = view.get_cell(Vector2i(1, 0)).piece
+	var snapshots: Array[PieceState] = rules.state.get_snapshot()
+	snapshots[0].content_id = LineClearState.CONTENT_ROW
+	snapshots[1].content_id = LineClearState.CONTENT_COLUMN
+	var explosion: ExplosionState = ExplosionState.new()
+	var config: ExplosionConfig = preload("res://gameplay/skills/content/explosion_config.tres")
+	var spans: LineClearState = LineClearState.new()
+
+	view.refresh_piece_details(snapshots, explosion, config, spans)
+	_assert_sweep_pair(row.ability_visual)
+	_assert_sweep_pair(column.ability_visual)
+
+	spans.upgrades[&"line_row_span"] = 1
+	view.refresh_piece_details(snapshots, explosion, config, spans)
+	_assert_sweep_triple(row.ability_visual, Vector2.RIGHT)
+	_assert_sweep_pair(column.ability_visual)
+
+	spans.upgrades[&"line_column_span"] = 1
+	view.animate_transform(snapshots[1], 0.0, spans)
+	_assert_sweep_triple(column.ability_visual, Vector2.DOWN)
+	view.set_low_effects(true)
+	var row_position: Vector2 = row.ability_visual.third_arrow.position
+	var column_position: Vector2 = column.ability_visual.third_arrow.position
+	await wait_process_frames(8)
+	_assert_sweep_triple(row.ability_visual, Vector2.RIGHT)
+	_assert_sweep_triple(column.ability_visual, Vector2.DOWN)
+	assert_eq(row.ability_visual.third_arrow.position, row_position)
+	assert_eq(column.ability_visual.third_arrow.position, column_position)
+	assert_eq(row.ability_visual.energy, 0.0)
+	assert_eq(column.ability_visual.energy, 0.0)
+
+	spans.upgrades.clear()
+	view.refresh_piece_details(snapshots, explosion, config, spans)
+	_assert_sweep_pair(row.ability_visual)
+	_assert_sweep_pair(column.ability_visual)
+
+func _assert_sweep_pair(visual: PieceAbilityVisual) -> void:
+	assert_true(visual.first_arrow.visible)
+	assert_true(visual.second_arrow.visible)
+	assert_false(visual.third_arrow.visible)
+	assert_almost_eq(visual.second_arrow.rotation - visual.first_arrow.rotation, PI, 0.001)
+	assert_eq(visual.second_arrow.position, -visual.first_arrow.position)
+
+func _assert_sweep_triple(visual: PieceAbilityVisual, axis: Vector2) -> void:
+	var arrows: Array[Sprite2D] = [visual.first_arrow, visual.second_arrow, visual.third_arrow]
+	var separation: Vector2 = arrows[1].position - arrows[0].position
+	for arrow: Sprite2D in arrows:
+		assert_true(arrow.visible)
+		assert_almost_eq(arrow.rotation, axis.angle(), 0.001)
+	assert_gt(separation.length(), visual.config.arrow_size.y)
+	assert_almost_eq(separation.dot(axis), 0.0, 0.001)
+	assert_almost_eq(arrows[2].position - arrows[1].position, separation, Vector2.ONE * 0.001)

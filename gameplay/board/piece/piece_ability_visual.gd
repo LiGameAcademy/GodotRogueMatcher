@@ -6,9 +6,12 @@ extends Node2D
 @onready var body_outline: Sprite2D = $BodyOutline
 @onready var first_arrow: Sprite2D = $FirstArrow
 @onready var second_arrow: Sprite2D = $SecondArrow
+@onready var third_arrow: Sprite2D = $ThirdArrow
 var kind: StringName = &""
 var low_effects: bool = false
 var energy: float = 0.0
+var sweep_lanes: int = 2
+var _arrows: Array[Sprite2D]
 var _outline: ShaderMaterial
 var _pulse: Tween
 
@@ -19,14 +22,16 @@ func _ready() -> void:
 	_outline.set_shader_parameter("outline_color", config.outline_color)
 	_outline.set_shader_parameter("rim_width", config.outline_rim_width)
 	_outline.set_shader_parameter("rim_color", config.outline_rim_color)
-	for arrow: Sprite2D in [first_arrow, second_arrow]:
+	_arrows = [first_arrow, second_arrow, third_arrow]
+	for arrow: Sprite2D in _arrows:
 		arrow.scale = config.arrow_size / arrow.texture.get_size()
 
 ## 原始标记由父级传入；本组件不查规则、外部节点或翻译后的文字。
-func configure(marker: StringName, body: Texture2D, reduced: bool) -> void:
+func configure(marker: StringName, body: Texture2D, reduced: bool, lanes: int = 2) -> void:
 	body_outline.texture = body
 	body_outline.scale = Vector2.ONE * NutVisual.BOARD_BODY_SIZE / body.get_width()
-	var changed: bool = kind != marker or low_effects != reduced
+	var changed: bool = kind != marker or low_effects != reduced or sweep_lanes != lanes
+	sweep_lanes = lanes
 	kind = marker
 	low_effects = reduced
 	_outline.set_shader_parameter("fuse_mark", kind == &"引")
@@ -34,6 +39,7 @@ func configure(marker: StringName, body: Texture2D, reduced: bool) -> void:
 	body_outline.visible = kind in [&"爆", &"引"]
 	first_arrow.visible = kind in [&"行", &"列"]
 	second_arrow.visible = first_arrow.visible
+	third_arrow.visible = first_arrow.visible and sweep_lanes == 3
 	visible = body_outline.visible or first_arrow.visible
 	if changed:
 		if _pulse != null and _pulse.is_valid():
@@ -52,9 +58,20 @@ func _set_phase(phase: float) -> void:
 	if not first_arrow.visible:
 		return
 	var axis: Vector2 = Vector2.DOWN if kind == &"列" else Vector2.RIGHT
-	first_arrow.position = axis * (config.arrow_offset + config.arrow_travel * energy)
+	var rotation: float = PI * 0.5 if kind == &"列" else 0.0
+	var travel: float = config.arrow_offset + config.arrow_travel * energy
+	var tint: Color = Color(1.0 + energy * 0.12, 1.0 + energy * 0.12, 1.0 + energy * 0.12, 1)
+	if sweep_lanes == 3:
+		var perpendicular: Vector2 = Vector2(-axis.y, axis.x)
+		for index: int in range(_arrows.size()):
+			var arrow: Sprite2D = _arrows[index]
+			arrow.position = axis * travel * 0.35 + perpendicular * (index - 1) * config.arrow_lane_gap
+			arrow.rotation = rotation
+			arrow.modulate = tint
+		return
+	first_arrow.position = axis * travel
 	second_arrow.position = -first_arrow.position
-	first_arrow.rotation = PI * 0.5 if kind == &"列" else 0.0
-	second_arrow.rotation = first_arrow.rotation + PI
-	for arrow: Sprite2D in [first_arrow, second_arrow]:
-		arrow.modulate = Color(1.0 + energy * 0.12, 1.0 + energy * 0.12, 1.0 + energy * 0.12, 1)
+	first_arrow.rotation = rotation
+	second_arrow.rotation = rotation + PI
+	first_arrow.modulate = tint
+	second_arrow.modulate = tint

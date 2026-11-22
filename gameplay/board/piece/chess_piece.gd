@@ -57,6 +57,7 @@ var is_ghost: bool = false  # 幽灵球标志（空间压缩机效果）
 
 
 var _surface: ShaderMaterial
+var _sweep_lanes: int = 2
 var _ability_kind: StringName = &""
 var _appearance: BoardAppearance
 var _is_moving: bool = false
@@ -90,7 +91,7 @@ func set_low_effects(enabled: bool) -> void:
 	if enabled and is_node_ready(): _hide_conversion_feedback()
 	_set_deformation(Vector2.ONE)
 	_refresh_idle_expression()
-	if is_instance_valid(ability_visual): ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects)
+	if is_instance_valid(ability_visual): ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects, _sweep_lanes)
 	if is_instance_valid(aura): aura.show_selection(_piece_color(), is_selected and not is_eliminating, low_effects)
 	if glow_particles:
 		glow_particles.emitting = false
@@ -122,11 +123,12 @@ func set_shadow_direction(direction: Vector2) -> void:
 	_contact_shadow.set_direction(direction)
 
 ## 标记由表现调用者根据本局能力映射传入。
-func set_ability_marker(text: String) -> void:
+func set_ability_marker(text: String, sweep_lanes: int = 2) -> void:
+	_sweep_lanes = sweep_lanes
 	_ability_kind = StringName(text)
 	ability_marker.text = tr(text)
 	ability_marker.visible = not text.is_empty() and _ability_kind not in [&"行", &"列", &"爆", &"引"]
-	ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects)
+	ability_visual.configure(_ability_kind, NutVisual.BODIES[posmod(piece_type, 5)], low_effects, _sweep_lanes)
 
 ## 使用原生提示，不截获格子的点击与路径输入。
 func set_tooltip_text(text: String) -> void:
@@ -415,7 +417,7 @@ func _update_shape_visual() -> void:
 			update_particle_color(color)
 		# 几何数据保留为旧形状模式的查询依据；实际表现改用已定稿坚果。
 		nut_visual.nut_type = type_index
-		ability_visual.configure(_ability_kind, NutVisual.BODIES[type_index], low_effects)
+		ability_visual.configure(_ability_kind, NutVisual.BODIES[type_index], low_effects, _sweep_lanes)
 		nut_visual.visible = true
 		_refresh_idle_expression()
 		polygon.visible = false
