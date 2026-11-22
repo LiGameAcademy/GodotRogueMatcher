@@ -37,6 +37,8 @@ signal reward_resume_requested
 @onready var settings_button: FeedbackButton = %SettingsButton
 @onready var board_area: Control = %BoardArea
 @onready var history_button: Button = %HistoryButton
+@onready var _reward_slot: TextureRect = %RewardSlot
+@onready var _reward_slot_frame: PanelContainer = %RewardSlotFrame
 @onready var history_label: RichTextLabel = %HistoryLabel
 @onready var spawn_preview: SpawnPreview = %SpawnPreview
 var displayed_score: int = 0
@@ -75,6 +77,7 @@ func _ready() -> void:
 	board_area.item_rect_changed.connect(_notify_board_area)
 	piece_pool.pool_view_changed.connect(piece_pool_visibility_changed.emit)
 	goal_progress.value_changed.connect(_on_goal_value_changed)
+	get_window().size_changed.connect(_layout_content)
 	resized.connect(_layout_content)
 	($Margin/Rows/Body as Control).resized.connect(_layout_content)
 	($Margin/Rows/Body as Control).item_rect_changed.connect(_notify_board_area)
@@ -98,6 +101,8 @@ func _show_breakdown(state: RunState) -> void:
 	breakdown_label.custom_minimum_size.y = 82.0 if has_details else 32.0
 
 func _layout_content() -> void:
+	var window: Window = get_window()
+	_reward_slot_frame.visible = window.size.x <= 600 or window.get_visible_rect().size.x <= 600
 	var body: HBoxContainer = $Margin/Rows/Body
 	var margin: MarginContainer = $Margin
 	var group_width: float = minf(size.x - 40.0, maxf(760.0, body.size.y + 256.0))
@@ -119,6 +124,13 @@ func _notification(what: int) -> void:
 ## Game负责将这一屏幕区域转换到棋盘的坐标系。
 func get_board_area() -> Rect2:
 	return board_area.get_global_rect().grow(-8.0)
+
+func visible_reward_slot() -> TextureRect:
+	return _reward_slot if _reward_slot.is_visible_in_tree() else null
+
+func reward_destination(skill: SkillDefinition) -> Rect2:
+	if visible_reward_slot() != null: return _reward_slot_frame.get_global_rect()
+	return build_list.get_global_rect() if skill.is_persistent or skill.refill_effect() != null else history_button.get_global_rect()
 
 func _notify_board_area() -> void:
 	board_area_changed.emit.call_deferred()
@@ -199,6 +211,7 @@ func bind_checkpoint(active: RunController) -> void:
 	set_reward_waiting(active.state.rewards.active_offer != null)
 
 func show_run(run: RunController) -> void:
+	if _run != run: _reward_slot.texture = null
 	_run = run
 	var role: ROLE = RunController.ROLES.find(run.opening_id)
 	_current_role.display(role)

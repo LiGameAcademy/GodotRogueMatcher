@@ -29,7 +29,6 @@ const CHECKPOINT_COLLECTION: Script = preload("res://gameplay/game_checkpoint_co
 var preferences: PlayerPreferences = PlayerPreferences.new()
 var board_rules: BoardRules
 var game_theme: GameTheme
-var _reward_flow: GameRewardFlow = GameRewardFlow.new()
 
 var _settings_previous_location: String = ""
 var _pool_previous_location: String = ""
@@ -48,6 +47,7 @@ var _menu_owns_pause: bool = false
 @onready var release_menu: ReleaseMenu = $MenuLayer/ReleaseMenu
 @onready var _collection: RunCollection = $RunCollection
 @onready var _card_transfer: CardTransfer = $CardTransfer
+@onready var _reward_flow: GameRewardFlow = GameRewardFlow.new(_card_transfer)
 @onready var _skill_pool: SkillPool = $SkillPool
 @onready var _settings: PlaybackSettings = $PlaybackSettings
 @onready var _checkpoint: GameCheckpointFlow = $GameCheckpointFlow
@@ -483,8 +483,8 @@ func _on_settings_view_changed(open: bool) -> void:
 	_collection.flush()
 
 func _on_skill_card_acquired(skill: SkillDefinition, target: SkillTarget, source: Rect2) -> void:
-	var destination: Rect2 = _hud.build_list.get_global_rect() if skill.is_persistent or skill.refill_effect() != null else _hud.history_button.get_global_rect()
-	_card_transfer.play(skill, target, source, destination, preferences.low_effects)
+	var destination: Rect2 = _hud.reward_destination(skill)
+	_card_transfer.play(skill, target, source, destination, preferences.low_effects, _hud.visible_reward_slot())
 
 func _on_skill_pool_view_changed(open: bool) -> void:
 	if open:

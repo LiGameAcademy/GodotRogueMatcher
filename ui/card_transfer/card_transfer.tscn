@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://ui/card_transfer/card_transfer.gd" id="1"]
 [ext_resource type="PackedScene" path="res://ui/skill_card.tscn" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="LandingOutline"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.98, 0.67, 0.16, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="CardTransfer" type="CanvasLayer"]
 process_mode = 3
@@ -12,3 +24,14 @@ script = ExtResource("1")
 visible = false
 mouse_filter = 2
 focus_mode = 0
+
+[node name="FlightIcon" type="TextureRect" parent="."]
+visible = false
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LandingOutline" type="Panel" parent="."]
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("LandingOutline")
