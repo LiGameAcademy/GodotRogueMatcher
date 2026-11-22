@@ -73,7 +73,7 @@ func test_real_pause_busy_score_and_buffer_feedback_routes() -> void:
 	board.can_selected = false
 	game.call("_on_playback_busy", true)
 	assert_eq(hud.status_label.text, "Resolving action…")
-	game.call("_on_turn_started", 1)
+	GameManager.turn_started.emit(1)
 	assert_eq(hud.status_label.text, "Resolving action…")
 	board.can_selected = true
 	assert_eq(hud.status_label.text, "Select a piece and an empty cell")
