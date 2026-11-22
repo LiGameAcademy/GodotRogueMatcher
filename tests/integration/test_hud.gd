@@ -33,7 +33,9 @@ func test_score_counts_up_without_mutating_ledger() -> void:
 	hud.show_score(125)
 	assert_eq(hud.displayed_score, 0)
 	assert_eq(hud.gain_label.text, "+125")
-	await wait_process_frames(2)
+	# Sample the real Tween before yielding to a potentially long first frame.
+	hud._score_tween.custom_step(hud.score_duration * 0.25)
+	assert_gt(hud.displayed_score, 0)
 	assert_lt(hud.displayed_score, 125)
 	assert_true(await hud.wait_for_score())
 	assert_eq(hud.score_label.text, "分数  125")

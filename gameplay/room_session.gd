@@ -12,7 +12,7 @@ func _ready() -> void:
 	_checkpoint.track_visits = true
 	_hud.hide()
 	if not _request.is_empty():
-		await CoreSystem.scene_manager.scene_loading_finished
+		await GameFlow.wait_for_handoff()
 	await super._ready()
 
 func init_state(data: Dictionary) -> void:

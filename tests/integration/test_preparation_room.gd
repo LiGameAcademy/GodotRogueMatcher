@@ -97,7 +97,12 @@ func test_unreadable_primary_is_not_a_fresh_profile() -> void:
 func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 	_boot()
 	if not await _until(_playing):
-		fail_test("Fresh profile did not start playing: " + get_tree().current_scene.scene_file_path)
+		var scene: Node = get_tree().current_scene
+		var board: Board = scene.get_node_or_null("Board")
+		fail_test("Fresh profile did not start playing: %s, flow=%d, paused=%s, board=%s" % [
+			scene.scene_file_path, GameFlow.machine.current, get_tree().paused,
+			{"run": board.run != null, "input": board.can_selected, "presenting": board.director.is_busy(),
+			"hud_visible": scene.get_node("UILayer/HUD").visible, "prompt": scene.get_node("GameCheckpointFlow").prompt.is_open()} if board != null else {}])
 		return
 	var game: Node = get_tree().current_scene
 	var identity: String = game.get_node("Board").run.state.run_id
@@ -105,7 +110,8 @@ func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 	assert_eq(game.get_node("Board").run.opening_id, &"standard")
 	assert_eq(game.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"standard").portrait)
 	assert_false(game.release_menu.visible)
-	await _until(func() -> bool: return not game.get_node("GameCheckpointFlow")._saving)
+	assert_true(game.get_node("Board").can_selected)
+	if not await _opening_save_finished(game): return
 	game.free()
 	GameFlow.machine = CoreStateMachine.new(GameFlow.Page.BOOT, [0, 1, 2, 3], GameFlow._allowed)
 	_boot()
@@ -113,6 +119,26 @@ func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 		fail_test("Interrupted first run did not resume")
 		return
 	assert_eq(get_tree().current_scene.get_node("Board").run.state.run_id, identity)
+
+func test_play_scene_entering_tree_after_handoff_accepts_input() -> void:
+	# Model a deferred scene attachment after the navigation lock has been released.
+	var game: Node = load(GAME_PATH).instantiate()
+	game.init_state({"action": "new", "mode": "stage_challenge", "opening": "standard", "directory": _directory})
+	GameFlow.machine.try_transition(GameFlow.Page.PLAY)
+	get_tree().root.add_child(game)
+	get_tree().current_scene = game
+	if not await _until(_playing):
+		fail_test("Already completed handoff left the opening waiting for another transition")
+		return
+	assert_true(game.get_node("Board").can_selected)
+	await _opening_save_finished(game)
+
+func _opening_save_finished(game: Node) -> bool:
+	var checkpoint: GameCheckpointFlow = game.get_node("GameCheckpointFlow")
+	if not await _until(func() -> bool: return not checkpoint._saving):
+		fail_test("Opening checkpoint write did not finish")
+		return false
+	return true
 
 func test_relaunch_after_durable_settlement_retires_only_the_same_run() -> void:
 	var old: RunController = _run(71)
@@ -290,6 +316,7 @@ func test_cancel_preserves_role_resume_uses_old_run_and_confirm_starts_scout() -
 	var board: Board = get_tree().current_scene.get_node("Board")
 	assert_ne(board.run.state.run_id, old.state.run_id)
 	assert_eq(board.run.opening_id, &"row_sweep")
+	if not await _opening_save_finished(get_tree().current_scene): return
 	var restored: Dictionary = SNAPSHOT.load(CheckpointStore.new(_directory), SNAPSHOT.manifest(board.run))
-	assert_true(restored.ok)
+	assert_true(restored.ok, str(restored.reason))
 	if restored.ok: assert_eq(restored.run.opening_id, &"row_sweep")

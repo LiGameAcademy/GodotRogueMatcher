@@ -17,6 +17,11 @@ func travel(target: Page, data: Dictionary) -> bool:
 	CoreSystem.scene_manager.change_scene_async(ROOM if target == Page.ROOM else GAME, data)
 	return true
 
+## A deferred scene can enter the tree on either side of the handoff notification.
+func wait_for_handoff() -> void:
+	if _pending != -1:
+		await CoreSystem.scene_manager.scene_loading_finished
+
 func show_result() -> bool:
 	return machine.try_transition(Page.RESULT)
 

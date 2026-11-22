@@ -32,7 +32,7 @@ func _ready() -> void:
 	_home.hide()
 	_characters.hide()
 	if not _entry.is_empty():
-		await CoreSystem.scene_manager.scene_loading_finished
+		await GameFlow.wait_for_handoff()
 	_preferences.load_values(CoreSystem.config_manager)
 	%Continue.pressed.connect(_launch.bind(true))
 	%New.pressed.connect(_new_game)
