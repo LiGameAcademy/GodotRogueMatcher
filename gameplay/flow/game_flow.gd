@@ -8,6 +8,13 @@ var machine: CoreStateMachine = CoreStateMachine.new(Page.BOOT, [Page.BOOT, Page
 var _pending: int = -1
 
 func _ready() -> void:
+	# Keep the platform's keyboard bindings and add the two menu buttons.
+	for action: StringName in [&"ui_accept", &"ui_cancel"]:
+		var button: InputEventJoypadButton = InputEventJoypadButton.new()
+		button.device = -1
+		button.button_index = JOY_BUTTON_A if action == &"ui_accept" else JOY_BUTTON_B
+		if not InputMap.action_has_event(action, button):
+			InputMap.action_add_event(action, button)
 	CoreSystem.scene_manager.scene_changed.connect(_arrived)
 	CoreSystem.scene_manager.scene_loading_finished.connect(_finished)
 
@@ -16,6 +23,11 @@ func travel(target: Page, data: Dictionary) -> bool:
 	_pending = target
 	CoreSystem.scene_manager.change_scene_async(ROOM if target == Page.ROOM else GAME, data)
 	return true
+
+## A deferred scene can enter the tree on either side of the handoff notification.
+func wait_for_handoff() -> void:
+	if _pending != -1:
+		await CoreSystem.scene_manager.scene_loading_finished
 
 func show_result() -> bool:
 	return machine.try_transition(Page.RESULT)

@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/preparation_room/role_portrait.gd" id="script"]
+
+[node name="RolePortrait" type="TextureRect"]
+script = ExtResource("script")
+custom_minimum_size = Vector2(90, 84)
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 4

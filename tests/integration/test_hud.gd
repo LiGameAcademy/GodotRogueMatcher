@@ -14,12 +14,28 @@ func after_each() -> void:
 	get_tree().paused = false
 	await wait_process_frames(2)
 
+func test_current_role_changes_with_run_and_checkpoint() -> void:
+	var icon: TextureRect = hud.get_node("%CurrentRole")
+	var portraits: Array[Texture2D] = []
+	for id: StringName in [&"standard", &"row_sweep", &"dyer", &"bomber"]:
+		var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 91, GameModes.CHALLENGE.stage_config)
+		run.initialize("normal", id)
+		hud.bind_checkpoint(run)
+		assert_not_null(icon.texture)
+		assert_false(portraits.has(icon.texture))
+		portraits.append(icon.texture)
+		assert_eq(icon.texture, RunController.ROLES.find(id).portrait)
+		assert_eq(icon.tooltip_text, tr("role." + str(id)))
+		assert_false(icon.get_global_rect().intersects(hud.board_area.get_global_rect()))
+
 func test_score_counts_up_without_mutating_ledger() -> void:
 	var before: int = GameManager.score
 	hud.show_score(125)
 	assert_eq(hud.displayed_score, 0)
 	assert_eq(hud.gain_label.text, "+125")
-	await wait_process_frames(2)
+	# Sample the real Tween before yielding to a potentially long first frame.
+	hud._score_tween.custom_step(hud.score_duration * 0.25)
+	assert_gt(hud.displayed_score, 0)
 	assert_lt(hud.displayed_score, 125)
 	assert_true(await hud.wait_for_score())
 	assert_eq(hud.score_label.text, "分数  125")

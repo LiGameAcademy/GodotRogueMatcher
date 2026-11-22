@@ -35,7 +35,7 @@ static func skills(run: RunController, values: Array, acquired: Dictionary) -> b
 		if not V.keys(value, PackedStringArray(["instance_id", "skill_id", "level", "abilities"])): return false
 		if not value.skill_id is String or not catalog.has(StringName(value.skill_id)): return false
 		var definition: SkillDefinition = catalog[StringName(value.skill_id)]
-		var is_opening: bool = run.opening_id == &"row_sweep" and definition.skill_id == &"line_row_drop"
+		var is_opening: bool = RunController.ROLES.find(run.opening_id).skills.has(definition)
 		if not V.integer(value.instance_id, 0 if is_opening else 1, 0 if is_opening else run.state.rewards.consumed_count) or not V.integer(value.level, 1, definition.levels.size()): return false
 		var id: int = String(value.instance_id).to_int()
 		if ids.has(id) or run.state.skill_instances.has(definition.skill_id): return false
@@ -57,9 +57,10 @@ static func skills(run: RunController, values: Array, acquired: Dictionary) -> b
 			instance.abilities.append(ability)
 		run.state.skill_instances[definition.skill_id] = instance
 	var count: int = 0
-	if run.opening_id == &"row_sweep":
-		if not run.state.line_clear.row_unlocked or not run.state.skill_instances.has(&"line_row_drop"): return false
-		count = -1
+	for starting: SkillDefinition in RunController.ROLES.find(run.opening_id).skills:
+		if not acquired.has(String(starting.skill_id)): return false
+		count -= 1
+	if run.opening_id == &"row_sweep" and not run.state.line_clear.row_unlocked: return false
 	for key: String in acquired:
 		var definition: SkillDefinition = catalog[StringName(key)]
 		if not definition.levels.is_empty() and not run.state.skill_instances.has(definition.skill_id): return false

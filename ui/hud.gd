@@ -17,6 +17,7 @@ signal reward_resume_requested
 @export var score_duration: float = 0.45
 ## Visual-only birth host on the HUD canvas, below popup and menu canvases.
 @onready var spawn_flights: Node2D = %SpawnFlights
+@onready var _current_role: TextureRect = %CurrentRole
 @onready var score_label: Label = %ScoreLabel
 @onready var gain_label: Label = %GainLabel
 @onready var goal_progress: GOAL_PROGRESS = %GoalProgress
@@ -56,7 +57,6 @@ func _ready() -> void:
 	%ResumeReward.pressed.connect(reward_resume_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
 	settings_button.pressed.connect(settings_requested.emit)
-	(%Title as Label).text = tr("技能连珠")
 	show_pause_state(get_tree().paused)
 	settings_button.text = ""
 	history_button.toggled.connect(_show_history)
@@ -96,7 +96,6 @@ func _layout_content() -> void:
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED or not is_node_ready(): return
-	(%Title as Label).text = tr("技能连珠")
 	show_pause_state(get_tree().paused)
 	settings_button.text = ""
 	score_label.text = tr("分数  %d") % displayed_score
@@ -189,6 +188,7 @@ func bind_checkpoint(active: RunController) -> void:
 
 func show_run(run: RunController) -> void:
 	_run = run
+	_current_role.display(RunController.ROLES.find(run.opening_id))
 	spawn_preview.show_plan(run.state.spawning.preview(run.state.next_refill_count()), run.state.is_game_over)
 	var state: RunState = run.state
 	piece_pool.show_state(state)

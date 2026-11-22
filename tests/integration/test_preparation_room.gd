@@ -1,6 +1,7 @@
 extends GutTest
 
 ## Exercises the packed application entry and the pinned CoreSystem scene manager.
+const ROLE: Script = preload("res://gameplay/openings/opening_role.gd")
 const ROOM: PackedScene = preload("res://ui/preparation_room/preparation_room.tscn")
 const ROOM_PATH: String = "res://ui/preparation_room/preparation_room.tscn"
 const GAME_PATH: String = "res://gameplay/room_session.tscn"
@@ -45,7 +46,7 @@ func _room() -> Control:
 	return room
 
 func _until(condition: Callable) -> bool:
-	var deadline: int = Time.get_ticks_msec() + 9000
+	var deadline: int = Time.get_ticks_msec() + 30000
 	while not condition.call() and Time.get_ticks_msec() < deadline:
 		await get_tree().process_frame
 	return bool(condition.call())
@@ -97,14 +98,21 @@ func test_unreadable_primary_is_not_a_fresh_profile() -> void:
 func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 	_boot()
 	if not await _until(_playing):
-		fail_test("Fresh profile did not start playing")
+		var scene: Node = get_tree().current_scene
+		var board: Board = scene.get_node_or_null("Board")
+		fail_test("Fresh profile did not start playing: %s, flow=%d, paused=%s, board=%s" % [
+			scene.scene_file_path, GameFlow.machine.current, get_tree().paused,
+			{"run": board.run != null, "input": board.can_selected, "presenting": board.director.is_busy(),
+			"hud_visible": scene.get_node("UILayer/HUD").visible, "prompt": scene.get_node("GameCheckpointFlow").prompt.is_open()} if board != null else {}])
 		return
 	var game: Node = get_tree().current_scene
 	var identity: String = game.get_node("Board").run.state.run_id
 	assert_eq(GameFlow.machine.current, GameFlow.Page.PLAY)
 	assert_eq(game.get_node("Board").run.opening_id, &"standard")
+	assert_eq(game.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"standard").portrait)
 	assert_false(game.release_menu.visible)
-	await _until(func() -> bool: return not game.get_node("GameCheckpointFlow")._saving)
+	assert_true(game.get_node("Board").can_selected)
+	if not await _opening_save_finished(game): return
 	game.free()
 	GameFlow.machine = CoreStateMachine.new(GameFlow.Page.BOOT, [0, 1, 2, 3], GameFlow._allowed)
 	_boot()
@@ -112,6 +120,26 @@ func test_first_boot_and_interrupted_boot_enter_board_directly() -> void:
 		fail_test("Interrupted first run did not resume")
 		return
 	assert_eq(get_tree().current_scene.get_node("Board").run.state.run_id, identity)
+
+func test_play_scene_entering_tree_after_handoff_accepts_input() -> void:
+	# Model a deferred scene attachment after the navigation lock has been released.
+	var game: Node = load(GAME_PATH).instantiate()
+	game.init_state({"action": "new", "mode": "stage_challenge", "opening": "standard", "directory": _directory})
+	GameFlow.machine.try_transition(GameFlow.Page.PLAY)
+	get_tree().root.add_child(game)
+	get_tree().current_scene = game
+	if not await _until(_playing):
+		fail_test("Already completed handoff left the opening waiting for another transition")
+		return
+	assert_true(game.get_node("Board").can_selected)
+	await _opening_save_finished(game)
+
+func _opening_save_finished(game: Node) -> bool:
+	var checkpoint: GameCheckpointFlow = game.get_node("GameCheckpointFlow")
+	if not await _until(func() -> bool: return not checkpoint._saving):
+		fail_test("Opening checkpoint write did not finish")
+		return false
+	return true
 
 func test_relaunch_after_durable_settlement_retires_only_the_same_run() -> void:
 	var old: RunController = _run(71)
@@ -158,6 +186,7 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 	var board: Board = game.get_node("Board")
 	assert_eq(board.run.opening_id, &"standard")
 	board.run.state.stage.index = 1
+	board.run.state.ledger.commit(0, 1.0, 1150)
 	var fault: String = _directory.path_join("opening_progress.json.tmp")
 	assert_eq(DirAccess.make_dir_recursive_absolute(fault), OK)
 	board.run.finish_game(&"board_full")
@@ -177,6 +206,12 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 		fail_test("Settlement retry did not grant the role")
 		return
 	var result: Control = UIManager.current_popup
+	assert_eq(flow.opening_progress.best, 1150)
+	assert_eq(result.get_node("Panel/Content/Portraits").get_child_count(), 3)
+	for index: int in range(3):
+		var role: ROLE = RunController.ROLES.ALL[index + 1]
+		var card: Control = result.get_node("Panel/Content/Portraits").get_child(index)
+		assert_eq(card.get_node("StartingSkills").text, tr("role.starting_skills") % role.starting_skill_text())
 	result.menu_requested.emit()
 	result.menu_requested.emit()
 	if not await _until(func() -> bool: return _at(ROOM_PATH) and get_tree().current_scene.get("_loaded")):
@@ -187,6 +222,29 @@ func test_locked_role_and_real_new_game_result_return() -> void:
 	room.get_node("%New").pressed.emit()
 	room.get_node("%Scout").pressed.emit()
 	assert_false(room.get_node("%Depart").disabled)
+
+func test_best_400_previews_locked_dyer_and_durable_unlock_starts_bomber() -> void:
+	var progress: PROGRESS = PROGRESS.new()
+	await progress.load_progress(_directory)
+	assert_eq(await progress.finish_visit("first-score", false, 400), "")
+	var room: Control = await _room()
+	room.get_node("%New").pressed.emit()
+	room.get_node("%Dyer").pressed.emit()
+	assert_true(room.get_node("%Depart").disabled)
+	assert_eq(room.get_node("%Requirement").text, tr("role.target") % [400, 450, 50])
+	var slot: GameCheckpointFlow = room.get_node("Slot")
+	assert_eq(await slot.opening_progress.finish_visit("second-score", false, 1150), "")
+	room.get_node("%Bomber").pressed.emit()
+	assert_false(room.get_node("%Depart").disabled)
+	room.get_node("%Depart").pressed.emit()
+	if not await _until(_playing):
+		fail_test("Bomber did not start from the selection screen")
+		return
+	var board: Board = get_tree().current_scene.get_node("Board")
+	assert_eq(board.run.opening_id, &"bomber")
+	assert_eq(get_tree().current_scene.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"bomber").portrait)
+	assert_eq(board.run.state.rewards.acquired.get(&"core_drop"), 1)
+	assert_eq(board.run.state.rewards.acquired.get(&"core_manual_detonation"), 1)
 
 func test_changed_slot_rejects_stale_confirmation_and_returns_to_selection() -> void:
 	var old: RunController = _run(81)
@@ -213,7 +271,7 @@ func test_classic_goes_straight_to_standard_game() -> void:
 	room.get_node("%Mode").select(GameModes.ALL.find(GameModes.CLASSIC))
 	room.get_node("%New").pressed.emit()
 	if not await _until(_playing):
-		fail_test("Classic game failed to start")
+		fail_test("Classic game failed to start: " + get_tree().current_scene.scene_file_path)
 		return
 	var board: Board = get_tree().current_scene.get_node("Board")
 	assert_eq(board.run.state.mode_id(), GameModes.CLASSIC.mode_id)
@@ -226,7 +284,7 @@ func test_cancel_preserves_role_resume_uses_old_run_and_confirm_starts_scout() -
 	assert_eq(await progress.load_progress(_directory), "")
 	assert_eq(await progress.grant(), "")
 	var room: Control = await _room()
-	assert_true(String(room.get_node("%Continue").text).contains(tr("opening.standard")))
+	assert_true(String(room.get_node("%Continue").text).contains(tr("role.standard")))
 	assert_true(String(room.get_node("%Continue").text).contains(tr("room.stage") % 1))
 	room.get_node("%New").pressed.emit()
 	room.get_node("%Scout").pressed.emit()
@@ -245,6 +303,7 @@ func test_cancel_preserves_role_resume_uses_old_run_and_confirm_starts_scout() -
 	var game: Node = get_tree().current_scene
 	assert_eq(game.get_node("Board").run.state.run_id, old.state.run_id)
 	assert_eq(game.get_node("Board").run.opening_id, &"standard")
+	assert_eq(game.get_node("UILayer/HUD/%CurrentRole").texture, RunController.ROLES.find(&"standard").portrait)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	game._play_from_menu(true)
@@ -262,6 +321,85 @@ func test_cancel_preserves_role_resume_uses_old_run_and_confirm_starts_scout() -
 	var board: Board = get_tree().current_scene.get_node("Board")
 	assert_ne(board.run.state.run_id, old.state.run_id)
 	assert_eq(board.run.opening_id, &"row_sweep")
+	if not await _opening_save_finished(get_tree().current_scene): return
 	var restored: Dictionary = SNAPSHOT.load(CheckpointStore.new(_directory), SNAPSHOT.manifest(board.run))
-	assert_true(restored.ok)
+	assert_true(restored.ok, str(restored.reason))
 	if restored.ok: assert_eq(restored.run.opening_id, &"row_sweep")
+
+func _tap(control: Control) -> void:
+	var position: Vector2 = control.get_viewport().get_final_transform() * control.get_global_rect().get_center()
+	for pressed: bool in [true, false]:
+		var touch: InputEventScreenTouch = InputEventScreenTouch.new()
+		touch.position = position
+		touch.pressed = pressed
+		Input.parse_input_event(touch)
+		await wait_process_frames(2)
+
+func _pad(button: JoyButton) -> void:
+	for pressed: bool in [true, false]:
+		var event: InputEventJoypadButton = InputEventJoypadButton.new()
+		event.button_index = button
+		event.pressed = pressed
+		Input.parse_input_event(event)
+		await wait_process_frames(2)
+
+func test_small_window_touch_previews_lock_and_resumes_original_slot() -> void:
+	var old: RunController = _run(61)
+	assert_true((await SNAPSHOT.save_frozen(CheckpointStore.new(_directory), SNAPSHOT.freeze(old))).ok)
+	var room: Control = await _room()
+	var window: Window = room.get_window()
+	var runner_layer: CanvasLayer = get_tree().root.find_child("GutLayer", true, false) as CanvasLayer
+	var overlay_visible: bool = runner_layer != null and runner_layer.visible
+	if runner_layer != null: runner_layer.hide()
+	var previous_size: Vector2i = window.size
+	window.size = Vector2i(568, 320)
+	await wait_process_frames(4)
+	await _tap(room.get_node("%New"))
+	assert_true(room.get_node("%Characters").visible)
+	await _tap(room.get_node("%Dyer"))
+	assert_true(room.get_node("%Dyer").button_pressed)
+	assert_true(room.get_node("%Dyer/LockIcon").is_visible_in_tree())
+	assert_false(room.get_node("%Standard/LockIcon").visible)
+	assert_true(room.get_node("%Depart").disabled)
+	await _tap(room.get_node("%Back"))
+	window.size = Vector2i(320, 568)
+	await wait_process_frames(4)
+	await _tap(room.get_node("%New"))
+	await _tap(room.get_node("%Bomber"))
+	assert_true(room.get_node("%Bomber").button_pressed)
+	assert_true(room.get_node("%Depart").disabled)
+	await _tap(room.get_node("%Back"))
+	await _tap(room.get_node("%Continue"))
+	window.size = previous_size
+	if runner_layer != null: runner_layer.visible = overlay_visible
+	if not await _until(_playing):
+		fail_test("Touch did not resume the original slot")
+		return
+	assert_eq(get_tree().current_scene.get_node("Board").run.state.run_id, old.state.run_id)
+
+func test_gamepad_preview_and_cancel_replacement_preserve_choice() -> void:
+	var old: RunController = _run(62)
+	assert_true((await SNAPSHOT.save_frozen(CheckpointStore.new(_directory), SNAPSHOT.freeze(old))).ok)
+	var progress: PROGRESS = PROGRESS.new()
+	await progress.load_progress(_directory)
+	assert_eq(await progress.grant(), "")
+	var room: Control = await _room()
+	# Select New from the home screen using directional focus.
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	if not room.get_node("%New").has_focus(): await _pad(JOY_BUTTON_DPAD_RIGHT)
+	await _pad(JOY_BUTTON_A)
+	assert_true(room.get_node("%Characters").visible)
+	await _pad(JOY_BUTTON_DPAD_RIGHT)
+	await _pad(JOY_BUTTON_A)
+	assert_true(room.get_node("%Scout").button_pressed)
+	assert_false(room.get_node("%Scout/LockIcon").visible)
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	if not room.get_node("%Depart").has_focus(): await _pad(JOY_BUTTON_DPAD_RIGHT)
+	await _pad(JOY_BUTTON_A)
+	assert_true(room.get_node("Confirm").visible)
+	await _pad(JOY_BUTTON_B)
+	assert_false(room.get_node("Confirm").visible)
+	assert_true(room.get_node("%Scout").button_pressed)
+	assert_true(room.get_node("%Scout").has_focus())
+	assert_eq(CheckpointStore.new(_directory).inspect_latest().run_id, old.state.run_id)

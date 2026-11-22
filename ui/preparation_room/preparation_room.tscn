@@ -3,15 +3,17 @@
 [ext_resource type="Script" path="res://ui/preparation_room/preparation_room.gd" id="script"]
 [ext_resource type="Theme" path="res://ui/preview_theme.tres" id="theme"]
 [ext_resource type="Texture2D" path="res://assets/textures/backgrounds/garden_background.png" id="garden"]
-[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_ability_sweep.png" id="sweep"]
-[ext_resource type="Texture2D" path="res://assets/textures/faces/eyes_attentive.png" id="eyes"]
-[ext_resource type="Texture2D" path="res://assets/textures/faces/mouth_smirk.png" id="mouth"]
 [ext_resource type="PackedScene" path="res://gameplay/game_checkpoint_flow.tscn" id="slot"]
 [ext_resource type="PackedScene" path="res://ui/skill_pool/skill_pool.tscn" id="pool"]
 [ext_resource type="PackedScene" path="res://ui/playback_settings/playback_settings.tscn" id="settings"]
 [ext_resource type="PackedScene" path="res://ui/tutorial/tutorial.tscn" id="practice"]
 [ext_resource type="PackedScene" path="res://services/telemetry/run_collection.tscn" id="collection"]
 [ext_resource type="PackedScene" path="res://ui/collection_controls/collection_controls.tscn" id="records"]
+
+[ext_resource type="PackedScene" path="res://ui/preparation_room/role_portrait.tscn" id="portrait"]
+[ext_resource type="PackedScene" path="res://ui/preparation_room/opening_diagram.tscn" id="diagram"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_role_lock.svg" id="lock"]
 
 [node name="PreparationRoom" type="Control"]
 anchor_right = 1.0
@@ -125,87 +127,120 @@ unique_name_in_owner = true
 text = "room.choose"
 theme_override_font_sizes/font_size = 32
 
-[node name="Choices" type="HBoxContainer" parent="Center/Panel/Margin/Content/Characters"]
-
-
-[node name="Standard" type="Button" parent="Center/Panel/Margin/Content/Characters/Choices"]
-unique_name_in_owner = true
-text = "opening.standard"
-custom_minimum_size = Vector2(0, 44)
-size_flags_horizontal = 3
-toggle_mode = true
-
-[node name="Scout" type="Button" parent="Center/Panel/Margin/Content/Characters/Choices"]
-unique_name_in_owner = true
-text = "room.scout"
-custom_minimum_size = Vector2(0, 44)
-size_flags_horizontal = 3
-toggle_mode = true
-
-[node name="Card" type="HBoxContainer" parent="Center/Panel/Margin/Content/Characters"]
+[node name="Body" type="HBoxContainer" parent="Center/Panel/Margin/Content/Characters"]
 theme_override_constants/separation = 24
 
-[node name="Portrait" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card"]
+[node name="Choices" type="GridContainer" parent="Center/Panel/Margin/Content/Characters/Body"]
+columns = 2
+
+[node name="Standard" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(138, 150)
-expand_mode = 1
-stretch_mode = 5
+custom_minimum_size = Vector2(126, 96)
+toggle_mode = true
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 42
+texture_filter = 4
 
-[node name="EyePair" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card/Portrait"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -35.0
-offset_right = 36.0
-offset_bottom = 37.0
-texture = ExtResource("eyes")
-expand_mode = 1
-stretch_mode = 5
-mouse_filter = 2
-
-[node name="Mouth" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card/Portrait"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = 0.0
-offset_right = 18.0
-offset_bottom = 36.0
-texture = ExtResource("mouth")
-expand_mode = 1
-stretch_mode = 5
-mouse_filter = 2
-
-[node name="Insignia" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Card/Portrait"]
-unique_name_in_owner = true
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Standard"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -54.0
-offset_top = -54.0
-texture = ExtResource("sweep")
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
 expand_mode = 1
-stretch_mode = 5
 
-[node name="Details" type="VBoxContainer" parent="Center/Panel/Margin/Content/Characters/Card"]
+[node name="Scout" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(126, 96)
+toggle_mode = true
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 42
+texture_filter = 4
+
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Scout"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
+
+[node name="Dyer" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(126, 96)
+toggle_mode = true
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 42
+texture_filter = 4
+
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Dyer"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
+
+[node name="Bomber" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(126, 96)
+toggle_mode = true
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 42
+texture_filter = 4
+
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Bomber"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
+
+[node name="Card" type="VBoxContainer" parent="Center/Panel/Margin/Content/Characters/Body"]
+size_flags_horizontal = 3
+
+[node name="Portrait" parent="Center/Panel/Margin/Content/Characters/Body/Card" instance=ExtResource("portrait")]
+unique_name_in_owner = true
+
+[node name="Details" type="VBoxContainer" parent="Center/Panel/Margin/Content/Characters/Body/Card"]
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Role" type="Label" parent="Center/Panel/Margin/Content/Characters/Card/Details"]
+[node name="Role" type="Label" parent="Center/Panel/Margin/Content/Characters/Body/Card/Details"]
 unique_name_in_owner = true
 text = ""
 theme_override_font_sizes/font_size = 28
 
-[node name="Skill" type="Label" parent="Center/Panel/Margin/Content/Characters/Card/Details"]
+[node name="Skill" type="Label" parent="Center/Panel/Margin/Content/Characters/Body/Card/Details"]
 unique_name_in_owner = true
 text = ""
 theme_override_font_sizes/font_size = 18
 
-[node name="Description" type="Label" parent="Center/Panel/Margin/Content/Characters/Card/Details"]
+[node name="Diagram" parent="Center/Panel/Margin/Content/Characters/Body/Card/Details" instance=ExtResource("diagram")]
+unique_name_in_owner = true
+
+[node name="Description" type="Label" parent="Center/Panel/Margin/Content/Characters/Body/Card/Details"]
 unique_name_in_owner = true
 autowrap_mode = 2
 
