@@ -25,8 +25,35 @@ func test_current_role_changes_with_run_and_checkpoint() -> void:
 		assert_false(portraits.has(icon.texture))
 		portraits.append(icon.texture)
 		assert_eq(icon.texture, RunController.ROLES.find(id).portrait)
-		assert_eq(icon.tooltip_text, tr("role." + str(id)))
+		if not hud._role_tap_platform:
+			assert_string_contains(icon.tooltip_text, tr("role." + str(id)))
+			assert_string_contains(icon.tooltip_text, tr("role.demo." + str(id)))
 		assert_false(icon.get_global_rect().intersects(hud.board_area.get_global_rect()))
+
+func test_role_touch_opens_description_and_can_be_dismissed() -> void:
+	var run: RunController = RunController.new(BoardRules.new(BoardState.new(9, 9), 5), 91, GameModes.CHALLENGE.stage_config)
+	run.initialize("normal", &"bomber")
+	hud.show_run(run)
+	await wait_process_frames(2)
+	var icon: TextureRect = hud.get_node("%CurrentRole")
+	var dialog: AcceptDialog = hud.get_node("%RoleDetails")
+	var overlay: CanvasLayer = get_tree().root.find_child("GutLayer", true, false) as CanvasLayer
+	var overlay_visible: bool = overlay != null and overlay.visible
+	if overlay != null: overlay.hide()
+	var position: Vector2 = get_window().get_final_transform() * icon.get_global_rect().get_center()
+	for pressed: bool in [true, false]:
+		var touch: InputEventScreenTouch = InputEventScreenTouch.new()
+		touch.position = position
+		touch.pressed = pressed
+		Input.parse_input_event(touch)
+		await wait_process_frames(2)
+	if overlay != null: overlay.visible = overlay_visible
+	assert_true(dialog.visible)
+	assert_eq(dialog.title, tr("role.bomber"))
+	assert_string_contains(dialog.dialog_text, RunController.ROLES.find(&"bomber").starting_skill_text())
+	assert_string_contains(dialog.dialog_text, tr("role.demo.bomber"))
+	dialog.get_ok_button().pressed.emit()
+	assert_false(dialog.visible)
 
 func test_score_counts_up_without_mutating_ledger() -> void:
 	var before: int = GameManager.score

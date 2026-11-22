@@ -1,6 +1,7 @@
 class_name Hud
 extends Control
 
+const ROLE: Script = preload("res://gameplay/openings/opening_role.gd")
 const GOAL_PROGRESS: Script = preload("res://ui/goal_progress/goal_progress.gd")
 const PIECE_POOL: Script = preload("res://ui/piece_pool/piece_pool.gd")
 const BUILD_LIST: Script = preload("res://ui/build_list/build_list.gd")
@@ -18,6 +19,7 @@ signal reward_resume_requested
 ## Visual-only birth host on the HUD canvas, below popup and menu canvases.
 @onready var spawn_flights: Node2D = %SpawnFlights
 @onready var _current_role: TextureRect = %CurrentRole
+@onready var _role_details: AcceptDialog = %RoleDetails
 @onready var score_label: Label = %ScoreLabel
 @onready var gain_label: Label = %GainLabel
 @onready var goal_progress: GOAL_PROGRESS = %GoalProgress
@@ -51,8 +53,15 @@ var _status_id: StringName = &"hud.status.preparing"
 var _status_parameters: Dictionary = {}
 var _status_messages: HudStatusMessages = HudStatusMessages.new()
 var _game_theme: GameTheme
+var _role_tap_platform: bool
 
 func _ready() -> void:
+	_role_tap_platform = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--wechat-window="): _role_tap_platform = true
+	_role_details.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_current_role.gui_input.connect(_on_role_input)
+	visibility_changed.connect(_close_hidden_role_details)
 	show_status(_status_id)
 	%ResumeReward.pressed.connect(reward_resume_requested.emit)
 	pause_button.pressed.connect(pause_requested.emit)
@@ -188,7 +197,13 @@ func bind_checkpoint(active: RunController) -> void:
 
 func show_run(run: RunController) -> void:
 	_run = run
-	_current_role.display(RunController.ROLES.find(run.opening_id))
+	var role: ROLE = RunController.ROLES.find(run.opening_id)
+	_current_role.display(role)
+	var name_text: String = tr("role." + str(role.id))
+	var description: String = "%s\n%s" % [tr("role.starting_skills") % role.starting_skill_text(), tr("role.demo." + str(role.id))]
+	_current_role.tooltip_text = "" if _role_tap_platform else name_text + "\n" + description
+	_role_details.title = name_text
+	_role_details.dialog_text = description
 	spawn_preview.show_plan(run.state.spawning.preview(run.state.next_refill_count()), run.state.is_game_over)
 	var state: RunState = run.state
 	piece_pool.show_state(state)
@@ -208,6 +223,22 @@ func show_run(run: RunController) -> void:
 	build_list.show_state(state)
 	_show_breakdown(state)
 	history_label.text = HudDetails.history(state)
+
+func _on_role_input(event: InputEvent) -> void:
+	if _run == null or _role_details.visible: return
+	var touch: InputEventScreenTouch = event as InputEventScreenTouch
+	var click: InputEventMouseButton = event as InputEventMouseButton
+	if touch == null:
+		if click == null or click.button_index != MOUSE_BUTTON_LEFT: return
+		if not _role_tap_platform and click.device != InputEvent.DEVICE_ID_EMULATION: return
+	var position: Vector2 = touch.position if touch != null else click.position
+	if event.is_pressed() or not Rect2(Vector2.ZERO, _current_role.size).has_point(position): return
+	_current_role.accept_event()
+	var width: int = clampi(floori(get_viewport_rect().size.x) - 24, 1, 360)
+	_role_details.popup_centered(Vector2i(width, 0))
+
+func _close_hidden_role_details() -> void:
+	if not is_visible_in_tree(): _role_details.hide()
 
 func show_occupancy(count: int, capacity: int = 81) -> void:
 	board_label.text = tr("空位 %d / %d") % [capacity - count, capacity]

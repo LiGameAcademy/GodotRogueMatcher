@@ -261,3 +261,9 @@ text = "回合 0 · 移动 0"
 process_mode = 1
 unique_name_in_owner = true
 z_index = 100
+
+[node name="RoleDetails" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+transient = true
+exclusive = true
+ok_button_text = "关闭"
