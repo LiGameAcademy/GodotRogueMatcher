@@ -47,7 +47,8 @@ func _ready() -> void:
 	%Language.select(maxi(0, LOCALES.find(CoreSystem.localization_manager.get_preferred_locale())))
 	_tutorial.finished.connect(_practice_finished)
 	_confirm.confirmed.connect(_launch.bind(false))
-	_confirm.canceled.connect(_restore_focus)
+	_confirm.canceled.connect(_restore_focus.call_deferred)
+	_confirm.window_input.connect(_confirm_input)
 	CoreSystem.scene_manager.scene_loading_failed.connect(_failed)
 	_settings.fast_requested.connect(_preference.bind(&"fast"))
 	_settings.low_effects_requested.connect(_preference.bind(&"low_effects"))
@@ -89,6 +90,12 @@ func _show_characters() -> void:
 	_choose(_selected)
 	_restore_focus()
 
+func _confirm_input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton and event.is_action_pressed("ui_cancel"):
+		_confirm.set_input_as_handled()
+		_confirm.hide()
+		_restore_focus.call_deferred()
+
 func _restore_focus() -> void:
 	if _characters.visible:
 		_cards[_selected].grab_focus()
@@ -119,15 +126,15 @@ func _refresh() -> void:
 		var button: Button = _cards[role.id]
 		button.icon = role.portrait
 		button.text = tr("role." + str(role.id))
-		if not _slot.opening_progress.available(role.id): button.text += "\n" + tr("role.lock")
+		var locked: bool = not _slot.opening_progress.available(role.id)
+		button.get_node("LockIcon").visible = locked
+		if locked: button.text += "\n" + tr("role.lock")
 	var selected: ROLE = RunController.ROLES.find(_selected)
 	var owned: bool = _slot.opening_progress.available(_selected)
 	%Diagram.preview(_selected)
 	%Portrait.display(selected)
 	%Role.text = tr("role." + str(_selected))
-	var skills: PackedStringArray = []
-	for skill: SkillDefinition in selected.skills: skills.append(tr(skill.title))
-	%Skill.text = tr("room.standard_skill") if skills.is_empty() else " + ".join(skills)
+	%Skill.text = selected.starting_skill_text()
 	%Description.text = tr("role.demo." + str(_selected))
 	%Requirement.text = tr("role.best") % _slot.opening_progress.best if owned else tr("role.target") % [_slot.opening_progress.best, selected.threshold, selected.threshold - _slot.opening_progress.best]
 	var next: ROLE = _slot.opening_progress.next_locked()

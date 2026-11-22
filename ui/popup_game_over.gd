@@ -66,6 +66,11 @@ func show_opening_unlock(joined: Array[StringName]) -> void:
 		name_label.text = tr("role.joined") % tr("role." + str(id))
 		card.add_child(face)
 		card.add_child(name_label)
+		var skill_label: Label = Label.new()
+		skill_label.name = "StartingSkills"
+		skill_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		skill_label.text = tr("role.starting_skills") % role.starting_skill_text()
+		card.add_child(skill_label)
 		$Panel/Content/Portraits.add_child(card)
 		face.display(role)
 	banner.text = tr("role.where")

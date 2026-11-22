@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" path="res://ui/preparation_room/role_portrait.tscn" id="portrait"]
 [ext_resource type="PackedScene" path="res://ui/preparation_room/opening_diagram.tscn" id="diagram"]
 
+[ext_resource type="Texture2D" path="res://assets/textures/ui/icon_role_lock.svg" id="lock"]
+
 [node name="PreparationRoom" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -140,6 +142,18 @@ icon_alignment = 1
 theme_override_constants/icon_max_width = 42
 texture_filter = 4
 
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Standard"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
+
 [node name="Scout" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(126, 96)
@@ -148,6 +162,18 @@ vertical_icon_alignment = 0
 icon_alignment = 1
 theme_override_constants/icon_max_width = 42
 texture_filter = 4
+
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Scout"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
 
 [node name="Dyer" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
@@ -158,6 +184,18 @@ icon_alignment = 1
 theme_override_constants/icon_max_width = 42
 texture_filter = 4
 
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Dyer"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
+
 [node name="Bomber" type="Button" parent="Center/Panel/Margin/Content/Characters/Body/Choices"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(126, 96)
@@ -166,6 +204,18 @@ vertical_icon_alignment = 0
 icon_alignment = 1
 theme_override_constants/icon_max_width = 42
 texture_filter = 4
+
+[node name="LockIcon" type="TextureRect" parent="Center/Panel/Margin/Content/Characters/Body/Choices/Bomber"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = -8.0
+offset_top = 8.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("lock")
+expand_mode = 1
 
 [node name="Card" type="VBoxContainer" parent="Center/Panel/Margin/Content/Characters/Body"]
 size_flags_horizontal = 3

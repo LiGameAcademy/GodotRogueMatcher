@@ -1126,3 +1126,4 @@ role.joined,%s 加入了,%s joined
 role.next,下一位 · %s,Next · %s
 role.where,新角色可在准备室选用。,Choose your new characters in the Ready Room.
 role.enter_room,进入准备室,Enter Ready Room
+role.starting_skills,初始技能 · %s,Starting skills · %s
