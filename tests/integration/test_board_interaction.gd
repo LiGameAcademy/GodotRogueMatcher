@@ -70,19 +70,36 @@ func test_unreachable_destination_has_no_preview_and_rejection_cancels_selection
 	assert_eq((_board.view.move_path.get("_points") as PackedVector2Array).size(), 0)
 	await _board._on_coordinate_pressed(target.coordinate)
 	assert_null(_board.selected_piece)
-	assert_ne(target.background.modulate, Color.WHITE)
+	assert_gt(target.background.modulate.r, target.background.modulate.g)
 	assert_eq(_board.run.state.action_id, 0)
 	assert_eq(_hud.selection_label.text, tr("hud.status.move_blocked"))
 	await wait_seconds(0.2)
 	assert_eq(target.background.modulate, Color.WHITE)
 
-func test_empty_cell_input_without_selection_has_no_flash() -> void:
+func test_empty_cell_press_flashes_in_full_effects_without_selecting_or_committing() -> void:
 	var target: Cell = _board.get_cell(Vector2i(2, 0))
 	var press: InputEventMouseButton = InputEventMouseButton.new()
 	press.button_index = MOUSE_BUTTON_LEFT
 	press.pressed = true
 	target._on_area_2d_input_event(_board.get_viewport(), press, 0)
 	assert_null(_board.selected_piece)
+	assert_gt(target.background.modulate.r, 1.0)
+	assert_eq(target.background.modulate.r, target.background.modulate.g)
+	var ordinary: Color = target.background.modulate
+	target.reject_feedback()
+	var rejected: Color = target.background.modulate
+	target._on_area_2d_input_event(_board.get_viewport(), press, 0)
+	assert_ne(rejected, ordinary)
+	assert_eq(target.background.modulate, rejected)
+	target.show_match_hit(false)
+	var matched: Color = target.background.modulate
+	target._on_area_2d_input_event(_board.get_viewport(), press, 0)
+	assert_lt(matched.b, matched.g)
+	assert_eq(target.background.modulate, matched)
+	await wait_seconds(0.20)
+	assert_eq(target.background.modulate, Color.WHITE)
+	target.set_low_effects(true)
+	target._on_area_2d_input_event(_board.get_viewport(), press, 0)
 	assert_eq(target.background.modulate, Color.WHITE)
 	assert_eq(_board.run.state.action_id, 0)
 

@@ -322,6 +322,7 @@ func animate_matches(results: Array[MatchResult]) -> void:
 			if is_instance_valid(dyed) and not low_effects: track_presentation(dyed.land())
 		var cells: Array[Cell] = []
 		var shape_cells: Dictionary[Vector2i, bool] = {}
+		var hit_seconds: float = 0.22 / presentation_speed if result.cause == &"match" and not low_effects else 0.16
 		for hit: BoardMatchHit in result.hits:
 			if hit.shape_id == &"line": continue
 			for coordinate: Vector2i in hit.coordinates: shape_cells[coordinate] = true
@@ -329,7 +330,7 @@ func animate_matches(results: Array[MatchResult]) -> void:
 			var cell: Cell = get_cell(snapshot.coordinate)
 			cells.append(cell)
 			if is_instance_valid(cell) and is_instance_valid(get_piece(snapshot.piece_id)):
-				cell.show_match_hit(shape_cells.has(snapshot.coordinate))
+				cell.show_match_hit(shape_cells.has(snapshot.coordinate), hit_seconds)
 			remove_piece(snapshot, true)
 		if result.cause == &"explosion": show_blast(result.center, result.radius, result.generation)
 		elif result.cause == &"line_clear": show_line_clear(result.center, result.line_axis, result.radius, result.cross_radius)
@@ -419,9 +420,9 @@ func animate_spawn(snapshot: PieceState, duration: float, origin: Variant = null
 		var host: Node2D = spawn_flight_host if is_instance_valid(spawn_flight_host) else _spawn_flights
 		host.add_child(piece)
 		_update_spawn_flight(0.0, piece, cell, origin)
-		animation.parallel().tween_method(_update_spawn_flight.bind(piece, cell, origin), 0.0, 1.0, maxf(duration, 0.001)).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+		animation.parallel().tween_method(_update_spawn_flight.bind(piece, cell, origin), 0.0, 1.0, ChessPiece.spawn_contact_time(duration)).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		animation.finished.connect(_finish_spawn_flight.bind(piece, cell, _generation))
-	animation.finished.connect(cell.show_arrival)
+	animation.parallel().tween_callback(cell.show_arrival).set_delay(ChessPiece.spawn_contact_time(duration))
 	track_presentation(animation)
 
 ## Reuse the same node, color and cell; only the special marker changes.

@@ -20,6 +20,7 @@ var _reachable: bool = false
 var _shape_hit: bool = false
 var _surface: ShaderMaterial
 var _flash: Tween
+var _committed_flash: bool = false
 
 var piece: ChessPiece:
 	get:
@@ -87,31 +88,37 @@ func set_reachable(enabled: bool) -> void:
 
 ## Brief local rejection; remains readable with reduced effects.
 func reject_feedback() -> void:
-	_flash_feedback(Color(1.25, 0.72, 0.72), 0.16)
+	_flash_feedback(Color(1.25, 0.72, 0.72), 0.16, true)
 
 ## Marks a committed hit in both effect modes, with no input or playback wait.
-func show_match_hit(shaped: bool) -> void:
-	_flash_feedback(Color(1.24, 1.16, 0.88), 0.16)
+func show_match_hit(shaped: bool, duration: float = 0.16) -> void:
+	_flash_feedback(Color(1.28, 1.19, 0.91), duration, true)
 	if shaped:
 		_shape_hit = true
 		_refresh_style()
-		_flash.finished.connect(_clear_shape_hit)
 
 ## Adds a short accent to a committed landing in the full effects mode.
 func show_arrival() -> void:
-	if not low_effects: _flash_feedback(Color(1.14, 1.14, 1.14), 0.10)
+	if not low_effects and not _committed_flash: _flash_feedback(Color(1.14, 1.14, 1.14), 0.10)
 
 ## Cancels transient color before a rebuild, skip or effect-mode change.
 func clear_feedback() -> void:
 	if _flash != null and _flash.is_valid(): _flash.kill()
 	background.modulate = Color.WHITE
+	_committed_flash = false
 	_clear_shape_hit()
 
-func _flash_feedback(color: Color, duration: float) -> void:
+func _flash_feedback(color: Color, duration: float, committed: bool = false) -> void:
 	clear_feedback()
+	_committed_flash = committed
 	background.modulate = color
 	_flash = create_tween()
 	_flash.tween_property(background, "modulate", Color.WHITE, duration)
+	_flash.tween_callback(_finish_feedback)
+
+func _finish_feedback() -> void:
+	_committed_flash = false
+	_clear_shape_hit()
 
 func _clear_shape_hit() -> void:
 	if not _shape_hit: return
@@ -151,6 +158,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 	if event is InputEventMouseButton:
 		var button: InputEventMouseButton = event as InputEventMouseButton
 		if button.button_index == MOUSE_BUTTON_LEFT and button.pressed:
+			if not low_effects and not _committed_flash: _flash_feedback(Color(1.17, 1.17, 1.17), 0.12)
 			if button.double_click: activated.emit(self)
 			else: pressed.emit(self)
 
