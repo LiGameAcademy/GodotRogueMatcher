@@ -52,9 +52,11 @@ var _menu_owns_pause: bool = false
 @onready var _settings: PlaybackSettings = $PlaybackSettings
 @onready var _checkpoint: GameCheckpointFlow = $GameCheckpointFlow
 
+func _enter_tree() -> void:
+	if persist_preferences: preferences.load_values()
+
 func _ready() -> void:
 	_world_environment.environment = _world_environment.environment.duplicate() as Environment
-	if persist_preferences: preferences.load_values(CoreSystem.config_manager)
 	_connect_run_signals()
 	_connect_menu_signals()
 	_connect_settings_signals()
@@ -157,7 +159,7 @@ func _connect_menu_signals() -> void:
 	release_menu.quit_requested.connect(_quit.bind("quit_button"))
 	release_menu.tutorial_completed.connect(_tutorial_completed)
 	release_menu.language_requested.connect(_set_language)
-	release_menu.set_language_preference(CoreSystem.localization_manager.get_preferred_locale())
+	release_menu.set_language_preference(preferences.get_language_preference())
 	_skill_pool.view_changed.connect(_on_skill_pool_view_changed)
 	UIManager.popup_opened.connect(_on_popup_opened)
 	CoreSystem.localization_manager.locale_changed.connect(_on_locale_changed)
@@ -169,14 +171,14 @@ func _connect_settings_signals() -> void:
 	_hud.skip_requested.connect(_request_skip)
 	_settings.skip_requested.connect(_request_skip)
 	_settings.low_effects_requested.connect(_set_low_effects)
-	_settings.volume_requested.connect(_preview_volume)
+	_settings.volume_requested.connect(_set_volume.bind(false))
 	_settings.volume_committed.connect(_set_volume)
 	_settings.theme_requested.connect(_set_theme)
 	_settings.background_motion_requested.connect(_set_background_motion)
 	_settings.board_signal_requested.connect(_set_board_signal)
 
 func _set_language(preference: String) -> void:
-	var error: Error = CoreSystem.localization_manager.set_preferred_locale(preference, persist_preferences)
+	var error: Error = preferences.set_language_preference(preference, persist_preferences)
 	if error != OK:
 		push_warning("Language preference: " + error_string(error))
 		release_menu.show_language_error()
@@ -277,11 +279,8 @@ func _set_volume(volume: float, save: bool = true) -> void:
 	if save: _save_preferences()
 
 func _save_preferences() -> void:
-	if persist_preferences and not preferences.save_values(CoreSystem.config_manager):
+	if persist_preferences and not preferences.save_values():
 		_hud.show_status("hud.status.settings_failed")
-
-func _preview_volume(volume: float) -> void:
-	_set_volume(volume, false)
 
 func _open_skill_pool() -> void:
 	_feedback.play(&"confirm")

@@ -1,7 +1,9 @@
 class_name PlayerPreferences
 extends RefCounted
 
-## 只保存已提供的表现选项；不保存局内规则状态。
+## Loads and saves application preferences without a game or UI scene.
+const SECTION: String = "rogue_matcher_presentation"
+
 var fast: bool = false
 var board_signal: bool = true
 var background_motion: bool = true
@@ -9,9 +11,10 @@ var low_effects: bool = false
 var volume: float = 0.7
 var tutorial_seen: bool = false
 var theme_id: StringName = &"light_toy"
-const SECTION: String = "rogue_matcher_presentation"
 
-func load_values(config: CoreSystem.ConfigManager) -> void:
+## Reads presentation values from the shared configuration or an isolated configuration.
+func load_values(config: CoreSystem.ConfigManager = null) -> void:
+	if config == null: config = CoreSystem.config_manager
 	var saved_signal: Variant = config.get_value(SECTION, "board_signal", true)
 	if saved_signal is bool: board_signal = bool(saved_signal)
 	var saved_background: Variant = config.get_value(SECTION, "background_motion", true)
@@ -28,7 +31,9 @@ func load_values(config: CoreSystem.ConfigManager) -> void:
 	if (saved_volume is float or saved_volume is int) and is_finite(float(saved_volume)):
 		volume = clampf(float(saved_volume), 0.0, 1.0)
 
-func save_values(config: CoreSystem.ConfigManager, path: String = "") -> bool:
+## Writes presentation values and reports whether the configuration was saved.
+func save_values(config: CoreSystem.ConfigManager = null, path: String = "") -> bool:
+	if config == null: config = CoreSystem.config_manager
 	config.set_value(SECTION, "board_signal", board_signal)
 	config.set_value(SECTION, "background_motion", background_motion)
 	config.set_value(SECTION, "fast", fast)
@@ -37,3 +42,10 @@ func save_values(config: CoreSystem.ConfigManager, path: String = "") -> bool:
 	config.set_value(SECTION, "tutorial_seen", tutorial_seen)
 	config.set_value(SECTION, "theme_id", String(theme_id))
 	return config.save_config(path)
+
+func get_language_preference() -> String:
+	return CoreSystem.localization_manager.get_preferred_locale()
+
+## The selected language can take effect even when saving it fails.
+func set_language_preference(preference: String, persist: bool) -> Error:
+	return CoreSystem.localization_manager.set_preferred_locale(preference, persist)
