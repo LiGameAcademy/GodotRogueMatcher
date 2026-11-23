@@ -42,7 +42,7 @@ func _ready() -> void:
 	_characters.hide()
 	if not _entry.is_empty():
 		await GameFlow.wait_for_handoff()
-	_preferences.load_values(CoreSystem.config_manager)
+	_preferences.load_values()
 	%Continue.pressed.connect(_launch.bind(true))
 	%New.pressed.connect(_new_game)
 	for id: StringName in _cards:
@@ -53,7 +53,7 @@ func _ready() -> void:
 	%Pool.pressed.connect(_open_pool)
 	%Settings.pressed.connect(_open_settings)
 	%Language.item_selected.connect(_language)
-	%Language.select(maxi(0, LOCALES.find(CoreSystem.localization_manager.get_preferred_locale())))
+	%Language.select(maxi(0, LOCALES.find(_preferences.get_language_preference())))
 	_tutorial.finished.connect(_practice_finished)
 	_confirm.confirmed.connect(_launch.bind(false))
 	_confirm.canceled.connect(_restore_focus.call_deferred)
@@ -251,10 +251,10 @@ func _open_settings() -> void:
 func _preference(value: Variant, key: StringName) -> void:
 	_preferences.set(key, value)
 	if key == &"low_effects": _settings.set_low_effects(_preferences.low_effects)
-	if not _preferences.save_values(CoreSystem.config_manager): %Status.text = tr("hud.status.settings_failed")
+	if not _preferences.save_values(): %Status.text = tr("hud.status.settings_failed")
 
 func _language(index: int) -> void:
-	if CoreSystem.localization_manager.set_preferred_locale(LOCALES[index], true) != OK: %Status.text = tr("语言设置保存失败；当前选择仍可使用。")
+	if _preferences.set_language_preference(LOCALES[index], true) != OK: %Status.text = tr("语言设置保存失败；当前选择仍可使用。")
 
 func _record_status(message: String) -> void:
 	_records.show_status(message, _collection.enabled, true)

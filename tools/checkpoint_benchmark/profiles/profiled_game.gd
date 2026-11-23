@@ -5,6 +5,7 @@ var profile: Dictionary = {}
 
 func _enter_tree() -> void:
 	collection_context = "automated_integration"
+	super._enter_tree()
 
 func _on_checkpoint_restored(active: RunController, fallback: bool) -> void:
 	var started: int = Time.get_ticks_usec()
