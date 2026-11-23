@@ -135,6 +135,12 @@ func _notification(what: int) -> void:
 		for index: int in range(GameModes.ALL.size()): _mode.set_item_text(index, tr(GameModes.ALL[index].title))
 		_refresh()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not _loaded or _departing or not _characters.visible or _confirm.visible: return
+	if not event.is_action_pressed(&"ui_cancel"): return
+	get_viewport().set_input_as_handled()
+	_show_home()
+
 func _show_home() -> void:
 	_characters.hide()
 	_home.show()

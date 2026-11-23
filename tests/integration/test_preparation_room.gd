@@ -335,12 +335,14 @@ func _tap(control: Control) -> void:
 		Input.parse_input_event(touch)
 		await wait_process_frames(2)
 
-func _pad(button: JoyButton) -> void:
+func _pad(button: JoyButton, extra_presses: int = 0) -> void:
 	for pressed: bool in [true, false]:
 		var event: InputEventJoypadButton = InputEventJoypadButton.new()
 		event.button_index = button
 		event.pressed = pressed
 		Input.parse_input_event(event)
+		if pressed:
+			for _repeat: int in range(extra_presses): Input.parse_input_event(event.duplicate() as InputEventJoypadButton)
 		await wait_process_frames(2)
 
 func test_small_window_touch_previews_lock_and_resumes_original_slot() -> void:
@@ -419,3 +421,73 @@ func test_gamepad_preview_and_cancel_replacement_preserve_choice() -> void:
 	assert_true(room.get_node("%Scout").button_pressed)
 	assert_true(room.get_node("%Scout").has_focus())
 	assert_eq(CheckpointStore.new(_directory).inspect_latest().run_id, old.state.run_id)
+
+func test_keyboard_and_gamepad_cancel_priority() -> void:
+	var old: RunController = _run(290)
+	assert_true((await SNAPSHOT.save_frozen(CheckpointStore.new(_directory), SNAPSHOT.freeze(old))).ok)
+	var room: Control = await _room()
+	var mode: OptionButton = room.get_node("%Mode") as OptionButton
+	mode.select(GameModes.ALL.find(GameModes.CHALLENGE))
+	var confirm: ConfirmationDialog = room.get_node("Confirm") as ConfirmationDialog
+	var characters: Control = room.get_node("%Characters") as Control
+	for use_pad: bool in [false, true]:
+		var device: String = "gamepad" if use_pad else "keyboard"
+		(room.get_node("%New") as Button).grab_focus()
+		await _menu_action(use_pad, true)
+		assert_true(characters.visible, device + " accepts New")
+		assert_false(confirm.visible, device + " held confirm cannot trigger the next screen")
+		(room.get_node("%Depart") as Button).grab_focus()
+		await _menu_action(use_pad, true)
+		assert_true(confirm.visible, device + " accepts Depart")
+		await _menu_action(use_pad, false)
+		assert_false(confirm.visible, device + " closes the modal first")
+		assert_true(characters.visible, device + " stays on character selection")
+		assert_eq(CheckpointStore.new(_directory).inspect_latest().run_id, old.state.run_id)
+		await _menu_action(use_pad, false)
+		assert_false(characters.visible, device + " goes back to room home")
+		if characters.visible: room.call("_show_home")
+
+func test_repeated_accept_starts_one_session_and_no_board_command(
+		use_pad: bool = use_parameters([false, true])) -> void:
+	var room: Control = await _room()
+	var mode: OptionButton = room.get_node("%Mode") as OptionButton
+	mode.select(GameModes.ALL.find(GameModes.CLASSIC))
+	var launches: Array[String] = []
+	var signal_callback: Callable = func(path: String) -> void: launches.append(path)
+	CoreSystem.scene_manager.scene_loading_started.connect(signal_callback)
+	(room.get_node("%New") as Button).grab_focus()
+	await _menu_action(use_pad, true)
+	await _menu_action(not use_pad, true)
+	var entered: bool = await _until(_playing)
+	CoreSystem.scene_manager.scene_loading_started.disconnect(signal_callback)
+	assert_true(entered, "one classic run takes over after repeated confirmation")
+	assert_eq(launches, [GAME_PATH])
+	if not entered: return
+	var game: Node = get_tree().current_scene
+	var board: Board = game.get_node("Board") as Board
+	var before: String = RunSnapshot.digest(RunSnapshot.capture(board.run))
+	var selected: Node = board.selected_piece
+	game.call("_toggle_pause")
+	assert_true(get_tree().paused)
+	for device_is_pad: bool in [false, true]:
+		await _menu_action(device_is_pad, true)
+		await _menu_action(device_is_pad, false)
+	assert_eq(RunSnapshot.digest(RunSnapshot.capture(board.run)), before)
+	assert_same(board.selected_piece, selected)
+	game.call("_toggle_pause")
+
+func _menu_action(use_pad: bool, accept: bool) -> void:
+	if use_pad:
+		await _pad(JOY_BUTTON_A if accept else JOY_BUTTON_B, 3 if accept else 0)
+		return
+	for pressed: bool in [true, false]:
+		var key: InputEventKey = InputEventKey.new()
+		key.keycode = KEY_ENTER if accept else KEY_ESCAPE
+		key.physical_keycode = key.keycode
+		key.pressed = pressed
+		Input.parse_input_event(key)
+		if pressed and accept:
+			var echo: InputEventKey = key.duplicate() as InputEventKey
+			echo.echo = true
+			for _repeat: int in range(3): Input.parse_input_event(echo.duplicate() as InputEventKey)
+		await wait_process_frames(2)
