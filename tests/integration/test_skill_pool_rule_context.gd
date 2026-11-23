@@ -72,12 +72,13 @@ func test_real_pool_bilingual_views_keep_context_bodies_metadata_and_six_rngs_un
 	pool.open(_run)
 	for locale: String in ["zh_CN", "en_US"]:
 		TranslationServer.set_locale(locale)
-		await wait_process_frames(4)
+		await wait_process_frames(1)
+		await wait_until(func() -> bool: return pool.entries.get_child_count() == SkillOfferGenerator.CATALOG.size(), 5.0)
 		assert_eq(pool.entries.get_child_count(), 52)
 		for child: Node in pool.entries.get_children():
 			var card: SkillCard = child as SkillCard
 			var view: Dictionary[String, String] = SkillPoolText.rule_view(_run, card._skill)
-			assert_eq(card.effect_label.text, view.text)
+			assert_eq(card.effect_label.get_parsed_text(), view.text)
 			assert_string_contains(card.preview_label.text, view.context)
 			assert_string_contains(card.preview_label.text, card.tr("前置：%s").get_slice("%s", 0))
 			assert_false(card.preview_label.text.contains("rules.context"))
@@ -99,7 +100,9 @@ func test_pool_scrolling_reaches_rule_context_and_return_control_at_both_viewpor
 		get_window().content_scale_size = size
 		for locale: String in ["en_US", "zh_CN"]:
 			TranslationServer.set_locale(locale)
-			await wait_process_frames(5)
+			await wait_process_frames(1)
+			await wait_until(func() -> bool: return pool.entries.get_child_count() == SkillOfferGenerator.CATALOG.size(), 5.0)
+			await wait_process_frames(4)
 			for id: String in ["line_column_span", "composite_refill_color"]:
 				var card: SkillCard = _find_card(pool, StringName(id))
 				assert_not_null(card)

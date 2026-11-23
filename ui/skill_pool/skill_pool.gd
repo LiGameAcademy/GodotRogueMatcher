@@ -1,11 +1,35 @@
 class_name SkillPool
 extends CanvasLayer
 
+## Displays the current run's read-only skill catalog in frame-budgeted batches.
 signal view_changed(open: bool)
+
+const CARD: PackedScene = preload("res://ui/skill_card.tscn")
+const CARDS_PER_FRAME: int = 2
+const CARD_BUDGET_MS: float = 6.0
+
+## FrameSplitter stops iterating as soon as this catalog is canceled.
+class CatalogBuild extends RefCounted:
+	var _skills: Array[SkillDefinition]
+	var _next_index: int = 0
+
+	func _init(skills: Array[SkillDefinition]) -> void:
+		_skills = skills
+
+	func has_next() -> bool:
+		return _next_index < _skills.size()
+
+	func next() -> SkillDefinition:
+		var skill: SkillDefinition = _skills[_next_index]
+		_next_index += 1
+		return skill
+
+	func cancel() -> void:
+		_skills = []
+
 @onready var panel: Control = $Panel
 @onready var entries: GridContainer = %Entries
 @onready var close_button: Button = %Close
-const CARD: PackedScene = preload("res://ui/skill_card.tscn")
 @onready var tag_filter: OptionButton = %TagFilter
 @onready var rarity_filter: OptionButton = %RarityFilter
 @onready var level_filter: OptionButton = %LevelFilter
@@ -19,6 +43,7 @@ var _previous_pause: bool = false
 var _previous_focus: Control
 var _open: bool = false
 var _game_theme: GameTheme
+var _catalog_build: CatalogBuild
 
 func apply_game_theme(preset: GameTheme) -> void:
 	_game_theme = preset
@@ -32,6 +57,7 @@ func _ready() -> void:
 	scroll.resized.connect(_resize_grid)
 
 func _exit_tree() -> void:
+	_cancel_catalog_build()
 	if _open: get_tree().paused = _previous_pause
 
 func _notification(what: int) -> void:
@@ -64,6 +90,7 @@ func open(run: RunController) -> void:
 func close() -> void:
 	if not _open: return
 	_open = false
+	_cancel_catalog_build()
 	panel.hide()
 	get_tree().paused = _previous_pause
 	if is_instance_valid(_previous_focus) and _previous_focus.is_visible_in_tree(): _previous_focus.grab_focus()
@@ -111,16 +138,28 @@ func _resize_grid() -> void:
 	entries.columns = maxi(1, int((scroll.size.x - 16.0) / 272.0))
 
 func _refresh() -> void:
+	if not _open: return
+	_cancel_catalog_build()
 	for child: Node in entries.get_children():
 		entries.remove_child(child)
 		child.queue_free()
 	var skills: Array[SkillDefinition] = SkillPoolQuery.select(_run, _tags[tag_filter.selected], rarity_filter.get_selected_id(), level_filter.get_selected_id(), order_select.selected as SkillPoolQuery.Order)
-	for skill: SkillDefinition in skills:
-		var card: SkillCard = CARD.instantiate() as SkillCard
-		entries.add_child(card)
-		card.configure_catalog(skill, _run)
-		if _game_theme != null: GameThemeUi.apply(card, _game_theme)
 	count_label.text = tr("显示 %d / %d 项技能") % [skills.size(), SkillOfferGenerator.CATALOG.size()]
 	empty_label.visible = skills.is_empty()
 	scroll.scroll_vertical = 0
 	_resize_grid()
+	if skills.is_empty(): return
+	_catalog_build = CatalogBuild.new(skills)
+	var splitter: CoreSystem.FrameSplitter = CoreSystem.FrameSplitter.new(CARDS_PER_FRAME, CARD_BUDGET_MS)
+	await splitter.process_iterator(_catalog_build, _append_card, skills.size())
+
+func _cancel_catalog_build() -> void:
+	if _catalog_build == null: return
+	_catalog_build.cancel()
+	_catalog_build = null
+
+func _append_card(skill: SkillDefinition) -> void:
+	var card: SkillCard = CARD.instantiate() as SkillCard
+	entries.add_child(card)
+	card.configure_catalog(skill, _run)
+	if _game_theme != null: GameThemeUi.apply(card, _game_theme)

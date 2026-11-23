@@ -30,6 +30,7 @@ func test_browsing_and_locale_changes_preserve_snapshot_offer_and_random_streams
 	var offer: SkillOffer = generator.generate(run)
 	var original: String = RunSnapshot.digest(RunSnapshot.capture(run))
 	pool.open(run)
+	await _wait_for_entries(SkillOfferGenerator.CATALOG.size())
 	assert_eq(pool.entries.get_child_count(), SkillOfferGenerator.CATALOG.size())
 	TranslationServer.set_locale("en_US")
 	pool.close()
@@ -167,12 +168,40 @@ func test_grid_cards_filter_sort_reset_without_changing_rules() -> void:
 	pool.level_filter.select(1)
 	pool.order_select.select(SkillPoolQuery.Order.NAME)
 	pool._refresh()
+	var filtered: Array[SkillDefinition] = SkillPoolQuery.select(run, &"", SkillDefinition.Rarity.COMMON, 0, SkillPoolQuery.Order.NAME)
+	await _wait_for_entries(filtered.size())
 	for child: SkillCard in pool.entries.get_children():
 		assert_eq(child._skill.rarity, SkillDefinition.Rarity.COMMON)
 		assert_eq(SkillPoolQuery.level(run, child._skill), 0)
 	pool._reset_filters()
+	await _wait_for_entries(SkillOfferGenerator.CATALOG.size())
 	assert_eq(pool.entries.get_child_count(), SkillOfferGenerator.CATALOG.size())
 	assert_eq(RunSnapshot.digest(RunSnapshot.capture(run)), original)
+
+func test_new_filter_locale_and_reopen_cancel_incomplete_catalogs() -> void:
+	pool.open(run)
+	assert_lt(pool.entries.get_child_count(), SkillOfferGenerator.CATALOG.size())
+	pool.rarity_filter.select(1)
+	pool.rarity_filter.item_selected.emit(1)
+	pool.order_select.select(SkillPoolQuery.Order.NAME)
+	pool.order_select.item_selected.emit(SkillPoolQuery.Order.NAME)
+	TranslationServer.set_locale("en_US")
+	await wait_process_frames(1)
+	var expected: Array[SkillDefinition] = SkillPoolQuery.select(run, &"", SkillDefinition.Rarity.COMMON, -1, SkillPoolQuery.Order.NAME)
+	await _wait_for_entries(expected.size())
+	for index: int in range(pool.entries.get_child_count()):
+		var card: SkillCard = pool.entries.get_child(index) as SkillCard
+		assert_same(card._skill, expected[index])
+		assert_eq(card.title_label.text, card.tr(expected[index].title))
+
+	pool._reset_filters()
+	pool.close()
+	var count: int = pool.entries.get_child_count()
+	await wait_process_frames(5)
+	assert_eq(pool.entries.get_child_count(), count)
+	pool.open(run)
+	await _wait_for_entries(SkillOfferGenerator.CATALOG.size())
+	assert_eq(pool.entries.get_child_count(), SkillOfferGenerator.CATALOG.size())
 
 func test_empty_filter_and_grid_column_count() -> void:
 	pool.open(run)
@@ -188,3 +217,6 @@ func test_empty_filter_and_grid_column_count() -> void:
 	pool.scroll.size.x = 950
 	pool._resize_grid()
 	assert_eq(pool.entries.columns, 3)
+
+func _wait_for_entries(count: int) -> void:
+	await wait_until(func() -> bool: return pool.entries.get_child_count() == count, 5.0)
