@@ -342,7 +342,7 @@ func _pad(button: JoyButton, extra_presses: int = 0) -> void:
 		event.pressed = pressed
 		Input.parse_input_event(event)
 		if pressed:
-			for _repeat: int in range(extra_presses): Input.parse_input_event(event)
+			for _repeat: int in range(extra_presses): Input.parse_input_event(event.duplicate() as InputEventJoypadButton)
 		await wait_process_frames(2)
 
 func test_small_window_touch_previews_lock_and_resumes_original_slot() -> void:
@@ -489,5 +489,5 @@ func _menu_action(use_pad: bool, accept: bool) -> void:
 		if pressed and accept:
 			var echo: InputEventKey = key.duplicate() as InputEventKey
 			echo.echo = true
-			for _repeat: int in range(3): Input.parse_input_event(echo)
+			for _repeat: int in range(3): Input.parse_input_event(echo.duplicate() as InputEventKey)
 		await wait_process_frames(2)
