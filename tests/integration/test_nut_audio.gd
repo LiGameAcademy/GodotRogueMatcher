@@ -30,7 +30,7 @@ func after_each() -> void:
 		_prepared_voice.pitch_scale = _pool_pitch
 
 func test_all_public_cues_resolve_to_real_wav_files() -> void:
-	assert_eq(feedback.config.cue_paths.size(), 11)
+	assert_eq(feedback.config.cue_paths.size(), 13)
 	var paths: Array[String] = feedback.config.cue_paths.values()
 	paths.append_array(feedback.config.match_variants)
 	for path: String in paths:
